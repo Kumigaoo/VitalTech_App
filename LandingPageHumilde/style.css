@@ -1,0 +1,36 @@
+
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url("../../../../Pictures/xd.jpg");
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            color: #333; /* Texto gris oscuro */
+        }
+        header {
+            color: white; /* Texto blanco */
+            text-align: center;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff; /* Fondo blanco */
+            box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Sombra ligera */
+        }
+        .feature {
+            padding: 20px;
+            margin-bottom: 20px;
+            background-color: #f0f0ff; /* Fondo lila claro */
+            border-left: 5px solid #4e4cb8; /* Borde izquierdo azul JetBrains */
+        }
+        footer {
+            color: #fff; /* Texto blanco */
+            text-align: center;
+            padding: 10px;
+            bottom: 0;
+            width: 100%;
+        }
