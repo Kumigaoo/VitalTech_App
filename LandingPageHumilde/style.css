@@ -1,36 +1,94 @@
 
+img{
+    width: 10vw;
+    height: 18vh;
+}
 
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-image: url("../LandingPageHumilde/assets/fondo.jpg");
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-            color: #333; /* Texto gris oscuro */
-        }
-        header {
-            color: white; /* Texto blanco */
-            text-align: center;
-        }
-        .container {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #fff; /* Fondo blanco */
-            box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Sombra ligera */
-        }
-        .feature {
-            padding: 20px;
-            margin-bottom: 20px;
-            background-color: #f0f0ff; /* Fondo lila claro */
-            border-left: 5px solid #4e4cb8; /* Borde izquierdo azul JetBrains */
-        }
-        footer {
-            color: #fff; /* Texto blanco */
-            text-align: center;
-            padding: 10px;
-            bottom: 0;
-            width: 100%;
-        }
+body{
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    text-align: center;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 20px;
+}
+image {
+    box-sizing: border-box;
+}
+nav{
+    display: flex;
+    justify-content:space-evenly;
+    align-items: center;
+    padding: 10px;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+span{
+    font-size: x-large;
+    font-weight: bold;
+}
+
+section {
+    display: flex;
+}
+
+#laptop{
+    margin-top: 10vh;
+    box-sizing: border-box;
+    width: 40vw;
+    height: 62vh;
+    position: absolute;
+    bottom: 0.1px; /* Distancia desde la parte inferior */
+    right: 0.1px; /* Distancia desde la parte derecha */
+}
+
+#rev {
+    font-size: 6vh;
+    font-weight: bold;
+}
+.nav-item {
+    width: 10vw;
+    height: 4vh;
+    padding: 0.5vw;
+    margin: 1vw;
+    background-color:#fff1fd;
+    /* #4aa4nc */
+    border-radius: 12%;
+}
+.nav-item-start {
+    width: 10vw;
+    height: 4vh;
+    padding: 0.5vw;
+    margin: 1vw;
+    align-items: center;
+    text-align: center;
+    background-color: #01ffb3;
+    /* #4aa4nc */
+    border-radius: 12%;
+}
+.logo{
+    display: flex;
+    align-items: center;
+    
+}
+
+.text {
+    margin: 100px;
+    width: 40%;
+}
+
+#but{
+    margin-top: 30px;
+}
+
+        
+
