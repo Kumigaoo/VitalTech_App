@@ -1,7 +1,7 @@
 
 img{
-    width: 10vw;
-    height: 18vh;
+    width: 12vw;
+    height: 15vh;
 }
 
 body{
@@ -17,9 +17,11 @@ header {
     align-items: center;
     padding: 20px;
 }
+
 image {
     box-sizing: border-box;
 }
+
 nav{
     display: flex;
     justify-content:space-evenly;
@@ -34,21 +36,10 @@ a {
 
 span{
     font-size: x-large;
-    font-weight: bold;
 }
 
 section {
     display: flex;
-}
-
-#laptop{
-    margin-top: 10vh;
-    box-sizing: border-box;
-    width: 40vw;
-    height: 62vh;
-    position: absolute;
-    bottom: 0.1px; /* Distancia desde la parte inferior */
-    right: 0.1px; /* Distancia desde la parte derecha */
 }
 
 #rev {
@@ -56,38 +47,48 @@ section {
     font-weight: bold;
 }
 .nav-item {
-    width: 10vw;
-    height: 4vh;
+    height: 2.5vh;
     padding: 0.5vw;
     margin: 1vw;
     background-color:#fff1fd;
-    /* #4aa4nc */
-    border-radius: 12%;
-}
-.nav-item-start {
-    width: 10vw;
-    height: 4vh;
-    padding: 0.5vw;
-    margin: 1vw;
-    align-items: center;
     text-align: center;
+    line-height: 2.5vh;
+    border-radius: 5px;
+}
+.start {
+    width: 12vw;
     background-color: #01ffb3;
-    /* #4aa4nc */
-    border-radius: 12%;
+    font-weight: bold;
 }
 .logo{
     display: flex;
     align-items: center;
-    
 }
 
 .text {
-    margin: 100px;
+    position: absolute;
+    top: 40%;
+    left: 10%;
     width: 40%;
+    height: 40%;
+}
+
+#laptop{
+    box-sizing: border-box;
+    width: 42vw;
+    height: 55vh;
+    position: absolute;
+    top: 45%; /* Distancia desde la parte inferior */
+    right: 0; /* Distancia desde la parte derecha */
 }
 
 #but{
-    margin-top: 30px;
+    margin: 0;
+    margin-top: 20px;
+}
+
+#dis {
+    margin-top: 20px;
 }
 
         
