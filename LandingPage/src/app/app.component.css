@@ -75,8 +75,8 @@ section {
 
 #laptop{
     box-sizing: border-box;
-    width: 42vw;
-    height: 55vh;
+    width: 40vw;
+    height: 58vh;
     position: absolute;
     top: 45%; /* Distancia desde la parte inferior */
     right: 0; /* Distancia desde la parte derecha */
