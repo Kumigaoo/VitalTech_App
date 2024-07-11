@@ -1,0 +1,49 @@
+
+body {
+    display: flex;
+    flex-direction: column; /* Alinea los elementos en columna */
+    align-items: center; /* Centra horizontalmente los elementos */
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif; /* Fuente de texto */
+    background-color: rgb(94, 241, 219);
+}
+
+.hhh {
+    width: 100%; /* Ocupa todo el ancho disponible */ /* Color de fondo opcional */
+    padding: 10px; /* Espacio interior */
+}
+
+.contenedor {
+    display: flex; /* Usa flexbox para alinear elementos */
+    justify-content: flex-end; /* Alinea los elementos al final del contenedor */
+    align-items: center; /* Centra verticalmente los elementos */
+}
+
+#noCuenta {
+    font-weight: bold; /* Texto en negrita */
+    margin-right: 10px; /* Margen a la derecha del texto */
+}
+
+.registrer-item a {
+    text-decoration: none; /* Quita el subrayado del enlace */
+    color: #007bff; /* Color del enlace */
+}
+
+.titulo {
+    margin-top: 100px; /* Margen superior */
+    text-align: center; /* Alineación centrada del texto */
+}
+
+#hos {
+    font-size: 24px; /* Tamaño del texto */
+    font-weight: bold;
+    color: aliceblue; /* Texto en negrita */
+}
+
+#mar {
+    font-size: 18px;
+    font-family: 'Montserrat', sans-serif; 
+    color: rgb(25, 158, 136);
+    font-weight: bold;
+}
