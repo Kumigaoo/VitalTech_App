@@ -9,8 +9,8 @@
             font-family: 'Montserrat', sans-serif;
             margin: 0;
             padding: 0;
-            background-image: url('../../../public/assets/fondo2.png'); /* Ruta a tu imagen de fondo */
-            background-size: cover; /* Cubre todo el fondo */
+            background-image: url('../../../public/assets/3.png'); /* Ruta a tu imagen de fondo */
+
             background-position: center; /* Centra la imagen */
             color: #333; /* Texto gris oscuro */
         }
