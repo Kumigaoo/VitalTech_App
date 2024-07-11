@@ -1,0 +1,38 @@
+
+
+.container {
+    display:flex;
+    justify-content: space-evenly;
+    margin: 20px auto;
+    color:black;
+}
+.feature {
+    font-size: large;
+    margin-top: 5vh;
+    margin-bottom: 24vh;
+    margin-right: 20px;
+    margin-left: 20px;
+    width: 15vw;
+    justify-content: center;
+    align-items: center;
+}
+.nav-item {
+    height: 2.5vh;
+    padding: 0.5vw;
+    margin: 1vw;
+    background-color:#fff1fd;
+    text-align: center;
+    line-height: 2.5vh;
+    border-radius: 5px;
+}
+.start {
+    width: 12vw;
+    background-color: #01ffb3;
+    font-weight: bold;
+}
+.logo{
+    display: flex;
+    align-items: center;
+}
+
+
