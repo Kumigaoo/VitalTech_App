@@ -9,7 +9,11 @@
             font-family: 'Montserrat', sans-serif;
             margin: 0;
             padding: 0;
-            background-image: src('assets/fondo2.jpg');
+            background-image: url("assets/3.png");
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: 100% 100%;
             color: #333; /* Texto gris oscuro */
         }
 
@@ -41,44 +45,18 @@
             color: inherit;
         }
         .container {
-            display: flex;
-            flex-direction: column; /* Cambiamos a dirección de columna */
+            display:flex;
+            justify-content: space-evenly;
+            margin: 20px auto;
+            color:black;
+        }
+        .feature {
+            margin-right: 20px;
+            margin-left: 20px;
+            width: 40vw;
             justify-content: center;
             align-items: center;
-            margin: 20px auto;
-            color: black;
         }
-        
-        .feature {
-            width: 80%; /* Ajusta el ancho según sea necesario */
-            margin: 20px 0; /* Espaciado entre cada sección */
-        }
-        
-        .feature-content {
-            display: flex;
-            justify-content: space-between;
-            padding: 20px;
-            border-radius: 20px;
-            background-color: #10b184;
-            height: 180px;
-             /* Contenido en columna */
-        }
-        
-        .feature-content h2 {
-            display: flex;
-            text-align: left; /* Alinea el título a la izquierda */
-            margin-bottom: 10px;
-            padding-right: 30px; /* Espacio entre título y párrafo */
-        }
-        
-        .feature-content p {
-            display: flex;
-            width: 500px;
-            height: 250px;
-            text-align: justify; /* Justifica el texto */
-            line-height: 1.6; /* Espaciado de línea */
-        }
-        
         .nav-item {
             height: 2.5vh;
             padding: 0.5vw;
