@@ -82,10 +82,10 @@ span{
 
 #laptop{
     box-sizing: border-box;
-    width: 25vw;
-    height: 30vh;
+    width: 42vw;
+    height: 60vh;
     position: absolute;
-    top: 35%; /* Distancia desde la parte inferior */
+    top: 12%; /* Distancia desde la parte inferior */
     right: 12%; /* Distancia desde la parte derecha */
 }
 
