@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
   title: Hospital API
   version: 1.0.0
-  description: API para gestionar habitaciones y camas en un hospital
+  description: API para gestionar habitaciones, camas y pacientes en un hospital
 
 servers:
   - url: http://localhost:5296
@@ -28,12 +28,123 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
     post:
-      summary: Postear una habitacion
-    put:
-    delete:
+      summary: Crear una nueva habitación
+      requestBody:
+        description: Datos de la nueva habitación
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HabitacionDto'
+      responses:
+        '201':
+          description: Habitación creada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HabitacionDto'
+        '400':
+          description: Datos de la solicitud inválidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
 
+  /api/Habitaciones/{id}:
+    get:
+      summary: Obtener una habitación por ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Habitación encontrada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HabitacionDto'
+        '404':
+          description: Habitación no encontrada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    put:
+      summary: Actualizar una habitación
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: Datos de la habitación actualizados
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HabitacionDto'
+      responses:
+        '200':
+          description: Habitación actualizada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HabitacionDto'
+        '404':
+          description: Habitación no encontrada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '400':
+          description: Datos de la solicitud inválidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      summary: Eliminar una habitación
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '204':
+          description: Habitación eliminada con éxito
+        '404':
+          description: Habitación no encontrada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
 
   /api/Camas:
+    get:
+      summary: Obtener todas las camas
+      responses:
+        '200':
+          description: Lista de camas
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CamaDto'
+        '404':
+          description: No se encontraron camas
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
     post:
       summary: Crear una nueva cama
       requestBody:
@@ -50,6 +161,213 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CamaDto'
+        '404':
+          description: No se encontró la habitación para asignar la cama
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '400':
+          description: Datos de la solicitud inválidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/Camas/{id}:
+    get:
+      summary: Obtener una cama por ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Cama encontrada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CamaDto'
+        '404':
+          description: Cama no encontrada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    put:
+      summary: Actualizar una cama
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: Datos de la cama actualizados
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CamaDto'
+      responses:
+        '200':
+          description: Cama actualizada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CamaDto'
+        '404':
+          description: Cama no encontrada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '400':
+          description: Datos de la solicitud inválidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      summary: Eliminar una cama
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '204':
+          description: Cama eliminada con éxito
+        '404':
+          description: Cama no encontrada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/Pacientes:
+    get:
+      summary: Obtener todos los pacientes
+      responses:
+        '200':
+          description: Lista de pacientes
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PacienteDto'
+        '404':
+          description: No se encontraron pacientes
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      summary: Crear un nuevo paciente
+      requestBody:
+        description: Datos del nuevo paciente
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PacienteCreateDto'
+      responses:
+        '201':
+          description: Paciente creado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PacienteDto'
+        '400':
+          description: Datos de la solicitud inválidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/Pacientes/{id}:
+    get:
+      summary: Obtener un paciente por ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Paciente encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PacienteDto'
+        '404':
+          description: Paciente no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    put:
+      summary: Actualizar un paciente
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: Datos del paciente actualizados
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PacienteDto'
+      responses:
+        '200':
+          description: Paciente actualizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PacienteDto'
+        '404':
+          description: Paciente no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '400':
+          description: Datos de la solicitud inválidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      summary: Eliminar un paciente
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '204':
+          description: Paciente eliminado con éxito
+        '404':
+          description: Paciente no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
 
 components:
   schemas:
@@ -78,6 +396,10 @@ components:
         estat:
           type: boolean
           example: false
+        habitacionId:
+          type: integer
+          format: int64
+          example: 1
 
     CamaCreateDto:
       type: object
@@ -90,9 +412,51 @@ components:
           format: int64
           example: 1
 
-ErrorResponse:
-  type: object
-  properties:
-    message:
-      type: string
-      example: No se encontró el recurso solicitado
+    PacienteDTO:
+      type: object
+      properties:
+        Name:
+          type: string
+          nullable: true
+          example: Juan Pérez
+        DNI:
+          type: string
+          example: "12345678A"
+        NumSS:
+          type: string
+          example: "123456789012"
+        Estat:
+          type: boolean
+          example: false
+        CamaId:
+          type: integer
+          format: int64
+          example: 1
+
+    PacienteCreateDTO:
+      type: object
+      properties:
+        Name:
+          type: string
+          example: Juan Pérez
+        DNI:
+          type: string
+          example: "12345678A"
+        NumSS:
+          type: string
+          example: "123456789012"
+        Estat:
+          type: boolean
+          example: false
+        CamaId:
+          type: integer
+          format: int64
+          example: 1
+
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: No se encontró el recurso solicitado
+
