@@ -89,10 +89,9 @@ namespace HospitalApi.Controllers
         DNI = pacienteDto.DNI,
         NumSS = pacienteDto.NumSS,
         Estat = pacienteDto.Estat,
-        CamaId = pacienteDto.CamaId
+        CamaId = pacienteDto.CamaId,
+        Cama = cama
     };
-
-    cama.Paciente = paciente;
 
     _context.Pacientes.Add(paciente);
     await _context.SaveChangesAsync();

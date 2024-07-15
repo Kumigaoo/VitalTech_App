@@ -77,10 +77,21 @@ namespace HospitalApi.Controllers
         [HttpPost]
         public async Task<ActionResult<Camas>> PostCamas(CamaDTO camasDto)
     {
+            var paciente = await _context.Pacientes.FindAsync(camasDto.PacienteId);
+            
+            var habitacion = await _context.Habitaciones.FindAsync(camasDto.HabitacionId);
+            if (habitacion == null)
+            {
+            return NotFound("Habitación no encontrada");
+            }
         var cama = new Camas
         {
             Estat = camasDto.Estat,
-            HabitacionId = camasDto.HabitacionId
+            HabitacionId = camasDto.HabitacionId,
+            PacienteId = camasDto.PacienteId,
+            Habitacion = habitacion,
+            Paciente = paciente
+
         };
 
         _context.Camas.Add(cama);

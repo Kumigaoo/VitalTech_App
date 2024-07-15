@@ -6,6 +6,7 @@ public class Camas
     public bool Estat { get; set; }
     public long HabitacionId { get; set; } 
     public Habitaciones Habitacion { get; set; } = null!;
-    public long? PacienteId { get; set; }
-    public Pacientes? Paciente { get; set; }
+    public long PacienteId { get; set; }
+    public Pacientes Paciente { get; set; }= null!;
+
 }
