@@ -75,13 +75,30 @@ namespace HospitalApi.Controllers
         // POST: api/Pacientes
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Pacientes>> PostPacientes(Pacientes pacientes)
-        {
-            _context.Pacientes.Add(pacientes);
-            await _context.SaveChangesAsync();
+        public async Task<ActionResult<Pacientes>> PostPaciente(PacienteDTO pacienteDto)
+{
+    var cama = await _context.Camas.FindAsync(pacienteDto.CamaId);
+    if (cama == null)
+    {
+        return NotFound("Cama no encontrada");
+    }
 
-            return CreatedAtAction("GetPacientes", new { id = pacientes.Id }, pacientes);
-        }
+    var paciente = new Pacientes
+    {
+        Name = pacienteDto.Name,
+        DNI = pacienteDto.DNI,
+        NumSS = pacienteDto.NumSS,
+        Estat = pacienteDto.Estat,
+        CamaId = pacienteDto.CamaId
+    };
+
+    cama.Paciente = paciente;
+
+    _context.Pacientes.Add(paciente);
+    await _context.SaveChangesAsync();
+
+    return CreatedAtAction(nameof(GetPacientes), new { id = paciente.Id }, paciente);
+}
 
         // DELETE: api/Pacientes/5
         [HttpDelete("{id}")]
