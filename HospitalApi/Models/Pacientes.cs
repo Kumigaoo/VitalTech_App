@@ -7,6 +7,5 @@ public class Pacientes
     public string DNI { get; set;} = null!;
     public string NumSS { get; set;} = null!;
     public bool Estat { get; set; }
-    public long CamaId { get; set; }
-    public virtual Camas? camas { get; set; }
+    public Camas? camas { get; set; }
 }

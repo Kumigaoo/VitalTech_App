@@ -80,7 +80,7 @@ namespace HospitalApi.Controllers
             _context.Camas.Add(camas);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetCamas), new { id = camas.Id }, camas);
+            return CreatedAtAction("GetCamas", new { id = camas.Id }, camas);
         }
 
         // DELETE: api/Camas/5

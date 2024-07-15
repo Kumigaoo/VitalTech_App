@@ -10,9 +10,9 @@ public class HospitalContext : DbContext
     {
     }
 
-    public DbSet<Pacientes> Pacientes { get; set; } = null!;
+public DbSet<Pacientes> Pacientes { get; set; } = null!;
 
-public DbSet<HospitalApi.Models.Camas> Camas { get; set; } = default!;
+public DbSet<Camas> Camas { get; set; } = default!;
 
-public DbSet<HospitalApi.Models.Habitaciones> Habitaciones { get; set; } = default!;
+public DbSet<Habitaciones> Habitaciones { get; set; } = default!;
 }
