@@ -17,24 +17,24 @@ public DbSet<Camas> Camas { get; set; } = default!;
 public DbSet<Habitaciones> Habitaciones { get; set; } = default!;
 
 protected override void OnModelCreating(ModelBuilder modelBuilder)
-{
-    base.OnModelCreating(modelBuilder);
+        {
+            base.OnModelCreating(modelBuilder);
 
-    modelBuilder.Entity<Camas>(entity =>
-    {
-        entity.ToTable("Camas");
+            modelBuilder.Entity<Camas>(entity =>
+            {
+                entity.ToTable("Camas");
 
-        entity.HasKey(e => e.Id);
+                entity.HasKey(e => e.Id);
 
-        entity.Property(e => e.Id)
-            .HasColumnName("Id")
-            .ValueGeneratedOnAdd();
+                entity.Property(e => e.Id)
+                    .HasColumnName("Id")
+                    .ValueGeneratedOnAdd();
 
-        entity.Property(e => e.Estat)
-            .HasColumnName("Estat")
-            .IsRequired();
+                entity.Property(e => e.Estat)
+                    .HasColumnName("Estat")
+                    .IsRequired();
 
-        entity.Property(e => e.HabitacionId)
+                entity.Property(e => e.HabitacionId)
             .HasColumnName("HabitacionId")
             .IsRequired();
 
@@ -42,64 +42,56 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
             .WithMany()
             .HasForeignKey(e => e.HabitacionId)
             .OnDelete(DeleteBehavior.Cascade); // Opcional: define la acción de eliminación en cascada si es necesario
+            });
 
-        entity.Property(e => e.PacienteId)
-            .HasColumnName("PacienteId");
+            modelBuilder.Entity<Habitaciones>(entity =>
+            {
+                entity.ToTable("Habitaciones");
 
-        entity.HasOne(e => e.Paciente)
-            .WithOne(p => p.Cama)
-            .HasForeignKey<Pacientes>(e => e.CamaId)
-            .OnDelete(DeleteBehavior.SetNull); // Opcional: define la acción de eliminación en cascada si es necesario
-    });
+                entity.HasKey(e => e.Id);
 
-    modelBuilder.Entity<Habitaciones>(entity =>
-    {
-        entity.ToTable("Habitaciones");
+                entity.Property(e => e.Id)
+                    .HasColumnName("Id")
+                    .ValueGeneratedOnAdd();
 
-        entity.HasKey(e => e.Id);
+                entity.Property(e => e.Capacity)
+                    .HasColumnName("Capacity")
+                    .IsRequired();
+            });
 
-        entity.Property(e => e.Id)
-            .HasColumnName("Id")
-            .ValueGeneratedOnAdd();
+            modelBuilder.Entity<Pacientes>(entity =>
+            {
+                entity.ToTable("Pacientes");
 
-        entity.Property(e => e.Capacity)
-            .HasColumnName("Capacity")
-            .IsRequired();
-    });
+                entity.HasKey(e => e.Id);
 
-    modelBuilder.Entity<Pacientes>(entity =>
-    {
-        entity.ToTable("Pacientes");
+                entity.Property(e => e.Id)
+                    .HasColumnName("Id")
+                    .ValueGeneratedOnAdd();
 
-        entity.HasKey(e => e.Id);
+                entity.Property(e => e.Name)
+                    .HasColumnName("Name")
+                    .IsRequired();
 
-        entity.Property(e => e.Id)
-            .HasColumnName("Id")
-            .ValueGeneratedOnAdd();
+                entity.Property(e => e.DNI)
+                    .HasColumnName("DNI")
+                    .IsRequired();
 
-        entity.Property(e => e.Name)
-            .HasColumnName("Name")
-            .IsRequired();
+                entity.Property(e => e.NumSS)
+                    .HasColumnName("NumSS")
+                    .IsRequired();
 
-        entity.Property(e => e.DNI)
-            .HasColumnName("DNI")
-            .IsRequired();
+                entity.Property(e => e.Estat)
+                    .HasColumnName("Estat")
+                    .IsRequired();
 
-        entity.Property(e => e.NumSS)
-            .HasColumnName("NumSS")
-            .IsRequired();
+                entity.Property(e => e.CamaId)
+                    .HasColumnName("CamaId");
 
-        entity.Property(e => e.Estat)
-            .HasColumnName("Estat")
-            .IsRequired();
-
-        entity.Property(e => e.CamaId)
-            .HasColumnName("CamaId");
-
-        entity.HasOne(e => e.Cama)
-            .WithOne(p => p.Paciente)
-            .HasForeignKey<Pacientes>(e => e.CamaId)
-            .OnDelete(DeleteBehavior.SetNull); // Opcional: define la acción de eliminación en cascada si es necesario
-    });
-}
-}
+                entity.HasOne(e => e.Cama)
+                    .WithOne()
+                    .HasForeignKey<Pacientes>(e => e.CamaId)
+                    .OnDelete(DeleteBehavior.SetNull); // Opcional: define la acción de eliminación en cascada si es necesario
+            });
+        }
+    }
