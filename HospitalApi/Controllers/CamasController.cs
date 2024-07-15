@@ -75,13 +75,19 @@ namespace HospitalApi.Controllers
         // POST: api/Camas
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Camas>> PostCamas(Camas camas)
+        public async Task<ActionResult<Camas>> PostCamas(CamaDTO camasDto)
+    {
+        var cama = new Camas
         {
-            _context.Camas.Add(camas);
-            await _context.SaveChangesAsync();
+            Estat = camasDto.Estat,
+            HabitacionId = camasDto.HabitacionId
+        };
 
-            return CreatedAtAction("GetCamas", new { id = camas.Id }, camas);
-        }
+        _context.Camas.Add(cama);
+        await _context.SaveChangesAsync();
+
+        return CreatedAtAction(nameof(GetCamas), new { id = cama.Id }, cama);
+    }
 
         // DELETE: api/Camas/5
         [HttpDelete("{id}")]

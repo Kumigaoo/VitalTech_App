@@ -8,5 +8,5 @@ public class Pacientes
     public string NumSS { get; set;} = null!;
     public bool Estat { get; set; }
     public long? CamaId { get; set; }
-    public Camas? cama { get; set; }
+    public Camas? Cama { get; set; }
 }

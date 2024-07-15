@@ -23,23 +23,27 @@ namespace HospitalApi.Controllers
         // GET: api/Habitaciones
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Habitaciones>>> GetHabitaciones()
-        {
-            return await _context.Habitaciones.ToListAsync();
-        }
+    {
+        return await _context.Habitaciones
+            .Include(h => h.Camas)  // Incluir camas en la consulta
+            .ToListAsync();
+    }
 
         // GET: api/Habitaciones/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Habitaciones>> GetHabitaciones(long id)
+        public async Task<ActionResult<Habitaciones>> GetHabitacion(long id)
+    {
+        var habitacion = await _context.Habitaciones
+            .Include(h => h.Camas)  // Incluir camas en la consulta
+            .FirstOrDefaultAsync(h => h.Id == id);
+
+        if (habitacion == null)
         {
-            var habitaciones = await _context.Habitaciones.FindAsync(id);
-
-            if (habitaciones == null)
-            {
-                return NotFound();
-            }
-
-            return habitaciones;
+            return NotFound();
         }
+
+        return habitacion;
+    }
 
         // PUT: api/Habitaciones/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754

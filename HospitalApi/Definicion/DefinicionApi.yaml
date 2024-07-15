@@ -1,0 +1,98 @@
+openapi: 3.0.0
+info:
+  title: Hospital API
+  version: 1.0.0
+  description: API para gestionar habitaciones y camas en un hospital
+
+servers:
+  - url: http://localhost:5296
+    description: Servidor local
+
+paths:
+  /api/Habitaciones:
+    get:
+      summary: Obtener todas las habitaciones
+      responses:
+        '200':
+          description: Lista de habitaciones
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/HabitacionDto'
+        '404':
+          description: No se encontraron habitaciones
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      summary: Postear una habitacion
+    put:
+    delete:
+
+
+  /api/Camas:
+    post:
+      summary: Crear una nueva cama
+      requestBody:
+        description: Datos de la nueva cama
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CamaCreateDto'
+      responses:
+        '201':
+          description: Cama creada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CamaDto'
+
+components:
+  schemas:
+    HabitacionDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+        capacity:
+          type: integer
+          example: 2
+        camas:
+          type: array
+          items:
+            $ref: '#/components/schemas/CamaDto'
+
+    CamaDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+        estat:
+          type: boolean
+          example: false
+
+    CamaCreateDto:
+      type: object
+      properties:
+        estat:
+          type: boolean
+          example: false
+        habitacionId:
+          type: integer
+          format: int64
+          example: 1
+
+ErrorResponse:
+  type: object
+  properties:
+    message:
+      type: string
+      example: No se encontró el recurso solicitado
