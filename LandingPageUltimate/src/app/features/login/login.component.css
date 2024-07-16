@@ -55,8 +55,9 @@ body {
 }
 
 .hospital-name span:last-child {
-    color: #0fc0c0;
-    font-family: Georgia, serif;
+    color: #23ab92;
+    font-family: "Parisienne", cursive;
+    font-size: 28px;
 }
 
 
