@@ -24,14 +24,18 @@ namespace HospitalApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Camas>>> GetCamas()
         {
-            return await _context.Camas.ToListAsync();
+            return await _context.Camas
+                .Include(c => c.Habitacion) // Incluir la información de la habitación relacionada
+                .ToListAsync();
         }
 
         // GET: api/Camas/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Camas>> GetCamas(long id)
         {
-            var camas = await _context.Camas.FindAsync(id);
+            var camas = await _context.Camas
+                .Include(c => c.Habitacion) // Incluir la información de la habitación relacionada
+                .FirstOrDefaultAsync(c => c.Id == id);
 
             if (camas == null)
             {
@@ -40,6 +44,7 @@ namespace HospitalApi.Controllers
 
             return camas;
         }
+
 
         // PUT: api/Camas/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
