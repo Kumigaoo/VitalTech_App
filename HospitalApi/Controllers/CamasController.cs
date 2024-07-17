@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using HospitalApi.Models;
 using Microsoft.IdentityModel.Tokens;
+using System.Linq.Expressions;
 
 namespace HospitalApi.Controllers
 {
@@ -25,9 +26,10 @@ namespace HospitalApi.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
+
         public async Task<ActionResult<IEnumerable<Camas>>> GetCamas()
         {
-            if ( _context.Camas.IsNullOrEmpty())
+            if (_context.Camas.IsNullOrEmpty())
             {
                 return NoContent();
             }
@@ -37,12 +39,19 @@ namespace HospitalApi.Controllers
                     .Include(c => c.Habitacion) // Incluir la información de la habitación relacionada
                     .ToListAsync());
             }
+
         }
 
         // GET: api/Camas/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Camas>> GetCamas(long id)
         {
+
+            if (id <= 0 || id > _context.Camas.FirstOrDefault(i => i = _context.Camas))
+            {
+
+            }
+
             var camas = await _context.Camas
                 .Include(c => c.Habitacion) // Incluir la información de la habitación relacionada
                 .FirstOrDefaultAsync(c => c.Id == id);
