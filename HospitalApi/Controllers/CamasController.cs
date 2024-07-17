@@ -24,7 +24,6 @@ namespace HospitalApi.Controllers
         // GET: api/Camas
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status501NotImplemented)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<ActionResult<IEnumerable<Camas>>> GetCamas()
         {
