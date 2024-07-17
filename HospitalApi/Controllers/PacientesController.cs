@@ -41,7 +41,7 @@ namespace HospitalApi.Controllers
 
             if (pacientes == null)
             {
-                return NotFound();
+                return NotFound("No existe ningún paciente con esa id");
             }
 
             return pacientes;
@@ -55,7 +55,7 @@ namespace HospitalApi.Controllers
         {
             if (id != pacientes.Id)
             {
-                return BadRequest();
+                return BadRequest("El paciente que has seleccionado tiene otra id");
             }
 
             _context.Entry(pacientes).State = EntityState.Modified;
@@ -68,7 +68,7 @@ namespace HospitalApi.Controllers
             {
                 if (!PacientesExists(id))
                 {
-                    return NotFound();
+                    return NotFound("No existe ningún paciente con esa id");
                 }
                 else
                 {
@@ -113,7 +113,7 @@ namespace HospitalApi.Controllers
             var pacientes = await _context.Pacientes.FindAsync(id);
             if (pacientes == null)
             {
-                return NotFound();
+                return NotFound("No existe ningún paciente con la id selecionada");
             }
 
             _context.Pacientes.Remove(pacientes);

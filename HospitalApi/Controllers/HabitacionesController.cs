@@ -35,7 +35,7 @@ namespace HospitalApi.Controllers
 
             if (habitacion == null)
             {
-                return NotFound();
+                return NotFound("No existe ninguna habitación con el id selecionado");
             }
 
             return habitacion;
@@ -48,7 +48,7 @@ namespace HospitalApi.Controllers
         {
             if (id != habitacion.Id)
             {
-                return BadRequest();
+                return BadRequest("El id no está relacionado correctamente con la habitación");
             }
 
             _context.Entry(habitacion).State = EntityState.Modified;
@@ -61,7 +61,7 @@ namespace HospitalApi.Controllers
             {
                 if (!HabitacionExists(id))
                 {
-                    return NotFound();
+                    return NotFound("No existe ninguna habitación con el id selecionado");
                 }
                 else
                 {
@@ -95,7 +95,7 @@ namespace HospitalApi.Controllers
             var habitacion = await _context.Habitaciones.FindAsync(id);
             if (habitacion == null)
             {
-                return NotFound();
+                return NotFound("No existe ninguna habitación con el id selecionado");
             }
 
             _context.Habitaciones.Remove(habitacion);
