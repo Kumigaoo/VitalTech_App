@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using HospitalApi.Models;
+using Microsoft.IdentityModel.Tokens;
 
 namespace HospitalApi.Controllers
 {
@@ -23,11 +24,20 @@ namespace HospitalApi.Controllers
         // GET: api/Camas
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status501NotImplemented)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<ActionResult<IEnumerable<Camas>>> GetCamas()
         {
-            return Ok(await _context.Camas
-                .Include(c => c.Habitacion) // Incluir la información de la habitación relacionada
-                .ToListAsync());
+            if ( _context.Camas.IsNullOrEmpty())
+            {
+                return NoContent();
+            }
+            else
+            {
+                return Ok(await _context.Camas
+                    .Include(c => c.Habitacion) // Incluir la información de la habitación relacionada
+                    .ToListAsync());
+            }
         }
 
         // GET: api/Camas/5
@@ -82,27 +92,27 @@ namespace HospitalApi.Controllers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Camas>> PostCamas(CamaDTO camasDto)
-    {
-            
+        {
+
             var habitacion = await _context.Habitaciones.FindAsync(camasDto.HabitacionId);
             if (habitacion == null)
             {
-            return NotFound("Habitación no encontrada");
+                return NotFound("Habitación no encontrada");
             }
-        var cama = new Camas
-        {
-            Estat = camasDto.Estat,
-            HabitacionId = camasDto.HabitacionId,
-            Habitacion = habitacion,
-  
+            var cama = new Camas
+            {
+                Estat = camasDto.Estat,
+                HabitacionId = camasDto.HabitacionId,
+                Habitacion = habitacion,
 
-        };
 
-        _context.Camas.Add(cama);
-        await _context.SaveChangesAsync();
+            };
 
-        return CreatedAtAction(nameof(GetCamas), new { id = cama.Id }, cama);
-    }
+            _context.Camas.Add(cama);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction(nameof(GetCamas), new { id = cama.Id }, cama);
+        }
 
         // DELETE: api/Camas/5
         [HttpDelete("{id}")]
