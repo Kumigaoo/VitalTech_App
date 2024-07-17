@@ -22,11 +22,12 @@ namespace HospitalApi.Controllers
 
         // GET: api/Camas
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<Camas>>> GetCamas()
         {
-            return await _context.Camas
+            return Ok(await _context.Camas
                 .Include(c => c.Habitacion) // Incluir la información de la habitación relacionada
-                .ToListAsync();
+                .ToListAsync());
         }
 
         // GET: api/Camas/5
