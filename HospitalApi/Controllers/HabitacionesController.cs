@@ -27,21 +27,18 @@ namespace HospitalApi.Controllers
             return await _context.Habitaciones.ToListAsync();
         }
 
-
-        // GET: api/Camas/5
+        // GET: api/Habitaciones/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Camas>> GetCamas(long id)
+        public async Task<ActionResult<Habitaciones>> GetHabitacion(long id)
         {
-            var camas = await _context.Camas
-                .Include(c => c.Habitacion) // Incluir la información de la habitación relacionada
-                .FirstOrDefaultAsync(c => c.Id == id);
+            var habitacion = await _context.Habitaciones.FindAsync(id);
 
-            if (camas == null)
+            if (habitacion == null)
             {
-                return NotFound("No existe ninguna cama con el id selecionado");
+                return NotFound("No existe ninguna habitación con el id selecionado");
             }
 
-            return camas;
+            return habitacion;
         }
 
         // PUT: api/Habitaciones/5
