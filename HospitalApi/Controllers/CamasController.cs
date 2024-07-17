@@ -47,11 +47,6 @@ namespace HospitalApi.Controllers
         public async Task<ActionResult<Camas>> GetCamas(long id)
         {
 
-            if (id <= 0 || id > _context.Camas.FirstOrDefault(i => i = _context.Camas))
-            {
-
-            }
-
             var camas = await _context.Camas
                 .Include(c => c.Habitacion) // Incluir la información de la habitación relacionada
                 .FirstOrDefaultAsync(c => c.Id == id);
