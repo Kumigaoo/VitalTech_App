@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using HospitalApi.Models;
 using Microsoft.IdentityModel.Tokens;
 using System.Linq.Expressions;
+using System.Reflection.Metadata.Ecma335;
 
 namespace HospitalApi.Controllers
 {
@@ -44,13 +45,11 @@ namespace HospitalApi.Controllers
 
         // GET: api/Camas/5
         [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<Camas>> GetCamas(long id)
         {
-
-            if (id <= 0 || id > _context.Camas.FirstOrDefault(i => i = _context.Camas))
-            {
-
-            }
 
             var camas = await _context.Camas
                 .Include(c => c.Habitacion) // Incluir la información de la habitación relacionada
@@ -61,7 +60,7 @@ namespace HospitalApi.Controllers
                 return NotFound("No existe ninguna cama con el id selecionado");
             }
 
-            return camas;
+            return Ok(camas);
         }
 
 
