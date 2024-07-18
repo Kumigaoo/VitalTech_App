@@ -4,42 +4,43 @@ using HospitalXD.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 /*
- 
 Primer de tot aquesta clase es un Controlador, per tant 
 se'n encarrega de definir els verbs HTTP i ejecutar
 la logica corresponent.
-
  */
 
 namespace HospitalXD.Controllers
 {
-    // Cada verb esta associat a una ruta url .
-    // Per aixo necessitem el atribut Route que es una metadata
-    // Que explica que la ruta d'aquest controlador es aquesta
+    /* Cada verb esta associat a una ruta url .
+     Per aixo necessitem el atribut Route que es una metadata
+     Que explica que la ruta d'aquest controlador es aquesta */
+
     [Route("api/[controller]")]
 
-    // Metadata que indica al FrameWork que es una controlador
-    // Aixo ens dona ventatges perque el mateix framework ens recomana els noms, valida els models...
+    /* Metadata que indica al FrameWork que es una controlador
+     Aixo ens dona ventatges perque el mateix framework ens recomana els noms, valida els models... */
+
     [ApiController]
+    /* ControllerBase es una clase base que conte metodes per manipular peticions http dins de la API.
 
-    // ControllerBase es una clase base que conte metodes per manipular
-    // peticions http dins de la API.
-
-    /* Metodes utils de la classe ControllerBase:
+       Metodes utils de la classe ControllerBase:
      
-        - HttpContext :  Propiedad que proporciona acceso al contexto 
-    de la solicitud HTTP actual, incluyendo la solicitud, 
-    respuesta y otros detalles del entorno de ejecución.
+        - HttpContext :  Propiedad que proporciona acceso al contexto de la solicitud HTTP actual, 
+    incluyendo la solicitud, respuesta y otros detalles del entorno de ejecución.
 
         - Metodos para definir los verbos HTTP.
 
-        - Acciones Comunes: Ok(), NotFound(), BadRequest()... 
+        - Acciones Comunes: Ok(), NotFound(), BadRequest()...
+    
          Son métodos que devuelven resultados típicos de las acciones de un controlador. 
-    Por ejemplo: 
+        
+        Por ejemplo: 
         Ok() devuelve una respuesta HTTP 200 OK. 
         NotFound() devuelve una respuesta HTTP 404 Not Found, etc.
+
      */
     public class HabitacioController : ControllerBase
     {
@@ -56,15 +57,16 @@ namespace HospitalXD.Controllers
         }
 
         [HttpGet]
-        // Els codis de estat s'han de trobar en tots els notres endpoitns
-        // Per aixo necessitem que el tipus de retorn sigui un ActionResult<T>
-        // Per resumir ActionResult es una clase que el que fa es rebre un objecte de tipus el que sigui
-        // El encapsula i el junta amb la respota http
+        /* Els codis de estat s'han de trobar en tots els notres endpoitns
+         Per aixo necessitem que el tipus de retorn sigui un ActionResult<T>
+         Per resumir ActionResult es una clase que el que fa es rebre un objecte de tipus el que sigui
+         El encapsula i el junta amb la respota http */
+
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public ActionResult<IEnumerable<HabitacioDTO>> GetHabitacions()
+        public async Task<ActionResult<IEnumerable<HabitacioDTO>>> GetHabitacions()
         {
             _logger.LogInformation("Obtenir les Habs");
-            return Ok(_bbdd.Habitacions.ToList());
+            return Ok(await _bbdd.Habitacions.ToListAsync());
             
         }
 
@@ -101,27 +103,25 @@ namespace HospitalXD.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         // el FromBody es per indicar a asp.net que el parametre que rebra aquest metode
         // ve de la peticio http
-        public ActionResult<HabitacioDTO> PostHabitacio([FromBody] HabitacioDTO hab)
+        public ActionResult<HabitacioDTO> PostHabitacio([FromBody] HabitacioAddDbDTO hab)
         {
             // ModelState ja sap que Habitacio
             if (!ModelState.IsValid) return BadRequest(ModelState);
-            
-            // Validacio per que no hi hagi cap registre repetit
-            if( _bbdd.Habitacions.FirstOrDefault(h => h.Capacitat == hab.Capacitat) != null)
-            {
-                ModelState.AddModelError("NomReptit","El nom d'aquesta hab ja exsisteix");
-                return BadRequest(ModelState);
-            }
+
+            // Validacio per que no hi hagi cap registre repetit (No cal perqué el DTO de creació no té Id XD)
+            // if( _bbdd.Habitacions.FirstOrDefault(h => h.Id == hab.Id) != null)
+            // {
+            //  ModelState.AddModelError("Id Repetit","Id repetit");
+            // return BadRequest(ModelState);
+            // }
 
             if (hab == null) return BadRequest(hab);
-
-            if (hab.Id > 0) return StatusCode(StatusCodes.Status500InternalServerError);
 
             // asignem el nou id a la nova hab i l'afegim al storage
 
             Habitacio habitacio = new()
             {
-                Id = hab.Id,
+                // No cal que posem el id perque com hem dit abans el genera la bbdd
                 Capacitat = hab.Capacitat
             };
 
@@ -129,7 +129,7 @@ namespace HospitalXD.Controllers
             _bbdd.SaveChanges();
 
             // el que fem es que si tot ha anat be, cridem a la ruta get id, per mostra el objecte creat
-            return CreatedAtRoute("GetHabXD", new {id = hab.Id}, hab);
+            return CreatedAtRoute("GetHabXD", new {id = habitacio.Id}, habitacio);
 
         }
 
@@ -156,7 +156,7 @@ namespace HospitalXD.Controllers
         [HttpPut("id")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public IActionResult UpdateHabitacio(int id, [FromBody] HabitacioDTO hab)
+        public IActionResult UpdateHabitacio(int id, [FromBody] HabitacioUpdateDbDTO hab)
         { 
             
             if(hab == null || id != hab.Id) return BadRequest();
