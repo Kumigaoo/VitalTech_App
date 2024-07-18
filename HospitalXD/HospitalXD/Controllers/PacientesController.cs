@@ -11,13 +11,13 @@ namespace HospitlaXD.Controllers
 
     [Route("api/[controller]")]
     [Controller]
-    public class LlitsController : ControllerBase
+    public class PacientesController : ControllerBase
     {
 
-        private readonly ILogger<LlitsController> _logger;
+        private readonly ILogger<PacientesController> _logger;
         private readonly ApplicationDbContext _bbdd;
 
-        public LlitsController(ILogger<LlitsController> logger, ApplicationDbContext bbdd)
+        public PacientesController(ILogger<PacientesController> logger, ApplicationDbContext bbdd)
         {
 
             _logger = logger;
@@ -27,17 +27,18 @@ namespace HospitlaXD.Controllers
 
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<HospitalXD.Models.Llit>> GetLlits()
+        public async Task<ActionResult<HospitalXD.Models.Pacients>> GetPacients()
         {
-            if (_bbdd.Llit.IsNullOrEmpty()){
+            if (_bbdd.Pacients.IsNullOrEmpty()){
                 return NoContent();
             }
 
-            var llits = await _bbdd.Llit
-            .Include(o => o.Habitacion)
+            var pacient = await _bbdd.Pacients
+            .Include(p => p.Cama)
+            .ThenInclude(c => c.Habitacion)
             .ToListAsync();
 
-            return Ok(llits);
+            return Ok(pacient);
 
         }
 

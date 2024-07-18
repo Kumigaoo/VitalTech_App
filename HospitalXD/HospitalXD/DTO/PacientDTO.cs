@@ -1,14 +1,13 @@
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using HospitlaXD.DTO;
 
-namespace HospitalXD.Models
+namespace HospitlaXD.DTO
 {
 
-    public class Pacients
+    public class PacientDTO
     {
 
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Required]
         public int Id { get; set; }
 
         [Required]
@@ -18,8 +17,6 @@ namespace HospitalXD.Models
         public string DNI { get; set;} = null!;
         public string NumSS { get; set;} = null!;
         public bool Estat { get; set; }
-
-        public Llit? llit { get; set; }
 
 
     }
