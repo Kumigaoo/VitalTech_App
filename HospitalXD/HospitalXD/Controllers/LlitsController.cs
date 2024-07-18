@@ -25,7 +25,7 @@ namespace HospitlaXD.Controllers
 
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<Llit>> GetLlits()
+        public async Task<ActionResult<HospitalXD.Models.Llit>> GetLlits()
         {
 
             var llits = await _bbdd.Llit.ToListAsync();
@@ -38,7 +38,7 @@ namespace HospitlaXD.Controllers
         [HttpGet("{id:int}", Name = "LlitId")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<Llit>> GetLlitsId(int id)
+        public async Task<ActionResult<HospitalXD.Models.Llit>> GetLlitsId(int id)
         {
 
             var llitRefId = await _bbdd.Llit.FirstOrDefaultAsync(o => o.Id == id);
@@ -81,7 +81,7 @@ namespace HospitlaXD.Controllers
         [HttpPost("{Llit:Object}")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        public async Task<IActionResult> PostLlit([FromBody] Llit llit)
+        public async Task<IActionResult> PostLlit([FromBody] HospitalXD.Models.Llit llit)
         {
             if (llit == null)
             {
@@ -96,14 +96,14 @@ namespace HospitlaXD.Controllers
             await _bbdd.Llit.AddAsync(llit);
             await _bbdd.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(ObtenerLlitPorId), new { id = llit.Id }, llit);
+            return CreatedAtAction(nameof(llit), new { id = llit.Id }, llit);
         }
 
         [HttpPut("{id:int}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> PutLlit(int id, [FromBody] Llit llit)
+        public async Task<IActionResult> PutLlit(int id, [FromBody] HospitalXD.Models.Llit llit)
         {
             if (llit == null || id != llit.Id)
             {
