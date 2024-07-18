@@ -2,7 +2,10 @@ namespace HospitlaXD.Controllers {
 
 Public class LlitsController : ControllerBase {
 
-//public async Task<LlitDTO>
+[HTTPGet]
+public async Task<LlitDTO> GetLlits{
+
+}
 
 }
 }
