@@ -91,7 +91,7 @@ namespace HospitalXD.Controllers
             // la lambda de dins el que diu es, per cada h de la llista mira si el id es igual al del parametre 
             var hab = _bbdd.Habitacions.FirstOrDefault(h => h.Id == id);
 
-            if (hab == null) return NotFound();
+            if (hab == null) return NotFound("No existe ninguna habitación con el id selecionado");
 
             return Ok(hab);
 
@@ -144,7 +144,7 @@ namespace HospitalXD.Controllers
 
             var hab = _bbdd.Habitacions.FirstOrDefault(h => h.Id == id);
 
-            if (hab == null) return NotFound();
+            if (hab == null) return NotFound("No existe ninguna habitación con el id selecionado");
 
             _bbdd.Habitacions.Remove(hab);
             _bbdd.SaveChanges();
@@ -159,7 +159,7 @@ namespace HospitalXD.Controllers
         public IActionResult UpdateHabitacio(int id, [FromBody] HabitacioUpdateDbDTO hab)
         { 
             
-            if(hab == null || id != hab.Id) return BadRequest();
+            if(hab == null || id != hab.Id) return BadRequest("El id no está relacionado correctamente con la habitación");
 
             Habitacio habitacio = new()
             {
@@ -173,6 +173,10 @@ namespace HospitalXD.Controllers
             return NoContent();
 
 
+        }
+
+        private bool HabitacionExists (long id) {
+            return _bbdd.Habitacions.Any(e => e.Id == id);
         }
 
         

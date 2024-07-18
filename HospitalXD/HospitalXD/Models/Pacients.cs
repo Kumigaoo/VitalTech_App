@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace HospitalXD.Models
 {
 
-    public class Llit
+    public class Pacients
     {
 
         [Key]
@@ -12,11 +12,12 @@ namespace HospitalXD.Models
         public int Id { get; set; }
 
         [Required]
-        public int NumHabitacio { get; set; }
+        public int CamaId { get; set; }
 
+        public string? Name { get; set; }
+        public string DNI { get; set;} = null!;
+        public string NumSS { get; set;} = null!;
         public bool Estat { get; set; }
-
-        public Habitacio Habitacion { get; set; } = null!;
 
 
     }

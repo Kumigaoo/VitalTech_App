@@ -4,7 +4,7 @@ using HospitlaXD.DTO;
 namespace HospitlaXD.DTO
 {
 
-    public class Llit
+    public class LlitDTO
     {
 
         [Required]
