@@ -22,13 +22,16 @@ namespace HospitalApi.Controllers
 
         // GET: api/Habitaciones
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<Habitaciones>>> GetHabitaciones()
         {
-            return await _context.Habitaciones.ToListAsync();
+            return Ok(await _context.Habitaciones.ToListAsync());
         }
 
         // GET: api/Habitaciones/5
         [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<Habitaciones>> GetHabitacion(long id)
         {
             var habitacion = await _context.Habitaciones.FindAsync(id);
@@ -38,12 +41,15 @@ namespace HospitalApi.Controllers
                 return NotFound("No existe ninguna habitación con el id selecionado");
             }
 
-            return habitacion;
+            return Ok(habitacion);
         }
 
         // PUT: api/Habitaciones/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<IActionResult> PutHabitacion(long id, Habitaciones habitacion)
         {
             if (id != habitacion.Id)
@@ -75,6 +81,7 @@ namespace HospitalApi.Controllers
         // POST: api/Habitaciones
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<ActionResult<Habitaciones>> PostHabitacion(HabitacionDTO habitacionDto)
         {
             var habitacion = new Habitaciones
@@ -90,6 +97,8 @@ namespace HospitalApi.Controllers
 
         // DELETE: api/Habitaciones/5
         [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<IActionResult> DeleteHabitacion(long id)
         {
             var habitacion = await _context.Habitaciones.FindAsync(id);
