@@ -14,7 +14,7 @@ namespace HospitlaXD.Controllers
         private readonly ILogger<LlitsController> _logger;
         private readonly ApplicationDbContext _bbdd;
 
-        public LlitsController(ILogger<HabitacioController> logger, ApplicationDbContext bbdd)
+        public LlitsController(ILogger<LlitsController> logger, ApplicationDbContext bbdd)
         {
 
             _logger = logger;

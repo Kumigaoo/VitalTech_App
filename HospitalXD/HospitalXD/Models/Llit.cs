@@ -1,13 +1,14 @@
 using System.ComponentModel.DataAnnotations;
-using HospitlaXD.DTO;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace HospitlaXD.DTO
+namespace HospitalXD.Models
 {
 
     public class Llit
     {
 
-        [Required]
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         int Id { get; set; }
 
         [Required]
