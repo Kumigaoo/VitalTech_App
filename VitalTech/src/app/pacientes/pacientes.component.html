@@ -1,1 +1,18 @@
-<p>pacientes works!</p>
+
+<div class="search-container">
+    <form id="searchForm">
+        <div class="searchCriteriaContainer">
+            <label for="searchCriteria">Buscar por:</label>
+        </div>
+        <div class="searchCriteriaItemContainer">
+            <select id="searchCriteria" name="searchCriteria">
+                <option value="name">Nombre</option>
+                <option value="dni">DNI</option>
+                <option value="ss">SS</option>
+                <option value="id">ID</option>
+            </select>
+            <input type="text" id="searchInput" name="searchInput" placeholder="Ingresa la busqueda...">
+            <button type="submit">Buscar</button>
+        </div>
+    </form>
+</div>
