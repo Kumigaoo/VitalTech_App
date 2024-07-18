@@ -60,7 +60,7 @@ namespace HospitlaXD.Controllers
 
         }
 
-        [HttpDelete]
+        [HttpDelete("{id:int}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> DeleteLlit(int id)
@@ -78,7 +78,7 @@ namespace HospitlaXD.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPost("{Llit:Object}")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<IActionResult> PostLlit([FromBody] Llit llit)
@@ -99,7 +99,7 @@ namespace HospitlaXD.Controllers
             return CreatedAtAction(nameof(ObtenerLlitPorId), new { id = llit.Id }, llit);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("{id:int}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
