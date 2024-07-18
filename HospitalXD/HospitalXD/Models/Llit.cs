@@ -9,12 +9,12 @@ namespace HospitalXD.Models
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        int Id { get; set; }
+        public int Id { get; set; }
 
         [Required]
-        int NumHabitacio { get; set; }
+        public int NumHabitacio { get; set; }
 
-        bool Estat { get; set; }
+        public bool Estat { get; set; }
 
 
     }

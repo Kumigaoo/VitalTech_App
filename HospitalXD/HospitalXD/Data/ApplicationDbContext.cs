@@ -58,7 +58,7 @@ namespace HospitalXD.Data
                 },
                 new Llit()
                 {
-                    Id = 1,
+                    Id = 2,
                     NumHabitacio = 4,
                     Estat = false
                 }
