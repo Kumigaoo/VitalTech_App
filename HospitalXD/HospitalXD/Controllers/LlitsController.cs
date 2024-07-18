@@ -1,3 +1,4 @@
+using HospitlaXD.DTO;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HospitlaXD.Controllers
@@ -9,35 +10,50 @@ namespace HospitlaXD.Controllers
     {
 
         [HttpGet]
-        public async Task<ActionResult<LlitDTO>> GetLlits()
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<Llit>> GetLlits()
         {
 
+
+
+            return await Ok();
 
         }
 
 
         [HttpGet("{id:int}", Name = "LlitId")]
-        public async Task<ActionResult<LlitDTO>> GetLlitsId()
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<Llit>> GetLlitsId(int id)
         {
+
+            return await Ok();
 
         }
 
         [HttpDelete]
-        public async Task<IActionResult> DeleteLlit()
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        public async Task<IActionResult> DeleteLlit(int id)
         {
+
+            return await NoContent();
 
         }
 
         [HttpPost]
-        public async Task<IActionResult> PostLlit()
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        public async Task<IActionResult> PostLlit([FromBody] Llit)
         {
+
+            return await NoContent();
 
         }
 
         [HttpPut]
-
-        public async Task<ActionResult<LlitDTO>> PutLlit()
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        public async Task<ActionResult<Llit>> PutLlit([FromBody] Llit)
         {
+
+            return await Created();
 
         }
 
