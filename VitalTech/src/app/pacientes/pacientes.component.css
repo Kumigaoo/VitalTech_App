@@ -116,7 +116,7 @@ a {
 
 .eliminar {
     margin-left: 20px;
-    margin-top: 70px;
+    margin-top: 50px;
     display: flex;
     justify-content: flex-start;
     flex-direction: column;
@@ -128,7 +128,7 @@ table {
     width: 100%;
     border-collapse: separate; /* Use separate borders */
     border-spacing: 0 5px; /* Space between rows */
-    margin-top: 20px;
+    margin-top: 1px;
     border-radius: 8px; /* Rounded borders for the table */
     overflow: hidden; /* Ensure rounded corners are visible */
   }
@@ -191,4 +191,11 @@ table {
 
 .pagination span {
     font-size: 16px;
+}
+
+.footer {
+    margin-top: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
