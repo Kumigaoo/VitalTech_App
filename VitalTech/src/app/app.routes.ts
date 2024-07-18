@@ -6,6 +6,8 @@ import { LoginComponent } from './login/login.component';
 import { PacientesComponent } from './pacientes/pacientes.component';  
 import { UsuarioComponent } from './usuario/usuario.component';
 import { ConfiguracionComponent } from './configuracion/configuracion.component';
+import { RegistroComponent } from './registro/registro.component';
+import { FichaComponent } from './ficha/ficha.component';
 
 export const routes: Routes = [
     {path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -15,6 +17,7 @@ export const routes: Routes = [
     {path: 'habitaciones', component: HabitacionesComponent},
     {path: 'pacientes', component: PacientesComponent},
     {path: 'usuario', component: UsuarioComponent},
-    {path: 'configuracion', component: ConfiguracionComponent}
-
+    {path: 'configuracion', component: ConfiguracionComponent},
+    {path: 'registro', component: RegistroComponent},
+    {path: 'ficha', component: FichaComponent}
 ];

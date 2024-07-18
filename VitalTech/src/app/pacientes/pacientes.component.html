@@ -1,20 +1,29 @@
 
-<div class="search-container">
-    <form id="searchForm">
-        <div class="searchCriteriaContainer">
-            <label for="searchCriteria">Buscar por:</label>
+<div class= "contendor">
+    <div class="search-container">
+        <div class="lala">
+            <form id="searchForm">
+                <div class="searchCriteriaContainer">
+                    <label for="searchCriteria">Buscar por:</label>
+                </div>
+                <div class="searchCriteriaItemContainer">
+                    <select id="searchCriteria" name="searchCriteria">
+                        <option value="name">Nombre</option>
+                        <option value="dni">DNI</option>
+                        <option value="ss">SS</option>
+                        <option value="id">ID</option>
+                    </select>
+                    <input type="text" id="searchInput" name="searchInput" placeholder="Ingresa la busqueda...">
+                    <button type="submit">Buscar</button>
+                    
+                </div>
+            </form>
         </div>
-        <div class="searchCriteriaItemContainer">
-            <select id="searchCriteria" name="searchCriteria">
-                <option value="name">Nombre</option>
-                <option value="dni">DNI</option>
-                <option value="ss">SS</option>
-                <option value="id">ID</option>
-            </select>
-            <input type="text" id="searchInput" name="searchInput" placeholder="Ingresa la busqueda...">
-            <button type="submit">Buscar</button>
+        <div class="registro">
+            <button id="registrarse"><a routerLink="/registro"> + Registrar paciente</a></button>
         </div>
-    </form>
+    </div>
+   
 </div>
 <div class ="texto">
     <p>Lista de Pacientes</p>
