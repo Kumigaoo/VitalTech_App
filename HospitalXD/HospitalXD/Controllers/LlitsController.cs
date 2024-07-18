@@ -1,7 +1,8 @@
 using HospitlaXD.DTO;
 using Microsoft.AspNetCore.Mvc;
 using HospitalXD.Data;
-using HospitalXD.Controllers;
+using Microsoft.EntityFrameworkCore;
+using HospitalXD.Models;
 
 namespace HospitlaXD.Controllers
 {
@@ -27,7 +28,7 @@ namespace HospitlaXD.Controllers
         public async Task<ActionResult<Llit>> GetLlits()
         {
 
-            var llits = await _bbdd.Llitsa.ToListAsync();
+            var llits = await _bbdd.Llit.ToListAsync();
 
             return Ok(llits);
 
@@ -36,38 +37,103 @@ namespace HospitlaXD.Controllers
 
         [HttpGet("{id:int}", Name = "LlitId")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<Llit>> GetLlitsId(int id)
         {
 
-            return await Ok();
+            var llitRefId = await _bbdd.Llit.FirstOrDefaultAsync(o => o.Id == id);
+
+
+            if (llitRefId == null)
+            {
+
+                return NotFound();
+
+            }
+            else
+            {
+
+                return Ok(llitRefId);
+
+            }
+
 
         }
 
         [HttpDelete]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> DeleteLlit(int id)
         {
 
-            return await NoContent();
+            var operacio = await _bbdd.Llit.Where(o => o.Id == id).ExecuteDeleteAsync();
 
+            if (operacio == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return NoContent();
+            }
         }
 
         [HttpPost]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public async Task<IActionResult> PostLlit([FromBody] Llit)
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        public async Task<IActionResult> PostLlit([FromBody] Llit llit)
         {
+            if (llit == null)
+            {
+                return BadRequest("El objeto 'llit' no puede ser nulo.");
+            }
 
-            return await NoContent();
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
+            await _bbdd.Llit.AddAsync(llit);
+            await _bbdd.SaveChangesAsync();
+
+            return CreatedAtAction(nameof(ObtenerLlitPorId), new { id = llit.Id }, llit);
         }
 
-        [HttpPut]
-        [ProducesResponseType(StatusCodes.Status201Created)]
-        public async Task<ActionResult<Llit>> PutLlit([FromBody] Llit)
+        [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> PutLlit(int id, [FromBody] Llit llit)
         {
+            if (llit == null || id != llit.Id)
+            {
+                return BadRequest("Datos no válidos.");
+            }
 
-            return await Created();
+            _bbdd.Entry(llit).State = EntityState.Modified;
 
+            try
+            {
+                await _bbdd.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!LlitExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }
+
+        private bool LlitExists(int id)
+        {
+            return _bbdd.Llit.Any(e => e.Id == id);
         }
 
     }
