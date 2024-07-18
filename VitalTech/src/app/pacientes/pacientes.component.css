@@ -116,7 +116,13 @@ a {
 
 .eliminar {
     margin-left: 20px;
-    margin-top: 30px;
+    margin-top: 70px;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    justify-content: space-around;
+
+
 }
 table {
     width: 100%;
