@@ -1,5 +1,7 @@
 using HospitlaXD.DTO;
 using Microsoft.AspNetCore.Mvc;
+using HospitalXD.Data;
+using HospitalXD.Controllers;
 
 namespace HospitlaXD.Controllers
 {
@@ -9,14 +11,25 @@ namespace HospitlaXD.Controllers
     public class LlitsController : ControllerBase
     {
 
+        private readonly ILogger<LlitsController> _logger;
+        private readonly ApplicationDbContext _bbdd;
+
+        public LlitsController(ILogger<HabitacioController> logger, ApplicationDbContext bbdd)
+        {
+
+            _logger = logger;
+            _bbdd = bbdd;
+
+        }
+
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<Llit>> GetLlits()
         {
 
+            var llits = await _bbdd.Llitsa.ToListAsync();
 
-
-            return await Ok();
+            return Ok(llits);
 
         }
 
