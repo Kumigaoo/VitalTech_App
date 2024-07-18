@@ -28,6 +28,9 @@ namespace HospitalXD.Data
         // Creem una taula anomenada habitacions que sera de tipus habitacio (model)
         public DbSet<Habitacio> Habitacions { get; set; }
 
+        // Creem una taula anomenada Llit que sera de tipus Llit (model)
+        public DbSet<Llit> Llit { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Habitacio>().HasData(
@@ -42,29 +45,21 @@ namespace HospitalXD.Data
                     Capacitat = 5
                 }
                 );
-        }
 
-        // Creem una taula anomenada Llit que sera de tipus Llit (model)
-        public DbSet<Llit> Llit { get; set; }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
             modelBuilder.Entity<Llit>().HasData(
-                new Llit()
-                {
-                    Id = 1,
-                    NumHabitacio = 4,
-                    Estat = false
-                },
-                new Llit()
-                {
-                    Id = 2,
-                    NumHabitacio = 4,
-                    Estat = false
-                }
-                );
+           new Llit()
+           {
+               Id = 1,
+               NumHabitacio = 4,
+               Estat = false
+           },
+           new Llit()
+           {
+               Id = 2,
+               NumHabitacio = 4,
+               Estat = false
+           }
+           );
         }
-
-
     }
 }
