@@ -41,6 +41,7 @@ button {
     cursor: pointer;
     font-size: 16px;
     margin-right: 20px;
+
 }
 
 button:hover {
@@ -77,10 +78,14 @@ button:hover {
 .registro {
     justify-self: flex-end;
     margin-top: 68px;
-    margin-left: 30px;
-
+    margin-left: 30px;    
 }
 
+a {
+    text-decoration: none;
+    display: block;
+    color: white;
+}
 
 .contenedor {
     display: flex;
@@ -99,11 +104,20 @@ button:hover {
 /* Tabla de lista de pacientes */
 
 .table-container {
-    width: 50%;
+    width: 70%;
     margin-top: 30px;
     margin-left: 250px;
 }
 
+.cosas {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.eliminar {
+    margin-left: 20px;
+    margin-top: 30px;
+}
 table {
     width: 100%;
     border-collapse: separate; /* Use separate borders */

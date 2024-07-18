@@ -40,5 +40,9 @@ body, html {
 .sidebar nav ul li .active {
     background-color: #02789b;
   }
+
+  .sidebar nav ul li a:hover {
+    background-color: #02789b;
+}
   
   
