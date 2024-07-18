@@ -16,7 +16,7 @@ namespace HospitalXD.Models
 
         public bool Estat { get; set; }
 
-        public Habitacio Habitacion { get; set; } = null!;
+        public Habitacio? Habitacion { get; set; } = null!;
 
 
     }

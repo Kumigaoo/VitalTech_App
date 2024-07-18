@@ -19,7 +19,7 @@ namespace HospitalXD.Models
         public string NumSS { get; set;} = null!;
         public bool Estat { get; set; }
 
-        public Llit? llit { get; set; }
+        public Llit? Llit { get; set; }
 
 
     }

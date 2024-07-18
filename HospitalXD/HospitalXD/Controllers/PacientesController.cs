@@ -34,7 +34,7 @@ namespace HospitlaXD.Controllers
             }
 
             var pacient = await _bbdd.Pacients
-            .Include(p => p.Cama)
+            .Include(p => p.Llit)
             .ThenInclude(c => c.Habitacion)
             .ToListAsync();
 
@@ -43,25 +43,26 @@ namespace HospitlaXD.Controllers
         }
 
 
-        [HttpGet("{id:int}", Name = "LlitId")]
+        [HttpGet("{id:int}", Name = "PacientId")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<HospitalXD.Models.Llit>> GetLlitsId(int id)
+        public async Task<ActionResult<HospitalXD.Models.Pacients>> GetPacientsId(int id)
         {
 
-            var llitRefId = await _bbdd.Llit
-            .Include(o => o.Habitacion)
-            .FirstOrDefaultAsync(o => o.Id == id);
+            var PacientRefId = await _bbdd.Pacients
+            .Include(p => p.Llit)
+            .ThenInclude(c => c.Habitacion)
+            .FirstOrDefaultAsync(p => p.Id == id);
 
 
-            if (llitRefId == null)
+            if (PacientRefId == null)
             {
 
-                return NotFound("No existe ninguna cama con el id selecionado");
+                return NotFound("No existe ninguna paciente con el id selecionado");
 
             }
 
-                return Ok(llitRefId);
+                return Ok(PacientRefId);
 
 
 
@@ -70,10 +71,10 @@ namespace HospitlaXD.Controllers
         [HttpDelete("{id:int}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> DeleteLlit(int id)
+        public async Task<IActionResult> DeletePacient(int id)
         {
 
-            var operacio = await _bbdd.Llit.Where(o => o.Id == id).ExecuteDeleteAsync();
+            var operacio = await _bbdd.Pacients.Where(o => o.Id == id).ExecuteDeleteAsync();
 
             if (operacio == null)
             {
@@ -89,33 +90,36 @@ namespace HospitlaXD.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status201Created)]
         
-        public async Task<IActionResult> PostLlit([FromBody] HospitalXD.Models.Llit llit)
+        public async Task<IActionResult> Postpacient([FromBody] HospitalXD.Models.Pacients pacients)
         {
-            if (llit == null)
+            if (pacients == null)
             {
-                return BadRequest("El objeto 'llit' no puede ser nulo.");
+                return BadRequest("El objeto 'pacient' no puede ser nulo.");
             }
 
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            var hab = _bbdd.Habitacions.FirstOrDefault(h => h.Id == llit.Id);
+            var cama = _bbdd.Llit.FirstOrDefault(h => h.Id == pacients.Id);
 
-            if (hab == null) {
-                return NotFound("Habitación no encontrada");
+            if (cama == null) {
+                return NotFound("Cama no encontrada");
             }
 
-            Llit llits = new(){
-                Estat = llit.Estat,
-                NumHabitacio = llit.NumHabitacio,
-                Habitacion = hab,
+            Pacients pacient = new(){
+                Name = pacients.Name,
+                DNI = pacients.DNI,
+                NumSS = pacients.NumSS,
+                Estat = pacients.Estat,
+                CamaId = pacients.CamaId,
+                Llit = cama,
             };
 
-            await _bbdd.Llit.AddAsync(llits);
+            await _bbdd.Pacients.AddAsync(pacient);
             await _bbdd.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(llits), new { id = llits.Id }, llits);
+            return CreatedAtAction(nameof(pacient), new { id = pacient.Id }, pacient);
         }
 
         [HttpPut("{id:int}")]
