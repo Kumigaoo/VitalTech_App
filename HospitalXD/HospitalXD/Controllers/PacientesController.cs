@@ -126,14 +126,14 @@ namespace HospitlaXD.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> PutLlit(int id, [FromBody] HospitalXD.Models.Llit llit)
+        public async Task<IActionResult> PutPacient(int id, [FromBody] HospitalXD.Models.Pacients pacients)
         {
-            if (llit == null || id != llit.Id)
+            if (pacients == null || id != pacients.Id)
             {
                 return BadRequest("Datos no válidos.");
             }
 
-            _bbdd.Entry(llit).State = EntityState.Modified;
+            _bbdd.Entry(pacients).State = EntityState.Modified;
 
             try
             {
@@ -141,9 +141,9 @@ namespace HospitlaXD.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!LlitExists(id))
+                if (!PacientsExists(id))
                 {
-                    return NotFound("No existe ninguna cama con el id selecionado");
+                    return NotFound("No existe ningun paciente con el id selecionado");
                 }
                 else
                 {
@@ -154,9 +154,9 @@ namespace HospitlaXD.Controllers
             return NoContent();
         }
 
-        private bool LlitExists(int id)
+        private bool PacientsExists(int id)
         {
-            return _bbdd.Llit.Any(e => e.Id == id);
+            return _bbdd.Pacients.Any(e => e.Id == id);
         }
 
     }
