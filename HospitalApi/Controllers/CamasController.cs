@@ -67,6 +67,9 @@ namespace HospitalApi.Controllers
         // PUT: api/Camas/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<IActionResult> PutCamas(long id, Camas camas)
         {
             if (id != camas.Id)
@@ -98,6 +101,8 @@ namespace HospitalApi.Controllers
         // POST: api/Camas
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<ActionResult<Camas>> PostCamas(CamaDTO camasDto)
         {
 
@@ -123,6 +128,8 @@ namespace HospitalApi.Controllers
 
         // DELETE: api/Camas/5
         [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<IActionResult> DeleteCamas(long id)
         {
             var camas = await _context.Camas.FindAsync(id);
