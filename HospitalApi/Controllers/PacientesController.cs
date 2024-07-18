@@ -22,16 +22,19 @@ namespace HospitalApi.Controllers
 
         // GET: api/Pacientes
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<Pacientes>>> GetPacientes()
         {
-            return await _context.Pacientes
+            return Ok(await _context.Pacientes
                 .Include(p => p.Cama) // Incluir la información de la cama relacionada
                 .ThenInclude(c => c.Habitacion) // Incluir la información de la habitación relacionada
-                .ToListAsync();
+                .ToListAsync());
         }
 
         // GET: api/Pacientes/5
         [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<Pacientes>> GetPacientes(long id)
         {
             var pacientes = await _context.Pacientes
@@ -44,13 +47,16 @@ namespace HospitalApi.Controllers
                 return NotFound("No existe ningún paciente con esa id");
             }
 
-            return pacientes;
+            return Ok(pacientes);
         }
 
 
         // PUT: api/Pacientes/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> PutPacientes(long id, Pacientes pacientes)
         {
             if (id != pacientes.Id)
@@ -82,6 +88,8 @@ namespace HospitalApi.Controllers
         // POST: api/Pacientes
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<ActionResult<Pacientes>> PostPaciente(PacienteDTO pacienteDto)
 {
     var cama = await _context.Camas.FindAsync(pacienteDto.CamaId);
@@ -108,6 +116,8 @@ namespace HospitalApi.Controllers
 
         // DELETE: api/Pacientes/5
         [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<IActionResult> DeletePacientes(long id)
         {
             var pacientes = await _context.Pacientes.FindAsync(id);
