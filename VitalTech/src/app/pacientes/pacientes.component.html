@@ -1,18 +1,73 @@
 
-<div class="search-container">
-    <form id="searchForm">
-        <div class="searchCriteriaContainer">
-            <label for="searchCriteria">Buscar por:</label>
+<div class= "contendor">
+    <div class="search-container">
+        <div class="lala">
+            <form id="searchForm">
+                <div class="searchCriteriaContainer">
+                    <label for="searchCriteria">Buscar por:</label>
+                </div>
+                <div class="searchCriteriaItemContainer">
+                    <select id="searchCriteria" name="searchCriteria">
+                        <option value="name">Nombre</option>
+                        <option value="dni">DNI</option>
+                        <option value="ss">SS</option>
+                        <option value="id">ID</option>
+                    </select>
+                    <input type="text" id="searchInput" name="searchInput" placeholder="Ingresa la busqueda...">
+                    <button type="submit">Buscar</button>
+                    
+                </div>
+            </form>
         </div>
-        <div class="searchCriteriaItemContainer">
-            <select id="searchCriteria" name="searchCriteria">
-                <option value="name">Nombre</option>
-                <option value="dni">DNI</option>
-                <option value="ss">SS</option>
-                <option value="id">ID</option>
-            </select>
-            <input type="text" id="searchInput" name="searchInput" placeholder="Ingresa la busqueda...">
-            <button type="submit">Buscar</button>
+        <div class="registro">
+            <button id="registrarse"><a routerLink="/registro"> + Registrar paciente</a></button>
         </div>
-    </form>
+    </div>
+   
 </div>
+<div class ="texto">
+    <p>Lista de Pacientes</p>
+</div>
+<div class="table-container">
+    <table id="resultsTable">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Sexo</th>
+                <th>Estado</th>
+                <th>Cama Asignada</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th>272828</th>
+                <th>Helena García</th>
+                <th>Femenino</th>
+                <th>Baja</th>
+                <th>127T</th>
+            </tr>
+            <tr>
+                <th>393029</th>
+                <th>Kilian Morillas</th>
+                <th>Masculino</th>
+                <th>Alta</th>
+                <th>----</th>
+            </tr>
+            <tr>
+                <th>292922</th>
+                <th>Naiara García</th>
+                <th>Femenino</th>
+                <th>Baja</th>
+                <th>229J</th>
+            </tr>
+        </tbody>
+    </table>
+    
+    <div class="pagination">
+        <button id="prevPage">Anterior</button>
+        <span id="pageInfo">Página 1 de X</span>
+        <button id="nextPage">Siguiente</button>
+    </div>
+</div>
+<script src="script.js"></script>

@@ -36,8 +36,8 @@ body, html {
     margin: 10px 10px 0 10px;
     font-family: Arial, sans-serif;
   }
-  
-  .sidebar nav ul li a:hover {
+
+.sidebar nav ul li .active {
     background-color: #02789b;
   }
   
