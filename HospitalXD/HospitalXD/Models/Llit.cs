@@ -1,5 +1,7 @@
-<<<<<<< HEAD
-﻿namespace HospitalXD.Models
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace HospitalXD.Models
 {
     public class Llit
     {
@@ -12,10 +14,9 @@
 
     }
 }
-=======
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
+
+/*
 namespace HospitalXD.Models
 {
 
@@ -37,4 +38,4 @@ namespace HospitalXD.Models
     }
 
 }
->>>>>>> a1f42602bb94ee20bae41bbd86e5730a9866edf6
+*/

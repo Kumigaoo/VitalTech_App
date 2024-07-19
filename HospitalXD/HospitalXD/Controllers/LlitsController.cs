@@ -29,12 +29,12 @@ namespace HospitlaXD.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<HospitalXD.Models.Llit>> GetLlits()
         {
-            if (_bbdd.Llit.IsNullOrEmpty()){
+            if (_bbdd.Llits.IsNullOrEmpty()){
                 return NoContent();
             }
 
-            var llits = await _bbdd.Llit
-            .Include(o => o.Habitacion)
+            var llits = await _bbdd.Llits
+            .Include(o => o.Habitacio)
             .ToListAsync();
 
             return Ok(llits);
@@ -48,8 +48,8 @@ namespace HospitlaXD.Controllers
         public async Task<ActionResult<HospitalXD.Models.Llit>> GetLlitsId(int id)
         {
 
-            var llitRefId = await _bbdd.Llit
-            .Include(o => o.Habitacion)
+            var llitRefId = await _bbdd.Llits
+            .Include(o => o.Habitacio)
             .FirstOrDefaultAsync(o => o.Id == id);
 
 
@@ -72,7 +72,7 @@ namespace HospitlaXD.Controllers
         public async Task<IActionResult> DeleteLlit(int id)
         {
 
-            var operacio = await _bbdd.Llit.Where(o => o.Id == id).ExecuteDeleteAsync();
+            var operacio = await _bbdd.Llits.Where(o => o.Id == id).ExecuteDeleteAsync();
 
             if (operacio == null)
             {
@@ -106,12 +106,11 @@ namespace HospitlaXD.Controllers
             }
 
             Llit llits = new(){
-                Estat = llit.Estat,
-                NumHabitacio = llit.NumHabitacio,
-                Habitacion = hab,
+                Ocupat = llit.Ocupat,
+                Habitacio = llit.Habitacio
             };
 
-            await _bbdd.Llit.AddAsync(llits);
+            await _bbdd.Llits.AddAsync(llits);
             await _bbdd.SaveChangesAsync();
 
             return CreatedAtAction(nameof(llits), new { id = llits.Id }, llits);
@@ -151,7 +150,7 @@ namespace HospitlaXD.Controllers
 
         private bool LlitExists(int id)
         {
-            return _bbdd.Llit.Any(e => e.Id == id);
+            return _bbdd.Llits.Any(e => e.Id == id);
         }
 
     }
