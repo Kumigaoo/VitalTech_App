@@ -1,5 +1,6 @@
 
 
+using HospitalXD;
 using HospitalXD.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,6 +18,10 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+
+// Afegim el servei de mapeig a la nostra api, ara en qualsevol punt de la nostra
+// aplicacio podrem injectar al construcor el automapper
+builder.Services.AddAutoMapper(typeof(MapConfig));
 
 var app = builder.Build();
 

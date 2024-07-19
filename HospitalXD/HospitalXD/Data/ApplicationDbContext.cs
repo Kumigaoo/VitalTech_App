@@ -26,22 +26,70 @@ namespace HospitalXD.Data
 
 
         // Creem una taula anomenada habitacions que sera de tipus habitacio (model)
+
+        public DbSet<Consulta> Consultes { get; set; }
+
+        public DbSet<EpisodiMedic> EpisodisMedics { get; set; }
+
         public DbSet<Habitacio> Habitacions { get; set; }
+
+        public DbSet<Ingres> Ingressos { get; set; }
+
+        public DbSet<Llit> Llits { get; set; }
+
+        public DbSet<Metge> Metges { get; set; }
+
+        public DbSet<Pacient> Pacients { get; set; }
+
+        public DbSet<Planta> Plantes { get; set; }
+
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Habitacio>().HasData(
-                new Habitacio()
-                {
-                    Id = 1,
-                    Capacitat = 4
-                },
-                new Habitacio()
-                {
-                    Id=2,
-                    Capacitat = 5
-                }
-                );
+
+            modelBuilder.Entity<Consulta>()
+                .HasOne<Pacient>(p => p.Pacient)
+                .WithMany()
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Consulta>()
+                .HasOne<Metge>(m => m.Metge)
+                .WithMany()
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Consulta>()
+                .HasOne<EpisodiMedic>(e => e.EpisodiMedic)
+                .WithMany()
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<EpisodiMedic>()
+                .HasOne<Pacient>(e => e.Pacient)
+                .WithMany()
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Habitacio>()
+                .HasOne<Planta>(e => e.Planta)
+                .WithMany()
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Ingres>()
+                .HasOne<EpisodiMedic>(e => e.EpisodiMedic)
+                .WithMany()
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Ingres>()
+                .HasOne<Llit>(e => e.Llit)
+                .WithMany()
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Llit>()
+                .HasOne<Habitacio>(e => e.Habitacio)
+                .WithMany()
+                .OnDelete(DeleteBehavior.Restrict);
+
+            base.OnModelCreating(modelBuilder);
+
         }
 
     }
