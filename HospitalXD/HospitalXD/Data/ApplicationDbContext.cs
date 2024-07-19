@@ -39,7 +39,7 @@ namespace HospitalXD.Data
 
         public DbSet<Metge> Metges { get; set; }
 
-        public DbSet<Pacient> Pacients { get; set; }
+        public DbSet<Pacients> Pacients { get; set; }
 
         public DbSet<Planta> Plantes { get; set; }
 

@@ -1,0 +1,193 @@
+.habitaciones {
+    display: flex;
+    width: 100%;
+}
+.container {
+    display: flex;
+    justify-content: flex-start; 
+}
+.buscador {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 43vw;
+    margin-left: 250px;
+    margin-top: 30px;
+}
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: 10px;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+
+}
+
+select, input {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+button {
+    padding: 10px;
+    background-color: darkcyan;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-right: 20px;
+
+}
+
+button:hover {
+    background-color: #02789b;
+}
+
+#searchForm {
+    display: flex;
+}
+
+.searchCriteriaItemContainer {
+    display: flex;
+    justify-content: flex-start;
+    
+}
+
+#searchCriteria {
+    margin: 0px;
+    margin-right: 20px;
+}
+#searchRoom{
+   margin: 0px;
+}
+select {
+    width: 100px; /* Ancho más pequeño */
+    height: 30px; /* Alto más pequeño */
+    padding: 2px; /* Relleno reducido */
+    font-size: 12px; /* Tamaño de fuente más pequeño */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+#searchInput {
+    margin: 0px;
+}
+.searchCriteriaContainer {
+    display: flex;
+
+}
+#searchInput{
+    margin-right: 20px;
+}
+
+.createRoom {
+    justify-self: flex-end;
+    margin-top: 68px;
+    margin-left: 30px;
+}
+
+.texto {
+    margin-top: 27px;
+    margin-left: 250px;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    color:  darkcyan;
+    font-size: 25px;
+}
+
+.table-container {
+    width: 70%;
+    margin-top: 30px;
+    margin-left: 250px;
+}
+
+.cosas {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.eliminar {
+    margin-left: 20px;
+    margin-top: 50px;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    justify-content: space-around;
+
+
+}
+table {
+    width: 100%;
+    border-collapse: separate; /* Use separate borders */
+    border-spacing: 0 5px; /* Space between rows */
+    margin-top: 1px;
+    border-radius: 8px; /* Rounded borders for the table */
+    overflow: hidden; /* Ensure rounded corners are visible */
+  }
+  
+  th, td {
+    padding: 10px; /* Increased padding for more space */
+    border: 1px solid darkcyan;
+    text-align: center;
+    background: #fff;
+    font-family: Arial, sans-serif;
+    font-weight: normal;
+  }
+
+  thead tr th {
+    background-color: darkcyan;
+    border: 1px solid #fff;
+    font-weight: bold;
+    color: #fff;
+  }
+ 
+  th {
+    background-color: #fff;
+    border-spacing: 0 5px;
+    
+    
+  }
+  
+  td:first-child, th:first-child {
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+  }
+  
+  td:last-child, th:last-child {
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+  }
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.pagination button {
+    padding: 10px;
+    margin: 0 10px;
+    background-color: darkcyan;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.pagination button:hover {
+    background-color: #02789b;
+}
+
+.pagination span {
+    font-size: 16px;
+}
