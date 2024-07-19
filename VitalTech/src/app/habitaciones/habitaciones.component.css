@@ -67,15 +67,14 @@ button:hover {
 }
 #searchRoom{
    margin: 0px;
-}
-select {
-    width: 100px; /* Ancho más pequeño */
+   width: 100px; /* Ancho más pequeño */
     height: 30px; /* Alto más pequeño */
     padding: 2px; /* Relleno reducido */
     font-size: 12px; /* Tamaño de fuente más pequeño */
     border: 1px solid #ccc;
     border-radius: 4px;
-  }
+}
+
 #searchInput {
     margin: 0px;
 }
