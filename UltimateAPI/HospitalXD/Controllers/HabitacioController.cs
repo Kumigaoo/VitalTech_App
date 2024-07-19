@@ -92,7 +92,7 @@ namespace HospitalXD.Controllers
             // la lambda de dins el que diu es, per cada h de la llista mira si el id es igual al del parametre 
             var hab = await _bbdd.Habitacions.FirstOrDefaultAsync(h => h.Id == id);
 
-            if (hab == null) return NotFound("No existe ninguna habitación con el id selecionado");
+            if (hab == null) return NotFound();
 
             return Ok(_mapper.Map<HabitacioDTO>(hab));
 
@@ -140,7 +140,7 @@ namespace HospitalXD.Controllers
 
             var hab = await _bbdd.Habitacions.FirstOrDefaultAsync(h => h.Id == id);
 
-            if (hab == null) return NotFound("No existe ninguna habitación con el id selecionado");
+            if (hab == null) return NotFound();
 
             // El remove al ser un metode sincron no te la variant asincrona
             _bbdd.Habitacions.Remove(hab);
@@ -166,10 +166,6 @@ namespace HospitalXD.Controllers
             return NoContent();
 
 
-        }
-
-        private bool HabitacionExists (long id) {
-            return _bbdd.Habitacions.Any(e => e.Id == id);
         }
 
         

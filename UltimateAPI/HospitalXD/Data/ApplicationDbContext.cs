@@ -90,43 +90,7 @@ namespace HospitalXD.Data
 
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Llit>().HasData(
-           new Llit()
-           {
-               Id = 1,
-               Ocupat = false
-           },
-           new Llit()
-           {
-               Id = 2,
-               Ocupat = false
-           }
-           );
-
-           modelBuilder.Entity<Pacients>().HasData(
-           new Pacients()
-           {
-               Id = 1,
-               Name = "Maria",
-               DNI = "77777",
-               NumSS = "22222",
-               Estat = false,
-               CamaId = 2
-           },
-           new Pacients()
-           {
-               Id = 2,
-               Name = "Sofia",
-               DNI = "3773737",
-               NumSS = "6666",
-               Estat = true,
-               CamaId = 1
-           }
-           );
-
         }
 
-            
-        }
     }
 }
