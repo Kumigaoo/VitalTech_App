@@ -109,13 +109,6 @@ namespace HospitalXD.Controllers
             // ModelState ja sap que Habitacio
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            //Validacio per que no hi hagi cap registre repetit (No cal perqué el DTO de creació no té Id XD)
-            // if( await _bbdd.Habitacions.FirstOrDefaultAsync(h => h.Id == hab.Id) != null)
-            // {
-            // ModelState.AddModelError("Id Repetit","Id repetit");
-            //return BadRequest(ModelState);
-            //}
-
             if (userHabDTO == null) return BadRequest(userHabDTO);
 
             // Li diem al mapper que mappegi el dto amb el seu model

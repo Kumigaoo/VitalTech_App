@@ -9,8 +9,10 @@
 
         public DateTime DataSortida { get; set; }
 
+        public int IdEpisodiMedic {  get; set; }
         public EpisodiMedic EpisodiMedic { get; set; }
 
+        public int IdLlit {  get; set; }
         public Llit Llit { get; set; }
 
     }

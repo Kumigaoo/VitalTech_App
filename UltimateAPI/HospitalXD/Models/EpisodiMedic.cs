@@ -1,11 +1,14 @@
-﻿namespace HospitalXD.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace HospitalXD.Models
 {
     public class EpisodiMedic
     {
-
         public int Id { get; set; }
 
         public DateTime Data { get; set; }
+
+        public int IdPacient { get; set; }
 
         public Pacient Pacient { get; set; }
 

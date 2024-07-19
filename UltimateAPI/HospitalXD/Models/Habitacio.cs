@@ -19,6 +19,7 @@ namespace HospitalXD.Models
 
         public int Capacitat { get; set; }
 
+        public int? IdPlanta { get; set; }
         public Planta Planta { get; set; }
 
         public ICollection<Llit> Llits { get; set; }
