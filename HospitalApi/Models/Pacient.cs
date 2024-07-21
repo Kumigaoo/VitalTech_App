@@ -15,7 +15,7 @@
 
         public ICollection<Consulta> Consultes { get; set; }
 
-        public ICollection<EpisodiMedic> EpisodiMedic { get; set; }
+        public ICollection<EpisodiMedic> EpisodisMedics { get; set; }
 
     }
 }

@@ -34,10 +34,40 @@ namespace HospitalApi.Data
             .HasForeignKey(l => l.HabitacioId)
             .OnDelete(DeleteBehavior.Restrict);
 
+            modelBuilder.Entity<Ingres>()
+            .HasOne(h => h.EpisodiMedic)
+            .WithMany(p => p.Ingressos)
+            .HasForeignKey(h => h.LlitId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Ingres>()
+           .HasOne(h => h.Llit)
+           .WithMany(p => p.Ingressos)
+           .HasForeignKey(h => h.LlitId)
+           .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<EpisodiMedic>()
+            .HasOne(h => h.Pacient)
+            .WithMany(p => p.EpisodisMedics)
+            .HasForeignKey(h => h.PacientId)
+            .OnDelete(DeleteBehavior.Restrict);
+
             modelBuilder.Entity<Consulta>()
             .HasOne(c => c.Pacient)
             .WithMany(p => p.Consultes)
             .HasForeignKey(c => c.PacientId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Consulta>()
+            .HasOne(c => c.EpisodiMedic)
+            .WithMany(p => p.Consultes)
+            .HasForeignKey(c => c.EpisodiMedicId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Consulta>()
+            .HasOne(c => c.Metge)
+            .WithMany(p => p.Consultes)
+            .HasForeignKey(c => c.MetgeId)
             .OnDelete(DeleteBehavior.Restrict);
 
             base.OnModelCreating(modelBuilder);

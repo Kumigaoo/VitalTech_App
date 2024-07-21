@@ -111,14 +111,11 @@ namespace HospitalAPI.Controllers
 
             if (userHabDTO == null || id != userHabDTO.Id) return BadRequest();
 
-            var existingHabitacio = await _bbdd.Habitacions.AsNoTracking().FirstOrDefaultAsync(h => h.Id == id);
-            if (existingHabitacio == null) return NotFound();
+            Habitacio habitacio = _mapper.Map<Habitacio>(userHabDTO);
 
-            // Mapear solo los campos actualizados
-            _mapper.Map(userHabDTO, existingHabitacio);
-
-            _bbdd.Habitacions.Update(existingHabitacio);
+            _bbdd.Habitacions.Update(habitacio);
             await _bbdd.SaveChangesAsync();
+            
 
             return NoContent();
 
