@@ -1,21 +1,18 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using HospitalXD.Models;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace HospitalXD.Models
+namespace HospitalXD.DTO
 {
-    public class Llit
+    public class LlitDTO
     {
 
-        [Key]
         public int Id { get; set; }
-
-        public bool Ocupat { get; set; }
         
+        public bool Ocupat { get; set; }
+
         public bool ForaDeServei { get; set; }
 
-        [ForeignKey("HabitacioId")]
         public int HabitacioId { get; set; }
-        public Habitacio Habitacio { get; set; }
 
         public ICollection<Ingres> Ingressos { get; set; }
 

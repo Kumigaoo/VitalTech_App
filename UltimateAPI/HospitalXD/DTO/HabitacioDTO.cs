@@ -14,7 +14,10 @@ namespace HospitalXD.DTO
 
         public int Id { get; set; }
 
-        [Required]
         public int Capacitat { get; set; }
+
+        public int PlantaId { get; set; }
+
+        public ICollection<LlitDTO> Llits { get; set; }
     }
 }

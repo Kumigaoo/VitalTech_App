@@ -15,14 +15,17 @@ namespace HospitalXD
         public MapConfig()
         {
             // Vull crea un mapa que relacioni cada habitacio amb el seu habDTO
-            CreateMap<Habitacio, HabitacioDTO>();
-            // Vull crea un mapa que relacioni cada habDTO amb el seu model hab
-            CreateMap<HabitacioDTO, Habitacio>();
-
-            // Abreviatura per fer els dos mapes a l'hora
-            CreateMap<Habitacio, HabitacioAddDbDTO>().ReverseMap();
             CreateMap<Habitacio, HabitacioDTO>().ReverseMap();
 
+            CreateMap<Habitacio, HabitacioCreateDTO>().ReverseMap();
+
+            CreateMap<Llit, LlitDTO>().ReverseMap();
+
+            CreateMap<Llit, LlitCreateDTO>().ReverseMap();
+
+            CreateMap<Planta, PlantaDTO>().ReverseMap();
+
+            CreateMap<Planta, PlantaCreateDTO>().ReverseMap();
         }
 
     }
