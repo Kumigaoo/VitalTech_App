@@ -18,6 +18,7 @@ namespace HospitalApi.Data
         public DbSet<Metge> Metges { get; set; }
         public DbSet<Pacient> Pacients { get; set; }
         public DbSet<Planta> Plantes { get; set; }
+        public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
