@@ -1,3 +1,7 @@
+/* Esto es un fichero de ejemplo que debia de mirar como funciona, era el funcionamentiento de busqueda 
+y también pasar de paguina dentro de las tablas */
+
+
 document.getElementById('searchForm').addEventListener('submit', function(event) {
     event.preventDefault();
     
