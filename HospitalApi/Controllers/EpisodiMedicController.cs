@@ -100,7 +100,7 @@ namespace HospitalAPI.Controllers
 
             if (epi == null)
             {
-                _logger.LogError("Error: no existe episodio médico con el id indicado.");
+                _logger.LogError("Error: no existeix l'episodi mèdit amb l'id indicado.");
                 return NotFound();
             }
             
@@ -108,7 +108,7 @@ namespace HospitalAPI.Controllers
             _bbdd.EpisodisMedics.Remove(epi);
             await _bbdd.SaveChangesAsync();
 
-            _logger.LogInformation("Borrado con éxito.");
+            _logger.LogInformation("Esborrat amb èxit.");
             return NoContent();
 
         }
@@ -119,13 +119,18 @@ namespace HospitalAPI.Controllers
         public async Task<IActionResult> UpdateEpisodisMedics(int id, [FromBody] EpisodiMedicDTO userEpiDTO)
         {
 
-            if (userEpiDTO == null || id != userEpiDTO.Id) return BadRequest();
-
+            if (userEpiDTO == null || id != userEpiDTO.Id)
+            {
+                _logger.LogInformation("Error: no existe el ID indicado.");
+                return BadRequest();
+            }
+            
             EpisodiMedic episodi = _mapper.Map<EpisodiMedic>(userEpiDTO);
 
             _bbdd.EpisodisMedics.Update(episodi);
             await _bbdd.SaveChangesAsync();
 
+            _logger.LogInformation("Modificació complerta amb èxit.");
             return NoContent();
 
         }
