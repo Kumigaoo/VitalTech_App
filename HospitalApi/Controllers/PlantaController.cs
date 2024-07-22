@@ -39,7 +39,7 @@ namespace HospitalAPI.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<HabitacioDTO>> GetPlanta(int id)
+        public async Task<ActionResult<PlantaDTO>> GetPlanta(int id)
         {
 
             if (id == 0)

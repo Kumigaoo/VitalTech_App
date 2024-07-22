@@ -22,7 +22,6 @@ namespace HospitalApi.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
             modelBuilder.Entity<Habitacio>()
             .HasOne(h => h.Planta)
             .WithMany(p => p.Habitacions)
