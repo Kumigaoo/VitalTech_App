@@ -33,12 +33,11 @@ namespace HospitalAPI.Controllers
 
             _logger.LogInformation("Obtenint els episodis medics");
 
-            IEnumerable<EpisodiMedic> eList = await _bbdd.EpisodisMedics.Include("Pacient").Include("Consulta").Include("Ingres").ToListAsync();
+            IEnumerable<EpisodiMedic> eList = await _bbdd.EpisodisMedics.Include("Pacient").Include("Consultes").Include("Ingressos").ToListAsync();
 
             return Ok(_mapper.Map<IEnumerable<EpisodiMedicDTO>>(eList));
 
         }
-
 
         [HttpGet("id", Name = "GetEpi")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -46,19 +45,20 @@ namespace HospitalAPI.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<EpisodiMedicDTO>> GetEpisodi(int id)
         {
-
-            if (id == 0)
+            if (id <= 0)
             {
-                _logger.LogError("Error, no existeix el episodi amb el id " + id);
+                _logger.LogError("Error, formato de ID incorrecto.");
                 return BadRequest();
-            }
-
+            } 
+        
             var e = await _bbdd.EpisodisMedics.FirstOrDefaultAsync(h => h.Id == id);
 
-            if (e == null) return NotFound();
-
+            if (e == null)
+            {
+                _logger.LogError("Error, no existeix el episodi amb el ID " + id);
+                return NotFound(e);
+            }
             return Ok(_mapper.Map<EpisodiMedicDTO>(e));
-
         }
 
         [HttpPost]
@@ -68,8 +68,6 @@ namespace HospitalAPI.Controllers
         public async Task<ActionResult<EpisodiMedicCreateDTO>> PostHabitacio([FromBody] EpisodiMedicCreateDTO userEpiDTO)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
-
-            if (userEpiDTO == null) return BadRequest(userEpiDTO);
 
             var pacient = await _bbdd.Pacients.FindAsync(userEpiDTO.PacientId);
 
@@ -91,15 +89,26 @@ namespace HospitalAPI.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> DeleteEpisodiMedic(int id)
         {
-            if (id == 0) return BadRequest(ModelState);
+
+            if (id <= 0)
+            {
+                _logger.LogError("Error: formato de id incorrecto.");
+                return BadRequest(ModelState);
+            }
 
             var epi = await _bbdd.EpisodisMedics.FirstOrDefaultAsync(h => h.Id == id);
 
-            if (epi == null) return NotFound();
+            if (epi == null)
+            {
+                _logger.LogError("Error: no existe episodio médico con el id indicado.");
+                return NotFound();
+            }
+            
 
             _bbdd.EpisodisMedics.Remove(epi);
             await _bbdd.SaveChangesAsync();
 
+            _logger.LogInformation("Borrado con éxito.");
             return NoContent();
 
         }
@@ -119,10 +128,7 @@ namespace HospitalAPI.Controllers
 
             return NoContent();
 
-
         }
-
-
 
     }
 }

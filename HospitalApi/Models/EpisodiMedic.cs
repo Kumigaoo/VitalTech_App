@@ -6,17 +6,17 @@ namespace HospitalAPI.Models
     public class EpisodiMedic
     {
         [Key]
-        public int Id { get; set; }
+        public int Id {get; set;}
 
-        public DateTime Data { get; set; }
+        public DateTime Data {get; set;}
 
         [ForeignKey("PacientId")]
-        public int PacientId { get; set; }
-        public Pacient Pacient { get; set; }
+        public int PacientId {get; set;}
+        public Pacient Pacient {get; set;}
 
-        public ICollection<Consulta> Consultes { get; set; }
+        public ICollection<Consulta> Consultes {get; set;}
 
-        public ICollection<Ingres> Ingressos { get; set; }
+        public ICollection<Ingres> Ingressos {get; set;}
 
     }
 }
