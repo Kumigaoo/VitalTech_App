@@ -3,6 +3,10 @@ using HospitalApi.Data;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddCors(opt => opt.AddDefaultPolicy(policy =>
+policy.AllowAnyHeader()
+.AllowAnyMethod()
+.AllowAnyOrigin()));
 
 builder.Services.AddControllers();
 
