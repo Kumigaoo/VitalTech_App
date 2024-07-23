@@ -48,17 +48,18 @@ namespace HospitalAPI.Controllers
             if (id <= 0)
             {
                 _logger.LogError("Error: format de ID incorrecte.");
-                return BadRequest();
+                return BadRequest("Error: format de ID incorrecte.");
             }
 
             var ingres = await _bbdd.Ingressos.FirstOrDefaultAsync(h => h.Id == id);
 
 
             if (ingres == null)
-             { 
-                return NotFound();
+             {
                 _logger.LogInformation("Error: no existeix l'ID indicat.");
+                return NotFound("Error: no existeix l'ID indicat.");
             }
+
             return Ok(_mapper.Map<IngresDTO>(ingres));
 
         }
@@ -69,13 +70,26 @@ namespace HospitalAPI.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<IngresCreateDTO>> PostIngres([FromBody] IngresCreateDTO userIngresDTO)
         {
-            if (!ModelState.IsValid) return BadRequest(ModelState);
+            if (!ModelState.IsValid)
+            {
+                _logger.LogError("Error: dades introduïdes incorrectes.");
+                return BadRequest(ModelState);
+            }
 
             var llit = await _bbdd.Ingressos.FindAsync(userIngresDTO.LlitId);
             var episodi = await _bbdd.Ingressos.FindAsync(userIngresDTO.EpisodiMedicId);
 
-            if (llit == null) return BadRequest("El LlitId proporcionat no existeix.");
-            if (episodi == null) return BadRequest("El EpisodiMedicId proporcionat no existeix.");
+            if (llit == null)
+            {
+                _logger.LogError("Error: no existeix el llit amb l'ID indicat.");
+                return BadRequest("Error: no existeix el llit amb l'ID indicat.");
+            }
+
+            if (episodi == null)
+            {
+                _logger.LogError("Error: no existeix l'episodi mèdic indicat.");
+                return BadRequest("Error: no existeix l'episodi mèdic indicat.");
+            }
 
             Ingres ingres = _mapper.Map<Ingres>(userIngresDTO);
             ingres.LlitId = llit.Id;
@@ -107,7 +121,7 @@ namespace HospitalAPI.Controllers
             if (ingres == null)
              {
                   _logger.LogError("Error: ingrés indicat no trobat.");
-                    return NotFound();
+                    return NotFound("Error: ingrés indicat no trobat.");
              }
 
 
@@ -127,7 +141,7 @@ namespace HospitalAPI.Controllers
 
             if (userIngresDTO.Id == null){
                     _logger.LogError("Error: Id indicat no trobat.");
-                    return BadRequest();
+                    return BadRequest("Error: Id indicat no trobat.");
             }
 
             Ingres ingres = _mapper.Map<Ingres>(userIngresDTO);

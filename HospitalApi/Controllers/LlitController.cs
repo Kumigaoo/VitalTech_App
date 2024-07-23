@@ -44,15 +44,19 @@ namespace HospitalAPI.Controllers
         public async Task<ActionResult<HabitacioDTO>> GetLlit(int id)
         {
 
-            if (id == 0)
+            if (id <= 0)
             {
-                _logger.LogError("Error, no existeix el llit amb el id " + id);
-                return BadRequest();
+                _logger.LogError("Error: dades introdu�des amb format incorrecte.");
+                return BadRequest("Error: dades introdu�des amb format incorrecte.");
             }
 
             var llit = await _bbdd.Llits.FirstOrDefaultAsync(h => h.Id == id);
 
-            if (llit == null) return NotFound();
+            if (llit == null)
+            {
+                _logger.LogError("Error: no existeix el llit amb el id indicat.");
+                return NotFound("Error: no existeix el llit amb el id indicat.");
+            }
 
             return Ok(_mapper.Map<LlitDTO>(llit));
 
@@ -66,11 +70,24 @@ namespace HospitalAPI.Controllers
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            if (userLlitDTO == null) return BadRequest(userLlitDTO);
+            if (userLlitDTO == null)
+            {
+                _logger.LogError("Error: dades introdu�des incorrectes.");
+                return BadRequest(userLlitDTO);
+            }
 
-            var habitacio = await _bbdd.Plantes.FindAsync(userLlitDTO.HabitacioId);
+            var habitacio = await _bbdd.Habitacions.FindAsync(userLlitDTO.HabitacioId);
 
-            if (habitacio == null) return BadRequest("El HabitacioId proporcionado no existe.");
+            if (habitacio == null)
+            {
+                _logger.LogError("Error: no existeix la habitaci� amb l'ID indicat.");
+                return BadRequest("Error: no existeix la habitaci� amb l'ID indicat");
+            }
+
+            if (habitacio.Llits.Count >= habitacio.Num_llits) {
+                return BadRequest("No se pueden agregar más camas a esta habitación.");
+            }
+
 
             Llit llit = _mapper.Map<Llit>(userLlitDTO);
             llit.HabitacioId = habitacio.Id;
@@ -78,6 +95,7 @@ namespace HospitalAPI.Controllers
             await _bbdd.Llits.AddAsync(llit);
             await _bbdd.SaveChangesAsync();
 
+            _logger.LogInformation("Llit creat exitosament.");
             return CreatedAtRoute("GetLlit", _mapper.Map<LlitCreateDTO>(llit));
 
         }
@@ -88,15 +106,24 @@ namespace HospitalAPI.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> DeleteLlit(int id)
         {
-            if (id == 0) return BadRequest(ModelState);
+            if (id <= 0)
+            {
+                _logger.LogError("Error: no existeix el llit amb l'ID indicat.");
+                return BadRequest(ModelState);
+            }
 
             var llit = await _bbdd.Llits.FirstOrDefaultAsync(h => h.Id == id);
 
-            if (llit == null) return NotFound();
+            if (llit == null)
+            {
+                _logger.LogError("Error: no existeix el llit amb l'ID indicat.");
+                return NotFound("Error: no existeix el llit amb l'ID indicat.");
+            }
 
             _bbdd.Llits.Remove(llit);
             await _bbdd.SaveChangesAsync();
 
+            _logger.LogInformation("Llit esborrat exitosament.");
             return NoContent();
 
         }
@@ -107,17 +134,19 @@ namespace HospitalAPI.Controllers
         public async Task<IActionResult> UpdateLlit(int id, [FromBody] LlitDTO userLlitDTO)
         {
 
-            if (userLlitDTO == null || id != userLlitDTO.Id) return BadRequest();
+            if (userLlitDTO == null || id != userLlitDTO.Id)
+            {
+                _logger.LogError("Error: no existeix el llit amb l'ID indicat.");
+                return NotFound("Error: no existeix el llit amb l'ID indicat.");
+            }
 
             Llit llit = _mapper.Map<Llit>(userLlitDTO);
 
             _bbdd.Llits.Update(llit);
             await _bbdd.SaveChangesAsync();
 
+            _logger.LogInformation("Llit modificat exitosament.");
             return NoContent();
-
-
         }
-
     }
 }

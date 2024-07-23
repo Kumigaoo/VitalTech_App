@@ -47,17 +47,19 @@ namespace HospitalAPI.Controllers
         {
             if (id <= 0)
             {
-                _logger.LogError("Error, format de ID incorrect.");
-                return BadRequest();
+                _logger.LogError("Error, format de ID incorrecte.");
+                return BadRequest("Error, format de ID incorrecte.");
             } 
         
             var e = await _bbdd.EpisodisMedics.FirstOrDefaultAsync(h => h.Id == id);
 
             if (e == null)
             {
-                _logger.LogError("Error, no existeix el episodi amb el ID " + id);
-                return NotFound(e);
+                _logger.LogError("Error, no existeix el episodi amb el ID " + id + ".");
+                return NotFound("Error, no existeix el episodi amb el ID indicat.");
             }
+
+            _logger.LogInformation("Episodi recuperat exitosament.");
             return Ok(_mapper.Map<EpisodiMedicDTO>(e));
         }
 
@@ -67,11 +69,19 @@ namespace HospitalAPI.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<EpisodiMedicCreateDTO>> PostHabitacio([FromBody] EpisodiMedicCreateDTO userEpiDTO)
         {
-            if (!ModelState.IsValid) return BadRequest(ModelState);
+            if (!ModelState.IsValid)
+            {
+                _logger.LogError("Error: dades introduïdes incorrectes.");
+                return BadRequest(ModelState);
+            }
 
             var pacient = await _bbdd.Pacients.FindAsync(userEpiDTO.PacientId);
 
-            if (pacient == null) return BadRequest("El PacientId proporcionat no existeix.");
+            if (pacient == null)
+            {
+                _logger.LogError("Error: el ID de pacient proporcionat no existeix.");
+                return BadRequest("Error: el ID de pacient proporcionat no existeix.");
+            }
 
             EpisodiMedic episodi = _mapper.Map<EpisodiMedic>(userEpiDTO);
             episodi.PacientId = pacient.Id;
@@ -79,6 +89,7 @@ namespace HospitalAPI.Controllers
             await _bbdd.EpisodisMedics.AddAsync(episodi);
             await _bbdd.SaveChangesAsync();
 
+            _logger.LogInformation("Episodi creat exitosament.");
             return CreatedAtRoute("GetEpi", _mapper.Map<EpisodiMedicCreateDTO>(episodi));
 
         }
@@ -100,15 +111,15 @@ namespace HospitalAPI.Controllers
 
             if (epi == null)
             {
-                _logger.LogError("Error: no existeix l'episodi mèdit amb l'id indicado.");
-                return NotFound();
+                _logger.LogError("Error: no existeix l'episodi mèdic amb l'id indicat.");
+                return NotFound("Error: no existeix l'episodi mèdic amb l'id indicat.");
             }
             
 
             _bbdd.EpisodisMedics.Remove(epi);
             await _bbdd.SaveChangesAsync();
 
-            _logger.LogInformation("Esborrat amb èxit.");
+            _logger.LogInformation("Episodi esborrat amb èxit.");
             return NoContent();
 
         }
@@ -122,7 +133,7 @@ namespace HospitalAPI.Controllers
             if (userEpiDTO == null || id != userEpiDTO.Id)
             {
                 _logger.LogInformation("Error: no existe el ID indicado.");
-                return BadRequest();
+                return BadRequest("Error: no existe el ID indicado.");
             }
             
             EpisodiMedic episodi = _mapper.Map<EpisodiMedic>(userEpiDTO);
