@@ -1,1 +1,73 @@
-<p>registro works!</p>
+<div class="container">
+    <h2>Formulario de Registro</h2>
+    <form action="/submit" method="post">
+        <div class= "identificador">
+            <div class = "capzalera1">
+                <label for="name">Nombre:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+
+            <div class = "capzalera2">
+                <label for="lastName1">Pr. apellido:</label>
+                <input type="text" id="lastName1" name="lastName1" required>
+            </div>
+
+            <div class="capzalera3">
+                <label for="lastName2">Sg. apellido:</label>
+                <input type="text" id="lastName2" name="lastName2">
+
+            </div>
+            <div class = "capzalera4">
+                <label for="dni">DNI:</label> 
+                <input type="text" id="dni" name="dni" required>
+            </div>
+        </div>
+        <div class = "ubicacion">
+            <div class = "capzalera1">
+                <label for="date">Fecha de nacimiento:</label>
+                <input type="text" id="date" name="date" required>
+            </div>
+            <div class = "capzalera2">
+                <label for="direccion">Dirección:</label>
+                <input type="text" id="direccion" name="direccion" required>
+            </div>
+            <div class="capzalera3">
+                <label for="codigoPostal">Código postal:</label>
+                <input type="text" id="codigoPostal" name="codigoPostal" required>
+            </div>
+
+        </div>
+        <div class = "comunicarse">
+            <div class = "capzalera1">
+                <label for="sexo">Sexo:</label>
+                <select id="selecionSexe" name="selecionSexe">
+                    <option value="bed1">Femenino</option>
+                    <option value="bed2">Masculino</option>
+                </select>
+            </div>
+                
+            <div class = "capzalera2">
+                <label for="telf">Télefono:</label>
+                <input type="text" id="telf" name="telf" required>
+
+            </div>
+            <div class="capzalera3">
+                <label for="email">Correo Electrónico:</label>
+                <input type="text" id="email" name="email" required>
+            </div>
+        </div>
+        <div class = "masInfo">
+            <div class="capzalera1">
+                <label for="SS">Número de la SS:</label>
+                <input type="text" id="SS" name="SS" required>
+            </div>
+        </div>
+        <div class="consulta">
+            <div class="capzalera1">
+                <label for="consulta">Consulta médica:</label>
+                <textarea id="consulta" name="consulta" class="textarea-doble-linea" rows="2" required></textarea>
+            </div>
+        </div>
+        <button type="submit">Registrar</button>
+    </form>
+</div>
