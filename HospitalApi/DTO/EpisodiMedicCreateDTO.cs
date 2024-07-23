@@ -1,4 +1,6 @@
-﻿namespace HospitalApi.DTO
+﻿using HospitalAPI.Models;
+
+namespace HospitalApi.DTO
 {
     public class EpisodiMedicCreateDTO
     {

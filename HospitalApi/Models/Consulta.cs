@@ -20,13 +20,17 @@ namespace HospitalAPI.Models
         public int PacientId { get; set; }
         public Pacient Pacient { get; set; }
 
-        [ForeignKey("MetgeId")]
-        public int MetgeId { get; set; }
-        public Metge Metge { get; set; }
+        [ForeignKey("PersonalId")]
+        public int PersonalId { get; set; }
+        public Personal Personal { get; set; }
 
         [ForeignKey("EpisodiMedicId")]
         public int EpisodiMedicId { get; set; }
         public EpisodiMedic EpisodiMedic { get; set; }
 
+        public static implicit operator Consulta?(Consulta? v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

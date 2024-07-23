@@ -15,7 +15,7 @@ namespace HospitalApi.Data
         public DbSet<Habitacio> Habitacions { get; set; }
         public DbSet<Ingres> Ingressos { get; set; }
         public DbSet<Llit> Llits { get; set; }
-        public DbSet<Metge> Metges { get; set; }
+        public DbSet<Personal> Personals { get; set; }
         public DbSet<Pacient> Pacients { get; set; }
         public DbSet<Planta> Plantes { get; set; }
         public DbSet<User> Users { get; set; }
@@ -65,9 +65,9 @@ namespace HospitalApi.Data
             .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Consulta>()
-            .HasOne(c => c.Metge)
+            .HasOne(c => c.Personal)
             .WithMany(p => p.Consultes)
-            .HasForeignKey(c => c.MetgeId)
+            .HasForeignKey(c => c.PersonalId)
             .OnDelete(DeleteBehavior.Restrict);
 
             base.OnModelCreating(modelBuilder);
