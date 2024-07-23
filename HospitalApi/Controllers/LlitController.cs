@@ -46,8 +46,8 @@ namespace HospitalAPI.Controllers
 
             if (id <= 0)
             {
-                _logger.LogError("Error: dades introduÔdes amb format incorrecte.");
-                return BadRequest("Error: dades introduÔdes amb format incorrecte.");
+                _logger.LogError("Error: dades introduÔøΩdes amb format incorrecte.");
+                return BadRequest("Error: dades introduÔøΩdes amb format incorrecte.");
             }
 
             var llit = await _bbdd.Llits.FirstOrDefaultAsync(h => h.Id == id);
@@ -72,17 +72,22 @@ namespace HospitalAPI.Controllers
 
             if (userLlitDTO == null)
             {
-                _logger.LogError("Error: dades introduÔdes incorrectes.");
+                _logger.LogError("Error: dades introduÔøΩdes incorrectes.");
                 return BadRequest(userLlitDTO);
             }
 
-            var habitacio = await _bbdd.Plantes.FindAsync(userLlitDTO.HabitacioId);
+            var habitacio = await _bbdd.Habitacions.FindAsync(userLlitDTO.HabitacioId);
 
             if (habitacio == null)
             {
-                _logger.LogError("Error: no existeix la habitaciÛ amb l'ID indicat.");
-                return BadRequest("Error: no existeix la habitaciÛ amb l'ID indicat");
+                _logger.LogError("Error: no existeix la habitaciÔøΩ amb l'ID indicat.");
+                return BadRequest("Error: no existeix la habitaciÔøΩ amb l'ID indicat");
             }
+
+            if (habitacio.Llits.Count >= habitacio.Num_llits) {
+                return BadRequest("No se pueden agregar m√°s camas a esta habitaci√≥n.");
+            }
+
 
             Llit llit = _mapper.Map<Llit>(userLlitDTO);
             llit.HabitacioId = habitacio.Id;
