@@ -73,58 +73,88 @@ namespace HospitalAPI.Controllers
             var planta = await _bbdd.Plantes.FindAsync(userHabDTO.PlantaId);
 
             if (planta == null) return BadRequest("El PlantaId proporcionado no existe.");
-                       
-            
-            string query = "SELECT COUNT(Habitacions) FROM Planta NATURAL JOIN Habitacio WHERE PlantaId = 0";
-            //var maxPlantas = await _bbdd.planta
-            //.FromSql(query, id);
-            //if (Habitacions > maxPlantas) return BadRequest("Error: no es poden afegir més habitacions, s'ha arribat al màxim de la planta.");
 
-            Habitacio habitacio = _mapper.Map<Habitacio>(userHabDTO);
-            habitacio.PlantaId = planta.Id;
+
+            try
+            {
+                SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
+
+                using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
+                {
+
+                    connection.Open();
+
+                    String sql = "SELECT name, collation_name FROM sys.databases";
+
+                    using (SqlCommand command = new SqlCommand(sql, connection))
+                    {
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                //Console.WriteLine("{0} {1}", reader.GetString(0), reader.GetString(1));
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+
+        }
+
+        //string query = "SELECT COUNT(Habitacions) FROM Planta NATURAL JOIN Habitacio WHERE PlantaId = 0";
+        //var maxPlantas = await _bbdd.planta
+        //.FromSql(query, id);
+        //if (Habitacions > maxPlantas) return BadRequest("Error: no es poden afegir més habitacions, s'ha arribat al màxim de la planta.");
+
+        Habitacio habitacio = _mapper.Map<Habitacio>(userHabDTO);
+        habitacio.PlantaId = planta.Id;
 
             await _bbdd.Habitacions.AddAsync(habitacio);
-            await _bbdd.SaveChangesAsync();
+        await _bbdd.SaveChangesAsync();
 
             return CreatedAtRoute("GetHab", _mapper.Map<HabitacioCreateDTO>(habitacio));
 
-        }
-
-        [HttpDelete("id")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> DeleteHabitacio(int id)
-        {
-            if (id == 0) return BadRequest(ModelState);
-
-            var hab = await _bbdd.Habitacions.FirstOrDefaultAsync(h => h.Id == id);
-
-            if (hab == null) return NotFound();
-
-            _bbdd.Habitacions.Remove(hab);
-            await _bbdd.SaveChangesAsync();
-
-            return NoContent();
-
-        }
-
-        [HttpPut("id")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> UpdateHabitacio(int id, [FromBody] HabitacioDTO userHabDTO)
-        {
-
-            if (userHabDTO == null || id != userHabDTO.Id) return BadRequest();
-
-            Habitacio habitacio = _mapper.Map<Habitacio>(userHabDTO);
-
-            _bbdd.Habitacions.Update(habitacio);
-            await _bbdd.SaveChangesAsync();
-            
-
-            return NoContent();
-
-        }
     }
+
+    [HttpDelete("id")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> DeleteHabitacio(int id)
+    {
+        if (id == 0) return BadRequest(ModelState);
+
+        var hab = await _bbdd.Habitacions.FirstOrDefaultAsync(h => h.Id == id);
+
+        if (hab == null) return NotFound();
+
+        _bbdd.Habitacions.Remove(hab);
+        await _bbdd.SaveChangesAsync();
+
+        return NoContent();
+
+    }
+
+    [HttpPut("id")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> UpdateHabitacio(int id, [FromBody] HabitacioDTO userHabDTO)
+    {
+
+        if (userHabDTO == null || id != userHabDTO.Id) return BadRequest();
+
+        Habitacio habitacio = _mapper.Map<Habitacio>(userHabDTO);
+
+        _bbdd.Habitacions.Update(habitacio);
+        await _bbdd.SaveChangesAsync();
+
+
+        return NoContent();
+
+    }
+}
 }
