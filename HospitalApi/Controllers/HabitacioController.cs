@@ -85,39 +85,6 @@ namespace HospitalAPI.Controllers
                 return NotFound("Error: no existeix la planta indicada.");
             }
 
-            try
-            {
-                SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
-
-                using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
-                {
-
-                    builder.DataSource = "<your_server.database.windows.net>";
-                    //builder.UserID = "<your_username>";
-                    //builder.Password = "<your_password>";
-                    builder.InitialCatalog = "<your_database>";
-
-                    connection.Open();
-
-                    String sql = "SELECT name, collation_name FROM sys.databases";
-
-                    using (SqlCommand command = new SqlCommand(sql, connection))
-                    {
-                        using (SqlDataReader reader = command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                //Console.WriteLine("{0} {1}", reader.GetString(0), reader.GetString(1));
-                            }
-                        }
-                    }
-                }
-            }
-            catch (SqlException e)
-            {
-                Console.WriteLine(e.ToString());
-            }
-
             //string query = "SELECT COUNT(Habitacions) FROM Planta NATURAL JOIN Habitacio WHERE PlantaId = 0";
             //var maxPlantas = await _bbdd.planta
             //.FromSql(query, id);

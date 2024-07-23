@@ -28,11 +28,9 @@ namespace HospitalAPI.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<PlantaDTO>>> GetPlantes()
         {
-
             _logger.LogInformation("Obtenint les habitacions");
             IEnumerable<Planta> plantaList = await _bbdd.Plantes.Include("Habitacions").ToListAsync();
             return Ok(_mapper.Map<IEnumerable<PlantaDTO>>(plantaList));
-
         }
 
         [HttpGet("id", Name = "GetPlanta")]
