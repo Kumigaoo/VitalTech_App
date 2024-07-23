@@ -31,7 +31,7 @@ namespace HospitalAPI.Controllers
         public async Task<ActionResult<IEnumerable<EpisodiMedicDTO>>> GetEpisodisMedics()
         {
 
-            _logger.LogInformation("Obtenint els episodis medics");
+            _logger.LogInformation("Obtenint els episodis mèdics");
 
             IEnumerable<EpisodiMedic> eList = await _bbdd.EpisodisMedics.Include("Pacient").Include("Consultes").Include("Ingressos").ToListAsync();
 
@@ -47,7 +47,7 @@ namespace HospitalAPI.Controllers
         {
             if (id <= 0)
             {
-                _logger.LogError("Error, formato de ID incorrecto.");
+                _logger.LogError("Error, format de ID incorrect.");
                 return BadRequest();
             } 
         
@@ -71,7 +71,7 @@ namespace HospitalAPI.Controllers
 
             var pacient = await _bbdd.Pacients.FindAsync(userEpiDTO.PacientId);
 
-            if (pacient == null) return BadRequest("El PacientId proporcionado no existe.");
+            if (pacient == null) return BadRequest("El PacientId proporcionat no existeix.");
 
             EpisodiMedic episodi = _mapper.Map<EpisodiMedic>(userEpiDTO);
             episodi.PacientId = pacient.Id;
@@ -92,7 +92,7 @@ namespace HospitalAPI.Controllers
 
             if (id <= 0)
             {
-                _logger.LogError("Error: formato de id incorrecto.");
+                _logger.LogError("Error: format de id incorrecte.");
                 return BadRequest(ModelState);
             }
 
@@ -134,6 +134,5 @@ namespace HospitalAPI.Controllers
             return NoContent();
 
         }
-
     }
 }

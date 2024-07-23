@@ -45,16 +45,20 @@ namespace HospitalAPI.Controllers
         public async Task<ActionResult<IngresDTO>> GetIngres(int id)
         {
 
-            if (id == 0)
+            if (id <= 0)
             {
-                _logger.LogError("Error, no existeix el ingres amb el id " + id);
+                _logger.LogError("Error: format de ID incorrecte.");
                 return BadRequest();
             }
 
             var ingres = await _bbdd.Ingressos.FirstOrDefaultAsync(h => h.Id == id);
 
-            if (ingres == null) return NotFound();
 
+            if (ingres == null)
+             { 
+                return NotFound();
+                _logger.LogInformation("Error: no existeix l'ID indicat.");
+            }
             return Ok(_mapper.Map<IngresDTO>(ingres));
 
         }
@@ -67,13 +71,11 @@ namespace HospitalAPI.Controllers
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            if (userIngresDTO == null) return BadRequest(userIngresDTO);
-
             var llit = await _bbdd.Ingressos.FindAsync(userIngresDTO.LlitId);
             var episodi = await _bbdd.Ingressos.FindAsync(userIngresDTO.EpisodiMedicId);
 
-            if (llit == null) return BadRequest("El LlitId proporcionado no existe.");
-            if (episodi == null) return BadRequest("El EpisodiMedicId proporcionado no existe.");
+            if (llit == null) return BadRequest("El LlitId proporcionat no existeix.");
+            if (episodi == null) return BadRequest("El EpisodiMedicId proporcionat no existeix.");
 
             Ingres ingres = _mapper.Map<Ingres>(userIngresDTO);
             ingres.LlitId = llit.Id;
@@ -92,15 +94,27 @@ namespace HospitalAPI.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> DeleteIngres(int id)
         {
-            if (id == 0) return BadRequest(ModelState);
+
+            if (id <= 0)
+            {
+                _logger.LogError("Error: format de dades introduïdes incorrecte.");
+                return BadRequest(ModelState);
+            }
 
             var ingres = await _bbdd.Ingressos.FirstOrDefaultAsync(h => h.Id == id);
 
-            if (ingres == null) return NotFound();
+
+            if (ingres == null)
+             {
+                  _logger.LogError("Error: ingrés indicat no trobat.");
+                    return NotFound();
+             }
+
 
             _bbdd.Ingressos.Remove(ingres);
             await _bbdd.SaveChangesAsync();
 
+            _logger.LogInformation("Ingrés esborrat exitosament.");
             return NoContent();
 
         }
@@ -111,19 +125,19 @@ namespace HospitalAPI.Controllers
         public async Task<IActionResult> UpdateIngres(int id, [FromBody] IngresDTO userIngresDTO)
         {
 
-            if (userIngresDTO == null || id != userIngresDTO.Id) return BadRequest();
+            if (userIngresDTO.Id == null){
+                    _logger.LogError("Error: Id indicat no trobat.");
+                    return BadRequest();
+            }
 
             Ingres ingres = _mapper.Map<Ingres>(userIngresDTO);
 
             _bbdd.Ingressos.Update(ingres);
             await _bbdd.SaveChangesAsync();
 
+            _logger.LogInformation("Modificació efectuada correctament.");
             return NoContent();
 
-
         }
-
-
-
     }
 }
