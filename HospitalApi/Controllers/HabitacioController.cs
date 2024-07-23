@@ -4,6 +4,7 @@ using HospitalAPI.DTO;
 using HospitalAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Data.SqlClient;
 
 namespace HospitalAPI.Controllers
 {
@@ -82,6 +83,11 @@ namespace HospitalAPI.Controllers
                 using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
                 {
 
+                    builder.DataSource = "<your_server.database.windows.net>";
+                    builder.UserID = "<your_username>";
+                    builder.Password = "<your_password>";
+                    builder.InitialCatalog = "<your_database>";
+
                     connection.Open();
 
                     String sql = "SELECT name, collation_name FROM sys.databases";
@@ -103,58 +109,56 @@ namespace HospitalAPI.Controllers
                 Console.WriteLine(e.ToString());
             }
 
-        }
+            //string query = "SELECT COUNT(Habitacions) FROM Planta NATURAL JOIN Habitacio WHERE PlantaId = 0";
+            //var maxPlantas = await _bbdd.planta
+            //.FromSql(query, id);
+            //if (Habitacions > maxPlantas) return BadRequest("Error: no es poden afegir més habitacions, s'ha arribat al màxim de la planta.");
 
-        //string query = "SELECT COUNT(Habitacions) FROM Planta NATURAL JOIN Habitacio WHERE PlantaId = 0";
-        //var maxPlantas = await _bbdd.planta
-        //.FromSql(query, id);
-        //if (Habitacions > maxPlantas) return BadRequest("Error: no es poden afegir més habitacions, s'ha arribat al màxim de la planta.");
-
-        Habitacio habitacio = _mapper.Map<Habitacio>(userHabDTO);
-        habitacio.PlantaId = planta.Id;
+            Habitacio habitacio = _mapper.Map<Habitacio>(userHabDTO);
+            habitacio.PlantaId = planta.Id;
 
             await _bbdd.Habitacions.AddAsync(habitacio);
-        await _bbdd.SaveChangesAsync();
+            await _bbdd.SaveChangesAsync();
 
             return CreatedAtRoute("GetHab", _mapper.Map<HabitacioCreateDTO>(habitacio));
 
+        }
+
+        [HttpDelete("id")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> DeleteHabitacio(int id)
+        {
+            if (id == 0) return BadRequest(ModelState);
+
+            var hab = await _bbdd.Habitacions.FirstOrDefaultAsync(h => h.Id == id);
+
+            if (hab == null) return NotFound();
+
+            _bbdd.Habitacions.Remove(hab);
+            await _bbdd.SaveChangesAsync();
+
+            return NoContent();
+
+        }
+
+        [HttpPut("id")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> UpdateHabitacio(int id, [FromBody] HabitacioDTO userHabDTO)
+        {
+
+            if (userHabDTO == null || id != userHabDTO.Id) return BadRequest();
+
+            Habitacio habitacio = _mapper.Map<Habitacio>(userHabDTO);
+
+            _bbdd.Habitacions.Update(habitacio);
+            await _bbdd.SaveChangesAsync();
+
+
+            return NoContent();
+
+        }
     }
-
-    [HttpDelete("id")]
-    [ProducesResponseType(StatusCodes.Status204NoContent)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> DeleteHabitacio(int id)
-    {
-        if (id == 0) return BadRequest(ModelState);
-
-        var hab = await _bbdd.Habitacions.FirstOrDefaultAsync(h => h.Id == id);
-
-        if (hab == null) return NotFound();
-
-        _bbdd.Habitacions.Remove(hab);
-        await _bbdd.SaveChangesAsync();
-
-        return NoContent();
-
-    }
-
-    [HttpPut("id")]
-    [ProducesResponseType(StatusCodes.Status204NoContent)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> UpdateHabitacio(int id, [FromBody] HabitacioDTO userHabDTO)
-    {
-
-        if (userHabDTO == null || id != userHabDTO.Id) return BadRequest();
-
-        Habitacio habitacio = _mapper.Map<Habitacio>(userHabDTO);
-
-        _bbdd.Habitacions.Update(habitacio);
-        await _bbdd.SaveChangesAsync();
-
-
-        return NoContent();
-
-    }
-}
 }
