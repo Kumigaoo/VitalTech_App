@@ -47,15 +47,19 @@ namespace HospitalAPI.Controllers
         public async Task<ActionResult<HabitacioDTO>> GetHabitacio(int id)
         {
 
-            if (id == 0)
+            if (id <= 0)
             {
-                _logger.LogError("Error, no existeix el pacient amb el id " + id);
-                return BadRequest();
+                _logger.LogError("Error: dades introduïdes en format incorrecte.");
+                return BadRequest("Error: dades introduïdes en format incorrecte.");
             }
 
             var pacient = await _bbdd.Pacients.FirstOrDefaultAsync(h => h.Id == id);
 
-            if (pacient == null) return NotFound();
+            if (pacient == null)
+            {
+                _logger.LogError("Error, no existeix el pacient amb el id indicat.");
+                return NotFound("Error, no existeix el pacient amb el id indicat.");
+            }
 
             return Ok(_mapper.Map<PacientDTO>(pacient));
 
@@ -69,14 +73,18 @@ namespace HospitalAPI.Controllers
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            if (userPacientDTO == null) return BadRequest(userPacientDTO);
+            if (userPacientDTO == null)
+            {
+                _logger.LogError("Error: dades introduïdes incorrectes.");
+                return BadRequest("Error: dades introduïdes incorrectes.");
+            }
 
             Pacient pacient = _mapper.Map<Pacient>(userPacientDTO);
             
-
             await _bbdd.Pacients.AddAsync(pacient);
             await _bbdd.SaveChangesAsync();
 
+            _logger.LogInformation("Pacient afegit exitosament.");
             return CreatedAtRoute("GetPacient", _mapper.Map<PacientCreateDTO>(pacient));
 
         }
@@ -91,11 +99,16 @@ namespace HospitalAPI.Controllers
 
             var pacient = await _bbdd.Pacients.FirstOrDefaultAsync(h => h.Id == id);
 
-            if (pacient == null) return NotFound();
+            if (pacient == null)
+            {
+                _logger.LogError("Error: no existeix pacient amb l'ID indicat.");
+                return NotFound("Error: no existeix pacient amb l'ID indicat.");
+            }
 
             _bbdd.Pacients.Remove(pacient);
             await _bbdd.SaveChangesAsync();
 
+            _logger.LogInformation("Pacient eliminat exitosament.");
             return NoContent();
 
         }
@@ -106,19 +119,20 @@ namespace HospitalAPI.Controllers
         public async Task<IActionResult> UpdatePacient(int id, [FromBody] PacientDTO userPacientDTO)
         {
 
-            if (userPacientDTO == null || id != userPacientDTO.Id) return BadRequest();
+            if (userPacientDTO == null || id != userPacientDTO.Id)
+            {
+                _logger.LogError("Error: no existeix pacient amb l'ID indicat o les dades introduïdes són incorrectes.");
+                return BadRequest("Error: no existeix pacient amb l'ID indicat o les dades introduïdes són incorrectes.");
+            }
 
             Pacient pacient = _mapper.Map<Pacient>(userPacientDTO);
 
             _bbdd.Pacients.Update(pacient);
             await _bbdd.SaveChangesAsync();
 
+            _logger.LogInformation("Pacient modificat exitosament.");
             return NoContent();
 
-
         }
-
-
-
     }
 }
