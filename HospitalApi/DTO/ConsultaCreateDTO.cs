@@ -1,6 +1,6 @@
 ﻿namespace HospitalAPI.DTO
 {
-    public class ConsultaCreateDTO
+    public class PersonalCreateDTO
     {
 
         public bool Urgencia { get; set; }

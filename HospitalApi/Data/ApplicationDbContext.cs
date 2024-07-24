@@ -12,7 +12,7 @@ namespace HospitalApi.Data
         {
         }
 
-        public DbSet<Consulta> Consultes { get; set; }
+        public DbSet<Personal> Consultes { get; set; }
         public DbSet<EpisodiMedic> EpisodisMedics { get; set; }
         public DbSet<Habitacio> Habitacions { get; set; }
         public DbSet<Ingres> Ingressos { get; set; }
@@ -54,19 +54,19 @@ namespace HospitalApi.Data
             .HasForeignKey(h => h.PacientId)
             .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<Consulta>()
+            modelBuilder.Entity<Personal>()
             .HasOne(c => c.Pacient)
             .WithMany(p => p.Consultes)
             .HasForeignKey(c => c.PacientId)
             .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<Consulta>()
+            modelBuilder.Entity<Personal>()
             .HasOne(c => c.EpisodiMedic)
             .WithMany(p => p.Consultes)
             .HasForeignKey(c => c.EpisodiMedicId)
             .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<Consulta>()
+            modelBuilder.Entity<Personal>()
             .HasOne(c => c.Personal)
             .WithMany(p => p.Consultes)
             .HasForeignKey(c => c.PersonalId)

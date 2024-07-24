@@ -15,7 +15,7 @@ namespace HospitalAPI.DTO
 
         public string Sexe { get; set; }
 
-        public ICollection<Consulta> Consultes { get; set; }
+        public ICollection<Personal> Consultes { get; set; }
 
         public ICollection<EpisodiMedic> EpisodisMedics { get; set; }
 

@@ -1,6 +1,6 @@
 ﻿namespace HospitalAPI.DTO
 {
-    public class ConsultaDTO
+    public class PersonalDTO
     {
         public int Id { get; set; }
 

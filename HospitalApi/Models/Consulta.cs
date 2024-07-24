@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HospitalAPI.Models
 {
-    public class Consulta
+    public class Personal
     {
         [Key]
         public int Id { get; set; }
@@ -28,7 +28,7 @@ namespace HospitalAPI.Models
         public int EpisodiMedicId { get; set; }
         public EpisodiMedic EpisodiMedic { get; set; }
 
-        public static implicit operator Consulta?(Consulta? v)
+        public static implicit operator Personal?(Personal? v)
         {
             throw new NotImplementedException();
         }

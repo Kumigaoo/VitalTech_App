@@ -10,6 +10,6 @@
 
         public string Nom { get; set; }
 
-        public ICollection<Consulta> Consultes { get; set; }
+        public ICollection<Personal> Consultes { get; set; }
     }
 }
