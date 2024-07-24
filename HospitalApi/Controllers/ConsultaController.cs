@@ -147,10 +147,8 @@ namespace HospitalAPI.Controllers
         [HttpPatch("{id:int}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> UpdateParcialConsulta(
-            int id,
-            JsonPatchDocument<ConsultaDTO> patchDto
-        )
+
+        public async Task<IActionResult> UpdateParcialConsulta(int id,JsonPatchDocument<ConsultaDTO> patchDto)
         {
             if (patchDto == null || id <= 0)
             {
