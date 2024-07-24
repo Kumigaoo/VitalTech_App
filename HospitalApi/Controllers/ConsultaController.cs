@@ -94,7 +94,7 @@ namespace HospitalAPI.Controllers
             Consulta consulta = _mapper.Map<Consulta>(userConDTO);
             consulta.PacientId = pacient.Id;
             consulta.PersonalId = personal.Id;
-            consulta.EpisodiMedic = episodi.Id;
+            consulta.EpisodiMedicId = episodi.Id;
 
             await _bbdd.Consultes.AddAsync(consulta);
             await _bbdd.SaveChangesAsync();
@@ -114,7 +114,7 @@ namespace HospitalAPI.Controllers
                 return BadRequest();
             }
 
-            var consulta = await _bbdd.Consultes.FirstOrDefaultAsync(h => h.Id = id);
+            var consulta = await _bbdd.Consultes.FirstOrDefaultAsync(h => h.Id == id);
 
             if (consulta == null)
             {
