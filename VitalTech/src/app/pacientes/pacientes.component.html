@@ -23,7 +23,7 @@
             <button id="registrarse"><a routerLink="/registro"> + Registrar paciente</a></button>
         </div>
     </div>
-   
+    
 </div>
 <div class ="texto">
     <p>Lista de Pacientes</p>
@@ -83,6 +83,15 @@
     </div>
 </div>
 
-    <p class="footer">&copy; 2024 Dream Team. Todos los derechos reservados.</p>
+<script>
+    const btn = document.getElementById('registrarse');
+    const contenido = document.getElementById('container');
 
-<script src="../../../js/script.js"></script>
+    btn.addEventListener('click', () => {
+            
+            if (contenido.style.display === 'none' || contenido.style.display === '') {
+                contenido.style.display = 'block';
+                btn.style.display ='none';
+            }
+        });
+</script>

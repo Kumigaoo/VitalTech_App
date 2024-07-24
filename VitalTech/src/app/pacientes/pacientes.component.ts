@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterLinkActive, RouterLink } from '@angular/router';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-pacientes',
@@ -9,5 +10,4 @@ import { RouterLinkActive, RouterLink } from '@angular/router';
   styleUrl: './pacientes.component.css'
 })
 export class PacientesComponent {
-
 }
