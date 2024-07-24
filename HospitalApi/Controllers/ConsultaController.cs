@@ -2,12 +2,11 @@ using AutoMapper;
 using HospitalApi.Data;
 using HospitalAPI.DTO;
 using HospitalAPI.Models;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.Elfie.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
-using Microsoft.AspNetCore.JsonPatch;
-
 
 namespace HospitalAPI.Controllers
 {
@@ -148,8 +147,10 @@ namespace HospitalAPI.Controllers
         [HttpPatch("{id:int}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-
-        public async Task<IActionResult> UpdateParcialConsulta(int id, JsonPatchDocument<ConsultaDTO> patchDto)
+        public async Task<IActionResult> UpdateParcialConsulta(
+            int id,
+            JsonPatchDocument<ConsultaDTO> patchDto
+        )
         {
             if (patchDto == null || id <= 0)
             {
@@ -168,15 +169,13 @@ namespace HospitalAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            Consulta modelo = _mapper.Map <Consulta>(consultadto);
+            Consulta modelo = _mapper.Map<Consulta>(consultadto);
 
             _bbdd.Update(modelo);
             await _bbdd.SaveChangesAsync();
 
             _logger.LogInformation("Consulta actualitzada.");
             return NoContent();
-
         }
-
     }
 }

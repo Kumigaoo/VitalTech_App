@@ -32,13 +32,9 @@ namespace HospitalAPI.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<PersonalDTO>>> GetPersonals()
         {
-            _logger.LogInformation("Obteint les consultes");
+            _logger.LogInformation("Obteint el personal");
 
-            IEnumerable<Personal> perList = await _bbdd
-                .Consultes.Include("Personal")
-                .Include("Pacient")
-                .Include("EpisodiMedic")
-                .ToListAsync();
+            IEnumerable<Personal> perList = await _bbdd.Personals.ToListAsync();
 
             return Ok(_mapper.Map<IEnumerable<PersonalDTO>>(perList));
         }
@@ -55,14 +51,14 @@ namespace HospitalAPI.Controllers
                 return BadRequest();
             }
 
-            var con = await _bbdd.Consultes.FirstOrDefaultAsync(h => h.Id == id);
+            var per = await _bbdd.Consultes.FirstOrDefaultAsync(h => h.Id == id);
 
-            if (con == null)
+            if (per == null)
             {
                 _logger.LogError("No existe Personal con el ID: " + id);
-                return NotFound(con);
+                return NotFound(per);
             }
-            return Ok(_mapper.Map<PersonalDTO>(con));
+            return Ok(_mapper.Map<PersonalDTO>(per));
         }
 
         [HttpPost]
@@ -76,27 +72,9 @@ namespace HospitalAPI.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var pacient = await _bbdd.Consultes.FindAsync(userPerDTO.PacientId);
-
-            if (pacient == null)
-                return BadRequest("No existe ningún paciente con el id proporcionado.");
-
-            var personal = await _bbdd.Consultes.FindAsync(userPerDTO.PersonalId);
-
-            if (personal == null)
-                return BadRequest("No esxiste ningún médico con el id proporcionado.");
-
-            var episodi = await _bbdd.Consultes.FindAsync(userPerDTO.EpisodiMedicId);
-
-            if (episodi == null)
-                return BadRequest("No existe ningún episodio médico con el id proporcionado.");
-
             Personal personal = _mapper.Map<Personal>(userPerDTO);
-            personal.PacientId = pacient.Id;
-            personal.PersonalId = personal.Id;
-            personal.EpisodiMedicId = episodi.Id;
 
-            await _bbdd.Consultes.AddAsync(personal);
+            await _bbdd.Personals.AddAsync(personal);
             await _bbdd.SaveChangesAsync();
 
             return CreatedAtRoute("GetPer", _mapper.Map<PersonalCreateDTO>(personal));
@@ -114,7 +92,7 @@ namespace HospitalAPI.Controllers
                 return BadRequest();
             }
 
-            var personal = await _bbdd.Consultes.FirstOrDefaultAsync(h => h.Id == id);
+            var personal = await _bbdd.Personals.FirstOrDefaultAsync(h => h.Id == id);
 
             if (personal == null)
             {
@@ -122,7 +100,7 @@ namespace HospitalAPI.Controllers
                 return NotFound();
             }
 
-            _bbdd.Consultes.Remove(personal);
+            _bbdd.Personals.Remove(personal);
             await _bbdd.SaveChangesAsync();
 
             _logger.LogInformation("Personal borrado exitosamente");
@@ -138,7 +116,7 @@ namespace HospitalAPI.Controllers
                 return BadRequest();
             Personal personal = _mapper.Map<Personal>(userPerDTO);
 
-            _bbdd.Cosultes.Update(personal);
+            _bbdd.Personals.Update(personal);
             await _bbdd.SaveChangesAsync();
             return NoContent();
         }
