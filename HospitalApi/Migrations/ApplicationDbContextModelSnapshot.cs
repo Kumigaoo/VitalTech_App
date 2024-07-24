@@ -170,8 +170,9 @@ namespace HospitalApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("NumSS")
-                        .HasColumnType("int");
+                    b.Property<string>("NumSS")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Sexe")
                         .IsRequired()

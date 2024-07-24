@@ -5,7 +5,7 @@
 
         public int Id { get; set; }
 
-        public int NumSS { get; set; }
+        public string NumSS { get; set; }
 
         public string Nom { get; set; }
 
