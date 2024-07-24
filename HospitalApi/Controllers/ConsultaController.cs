@@ -30,24 +30,24 @@ namespace HospitalAPI.Controllers
 
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<IEnumerable<PersonalDTO>>> GetConsultes()
+        public async Task<ActionResult<IEnumerable<ConsultaDTO>>> GetConsultes()
         {
             _logger.LogInformation("Obteint les consultes");
 
-            IEnumerable<Personal> conList = await _bbdd
-                .Consultes.Include("Personal")
+            IEnumerable<Consulta> conList = await _bbdd
+                .Consultes.Include("Consulta")
                 .Include("Pacient")
                 .Include("EpisodiMedic")
                 .ToListAsync();
 
-            return Ok(_mapper.Map<IEnumerable<PersonalDTO>>(conList));
+            return Ok(_mapper.Map<IEnumerable<ConsultaDTO>>(conList));
         }
 
         [HttpGet("id", Name = "GetCon")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<PersonalDTO>> GetConsulta(int id)
+        public async Task<ActionResult<ConsultaDTO>> GetConsulta(int id)
         {
             if (id <= 0)
             {
@@ -62,15 +62,15 @@ namespace HospitalAPI.Controllers
                 _logger.LogError("No existe una consulta con el ID: " + id);
                 return NotFound(con);
             }
-            return Ok(_mapper.Map<PersonalDTO>(con));
+            return Ok(_mapper.Map<ConsultaDTO>(con));
         }
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<PersonalCreateDTO>> PostConsulta(
-            [FromBody] PersonalCreateDTO userConDTO
+        public async Task<ActionResult<ConsultaCreateDTO>> PostConsulta(
+            [FromBody] ConsultaCreateDTO userConDTO
         )
         {
             if (!ModelState.IsValid)
@@ -91,7 +91,7 @@ namespace HospitalAPI.Controllers
             if (episodi == null)
                 return BadRequest("No existe ningún episodio médico con el id proporcionado.");
 
-            Personal consulta = _mapper.Map<Personal>(userConDTO);
+            Consulta consulta = _mapper.Map<Consulta>(userConDTO);
             consulta.PacientId = pacient.Id;
             consulta.PersonalId = personal.Id;
             consulta.EpisodiMedicId = episodi.Id;
@@ -99,7 +99,7 @@ namespace HospitalAPI.Controllers
             await _bbdd.Consultes.AddAsync(consulta);
             await _bbdd.SaveChangesAsync();
 
-            return CreatedAtRoute("GetCon", _mapper.Map<PersonalCreateDTO>(consulta));
+            return CreatedAtRoute("GetCon", _mapper.Map<ConsultaCreateDTO>(consulta));
         }
 
         [HttpDelete("id")]
@@ -132,11 +132,11 @@ namespace HospitalAPI.Controllers
         [HttpPut("id")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> UpdateCon(int id, [FromBody] PersonalDTO userConDTO)
+        public async Task<IActionResult> UpdateCon(int id, [FromBody] ConsultaDTO userConDTO)
         {
             if (userConDTO.Id == null || id != userConDTO.Id)
                 return BadRequest();
-            Personal consulta = _mapper.Map<Personal>(userConDTO);
+            Consulta consulta = _mapper.Map<Consulta>(userConDTO);
 
             _bbdd.Consultes.Update(consulta);
             await _bbdd.SaveChangesAsync();
