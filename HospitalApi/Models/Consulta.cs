@@ -30,6 +30,10 @@ namespace HospitalAPI.Models
         public int EpisodiMedicId { get; set; }
         public EpisodiMedic EpisodiMedic { get; set; }
 
+<<<<<<< HEAD
        
+=======
+        
+>>>>>>> 3dd8c90c7c578fe3569ea16e1b417f4d952e4544
     }
 }

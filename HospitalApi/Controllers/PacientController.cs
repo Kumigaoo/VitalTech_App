@@ -4,6 +4,7 @@ using HospitalApi.DTO;
 using HospitalAPI.DTO;
 using HospitalAPI.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.EntityFrameworkCore;
 
 namespace HospitalAPI.Controllers
@@ -131,6 +132,39 @@ namespace HospitalAPI.Controllers
             await _bbdd.SaveChangesAsync();
 
             _logger.LogInformation("Pacient modificat exitosament.");
+            return NoContent();
+
+        }
+
+        [HttpPatch("{id:int}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+
+        public async Task<IActionResult> UpdateParcialPacient(int id, JsonPatchDocument <PacientDTO> patchDto)
+        {
+            if (patchDto == null || id <= 0)
+            {
+                _logger.LogError("Error: no existeix el pacient amb el ID indicat.");
+                return BadRequest("Error: no existeix el pacient amb el ID indicat.");
+            }
+
+            var pacient = await _bbdd.Pacients.FirstOrDefaultAsync(v => v.Id == id);
+
+            PacientDTO pacientdto = _mapper.Map<PacientDTO>(pacient);
+
+            patchDto.ApplyTo(pacientdto, ModelState);
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            Pacient modelo = _mapper.Map<Pacient>(pacientdto);
+
+            _bbdd.Update(modelo);
+            await _bbdd.SaveChangesAsync();
+
+            _logger.LogInformation("Pacient actualitzat.");
             return NoContent();
 
         }

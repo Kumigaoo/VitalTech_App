@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
+using Azure;
 using HospitalApi.Data;
 using HospitalApi.DTO;
 using HospitalAPI.DTO;
 using HospitalAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace HospitalAPI.Controllers
 {
@@ -142,6 +144,39 @@ namespace HospitalAPI.Controllers
             await _bbdd.SaveChangesAsync();
 
             _logger.LogInformation("Modificació complerta amb èxit.");
+            return NoContent();
+
+        }
+
+        [HttpPatch("{id:int}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+
+        public async Task <IActionResult> UpdateParcialEpisodisMedics (int id, JsonPatchDocument <EpisodiMedicDTO> patchDto)
+        {
+            if (patchDto == null || id <= 0)
+            {
+                _logger.LogError("Error: no existeix l'episodi amb el ID indicat.");
+                return BadRequest("Error: no existeix l'episodi amb el ID indicat.");
+            }
+
+            var episodi = await _bbdd.EpisodisMedics.FirstOrDefaultAsync(v => v.Id == id);
+
+            EpisodiMedicDTO episodidto = _mapper.Map<EpisodiMedicDTO>(episodi);
+
+            patchDto.ApplyTo(episodidto, ModelState);
+                 
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+                        
+            EpisodiMedic modelo = _mapper.Map<EpisodiMedic>(episodidto);
+
+            _bbdd.Update(modelo);
+            await _bbdd.SaveChangesAsync();
+
+            _logger.LogInformation("Episodi mèdic actualitzat.");
             return NoContent();
 
         }

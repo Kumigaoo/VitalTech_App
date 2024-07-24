@@ -2,6 +2,7 @@ using AutoMapper;
 using HospitalApi.Data;
 using HospitalAPI.DTO;
 using HospitalAPI.Models;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.Elfie.Extensions;
 using Microsoft.EntityFrameworkCore;
@@ -35,7 +36,7 @@ namespace HospitalAPI.Controllers
             _logger.LogInformation("Obteint les consultes");
 
             IEnumerable<Consulta> conList = await _bbdd
-                .Consultes.Include("Personal")
+                .Consultes.Include("Consulta")
                 .Include("Pacient")
                 .Include("EpisodiMedic")
                 .ToListAsync();
@@ -140,6 +141,40 @@ namespace HospitalAPI.Controllers
 
             _bbdd.Consultes.Update(consulta);
             await _bbdd.SaveChangesAsync();
+            return NoContent();
+        }
+
+        [HttpPatch("{id:int}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> UpdateParcialConsulta(
+            int id,
+            JsonPatchDocument<ConsultaDTO> patchDto
+        )
+        {
+            if (patchDto == null || id <= 0)
+            {
+                _logger.LogError("Error: no existeix la consulta amb el ID indicat.");
+                return BadRequest("Error: no existeix la consulta amb el ID indicat.");
+            }
+
+            var consulta = await _bbdd.Consultes.FirstOrDefaultAsync(v => v.Id == id);
+
+            ConsultaDTO consultadto = _mapper.Map<ConsultaDTO>(consulta);
+
+            patchDto.ApplyTo(consultadto, ModelState);
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            Consulta modelo = _mapper.Map<Consulta>(consultadto);
+
+            _bbdd.Update(modelo);
+            await _bbdd.SaveChangesAsync();
+
+            _logger.LogInformation("Consulta actualitzada.");
             return NoContent();
         }
     }

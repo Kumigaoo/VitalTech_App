@@ -5,6 +5,7 @@ using HospitalAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Data.SqlClient;
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace HospitalAPI.Controllers
 {
@@ -86,6 +87,7 @@ namespace HospitalAPI.Controllers
                 return NotFound("Error: no existeix la planta indicada.");
             }
 
+<<<<<<< HEAD
             if (planta.Habitacions == null)
             {
                 planta.Habitacions = new List<Habitacio>();
@@ -96,6 +98,12 @@ namespace HospitalAPI.Controllers
                 _logger.LogError("No se pueden agregar más habitaciones en esta planta.");
                 return BadRequest("No se pueden agregar más habitaciones en esta planta.");
             }
+=======
+            //string query = "SELECT COUNT(Habitacions) FROM Planta NATURAL JOIN Habitacio WHERE PlantaId = 0";
+            //var maxPlantas = await _bbdd.planta
+            //.FromSql(query, id);
+            //if (Habitacions > maxPlantas) return BadRequest("Error: no es poden afegir més habitacions, s'ha arribat al màxim de la planta.");
+>>>>>>> 3dd8c90c7c578fe3569ea16e1b417f4d952e4544
 
             Habitacio habitacio = _mapper.Map<Habitacio>(userHabDTO);
             habitacio.PlantaId = planta.Id;
@@ -156,5 +164,39 @@ namespace HospitalAPI.Controllers
             return NoContent();
 
         }
+
+        [HttpPatch("{id:int}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+
+        public async Task<IActionResult> UpdateParcialHabitacio(int id, JsonPatchDocument<HabitacioDTO> patchDto)
+        {
+            if (patchDto == null || id <= 0)
+            {
+                _logger.LogError("Error: no existeix l'habitació amb el ID indicat.");
+                return BadRequest("Error: no existeix l'habitació amb el ID indicat.");
+            }
+
+            var habitacio = await _bbdd.Habitacions.FirstOrDefaultAsync(v => v.Id == id);
+
+            HabitacioDTO habitaciodto = _mapper.Map<HabitacioDTO>(habitacio);
+
+            patchDto.ApplyTo(habitaciodto, ModelState);
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            Habitacio modelo = _mapper.Map<Habitacio>(habitaciodto);
+
+            _bbdd.Update(modelo);
+            await _bbdd.SaveChangesAsync();
+
+            _logger.LogInformation("Habitació actualitzada.");
+            return NoContent();
+
+        }
+
     }
 }

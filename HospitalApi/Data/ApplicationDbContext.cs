@@ -1,8 +1,6 @@
 ﻿using HospitalAPI.Models;
 using Microsoft.EntityFrameworkCore;
 
-// Link Tuto BD: https://learn.microsoft.com/es-es/training/modules/persist-data-ef-core/
-
 namespace HospitalApi.Data
 {
     public class ApplicationDbContext : DbContext
