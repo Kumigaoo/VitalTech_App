@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
+using Azure;
 using HospitalApi.Data;
 using HospitalApi.DTO;
 using HospitalAPI.DTO;
 using HospitalAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace HospitalAPI.Controllers
 {
@@ -149,68 +151,32 @@ namespace HospitalAPI.Controllers
         [HttpPatch("{id:int}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> UpdateParcialEpisodisMedics(int id, JsonPatchDocument<EpisodiMedicDTO> patchDto)
+
+        public async Task <IActionResult> UpdateParcialEpisodisMedics (int id, JsonPatchDocument <EpisodiMedicDTO> patchDto)
         {
             if (patchDto == null || id <= 0)
             {
-                return BadRequest("Error: no existeix episodi mèdic amb l'ID indicat.");
+                _logger.LogError("Error: no existeix l'episodi amb el ID indicat.");
+                return BadRequest("Error: no existeix l'episodi amb el ID indicat.");
             }
 
-           
-            //para db (el AsNoTracking se usa para operaciones de solo lectura cuando luego se va a volver a usar el mismo registro)
-            var episodi = await _bbdd.Villas.AsNoTracking().FirstOrDefaultAsync(v => v.Id == id);
+            var episodi = await _bbdd.EpisodisMedics.FirstOrDefaultAsync(v => v.Id == id);
 
-           
-           
+            EpisodiMedicDTO episodidto = _mapper.Map<EpisodiMedicDTO>(episodi);
 
-            //con mapper: necesitamos un VillaUpdateDto, lo sacamos de "villa":
-            VillaUpdateDto villadto = _mapeador.Map<VillaUpdateDto>(villa);
-
-            //para usar el patch en el swagger, hay que poner los datos asi:
-            //[
-            //{
-            //  "path": "/nombre",  <----- cosa que queremos cambiar
-            //  "op": "replace",  <---- lo que queremos hacer 
-            //  "value": "nuevo nombre"  <--- new valor
-            //}
-            //]
-
-            //este de abajo es el patch para STORE:
-            //patchDto.ApplyTo(villa, ModelState);
-
-            //para db, es asi:
-            patchDto.ApplyTo(villadto, ModelState);
-
-
-            //Después de aplicar el parche, verifica si ModelState tiene errores de validación.
-            //Si ModelState no es válido (es decir, contiene errores), devuelve una respuesta "BadRequest"
-            //(400) con los detalles de los errores.
+            patchDto.ApplyTo(episodidto, ModelState);
+                 
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
+                        
+            EpisodiMedic modelo = _mapper.Map<EpisodiMedic>(episodidto);
 
-            //creamos 1 modelo de tipo villa llamado "modelo" y llenamos sus propiedades. al haber pasado después del apply del patchdto,
-            //esto contendrá lo que hay que modificar: tendrá las propiedades base en TODO menos en el campo modificado:
+            _bbdd.Update(modelo);
+            await _bbdd.SaveChangesAsync();
 
-            //Villa modelo = new()
-            //{
-            //    Id = villadto.Id,
-            //    Nombre = villadto.Nombre,
-            //    Detalle = villadto.Detalle,
-            //    ImagenUrl = villadto.ImagenUrl,
-            //    Ocupantes = villadto.Ocupantes,
-            //    Tarifa = villadto.Tarifa,
-            //    MetrosCuadrados = villadto.MetrosCuadrados,
-            //    Amenidad = villadto.Amenidad
-            //};
-
-            Villa modelo = _mapeador.Map<Villa>(villadto);
-
-            //usamos el metodo update de la db para updatearla:
-            _dbFer.Villas.Update(modelo);
-            await _dbFer.SaveChangesAsync();
-
+            _logger.LogInformation("Episodi mèdic actualitzat.");
             return NoContent();
 
         }

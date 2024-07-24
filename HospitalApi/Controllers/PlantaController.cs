@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using HospitalApi.Data;
 using HospitalAPI.DTO;
 using HospitalAPI.Models;
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace HospitalAPI.Controllers
 {
@@ -120,6 +121,39 @@ namespace HospitalAPI.Controllers
             await _bbdd.SaveChangesAsync();
 
             _logger.LogInformation("Planta modificada exitosament.");
+            return NoContent();
+
+        }
+
+        [HttpPatch("{id:int}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+
+        public async Task<IActionResult> UpdateParcialPlanta(int id, JsonPatchDocument<PlantaDTO> patchDto)
+        {
+            if (patchDto == null || id <= 0)
+            {
+                _logger.LogError("Error: no existeix la planta amb el ID indicat.");
+                return BadRequest("Error: no existeix la planta amb el ID indicat.");
+            }
+
+            var planta = await _bbdd.Plantes.FirstOrDefaultAsync(v => v.Id == id);
+
+            PlantaDTO plantadto = _mapper.Map<PlantaDTO>(planta);
+
+            patchDto.ApplyTo(plantadto, ModelState);
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            Planta modelo = _mapper.Map<Planta>(plantadto);
+
+            _bbdd.Update(modelo);
+            await _bbdd.SaveChangesAsync();
+
+            _logger.LogInformation("Planta actualitzada.");
             return NoContent();
 
         }

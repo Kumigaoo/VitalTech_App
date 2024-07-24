@@ -148,5 +148,7 @@ namespace HospitalAPI.Controllers
             _logger.LogInformation("Llit modificat exitosament.");
             return NoContent();
         }
+
+
     }
 }

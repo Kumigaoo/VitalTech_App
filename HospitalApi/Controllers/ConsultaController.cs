@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.Elfie.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
+using Microsoft.AspNetCore.JsonPatch;
+
 
 namespace HospitalAPI.Controllers
 {
@@ -142,5 +144,39 @@ namespace HospitalAPI.Controllers
             await _bbdd.SaveChangesAsync();
             return NoContent();
         }
+
+        [HttpPatch("{id:int}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+
+        public async Task<IActionResult> UpdateParcialConsulta(int id, JsonPatchDocument<ConsultaDTO> patchDto)
+        {
+            if (patchDto == null || id <= 0)
+            {
+                _logger.LogError("Error: no existeix la consulta amb el ID indicat.");
+                return BadRequest("Error: no existeix la consulta amb el ID indicat.");
+            }
+
+            var consulta = await _bbdd.Consultes.FirstOrDefaultAsync(v => v.Id == id);
+
+            ConsultaDTO consultadto = _mapper.Map<ConsultaDTO>(consulta);
+
+            patchDto.ApplyTo(consultadto, ModelState);
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            Consulta modelo = _mapper.Map <Consulta>(consultadto);
+
+            _bbdd.Update(modelo);
+            await _bbdd.SaveChangesAsync();
+
+            _logger.LogInformation("Consulta actualitzada.");
+            return NoContent();
+
+        }
+
     }
 }

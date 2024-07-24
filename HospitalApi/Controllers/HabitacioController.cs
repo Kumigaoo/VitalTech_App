@@ -5,6 +5,7 @@ using HospitalAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Data.SqlClient;
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace HospitalAPI.Controllers
 {
@@ -149,5 +150,39 @@ namespace HospitalAPI.Controllers
             return NoContent();
 
         }
+
+        [HttpPatch("{id:int}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+
+        public async Task<IActionResult> UpdateParcialHabitacio(int id, JsonPatchDocument<HabitacioDTO> patchDto)
+        {
+            if (patchDto == null || id <= 0)
+            {
+                _logger.LogError("Error: no existeix l'habitació amb el ID indicat.");
+                return BadRequest("Error: no existeix l'habitació amb el ID indicat.");
+            }
+
+            var habitacio = await _bbdd.Habitacions.FirstOrDefaultAsync(v => v.Id == id);
+
+            HabitacioDTO habitaciodto = _mapper.Map<HabitacioDTO>(habitacio);
+
+            patchDto.ApplyTo(habitaciodto, ModelState);
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            Habitacio modelo = _mapper.Map<Habitacio>(habitaciodto);
+
+            _bbdd.Update(modelo);
+            await _bbdd.SaveChangesAsync();
+
+            _logger.LogInformation("Habitació actualitzada.");
+            return NoContent();
+
+        }
+
     }
 }
