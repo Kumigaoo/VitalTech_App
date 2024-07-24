@@ -20,20 +20,12 @@ namespace HospitalAPI.Models
         public int PacientId { get; set; }
         public Pacient Pacient { get; set; }
 
-
         [ForeignKey("PersonalId")]
         public int PersonalId { get; set; }
         public Personal Personal { get; set; }
 
-
         [ForeignKey("EpisodiMedicId")]
         public int EpisodiMedicId { get; set; }
         public EpisodiMedic EpisodiMedic { get; set; }
-
-<<<<<<< HEAD
-       
-=======
-        
->>>>>>> 3dd8c90c7c578fe3569ea16e1b417f4d952e4544
     }
 }
