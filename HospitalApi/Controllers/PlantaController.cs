@@ -137,7 +137,7 @@ namespace HospitalAPI.Controllers
                 return BadRequest("Error: no existeix la planta amb el ID indicat.");
             }
 
-            var planta = await _bbdd.Plantes.FirstOrDefaultAsync(v => v.Id == id);
+            var planta = await _bbdd.Plantes.AsNoTracking().FirstOrDefaultAsync(v => v.Id == id);
 
             PlantaDTO plantadto = _mapper.Map<PlantaDTO>(planta);
 

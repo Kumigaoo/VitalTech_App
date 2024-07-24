@@ -177,7 +177,7 @@ namespace HospitalAPI.Controllers
                 return BadRequest("Error: no existeix l'habitació amb el ID indicat.");
             }
 
-            var habitacio = await _bbdd.Habitacions.FirstOrDefaultAsync(v => v.Id == id);
+            var habitacio = await _bbdd.Habitacions.AsNoTracking().FirstOrDefaultAsync(v => v.Id == id);
 
             HabitacioDTO habitaciodto = _mapper.Map<HabitacioDTO>(habitacio);
 

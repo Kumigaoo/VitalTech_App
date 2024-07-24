@@ -2,6 +2,7 @@ using AutoMapper;
 using HospitalApi.Data;
 using HospitalAPI.DTO;
 using HospitalAPI.Models;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -156,6 +157,38 @@ namespace HospitalAPI.Controllers
             return NoContent();
         }
 
+        [HttpPatch("{id:int}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+
+        public async Task<IActionResult> UpdateParcialLlit(int id, JsonPatchDocument<LlitDTO> patchDto)
+        {
+            if (patchDto == null || id <= 0)
+            {
+                _logger.LogError("Error: no existeix el llit amb el ID indicat.");
+                return BadRequest("Error: no existeix el llit amb el ID indicat.");
+            }
+
+            var llit = await _bbdd.Llits.FirstOrDefaultAsync(v => v.Id == id);
+
+            LlitDTO llitdto = _mapper.Map<LlitDTO>(llit);
+
+            patchDto.ApplyTo(llitdto, ModelState);
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            Llit modelo = _mapper.Map<Llit>(llitdto);
+
+            _bbdd.Update(modelo);
+            await _bbdd.SaveChangesAsync();
+
+            _logger.LogInformation("Llit actualitzat.");
+            return NoContent();
+
+        }
 
     }
 }

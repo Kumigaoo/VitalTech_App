@@ -73,6 +73,5 @@ namespace HospitalApi.Data
             base.OnModelCreating(modelBuilder);
 
         }
-
     }
 }

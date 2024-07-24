@@ -3,8 +3,8 @@ using HospitalApi.Data;
 using HospitalApi.DTO;
 using HospitalAPI.DTO;
 using HospitalAPI.Models;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace HospitalAPI.Controllers
@@ -140,7 +140,7 @@ namespace HospitalAPI.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
 
-        public async Task<IActionResult> UpdateParcialPacient(int id, JsonPatchDocument <PacientDTO> patchDto)
+        public async Task<IActionResult> UpdateParcialPacient(int id, JsonPatchDocument<PacientDTO> patchDto)
         {
             if (patchDto == null || id <= 0)
             {
@@ -168,5 +168,6 @@ namespace HospitalAPI.Controllers
             return NoContent();
 
         }
+
     }
 }

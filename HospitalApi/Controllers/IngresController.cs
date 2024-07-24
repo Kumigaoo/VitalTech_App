@@ -3,6 +3,7 @@ using HospitalApi.Data;
 using HospitalApi.DTO;
 using HospitalAPI.DTO;
 using HospitalAPI.Models;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -150,6 +151,39 @@ namespace HospitalAPI.Controllers
             await _bbdd.SaveChangesAsync();
 
             _logger.LogInformation("Modificació efectuada correctament.");
+            return NoContent();
+
+        }
+
+        [HttpPatch("{id:int}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+
+        public async Task<IActionResult> UpdateParcialIngres(int id, JsonPatchDocument<IngresDTO> patchDto)
+        {
+            if (patchDto == null || id <= 0)
+            {
+                _logger.LogError("Error: no existeix l'ingrés amb el ID indicat.");
+                return BadRequest("Error: no existeix l'ingrés amb el ID indicat.");
+            }
+
+            var ingres = await _bbdd.Ingressos.FirstOrDefaultAsync(v => v.Id == id);
+
+            IngresDTO ingresdto = _mapper.Map<IngresDTO>(ingres);
+
+            patchDto.ApplyTo(ingresdto, ModelState);
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            Ingres modelo = _mapper.Map<Ingres>(ingresdto);
+
+            _bbdd.Update(modelo);
+            await _bbdd.SaveChangesAsync();
+
+            _logger.LogInformation("Ingrés actualitzat.");
             return NoContent();
 
         }

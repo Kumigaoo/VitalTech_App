@@ -33,7 +33,7 @@ namespace HospitalAPI.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<ConsultaDTO>>> GetConsultes()
         {
-            _logger.LogInformation("Obteint les consultes");
+            _logger.LogInformation("Obtenint les consultes");
 
             IEnumerable<Consulta> conList = await _bbdd
                 .Consultes.Include("Consulta")
@@ -158,7 +158,7 @@ namespace HospitalAPI.Controllers
                 return BadRequest("Error: no existeix la consulta amb el ID indicat.");
             }
 
-            var consulta = await _bbdd.Consultes.FirstOrDefaultAsync(v => v.Id == id);
+            var consulta = await _bbdd.Consultes.AsNoTracking().FirstOrDefaultAsync(v => v.Id == id);
 
             ConsultaDTO consultadto = _mapper.Map<ConsultaDTO>(consulta);
 
