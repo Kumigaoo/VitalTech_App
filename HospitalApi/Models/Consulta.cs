@@ -28,9 +28,5 @@ namespace HospitalAPI.Models
         public int EpisodiMedicId { get; set; }
         public EpisodiMedic EpisodiMedic { get; set; }
 
-        public static implicit operator Consulta?(Consulta? v)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
