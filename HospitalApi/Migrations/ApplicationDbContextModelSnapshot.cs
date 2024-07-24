@@ -226,6 +226,27 @@ namespace HospitalApi.Migrations
                     b.ToTable("Plantes");
                 });
 
+            modelBuilder.Entity("HospitalAPI.Models.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
+                });
+
             modelBuilder.Entity("HospitalAPI.Models.Consulta", b =>
                 {
                     b.HasOne("HospitalAPI.Models.EpisodiMedic", "EpisodiMedic")
