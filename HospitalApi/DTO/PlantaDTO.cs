@@ -6,7 +6,7 @@ namespace HospitalAPI.DTO
     {
         public int Id { get; set; }
 
-        public int NumHabs { get; set; }
+        public int CapacitatHabitacions { get; set; }
 
         public ICollection<HabitacioDTO> Habitacions { get; set; }
 

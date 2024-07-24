@@ -8,7 +8,7 @@ namespace HospitalAPI.DTO
 
         public int Id { get; set; }
 
-        public int Capacitat { get; set; }
+        public int CapacitatLlits { get; set; }
 
         public int PlantaId { get; set; }
 

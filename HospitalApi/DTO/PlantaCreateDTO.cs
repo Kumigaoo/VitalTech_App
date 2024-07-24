@@ -2,6 +2,6 @@
 {
     public class PlantaCreateDTO
     {
-        public int NumHabs { get; set; }
+        public int CapacitatHabitacions { get; set; }
     }
 }

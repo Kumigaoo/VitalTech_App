@@ -72,19 +72,26 @@ namespace HospitalAPI.Controllers
 
             if (userLlitDTO == null)
             {
-                _logger.LogError("Error: dades introdu�des incorrectes.");
+                _logger.LogError("Error: dades introduides incorrectes.");
                 return BadRequest(userLlitDTO);
             }
 
-            var habitacio = await _bbdd.Habitacions.FindAsync(userLlitDTO.HabitacioId);
+            var habitacio = await _bbdd.Habitacions.Include(h => h.Llits).FirstOrDefaultAsync(h => h.Id == userLlitDTO.HabitacioId);
 
             if (habitacio == null)
             {
-                _logger.LogError("Error: no existeix la habitaci� amb l'ID indicat.");
-                return BadRequest("Error: no existeix la habitaci� amb l'ID indicat");
+                _logger.LogError("Error: no existeix la habitacio amb l'ID indicat.");
+                return BadRequest("Error: no existeix la habitacio amb l'ID indicat");
             }
 
-            if (habitacio.Llits.Count >= habitacio.Num_llits) {
+            if (habitacio.Llits == null)
+            {
+                habitacio.Llits = new List<Llit>();
+            }
+
+            if (habitacio.Llits.Count >= habitacio.CapacitatLlits)
+            {
+                _logger.LogError("No se pueden agregar más camas a esta habitación.");
                 return BadRequest("No se pueden agregar más camas a esta habitación.");
             }
 

@@ -77,7 +77,8 @@ namespace HospitalAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            var planta = await _bbdd.Plantes.FindAsync(userHabDTO.PlantaId);
+            var planta = await _bbdd.Plantes.Include(h => h.Habitacions).FirstOrDefaultAsync(h => h.Id == userHabDTO.PlantaId);
+
 
             if (planta == null)
             {
@@ -85,43 +86,16 @@ namespace HospitalAPI.Controllers
                 return NotFound("Error: no existeix la planta indicada.");
             }
 
-            try
+            if (planta.Habitacions == null)
             {
-                SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
-
-                using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
-                {
-
-                    builder.DataSource = "<your_server.database.windows.net>";
-                    //builder.UserID = "<your_username>";
-                    //builder.Password = "<your_password>";
-                    builder.InitialCatalog = "<your_database>";
-
-                    connection.Open();
-
-                    String sql = "SELECT name, collation_name FROM sys.databases";
-
-                    using (SqlCommand command = new SqlCommand(sql, connection))
-                    {
-                        using (SqlDataReader reader = command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                //Console.WriteLine("{0} {1}", reader.GetString(0), reader.GetString(1));
-                            }
-                        }
-                    }
-                }
-            }
-            catch (SqlException e)
-            {
-                Console.WriteLine(e.ToString());
+                planta.Habitacions = new List<Habitacio>();
             }
 
-            //string query = "SELECT COUNT(Habitacions) FROM Planta NATURAL JOIN Habitacio WHERE PlantaId = 0";
-            //var maxPlantas = await _bbdd.planta
-            //.FromSql(query, id);
-            //if (Habitacions > maxPlantas) return BadRequest("Error: no es poden afegir més habitacions, s'ha arribat al màxim de la planta.");
+            if (planta.Habitacions.Count >= planta.CapacitatHabitacions)
+            {
+                _logger.LogError("No se pueden agregar más habitaciones en esta planta.");
+                return BadRequest("No se pueden agregar más habitaciones en esta planta.");
+            }
 
             Habitacio habitacio = _mapper.Map<Habitacio>(userHabDTO);
             habitacio.PlantaId = planta.Id;

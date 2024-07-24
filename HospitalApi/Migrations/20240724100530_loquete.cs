@@ -6,26 +6,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace HospitalApi.Migrations
 {
     /// <inheritdoc />
-    public partial class lol : Migration
+    public partial class loquete : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
-                name: "Metges",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    DNI = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Especialitat = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Nom = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Metges", x => x.Id);
-                });
-
             migrationBuilder.CreateTable(
                 name: "Pacients",
                 columns: table => new
@@ -43,16 +28,45 @@ namespace HospitalApi.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Personals",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DNI = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Especialitat = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Nom = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Personals", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Plantes",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    NumHabs = table.Column<int>(type: "int", nullable: false)
+                    CapacitatHabitacions = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Plantes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Users",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Username = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -72,7 +86,7 @@ namespace HospitalApi.Migrations
                         column: x => x.PacientId,
                         principalTable: "Pacients",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -81,8 +95,7 @@ namespace HospitalApi.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Num_llits = table.Column<int>(type: "int", nullable: false),
-                    Capacitat = table.Column<int>(type: "int", nullable: false),
+                    CapacitatLlits = table.Column<int>(type: "int", nullable: false),
                     PlantaId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -106,7 +119,7 @@ namespace HospitalApi.Migrations
                     Dolencia = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Recepta = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PacientId = table.Column<int>(type: "int", nullable: false),
-                    MetgeId = table.Column<int>(type: "int", nullable: false),
+                    PersonalId = table.Column<int>(type: "int", nullable: false),
                     EpisodiMedicId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -117,17 +130,17 @@ namespace HospitalApi.Migrations
                         column: x => x.EpisodiMedicId,
                         principalTable: "EpisodisMedics",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Consultes_Metges_MetgeId",
-                        column: x => x.MetgeId,
-                        principalTable: "Metges",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Consultes_Pacients_PacientId",
                         column: x => x.PacientId,
                         principalTable: "Pacients",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Consultes_Personals_PersonalId",
+                        column: x => x.PersonalId,
+                        principalTable: "Personals",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -168,17 +181,17 @@ namespace HospitalApi.Migrations
                 {
                     table.PrimaryKey("PK_Ingressos", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Ingressos_EpisodisMedics_EpisodiMedicId",
-                        column: x => x.EpisodiMedicId,
+                        name: "FK_Ingressos_EpisodisMedics_LlitId",
+                        column: x => x.LlitId,
                         principalTable: "EpisodisMedics",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Ingressos_Llits_LlitId",
                         column: x => x.LlitId,
                         principalTable: "Llits",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
@@ -187,14 +200,14 @@ namespace HospitalApi.Migrations
                 column: "EpisodiMedicId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Consultes_MetgeId",
-                table: "Consultes",
-                column: "MetgeId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Consultes_PacientId",
                 table: "Consultes",
                 column: "PacientId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Consultes_PersonalId",
+                table: "Consultes",
+                column: "PersonalId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_EpisodisMedics_PacientId",
@@ -205,11 +218,6 @@ namespace HospitalApi.Migrations
                 name: "IX_Habitacions_PlantaId",
                 table: "Habitacions",
                 column: "PlantaId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Ingressos_EpisodiMedicId",
-                table: "Ingressos",
-                column: "EpisodiMedicId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Ingressos_LlitId",
@@ -232,7 +240,10 @@ namespace HospitalApi.Migrations
                 name: "Ingressos");
 
             migrationBuilder.DropTable(
-                name: "Metges");
+                name: "Users");
+
+            migrationBuilder.DropTable(
+                name: "Personals");
 
             migrationBuilder.DropTable(
                 name: "EpisodisMedics");

@@ -5,7 +5,7 @@
 
         public int PlantaId { get; set; }
 
-        public int Capacitat { get; set; }
+        public int CapacitatLlits { get; set; }
 
     }
 }
