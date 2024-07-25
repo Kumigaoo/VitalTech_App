@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HospitalApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240724084228_hola")]
-    partial class hola
+    [Migration("20240724163930_loquete")]
+    partial class loquete
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -93,10 +93,7 @@ namespace HospitalApi.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("Capacitat")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Num_llits")
+                    b.Property<int>("CapacitatLlits")
                         .HasColumnType("int");
 
                     b.Property<int>("PlantaId")
@@ -176,8 +173,9 @@ namespace HospitalApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("NumSS")
-                        .HasColumnType("int");
+                    b.Property<string>("NumSS")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Sexe")
                         .IsRequired()
@@ -221,7 +219,7 @@ namespace HospitalApi.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("NumHabs")
+                    b.Property<int>("CapacitatHabitacions")
                         .HasColumnType("int");
 
                     b.HasKey("Id");

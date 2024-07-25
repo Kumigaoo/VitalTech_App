@@ -5,6 +5,7 @@ import { HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtModule } from '@auth0/angular-jwt';
 import { AppComponent } from './app.component';
 import { JwtInterceptor } from './jwt.interceptor';
+import { CommonModule } from '@angular/common';
 
 // Función para obtener el token del almacenamiento local
 export function tokenGetter() {
@@ -18,6 +19,7 @@ export function tokenGetter() {
   imports: [
     BrowserModule,
     FormsModule,
+    CommonModule,
     HttpClient,
     JwtModule.forRoot({
       config: {

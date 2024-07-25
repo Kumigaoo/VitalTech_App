@@ -3,7 +3,7 @@
     public class PacientCreateDTO
     {
 
-        public int NumSS { get; set; }
+        public string NumSS { get; set; }
 
         public string Nom { get; set; }
 

@@ -2,25 +2,26 @@ using AutoMapper;
 using HospitalApi.Data;
 using HospitalAPI.DTO;
 using HospitalAPI.Models;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Data.SqlClient;
 using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 
 namespace HospitalAPI.Controllers
 {
-
     [Route("api/[controller]")]
     [ApiController]
-
     public class HabitacioController : ControllerBase
     {
-
         private readonly ILogger<HabitacioController> _logger;
         private readonly ApplicationDbContext _bbdd;
         private readonly IMapper _mapper;
 
-        public HabitacioController(ILogger<HabitacioController> logger, ApplicationDbContext bbdd, IMapper mapper)
+        public HabitacioController(
+            ILogger<HabitacioController> logger,
+            ApplicationDbContext bbdd,
+            IMapper mapper
+        )
         {
             _logger = logger;
             _bbdd = bbdd;
@@ -31,13 +32,14 @@ namespace HospitalAPI.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<HabitacioDTO>>> GetHabitacions()
         {
-
             _logger.LogInformation("Obtenint les habitacions");
 
-            IEnumerable<Habitacio> habList = await _bbdd.Habitacions.Include("Planta").Include("Llits").ToListAsync();
+            IEnumerable<Habitacio> habList = await _bbdd
+                .Habitacions.Include("Planta")
+                .Include("Llits")
+                .ToListAsync();
 
             return Ok(_mapper.Map<IEnumerable<HabitacioDTO>>(habList));
-
         }
 
         [HttpGet("id", Name = "GetHab")]
@@ -46,7 +48,6 @@ namespace HospitalAPI.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<HabitacioDTO>> GetHabitacio(int id)
         {
-
             if (id <= 0)
             {
                 _logger.LogError("Error: format d'ID incorrecte.");
@@ -63,14 +64,15 @@ namespace HospitalAPI.Controllers
 
             _logger.LogError("Habitació recuperada exitosament.");
             return Ok(_mapper.Map<HabitacioDTO>(hab));
-
         }
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<HabitacioCreateDTO>> PostHabitacio([FromBody] HabitacioCreateDTO userHabDTO)
+        public async Task<ActionResult<HabitacioCreateDTO>> PostHabitacio(
+            [FromBody] HabitacioCreateDTO userHabDTO
+        )
         {
             if (!ModelState.IsValid)
             {
@@ -78,8 +80,9 @@ namespace HospitalAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            var planta = await _bbdd.Plantes.Include(h => h.Habitacions).FirstOrDefaultAsync(h => h.Id == userHabDTO.PlantaId);
-
+            var planta = await _bbdd
+                .Plantes.Include(h => h.Habitacions)
+                .FirstOrDefaultAsync(h => h.Id == userHabDTO.PlantaId);
 
             if (planta == null)
             {
@@ -106,7 +109,6 @@ namespace HospitalAPI.Controllers
 
             _logger.LogInformation("Habitació creada correctament.");
             return CreatedAtRoute("GetHab", _mapper.Map<HabitacioCreateDTO>(habitacio));
-
         }
 
         [HttpDelete("id")]
@@ -133,7 +135,6 @@ namespace HospitalAPI.Controllers
 
             _logger.LogError("Habitació eliminada amb èxit.");
             return NoContent();
-
         }
 
         [HttpPut("id")]
@@ -141,7 +142,6 @@ namespace HospitalAPI.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> UpdateHabitacio(int id, [FromBody] HabitacioDTO userHabDTO)
         {
-
             if (userHabDTO == null || id != userHabDTO.Id)
             {
                 _logger.LogError("Error: ID indicada incorrecta.");
@@ -155,14 +155,15 @@ namespace HospitalAPI.Controllers
 
             _logger.LogInformation("Habitació modificada exitosament.");
             return NoContent();
-
         }
 
         [HttpPatch("{id:int}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-
-        public async Task<IActionResult> UpdateParcialHabitacio(int id, JsonPatchDocument<HabitacioDTO> patchDto)
+        public async Task<IActionResult> UpdateParcialHabitacio(
+            int id,
+            JsonPatchDocument<HabitacioDTO> patchDto
+        )
         {
             if (patchDto == null || id <= 0)
             {
@@ -170,7 +171,9 @@ namespace HospitalAPI.Controllers
                 return BadRequest("Error: no existeix l'habitació amb el ID indicat.");
             }
 
-            var habitacio = await _bbdd.Habitacions.AsNoTracking().FirstOrDefaultAsync(v => v.Id == id);
+            var habitacio = await _bbdd
+                .Habitacions.AsNoTracking()
+                .FirstOrDefaultAsync(v => v.Id == id);
 
             HabitacioDTO habitaciodto = _mapper.Map<HabitacioDTO>(habitacio);
 
@@ -188,8 +191,6 @@ namespace HospitalAPI.Controllers
 
             _logger.LogInformation("Habitació actualitzada.");
             return NoContent();
-
         }
-
     }
 }
