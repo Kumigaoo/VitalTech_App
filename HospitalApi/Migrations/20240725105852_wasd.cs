@@ -75,7 +75,9 @@ namespace HospitalApi.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Data = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DataObertura = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DataTancament = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Dolencia = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PacientId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -116,11 +118,10 @@ namespace HospitalApi.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Urgencia = table.Column<bool>(type: "bit", nullable: false),
-                    Dolencia = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Sintomatologia = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Recepta = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PersonalId = table.Column<int>(type: "int", nullable: false),
-                    EpisodiMedicId = table.Column<int>(type: "int", nullable: false),
-                    PacientId = table.Column<int>(type: "int", nullable: true)
+                    EpisodiMedicId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -131,11 +132,6 @@ namespace HospitalApi.Migrations
                         principalTable: "EpisodisMedics",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Consultes_Pacients_PacientId",
-                        column: x => x.PacientId,
-                        principalTable: "Pacients",
-                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Consultes_Personals_PersonalId",
                         column: x => x.PersonalId,
@@ -172,7 +168,7 @@ namespace HospitalApi.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     DataEntrada = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DataSortida = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DataSortida = table.Column<DateTime>(type: "datetime2", nullable: true),
                     EpisodiMedicId = table.Column<int>(type: "int", nullable: false),
                     LlitId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -197,11 +193,6 @@ namespace HospitalApi.Migrations
                 name: "IX_Consultes_EpisodiMedicId",
                 table: "Consultes",
                 column: "EpisodiMedicId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Consultes_PacientId",
-                table: "Consultes",
-                column: "PacientId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Consultes_PersonalId",

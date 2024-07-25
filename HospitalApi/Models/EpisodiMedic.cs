@@ -9,7 +9,12 @@ namespace HospitalAPI.Models
     {
         [Key]
         public int Id {get; set;}
-        public DateTime Data {get; set;}
+        public DateTime DataObertura {get; set;}
+
+        public DateTime? DataTancament { get; set; }
+
+        [Required]
+        public string Dolencia { get; set; }
 
         [ForeignKey("PacientId")]
         [JsonIgnore]

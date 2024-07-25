@@ -5,7 +5,7 @@
 
         public bool Urgencia { get; set; }
 
-        public string Dolencia { get; set; }
+        public string Sintomatologia { get; set; }
 
         public string Recepta { get; set; }
 

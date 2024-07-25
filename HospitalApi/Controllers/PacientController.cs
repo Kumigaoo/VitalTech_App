@@ -34,7 +34,7 @@ namespace HospitalAPI.Controllers
 
             _logger.LogInformation("Obtenint els pacients");
 
-            IEnumerable<Pacient> pacientList = await _bbdd.Pacients.Include("EpisodisMedics").Include("Consultes").ToListAsync();
+            IEnumerable<Pacient> pacientList = await _bbdd.Pacients.Include("EpisodisMedics").ToListAsync();
 
             return Ok(_mapper.Map<IEnumerable<PacientDTO>>(pacientList));
 

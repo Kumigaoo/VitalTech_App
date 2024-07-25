@@ -77,8 +77,8 @@ namespace HospitalAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            var llit = await _bbdd.Ingressos.FindAsync(userIngresDTO.LlitId);
-            var episodi = await _bbdd.Ingressos.FindAsync(userIngresDTO.EpisodiMedicId);
+            var llit = await _bbdd.Llits.FindAsync(userIngresDTO.LlitId);
+            var episodi = await _bbdd.EpisodisMedics.FindAsync(userIngresDTO.EpisodiMedicId);
 
             if (llit == null)
             {

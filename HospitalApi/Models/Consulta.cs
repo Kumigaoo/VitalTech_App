@@ -12,7 +12,7 @@ namespace HospitalAPI.Models
         public bool Urgencia { get; set; }
 
         [Required]
-        public string Dolencia { get; set; }
+        public string Sintomatologia { get; set; }
 
         public string Recepta { get; set; }
 

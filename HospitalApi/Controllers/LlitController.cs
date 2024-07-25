@@ -47,8 +47,8 @@ namespace HospitalAPI.Controllers
 
             if (id <= 0)
             {
-                _logger.LogError("Error: dades introdu�des amb format incorrecte.");
-                return BadRequest("Error: dades introdu�des amb format incorrecte.");
+                _logger.LogError("Error: dades introduides amb format incorrecte.");
+                return BadRequest("Error: dades introduides amb format incorrecte.");
             }
 
             var llit = await _bbdd.Llits.FirstOrDefaultAsync(h => h.Id == id);
@@ -77,7 +77,8 @@ namespace HospitalAPI.Controllers
                 return BadRequest(userLlitDTO);
             }
 
-            var habitacio = await _bbdd.Habitacions.Include(h => h.Llits).FirstOrDefaultAsync(h => h.Id == userLlitDTO.HabitacioId);
+            var habitacio = await _bbdd.Habitacions.Include(h => h.Llits).
+                FirstOrDefaultAsync(h => h.Id == userLlitDTO.HabitacioId);
 
             if (habitacio == null)
             {

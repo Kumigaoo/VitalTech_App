@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HospitalApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240725082904_wasd")]
+    [Migration("20240725105852_wasd")]
     partial class wasd
     {
         /// <inheritdoc />
@@ -33,14 +33,7 @@ namespace HospitalApi.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Dolencia")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("EpisodiMedicId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("PacientId")
                         .HasColumnType("int");
 
                     b.Property<int>("PersonalId")
@@ -50,14 +43,16 @@ namespace HospitalApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Sintomatologia")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("Urgencia")
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
 
                     b.HasIndex("EpisodiMedicId");
-
-                    b.HasIndex("PacientId");
 
                     b.HasIndex("PersonalId");
 
@@ -72,8 +67,15 @@ namespace HospitalApi.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("Data")
+                    b.Property<DateTime>("DataObertura")
                         .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DataTancament")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Dolencia")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("PacientId")
                         .HasColumnType("int");
@@ -117,7 +119,7 @@ namespace HospitalApi.Migrations
                     b.Property<DateTime>("DataEntrada")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DataSortida")
+                    b.Property<DateTime?>("DataSortida")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("EpisodiMedicId")
@@ -256,10 +258,6 @@ namespace HospitalApi.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("HospitalAPI.Models.Pacient", null)
-                        .WithMany("Consultes")
-                        .HasForeignKey("PacientId");
-
                     b.HasOne("HospitalAPI.Models.Personal", "Personal")
                         .WithMany("Consultes")
                         .HasForeignKey("PersonalId")
@@ -342,8 +340,6 @@ namespace HospitalApi.Migrations
 
             modelBuilder.Entity("HospitalAPI.Models.Pacient", b =>
                 {
-                    b.Navigation("Consultes");
-
                     b.Navigation("EpisodisMedics");
                 });
 
