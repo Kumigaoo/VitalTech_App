@@ -5,6 +5,7 @@ using HospitalApi.Data;
 using HospitalAPI.DTO;
 using HospitalAPI.Models;
 using Microsoft.AspNetCore.JsonPatch;
+using HospitalApi.DTO;
 
 namespace HospitalAPI.Controllers
 {
@@ -106,7 +107,7 @@ namespace HospitalAPI.Controllers
         [HttpPut("id")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> UpdatePlanta(int id, [FromBody] PlantaDTO userPlantaDTO)
+        public async Task<IActionResult> UpdatePlanta(int id, [FromBody] PlantaUpdateDTO userPlantaDTO)
         {
 
             if (userPlantaDTO == null || id != userPlantaDTO.Id)

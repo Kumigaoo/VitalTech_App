@@ -93,7 +93,7 @@ namespace HospitalAPI.Controllers
             }
 
             Ingres ingres = _mapper.Map<Ingres>(userIngresDTO);
-            ingres.LlitId = llit.Id;
+            ingres.LlitId = llit.CodiLlit;
             ingres.EpisodiMedicId = episodi.Id;
 
             await _bbdd.Ingressos.AddAsync(ingres);

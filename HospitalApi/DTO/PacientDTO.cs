@@ -5,7 +5,7 @@ namespace HospitalAPI.DTO
     public class PacientDTO
     {
 
-        public int Id { get; set; }
+        public string DNI { get; set; }
 
         public string NumSS { get; set; }
 
@@ -15,9 +15,9 @@ namespace HospitalAPI.DTO
 
         public string Sexe { get; set; }
 
-        public ICollection<Consulta> Consultes { get; set; }
+        public ICollection<ConsultaDTO> Consultes { get; set; }
 
-        public ICollection<EpisodiMedic> EpisodisMedics { get; set; }
+        public ICollection<EpisodiMedicDTO> EpisodisMedics { get; set; }
 
 
     }

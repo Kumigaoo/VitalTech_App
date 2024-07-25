@@ -6,7 +6,7 @@ namespace HospitalAPI.DTO
     public class HabitacioDTO
     {
 
-        public int Id { get; set; }
+        public int CodiHabitacio { get; set; }
 
         public int CapacitatLlits { get; set; }
 

@@ -10,7 +10,7 @@
 
         public string Recepta { get; set; }
 
-        public int PersonalId { get; set; }
+        public string PersonalId { get; set; }
 
         public int EpisodiMedicId { get; set; }
     }

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.Elfie.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
+using Microsoft.JSInterop.Infrastructure;
 
 namespace HospitalAPI.Controllers
 {
@@ -32,9 +33,10 @@ namespace HospitalAPI.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<PersonalDTO>>> GetPersonals()
         {
-            _logger.LogInformation("Obteint el personal");
+            _logger.LogInformation("Obtenint el personal");
 
-            IEnumerable<Personal> perList = await _bbdd.Personals.ToListAsync();
+            IEnumerable<Personal> perList = await _bbdd.Personals.Include("Consultes").ToListAsync();
+
 
             return Ok(_mapper.Map<IEnumerable<PersonalDTO>>(perList));
         }
@@ -43,15 +45,15 @@ namespace HospitalAPI.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<PersonalDTO>> GetPersonal(int id)
+        public async Task<ActionResult<PersonalDTO>> GetPersonal(string id)
         {
-            if (id <= 0)
+            if (id.Length < 9)
             {
                 _logger.LogError("Format de ID incorrecte.");
                 return BadRequest();
             }
 
-            var per = await _bbdd.Consultes.FirstOrDefaultAsync(h => h.Id == id);
+            var per = await _bbdd.Personals.FirstOrDefaultAsync(h => h.DNI == id);
 
             if (per == null)
             {
@@ -71,6 +73,13 @@ namespace HospitalAPI.Controllers
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
+            
+            
+            if (userPerDTO.DNI.Length < 9)
+            {
+                _logger.LogError("Format de DNI incorrecto");
+                return BadRequest();
+            }
 
             Personal personal = _mapper.Map<Personal>(userPerDTO);
 
@@ -84,15 +93,10 @@ namespace HospitalAPI.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> DeletePersonal(int id)
+        public async Task<IActionResult> DeletePersonal(string id)
         {
-            if (id <= 0)
-            {
-                _logger.LogError("Format de id incorrecto");
-                return BadRequest();
-            }
-
-            var personal = await _bbdd.Personals.FirstOrDefaultAsync(h => h.Id == id);
+        
+            var personal = await _bbdd.Personals.FirstOrDefaultAsync(h => h.DNI == id);
 
             if (personal == null)
             {
@@ -110,9 +114,9 @@ namespace HospitalAPI.Controllers
         [HttpPut("id")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> UpdatePer(int id, [FromBody] PersonalDTO userPerDTO)
+        public async Task<IActionResult> UpdatePer(string id, [FromBody] PersonalDTO userPerDTO)
         {
-            if (userPerDTO.Id == null || id != userPerDTO.Id)
+            if (userPerDTO.DNI == null || id != userPerDTO.DNI)
                 return BadRequest();
             Personal personal = _mapper.Map<Personal>(userPerDTO);
 

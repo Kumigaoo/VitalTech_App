@@ -9,6 +9,7 @@ namespace HospitalAPI.Models
     {
         [Key]
         public int Id {get; set;}
+
         public DateTime DataObertura {get; set;}
 
         public DateTime? DataTancament { get; set; }
@@ -19,7 +20,8 @@ namespace HospitalAPI.Models
         [ForeignKey("PacientId")]
         [JsonIgnore]
         [IgnoreDataMember]
-        public int PacientId {get; set;}
+        public string PacientId {get; set;}
+
         [JsonIgnore]
         [IgnoreDataMember]
         public Pacient Pacient {get; set;}

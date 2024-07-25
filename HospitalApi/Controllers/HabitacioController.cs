@@ -54,7 +54,7 @@ namespace HospitalAPI.Controllers
                 return BadRequest("Error: format d'ID incorrecte.");
             }
 
-            var hab = await _bbdd.Habitacions.FirstOrDefaultAsync(h => h.Id == id);
+            var hab = await _bbdd.Habitacions.FirstOrDefaultAsync(h => h.CodiHabitacio == id);
 
             if (hab == null)
             {
@@ -77,6 +77,12 @@ namespace HospitalAPI.Controllers
             if (!ModelState.IsValid)
             {
                 _logger.LogError("Error: dades introduïdes incorrectes.");
+                return BadRequest(ModelState);
+            }
+
+            if (userHabDTO.CodiHabitacio < 100 || userHabDTO.CodiHabitacio > 999)
+            {
+                _logger.LogError("Error: format d'ID incorrecte.");
                 return BadRequest(ModelState);
             }
 
@@ -117,12 +123,12 @@ namespace HospitalAPI.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> DeleteHabitacio(int id)
         {
-            if (id <= 0)
+            if (id < 100 || id > 999)
             {
                 _logger.LogError("Error: format d'ID incorrecte.");
                 return BadRequest(ModelState);
             }
-            var hab = await _bbdd.Habitacions.FirstOrDefaultAsync(h => h.Id == id);
+            var hab = await _bbdd.Habitacions.FirstOrDefaultAsync(h => h.CodiHabitacio == id);
 
             if (hab == null)
             {
@@ -142,7 +148,7 @@ namespace HospitalAPI.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> UpdateHabitacio(int id, [FromBody] HabitacioDTO userHabDTO)
         {
-            if (userHabDTO == null || id != userHabDTO.Id)
+            if (userHabDTO == null || id != userHabDTO.CodiHabitacio)
             {
                 _logger.LogError("Error: ID indicada incorrecta.");
                 return BadRequest("Error: ID indicada incorrecta.");
@@ -173,7 +179,7 @@ namespace HospitalAPI.Controllers
 
             var habitacio = await _bbdd
                 .Habitacions.AsNoTracking()
-                .FirstOrDefaultAsync(v => v.Id == id);
+                .FirstOrDefaultAsync(v => v.CodiHabitacio == id);
 
             HabitacioDTO habitaciodto = _mapper.Map<HabitacioDTO>(habitacio);
 

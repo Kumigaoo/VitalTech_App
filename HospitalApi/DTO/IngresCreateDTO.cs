@@ -9,7 +9,7 @@
 
         public int EpisodiMedicId { get; set; }
 
-        public int LlitId { get; set; }
+        public string LlitId { get; set; }
 
     }
 }

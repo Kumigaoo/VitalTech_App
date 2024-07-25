@@ -5,7 +5,7 @@ namespace HospitalAPI.DTO
 {
     public class LlitDTO
     {
-        public int Id { get; set; }
+        public string CodiLlit { get; set; }
 
         public bool Ocupat { get; set; }
 
@@ -13,6 +13,6 @@ namespace HospitalAPI.DTO
 
         public int HabitacioId { get; set; }
 
-        public ICollection<Ingres> Ingressos { get; set; }
+        public ICollection<IngresDTO> Ingressos { get; set; }
     }
 }

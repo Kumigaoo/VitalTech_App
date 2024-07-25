@@ -87,7 +87,7 @@ namespace HospitalAPI.Controllers
                 return BadRequest("No existe ningún episodio médico con el id proporcionado.");
 
             Consulta consulta = _mapper.Map<Consulta>(userConDTO);
-            consulta.PersonalId = personal.Id;
+            consulta.PersonalId = personal.DNI;
             consulta.EpisodiMedicId = episodi.Id;
 
             await _bbdd.Consultes.AddAsync(consulta);

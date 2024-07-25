@@ -33,8 +33,9 @@ namespace HospitalApi.Migrations
                     b.Property<int>("EpisodiMedicId")
                         .HasColumnType("int");
 
-                    b.Property<int>("PersonalId")
-                        .HasColumnType("int");
+                    b.Property<string>("PersonalId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Recepta")
                         .IsRequired()
@@ -74,8 +75,9 @@ namespace HospitalApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("PacientId")
-                        .HasColumnType("int");
+                    b.Property<string>("PacientId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
@@ -86,11 +88,8 @@ namespace HospitalApi.Migrations
 
             modelBuilder.Entity("HospitalAPI.Models.Habitacio", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int>("CodiHabitacio")
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("CapacitatLlits")
                         .HasColumnType("int");
@@ -98,7 +97,7 @@ namespace HospitalApi.Migrations
                     b.Property<int>("PlantaId")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("CodiHabitacio");
 
                     b.HasIndex("PlantaId");
 
@@ -122,10 +121,13 @@ namespace HospitalApi.Migrations
                     b.Property<int>("EpisodiMedicId")
                         .HasColumnType("int");
 
-                    b.Property<int>("LlitId")
-                        .HasColumnType("int");
+                    b.Property<string>("LlitId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("EpisodiMedicId");
 
                     b.HasIndex("LlitId");
 
@@ -134,11 +136,8 @@ namespace HospitalApi.Migrations
 
             modelBuilder.Entity("HospitalAPI.Models.Llit", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<string>("CodiLlit")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<bool>("ForaDeServei")
                         .HasColumnType("bit");
@@ -149,7 +148,7 @@ namespace HospitalApi.Migrations
                     b.Property<bool>("Ocupat")
                         .HasColumnType("bit");
 
-                    b.HasKey("Id");
+                    b.HasKey("CodiLlit");
 
                     b.HasIndex("HabitacioId");
 
@@ -158,11 +157,8 @@ namespace HospitalApi.Migrations
 
             modelBuilder.Entity("HospitalAPI.Models.Pacient", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<string>("DNI")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Estat")
                         .IsRequired()
@@ -174,28 +170,24 @@ namespace HospitalApi.Migrations
 
                     b.Property<string>("NumSS")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Sexe")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("DNI");
+
+                    b.HasIndex("NumSS")
+                        .IsUnique();
 
                     b.ToTable("Pacients");
                 });
 
             modelBuilder.Entity("HospitalAPI.Models.Personal", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
                     b.Property<string>("DNI")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Especialitat")
                         .IsRequired()
@@ -205,7 +197,7 @@ namespace HospitalApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("DNI");
 
                     b.ToTable("Personals");
                 });
@@ -292,7 +284,7 @@ namespace HospitalApi.Migrations
                 {
                     b.HasOne("HospitalAPI.Models.EpisodiMedic", "EpisodiMedic")
                         .WithMany("Ingressos")
-                        .HasForeignKey("LlitId")
+                        .HasForeignKey("EpisodiMedicId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 

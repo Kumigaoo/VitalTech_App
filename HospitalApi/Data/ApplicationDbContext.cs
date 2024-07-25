@@ -1,5 +1,6 @@
 ﻿using HospitalAPI.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Xml;
 
 namespace HospitalApi.Data
 {
@@ -37,7 +38,7 @@ namespace HospitalApi.Data
             modelBuilder.Entity<Ingres>()
             .HasOne(h => h.EpisodiMedic)
             .WithMany(p => p.Ingressos)
-            .HasForeignKey(h => h.LlitId)
+            .HasForeignKey(h => h.EpisodiMedicId)
             .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Ingres>()
@@ -63,6 +64,26 @@ namespace HospitalApi.Data
             .WithMany(p => p.Consultes)
             .HasForeignKey(c => c.PersonalId)
             .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Habitacio>()
+            .Property(e => e.CodiHabitacio)
+            .ValueGeneratedNever();
+
+            modelBuilder.Entity<Llit>()
+            .Property(e => e.CodiLlit)
+            .ValueGeneratedNever();
+
+            modelBuilder.Entity<Pacient>()
+            .Property(e => e.DNI)
+            .ValueGeneratedNever();
+
+            modelBuilder.Entity<Personal>()
+            .Property(e => e.DNI)
+            .ValueGeneratedNever();
+
+            modelBuilder.Entity<Pacient>()
+            .HasIndex(e => e.NumSS)
+            .IsUnique();
 
             base.OnModelCreating(modelBuilder);
 

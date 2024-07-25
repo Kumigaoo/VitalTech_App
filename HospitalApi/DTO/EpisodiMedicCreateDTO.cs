@@ -9,7 +9,7 @@ namespace HospitalApi.DTO
 
         public DateTime? DataTancament { get; set; }
 
-        public int PacientId { get; set; }
+        public string PacientId { get; set; }
 
         public string Dolencia { get; set; }
 

@@ -21,6 +21,7 @@ namespace HospitalAPI
 
             CreateMap<Planta, PlantaDTO>().ReverseMap();
             CreateMap<Planta, PlantaCreateDTO>().ReverseMap();
+            CreateMap<Planta, PlantaUpdateDTO>().ReverseMap();
 
             CreateMap<EpisodiMedic, EpisodiMedicDTO>().ReverseMap();
             CreateMap<EpisodiMedic, EpisodiMedicCreateDTO>().ReverseMap();

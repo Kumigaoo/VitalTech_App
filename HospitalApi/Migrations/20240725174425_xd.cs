@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace HospitalApi.Migrations
 {
     /// <inheritdoc />
-    public partial class wasd : Migration
+    public partial class xd : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,31 +15,28 @@ namespace HospitalApi.Migrations
                 name: "Pacients",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    NumSS = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DNI = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    NumSS = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Nom = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Estat = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Sexe = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Pacients", x => x.Id);
+                    table.PrimaryKey("PK_Pacients", x => x.DNI);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Personals",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    DNI = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Especialitat = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Nom = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    DNI = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Nom = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Especialitat = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Personals", x => x.Id);
+                    table.PrimaryKey("PK_Personals", x => x.DNI);
                 });
 
             migrationBuilder.CreateTable(
@@ -78,7 +75,7 @@ namespace HospitalApi.Migrations
                     DataObertura = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DataTancament = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Dolencia = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PacientId = table.Column<int>(type: "int", nullable: false)
+                    PacientId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -87,7 +84,7 @@ namespace HospitalApi.Migrations
                         name: "FK_EpisodisMedics_Pacients_PacientId",
                         column: x => x.PacientId,
                         principalTable: "Pacients",
-                        principalColumn: "Id",
+                        principalColumn: "DNI",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -95,14 +92,13 @@ namespace HospitalApi.Migrations
                 name: "Habitacions",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CodiHabitacio = table.Column<int>(type: "int", nullable: false),
                     CapacitatLlits = table.Column<int>(type: "int", nullable: false),
                     PlantaId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Habitacions", x => x.Id);
+                    table.PrimaryKey("PK_Habitacions", x => x.CodiHabitacio);
                     table.ForeignKey(
                         name: "FK_Habitacions_Plantes_PlantaId",
                         column: x => x.PlantaId,
@@ -120,7 +116,7 @@ namespace HospitalApi.Migrations
                     Urgencia = table.Column<bool>(type: "bit", nullable: false),
                     Sintomatologia = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Recepta = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PersonalId = table.Column<int>(type: "int", nullable: false),
+                    PersonalId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     EpisodiMedicId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -136,7 +132,7 @@ namespace HospitalApi.Migrations
                         name: "FK_Consultes_Personals_PersonalId",
                         column: x => x.PersonalId,
                         principalTable: "Personals",
-                        principalColumn: "Id",
+                        principalColumn: "DNI",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -144,20 +140,19 @@ namespace HospitalApi.Migrations
                 name: "Llits",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CodiLlit = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Ocupat = table.Column<bool>(type: "bit", nullable: false),
                     ForaDeServei = table.Column<bool>(type: "bit", nullable: false),
                     HabitacioId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Llits", x => x.Id);
+                    table.PrimaryKey("PK_Llits", x => x.CodiLlit);
                     table.ForeignKey(
                         name: "FK_Llits_Habitacions_HabitacioId",
                         column: x => x.HabitacioId,
                         principalTable: "Habitacions",
-                        principalColumn: "Id",
+                        principalColumn: "CodiHabitacio",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -170,14 +165,14 @@ namespace HospitalApi.Migrations
                     DataEntrada = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DataSortida = table.Column<DateTime>(type: "datetime2", nullable: true),
                     EpisodiMedicId = table.Column<int>(type: "int", nullable: false),
-                    LlitId = table.Column<int>(type: "int", nullable: false)
+                    LlitId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Ingressos", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Ingressos_EpisodisMedics_LlitId",
-                        column: x => x.LlitId,
+                        name: "FK_Ingressos_EpisodisMedics_EpisodiMedicId",
+                        column: x => x.EpisodiMedicId,
                         principalTable: "EpisodisMedics",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -185,7 +180,7 @@ namespace HospitalApi.Migrations
                         name: "FK_Ingressos_Llits_LlitId",
                         column: x => x.LlitId,
                         principalTable: "Llits",
-                        principalColumn: "Id",
+                        principalColumn: "CodiLlit",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -210,6 +205,11 @@ namespace HospitalApi.Migrations
                 column: "PlantaId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Ingressos_EpisodiMedicId",
+                table: "Ingressos",
+                column: "EpisodiMedicId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Ingressos_LlitId",
                 table: "Ingressos",
                 column: "LlitId");
@@ -218,6 +218,12 @@ namespace HospitalApi.Migrations
                 name: "IX_Llits_HabitacioId",
                 table: "Llits",
                 column: "HabitacioId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Pacients_NumSS",
+                table: "Pacients",
+                column: "NumSS",
+                unique: true);
         }
 
         /// <inheritdoc />

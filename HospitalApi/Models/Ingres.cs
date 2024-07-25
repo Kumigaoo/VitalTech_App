@@ -16,13 +16,11 @@ namespace HospitalAPI.Models
         public DateTime? DataSortida { get; set; }
 
         [ForeignKey("EpisodiMedicId")]
-       
         public int EpisodiMedicId {  get; set; }
         public EpisodiMedic EpisodiMedic { get; set; }
 
         [ForeignKey("LlitId")]
-       
-        public int LlitId {  get; set; }
+        public string LlitId {  get; set; }
         public Llit Llit { get; set; }
 
     }
