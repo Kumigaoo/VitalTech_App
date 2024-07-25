@@ -87,7 +87,6 @@ namespace HospitalAPI.Controllers
                 return NotFound("Error: no existeix la planta indicada.");
             }
 
-<<<<<<< HEAD
             if (planta.Habitacions == null)
             {
                 planta.Habitacions = new List<Habitacio>();
@@ -98,12 +97,6 @@ namespace HospitalAPI.Controllers
                 _logger.LogError("No se pueden agregar más habitaciones en esta planta.");
                 return BadRequest("No se pueden agregar más habitaciones en esta planta.");
             }
-=======
-            //string query = "SELECT COUNT(Habitacions) FROM Planta NATURAL JOIN Habitacio WHERE PlantaId = 0";
-            //var maxPlantas = await _bbdd.planta
-            //.FromSql(query, id);
-            //if (Habitacions > maxPlantas) return BadRequest("Error: no es poden afegir més habitacions, s'ha arribat al màxim de la planta.");
->>>>>>> 3dd8c90c7c578fe3569ea16e1b417f4d952e4544
 
             Habitacio habitacio = _mapper.Map<Habitacio>(userHabDTO);
             habitacio.PlantaId = planta.Id;
