@@ -16,10 +16,6 @@ namespace HospitalAPI.Models
 
         public string Recepta { get; set; }
 
-        [ForeignKey("PacientId")]
-        public int PacientId { get; set; }
-        public Pacient Pacient { get; set; }
-
         [ForeignKey("PersonalId")]
         public int PersonalId { get; set; }
         public Personal Personal { get; set; }

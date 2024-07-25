@@ -36,8 +36,8 @@ namespace HospitalAPI.Controllers
             _logger.LogInformation("Obtenint les consultes");
 
             IEnumerable<Consulta> conList = await _bbdd
-                .Consultes.Include("Consulta")
-                .Include("Pacient")
+                .Consultes
+                .Include("Personal")
                 .Include("EpisodiMedic")
                 .ToListAsync();
 
@@ -74,26 +74,19 @@ namespace HospitalAPI.Controllers
             [FromBody] ConsultaCreateDTO userConDTO
         )
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+            if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            var pacient = await _bbdd.Consultes.FindAsync(userConDTO.PacientId);
+            var personal = await _bbdd.Personals.FindAsync(userConDTO.PersonalId);
 
-            if (pacient == null)
-                return BadRequest("No existe ningún paciente con el id proporcionado.");
-
-            var personal = await _bbdd.Consultes.FindAsync(userConDTO.PersonalId);
+            var episodi = await _bbdd.EpisodisMedics.FindAsync(userConDTO.EpisodiMedicId);
 
             if (personal == null)
                 return BadRequest("No esxiste ningún médico con el id proporcionado.");
-
-            var episodi = await _bbdd.Consultes.FindAsync(userConDTO.EpisodiMedicId);
 
             if (episodi == null)
                 return BadRequest("No existe ningún episodio médico con el id proporcionado.");
 
             Consulta consulta = _mapper.Map<Consulta>(userConDTO);
-            consulta.PacientId = pacient.Id;
             consulta.PersonalId = personal.Id;
             consulta.EpisodiMedicId = episodi.Id;
 

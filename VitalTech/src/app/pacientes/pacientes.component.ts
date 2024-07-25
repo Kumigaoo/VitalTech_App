@@ -31,7 +31,6 @@ export class PacientesComponent {
 
   ngOnInit() {
     this.pacienteService.getPacients().subscribe((data: Pacient[]) => {
-      
       this.pacients = data;
     });
   }

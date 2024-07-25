@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace HospitalApi.Migrations
 {
     /// <inheritdoc />
-    public partial class loquete : Migration
+    public partial class wasd : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -118,9 +118,9 @@ namespace HospitalApi.Migrations
                     Urgencia = table.Column<bool>(type: "bit", nullable: false),
                     Dolencia = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Recepta = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PacientId = table.Column<int>(type: "int", nullable: false),
                     PersonalId = table.Column<int>(type: "int", nullable: false),
-                    EpisodiMedicId = table.Column<int>(type: "int", nullable: false)
+                    EpisodiMedicId = table.Column<int>(type: "int", nullable: false),
+                    PacientId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -135,8 +135,7 @@ namespace HospitalApi.Migrations
                         name: "FK_Consultes_Pacients_PacientId",
                         column: x => x.PacientId,
                         principalTable: "Pacients",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Consultes_Personals_PersonalId",
                         column: x => x.PersonalId,

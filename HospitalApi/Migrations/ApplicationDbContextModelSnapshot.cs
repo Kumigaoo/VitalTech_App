@@ -37,7 +37,7 @@ namespace HospitalApi.Migrations
                     b.Property<int>("EpisodiMedicId")
                         .HasColumnType("int");
 
-                    b.Property<int>("PacientId")
+                    b.Property<int?>("PacientId")
                         .HasColumnType("int");
 
                     b.Property<int>("PersonalId")
@@ -253,11 +253,9 @@ namespace HospitalApi.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("HospitalAPI.Models.Pacient", "Pacient")
+                    b.HasOne("HospitalAPI.Models.Pacient", null)
                         .WithMany("Consultes")
-                        .HasForeignKey("PacientId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .HasForeignKey("PacientId");
 
                     b.HasOne("HospitalAPI.Models.Personal", "Personal")
                         .WithMany("Consultes")
@@ -266,8 +264,6 @@ namespace HospitalApi.Migrations
                         .IsRequired();
 
                     b.Navigation("EpisodiMedic");
-
-                    b.Navigation("Pacient");
 
                     b.Navigation("Personal");
                 });

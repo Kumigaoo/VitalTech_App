@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HospitalApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240724163930_loquete")]
-    partial class loquete
+    [Migration("20240725082904_wasd")]
+    partial class wasd
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,7 +40,7 @@ namespace HospitalApi.Migrations
                     b.Property<int>("EpisodiMedicId")
                         .HasColumnType("int");
 
-                    b.Property<int>("PacientId")
+                    b.Property<int?>("PacientId")
                         .HasColumnType("int");
 
                     b.Property<int>("PersonalId")
@@ -256,11 +256,9 @@ namespace HospitalApi.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("HospitalAPI.Models.Pacient", "Pacient")
+                    b.HasOne("HospitalAPI.Models.Pacient", null)
                         .WithMany("Consultes")
-                        .HasForeignKey("PacientId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .HasForeignKey("PacientId");
 
                     b.HasOne("HospitalAPI.Models.Personal", "Personal")
                         .WithMany("Consultes")
@@ -269,8 +267,6 @@ namespace HospitalApi.Migrations
                         .IsRequired();
 
                     b.Navigation("EpisodiMedic");
-
-                    b.Navigation("Pacient");
 
                     b.Navigation("Personal");
                 });

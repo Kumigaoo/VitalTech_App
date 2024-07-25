@@ -53,12 +53,6 @@ namespace HospitalApi.Data
             .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Consulta>()
-            .HasOne(c => c.Pacient)
-            .WithMany(p => p.Consultes)
-            .HasForeignKey(c => c.PacientId)
-            .OnDelete(DeleteBehavior.Restrict);
-
-            modelBuilder.Entity<Consulta>()
             .HasOne(c => c.EpisodiMedic)
             .WithMany(p => p.Consultes)
             .HasForeignKey(c => c.EpisodiMedicId)
