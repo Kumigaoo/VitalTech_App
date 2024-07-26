@@ -38,7 +38,6 @@ namespace HospitalApi.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Recepta")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Sintomatologia")
