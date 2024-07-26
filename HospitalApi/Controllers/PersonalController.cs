@@ -2,6 +2,7 @@ using AutoMapper;
 using HospitalApi.Data;
 using HospitalAPI.DTO;
 using HospitalAPI.Models;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.Elfie.Extensions;
 using Microsoft.EntityFrameworkCore;
@@ -114,7 +115,7 @@ namespace HospitalAPI.Controllers
         [HttpPut("id")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> UpdatePer(string id, [FromBody] PersonalDTO userPerDTO)
+        public async Task<IActionResult> UpdatePer(string id, [FromBody] PersonalCreateDTO userPerDTO)
         {
             if (userPerDTO.DNI == null || id != userPerDTO.DNI)
                 return BadRequest();
@@ -123,6 +124,39 @@ namespace HospitalAPI.Controllers
             _bbdd.Personals.Update(personal);
             await _bbdd.SaveChangesAsync();
             return NoContent();
+        }
+
+        [HttpPatch("id")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+
+        public async Task<IActionResult> UpdatePerTotal (string id, JsonPatchDocument<PersonalDTO> patchDto)
+        {
+            if (patchDto == null || id.Length < 9)
+            {
+                _logger.LogError("Error: no existeix el empleat amb el ID indicat.");
+                return BadRequest("Error: no existeix el empleat amb el ID indicat.");
+            }
+
+            var personal = await _bbdd.Personals.AsNoTracking().FirstOrDefaultAsync(v => v.DNI == id);
+
+            PersonalDTO personaldto = _mapper.Map<PersonalDTO>(personal);
+
+            patchDto.ApplyTo(personaldto, ModelState);
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            Personal modelo = _mapper.Map<Personal>(personaldto);
+
+            _bbdd.Update(modelo);
+            await _bbdd.SaveChangesAsync();
+
+            _logger.LogInformation("Empleat actualitzat.");
+            return NoContent();
+
         }
     }
 }

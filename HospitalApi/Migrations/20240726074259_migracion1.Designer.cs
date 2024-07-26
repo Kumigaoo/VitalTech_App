@@ -12,13 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HospitalApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-<<<<<<<< HEAD:HospitalApi/Migrations/20240726095911_xD.Designer.cs
-    [Migration("20240726095911_xD")]
-    partial class xD
-========
-    [Migration("20240726070953_culo")]
-    partial class culo
->>>>>>>> bd666a4 (controladores ok):HospitalApi/Migrations/20240726070953_culo.Designer.cs
+    [Migration("20240726074259_migracion1")]
+    partial class migracion1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

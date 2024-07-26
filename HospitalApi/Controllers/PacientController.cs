@@ -118,7 +118,7 @@ namespace HospitalAPI.Controllers
         [HttpPut("id")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> UpdatePacient(string id, [FromBody] PacientDTO userPacientDTO)
+        public async Task<IActionResult> UpdatePacient(string id, [FromBody] PacientCreateDTO userPacientDTO)
         {
 
             if (userPacientDTO == null || id != userPacientDTO.DNI)
