@@ -8,7 +8,7 @@
 
         public string Sintomatologia { get; set; }
 
-        public string Recepta { get; set; }
+        public string? Recepta { get; set; }
 
         public string PersonalId { get; set; }
 

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace HospitalApi.Migrations
 {
     /// <inheritdoc />
-    public partial class xd : Migration
+    public partial class wasd : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -18,7 +18,6 @@ namespace HospitalApi.Migrations
                     DNI = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     NumSS = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Nom = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Estat = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Sexe = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -31,8 +30,8 @@ namespace HospitalApi.Migrations
                 columns: table => new
                 {
                     DNI = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Nom = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Especialitat = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Especialitat = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Nom = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -75,6 +74,7 @@ namespace HospitalApi.Migrations
                     DataObertura = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DataTancament = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Dolencia = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Estat = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PacientId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>

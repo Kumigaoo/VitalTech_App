@@ -14,6 +14,8 @@ namespace HospitalAPI.DTO
 
         public string Dolencia { get; set; }
 
+        public string Estat { get; set; }
+
         public string PacientId { get; set; }
 
         public ICollection<IngresDTO> Ingressos { get; set; }

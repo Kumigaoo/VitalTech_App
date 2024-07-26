@@ -13,5 +13,7 @@ namespace HospitalApi.DTO
 
         public string Dolencia { get; set; }
 
+        public string Estat { get; set; }
+
     }
 }

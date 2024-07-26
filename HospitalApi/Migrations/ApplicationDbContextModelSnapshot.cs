@@ -75,6 +75,10 @@ namespace HospitalApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Estat")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("PacientId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
@@ -159,10 +163,6 @@ namespace HospitalApi.Migrations
                 {
                     b.Property<string>("DNI")
                         .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Estat")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nom")
                         .IsRequired()

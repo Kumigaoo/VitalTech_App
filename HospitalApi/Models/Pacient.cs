@@ -16,9 +16,6 @@ namespace HospitalAPI.Models
         [Required]
         public string Nom { get; set; }
 
-        [Required]
-        public string Estat { get; set; }
-
         public string Sexe { get; set; }
 
         public ICollection<EpisodiMedic> EpisodisMedics { get; set; }

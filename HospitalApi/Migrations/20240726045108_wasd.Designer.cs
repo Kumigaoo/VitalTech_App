@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HospitalApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240725174425_xd")]
-    partial class xd
+    [Migration("20240726045108_wasd")]
+    partial class wasd
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -75,6 +75,10 @@ namespace HospitalApi.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Dolencia")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Estat")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -162,10 +166,6 @@ namespace HospitalApi.Migrations
                 {
                     b.Property<string>("DNI")
                         .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Estat")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nom")
                         .IsRequired()
