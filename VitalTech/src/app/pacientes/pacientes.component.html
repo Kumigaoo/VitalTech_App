@@ -33,22 +33,19 @@
         <table id="resultsTable">
             <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Sexo</th>
-                    <th>Estado</th>
-                    <th>Cama Asignada</th>
-                    <th>Habitación Asignada</th>
+                    <th>DNI</th>
+                    <th>Num Seguretat Social</th>
+                    <th>Nom</th>
+                    <th>Sexe</th>
+                    <th>Episodis Medics</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let pacient of pacients">
-                    <td>{{ pacient.id }}</td>
+                    <td>{{ pacient.dni }}</td>
                     <td>{{ pacient.numSS }}</td>
-                    <td>{{ pacient.nom }}</td>
-                    <td>{{ pacient.estat }}</td>
+                    <td>{{ pacient.nom }}</td>  
                     <td>{{ pacient.sexe }}</td>
-                    <td>{{ pacient.consultes }}</td>
                     <td>{{ pacient.episodisMedics }}</td>
                   </tr>
             </tbody>

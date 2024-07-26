@@ -3,12 +3,10 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 interface Pacient {
-  id: number;
+  dni: string;
   numSS: string;
   nom: string;
-  estat: string;
   sexe: string;
-  consultes: string[];
   episodisMedics: string[];
 }
 

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace HospitalApi.Migrations
 {
     /// <inheritdoc />
-    public partial class wasd : Migration
+    public partial class xD : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -115,7 +115,7 @@ namespace HospitalApi.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Urgencia = table.Column<bool>(type: "bit", nullable: false),
                     Sintomatologia = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Recepta = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Recepta = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PersonalId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     EpisodiMedicId = table.Column<int>(type: "int", nullable: false)
                 },
