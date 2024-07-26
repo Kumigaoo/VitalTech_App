@@ -1,11 +1,10 @@
 import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
-import { NavComponent } from './nav/nav.component';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AppComponent, NavComponent],
+      imports: [AppComponent],
     }).compileComponents();
   });
 
@@ -15,16 +14,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have the 'VitalTech' title`, () => {
+  it(`should have the 'VitalTechV2' title`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('VitalTech');
+    expect(app.title).toEqual('VitalTechV2');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, VitalTech');
+    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, VitalTechV2');
   });
 });
