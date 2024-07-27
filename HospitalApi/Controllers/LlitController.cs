@@ -144,7 +144,7 @@ namespace HospitalAPI.Controllers
         [HttpPut("id")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> UpdateLlit(int id, [FromBody] LlitDTO userLlitDTO)
+        public async Task<IActionResult> UpdateLlit(int id, [FromBody] LlitCreateDTO userLlitDTO)
         {
 
             if (userLlitDTO == null || id != userLlitDTO.HabitacioId)

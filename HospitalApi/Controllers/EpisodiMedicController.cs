@@ -129,7 +129,7 @@ namespace HospitalAPI.Controllers
         [HttpPut("id")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> UpdateEpisodisMedics(int id, [FromBody] EpisodiMedicDTO userEpiDTO)
+        public async Task<IActionResult> UpdateEpisodisMedics(int id, [FromBody] EpisodiMedicUpdateDTO userEpiDTO)
         {
 
             if (userEpiDTO == null || id != userEpiDTO.Id)

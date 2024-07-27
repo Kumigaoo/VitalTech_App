@@ -146,7 +146,7 @@ namespace HospitalAPI.Controllers
         [HttpPut("id")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> UpdateHabitacio(int id, [FromBody] HabitacioDTO userHabDTO)
+        public async Task<IActionResult> UpdateHabitacio(int id, [FromBody] HabitacioCreateDTO userHabDTO)
         {
             if (userHabDTO == null || id != userHabDTO.CodiHabitacio)
             {
