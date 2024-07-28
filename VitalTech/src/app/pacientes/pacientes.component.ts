@@ -1,8 +1,7 @@
 
 import { RouterLinkActive, RouterLink } from '@angular/router';
-import { NgForm } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';  // Importar CommonModule
+import { CommonModule } from '@angular/common'; 
 import { PacientService } from './pacientes.service';
 
 
@@ -21,16 +20,26 @@ interface Pacient {
   templateUrl: './pacientes.component.html',
   styleUrl: './pacientes.component.css'
 })
+
+
 export class PacientesComponent {
 
   pacients: Pacient[] = [];
+  selectedPacient: any;
 
   constructor(private pacienteService: PacientService) { }
 
   ngOnInit() {
-    this.pacienteService.getPacients().subscribe((data: Pacient[]) => {
+    this.loadPacients();
+  }
+
+  loadPacients(): void {
+    this.pacienteService.getPacients().subscribe(data => {
       this.pacients = data;
     });
   }
+
+
+  
 
 }

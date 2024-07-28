@@ -1,12 +1,23 @@
 .container {
-    width: 950px;
-    height: 420px;
+    margin: auto;
+    width: 60vw;
+    height: 40vh;
     background-color: white;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin-left: 250px;
-    margin-top: 40px;
+    margin-left: 350px;
+    margin-top: 120px;
+}
+
+#s {
+    position: fixed;
+    top: 45%;
+    width: 50vw;
+}
+
+#s button {
+    margin-left: 10px;
 }
 
 .capzalera1, .capzalera2, .capzalera3, .capzalera4{
@@ -67,7 +78,7 @@ button {
     border-radius: 4px;
     font-size: 16px;
     cursor: pointer;
-    margin-top: 150px;
+    margin-top: 30px;
     margin-bottom: 1px;
 }
 

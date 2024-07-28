@@ -137,11 +137,11 @@ namespace HospitalAPI.Controllers
 
         }
 
-        [HttpPatch("{id:int}")]
+        [HttpPatch("id")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
 
-        public async Task<IActionResult> UpdateParcialPacient(string id, JsonPatchDocument<PacientDTO> patchDto)
+        public async Task<IActionResult> UpdateParcialPacient(string id, JsonPatchDocument<PacientCreateDTO> patchDto)
         {
             if (patchDto == null || id.Length < 9)
             {
@@ -149,9 +149,15 @@ namespace HospitalAPI.Controllers
                 return BadRequest("Error: no existeix el pacient amb el ID indicat.");
             }
 
-            var pacient = await _bbdd.Pacients.FirstOrDefaultAsync(v => v.DNI == id);
+            var pacient = await _bbdd.Pacients.AsNoTracking().FirstOrDefaultAsync(v => v.DNI == id);
 
-            PacientDTO pacientdto = _mapper.Map<PacientDTO>(pacient);
+            if (pacient == null)
+            {
+                _logger.LogError("Error: no existeix el pacient amb el ID indicat.");
+                return BadRequest("Error: no existeix el pacient amb el ID indicat.");
+            }
+
+            PacientCreateDTO pacientdto = _mapper.Map<PacientCreateDTO>(pacient);
 
             patchDto.ApplyTo(pacientdto, ModelState);
 

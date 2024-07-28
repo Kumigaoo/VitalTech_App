@@ -7,20 +7,18 @@ import { AppComponent } from './app.component';
 import { JwtInterceptor } from './jwt.interceptor';
 import { CommonModule } from '@angular/common';
 
-// Función para obtener el token del almacenamiento local
+
 export function tokenGetter() {
   return localStorage.getItem('token');
 }
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  
   imports: [
     BrowserModule,
     FormsModule,
     CommonModule,
-    HttpClient,
+    
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
@@ -32,6 +30,6 @@ export function tokenGetter() {
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}
   ],
-  bootstrap: [AppComponent]
+  
 })
 export class AppModule { }

@@ -21,6 +21,7 @@
         </div>
         <div class="registro">
             <button id="registrarse"><a routerLink="/registro"> + Registrar paciente</a></button>
+            <button id="registrarse"><a routerLink="/modificar-paciente"> * Modificar paciente</a></button>
         </div>
     </div>
     
@@ -41,7 +42,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let pacient of pacients">
+                <tr *ngFor="let pacient of pacients; let i = index">
                     <td>{{ pacient.dni }}</td>
                     <td>{{ pacient.numSS }}</td>
                     <td>{{ pacient.nom }}</td>  
@@ -51,11 +52,7 @@
             </tbody>
         </table>
 
-        <div class = "eliminar">
-            <button id="eliminarse">Eliminar</button>
-            <button id="eliminarse">Eliminar</button>
-            <button id="eliminarse">Eliminar</button>
-        </div>
+        
     </div>
     
     <div class="pagination">

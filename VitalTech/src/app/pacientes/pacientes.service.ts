@@ -2,6 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
+interface JsonPatchDocument {
+  op: string;
+  path: string;
+  value?: any;
+}
+
 interface Pacient {
   dni: string;
   numSS: string;
@@ -22,4 +28,11 @@ export class PacientService {
   getPacients(): Observable<Pacient[]> {
     return this.http.get<Pacient[]>(this.apiUrl);
   }
+
+  updatePacient(dni: string, patchDoc: JsonPatchDocument[]): Observable<void> {
+    return this.http.patch<void>(`${this.apiUrl}/${dni}`, patchDoc);
+  }
+
+ 
+
 }

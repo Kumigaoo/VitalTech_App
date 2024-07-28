@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HospitalApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240727143341_xd")]
+    [Migration("20240728174951_xd")]
     partial class xd
     {
         /// <inheritdoc />

@@ -1,0 +1,42 @@
+<div class="container">
+
+    <h2>Update Formulari</h2>
+
+    <div id = "s">
+        <input type="text" id="searchInput" name="searchInput" placeholder="Ingresa el DNI del paciente">
+        <button type="submit">Buscar</button>
+    </div>
+
+    <form type="submit">
+        <div class="identificador">
+
+            <div class="capzalera4">
+                <label for="dni">DNI:</label>
+                <input type="text" id="dni" ngModel name="dni" required>
+            </div>
+
+            <div class="masInfo">
+                <div class="capzalera1">
+                    <label for="SS">Número de la SS:</label>
+                    <input type="text" id="SS" ngModel name="SS" required>
+                </div>
+            </div>
+
+            <div class="capzalera1">
+                <label for="name">Nombre:</label>
+                <input type="text" id="name" ngModel name="name" required>
+            </div>
+
+            <div class="capzalera1">
+                <label for="sexo">Sexo:</label>
+                <select id="selecionSexe" ngModel name="selecionSexe">
+                    <option value="bed1">Femenino</option>
+                    <option value="bed2">Masculino</option>
+                </select>
+            </div>
+
+        </div>
+
+        <button type="submit">Update</button>
+    </form>
+</div>

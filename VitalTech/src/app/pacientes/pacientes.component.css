@@ -1,11 +1,18 @@
 
 .search-container {
+    margin-top: 100px;
     display: flex;
     justify-content: flex-start;
 }
+
+#eliminarse {
+    margin-top: 4px;
+    margin-left: 20px;
+}
+
 .lala {
     background: #fff;
-    padding: 20px;
+    padding: 30px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     width: 33vw;
@@ -170,6 +177,7 @@ table {
     justify-content: center;
     align-items: center;
     margin-top: 20px;
+    margin-bottom: 40px;
     font-family: Arial, sans-serif;
 }
 
