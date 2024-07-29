@@ -89,7 +89,9 @@ namespace HospitalAPI.Controllers
              }
 
             var planta = await _bbdd.Plantes.FirstOrDefaultAsync(h => h.Id == id);
+
             var habitacio = await _bbdd.Habitacions.FirstOrDefaultAsync(h => h.PlantaId == id);
+
 
             if (planta == null)
             {
@@ -99,6 +101,13 @@ namespace HospitalAPI.Controllers
 
             if (habitacio == null) {
 
+            }
+
+
+            if (planta.Habitacions.Any())
+            {
+                _logger.LogError("Error: no es pot esborrar una planta que conté habitacions.");
+                return BadRequest("Error: no es pot esborrar una planta que conté habitacions");
             }
 
             _bbdd.Plantes.Remove(planta);

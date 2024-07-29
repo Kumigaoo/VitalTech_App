@@ -100,6 +100,7 @@ namespace HospitalAPI.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+
         public async Task<IActionResult> DeleteEpisodiMedic(int id)
         {
 
@@ -116,7 +117,14 @@ namespace HospitalAPI.Controllers
                 _logger.LogError("Error: no existeix l'episodi mèdic amb l'id indicat.");
                 return NotFound("Error: no existeix l'episodi mèdic amb l'id indicat.");
             }
+
+            var ingr = await _bbdd.Ingressos.FirstOrDefaultAsync(h => h.EpisodiMedicId == id);   
             
+            if (ingr != null)
+            {
+                _logger.LogError("Error: no es pot esborrar un episodi que conté ingressos.");
+                return BadRequest("Error: no es pot esborrar un episodi que conté ingressos.");
+            }
 
             _bbdd.EpisodisMedics.Remove(epi);
             await _bbdd.SaveChangesAsync();
@@ -151,7 +159,7 @@ namespace HospitalAPI.Controllers
         [HttpPatch("{id:int}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-
+        
         public async Task <IActionResult> UpdateParcialEpisodisMedics (int id, JsonPatchDocument <EpisodiMedicUpdateDTO> patchDto)
         {
             if (patchDto == null || id <= 0)
