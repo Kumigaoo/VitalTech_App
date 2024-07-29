@@ -20,5 +20,7 @@ namespace HospitalAPI.DTO
 
         public ICollection<IngresDTO> Ingressos { get; set; }
 
+        public ICollection<ConsultaDTO> Consultes { get; set; }
+
     }
 }

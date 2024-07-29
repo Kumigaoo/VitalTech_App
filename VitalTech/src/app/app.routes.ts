@@ -9,10 +9,11 @@ import { ConfiguracionComponent } from './configuracion/configuracion.component'
 import { RegistroComponent } from './registro/registro.component';
 import { FichaComponent } from './ficha/ficha.component';
 import { ModificarPacienteComponent } from './modificar-paciente/modificar-paciente.component';
+import { EpisodisComponent } from './episodis/episodis.component';
 
 export const routes: Routes = [
     {path: '', redirectTo: '/pacientes', pathMatch: 'full' },
-   // {path: 'login', component: LoginComponent},
+    {path: 'login', component: LoginComponent},
     {path: 'inicio', component: InicioComponent},
     {path: 'camas', component: CamasComponent},
     {path: 'habitaciones', component: HabitacionesComponent},
@@ -21,5 +22,6 @@ export const routes: Routes = [
     {path: 'configuracion', component: ConfiguracionComponent},
     {path: 'registro', component: RegistroComponent},
     {path: 'ficha', component: FichaComponent},
-    {path: 'modificar-paciente', component: ModificarPacienteComponent}
+    {path: 'modificar-paciente', component: ModificarPacienteComponent},
+    {path: 'episodis', component: EpisodisComponent}
 ];

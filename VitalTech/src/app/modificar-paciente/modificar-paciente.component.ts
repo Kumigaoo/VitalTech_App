@@ -26,6 +26,8 @@ interface Pacient {
 
 export class ModificarPacienteComponent {
 
+  /*
+
   pacient: Pacient | null = null;
   dni: string = '';
 
@@ -64,5 +66,7 @@ export class ModificarPacienteComponent {
       });
     }
   }
+
+  */
 
 }

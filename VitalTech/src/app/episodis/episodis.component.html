@@ -1,0 +1,65 @@
+
+<div class= "contendor">
+    <div class="search-container">
+        <div class="lala">
+            <form id="searchForm">
+                <div class="searchCriteriaContainer">
+                    <label for="searchCriteria">Buscar por:</label>
+                </div>
+                <div class="searchCriteriaItemContainer">
+                    <input type="text" id="searchInput" name="searchInput" placeholder="Ingresa la busqueda...">
+                    <button type="submit">Buscar</button>
+                    
+                </div>
+            </form>
+        </div>
+        <div class="registro">
+            <button id="registrarse"><a routerLink="/registro"> + Registrar Episodio</a></button>
+            <button id="registrarse"><a routerLink="/modificar-paciente"> * Modificar Episodio</a></button>
+        </div>
+    </div>
+    
+</div>
+<div class ="texto">
+    <p>Llista d'Episodis Medics</p>
+</div>
+<div class="table-container">
+    <div class="cosas">
+        <table id="resultsTable">
+            <thead>
+                <tr>
+                    <th>Id Episodi</th>
+                    <th>Data Obertura</th>
+                    <th>Data Tancament</th>
+                    <th>Dolencia</th>
+                    <th>Estat</th>
+                    <th>DNI Pacient</th>
+                    <th>Consultes</th>
+                    <th>Ingressos</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let episodi of episodis; let i = index">
+                    <td>{{ episodi.id }}</td>
+                    <td>{{ episodi.dataObertura }}</td>
+                    <td>{{ episodi.dataTancament }}</td>  
+                    <td>{{ episodi.estat }}</td>
+                    <td>{{ episodi.dolencia }}</td>
+                    <td>{{ episodi.pacientId }}</td>
+                    <td>Consultes</td>
+                    <td>Ingressos</td>
+                  </tr>
+            </tbody>
+        </table>
+
+        
+    </div>
+    
+    <div class="pagination">
+        <button id="prevPage">Anterior</button>
+        <span id="pageInfo">Página 1 de X</span>
+        <button id="nextPage">Siguiente</button>
+    </div>
+</div>
+
+
