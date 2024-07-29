@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
-import { NavComponent } from './nav/nav.component';
+import { NavComponent } from './common/nav/nav.component';
 
 describe('AppComponent', () => {
   beforeEach(async () => {

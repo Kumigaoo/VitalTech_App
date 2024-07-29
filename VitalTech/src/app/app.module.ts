@@ -6,7 +6,8 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { AppComponent } from './app.component';
 import { JwtInterceptor } from './jwt.interceptor';
 import { CommonModule } from '@angular/common';
-
+import { MatDialogModule } from '@angular/material/dialog';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -18,7 +19,8 @@ export function tokenGetter() {
     BrowserModule,
     FormsModule,
     CommonModule,
-    
+    MatDialogModule,
+    BrowserAnimationsModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,

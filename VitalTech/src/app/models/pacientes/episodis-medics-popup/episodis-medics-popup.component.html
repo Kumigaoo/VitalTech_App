@@ -1,0 +1,25 @@
+<div class="popup-content">
+<h2>Episodis Medics</h2>
+<table id="resultsTable">
+  <thead>
+      <tr>
+          <th>Id Episodi</th>
+          <th>Data Obertura</th>
+          <th>Data Tancament</th>
+          <th>Estat</th>
+          <th>Dolencia</th>
+          <th>DNI Pacient</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr *ngFor="let episodi of data.episodisMedics; let i = index">
+          <td>{{ episodi.id }}</td>
+          <td>{{ episodi.dataObertura }}</td>
+          <td>{{ episodi.dataTancament }}</td>  
+          <td>{{ episodi.estat }}</td>
+          <td>{{ episodi.dolencia }}</td>
+          <td>{{ episodi.pacientId }}</td>
+        </tr>
+  </tbody>
+</table>
+</div>

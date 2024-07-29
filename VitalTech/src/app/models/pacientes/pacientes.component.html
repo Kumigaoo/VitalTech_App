@@ -1,0 +1,75 @@
+
+<div class= "contendor">
+    <div class="search-container">
+        <div class="lala">
+            <form id="searchForm">
+                <div class="searchCriteriaContainer">
+                    <label for="searchCriteria">Buscar por:</label>
+                </div>
+                <div class="searchCriteriaItemContainer">
+                    <select id="searchCriteria" name="searchCriteria">
+                        <option value="name">Nombre</option>
+                        <option value="dni">DNI</option>
+                        <option value="ss">SS</option>
+                        <option value="id">ID</option>
+                    </select>
+                    <input type="text" id="searchInput" name="searchInput" placeholder="Ingresa la busqueda...">
+                    <button type="submit">Buscar</button>
+                    
+                </div>
+            </form>
+        </div>
+        <div class="registro">
+            <button id="registrarse"><a routerLink="/registro"> + Registrar paciente</a></button>
+        </div>
+    </div>
+    
+</div>
+<div class ="texto">
+    <p>Lista de Pacientes</p>
+</div>
+<div class="table-container">
+    <div class="cosas">
+        <table id="resultsTable">
+            <thead>
+                <tr>
+                    <th>DNI</th>
+                    <th>Num Seguretat Social</th>
+                    <th>Nom</th>
+                    <th>Sexe</th>
+                    <th>Episodis Medics</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let pacient of pacients">
+                    <td>{{ pacient.dni }}</td>
+                    <td>{{ pacient.numSS }}</td>
+                    <td>{{ pacient.nom }}</td>  
+                    <td>{{ pacient.sexe }}</td>
+                    <td id="coleccio" mat-button (click)="openEpisodisMedics(pacient)">Episodis</td>
+                  </tr>
+            </tbody>
+        </table>
+
+        
+    </div>
+    
+    <div class="pagination">
+        <button id="prevPage">Anterior</button>
+        <span id="pageInfo">Página 1 de X</span>
+        <button id="nextPage">Siguiente</button>
+    </div>
+</div>
+
+<script>
+    const btn = document.getElementById('registrarse');
+    const contenido = document.getElementById('container');
+
+    btn.addEventListener('click', () => {
+            
+            if (contenido.style.display === 'none' || contenido.style.display === '') {
+                contenido.style.display = 'block';
+                btn.style.display ='none';
+            }
+        });
+</script>
