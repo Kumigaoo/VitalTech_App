@@ -25,6 +25,7 @@ namespace HospitalAPI
 
             CreateMap<EpisodiMedic, EpisodiMedicDTO>().ReverseMap();
             CreateMap<EpisodiMedic, EpisodiMedicCreateDTO>().ReverseMap();
+            CreateMap<EpisodiMedic, EpisodiMedicUpdateDTO>().ReverseMap();
 
             CreateMap<Ingres, IngresDTO>().ReverseMap();
             CreateMap<Ingres, IngresCreateDTO>().ReverseMap();
