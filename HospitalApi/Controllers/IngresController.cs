@@ -167,7 +167,7 @@ namespace HospitalAPI.Controllers
                 return BadRequest("Error: no existeix l'ingrés amb el ID indicat.");
             }
 
-            var ingres = await _bbdd.Ingressos.FirstOrDefaultAsync(v => v.Id == id);
+            var ingres = await _bbdd.Ingressos.AsNoTracking().FirstOrDefaultAsync(v => v.Id == id);
 
             IngresDTO ingresdto = _mapper.Map<IngresDTO>(ingres);
 

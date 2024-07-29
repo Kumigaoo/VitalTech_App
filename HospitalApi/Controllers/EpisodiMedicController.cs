@@ -152,7 +152,7 @@ namespace HospitalAPI.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
 
-        public async Task <IActionResult> UpdateParcialEpisodisMedics (int id, JsonPatchDocument <EpisodiMedicDTO> patchDto)
+        public async Task <IActionResult> UpdateParcialEpisodisMedics (int id, JsonPatchDocument <EpisodiMedicUpdateDTO> patchDto)
         {
             if (patchDto == null || id <= 0)
             {
@@ -160,9 +160,9 @@ namespace HospitalAPI.Controllers
                 return BadRequest("Error: no existeix l'episodi amb el ID indicat.");
             }
 
-            var episodi = await _bbdd.EpisodisMedics.FirstOrDefaultAsync(v => v.Id == id);
+            var episodi = await _bbdd.EpisodisMedics.AsNoTracking().FirstOrDefaultAsync(v => v.Id == id);
 
-            EpisodiMedicDTO episodidto = _mapper.Map<EpisodiMedicDTO>(episodi);
+            EpisodiMedicUpdateDTO episodidto = _mapper.Map<EpisodiMedicUpdateDTO>(episodi);
 
             patchDto.ApplyTo(episodidto, ModelState);
                  
