@@ -24,20 +24,20 @@ interface Pacient {
 
 export class PacientesComponent {
 
-  pacients: Pacient[] = [];
-  selectedPacient: any;
+  // pacients: Pacient[] = [];
+  // selectedPacient: any;
 
-  constructor(private pacienteService: PacientService) { }
+  // constructor(private pacienteService: PacientService) { }
 
-  ngOnInit() {
-    this.loadPacients();
-  }
+  // ngOnInit() {
+  //   this.loadPacients();
+  // }
 
-  loadPacients(): void {
-    this.pacienteService.getPacients().subscribe(data => {
-      this.pacients = data;
-    });
-  }
+  // loadPacients(): void {
+  //   this.pacienteService.getPacients().subscribe(data => {
+  //     this.pacients = data;
+  //   });
+  // }
 
 
   
