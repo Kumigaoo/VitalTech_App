@@ -10,6 +10,9 @@ import { RegistroComponent } from './registro/registro.component';
 import { FichaComponent } from './ficha/ficha.component';
 import { ModificarPacienteComponent } from './modificar-paciente/modificar-paciente.component';
 import { EpisodisComponent } from './episodis/episodis.component';
+import { ConsultaComponent } from './consulta/consulta.component';
+import { MetgeComponent } from './metge/metge.component';
+import { IngresComponent } from './ingres/ingres.component';
 
 export const routes: Routes = [
     {path: '', redirectTo: '/pacientes', pathMatch: 'full' },
@@ -23,5 +26,9 @@ export const routes: Routes = [
     {path: 'registro', component: RegistroComponent},
     {path: 'ficha', component: FichaComponent},
     {path: 'modificar-paciente', component: ModificarPacienteComponent},
-    {path: 'episodis', component: EpisodisComponent}
+    {path: 'episodis', component: EpisodisComponent},
+    {path: 'consultes', component: ConsultaComponent},
+    {path: 'metge', component: MetgeComponent},
+    {path: 'ingres', component: IngresComponent}
+    
 ];

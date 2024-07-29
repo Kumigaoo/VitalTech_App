@@ -1,1 +1,57 @@
-<p>metge works!</p>
+
+<div class= "contendor">
+    <div class="search-container">
+        <div class="lala">
+            <form id="searchForm">
+                <div class="searchCriteriaContainer">
+                    <label for="searchCriteria">Buscar por:</label>
+                </div>
+                <div class="searchCriteriaItemContainer">
+                    <input type="text" id="searchInput" name="searchInput" placeholder="Ingresa la busqueda...">
+                    <button type="submit">Buscar</button>
+                    
+                </div>
+            </form>
+        </div>
+        <div class="registro">
+            <button id="registrarse"><a routerLink="/registro"> + Registrar Personal</a></button>
+            <button id="registrarse"><a routerLink="/modificar-paciente"> * Modificar Personal</a></button>
+        </div>
+    </div>
+    
+</div>
+<div class ="texto">
+    <p>Llista del Personal</p>
+</div>
+<div class="table-container">
+    <div class="cosas">
+        <table id="resultsTable">
+            <thead>
+                <tr>
+                    <th>DNI</th>
+                    <th>Nom</th>
+                    <th>Especialitat</th>
+                    <th>Consultes</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let metge of metges">
+                    <td>{{ metge.dni }}</td>
+                    <td>{{ metge.nom }}</td>
+                    <td>{{ metge.especialitat }}</td>  
+                    <td>{{ metge.consultes }}</td>
+                  </tr>
+            </tbody>
+        </table>
+
+        
+    </div>
+    
+    <div class="pagination">
+        <button id="prevPage">Anterior</button>
+        <span id="pageInfo">Página 1 de X</span>
+        <button id="nextPage">Siguiente</button>
+    </div>
+</div>
+
+

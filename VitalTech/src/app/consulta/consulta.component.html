@@ -1,1 +1,61 @@
-<p>consulta works!</p>
+
+<div class= "contendor">
+    <div class="search-container">
+        <div class="lala">
+            <form id="searchForm">
+                <div class="searchCriteriaContainer">
+                    <label for="searchCriteria">Buscar por:</label>
+                </div>
+                <div class="searchCriteriaItemContainer">
+                    <input type="text" id="searchInput" name="searchInput" placeholder="Ingresa la busqueda...">
+                    <button type="submit">Buscar</button>
+                    
+                </div>
+            </form>
+        </div>
+        <div class="registro">
+            <button id="registrarse"><a routerLink="/registro"> + Registrar Consulta</a></button>
+            <button id="registrarse"><a routerLink="/modificar-paciente"> * Modificar Consulta</a></button>
+        </div>
+    </div>
+    
+</div>
+<div class ="texto">
+    <p>Llista de Consultes</p>
+</div>
+<div class="table-container">
+    <div class="cosas">
+        <table id="resultsTable">
+            <thead>
+                <tr>
+                    <th>Id Consulta</th>
+                    <th>Urgencia</th>
+                    <th>Sintomatologia</th>
+                    <th>Recepta</th>
+                    <th>DNI Personal</th>
+                    <th>ID Episodi Medic</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let consulta of consultes">
+                    <td>{{ consulta.id }}</td>
+                    <td>{{ consulta.urgencia }}</td>
+                    <td>{{ consulta.sintomatologia }}</td>  
+                    <td>{{ consulta.recepta }}</td>
+                    <td>{{ consulta.personalId }}</td>
+                    <td>{{ consulta.episodiMedicId }}</td>
+                  </tr>
+            </tbody>
+        </table>
+
+        
+    </div>
+    
+    <div class="pagination">
+        <button id="prevPage">Anterior</button>
+        <span id="pageInfo">Página 1 de X</span>
+        <button id="nextPage">Siguiente</button>
+    </div>
+</div>
+
+
