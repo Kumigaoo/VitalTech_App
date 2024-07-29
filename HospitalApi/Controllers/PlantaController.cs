@@ -63,7 +63,7 @@ namespace HospitalAPI.Controllers
         {
             if (!ModelState.IsValid)
             {
-                _logger.LogError("Error: dades introduïdes incorrectes");
+                _logger.LogError("Error: dades introduï¿½des incorrectes");
                 return BadRequest(ModelState);
             }
 
@@ -72,7 +72,7 @@ namespace HospitalAPI.Controllers
             await _bbdd.Plantes.AddAsync(planta);
             await _bbdd.SaveChangesAsync();
 
-            _logger.LogInformation("Planta creada satisfactòriament.");
+            _logger.LogInformation("Planta creada satisfactï¿½riament.");
             return CreatedAtRoute("GetPlanta", planta);
 
         }
@@ -84,11 +84,12 @@ namespace HospitalAPI.Controllers
         public async Task<IActionResult> DeletePlanta(int id)
         {
             if (id <= 0) {
-                _logger.LogError("Error: format d'ID introduït incorrecte.");
+                _logger.LogError("Error: format d'ID introduï¿½t incorrecte.");
                 return BadRequest(ModelState);
              }
 
             var planta = await _bbdd.Plantes.FirstOrDefaultAsync(h => h.Id == id);
+            var habis = await _bbdd.Habitacions.Where(h=>h.PlantaId == id).ToListAsync();
 
             if (planta == null)
             {
@@ -96,10 +97,15 @@ namespace HospitalAPI.Controllers
                 return NotFound("Error: no existeix cap planta amb aquest ID.");
             }
 
+            if (habis.Any()) {
+                _logger.LogError("Error: no es pot esborrar una planta que contÃ© habitacions.");
+                return BadRequest("Error: no es pot esborrar una planta que contÃ© habitacions.")
+            }
+
             _bbdd.Plantes.Remove(planta);
             await _bbdd.SaveChangesAsync();
 
-            _logger.LogInformation("Planta esborrada satisfactòriament.");
+            _logger.LogInformation("Planta esborrada satisfactï¿½riament.");
             return NoContent();
 
         }
@@ -112,8 +118,8 @@ namespace HospitalAPI.Controllers
 
             if (userPlantaDTO == null || id != userPlantaDTO.Id)
             {
-                _logger.LogError("Error: planta no trobada o dades introduïdes incorrectes.");
-                return BadRequest("Error: planta no trobada o dades introduïdes incorrectes.");
+                _logger.LogError("Error: planta no trobada o dades introduï¿½des incorrectes.");
+                return BadRequest("Error: planta no trobada o dades introduï¿½des incorrectes.");
             }
 
             Planta planta = _mapper.Map<Planta>(userPlantaDTO);

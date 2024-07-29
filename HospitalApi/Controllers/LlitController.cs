@@ -174,7 +174,7 @@ namespace HospitalAPI.Controllers
                 return BadRequest("Error: dades introduides amb format incorrecte.");
             }
 
-            var llit = await _bbdd.Llits.FirstOrDefaultAsync(v => v.CodiLlit == id);
+            var llit = await _bbdd.Llits.AsNoTracking().FirstOrDefaultAsync(v => v.CodiLlit == id);
 
             LlitDTO llitdto = _mapper.Map<LlitDTO>(llit);
 
