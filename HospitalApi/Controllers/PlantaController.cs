@@ -90,7 +90,7 @@ namespace HospitalAPI.Controllers
 
             var planta = await _bbdd.Plantes.FirstOrDefaultAsync(h => h.Id == id);
 
-            var habitacio = await _bbdd.Habitacions.FirstOrDefaultAsync(h => h.PlantaId == id);
+            var habis = await _bbdd.Habitacions.Where(h=>h.PlantaId == id).ToListAsync();
 
 
             if (planta == null)
@@ -99,8 +99,9 @@ namespace HospitalAPI.Controllers
                 return NotFound("Error: no existeix cap planta amb aquest ID.");
             }
 
-            if (habitacio == null) {
-
+            if (habis.Any()) {
+                _logger.LogError("Error: no es pot esborrar una planta que conté habitacions.");
+                return BadRequest("Error: no es pot esborrar una planta que conté habitacions.");
             }
 
 
