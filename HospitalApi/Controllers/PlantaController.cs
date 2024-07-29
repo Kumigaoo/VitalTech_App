@@ -89,9 +89,7 @@ namespace HospitalAPI.Controllers
              }
 
             var planta = await _bbdd.Plantes.FirstOrDefaultAsync(h => h.Id == id);
-
-            var habis = await _bbdd.Habitacions.Where(h=>h.PlantaId == id).ToListAsync();
-
+            var habitacio = await _bbdd.Habitacions.FirstOrDefaultAsync(h => h.PlantaId == id);
 
             if (planta == null)
             {
@@ -99,16 +97,8 @@ namespace HospitalAPI.Controllers
                 return NotFound("Error: no existeix cap planta amb aquest ID.");
             }
 
-            if (habis.Any()) {
-                _logger.LogError("Error: no es pot esborrar una planta que conté habitacions.");
-                return BadRequest("Error: no es pot esborrar una planta que conté habitacions.");
-            }
+            if (habitacio == null) {
 
-
-            if (planta.Habitacions.Any())
-            {
-                _logger.LogError("Error: no es pot esborrar una planta que conté habitacions.");
-                return BadRequest("Error: no es pot esborrar una planta que conté habitacions");
             }
 
             _bbdd.Plantes.Remove(planta);
