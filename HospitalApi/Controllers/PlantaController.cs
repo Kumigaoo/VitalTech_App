@@ -99,7 +99,7 @@ namespace HospitalAPI.Controllers
 
             if (habis.Any()) {
                 _logger.LogError("Error: no es pot esborrar una planta que conté habitacions.");
-                return BadRequest("Error: no es pot esborrar una planta que conté habitacions.")
+                return BadRequest("Error: no es pot esborrar una planta que conté habitacions.");
             }
 
             _bbdd.Plantes.Remove(planta);
