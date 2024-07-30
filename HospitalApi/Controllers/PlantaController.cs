@@ -136,10 +136,6 @@ namespace HospitalAPI.Controllers
             if (existeixPlanta == null){
                 _logger.LogError("No existeix una planta amb aquest ID.");
                 return NotFound("No existeix una planta amb aquest ID.");
-            if (existeixPlanta == null)
-            {
-                _logger.LogError("No existeix una planta amb aquest id");
-                return NotFound();
             }
 
             Planta planta = _mapper.Map<Planta>(userPlantaDTO);
