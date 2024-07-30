@@ -46,8 +46,8 @@
                     <td>{{ episodi.estat }}</td>
                     <td>{{ episodi.dolencia }}</td>
                     <td>{{ episodi.pacientId }}</td>
-                    <td>Consultes</td>
-                    <td>Ingressos</td>
+                    <td class = "coleccio" mat-button (click)="openConsultes(episodi)">Consultes</td>
+                    <td class = "coleccio" mat-button (click)="openIngressos(episodi)">Ingressos</td>
                   </tr>
             </tbody>
         </table>

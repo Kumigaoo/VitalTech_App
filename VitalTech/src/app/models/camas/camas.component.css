@@ -4,7 +4,10 @@
     display: flex;
     justify-content: flex-start;
 }
-
+.coleccio {
+    cursor: pointer;
+    color: #02789b;
+}
 #eliminarse {
     margin-top: 4px;
     margin-left: 20px;

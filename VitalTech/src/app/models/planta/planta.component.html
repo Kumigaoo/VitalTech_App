@@ -42,7 +42,7 @@
                 <tr *ngFor="let planta of plantes; let i = index">
                     <td>{{ planta.id }}</td>
                     <td>{{ planta.capacitatHabitacions }}</td>  
-                    <td>{{ planta.habitacions }}</td>
+                    <td id="coleccio" mat-button (click)="openHabitacions(planta)">Habitacions</td>
                   </tr>
             </tbody>
         </table>

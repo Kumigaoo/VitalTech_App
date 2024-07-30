@@ -1,5 +1,4 @@
 
-
 export interface Metge {
     dni: string;
     especialitat: string;

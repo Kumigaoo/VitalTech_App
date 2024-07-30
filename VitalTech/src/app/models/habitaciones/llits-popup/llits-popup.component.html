@@ -1,0 +1,21 @@
+<div class="popup-content">
+    <h2>Llits</h2>
+    <table id="resultsTable">
+      <thead>
+          <tr>
+              <th>Llit Id</th>
+              <th>Ocupat</th>
+              <th>Fora de Servei</th>
+              <th>Habitacio Id</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let llit of data.llits; let i = index">
+              <td>{{ llit.codiLlit }}</td>
+              <td>{{ llit.ocupat }}</td>
+              <td>{{ llit.foraDeServei }}</td>  
+              <td>{{ llit.habitacioId }}</td>
+            </tr>
+      </tbody>
+    </table>
+    </div>
