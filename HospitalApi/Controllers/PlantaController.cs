@@ -116,7 +116,7 @@ namespace HospitalAPI.Controllers
         public async Task<IActionResult> UpdatePlanta(int id, [FromBody] PlantaUpdateDTO userPlantaDTO)
         {
 
-            if (userPlantaDTO == null || id != userPlantaDTO.Id)
+            if (userPlantaDTO == null || id != userPlantaDTO.Id || id <= 0)
             {
                 _logger.LogError("Error: planta no trobada o dades introdu�des incorrectes.");
                 return BadRequest("Error: planta no trobada o dades introdu�des incorrectes.");
