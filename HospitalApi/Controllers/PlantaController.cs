@@ -1,25 +1,27 @@
 using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using HospitalApi.Data;
 using HospitalAPI.DTO;
+using HospitalApi.DTO;
 using HospitalAPI.Models;
 using Microsoft.AspNetCore.JsonPatch;
-using HospitalApi.DTO;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace HospitalAPI.Controllers
 {
-
     [Route("api/[controller]")]
     [ApiController]
-
     public class PlantaController : ControllerBase
     {
         private readonly ILogger<PlantaController> _logger;
         private readonly ApplicationDbContext _bbdd;
         private readonly IMapper _mapper;
 
-        public PlantaController(ILogger<PlantaController> logger, ApplicationDbContext bbdd, IMapper mapper)
+        public PlantaController(
+            ILogger<PlantaController> logger,
+            ApplicationDbContext bbdd,
+            IMapper mapper
+        )
         {
             _logger = logger;
             _bbdd = bbdd;
@@ -31,7 +33,9 @@ namespace HospitalAPI.Controllers
         public async Task<ActionResult<IEnumerable<PlantaDTO>>> GetPlantes()
         {
             _logger.LogInformation("Obtenint les habitacions");
-            IEnumerable<Planta> plantaList = await _bbdd.Plantes.Include("Habitacions").ToListAsync();
+            IEnumerable<Planta> plantaList = await _bbdd
+                .Plantes.Include("Habitacions")
+                .ToListAsync();
             return Ok(_mapper.Map<IEnumerable<PlantaDTO>>(plantaList));
         }
 
@@ -41,25 +45,28 @@ namespace HospitalAPI.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<PlantaDTO>> GetPlanta(int id)
         {
-
             if (id <= 0)
             {
                 _logger.LogError("Error, no existeix la planta amb el id indicat.");
                 return BadRequest("Error, no existeix la planta amb el id indicat.");
             }
 
-            var planta = await _bbdd.Plantes.Include("Habitacions").FirstOrDefaultAsync(h => h.Id == id);
-            if (planta == null) return NotFound();
+            var planta = await _bbdd
+                .Plantes.Include("Habitacions")
+                .FirstOrDefaultAsync(h => h.Id == id);
+            if (planta == null)
+                return NotFound();
 
             return Ok(_mapper.Map<PlantaDTO>(planta));
-
         }
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<PlantaCreateDTO>> PostPlanta([FromBody] PlantaCreateDTO userPlantaDTO)
+        public async Task<ActionResult<PlantaCreateDTO>> PostPlanta(
+            [FromBody] PlantaCreateDTO userPlantaDTO
+        )
         {
             if (!ModelState.IsValid)
             {
@@ -74,7 +81,6 @@ namespace HospitalAPI.Controllers
 
             _logger.LogInformation("Planta creada satisfact�riament.");
             return CreatedAtRoute("GetPlanta", planta);
-
         }
 
         [HttpDelete("id")]
@@ -83,13 +89,14 @@ namespace HospitalAPI.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> DeletePlanta(int id)
         {
-            if (id <= 0) {
+            if (id <= 0)
+            {
                 _logger.LogError("Error: format d'ID introdu�t incorrecte.");
                 return BadRequest(ModelState);
-             }
+            }
 
             var planta = await _bbdd.Plantes.FirstOrDefaultAsync(h => h.Id == id);
-            var habis = await _bbdd.Habitacions.Where(h=>h.PlantaId == id).ToListAsync();
+            var habis = await _bbdd.Habitacions.Where(h => h.PlantaId == id).ToListAsync();
 
             if (planta == null)
             {
@@ -97,7 +104,8 @@ namespace HospitalAPI.Controllers
                 return NotFound("Error: no existeix cap planta amb aquest ID.");
             }
 
-            if (habis.Any()) {
+            if (habis.Any())
+            {
                 _logger.LogError("Error: no es pot esborrar una planta que conté habitacions.");
                 return BadRequest("Error: no es pot esborrar una planta que conté habitacions.");
             }
@@ -107,17 +115,17 @@ namespace HospitalAPI.Controllers
 
             _logger.LogInformation("Planta esborrada satisfact�riament.");
             return NoContent();
-
         }
 
         [HttpPut("id")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        
-        public async Task<IActionResult> UpdatePlanta(int id, [FromBody] PlantaUpdateDTO userPlantaDTO)
+        public async Task<IActionResult> UpdatePlanta(
+            int id,
+            [FromBody] PlantaUpdateDTO userPlantaDTO
+        )
         {
-
             if (userPlantaDTO == null || id != userPlantaDTO.Id || id <= 0)
             {
                 _logger.LogError("Error: planta no trobada o dades introdu�des incorrectes.");
@@ -125,7 +133,8 @@ namespace HospitalAPI.Controllers
             }
             var existeixPlanta = await _bbdd.Plantes.FirstOrDefaultAsync(p => p.Id == id);
 
-            if (existeixPlanta == null){
+            if (existeixPlanta == null)
+            {
                 _logger.LogError("No existeix una planta amb aquest id");
                 return NotFound();
             }
@@ -137,14 +146,15 @@ namespace HospitalAPI.Controllers
 
             _logger.LogInformation("Planta modificada exitosament.");
             return NoContent();
-
         }
 
         [HttpPatch("{id:int}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-
-        public async Task<IActionResult> UpdateParcialPlanta(int id, JsonPatchDocument<PlantaDTO> patchDto)
+        public async Task<IActionResult> UpdateParcialPlanta(
+            int id,
+            JsonPatchDocument<PlantaDTO> patchDto
+        )
         {
             if (patchDto == null || id <= 0)
             {
@@ -170,8 +180,6 @@ namespace HospitalAPI.Controllers
 
             _logger.LogInformation("Planta actualitzada.");
             return NoContent();
-
         }
     }
 }
-
