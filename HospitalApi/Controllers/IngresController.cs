@@ -145,7 +145,7 @@ namespace HospitalAPI.Controllers
                     return BadRequest("Error: Id indicat invalid.");
             }
 
-            var existeixIngres = await _bbdd.Ingressos.FirstOrDefaultAsync(p => p.Id == id);
+            var existeixIngres = await _bbdd.Ingressos.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id);
 
             if (existeixIngres == null){
                 _logger.LogError("No existeix ingres amb aquest ID.");

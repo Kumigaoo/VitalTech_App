@@ -131,7 +131,7 @@ namespace HospitalAPI.Controllers
                 _logger.LogError("Error: planta no trobada o dades introdu�des incorrectes.");
                 return BadRequest("Error: planta no trobada o dades introdu�des incorrectes.");
             }
-            var existeixPlanta = await _bbdd.Plantes.FirstOrDefaultAsync(p => p.Id == id);
+            var existeixPlanta = await _bbdd.Plantes.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id);
 
             if (existeixPlanta == null){
                 _logger.LogError("No existeix una planta amb aquest ID.");

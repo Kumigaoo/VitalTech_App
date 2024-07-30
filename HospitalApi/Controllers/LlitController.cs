@@ -153,7 +153,7 @@ namespace HospitalAPI.Controllers
                 return NotFound("Error: no existeix el llit amb l'ID indicat.");
             }
 
-            var existeixLlit = await _bbdd.Llits.FirstOrDefaultAsync(p => p.CodiLlit == id);
+            var existeixLlit = await _bbdd.Llits.AsNoTracking().FirstOrDefaultAsync(p => p.CodiLlit == id);
 
             if (existeixLlit == null){
                 _logger.LogError("No existeix llit amb aquest ID.");

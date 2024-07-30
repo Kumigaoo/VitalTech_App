@@ -121,7 +121,7 @@ namespace HospitalAPI.Controllers
                 return BadRequest();
             Personal personal = _mapper.Map<Personal>(userPerDTO);
 
-            var existeixPersonal = await _bbdd.Personals.FirstOrDefaultAsync(p => p.DNI == id);
+            var existeixPersonal = await _bbdd.Personals.AsNoTracking().FirstOrDefaultAsync(p => p.DNI == id);
 
             if (existeixPersonal == null){
                 _logger.LogError("No existeix personal amb aquest ID.");

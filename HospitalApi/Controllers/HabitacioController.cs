@@ -154,7 +154,7 @@ namespace HospitalAPI.Controllers
                 return BadRequest("Error: ID indicado inválido.");
             }
 
-            var existeixHab = await _bbdd.Habitacions.FirstOrDefaultAsync(p => p.CodiHabitacio == id);
+            var existeixHab = await _bbdd.Habitacions.AsNoTracking().FirstOrDefaultAsync(p => p.CodiHabitacio == id);
 
             if (existeixHab == null){
                 _logger.LogError("No existeix habitació amb aquest ID.");
