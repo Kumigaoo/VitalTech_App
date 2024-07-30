@@ -133,6 +133,9 @@ namespace HospitalAPI.Controllers
             }
             var existeixPlanta = await _bbdd.Plantes.FirstOrDefaultAsync(p => p.Id == id);
 
+            if (existeixPlanta == null){
+                _logger.LogError("No existeix una planta amb aquest ID.");
+                return NotFound("No existeix una planta amb aquest ID.");
             if (existeixPlanta == null)
             {
                 _logger.LogError("No existeix una planta amb aquest id");
@@ -140,6 +143,8 @@ namespace HospitalAPI.Controllers
             }
 
             Planta planta = _mapper.Map<Planta>(userPlantaDTO);
+
+
 
             _bbdd.Plantes.Update(planta);
             await _bbdd.SaveChangesAsync();
