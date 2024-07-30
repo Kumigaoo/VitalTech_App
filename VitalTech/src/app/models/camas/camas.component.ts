@@ -3,6 +3,8 @@ import { Llit } from '../../interface/llit.interface';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { CamasService } from './camas.service';
+import { IngressosPopupComponent } from './ingressos-popup/ingressos-popup.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-camas',
@@ -15,7 +17,7 @@ export class CamasComponent {
 
   llits: Llit[] = [];
 
-  constructor(private llitService: CamasService) { }
+  constructor(public dialog: MatDialog, private llitService: CamasService) { }
 
   ngOnInit() {
     this.loadLlits();
@@ -24,6 +26,16 @@ export class CamasComponent {
   loadLlits(): void {
     this.llitService.getLlits().subscribe(data => {
       this.llits = data;
+    });
+  }
+
+  openIngressos(episodi: any): void {
+    this.dialog.open(IngressosPopupComponent, {
+      data: { ingressos: episodi.ingressos },
+      width: '80vw', 
+      height: '70vh', 
+      maxWidth: '1000px',
+      maxHeight: '500px' 
     });
   }
 
