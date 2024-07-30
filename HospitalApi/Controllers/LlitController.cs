@@ -50,16 +50,16 @@ namespace HospitalAPI.Controllers
 
             if (id.Length < 4)
             {
-                _logger.LogError("Error: dades introduides amb format incorrecte.");
-                return BadRequest("Error: dades introduides amb format incorrecte.");
+                _logger.LogError("Error: dades introduïdes amb format incorrecte.");
+                return BadRequest("Error: dades introduïdes amb format incorrecte.");
             }
 
             var llit = await _bbdd.Llits.FirstOrDefaultAsync(h => h.CodiLlit == id);
 
             if (llit == null)
             {
-                _logger.LogError("Error: no existeix el llit amb el id indicat.");
-                return NotFound("Error: no existeix el llit amb el id indicat.");
+                _logger.LogError("Error: no existeix el llit amb l'ID indicat.");
+                return NotFound("Error: no existeix el llit amb l'ID indicat.");
             }
 
             return Ok(_mapper.Map<LlitDTO>(llit));
@@ -76,13 +76,13 @@ namespace HospitalAPI.Controllers
 
             if (userLlitDTO.CodiLlit.Length < 4)
             {
-                _logger.LogError("Error: dades introduides amb format incorrecte.");
-                return BadRequest("Error: dades introduides amb format incorrecte.");
+                _logger.LogError("Error: dades introduïdes amb format incorrecte.");
+                return BadRequest("Error: dades introduïdes amb format incorrecte.");
             }
 
             if (userLlitDTO == null)
             {
-                _logger.LogError("Error: dades introduides incorrectes.");
+                _logger.LogError("Error: dades introduïdes incorrectes.");
                 return BadRequest(userLlitDTO);
             }
 
@@ -91,8 +91,8 @@ namespace HospitalAPI.Controllers
 
             if (habitacio == null)
             {
-                _logger.LogError("Error: no existeix la habitacio amb l'ID indicat.");
-                return BadRequest("Error: no existeix la habitacio amb l'ID indicat");
+                _logger.LogError("Error: no existeix l'habitacio amb l'ID indicat.");
+                return BadRequest("Error: no existeix l'habitacio amb l'ID indicat");
             }
 
             if (habitacio.Llits == null)
@@ -102,8 +102,8 @@ namespace HospitalAPI.Controllers
 
             if (habitacio.Llits.Count >= habitacio.CapacitatLlits)
             {
-                _logger.LogError("No se pueden agregar más camas a esta habitación.");
-                return BadRequest("No se pueden agregar más camas a esta habitación.");
+                _logger.LogError("No es poden afegir més llits a aquesta habitació.");
+                return BadRequest("No es poden afegir més llits a aquesta habitació.");
             }
 
 
@@ -177,8 +177,8 @@ namespace HospitalAPI.Controllers
         {
             if (id.Length < 4 || patchDto == null)
             {
-                _logger.LogError("Error: dades introduides amb format incorrecte.");
-                return BadRequest("Error: dades introduides amb format incorrecte.");
+                _logger.LogError("Error: dades introduïdes amb format incorrecte.");
+                return BadRequest("Error: dades introduïdes amb format incorrecte.");
             }
 
             var llit = await _bbdd.Llits.AsNoTracking().FirstOrDefaultAsync(v => v.CodiLlit == id);

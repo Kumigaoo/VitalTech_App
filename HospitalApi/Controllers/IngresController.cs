@@ -48,8 +48,8 @@ namespace HospitalAPI.Controllers
 
             if (id <= 0)
             {
-                _logger.LogError("Error: format de ID incorrecte.");
-                return BadRequest("Error: format de ID incorrecte.");
+                _logger.LogError("Error: format d'ID incorrecte.");
+                return BadRequest("Error: format d'ID incorrecte.");
             }
 
             var ingres = await _bbdd.Ingressos.FirstOrDefaultAsync(h => h.Id == id);
@@ -141,15 +141,15 @@ namespace HospitalAPI.Controllers
         {
 
             if (userIngresDTO.Id == null){
-                    _logger.LogError("Error: Id indicat invalid.");
-                    return BadRequest("Error: Id indicat invalid.");
+                    _logger.LogError("Error: ID indicat invalid.");
+                    return BadRequest("Error: ID indicat invalid.");
             }
 
             var existeixIngres = await _bbdd.Ingressos.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id);
 
             if (existeixIngres == null){
-                _logger.LogError("No existeix ingres amb aquest ID.");
-                return NotFound("No existeix ingres amb aquest ID.");
+                _logger.LogError("No existeix ingrés amb aquest ID.");
+                return NotFound("No existeix ingrés amb aquest ID.");
             }
 
             Ingres ingres = _mapper.Map<Ingres>(userIngresDTO);
@@ -170,8 +170,8 @@ namespace HospitalAPI.Controllers
         {
             if (patchDto == null || id <= 0)
             {
-                _logger.LogError("Error: no existeix l'ingrés amb el ID indicat.");
-                return BadRequest("Error: no existeix l'ingrés amb el ID indicat.");
+                _logger.LogError("Error: no existeix l'ingrés amb l'ID indicat.");
+                return BadRequest("Error: no existeix l'ingrés amb l'ID indicat.");
             }
 
             var ingres = await _bbdd.Ingressos.AsNoTracking().FirstOrDefaultAsync(v => v.Id == id);

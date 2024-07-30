@@ -58,8 +58,8 @@ namespace HospitalAPI.Controllers
 
             if (hab == null)
             {
-                _logger.LogError("Error: no existeix la habitació amb l'ID indicat.");
-                return NotFound("Error: no existeix la habitació amb l'ID indicat.");
+                _logger.LogError("Error: no existeix l'habitació amb l'ID indicat.");
+                return NotFound("Error: no existeix l'habitació amb l'ID indicat.");
             }
 
             _logger.LogError("Habitació recuperada exitosament.");
@@ -103,8 +103,8 @@ namespace HospitalAPI.Controllers
 
             if (planta.Habitacions.Count >= planta.CapacitatHabitacions)
             {
-                _logger.LogError("No se pueden agregar más habitaciones en esta planta.");
-                return BadRequest("No se pueden agregar más habitaciones en esta planta.");
+                _logger.LogError("No es poden agregar més habitacions a aquesta planta.");
+                return BadRequest("No es poden agregar més habitacions a aquesta planta.");
             }
 
             Habitacio habitacio = _mapper.Map<Habitacio>(userHabDTO);
@@ -136,6 +136,14 @@ namespace HospitalAPI.Controllers
                 return NotFound("Error: no existeix la habitació amb l'ID indicat.");
             }
 
+            var llits = await _bbdd.Llits.FirstOrDefaultAsync(h => h.HabitacioId == id);
+
+            if (llits != null)
+            {
+                _logger.LogError("Error: no es pot esborrar una habitació que conté llits.");
+                return BadRequest("Error: no es pot esborrar una habitació que conté llits.");
+            }
+
             _bbdd.Habitacions.Remove(hab);
             await _bbdd.SaveChangesAsync();
 
@@ -150,8 +158,8 @@ namespace HospitalAPI.Controllers
         {
             if (userHabDTO == null || id != userHabDTO.CodiHabitacio)
             {
-                _logger.LogError("Error: ID indicado inválido.");
-                return BadRequest("Error: ID indicado inválido.");
+                _logger.LogError("Error: ID indicat invàlid.");
+                return BadRequest("Error: ID indicat invàlid.");
             }
 
             var existeixHab = await _bbdd.Habitacions.AsNoTracking().FirstOrDefaultAsync(p => p.CodiHabitacio == id);
@@ -173,10 +181,8 @@ namespace HospitalAPI.Controllers
         [HttpPatch("{id:int}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> UpdateParcialHabitacio(
-            int id,
-            JsonPatchDocument<HabitacioDTO> patchDto
-        )
+
+        public async Task<IActionResult> UpdateParcialHabitacio(int id, JsonPatchDocument<HabitacioDTO> patchDto)
         {
             if (patchDto == null || id <= 0)
             {
@@ -184,9 +190,13 @@ namespace HospitalAPI.Controllers
                 return BadRequest("Error: no existeix l'habitació amb el ID indicat.");
             }
 
-            var habitacio = await _bbdd
-                .Habitacions.AsNoTracking()
-                .FirstOrDefaultAsync(v => v.CodiHabitacio == id);
+            var habitacio = await _bbdd.Habitacions.AsNoTracking().FirstOrDefaultAsync(v => v.CodiHabitacio == id);
+
+            if (habitacio == null)
+            {
+                _logger.LogError("No existeix habitació amb aquest ID.");
+                return NotFound("No existeix habitació amb aquest ID.");
+            }
 
             HabitacioDTO habitaciodto = _mapper.Map<HabitacioDTO>(habitacio);
 

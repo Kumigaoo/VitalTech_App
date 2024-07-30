@@ -58,8 +58,8 @@ namespace HospitalAPI.Controllers
 
             if (pacient == null)
             {
-                _logger.LogError("Error, no existeix el pacient amb el id indicat.");
-                return NotFound("Error, no existeix el pacient amb el id indicat.");
+                _logger.LogError("Error, no existeix el pacient amb l'ID indicat.");
+                return NotFound("Error, no existeix el pacient amb l'ID indicat.");
             }
 
             return Ok(_mapper.Map<PacientDTO>(pacient));
@@ -152,16 +152,16 @@ namespace HospitalAPI.Controllers
         {
             if (patchDto == null || id.Length < 9)
             {
-                _logger.LogError("Error: no existeix el pacient amb el ID indicat.");
-                return BadRequest("Error: no existeix el pacient amb el ID indicat.");
+                _logger.LogError("Error: no existeix el pacient amb l'ID indicat.");
+                return BadRequest("Error: no existeix el pacient amb l'ID indicat.");
             }
 
             var pacient = await _bbdd.Pacients.AsNoTracking().FirstOrDefaultAsync(v => v.DNI == id);
 
             if (pacient == null)
             {
-                _logger.LogError("Error: no existeix el pacient amb el ID indicat.");
-                return BadRequest("Error: no existeix el pacient amb el ID indicat.");
+                _logger.LogError("Error: no existeix el pacient amb l'ID indicat.");
+                return BadRequest("Error: no existeix el pacient amb l'ID indicat.");
             }
 
             PacientCreateDTO pacientdto = _mapper.Map<PacientCreateDTO>(pacient);

@@ -47,8 +47,8 @@ namespace HospitalAPI.Controllers
         {
             if (id <= 0)
             {
-                _logger.LogError("Error, no existeix la planta amb el id indicat.");
-                return BadRequest("Error, no existeix la planta amb el id indicat.");
+                _logger.LogError("Error, no existeix la planta amb l'ID indicat.");
+                return BadRequest("Error, no existeix la planta amb l'ID indicat.");
             }
 
             var planta = await _bbdd
@@ -70,8 +70,8 @@ namespace HospitalAPI.Controllers
         {
             if (!ModelState.IsValid)
             {
-                _logger.LogError("Error: dades introdu�des incorrectes");
-                return BadRequest(ModelState);
+                _logger.LogError("Error: dades introduïdes incorrectes.");
+                return BadRequest("Error: dades introduïdes incorrectes.");
             }
 
             Planta planta = _mapper.Map<Planta>(userPlantaDTO);
@@ -91,8 +91,8 @@ namespace HospitalAPI.Controllers
         {
             if (id <= 0)
             {
-                _logger.LogError("Error: format d'ID introdu�t incorrecte.");
-                return BadRequest(ModelState);
+                _logger.LogError("Error: format d'ID introduït incorrecte.");
+                return BadRequest("Error: format d'ID introduït incorrecte.");
             }
 
             var planta = await _bbdd.Plantes.FirstOrDefaultAsync(h => h.Id == id);
@@ -113,7 +113,7 @@ namespace HospitalAPI.Controllers
             _bbdd.Plantes.Remove(planta);
             await _bbdd.SaveChangesAsync();
 
-            _logger.LogInformation("Planta esborrada satisfact�riament.");
+            _logger.LogInformation("Planta esborrada satisfactòriament.");
             return NoContent();
         }
 
@@ -128,8 +128,8 @@ namespace HospitalAPI.Controllers
         {
             if (userPlantaDTO == null || id != userPlantaDTO.Id || id <= 0)
             {
-                _logger.LogError("Error: planta no trobada o dades introdu�des incorrectes.");
-                return BadRequest("Error: planta no trobada o dades introdu�des incorrectes.");
+                _logger.LogError("Error: planta no trobada o dades introduïdes incorrectes.");
+                return BadRequest("Error: planta no trobada o dades introduïdes incorrectes.");
             }
             var existeixPlanta = await _bbdd.Plantes.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id);
 
@@ -159,8 +159,8 @@ namespace HospitalAPI.Controllers
         {
             if (patchDto == null || id <= 0)
             {
-                _logger.LogError("Error: no existeix la planta amb el ID indicat.");
-                return BadRequest("Error: no existeix la planta amb el ID indicat.");
+                _logger.LogError("Error: no existeix la planta amb l'ID indicat.");
+                return BadRequest("Error: no existeix la planta amb l'ID indicat.");
             }
 
             var planta = await _bbdd.Plantes.AsNoTracking().FirstOrDefaultAsync(v => v.Id == id);

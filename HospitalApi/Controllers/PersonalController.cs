@@ -58,8 +58,8 @@ namespace HospitalAPI.Controllers
 
             if (per == null)
             {
-                _logger.LogError("No existe Personal con el ID: " + id);
-                return NotFound(per);
+                _logger.LogError("No existeix cap empleat amb l'ID: " + id);
+                return NotFound("No existeix cap empleat amb l'ID: " + id);
             }
             return Ok(_mapper.Map<PersonalDTO>(per));
         }
@@ -78,8 +78,8 @@ namespace HospitalAPI.Controllers
             
             if (userPerDTO.DNI.Length < 9)
             {
-                _logger.LogError("Format de DNI incorrecto");
-                return BadRequest();
+                _logger.LogError("Format de DNI incorrecte.");
+                return BadRequest("Format de DNI incorrecte.");
             }
 
             Personal personal = _mapper.Map<Personal>(userPerDTO);
@@ -101,14 +101,14 @@ namespace HospitalAPI.Controllers
 
             if (personal == null)
             {
-                _logger.LogError("Id de personal no encontrado");
-                return NotFound();
+                _logger.LogError("ID de personal no trobat.");
+                return NotFound("ID de personal no trobat.");
             }
 
             _bbdd.Personals.Remove(personal);
             await _bbdd.SaveChangesAsync();
 
-            _logger.LogInformation("Personal borrado exitosamente");
+            _logger.LogInformation("Personal esborrat amb èxit.");
             return NoContent();
         }
 
@@ -141,8 +141,8 @@ namespace HospitalAPI.Controllers
         {
             if (patchDto == null || id.Length < 9)
             {
-                _logger.LogError("Error: no existeix el empleat amb el ID indicat.");
-                return BadRequest("Error: no existeix el empleat amb el ID indicat.");
+                _logger.LogError("Error: no existeix l'empleat amb el ID indicat.");
+                return BadRequest("Error: no existeix l'empleat amb el ID indicat.");
             }
 
             var personal = await _bbdd.Personals.AsNoTracking().FirstOrDefaultAsync(v => v.DNI == id);
