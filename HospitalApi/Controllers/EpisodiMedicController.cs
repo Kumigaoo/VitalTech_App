@@ -49,16 +49,16 @@ namespace HospitalAPI.Controllers
         {
             if (id <= 0)
             {
-                _logger.LogError("Error, format de ID incorrecte.");
-                return BadRequest("Error, format de ID incorrecte.");
+                _logger.LogError("Error, format d'ID incorrecte.");
+                return BadRequest("Error, format d'ID incorrecte.");
             } 
         
             var e = await _bbdd.EpisodisMedics.FirstOrDefaultAsync(h => h.Id == id);
 
             if (e == null)
             {
-                _logger.LogError("Error, no existeix el episodi amb el ID " + id + ".");
-                return NotFound("Error, no existeix el episodi amb el ID indicat.");
+                _logger.LogError("Error, no existeix l'episodi amb l'ID " + id + ".");
+                return NotFound("Error, no existeix l'episodi amb l'ID indicat.");
             }
 
             _logger.LogInformation("Episodi recuperat exitosament.");
@@ -106,7 +106,7 @@ namespace HospitalAPI.Controllers
 
             if (id <= 0)
             {
-                _logger.LogError("Error: format de id incorrecte.");
+                _logger.LogError("Error: format de ID incorrecte.");
                 return BadRequest(ModelState);
             }
 
@@ -114,16 +114,24 @@ namespace HospitalAPI.Controllers
 
             if (epi == null)
             {
-                _logger.LogError("Error: no existeix l'episodi mèdic amb l'id indicat.");
-                return NotFound("Error: no existeix l'episodi mèdic amb l'id indicat.");
+                _logger.LogError("Error: no existeix l'episodi mèdic amb l'ID indicat.");
+                return NotFound("Error: no existeix l'episodi mèdic amb l'ID indicat.");
             }
 
             var ingr = await _bbdd.Ingressos.FirstOrDefaultAsync(h => h.EpisodiMedicId == id);   
             
             if (ingr != null)
             {
-                _logger.LogError("Error: no es pot esborrar un episodi que conté ingressos.");
-                return BadRequest("Error: no es pot esborrar un episodi que conté ingressos.");
+                _logger.LogError("Error: no es pot esborrar un episodi mèdic que conté ingressos.");
+                return BadRequest("Error: no es pot esborrar un episodi mèdic que conté ingressos.");
+            }
+
+            var cons = await _bbdd.Consultes.FirstOrDefaultAsync(h => h.EpisodiMedicId == id);
+
+            if (cons != null)
+            {
+                _logger.LogError("Error: no es pot esborrar un episodi mèdic que conté consultes.");
+                return BadRequest("Error: no es pot esborrar un episodi mèdic que conté consultes.");
             }
 
             _bbdd.EpisodisMedics.Remove(epi);
@@ -185,6 +193,13 @@ namespace HospitalAPI.Controllers
             }
 
             var episodi = await _bbdd.EpisodisMedics.AsNoTracking().FirstOrDefaultAsync(v => v.Id == id);
+
+            if (episodi == null)
+            {
+                _logger.LogError("Error: no existeix l'episodi amb el ID indicat.");
+                return NotFound("Error: no existeix l'episodi amb el ID indicat.");
+            }
+                      
 
             EpisodiMedicUpdateDTO episodidto = _mapper.Map<EpisodiMedicUpdateDTO>(episodi);
 

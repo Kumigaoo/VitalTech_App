@@ -104,16 +104,16 @@ namespace HospitalAPI.Controllers
         {
             if (id <= 0)
             {
-                _logger.LogError("Format de id incorrecto");
-                return BadRequest("Format de id incorrecto");
+                _logger.LogError("Format d'ID incorrecte.");
+                return BadRequest("Format d'ID incorrecte.");
             }
 
             var consulta = await _bbdd.Consultes.FirstOrDefaultAsync(h => h.Id == id);
 
             if (consulta == null)
             {
-                _logger.LogError("Id de consulta no trobat.");
-                return NotFound("Id de consulta no trobat.");
+                _logger.LogError("ID de consulta no trobat.");
+                return NotFound("ID de consulta no trobat.");
             }
 
             _bbdd.Consultes.Remove(consulta);
@@ -135,7 +135,7 @@ namespace HospitalAPI.Controllers
 
             if (existeixCon == null)
             {
-                _logger.LogError("No existeix consutla amb aquest ID.");
+                _logger.LogError("No existeix consulta amb aquest ID.");
                 return NotFound("No existeix consulta amb aquest ID.");
             }
 
@@ -170,6 +170,12 @@ namespace HospitalAPI.Controllers
             }
 
             var consulta = await _bbdd.Consultes.AsNoTracking().FirstOrDefaultAsync(v => v.Id == id);
+
+            if (consulta == null)
+            {
+                _logger.LogError("No existeix consulta amb aquest ID.");
+                return NotFound("No existeix consulta amb aquest ID.");
+            }
 
             ConsultaDTO consultadto = _mapper.Map<ConsultaDTO>(consulta);
 
