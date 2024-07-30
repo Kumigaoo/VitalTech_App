@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common'; 
 import { Habitacio } from '../../interface/habitacio.interface';
 import { HabitacioService } from './habitaciones.service';
+import { LlitsPopupComponent } from './llits-popup/llits-popup.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-habitaciones',
@@ -16,7 +18,7 @@ export class HabitacionesComponent {
 
   habitacions: Habitacio[] = [];
 
-  constructor(private habService: HabitacioService) { }
+  constructor(public dialog: MatDialog, private habService: HabitacioService) { }
 
   ngOnInit() {
     this.loadHabitacions();
@@ -27,4 +29,15 @@ export class HabitacionesComponent {
       this.habitacions = data;
     });
   }
+
+  openLlits(habitacio: any): void {
+    this.dialog.open(LlitsPopupComponent, {
+      data: { llits: habitacio.llits },
+      width: '80vw', 
+      height: '70vh', 
+      maxWidth: '1000px',
+      maxHeight: '500px' 
+    });
+  }
+
 }

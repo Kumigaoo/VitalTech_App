@@ -1,0 +1,21 @@
+<div class="popup-content">
+    <h2>Ingressos</h2>
+    <table id="resultsTable">
+      <thead>
+          <tr>
+              <th>Id Ingres</th>
+              <th>Data Entrada</th>
+              <th>Data Sortida</th>
+              <th>Llit Id</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let ingres of data.ingressos; let i = index">
+              <td>{{ ingres.id }}</td>
+              <td>{{ ingres.dataEntrada }}</td>
+              <td>{{ ingres.dataSortida }}</td>  
+              <td>{{ ingres.llitId }}</td>
+            </tr>
+      </tbody>
+    </table>
+    </div>

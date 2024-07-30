@@ -36,9 +36,9 @@ export class PacientesComponent {
     this.dialog.open(EpisodisMedicsPopupComponent, {
       data: { episodisMedics: pacient.episodisMedics },
       width: '80vw', 
-  height: '70vh', 
-  maxWidth: '1000px',
-  maxHeight: '500px' 
+      height: '70vh', 
+      maxWidth: '1000px',
+      maxHeight: '500px' 
     });
   }
   
