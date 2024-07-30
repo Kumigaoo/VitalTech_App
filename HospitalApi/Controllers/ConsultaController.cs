@@ -119,7 +119,7 @@ namespace HospitalAPI.Controllers
             _bbdd.Consultes.Remove(consulta);
             await _bbdd.SaveChangesAsync();
 
-            _logger.LogInformation("Consulta borrada exitosamente");
+            _logger.LogInformation("Consulta borrada exitosament.");
             return NoContent();
         }
 
