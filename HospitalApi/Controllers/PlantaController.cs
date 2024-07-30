@@ -113,6 +113,8 @@ namespace HospitalAPI.Controllers
         [HttpPut("id")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        
         public async Task<IActionResult> UpdatePlanta(int id, [FromBody] PlantaUpdateDTO userPlantaDTO)
         {
 
@@ -120,6 +122,12 @@ namespace HospitalAPI.Controllers
             {
                 _logger.LogError("Error: planta no trobada o dades introdu�des incorrectes.");
                 return BadRequest("Error: planta no trobada o dades introdu�des incorrectes.");
+            }
+            var existeixPlanta = await _bbdd.Plantes.FirstOrDefaultAsync(p => p.Id == id);
+
+            if (existeixPlanta == null){
+                _logger.LogError("No existeix una planta amb aquest id");
+                return NotFound();
             }
 
             Planta planta = _mapper.Map<Planta>(userPlantaDTO);
