@@ -150,8 +150,15 @@ namespace HospitalAPI.Controllers
         {
             if (userHabDTO == null || id != userHabDTO.CodiHabitacio)
             {
-                _logger.LogError("Error: ID indicada incorrecta.");
-                return BadRequest("Error: ID indicada incorrecta.");
+                _logger.LogError("Error: ID indicado inválido.");
+                return BadRequest("Error: ID indicado inválido.");
+            }
+
+            var existeixHab = await _bbdd.Habitacions.FirstOrDefaultAsync(p => p.CodiHabitacio == id);
+
+            if (existeixHab == null){
+                _logger.LogError("No existeix habitació amb aquest ID.");
+                return NotFound("No existeix habiatció amb aquest ID.");
             }
 
             Habitacio habitacio = _mapper.Map<Habitacio>(userHabDTO);

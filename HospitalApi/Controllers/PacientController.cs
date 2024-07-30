@@ -127,6 +127,13 @@ namespace HospitalAPI.Controllers
                 return BadRequest("Error: no existeix pacient amb l'ID indicat o les dades introduïdes són incorrectes.");
             }
 
+            var existeixPacient = await _bbdd.Pacients.FirstOrDefaultAsync(p => p.DNI == id);
+
+            if (existeixPacient == null){
+                _logger.LogError("No existeix un pacient amb aquest DNI.");
+                return NotFound("No existeix un pacient amb aquest DNI.");
+            }
+
             Pacient pacient = _mapper.Map<Pacient>(userPacientDTO);
 
             _bbdd.Pacients.Update(pacient);

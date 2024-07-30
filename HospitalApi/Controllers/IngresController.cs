@@ -141,8 +141,15 @@ namespace HospitalAPI.Controllers
         {
 
             if (userIngresDTO.Id == null){
-                    _logger.LogError("Error: Id indicat no trobat.");
-                    return BadRequest("Error: Id indicat no trobat.");
+                    _logger.LogError("Error: Id indicat invalid.");
+                    return BadRequest("Error: Id indicat invalid.");
+            }
+
+            var existeixIngres = await _bbdd.Ingressos.FirstOrDefaultAsync(p => p.Id == id);
+
+            if (existeixIngres == null){
+                _logger.LogError("No existeix ingres amb aquest ID.");
+                return NotFound("No existeix ingres amb aquest ID.");
             }
 
             Ingres ingres = _mapper.Map<Ingres>(userIngresDTO);

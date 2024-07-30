@@ -145,6 +145,13 @@ namespace HospitalAPI.Controllers
                 _logger.LogInformation("Error: no existeix l'ID indicada.");
                 return BadRequest("Error: no existeix l'ID indicada.");
             }
+
+            var existeixEpi = await _bbdd.EpisodisMedics.FirstOrDefaultAsync(p => p.Id == id);
+
+            if (existeixEpi == null){
+                _logger.LogError("No existeix episodi mèdic amb aquest ID.");
+                return NotFound("No existeix episodi mèdic amb aquest ID.");
+            }
             
             EpisodiMedic episodi = _mapper.Map<EpisodiMedic>(userEpiDTO);
 

@@ -144,13 +144,20 @@ namespace HospitalAPI.Controllers
         [HttpPut("id")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> UpdateLlit(int id, [FromBody] LlitCreateDTO userLlitDTO)
+        public async Task<IActionResult> UpdateLlit(string id, [FromBody] LlitCreateDTO userLlitDTO)
         {
 
-            if (userLlitDTO == null || id != userLlitDTO.HabitacioId)
+            if (userLlitDTO == null || id != userLlitDTO.CodiLlit)
             {
                 _logger.LogError("Error: no existeix el llit amb l'ID indicat.");
                 return NotFound("Error: no existeix el llit amb l'ID indicat.");
+            }
+
+            var existeixLlit = await _bbdd.Llits.FirstOrDefaultAsync(p => p.CodiLlit == id);
+
+            if (existeixLlit == null){
+                _logger.LogError("No existeix llit amb aquest ID.");
+                return NotFound("No existeix llit amb aquest ID.");
             }
 
             Llit llit = _mapper.Map<Llit>(userLlitDTO);

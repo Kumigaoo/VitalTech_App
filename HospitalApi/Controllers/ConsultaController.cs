@@ -131,6 +131,12 @@ namespace HospitalAPI.Controllers
             if (userConDTO == null || id != userConDTO.Id)
                 return BadRequest("No existeix la ID indicada.");
 
+            var existeixCon = await _bbdd.Consultes.FirstOrDefaultAsync(p => p.Id == id);
+
+            if (existeixCon == null){
+                _logger.LogError("No existeix consutla amb aquest ID.");
+                return NotFound("No existeix consulta amb aquest ID.");
+            }
 
             Consulta consulta = _mapper.Map<Consulta>(userConDTO);
 
