@@ -105,7 +105,7 @@ namespace HospitalAPI.Controllers
             if (id <= 0)
             {
                 _logger.LogError("Format de id incorrecto");
-                return BadRequest();
+                return BadRequest("Format de id incorrecto");
             }
 
             var consulta = await _bbdd.Consultes.FirstOrDefaultAsync(h => h.Id == id);
