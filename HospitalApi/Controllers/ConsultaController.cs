@@ -52,16 +52,16 @@ namespace HospitalAPI.Controllers
         {
             if (id <= 0)
             {
-                _logger.LogError("Format de ID incorrecte.");
-                return BadRequest();
+                _logger.LogError("Format d'ID incorrecte.");
+                return BadRequest("Format d'ID incorrecte.");
             }
 
             var con = await _bbdd.Consultes.FirstOrDefaultAsync(h => h.Id == id);
 
             if (con == null)
             {
-                _logger.LogError("No existe una consulta con el ID: " + id);
-                return NotFound(con);
+                _logger.LogError("No existeix una consulta amb l'ID indicat.");
+                return NotFound("No existeix una consulta amb l'ID indicat.");
             }
             return Ok(_mapper.Map<ConsultaDTO>(con));
         }
@@ -81,10 +81,10 @@ namespace HospitalAPI.Controllers
             var episodi = await _bbdd.EpisodisMedics.FindAsync(userConDTO.EpisodiMedicId);
 
             if (personal == null)
-                return BadRequest("No esxiste ningún médico con el id proporcionado.");
+                return BadRequest("No existeix cap metge amb l'ID indicat.");
 
             if (episodi == null)
-                return BadRequest("No existe ningún episodio médico con el id proporcionado.");
+                return BadRequest("No existeix cap episodi mèdic amb l'ID indicat.");
 
             Consulta consulta = _mapper.Map<Consulta>(userConDTO);
             consulta.PersonalId = personal.DNI;
@@ -112,8 +112,8 @@ namespace HospitalAPI.Controllers
 
             if (consulta == null)
             {
-                _logger.LogError("Id de consulta no encontrado");
-                return NotFound();
+                _logger.LogError("Id de consulta no trobat.");
+                return NotFound("Id de consulta no trobat.");
             }
 
             _bbdd.Consultes.Remove(consulta);
@@ -128,9 +128,22 @@ namespace HospitalAPI.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> UpdateCon(int id, [FromBody] ConsultaDTO userConDTO)
         {
-            if (userConDTO.Id == null || id != userConDTO.Id)
-                return BadRequest();
+            if (userConDTO == null || id != userConDTO.Id)
+                return BadRequest("No existeix la ID indicada.");
+
+
             Consulta consulta = _mapper.Map<Consulta>(userConDTO);
+
+            var personal = await _bbdd.Personals.FindAsync(userConDTO.PersonalId);
+
+            var episodi = await _bbdd.EpisodisMedics.FindAsync(userConDTO.EpisodiMedicId);
+
+            if (personal == null)
+                return BadRequest("No existeix cap metge amb l'ID indicat.");
+
+            if (episodi == null)
+                return BadRequest("No existeix cap episodi mèdic amb l'ID indicat.");
+
 
             _bbdd.Consultes.Update(consulta);
             await _bbdd.SaveChangesAsync();
@@ -159,6 +172,16 @@ namespace HospitalAPI.Controllers
             {
                 return BadRequest(ModelState);
             }
+
+            var personal = await _bbdd.Personals.FindAsync(consultadto.PersonalId);
+
+            var episodi = await _bbdd.EpisodisMedics.FindAsync(consultadto.EpisodiMedicId);
+
+            if (personal == null)
+                return BadRequest("No existeix cap metge amb l'ID indicat.");
+
+            if (episodi == null)
+                return BadRequest("No existeix cap episodi mèdic amb l'ID indicat.");
 
             Consulta modelo = _mapper.Map<Consulta>(consultadto);
 

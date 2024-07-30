@@ -124,6 +124,8 @@ namespace HospitalAPI.Controllers
 
             Planta planta = _mapper.Map<Planta>(userPlantaDTO);
 
+
+
             _bbdd.Plantes.Update(planta);
             await _bbdd.SaveChangesAsync();
 

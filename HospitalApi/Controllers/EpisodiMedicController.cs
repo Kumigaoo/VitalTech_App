@@ -142,11 +142,20 @@ namespace HospitalAPI.Controllers
 
             if (userEpiDTO == null || id != userEpiDTO.Id)
             {
-                _logger.LogInformation("Error: no existe el ID indicado.");
-                return BadRequest("Error: no existe el ID indicado.");
+                _logger.LogInformation("Error: no existeix l'ID indicada.");
+                return BadRequest("Error: no existeix l'ID indicada.");
             }
             
             EpisodiMedic episodi = _mapper.Map<EpisodiMedic>(userEpiDTO);
+
+            var pacient = await _bbdd.Pacients.FindAsync(userEpiDTO.PacientId);
+
+            if (pacient == null)
+            {
+                _logger.LogInformation("Error: no existeix el pacient indicat.");
+                return BadRequest("Error: no existeix el pacient indicat.");
+            }
+
 
             _bbdd.EpisodisMedics.Update(episodi);
             await _bbdd.SaveChangesAsync();
