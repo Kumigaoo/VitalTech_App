@@ -22,23 +22,27 @@ export class HabitacionesComponent {
 
   ngOnInit() {
     this.loadHabitacions();
-    this.loadHabitacio(101);
+
+    this.loadHabitacio(301);
   }
 
   loadHabitacions(): void {
+    console.info('1r ' + this.habitacions.length);
     this.habService.getHabitacions().subscribe(data => {
       this.habitacions = data;
+      console.info('2r ' + this.habitacions.length);
     });
 
 
   }
 
   loadHabitacio(id: number): void {
-    this.habService.getHabitacio(id).subscribe(
-     (Response) => console.info('Habitacion: ', Response) 
-    )
-      // data =>
-      // this.habitacions = data)
+
+    console.info('3r ' + this.habitacions.length);
+    
+     this.habService.getHabitacio(id).subscribe(data =>
+       this.habitacions.splice(0, this.habitacions.length + 1, data));
+
   }
 
   openLlits(habitacio: any): void {
