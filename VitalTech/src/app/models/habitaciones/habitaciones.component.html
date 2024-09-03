@@ -7,7 +7,7 @@
                     <label for="searchCriteria">Buscar por:</label>
                 </div>
                 <div class="searchCriteriaItemContainer">
-                    <input type="text" id="searchInput" name="searchInput" placeholder="Ingresa la busqueda...">
+                    <input type="text" id="searchInput" name="searchInput" placeholder="Ingresa la busqueda..."> <!--Esta linea-->
                     <button type="submit">Buscar</button>
                     
                 </div>
@@ -34,7 +34,7 @@
                 </tr>
             </thead>
             <tbody>
-                  <tr *ngFor="let hab of habitacions"> <!-- esta linea -->
+                  <tr *ngFor="let hab of habitacions">
                     <td>{{ hab.codiHabitacio }}</td>
                     <td>{{ hab.capacitatLlits }}</td>
                     <td>{{ hab.plantaId }}</td>  
