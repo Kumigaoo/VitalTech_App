@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Habitacio } from '../interface/habitacio.interface';
 
@@ -13,11 +13,21 @@ export class HabitacioService {
 
   constructor(private http: HttpClient) { }
 
+  // GET
   getHabitacions(): Observable<Habitacio[]> {
+
     return this.http.get<Habitacio[]>(this.apiUrl);
+  
   }
 
+  // GET{id}
+  getHabitacio(id: number): Observable<any> {
 
+    let params = new HttpParams().set('id', id)
+
+    return this.http.get<Habitacio>(`${this.apiUrl}/id`, {params});
+
+  }
  
 
 }

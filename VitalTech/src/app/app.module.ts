@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClient, HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { JwtModule } from '@auth0/angular-jwt';
 import { AppComponent } from './app.component';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -23,6 +23,7 @@ export function tokenGetter() {
     CommonModule,
     MatDialogModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
