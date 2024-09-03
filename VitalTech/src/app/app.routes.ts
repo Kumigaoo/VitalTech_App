@@ -11,6 +11,7 @@ import { ConsultaComponent } from './models/consulta/consulta.component';
 import { MetgeComponent } from './models/metge/metge.component';
 import { IngresComponent } from './models/ingres/ingres.component';
 import { PlantaComponent } from './models/planta/planta.component';
+import { RegistroConsultaComponent } from './formularis/registro-consulta/registro-consulta.component';
 
 export const routes: Routes = [
     {path: '', redirectTo: '/pacientes', pathMatch: 'full' },
@@ -25,6 +26,7 @@ export const routes: Routes = [
     {path: 'consultes', component: ConsultaComponent},
     {path: 'metge', component: MetgeComponent},
     {path: 'ingres', component: IngresComponent},
-    {path: 'planta', component: PlantaComponent}
+    {path: 'planta', component: PlantaComponent},
+    {path: 'registro-consulta', component: RegistroConsultaComponent},
     
 ];

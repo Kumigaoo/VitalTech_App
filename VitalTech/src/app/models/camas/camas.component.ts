@@ -16,6 +16,7 @@ import { MatDialog } from '@angular/material/dialog';
 export class CamasComponent {
 
   llits: Llit[] = [];
+  contador = 1;
 
   constructor(public dialog: MatDialog, private llitService: CamasService) { }
 
@@ -37,6 +38,14 @@ export class CamasComponent {
       maxWidth: '1000px',
       maxHeight: '500px' 
     });
+  }
+
+  incrementar() {
+    this.contador++;
+  }
+
+  decrementar() {
+    this.contador--;
   }
 
 }
