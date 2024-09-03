@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Cons, Observable } from 'rxjs';
-import { Consulta } from '../../interface/consulta.interface';
+import { Consulta } from '../interface/consulta.interface';
+
 
 @Injectable({
   providedIn: 'root'
@@ -21,4 +22,5 @@ export class ConsultaService {
     const url = `${this.apiUrl}/${id}`;
     return this.http.get<Consulta>(url);
   }
+
 }

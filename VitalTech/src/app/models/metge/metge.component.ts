@@ -2,9 +2,9 @@
 import { RouterLinkActive, RouterLink } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common'; 
-import { MetgeService } from './metge.service';
+import { MetgeService } from '../../service/metge.service';
 import {Metge} from '../../interface/metge.interface'
-import { ConsultesPopupComponent } from './consultes-popup/consultes-popup.component';
+import { ConsultesPopupComponent } from '../../pop-ups/consultes-popup/consultes-popup.component';
 import { MatDialog } from '@angular/material/dialog';
 
 

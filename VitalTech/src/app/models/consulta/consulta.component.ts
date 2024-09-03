@@ -1,7 +1,7 @@
 import { RouterLinkActive, RouterLink } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common'; 
-import { ConsultaService } from './consulta.service';
+import { ConsultaService } from '../../service/consulta.service';
 import { Consulta } from '../../interface/consulta.interface';
 
 

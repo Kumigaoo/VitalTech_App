@@ -1,9 +1,9 @@
 import { RouterLinkActive, RouterLink } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common'; 
+import { CommonModule } from '@angular/common';
 import { Habitacio } from '../../interface/habitacio.interface';
-import { HabitacioService } from './habitaciones.service';
-import { LlitsPopupComponent } from './llits-popup/llits-popup.component';
+import { HabitacioService } from '../../service/habitaciones.service';
+import { LlitsPopupComponent } from '../../pop-ups/llits-popup/llits-popup.component';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({
@@ -22,21 +22,32 @@ export class HabitacionesComponent {
 
   ngOnInit() {
     this.loadHabitacions();
+    this.loadHabitacio(101);
   }
 
   loadHabitacions(): void {
     this.habService.getHabitacions().subscribe(data => {
       this.habitacions = data;
     });
+
+
+  }
+
+  loadHabitacio(id: number): void {
+    this.habService.getHabitacio(id).subscribe(
+     (Response) => console.info('Habitacion: ', Response) 
+    )
+      // data =>
+      // this.habitacions = data)
   }
 
   openLlits(habitacio: any): void {
     this.dialog.open(LlitsPopupComponent, {
       data: { llits: habitacio.llits },
-      width: '80vw', 
-      height: '70vh', 
+      width: '80vw',
+      height: '70vh',
       maxWidth: '1000px',
-      maxHeight: '500px' 
+      maxHeight: '500px'
     });
   }
 

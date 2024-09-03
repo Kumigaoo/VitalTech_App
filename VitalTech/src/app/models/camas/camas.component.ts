@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { Llit } from '../../interface/llit.interface';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { CamasService } from './camas.service';
-import { IngressosPopupComponent } from './ingressos-popup/ingressos-popup.component';
+import { CamasService } from '../../service/camas.service';
+import { IngressosPopupComponent } from '../../pop-ups/ingressos-popup/ingressos-popup.component';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({
