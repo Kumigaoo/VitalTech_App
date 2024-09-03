@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Ingres } from '../../interface/ingres.interface';
+import { Ingres } from '../interface/ingres.interface';
 
 @Injectable({
   providedIn: 'root'

@@ -1,7 +1,7 @@
 import { RouterLinkActive, RouterLink } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common'; 
-import { IngresService } from './ingres.service';
+import { IngresService } from '../../service/ingres.service';
 import { Ingres } from '../../interface/ingres.interface';
 
 

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Llit } from '../../interface/llit.interface';
+import { Llit } from '../interface/llit.interface';
 
 @Injectable({
   providedIn: 'root'

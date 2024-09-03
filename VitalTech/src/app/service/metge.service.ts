@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import {Metge} from '../../interface/metge.interface'
+import {Metge} from '../interface/metge.interface'
 
 @Injectable({
   providedIn: 'root'

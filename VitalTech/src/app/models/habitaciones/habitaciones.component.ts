@@ -2,8 +2,8 @@ import { RouterLinkActive, RouterLink } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common'; 
 import { Habitacio } from '../../interface/habitacio.interface';
-import { HabitacioService } from './habitaciones.service';
-import { LlitsPopupComponent } from './llits-popup/llits-popup.component';
+import { HabitacioService } from '../../service/habitaciones.service';
+import { LlitsPopupComponent } from '../../pop-ups/llits-popup/llits-popup.component';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({

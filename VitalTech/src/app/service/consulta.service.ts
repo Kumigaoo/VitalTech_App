@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Consulta } from '../../interface/consulta.interface';
+import { Consulta } from '../interface/consulta.interface';
 
 @Injectable({
   providedIn: 'root'
