@@ -16,11 +16,11 @@ export class RegistroConsultaComponent {
 
   constructor(private fb: FormBuilder, private http: HttpClient){
     this.consultaForm = this.fb.group({
-      consulta: [''],
+      urgencia: [''],
+      sintomatologia: [''],
       recepta: [''],
-      dni: [''],
-      episodi: [''],
-      urgencia: ['']
+      personalId: [''],
+      episodiMedicId: ['']
     });
   }
 

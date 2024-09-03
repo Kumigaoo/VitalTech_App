@@ -32,7 +32,13 @@ export class ConsultaComponent {
       this.consultaSelec = null;
     });
   }
-
+  
+   // this.habService.getHabitacio(id).subscribe(
+    // (Response) => console.info('Habitacion: ', Response) 
+    //)
+      // data =>
+      // this.habitacions = data)
+  
   searchConsulta(): void {
     if(this.searchId !== null) {
       this.consultaService.getConsulta(this.searchId).subscribe(data => { 

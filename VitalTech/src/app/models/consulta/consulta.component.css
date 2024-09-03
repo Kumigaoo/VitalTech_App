@@ -70,16 +70,15 @@ button:hover {
     margin-right: 20px;
 }
 
-#searchInput {
+#searchId {
     margin: 0px;
+    margin-right: 20px;
 }
 .searchCriteriaContainer {
     display: flex;
 
 }
-#searchInput{
-    margin-right: 20px;
-}
+
 
 
 .registro {
