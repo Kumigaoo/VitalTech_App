@@ -2,8 +2,8 @@ import { RouterLinkActive, RouterLink } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common'; 
 import { Planta } from '../../interface/planta.interface';
-import { PlantaService } from './planta.service';
-import { PlantaPopupComponent } from './planta-popup/planta-popup.component';
+import { PlantaService } from '../../service/planta.service';
+import { PlantaPopupComponent } from '../../pop-ups/planta-popup/planta-popup.component';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({

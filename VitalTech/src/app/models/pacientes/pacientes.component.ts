@@ -1,11 +1,11 @@
 
 import { RouterLinkActive, RouterLink } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { CommonModule } from '@angular/common'; 
-import { PacientService } from './pacientes.service';
+import { PacientService } from '../../service/pacientes.service';
 import {Pacient} from '../../interface/pacient.interface'
 import { MatDialog } from '@angular/material/dialog';
-import { EpisodisMedicsPopupComponent } from './episodis-medics-popup/episodis-medics-popup.component';
+import { EpisodisMedicsPopupComponent } from '../../pop-ups/episodis-medics-popup/episodis-medics-popup.component';
 
 @Component({
   selector: 'app-pacientes',
