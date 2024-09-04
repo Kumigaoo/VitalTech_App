@@ -19,7 +19,7 @@ export class ConsultaService {
   }
 
   getConsulta(id:number): Observable<Consulta> {
-    const url = `${this.apiUrl}/${id}`;
+    const url = `${this.apiUrl}/id?id=${id}`;
     return this.http.get<Consulta>(url);
   }
 
