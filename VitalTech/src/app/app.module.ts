@@ -9,7 +9,6 @@ import { JwtInterceptor } from './jwt.interceptor';
 import { CommonModule } from '@angular/common';
 import { MatDialogModule } from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ConsultaComponent } from './models/consulta/consulta.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -18,7 +17,6 @@ export function tokenGetter() {
 @NgModule({
   declarations: [
     AppComponent,
-    ConsultaComponent
   ],
   imports: [
     BrowserModule,
@@ -27,7 +25,7 @@ export function tokenGetter() {
     CommonModule,
     MatDialogModule,
     BrowserAnimationsModule,
-    HttpClientModule,
+    HttpClient,
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,

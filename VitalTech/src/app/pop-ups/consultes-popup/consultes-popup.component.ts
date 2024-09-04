@@ -13,3 +13,4 @@ import { CommonModule } from '@angular/common';
 export class ConsultesPopupComponent {
   constructor(@Inject(MAT_DIALOG_DATA) public data: any) {}
 }
+

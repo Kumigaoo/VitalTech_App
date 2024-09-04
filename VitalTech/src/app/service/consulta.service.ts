@@ -23,9 +23,13 @@ export class ConsultaService {
     return this.http.get<Consulta>(url);
   }
 
-  /*deleteConsulta(id:number): Observable<Consulta> {
+  deleteConsulta(id:number): Observable<void> {
     const url = `${this.apiUrl}/id?id=${id}`;
-
+    return this.http.delete<void>(url);
   }
-    */
+
+  putConsulta(id:number): Observable<void> {
+    const url = `${this.apiUrl}/id?id=${id}`;
+    return this.http.delete<void>(url);
+  }
 }

@@ -1,0 +1,39 @@
+<div class="container">
+    <h2>Formulario de Registro de Consulta</h2>
+    <form type="submit" [formGroup]="consultaForm" (ngSubmit)="onSubmit()">
+        <div class= "identificador">
+            <div class = "capzalera1">
+                <label for="urgencia">Urgencia:</label>
+                <select id="selecionUrgencia" ngModel name="selecionUrgencia" formControlName="urgencia">
+                    <option value="true">True</option>
+                    <option value="false">False</option>
+                </select>
+            </div>
+            <div class = "capzalera4">
+                <label for="sintomatologia">Sintomatologia:</label> 
+                <input type="text" id="sintomatologia" ngModel name="sintomatologia" formControlName="sintomatologia" required>
+            </div>
+
+            <div class = "masInfo">
+                <div class="capzalera1">
+                    <label for="recepta">Recepta:</label>
+                    <input type="text" id="recepta" ngModel name="recepta" formControlName = "recepta" required>
+                </div>
+            </div>
+
+            <div class = "capzalera1">
+                <label for="personalId">DNI del personal:</label>
+                <input type="text" id="personalId" ngModel name="personalId" formControlName="personalId" required>
+            </div>
+
+            <div class = "capzalera2">
+                <label for="episodiMedicId">Episodi medic:</label>
+                <input type="text" id="episodiMedicId" ngModel name="episodiMedicId" formControlName="episodiMedicId" required>
+            </div>
+
+            
+            
+        </div>
+        <button type="submit">Publicar</button>
+    </form>
+</div>
