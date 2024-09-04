@@ -23,4 +23,9 @@ export class ConsultaService {
     return this.http.get<Consulta>(url);
   }
 
+  /*deleteConsulta(id:number): Observable<Consulta> {
+    const url = `${this.apiUrl}/id?id=${id}`;
+
+  }
+    */
 }
