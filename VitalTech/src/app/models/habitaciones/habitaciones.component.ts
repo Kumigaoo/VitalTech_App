@@ -19,19 +19,32 @@ export class HabitacionesComponent implements OnInit {
 
   constructor(public dialog: MatDialog, private habService: HabitacioService) { }
 
+  // Variables
   protected inputValueId: number = 101;
 
+  protected id: number = 0;
+  protected capacitat: number = 0;
+  protected planta: number = 0;
+
+  // Arays
   habitacions: Habitacio[] = [];
+
+  nLlits: string[] = [];
 
   async ngOnInit() {
 
     // Inicialització graella 
     this.loadHabitacions();
 
-    // await this.loadHabitacio(this.inputValueId);
-
   }
 
+  // Constructor obllecte habitacio
+  obllecteHabitacio(): Habitacio {
+    const habitacioObject: Habitacio = this.habService.habitacioModel(this.id, this.capacitat, this.planta, this.nLlits);
+    return habitacioObject;
+  }
+
+  // Mostra tota les habitacions
   loadHabitacions() {
 
     this.habService.getHabitacions().subscribe(data => {
@@ -42,6 +55,7 @@ export class HabitacionesComponent implements OnInit {
 
   }
 
+  // Mostra habitacio per ID
   loadHabitacio() {
 
     this.habService.getHabitacio(this.inputValueId).subscribe(data =>
@@ -49,6 +63,14 @@ export class HabitacionesComponent implements OnInit {
 
   }
 
+  // Afegir habitacio
+  postHabitacio() {
+
+    this.habService.postHabitacio(this.obllecteHabitacio());
+
+  }
+
+  // Mostre els llits
   openLlits(habitacio: any): void {
     this.dialog.open(LlitsPopupComponent, {
       data: { llits: habitacio.llits },
