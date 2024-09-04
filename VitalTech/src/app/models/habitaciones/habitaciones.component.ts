@@ -1,5 +1,6 @@
 import { RouterLinkActive, RouterLink } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Habitacio } from '../../interface/habitacio.interface';
 import { HabitacioService } from '../../service/habitaciones.service';
@@ -9,39 +10,42 @@ import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'app-habitaciones',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterLinkActive],
+  imports: [CommonModule, RouterLink, RouterLinkActive, FormsModule],
   templateUrl: './habitaciones.component.html',
   styleUrl: './habitaciones.component.css'
 })
 
-export class HabitacionesComponent {
-
-  habitacions: Habitacio[] = [];
+export class HabitacionesComponent implements OnInit {
 
   constructor(public dialog: MatDialog, private habService: HabitacioService) { }
 
-  ngOnInit() {
+  protected inputValueId: number = 101;
+
+  habitacions: Habitacio[] = [];
+
+  async ngOnInit() {
+
+    // Inicialització graella 
     this.loadHabitacions();
 
-    this.loadHabitacio(301);
+    // await this.loadHabitacio(this.inputValueId);
+
   }
 
-  loadHabitacions(): void {
-    console.info('1r ' + this.habitacions.length);
+  loadHabitacions() {
+
     this.habService.getHabitacions().subscribe(data => {
       this.habitacions = data;
-      console.info('2r ' + this.habitacions.length);
+
     });
 
 
   }
 
-  loadHabitacio(id: number): void {
+  loadHabitacio() {
 
-    console.info('3r ' + this.habitacions.length);
-    
-     this.habService.getHabitacio(id).subscribe(data =>
-       this.habitacions.splice(0, this.habitacions.length + 1, data));
+    this.habService.getHabitacio(this.inputValueId).subscribe(data =>
+      this.habitacions.splice(0, this.habitacions.length + 1, data));
 
   }
 
