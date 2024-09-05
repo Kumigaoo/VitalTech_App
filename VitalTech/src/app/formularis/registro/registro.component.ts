@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+import { PacientService } from '../../service/pacientes.service';
+import { PacientesComponent } from '../../models/pacientes/pacientes.component';
 
 @Component({
   selector: 'app-registro',
@@ -10,11 +12,12 @@ import { ReactiveFormsModule } from '@angular/forms';
   templateUrl: './registro.component.html',
   styleUrl: './registro.component.css'
 })
+
 export class RegistroComponent {
 
   pacientForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private http: HttpClient) {
+  constructor(private fb: FormBuilder, private http: HttpClient, private pacientService: PacientService) {
     this.pacientForm = this.fb.group({
       dni: [''],
       numSS: [''],
@@ -27,11 +30,12 @@ export class RegistroComponent {
 
     const pacienteData = this.pacientForm.value;
 
-    this.http.post('http://localhost:5296/api/Pacient', pacienteData).subscribe({
-      next: response => console.log('Pacient registrat:', response),
-      error: error => alert('ERROR, camps no valids'),
+    this.pacientService.postPacient(pacienteData).subscribe({
+      next: response => alert('Pacient registrat'),
+      error: error => alert('ERROR, camps no valids '),
       complete: () => alert('Operacio completada')
     });
+
   }
 
 }

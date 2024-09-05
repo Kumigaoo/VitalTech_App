@@ -1,25 +1,19 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClient, HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS} from '@angular/common/http';
 import { JwtModule } from '@auth0/angular-jwt';
-import { AppComponent } from './app.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { JwtInterceptor } from './jwt.interceptor';
+import { JwtInterceptor } from '@auth0/angular-jwt';
 import { CommonModule } from '@angular/common';
 import { MatDialogModule } from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ConsultaComponent } from './models/consulta/consulta.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
 }
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    ConsultaComponent
-  ],
   imports: [
     BrowserModule,
     FormsModule,
@@ -27,7 +21,6 @@ export function tokenGetter() {
     CommonModule,
     MatDialogModule,
     BrowserAnimationsModule,
-    HttpClientModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,

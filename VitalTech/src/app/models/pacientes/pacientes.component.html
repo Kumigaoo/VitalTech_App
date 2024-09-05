@@ -7,14 +7,14 @@
                     <label for="searchCriteria">Buscar por:</label>
                 </div>
                 <div class="searchCriteriaItemContainer">
-                    <select id="searchCriteria" name="searchCriteria">
+                    <select id="searchCriteria" name="searchCriteria" [(ngModel)]="searchCriteria">
                         <option value="name">Nombre</option>
                         <option value="dni">DNI</option>
                         <option value="ss">SS</option>
-                        <option value="id">ID</option>
+                        <option value="sexe">Sexo</option>
                     </select>
-                    <input type="text" id="searchInput" name="searchInput" placeholder="Ingresa la busqueda...">
-                    <button type="submit">Buscar</button>
+                    <input type="text" id="searchInput" name="searchInput" placeholder="Ingresa la busqueda..." [(ngModel)]="searchInput">
+                    <button type="button" (click)="searchPatient()">Buscar</button>
                     
                 </div>
             </form>
@@ -47,6 +47,9 @@
                     <td>{{ pacient.nom }}</td>  
                     <td>{{ pacient.sexe }}</td>
                     <td id="coleccio" mat-button (click)="openEpisodisMedics(pacient)">Episodis</td>
+                    <button class = "ico" (click)="updatePacient(pacient.dni)">🔄</button>
+                    <button class = "ico" (click)="deletePacient(pacient.dni)">❎</button>
+
                   </tr>
             </tbody>
         </table>
@@ -59,6 +62,7 @@
         <span id="pageInfo">Página 1 de X</span>
         <button id="nextPage">Siguiente</button>
     </div>
+
 </div>
 
 <script>
