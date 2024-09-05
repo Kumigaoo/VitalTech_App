@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Habitacio } from '../interface/habitacio.interface';
+import { Habitacio, HabitacioNoLlit } from '../interface/habitacio.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +27,18 @@ export class HabitacioService {
     };
   }
 
+  // Instancia de Habitacion sense llits
+  habitacioModelNoLlit(codiHabitacio: number,
+    capacitatLlits: number,
+    plantaId: number):
+    HabitacioNoLlit {
+    return {
+      codiHabitacio,
+      capacitatLlits,
+      plantaId
+    };
+  }
+
   // GET
   getHabitacions(): Observable<Habitacio[]> {
 
@@ -44,11 +56,13 @@ export class HabitacioService {
   }
 
   // POST
-  postHabitacio(habitacio: Habitacio): Observable<any> {
+  postHabitacio(habitacio: HabitacioNoLlit): Observable<any> {
 
     return this.http.post<Habitacio>(this.apiUrl, habitacio);
 
   }
+
+
 
 
 }
