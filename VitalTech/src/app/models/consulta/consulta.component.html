@@ -42,12 +42,10 @@
                     <td>{{ consulta.recepta }}</td>
                     <td>{{ consulta.personalId }}</td>
                     <td>{{ consulta.episodiMedicId }}</td>
-                    <td class = "button-sin-fondo">
-                        <button (click)="deleteConsulta(consulta.id)" id = "eliminar">Delete</button>
-                    </td>
-                    <td class = "button-sin-fondo">
-                        <button (click)="modificarConsulta(consulta.id)" id = "modificar"><a routerLink="/modif-consulta">Modificar</a></button>
-                    </td>
+                    <div class="botones">
+                        <button class= "ico" (click)="modificarConsulta(consulta.id)" id = "modificar"><a routerLink="/modif-consulta">🔄</a></button>
+                        <button class= "ico" (click)="deleteConsulta(consulta.id)" id = "eliminar">❎</button>
+                    </div>
                   </tr>
                   
             </tbody>

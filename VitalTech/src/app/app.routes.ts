@@ -11,7 +11,7 @@ import { ConsultaComponent } from './models/consulta/consulta.component';
 import { MetgeComponent } from './models/metge/metge.component';
 import { IngresComponent } from './models/ingres/ingres.component';
 import { PlantaComponent } from './models/planta/planta.component';
-import { RegistroConsultaComponent } from './formularis/registro-consulta/registro-consulta.component'
+import { RegistroConsultaComponent } from './formularis/registro-consulta/registro-consulta.component';
 import { ModifConsultaComponent } from './formularis/modif-consulta/modif-consulta.component';
 
 export const routes: Routes = [
