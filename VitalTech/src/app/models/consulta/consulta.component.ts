@@ -4,8 +4,8 @@ import { CommonModule } from '@angular/common';
 import { ConsultaService } from '../../service/consulta.service';
 import { Consulta } from '../../interface/consulta.interface';
 import { FormsModule } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
-import { V } from '@angular/cdk/keycodes';
+import { ActivatedRoute, Router } from '@angular/router';
+
 
 
 
@@ -18,7 +18,7 @@ import { V } from '@angular/cdk/keycodes';
 })
 
 export class ConsultaComponent {
-  constructor(private consultaService: ConsultaService) { }
+  constructor(private consultaService: ConsultaService, private router: Router) { }
   consultes: Consulta[] = [];
   protected searchId: number = 1;
 
@@ -48,7 +48,7 @@ export class ConsultaComponent {
   }
 
   modificarConsulta(id: number): void {
-    
+    this.router.navigate(['/modif-consulta', id]);
   }
 
   

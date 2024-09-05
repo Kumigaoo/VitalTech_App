@@ -30,5 +30,7 @@ export const routes: Routes = [
     {path: 'planta', component: PlantaComponent},
     {path: 'registro-consulta', component: RegistroConsultaComponent},
     {path: 'modif-consulta', component: ModifConsultaComponent},
+    {path: 'modif-consulta/:id', component: ModifConsultaComponent },
     
 ];
+

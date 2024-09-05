@@ -8,11 +8,19 @@ import { JwtInterceptor } from '@auth0/angular-jwt';
 import { CommonModule } from '@angular/common';
 import { MatDialogModule } from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterModule, Routes } from '@angular/router';
+import { ConsultaComponent } from './models/consulta/consulta.component';
+import { ModifConsultaComponent } from './formularis/modif-consulta/modif-consulta.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
 }
 
+const routes: Routes = [
+  { path: 'consultas', component: ConsultaComponent },
+  { path: 'modif-consulta/:id', component: ModifConsultaComponent }, 
+
+];
 @NgModule({
   imports: [
     BrowserModule,
@@ -21,6 +29,7 @@ export function tokenGetter() {
     CommonModule,
     MatDialogModule,
     BrowserAnimationsModule,
+    RouterModule.forRoot(routes),
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
