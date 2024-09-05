@@ -13,6 +13,8 @@ import { IngresComponent } from './models/ingres/ingres.component';
 import { PlantaComponent } from './models/planta/planta.component';
 import { RegistroConsultaComponent } from './formularis/registro-consulta/registro-consulta.component';
 import { ModifConsultaComponent } from './formularis/modif-consulta/modif-consulta.component';
+import { ModifPlantaComponent } from './formularis/modif-planta/modif-planta.component';
+import { RegistroPlantaComponent } from './formularis/registro-planta/registro-planta.component';
 
 export const routes: Routes = [
     {path: '', redirectTo: '/pacientes', pathMatch: 'full' },
@@ -31,6 +33,9 @@ export const routes: Routes = [
     {path: 'registro-consulta', component: RegistroConsultaComponent},
     {path: 'modif-consulta', component: ModifConsultaComponent},
     {path: 'modif-consulta/:id', component: ModifConsultaComponent },
+    {path: 'modif-planta', component: ModifPlantaComponent},
+    {path: 'modif-planta/:id', component: ModifPlantaComponent},
+    {path: 'registro-planta', component: RegistroPlantaComponent}
     
 ];
 

@@ -11,14 +11,18 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 import { ConsultaComponent } from './models/consulta/consulta.component';
 import { ModifConsultaComponent } from './formularis/modif-consulta/modif-consulta.component';
+import { PlantaComponent } from './models/planta/planta.component';
+import { ModifPlantaComponent } from './formularis/modif-planta/modif-planta.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
 }
-
+// estas rutas sirven para los put de cada modelo
 const routes: Routes = [
   { path: 'consultas', component: ConsultaComponent },
-  { path: 'modif-consulta/:id', component: ModifConsultaComponent }, 
+  { path: 'modif-consulta/:id', component: ModifConsultaComponent },
+  {path: 'modif-planta/:id', component: ModifPlantaComponent},
+  {path: 'planta', component: PlantaComponent}
 
 ];
 @NgModule({
