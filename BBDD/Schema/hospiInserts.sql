@@ -144,7 +144,10 @@ INSERT INTO EpisodisMedics (DataObertura, DataTancament, PacientId, Dolencia, Es
 INSERT INTO EpisodisMedics (DataObertura, DataTancament, PacientId, Dolencia, Estat) VALUES ('2024-08-10', NULL, '88990011H', 'Diabetes', 'Crítico');
 INSERT INTO EpisodisMedics (DataObertura, DataTancament, PacientId, Dolencia, Estat) VALUES ('2024-09-15', '2024-09-30', '99001122I', 'Gastroenteritis', 'Resuelto');
 INSERT INTO EpisodisMedics (DataObertura, DataTancament, PacientId, Dolencia, Estat) VALUES ('2024-10-20', NULL, '10020030J', 'Insuficiencia renal', 'Crítico');
-INSERT INTO EpisodisMedics (DataObertura, DataTancament, PacientId, Dolencia, Estat) VALUES ('2024-11-01', '2024-11-15', '11022033A', 'Enfermedad pulmonar', 'Resuelto');
+INSERT INTO EpisodisMedics (DataObertura, DataTancament, PacientId, Dolencia, Estat) VALUES ('2019-11-01', '2020-11-15', '11022033A', 'Enfermedad pulmonar', 'Resuelto');
+INSERT INTO EpisodisMedics (DataObertura, DataTancament, PacientId, Dolencia, Estat) VALUES ('2008-02-11', NULL, '11022033A', 'Depresión', 'Estable');
+INSERT INTO EpisodisMedics (DataObertura, DataTancament, PacientId, Dolencia, Estat) VALUES ('2005-05-26', NULL, '11022033A', 'Cejera', 'No Resuelto');
+INSERT INTO EpisodisMedics (DataObertura, DataTancament, PacientId, Dolencia, Estat) VALUES ('2022-04-30', '2024-11-15', '11022033A', 'Colesterol', 'Resuelto');
 INSERT INTO EpisodisMedics (DataObertura, DataTancament, PacientId, Dolencia, Estat) VALUES ('2024-12-05', NULL, '12023034B', 'Faringitis', 'Estable');
 INSERT INTO EpisodisMedics (DataObertura, DataTancament, PacientId, Dolencia, Estat) VALUES ('2024-01-15', '2024-02-01', '13024035C', 'Apendicitis', 'Resuelto');
 INSERT INTO EpisodisMedics (DataObertura, DataTancament, PacientId, Dolencia, Estat) VALUES ('2024-02-20', NULL, '14025036D', 'Esclerosis múltiple', 'Crítico');

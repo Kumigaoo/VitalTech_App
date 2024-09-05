@@ -5,7 +5,7 @@ import { HabitacionesComponent } from './models/habitaciones/habitaciones.compon
 import { LoginComponent } from './formularis/login/login.component';
 import { PacientesComponent } from './models/pacientes/pacientes.component';  
 import { ConfiguracionComponent } from './common/configuracion/configuracion.component';
-import { RegistroComponent } from './formularis/registro/registro.component';
+import { RegistroComponent } from './formularis/registro-paciente/registro.component';
 import { EpisodisComponent } from './models/episodis/episodis.component';
 import { ConsultaComponent } from './models/consulta/consulta.component';
 import { MetgeComponent } from './models/metge/metge.component';

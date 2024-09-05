@@ -57,8 +57,10 @@ export class PacientesComponent {
     })
   }
 
-  updatePacient(arg0: string) {
+  updatePacient(dataPacient: Pacient) {
    
+    
+
   }
 
   searchPatient(): void {
