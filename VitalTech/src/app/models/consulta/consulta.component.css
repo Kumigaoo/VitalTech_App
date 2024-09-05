@@ -119,9 +119,8 @@ a {
     justify-content: flex-start;
 }
 
-.eliminar {
+#eliminar {
     margin-left: 20px;
-    margin-top: 50px;
     display: flex;
     justify-content: flex-start;
     flex-direction: column;
@@ -212,3 +211,8 @@ th a {
     text-decoration: none;
 }
 
+
+.button-sin-fondo {
+    background: none; 
+    border: none;
+}

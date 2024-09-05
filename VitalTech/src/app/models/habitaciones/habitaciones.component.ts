@@ -1,5 +1,6 @@
 import { RouterLinkActive, RouterLink } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Habitacio } from '../../interface/habitacio.interface';
 import { HabitacioService } from '../../service/habitaciones.service';
@@ -9,42 +10,67 @@ import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'app-habitaciones',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterLinkActive],
+  imports: [CommonModule, RouterLink, RouterLinkActive, FormsModule],
   templateUrl: './habitaciones.component.html',
   styleUrl: './habitaciones.component.css'
 })
 
-export class HabitacionesComponent {
-
-  habitacions: Habitacio[] = [];
+export class HabitacionesComponent implements OnInit {
 
   constructor(public dialog: MatDialog, private habService: HabitacioService) { }
 
-  ngOnInit() {
+  // Variables
+  protected inputValueId: number = 101;
+
+  protected id: number = 0;
+  protected capacitat: number = 0;
+  protected planta: number = 0;
+
+  // Arays
+  habitacions: Habitacio[] = [];
+
+  nLlits: string[] = [];
+
+  async ngOnInit() {
+
+    // Inicialització graella 
     this.loadHabitacions();
 
-    this.loadHabitacio(301);
   }
 
-  loadHabitacions(): void {
-    console.info('1r ' + this.habitacions.length);
+  // Constructor obllecte habitacio
+  obllecteHabitacio(): Habitacio {
+    const habitacioObject: Habitacio = this.habService.habitacioModel(this.id, this.capacitat, this.planta, this.nLlits);
+    return habitacioObject;
+  }
+
+  // Mostra tota les habitacions
+  loadHabitacions() {
+
     this.habService.getHabitacions().subscribe(data => {
       this.habitacions = data;
-      console.info('2r ' + this.habitacions.length);
+
     });
 
 
   }
 
-  loadHabitacio(id: number): void {
+  // Mostra habitacio per ID
+  loadHabitacio() {
 
-    console.info('3r ' + this.habitacions.length);
-    
-     this.habService.getHabitacio(id).subscribe(data =>
-       this.habitacions.splice(0, this.habitacions.length + 1, data));
+    this.habService.getHabitacio(this.inputValueId).subscribe(data =>
+      this.habitacions.splice(0, this.habitacions.length + 1, data));
 
   }
 
+  // Afegir habitacio
+  postHabitacio() {
+
+    this.habService.postHabitacio(this.obllecteHabitacio());
+
+  }
+
+  // Mostre els llits
   openLlits(habitacio: any): void {
     this.dialog.open(LlitsPopupComponent, {
       data: { llits: habitacio.llits },

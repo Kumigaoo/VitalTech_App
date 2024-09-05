@@ -11,7 +11,8 @@ import { ConsultaComponent } from './models/consulta/consulta.component';
 import { MetgeComponent } from './models/metge/metge.component';
 import { IngresComponent } from './models/ingres/ingres.component';
 import { PlantaComponent } from './models/planta/planta.component';
-import { RegistroConsultaComponent } from './formularis/registro-consulta/registro-consulta.component';
+import { RegistroConsultaComponent } from './formularis/registro-consulta/registro-consulta.component'
+import { ModifConsultaComponent } from './formularis/modif-consulta/modif-consulta.component';
 
 export const routes: Routes = [
     {path: '', redirectTo: '/pacientes', pathMatch: 'full' },
@@ -23,10 +24,11 @@ export const routes: Routes = [
     {path: 'configuracion', component: ConfiguracionComponent},
     {path: 'registro', component: RegistroComponent},
     {path: 'episodis', component: EpisodisComponent},
-    {path: 'consultes', component: ConsultaComponent},
+    {path: 'consulta', component: ConsultaComponent},
     {path: 'metge', component: MetgeComponent},
     {path: 'ingres', component: IngresComponent},
     {path: 'planta', component: PlantaComponent},
     {path: 'registro-consulta', component: RegistroConsultaComponent},
+    {path: 'modif-consulta', component: ModifConsultaComponent},
     
 ];

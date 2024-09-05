@@ -3,24 +3,24 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common'; 
 import { ConsultaService } from '../../service/consulta.service';
 import { Consulta } from '../../interface/consulta.interface';
+import { FormsModule } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { V } from '@angular/cdk/keycodes';
 
 
 
 @Component({
   selector: 'app-consulta',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterLinkActive],
+  imports: [CommonModule, RouterLink, RouterLinkActive, FormsModule],
   templateUrl: './consulta.component.html',
   styleUrl: './consulta.component.css'
 })
 
 export class ConsultaComponent {
-
-  consultes: Consulta[] = [];
-  consultaSelec: Consulta | null = null;
-  searchId: number | null = null;
-
   constructor(private consultaService: ConsultaService) { }
+  consultes: Consulta[] = [];
+  protected searchId: number = 1;
 
   ngOnInit() {
     this.loadConsultes();
@@ -29,31 +29,43 @@ export class ConsultaComponent {
   loadConsultes(): void {
     this.consultaService.getConsultes().subscribe(data => {
       this.consultes = data;
-      this.consultaSelec = null;
     });
   }
-  
-   // this.habService.getHabitacio(id).subscribe(
-    // (Response) => console.info('Habitacion: ', Response) 
-    //)
-      // data =>
-      // this.habitacions = data)
-  
-  searchConsulta(): void {
-    if(this.searchId !== null) {
-      this.consultaService.getConsulta(this.searchId).subscribe(data => { 
-        this.consultaSelec = data;
-        this.consultes = [data];
-      }, error => {
-        console.error('No existeix cap consulta amb el id proporcionat'); 
-        this.consultaSelec = null; 
-        this.consultes = [];
+
+
+  deleteConsulta(id: number): void {
+    if (confirm('Estas seguro de eliminar esta consulta?')) { 
+      this.consultaService.deleteConsulta(id).subscribe({
+        next: () => {
+          console.log('Consulta eliminada correctamente');
+          this.loadConsultes();
+        },
+        error: (error) => {
+          console.error('Error, no se pudo eliminar esta consulta:', error); 
+        }
       });
-    } else {
-      this.loadConsultes();
     }
   }
 
-  
+  modificarConsulta(id: number): void {
+    
+  }
 
+  
+  searchConsulta(): void {
+    if (!isNaN(this.searchId)) { 
+        this.consultaService.getConsulta(this.searchId).subscribe({
+          next: (data) => {
+            this.consultes.splice(0, this.consultes.length + 1, data);
+          },
+          error: (error) => {
+            console.error('Error al buscar la consulta:', error),
+            alert('No existe la consulta con id ' + this.searchId );
+          }
+        });
+      } else {
+        alert('Por favor, ingresa un ID válido.'); 
+      }
+  }
+  
 }

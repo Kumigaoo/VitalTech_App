@@ -2,15 +2,13 @@
 <div class= "contendor">
     <div class="search-container">
         <div class="lala">
-            <form id="searchForm" (ngSubmit)="searchConsulta()">
+            <form id="searchForm">
                 <div class="searchCriteriaContainer">
                     <label for="searchCriteria">Buscar por:</label>
                 </div>
                 <div class="searchCriteriaItemContainer">
-                    <input type="text" id="searchId" name="searchId" placeholder="Ingresa la busqueda..."
-                    ngModel name ="searchId" required>
-                    <button type="submit">Buscar</button>
-                    
+                    <input type="number"  id="searchId" [(ngModel)]="searchId" name="searchId" placeholder="Ingresa la busqueda..." required>
+                    <button type="button" (click)="searchConsulta()">Buscar</button>
                 </div>
             </form>
         </div>
@@ -44,14 +42,20 @@
                     <td>{{ consulta.recepta }}</td>
                     <td>{{ consulta.personalId }}</td>
                     <td>{{ consulta.episodiMedicId }}</td>
+                    <td class = "button-sin-fondo">
+                        <button (click)="deleteConsulta(consulta.id)" id = "eliminar">Delete</button>
+                    </td>
+                    <td class = "button-sin-fondo">
+                        <button (click)="modificarConsulta(consulta.id)" id = "modificar"><a routerLink="/modif-consulta">Modificar</a></button>
+                    </td>
                   </tr>
+                  
             </tbody>
         </table>
-
         
     </div>
     
-    <div class="pagination" *ngIf="!consultaSelec">
+    <div class="pagination">
         <button id="prevPage">Anterior</button>
         <span id="pageInfo">Página 1 de X</span>
         <button id="nextPage">Siguiente</button>

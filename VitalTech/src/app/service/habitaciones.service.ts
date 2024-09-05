@@ -13,11 +13,25 @@ export class HabitacioService {
 
   constructor(private http: HttpClient) { }
 
+  // Instancia de Habitacion
+  habitacioModel(codiHabitacio: number,
+    capacitatLlits: number,
+    plantaId: number,
+    llits: string[]):
+    Habitacio {
+    return {
+      codiHabitacio,
+      capacitatLlits,
+      plantaId,
+      llits
+    };
+  }
+
   // GET
   getHabitacions(): Observable<Habitacio[]> {
 
     return this.http.get<Habitacio[]>(this.apiUrl);
-  
+
   }
 
   // GET{id}
@@ -25,9 +39,16 @@ export class HabitacioService {
 
     let params = new HttpParams().set('id', id)
 
-    return this.http.get<Habitacio>(`${this.apiUrl}/id`, {params});
+    return this.http.get<Habitacio>(`${this.apiUrl}/id`, { params });
 
   }
- 
+
+  // POST
+  postHabitacio(habitacio: Habitacio): Observable<any> {
+
+    return this.http.post<Habitacio>(this.apiUrl, habitacio);
+
+  }
+
 
 }

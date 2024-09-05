@@ -7,9 +7,8 @@
                     <label for="searchCriteria">Buscar por:</label>
                 </div>
                 <div class="searchCriteriaItemContainer">
-                    <input type="text" id="searchInput" name="searchInput" placeholder="Ingresa la busqueda..."> <!--Esta linea-->
-                    <button id="buttonSerchID" (click)="loadHabitacio(101)" type="submit">Buscar</button>
-                    <!-- <button type="submit">Buscar</button> -->
+                    <input type="number" name="searchInput" [(ngModel)]="inputValueId"  placeholder="Ingresa la busqueda...">
+                    <button id="buttonSerchID" type="button" (click)="loadHabitacio()">Buscar</button>
                 </div>
             </form>
         </div>
