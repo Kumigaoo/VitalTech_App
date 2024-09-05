@@ -62,6 +62,28 @@ export class HabitacioService {
 
   }
 
+  // DELETE
+  deleteHabitacio(id: number): Observable<any> {
+
+    let params = new HttpParams().set('id', id)
+
+    return this.http.delete<any>(this.apiUrl, { params });
+
+  }
+
+  // PUT
+  putHabitcions(id: number, habitacio: HabitacioNoLlit): Observable<Habitacio> {
+
+    return this.http.put<Habitacio>(`${this.apiUrl}/${id}`, habitacio);
+
+  }
+
+  // PATCH
+  patchHabitcio(id: number, habitacio: Habitacio): Observable<any> {
+
+    return this.http.put<Habitacio>(`${this.apiUrl}/${id}`, habitacio);
+
+  }
 
 
 
