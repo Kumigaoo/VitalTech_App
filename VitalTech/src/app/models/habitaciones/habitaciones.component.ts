@@ -52,7 +52,6 @@ export class HabitacionesComponent implements OnInit {
 
     });
 
-
   }
 
   // Mostra habitacio per ID
@@ -67,6 +66,26 @@ export class HabitacionesComponent implements OnInit {
   postHabitacio() {
 
     this.habService.postHabitacio(this.obllecteHabitacio());
+
+  }
+
+  // Actualiçar habitacio
+  updateHabitacio(habitacio: Habitacio) {
+
+    
+
+    this.habService.patchHabitcio(habitacio.codiHabitacio, habitacio).subscribe({
+
+    });
+
+  }
+
+  // Eliminar habitacio
+  deleteHabitacio(id: number) {
+
+    this.habService.deleteHabitacio(id).subscribe({
+
+    });
 
   }
 

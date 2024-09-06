@@ -38,7 +38,9 @@
                     <td>{{ hab.capacitatLlits }}</td>
                     <td>{{ hab.plantaId }}</td>  
                     <td id="coleccio" mat-button (click)="openLlits(hab)">Llits</td>
-                  </tr>
+                    <button class = "ico" (click)="updateHabitacio(hab)">🔄</button>
+                    <button class = "ico" (click)="deleteHabitacio(hab.codiHabitacio)">❎</button>
+                </tr>
             </tbody>
         </table>
 
