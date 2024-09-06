@@ -64,9 +64,6 @@ export class CamasComponent {
             busqueda.push(this.llits[i]);
           } 
         }
-        alert('Por favor, ingresa un ID válido.'); 
-        this.loadLlits();
-        return;
       break;
       case 'ocupat':
         for (let i = 0; i < this.llits.length; i++) {
@@ -77,19 +74,13 @@ export class CamasComponent {
             busqueda.push(this.llits[i]);
           } 
         }
-        alert('Por favor, ingresa true o false.'); 
-        this.loadLlits();
-        return;
       break;
       case 'idHabitacion':
         for (let i = 0; i < this.llits.length; i++) {
           if(Number(this.searchInput) === this.llits[i].habitacioId) {
             busqueda.push(this.llits[i]);
           }
-        }
-        alert('Por favor, ingresa un ID válido.'); 
-        this.loadLlits();
-        return;       
+        }      
       break;
     }
 
