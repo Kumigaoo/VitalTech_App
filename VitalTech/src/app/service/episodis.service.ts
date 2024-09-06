@@ -18,6 +18,9 @@ export class EpisodiService {
     return this.http.get<EpisodiMedic[]>(this.apiUrl);
   }
 
+  deleteEpisodi(id: string): Observable<EpisodiMedic> {
+    return this.http.delete<EpisodiMedic>(`${this.apiUrl}/id?id=${id}`);
+  }
 
  
 

@@ -7,13 +7,13 @@
                     <label for="searchCriteria">Buscar por:</label>
                 </div>
                 <div class="searchCriteriaItemContainer">
-                    <input type="number" name="searchInput" [(ngModel)]="inputValueId"  placeholder="Ingresa la busqueda...">
-                    <button id="buttonSerchID" type="button" (click)="loadHabitacio()">Buscar</button>
+                    <input type="text" name="searchInput" [(ngModel)]="inputValueId"  placeholder="Ingresa la busqueda...">
+                    <button type="button" (click)="loadHabitacio()">Buscar</button>
                 </div>
             </form>
         </div>
         <div class="registro">
-            <button id="registrarse"><a routerLink="/registro"> + Registrar Habitacio</a></button>
+            <button id="registrarse"><a routerLink="/habitaciones/agregar"> + Registrar Habitacio</a></button>
         </div>
     </div>
     

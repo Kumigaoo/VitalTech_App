@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PacientService } from '../../service/pacientes.service';
-import { PacientesComponent } from '../../models/pacientes/pacientes.component';
 
 @Component({
   selector: 'app-registro',

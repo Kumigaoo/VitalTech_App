@@ -7,6 +7,7 @@ import { Pacient } from '../../interface/pacient.interface'
 import { MatDialog } from '@angular/material/dialog';
 import { EpisodisMedicsPopupComponent } from '../../pop-ups/episodis-medics-popup/episodis-medics-popup.component';
 import { FormsModule } from '@angular/forms';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-pacientes',
@@ -24,7 +25,7 @@ export class PacientesComponent {
   searchCriteria: string = "dni";
   searchInput: string = "";
 
-  constructor(public dialog: MatDialog, private pacienteService: PacientService) { }
+  constructor(public dialog: MatDialog, private pacienteService: PacientService, private router: Router) { }
 
   ngOnInit() {
     this.loadPacients();
@@ -57,8 +58,8 @@ export class PacientesComponent {
     })
   }
 
-  updatePacient(arg0: string) {
-
+  updatePacient(idPacient: string) {
+    this.router.navigate(['/modif-paciente', idPacient]);
   }
 
   searchPatient(): void {

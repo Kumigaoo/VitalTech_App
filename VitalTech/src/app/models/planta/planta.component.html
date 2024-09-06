@@ -7,20 +7,13 @@
                     <label for="searchCriteria">Buscar por:</label>
                 </div>
                 <div class="searchCriteriaItemContainer">
-                    <select id="searchCriteria" name="searchCriteria">
-                        <option value="name">Nombre</option>
-                        <option value="dni">DNI</option>
-                        <option value="ss">SS</option>
-                        <option value="id">ID</option>
-                    </select>
-                    <input type="text" id="searchInput" name="searchInput" placeholder="Ingresa la busqueda...">
-                    <button type="submit">Buscar</button>
-                    
+                    <input type="number"  id="searchInput" [(ngModel)]="searchInput" name="searchInput" placeholder="Ingresa la busqueda..." required>
+                    <button type="button" (click)="searchPlanta()">Buscar</button>
                 </div>
             </form>
         </div>
         <div class="registro">
-            <button id="registrarse"><a routerLink="/registro"> + Registrar paciente</a></button>
+            <button id="registrarse"><a routerLink="/registro-planta"> + Crear planta</a></button>
         </div>
     </div>
     
@@ -43,7 +36,11 @@
                     <td>{{ planta.id }}</td>
                     <td>{{ planta.capacitatHabitacions }}</td>  
                     <td id="coleccio" mat-button (click)="openHabitacions(planta)">Habitacions</td>
-                  </tr>
+                    <div class="botones">
+                        <button class= "ico" (click)="modificarPlanta(planta.id)" id = "modificar">🔄</button>
+                        <button class= "ico" (click)="deletePlanta(planta.id)" id = "eliminar">❎</button>
+                    </div>
+                </tr>
             </tbody>
         </table>
 

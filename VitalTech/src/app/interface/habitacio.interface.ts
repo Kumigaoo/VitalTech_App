@@ -4,3 +4,11 @@ export interface Habitacio {
     plantaId: number;
     llits: string[];
   }
+
+  export interface HabitacioNoLlit {
+
+    codiHabitacio: number;
+    capacitatLlits: number;
+    plantaId: number;
+
+  }

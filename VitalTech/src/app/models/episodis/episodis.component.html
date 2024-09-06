@@ -1,4 +1,4 @@
-
+ 
 <div class= "contendor">
     <div class="search-container">
         <div class="lala">
@@ -7,9 +7,13 @@
                     <label for="searchCriteria">Buscar por:</label>
                 </div>
                 <div class="searchCriteriaItemContainer">
-                    <input type="text" id="searchInput" name="searchInput" placeholder="Ingresa la busqueda...">
-                    <button type="submit">Buscar</button>
-                    
+                  <select id="searchCriteria" name="searchCriteria" [(ngModel)]="searchCriteria">
+                    <option value="id">ID</option>
+                    <option value="dolencia">Dolencia</option>
+                  </select>
+                  <input type="text" id="searchInput" name="searchInput" placeholder="Ingresa la busqueda..." [(ngModel)]="searchInput">
+                  <button type="button" (click)="searchEpisodi()">Buscar</button>
+
                 </div>
             </form>
         </div>
@@ -38,16 +42,17 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let episodi of episodis; let i = index">
-                    <td>{{ episodi.id }}</td>
-                    <td>{{ episodi.dataObertura }}</td>
-                    <td>{{ episodi.dataTancament }}</td>  
-                    <td>{{ episodi.estat }}</td>
-                    <td>{{ episodi.dolencia }}</td>
-                    <td>{{ episodi.pacientId }}</td>
-                    <td class = "coleccio" mat-button (click)="openConsultes(episodi)">Consultes</td>
-                    <td class = "coleccio" mat-button (click)="openIngressos(episodi)">Ingressos</td>
-                  </tr>
+              <tr *ngFor="let episodi of episodis; let i = index">
+                <td>{{ episodi.id }}</td>
+                <td>{{ episodi.dataObertura }}</td>
+                <td>{{ episodi.dataTancament }}</td>
+                <td>{{ episodi.estat }}</td>
+                <td>{{ episodi.dolencia }}</td>
+                <td>{{ episodi.pacientId }}</td>
+                <td class="coleccio" mat-button (click)="openConsultes(episodi)">Consultes</td>
+                <td class="coleccio" mat-button (click)="openIngressos(episodi)">Ingressos</td>
+                <button class="ico" (click)="deleteEpisodi(episodi.id)">❎</button>
+              </tr>
             </tbody>
         </table>
 
