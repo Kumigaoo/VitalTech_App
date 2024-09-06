@@ -61,17 +61,7 @@ export class PlantaComponent {
         },
         error: (error) => {
           console.error('Error, no se pudo eliminar esta planta:', error);
-          if (error.status == 400) {
-              if (confirm('Esta planta tiene habitaciones y camas asociadas. ¿Deseas eliminar también habitaciones y camas?')) {
-                this.deleteHabitacionesYPlanta(id);
-              }else {
-                alert('La planta no se ha eliminado porque tiene habitaciones o camas asociadas')
-              }
-
-          } else { 
-            
-            alert('Error al intentar eliminar la planta2');
-          }
+          alert('La planta no se ha eliminado porque tiene habitaciones o camas asociadas');
         }
       });
     }
@@ -80,9 +70,7 @@ export class PlantaComponent {
   modificarPlanta(id: number): void {
     this.router.navigate(['/modif-planta', id]);
   }
-  deleteHabitacionesYPlanta(plantaId: number): void {
-
-  }
+  
 
 
   openHabitacions(planta: any): void {
