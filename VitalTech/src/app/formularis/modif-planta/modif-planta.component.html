@@ -1,1 +1,12 @@
-<p>modif-planta works!</p>
+<div class="container">
+    <h2>Formulario de Modificación de Planta</h2>
+    <form type="submit" [formGroup]="plantaForm" (ngSubmit)="onActualice()">
+        <div class= "identificador">
+            <div class = "capzalera4">
+                <label for="capacitatHabitacions">Capacitat:</label> 
+                <input type="number" id="capacitatHabitacions" ngModel name="capacitatHabitacions" formControlName="capacitatHabitacions" required>
+            </div>
+        </div>
+        <button type="submit">Modificar</button>
+    </form>
+</div>
