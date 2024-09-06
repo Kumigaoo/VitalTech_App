@@ -16,6 +16,7 @@ import { ModifConsultaComponent } from './formularis/modif-consulta/modif-consul
 import { ModifPlantaComponent } from './formularis/modif-planta/modif-planta.component';
 import { RegistroPlantaComponent } from './formularis/registro-planta/registro-planta.component';
 import { ModifPacienteComponent } from './formularis/modif-paciente/modif-paciente.component';
+import { AgregarHabitacionesComponent } from './formularis/agregar-habitaciones/agregar-habitaciones.component';
 
 export const routes: Routes = [
     {path: '', redirectTo: '/pacientes', pathMatch: 'full' },
@@ -23,6 +24,7 @@ export const routes: Routes = [
     {path: 'inicio', component: InicioComponent},
     {path: 'camas', component: CamasComponent},
     {path: 'habitaciones', component: HabitacionesComponent},
+    {path: 'habitaciones/agregar', component: AgregarHabitacionesComponent},
     {path: 'pacientes', component: PacientesComponent},
     {path: 'configuracion', component: ConfiguracionComponent},
     {path: 'registro', component: RegistroComponent},

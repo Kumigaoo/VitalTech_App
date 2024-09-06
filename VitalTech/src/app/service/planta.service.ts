@@ -27,10 +27,18 @@ export class PlantaService {
     return this.http.delete<Planta>(url);
   }
 
+  deleteCamasPorPlanta(id:number){
+    
+  }
+
+  deleteHabitacionesPorPlanta(id: number){
+
+  }
   putPlanta(planta: Planta): Observable<Planta> {
     const url = `${this.apiUrl}/id?id=${planta.id}`;
     return this.http.put<Planta>(url, planta);
   }
+
 
 
 }
