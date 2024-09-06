@@ -26,7 +26,8 @@ export class PacientService {
   }
 
   putPacient(pacient : Pacient): Observable<Pacient> {
-    return this.http.put<Pacient>(this.apiUrl,pacient);
+    const url = `${this.apiUrl}/id?id=${pacient.dni}`;
+    return this.http.put<Pacient>(url, pacient);
   }
 
   deletePacient(id : string): Observable<Pacient> {

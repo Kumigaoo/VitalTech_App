@@ -1,0 +1,37 @@
+<p>modif-paciente works!</p>
+<div class="container">
+    <h2>Formulario de Registro de Pacientes</h2>
+    
+    <form type="submit" [formGroup]="modiPacientForm" (ngSubmit)="onUpdate()">
+        <div class= "identificador">
+            
+            <div class = "capzalera4">
+                <label for="dni">DNI:</label> 
+                <input type="text" id="dni" ngModel name="dni" formControlName="dni" required>
+            </div>
+
+            <div class = "masInfo">
+                <div class="capzalera1">
+                    <label for="SS">Número de la SS:</label>
+                    <input type="text" id="SS" ngModel name="SS" formControlName = "numSS" required>
+                </div>
+            </div>
+
+            <div class = "capzalera1">
+                <label for="name">Nombre:</label>
+                <input type="text" id="name" ngModel name="name" formControlName="nom" required>
+            </div>
+
+            <div class = "capzalera1">
+                <label for="sexo">Sexo:</label>
+                <select id="selecionSexe" ngModel name="selecionSexe" formControlName="sexe">
+                    <option value="F">Femenino</option>
+                    <option value="M">Masculino</option>
+                </select>
+            </div>
+            
+        </div>
+        
+        <button type="submit">Modificar</button>
+    </form>
+</div>

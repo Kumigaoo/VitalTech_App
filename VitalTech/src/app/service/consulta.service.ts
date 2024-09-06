@@ -23,13 +23,13 @@ export class ConsultaService {
     return this.http.get<Consulta>(url);
   }
 
-  deleteConsulta(id:number): Observable<void> {
+  deleteConsulta(id:number): Observable<Consulta> {
     const url = `${this.apiUrl}/id?id=${id}`;
-    return this.http.delete<void>(url);
+    return this.http.delete<Consulta>(url);
   }
 
-  putConsulta(id:number): Observable<void> {
-    const url = `${this.apiUrl}/id?id=${id}`;
-    return this.http.delete<void>(url);
+  putConsulta(consulta: Consulta): Observable<Consulta> {
+    const url = `${this.apiUrl}/id?id=${consulta.id}`;
+    return this.http.put<Consulta>(url, consulta);
   }
 }

@@ -17,5 +17,20 @@ export class PlantaService {
     return this.http.get<Planta[]>(this.apiUrl);
   }
 
+  getPlanta(id:number): Observable<Planta> {
+    const url = `${this.apiUrl}/id?id=${id}`;
+    return this.http.get<Planta>(url);
+  }
+
+  deletePlanta(id:number): Observable<Planta> {
+    const url = `${this.apiUrl}/id?id=${id}`;
+    return this.http.delete<Planta>(url);
+  }
+
+  putPlanta(planta: Planta): Observable<Planta> {
+    const url = `${this.apiUrl}/id?id=${planta.id}`;
+    return this.http.put<Planta>(url, planta);
+  }
+
 
 }
