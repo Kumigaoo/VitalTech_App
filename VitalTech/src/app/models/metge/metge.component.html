@@ -7,8 +7,13 @@
                     <label for="searchCriteria">Buscar por:</label>
                 </div>
                 <div class="searchCriteriaItemContainer">
-                    <input type="text" id="searchInput" name="searchInput" placeholder="Ingresa la busqueda...">
-                    <button type="submit">Buscar</button>
+                    <select id="searchCriteria" name="searchCriteria" [(ngModel)]="searchCriteria">
+                        <option value="nom">Nom</option>
+                        <option value="dni">DNI</option>
+                        <option value="especialitat">Especialitat</option>
+                    </select>
+                    <input type="text" id="searchInput" name="searchInput" placeholder="Ingresa la busqueda..." [(ngModel)]="searchInput">
+                    <button type="submit" (click)="searchPersonal()">Buscar</button>
                     
                 </div>
             </form>
