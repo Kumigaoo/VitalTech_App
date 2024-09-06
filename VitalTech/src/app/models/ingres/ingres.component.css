@@ -31,6 +31,11 @@ label {
 
 }
 
+#coleccio {
+    cursor: pointer;
+    color: #02789b;
+}
+
 select, input {
     margin-bottom: 20px;
     padding: 10px;
@@ -48,11 +53,18 @@ button {
     cursor: pointer;
     font-size: 16px;
     margin-right: 20px;
+}
 
+.ico {
+    padding: 0%;
+    background-color: antiquewhite;
+    font-size: 5vh;
+    margin: 0%;
+    margin-left: 9px;
 }
 
 button:hover {
-    background-color: #02789b;
+    background-color: #71c9e3;
 }
 
 #searchForm {

@@ -7,14 +7,21 @@
                     <label for="searchCriteria">Buscar por:</label>
                 </div>
                 <div class="searchCriteriaItemContainer">
-                    <input type="text" id="searchInput" name="searchInput" placeholder="Ingresa la busqueda...">
-                    <button type="submit">Buscar</button>
+                    <select id="searchCriteria" name="searchCriteria" [(ngModel)]="searchCriteria">
+                        <option value="id">Id Episodi</option>
+                        <option value="entrada">Data Entrada</option>
+                        <option value="sortida">Data Sortida</option>
+                        <option value="episodi">Episodi Medic</option>
+                        <option value="llit">Id LLit</option>
+                    </select>
+                    <input type="text" id="searchInput" name="searchInput" placeholder="Ingresa la busqueda..." [(ngModel)]="searchInput">
+                    <button type="button" (click)="search()">Buscar</button>
                     
                 </div>
             </form>
         </div>
         <div class="registro">
-            <button id="registrarse"><a routerLink="/registro"> + Registrar Ingres</a></button>
+            <button id="registrarse"><a routerLink="/registro-ingres"> + Registrar Ingres</a></button>
         </div>
     </div>
     
@@ -41,6 +48,8 @@
                     <td>{{ ingres.dataSortida }}</td>  
                     <td>{{ ingres.episodiMedicId }}</td>
                     <td>{{ ingres.llitId }}</td>
+                    <button class = "ico" (click)="updateIngres(ingres.id)">🔄</button>
+                    <button class = "ico" (click)="deleteIngres(ingres.id)">❎</button>
                   </tr>
             </tbody>
         </table>

@@ -17,6 +17,23 @@ export class IngresService {
     return this.http.get<Ingres[]>(this.apiUrl);
   }
 
+  getIngresId(id : string): Observable<Ingres> {
+    return this.http.get<Ingres>(this.apiUrl+"/id?id="+id);
+  }
+
+  postIngres(ingres : Ingres): Observable<Ingres> {
+    return this.http.post<Ingres>(this.apiUrl,ingres);
+  }
+
+  putIngres(ingres : Ingres): Observable<Ingres> {
+    const url = `${this.apiUrl}/id?id=${ingres.id}`;
+    return this.http.put<Ingres>(url, ingres);
+  }
+
+  deleteIngres(id : number): Observable<Ingres> {
+    return this.http.delete<Ingres>(`${this.apiUrl}/id?id=${id}`);
+  }
+
 
  
 

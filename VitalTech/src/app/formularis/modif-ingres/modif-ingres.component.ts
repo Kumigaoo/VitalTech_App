@@ -1,0 +1,59 @@
+import { Component } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
+import { IngresComponent } from '../../models/ingres/ingres.component';
+import { Ingres } from '../../interface/ingres.interface';
+import { IngresService } from '../../service/ingres.service';
+
+@Component({
+  selector: 'app-modif-ingres',
+  standalone: true,
+  imports: [ReactiveFormsModule],
+  templateUrl: './modif-ingres.component.html',
+  styleUrl: './modif-ingres.component.css'
+})
+
+export class ModifIngresComponent {
+
+  modiIngresForm: FormGroup;
+  ingresId: number = 0;
+
+  constructor(private fb: FormBuilder, private http: HttpClient, private ingresService: IngresService,private router: Router, private route: ActivatedRoute) {
+    this.modiIngresForm = this.fb.group({
+      dataEntrada: [''],
+      dataSortida: [''],
+      episodiMedicId: [''],
+      llitId: ['']
+    });
+  }
+
+  ngOnInit(): void {
+    this.ingresId = Number(this.route.snapshot.paramMap.get('id')); 
+    this.ingresService.getIngresId(String(this.ingresId)).subscribe(consulta => {
+      this.modiIngresForm.patchValue(consulta);
+    })
+  }
+
+  onUpdate(): void {
+
+    if(this.modiIngresForm.valid) {
+      const updatedIngres: Ingres = { ...this.modiIngresForm.getRawValue(), id: this.ingresId };
+      this.ingresService.putIngres(updatedIngres).subscribe({
+        next:() => {
+          alert('Ingres actualizat amb exit');
+          this.router.navigate(['/ingres']);
+        },
+        error: (error) => {
+          alert('Algun camp erroni');
+          console.error('Error al actualitzar el ingres:', error);
+        }
+      })
+
+    }
+
+  }
+
+
+}
