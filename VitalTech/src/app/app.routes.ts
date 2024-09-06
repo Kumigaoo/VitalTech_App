@@ -21,6 +21,7 @@ import { AgregarHabitacionesComponent } from './formularis/agregar-habitaciones/
 import { RegistroEpisodiComponent } from './formularis/registro-episodi/registro-episodi.component';
 import { RegistrarPersonalComponent } from './formularis/registrar-personal/registrar-personal.component';
 import { ModifPersonalComponent } from './formularis/modif-personal/modif-personal.component';
+import { ActualitzarHabitacionesComponent } from './formularis/actualitzar-habitaciones/actualitzar-habitaciones.component';
 
 export const routes: Routes = [
     {path: '', redirectTo: '/pacientes', pathMatch: 'full' },
@@ -29,6 +30,7 @@ export const routes: Routes = [
     {path: 'camas', component: CamasComponent},
     {path: 'habitaciones', component: HabitacionesComponent},
     {path: 'habitaciones/agregar', component: AgregarHabitacionesComponent},
+    {path: 'habitaciones/actualitzar', component: ActualitzarHabitacionesComponent},
     {path: 'pacientes', component: PacientesComponent},
     {path: 'configuracion', component: ConfiguracionComponent},
     {path: 'registro', component: RegistroComponent},
