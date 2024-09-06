@@ -35,14 +35,15 @@ export class ModifPlantaComponent {
 
   onActualice(): void {
     if(this.plantaForm.valid) {
-      const updatedConsulta: Planta = { ...this.plantaForm.getRawValue(), id: this.plantaId };
-      this.plantaService.putPlanta(updatedConsulta).subscribe({
+      const updatedLlit: Planta = { ...this.plantaForm.getRawValue(), id: this.plantaId };
+      this.plantaService.putPlanta(updatedLlit).subscribe({
         next:() => {
           alert('Planta actualitzada amb exit');
           this.router.navigate(['/planta']);
         },
         error: (error) => {
           console.error('Error al actualitzar la planta:', error);
+          alert('Error al actualitzar la planta');
         }
       })
 

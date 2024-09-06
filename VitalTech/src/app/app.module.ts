@@ -17,6 +17,8 @@ import { PacientesComponent } from './models/pacientes/pacientes.component';
 import { ModifPacienteComponent } from './formularis/modif-paciente/modif-paciente.component';
 import { ModifIngresComponent } from './formularis/modif-ingres/modif-ingres.component';
 import { IngresComponent } from './models/ingres/ingres.component';
+import { ModifLlitComponent } from './formularis/modif-llit/modif-llit.component';
+import { CamasComponent } from './models/camas/camas.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -31,7 +33,10 @@ const routes: Routes = [
   {path: 'paciente', component: PacientesComponent},
   {path: 'ingres', component: IngresComponent},
   {path: 'modif-ingres', component: ModifIngresComponent},
-  {path: 'modif-ingres/:id', component: ModifIngresComponent}
+  {path: 'modif-ingres/:id', component: ModifIngresComponent},
+  {path: 'modif-llit/:id', component: ModifLlitComponent},
+  {path: 'camas', component: CamasComponent}
+
 ];
 @NgModule({
   imports: [

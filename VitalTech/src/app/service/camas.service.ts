@@ -17,7 +17,18 @@ export class CamasService {
     return this.http.get<Llit[]>(this.apiUrl);
   }
 
+  getLlit(id:string): Observable<Llit> {
+    const url = `${this.apiUrl}/id?id=${id}`;
+    return this.http.get<Llit>(url);
+  }
 
- 
-
+  deleteLlit(id:string): Observable<Llit> {
+    const url = `${this.apiUrl}/id?id=${id}`;
+    return this.http.delete<Llit>(url);
+  }
+  
+  putLlit(llit: Llit): Observable<Llit> {
+    const url = `${this.apiUrl}/id?id=${llit.codiLlit}`;
+    return this.http.put<Llit>(url, llit);
+  }
 }

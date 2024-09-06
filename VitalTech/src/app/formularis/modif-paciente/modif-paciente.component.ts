@@ -30,8 +30,8 @@ export class ModifPacienteComponent {
 
   ngOnInit(): void {
     this.pacientId = String(this.route.snapshot.paramMap.get('id')); 
-    this.pacientService.getPacientId(this.pacientId).subscribe(consulta => {
-      this.modiPacientForm.patchValue(consulta);
+    this.pacientService.getPacientId(this.pacientId).subscribe(pacient => {
+      this.modiPacientForm.patchValue(pacient);
     })
   }
 
@@ -46,6 +46,7 @@ export class ModifPacienteComponent {
         },
         error: (error) => {
           console.error('Error al actualitzar el pacient:', error);
+          alert('Error al actualitzar el paciente');
         }
       })
 

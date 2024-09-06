@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import {Metge} from '../interface/metge.interface'
+import { Metge } from '../interface/metge.interface'
 
 @Injectable({
   providedIn: 'root'
@@ -13,11 +13,26 @@ export class MetgeService {
 
   constructor(private http: HttpClient) { }
 
-  getPersonal(): Observable<Metge[]> {
+  getPersonals(): Observable<Metge[]> {
     return this.http.get<Metge[]>(this.apiUrl);
   }
 
+  getPersonalId(id: number): Observable<Metge> {
+    const url = `${this.apiUrl}/id?id=${id}`;
+    return this.http.get<Metge>(url);
+  }
 
- 
+  postPacient(metge: Metge): Observable<Metge> {
+    return this.http.post<Metge>(this.apiUrl, metge);
+  }
+
+  putPacient(metge: Metge): Observable<Metge> {
+    return this.http.put<Metge>(this.apiUrl, metge);
+  }
+
+  deletePacient(id: string): Observable<Metge> {
+    return this.http.delete<Metge>(`${this.apiUrl}/id?id=${id}`);
+  }
+
 
 }

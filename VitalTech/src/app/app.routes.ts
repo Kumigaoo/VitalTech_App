@@ -19,6 +19,8 @@ import { ModifPacienteComponent } from './formularis/modif-paciente/modif-pacien
 import { AgregarHabitacionesComponent } from './formularis/agregar-habitaciones/agregar-habitaciones.component';
 import { RegistroIngresComponent } from './formularis/registro-ingres/registro-ingres.component';
 import { ModifIngresComponent } from './formularis/modif-ingres/modif-ingres.component';
+import { RegistroLlitComponent } from './formularis/registro-llit/registro-llit.component';
+import { ModifLlitComponent } from './formularis/modif-llit/modif-llit.component';
 
 export const routes: Routes = [
     {path: '', redirectTo: '/pacientes', pathMatch: 'full' },
@@ -45,6 +47,12 @@ export const routes: Routes = [
     {path: 'modif-ingres', component: ModifIngresComponent},
     {path: 'modif-ingres/:id', component: ModifIngresComponent},
     {path: 'modif-paciente/:id', component: ModifPacienteComponent},
-    {path: 'registro-ingres', component: RegistroIngresComponent}
+    {path: 'registro-ingres', component: RegistroIngresComponent},
+    {path: 'modif-paciente/:id', component: ModifPacienteComponent},
+    {path: 'registro-llit', component: RegistroLlitComponent},
+    {path: 'modif-llit', component: ModifLlitComponent},
+    {path: 'modif-llit/:id', component: ModifLlitComponent}
+
+
 ];
 
