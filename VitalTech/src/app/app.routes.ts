@@ -17,6 +17,8 @@ import { ModifPlantaComponent } from './formularis/modif-planta/modif-planta.com
 import { RegistroPlantaComponent } from './formularis/registro-planta/registro-planta.component';
 import { ModifPacienteComponent } from './formularis/modif-paciente/modif-paciente.component';
 import { AgregarHabitacionesComponent } from './formularis/agregar-habitaciones/agregar-habitaciones.component';
+import { RegistroLlitComponent } from './formularis/registro-llit/registro-llit.component';
+import { ModifLlitComponent } from './formularis/modif-llit/modif-llit.component';
 
 export const routes: Routes = [
     {path: '', redirectTo: '/pacientes', pathMatch: 'full' },
@@ -40,7 +42,11 @@ export const routes: Routes = [
     {path: 'modif-planta/:id', component: ModifPlantaComponent},
     {path: 'registro-planta', component: RegistroPlantaComponent},
     {path: 'modif-paciente', component: ModifPacienteComponent},
-    {path: 'modif-paciente/:id', component: ModifPacienteComponent}
+    {path: 'modif-paciente/:id', component: ModifPacienteComponent},
+    {path: 'registro-llit', component: RegistroLlitComponent},
+    {path: 'modif-llit', component: ModifLlitComponent},
+    {path: 'modif-llit/:id', component: ModifLlitComponent}
+
 
 ];
 

@@ -49,13 +49,15 @@ export class PacientesComponent {
   }
 
   deletePacient(id: string): void {
-    this.pacienteService.deletePacient(id).subscribe({
-      error: error => alert('ERROR, el pacient encara té episodis médics'),
-      complete: () => {
-        alert('Pacient Borrat'),
-        this.loadPacients()
-      }
-    })
+    if(confirm('Esta seguro de eliminar este paciente?')) {
+      this.pacienteService.deletePacient(id).subscribe({
+        error: error => alert('ERROR, el pacient encara té episodis médics'),
+        complete: () => {
+          alert('Pacient Borrat'),
+          this.loadPacients()
+        }
+      });
+    }
   }
 
   updatePacient(idPacient: string) {

@@ -15,6 +15,8 @@ import { PlantaComponent } from './models/planta/planta.component';
 import { ModifPlantaComponent } from './formularis/modif-planta/modif-planta.component';
 import { PacientesComponent } from './models/pacientes/pacientes.component';
 import { ModifPacienteComponent } from './formularis/modif-paciente/modif-paciente.component';
+import { ModifLlitComponent } from './formularis/modif-llit/modif-llit.component';
+import { CamasComponent } from './models/camas/camas.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -26,7 +28,10 @@ const routes: Routes = [
   {path: 'modif-planta/:id', component: ModifPlantaComponent},
   {path: 'planta', component: PlantaComponent},
   {path: 'modif-paciente', component: ModifPacienteComponent},
-  {path: 'paciente', component: PacientesComponent}
+  {path: 'paciente', component: PacientesComponent},
+  {path: 'modif-llit/:id', component: ModifLlitComponent},
+  {path: 'camas', component: CamasComponent}
+
 ];
 @NgModule({
   imports: [

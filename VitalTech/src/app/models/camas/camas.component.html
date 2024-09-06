@@ -7,14 +7,19 @@
                     <label for="searchCriteria">Buscar por:</label>
                 </div>
                 <div class="searchCriteriaItemContainer">
-                    <input type="text" id="searchInput" name="searchInput" placeholder="Ingresa la busqueda...">
-                    <button type="submit">Buscar</button>
+                    <select id="searchCriteria" name="searchCriteria" [(ngModel)]="searchCriteria">
+                        <option value="idLlit">Id llit</option>
+                        <option value="ocupat">Ocupat</option>
+                        <option value="idHabitacion">Id habitación</option>
+                    </select>
+                    <input type="text" id="searchInput" name="searchInput" placeholder=" Ingresa la busqueda..." [(ngModel)]="searchInput">
+                    <button type="button" (click)="searchLlit()">Buscar</button>
                     
                 </div>
             </form>
         </div>
         <div class="registro">
-            <button id="registrarse"><a routerLink="/registro"> + Registrar Llits</a></button>
+            <button id="registrarse"><a routerLink="/registro-llit"> + Registrar Llits</a></button>
         </div>
     </div>
     
@@ -41,6 +46,10 @@
                     <td>{{ llit.foraDeServei }}</td>  
                     <td>{{ llit.habitacioId }}</td>
                     <td class = "coleccio" mat-button (click)="openIngressos(llit)">Ingressos</td>
+                    <div class="botones">
+                        <button class= "ico" (click)="modificarLlit(llit.codiLlit)" id = "modificar">🔄</button>
+                        <button class= "ico" (click)="deleteLlit(llit.codiLlit)" id = "eliminar">❎</button>
+                    </div>
                   </tr>
             </tbody>
         </table>

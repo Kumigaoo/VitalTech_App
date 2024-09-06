@@ -46,6 +46,7 @@ export class ModifConsultaComponent {
         },
         error: (error) => {
           console.error('Error al actualitzar la consulta:', error);
+          alert('Error al actualitzar la consulta');
         }
       })
 
