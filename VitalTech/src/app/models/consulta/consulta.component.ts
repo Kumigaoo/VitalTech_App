@@ -6,9 +6,6 @@ import { Consulta } from '../../interface/consulta.interface';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
-
-
-
 @Component({
   selector: 'app-consulta',
   standalone: true,

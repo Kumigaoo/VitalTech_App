@@ -21,9 +21,14 @@ export class PacientesComponent {
 
   pacients: Pacient[] = [];
   originalPacient: Pacient[] = [];
+  pagedPacient: Pacient[] = [];
 
   searchCriteria: string = "dni";
   searchInput: string = "";
+
+  currentPage: number = 1;
+  itemsPerPage: number = 5;
+  totalPages: number = 1;
 
   constructor(public dialog: MatDialog, private pacienteService: PacientService, private router: Router) { }
 
@@ -35,6 +40,8 @@ export class PacientesComponent {
     this.pacienteService.getPacients().subscribe(data => {
       this.pacients = data;
       this.originalPacient = data;
+      this.totalPages = Math.ceil(this.pacients.length / this.itemsPerPage);
+      this.updatePagedPacientes();
     });
   }
 
@@ -65,6 +72,26 @@ export class PacientesComponent {
     this.router.navigate(['/modif-paciente', idPacient]);
   }
 
+  updatePagedPacientes(): void {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    this.pagedPacient = this.pacients.slice(startIndex, endIndex);
+  }
+
+  nextPage(): void {
+    if(this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.updatePagedPacientes();
+    }
+  }
+
+  previousPage(): void {
+    if (this.currentPage >1) {
+      this.currentPage--;
+      this.updatePagedPacientes();
+    }
+  }
+
   searchPatient(): void {
 
     if (this.searchInput.trim() === '') {
@@ -72,9 +99,13 @@ export class PacientesComponent {
       return;
     }
 
-    this.pacients = this.originalPacient
+    this.pagedPacient = this.originalPacient
 
     let busqueda: Pacient[] = [];
+
+    this.totalPages = 1; // como solo se muestra una solo hay una pagina
+    this.currentPage = 1;
+    this.updatePagedPacientes(); 
 
     switch (this.searchCriteria) {
       case 'name':
@@ -108,7 +139,7 @@ export class PacientesComponent {
 
     }
 
-    this.pacients = busqueda;
+    this.pagedPacient = busqueda;
 
   }
 
