@@ -7,6 +7,7 @@ import { IngressosPopupComponent } from '../../pop-ups/ingressos-popup/ingressos
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { U } from '@angular/cdk/keycodes';
 
 @Component({
   selector: 'app-camas',
@@ -18,10 +19,14 @@ import { FormsModule } from '@angular/forms';
 export class CamasComponent {
 
   llits: Llit[] = [];
-  contador = 1;
   originalLlit: Llit[] = [];
   searchCriteria: string = "ocupat";
   searchInput: string = "";
+
+  pagedLlits: Llit[] = [];
+  currentPage: number = 1;
+  totalPages: number = 1;
+  itemsPerPage: number = 4;
 
   constructor(public dialog: MatDialog, private llitService: CamasService, private router: Router) { }
 
@@ -33,7 +38,15 @@ export class CamasComponent {
     this.llitService.getLlits().subscribe(data => {
       this.llits = data;
       this.originalLlit = data;
+      this.totalPages = Math.ceil(this.llits.length / this.itemsPerPage);
+      this.updatePage();
     });
+  }
+
+  updatePage(): void {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    this.pagedLlits = this.llits.slice(startIndex, endIndex);
   }
 
   openIngressos(episodi: any): void {
@@ -85,6 +98,9 @@ export class CamasComponent {
     }
 
     this.llits = busqueda;
+    this.currentPage = 1;
+    this.totalPages = Math.ceil(this.llits.length / this.itemsPerPage);
+    this.updatePage();
 
   }
 
@@ -108,12 +124,20 @@ export class CamasComponent {
   modificarLlit(id: string): void {
     this.router.navigate(['/modif-llit', id]);
   }
-  incrementar() {
-    this.contador++;
+  nextPage() {
+    if(this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.updatePage();
+    }
+
   }
 
-  decrementar() {
-    this.contador--;
+  previousPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.updatePage();
+    }
+
   }
 
 }

@@ -20,6 +20,11 @@ export class IngresComponent {
   ingressos: Ingres[] = [];
   originalIngressos: Ingres[] = [];
 
+  pagedIngress: Ingres[] = [];
+  currentPage: number = 1;
+  totalPages: number = 1;
+  itemsPerPage: number = 3;
+
   constructor(private ingresService: IngresService, private router: Router) {}
 
   ngOnInit() {
@@ -30,7 +35,15 @@ export class IngresComponent {
     this.ingresService.getIngressos().subscribe((data) => {
       this.ingressos = data;
       this.originalIngressos = data;
+      this.totalPages = Math.ceil(this.ingressos.length / this.itemsPerPage);
+      this.updatedPage();
     });
+  }
+
+  updatedPage(): void {
+    const startIndex = (this.currentPage -1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    this.pagedIngress = this.ingressos.slice(startIndex, endIndex);
   }
 
   updateIngres(idIngres: number) {
@@ -108,5 +121,23 @@ export class IngresComponent {
     }
 
     this.ingressos = busqueda;
+    this.currentPage = 1;
+    this.totalPages = Math.ceil(this.ingressos.length / this.itemsPerPage);
+    this.updatedPage();
+  }
+
+
+  nextPage(): void {
+    if(this.currentPage < this.totalPages){
+      this.currentPage++;
+      this.updatedPage();
+    }
+  }
+
+  previousPage(): void {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.updatedPage();
+    }
   }
 }
