@@ -19,9 +19,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class PlantaComponent {
 
   plantes: Planta[] = [];
+  pagedPlantes: Planta[] = [];
   protected searchInput: number = 1;
 
-
+  currentPage: number = 1;
+  totalPages: number = 1;
+  itemsPerPage: number = 3;
 
   constructor(public dialog: MatDialog, private plantaService: PlantaService, private router: Router) { }
 
@@ -32,14 +35,24 @@ export class PlantaComponent {
   loadPlantes(): void {
     this.plantaService.getPlantes().subscribe(data => {
       this.plantes = data;
+      this.totalPages = Math.ceil(this.plantes.length / this.itemsPerPage);
+      this.updateItemsPerPage();
     });
   }
 
+  updateItemsPerPage(): void {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    this.pagedPlantes = this.plantes.slice(startIndex, endIndex);
+  }
   searchPlanta(): void {
     if (!isNaN(this.searchInput)) { 
         this.plantaService.getPlanta(this.searchInput).subscribe({
           next: (data) => {
             this.plantes.splice(0, this.plantes.length + 1, data);
+            this.currentPage = 1;
+            this.totalPages = 1;
+            this.updateItemsPerPage();
           },
           error: (error) => {
             console.error('Error al buscar la planta:', error),
@@ -71,8 +84,6 @@ export class PlantaComponent {
     this.router.navigate(['/modif-planta', id]);
   }
   
-
-
   openHabitacions(planta: any): void {
     this.dialog.open(PlantaPopupComponent, {
       data: { habitacions: planta.habitacions },
@@ -81,6 +92,20 @@ export class PlantaComponent {
       maxWidth: '1000px',
       maxHeight: '500px' 
     });
+  }
+
+  nextPage(): void {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.updateItemsPerPage();
+    }
+  }
+
+  previousPage(): void {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.updateItemsPerPage();
+    }
   }
 
 }
