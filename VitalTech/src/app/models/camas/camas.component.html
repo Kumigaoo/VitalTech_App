@@ -40,7 +40,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let llit of llits">
+                <tr *ngFor="let llit of pagedLlits">
                     <td>{{ llit.codiLlit }}</td>
                     <td>{{ llit.ocupat }}</td>
                     <td>{{ llit.foraDeServei }}</td>  
@@ -58,9 +58,9 @@
     </div>
     
     <div class="pagination">
-        <button (click) = "decrementar()" id="prevPage">Anterior</button>
-        <span id="pageInfo">Página 1 de X</span>
-        <button (click) = "incrementar()" id="nextPage">Siguiente</button>
+        <button (click) = "previousPage()" id="prevPage" [disabled]="currentPage === 1">Anterior</button>
+        <span id="pageInfo">Página {{currentPage}} de {{totalPages}}</span>
+        <button (click) = "nextPage()" id="nextPage" [disabled]="currentPage === totalPages">Siguiente</button>
     </div>
 </div>
 
