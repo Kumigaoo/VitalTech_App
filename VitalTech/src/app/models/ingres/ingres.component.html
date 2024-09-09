@@ -42,7 +42,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let ingres of ingressos">
+                <tr *ngFor="let ingres of pagedIngress">
                     <td>{{ ingres.id }}</td>
                     <td>{{ ingres.dataEntrada }}</td>
                     <td>{{ ingres.dataSortida }}</td>  
@@ -58,9 +58,9 @@
     </div>
     
     <div class="pagination">
-        <button id="prevPage">Anterior</button>
-        <span id="pageInfo">Página 1 de X</span>
-        <button id="nextPage">Siguiente</button>
+        <button id="prevPage" (click)="previousPage()" [disabled]="currentPage === 1">Anterior</button>
+        <span id="pageInfo">Página {{currentPage }} de {{ totalPages }}</span>
+        <button id="nextPage"(click)= "nextPage()" [disabled]="currentPage === totalPages">Siguiente</button>
     </div>
 </div>
 

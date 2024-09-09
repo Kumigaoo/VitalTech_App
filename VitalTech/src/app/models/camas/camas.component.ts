@@ -26,7 +26,7 @@ export class CamasComponent {
   pagedLlits: Llit[] = [];
   currentPage: number = 1;
   totalPages: number = 1;
-  itemsPerPage: number = 3;
+  itemsPerPage: number = 4;
 
   constructor(public dialog: MatDialog, private llitService: CamasService, private router: Router) { }
 
