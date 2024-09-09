@@ -32,7 +32,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let planta of plantes; let i = index">
+                <tr *ngFor="let planta of pagedPlantes; let i = index">
                     <td>{{ planta.id }}</td>
                     <td>{{ planta.capacitatHabitacions }}</td>  
                     <td id="coleccio" mat-button (click)="openHabitacions(planta)">Habitacions</td>
@@ -48,21 +48,8 @@
     </div>
     
     <div class="pagination">
-        <button id="prevPage">Anterior</button>
-        <span id="pageInfo">Página 1 de X</span>
-        <button id="nextPage">Siguiente</button>
+        <button id="prevPage" (click)="previousPage()" [disabled]="currentPage === 1">Anterior</button>
+        <span id="pageInfo">Página {{ currentPage }} de {{totalPages }}</span>
+        <button id="nextPage" (click)="nextPage()" [disabled]="currentPage === totalPages">Siguiente</button>
     </div>
 </div>
-
-<script>
-    const btn = document.getElementById('registrarse');
-    const contenido = document.getElementById('container');
-
-    btn.addEventListener('click', () => {
-            
-            if (contenido.style.display === 'none' || contenido.style.display === '') {
-                contenido.style.display = 'block';
-                btn.style.display ='none';
-            }
-        });
-</script>

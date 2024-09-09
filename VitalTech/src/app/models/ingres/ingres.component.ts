@@ -38,12 +38,14 @@ export class IngresComponent {
   }
 
   deleteIngres(id: number) {
-    this.ingresService.deleteIngres(id).subscribe({
+    if(confirm('¿Estas seguro de eliminar este ingreso?')) {
+      this.ingresService.deleteIngres(id).subscribe({
       error: (error) => alert('ERROR'),
       complete: () => {
         alert('Ingres Borrat'), this.loadIngres();
       },
     });
+  }
   }
 
   search(): void {

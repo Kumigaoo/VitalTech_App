@@ -42,7 +42,7 @@ export class ModifConsultaComponent {
       this.consultaService.putConsulta(updatedConsulta).subscribe({
         next:() => {
           alert('Consulta actualitzada amb exit');
-          this.router.navigate(['/consultas']);
+          this.router.navigate(['/consulta']);
         },
         error: (error) => {
           console.error('Error al actualitzar la consulta:', error);
