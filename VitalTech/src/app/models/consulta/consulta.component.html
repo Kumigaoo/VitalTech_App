@@ -35,7 +35,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let consulta of consultes">
+                <tr *ngFor="let consulta of pagedConsultes">
                     <td>{{ consulta.id }}</td>
                     <td>{{ consulta.urgencia }}</td>
                     <td>{{ consulta.sintomatologia }}</td>  
@@ -54,9 +54,9 @@
     </div>
     
     <div class="pagination">
-        <button id="prevPage">Anterior</button>
-        <span id="pageInfo">Página 1 de X</span>
-        <button id="nextPage">Siguiente</button>
+        <button id="prevPage" (click)="previousPage()" [disabled]="currentPage ===1">Anterior</button>
+        <span id="pageInfo">Página {{ currentPage }} de {{ totalPages }}</span>
+        <button id="nextPage" (click)="nextPage()" [disabled]="currentPage === totalPages">Siguiente</button>
     </div>
 </div>
 
