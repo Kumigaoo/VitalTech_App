@@ -62,8 +62,7 @@ export class ConsultaComponent {
   modificarConsulta(id: number): void {
     this.router.navigate(['/modif-consulta', id]);
   }
-
-  
+    
   searchConsulta(): void {
     if (!isNaN(this.searchId)) { 
         this.consultaService.getConsulta(this.searchId).subscribe({

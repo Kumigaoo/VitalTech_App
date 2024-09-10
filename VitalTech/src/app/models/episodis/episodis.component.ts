@@ -25,6 +25,7 @@ export class EpisodisComponent {
 
   searchCriteria: string = "id";
   searchInput: string = "";
+    router: any;
 
   constructor(public dialog: MatDialog,private episodiService: EpisodiService) { }
 
@@ -70,6 +71,10 @@ export class EpisodisComponent {
 
     this.episodis = busqueda;
 
+  }
+
+  modificarEpisodi(id: number): void {
+    this.router.navigate(['/modif-episodi', id]);
   }
 
   deleteEpisodi(id: number): void {
