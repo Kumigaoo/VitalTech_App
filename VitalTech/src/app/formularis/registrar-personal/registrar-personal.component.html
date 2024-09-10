@@ -1,0 +1,28 @@
+<div class="container">
+    <h2>Formulario de Registro de Personal</h2>
+    
+    <form type="submit" [formGroup]="personalForm" (ngSubmit)="onSubmit()">
+        <div class= "identificador">
+            
+            <div class = "capzalera4">
+                <label for="dni">DNI:</label> 
+                <input type="text" id="dni" ngModel name="dni" formControlName="dni" required>
+            </div>
+
+            <div class = "masInfo">
+                <div class="capzalera1">
+                    <label for="SS">Nom:</label>
+                    <input type="text" id="nom" ngModel name="nom" formControlName = "nom" required>
+                </div>
+            </div>
+
+            <div class = "capzalera1">
+                <label for="name">Especialitat:</label>
+                <input type="text" id="especialitat" ngModel name="especialitat" formControlName="especialitat" required>
+            </div>
+            
+        </div>
+        
+        <button type="submit">Registrar</button>
+    </form>
+</div>

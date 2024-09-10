@@ -19,6 +19,8 @@ import { ModifPacienteComponent } from './formularis/modif-paciente/modif-pacien
 import { ModifEpisodiComponent } from './formularis/modif-episodi/modif-episodi.component';
 import { AgregarHabitacionesComponent } from './formularis/agregar-habitaciones/agregar-habitaciones.component';
 import { RegistroEpisodiComponent } from './formularis/registro-episodi/registro-episodi.component';
+import { RegistrarPersonalComponent } from './formularis/registrar-personal/registrar-personal.component';
+import { ModifPersonalComponent } from './formularis/modif-personal/modif-personal.component';
 
 export const routes: Routes = [
     {path: '', redirectTo: '/pacientes', pathMatch: 'full' },
@@ -45,7 +47,9 @@ export const routes: Routes = [
     {path: 'modif-paciente', component: ModifPacienteComponent },
     {path: 'modif-episodi', component: ModifEpisodiComponent },
     {path: 'modif-episodi/:id', component: ModifEpisodiComponent },
-    {path: 'modif-paciente/:id', component: ModifPacienteComponent}
+    {path: 'modif-paciente/:id', component: ModifPacienteComponent},
+    {path: 'registrar-personal', component: RegistrarPersonalComponent},
+    {path: 'modif-personal/:id', component: ModifPersonalComponent}
 
 ];
 

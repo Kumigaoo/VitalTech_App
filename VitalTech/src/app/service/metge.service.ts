@@ -22,7 +22,7 @@ export class MetgeService {
     return this.http.get<Metge>(url);
   }
 
-  postPacient(metge: Metge): Observable<Metge> {
+  postPersonal(metge: Metge): Observable<Metge> {
     return this.http.post<Metge>(this.apiUrl, metge);
   }
 
