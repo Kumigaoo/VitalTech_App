@@ -1,0 +1,26 @@
+<div class="container">
+    <h2>Formulario de Modifacion de Personal</h2>
+
+    <form type="submit" [formGroup]="modiPersonalForm" (ngSubmit)="onUpdate()">
+        <div class="identificador">
+
+            <div class="capzalera4">
+                <label for="dni">DNI:</label>
+                <input type="text" id="dni" ngModel name="dni" formControlName="dni" required>
+            </div>
+
+            <div class="masInfo">
+                <div class="capzalera1">
+                    <label for="Nom">Nom:</label>
+                    <input type="text" id="nom" ngModel name="nom" formControlName="nom" required>
+                </div>
+            </div>
+
+            <div class="capzalera1">
+                <label for="name">Especialitat:</label>
+                <input type="text" id="especialitat" ngModel name="especialitat" formControlName="especialitat" required>
+            </div>
+        </div>
+        <button type="submit">Modificar</button>
+    </form>
+</div>

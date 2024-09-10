@@ -1,5 +1,5 @@
 
-import { RouterLinkActive, RouterLink } from '@angular/router';
+import { RouterLinkActive, RouterLink, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MetgeService } from '../../service/metge.service';
@@ -24,7 +24,7 @@ export class MetgeComponent {
   searchInput: string = "";
   searchCriteria: string = "dni";
 
-  constructor(public dialog: MatDialog, private metgeService: MetgeService) { }
+  constructor(public dialog: MatDialog, private metgeService: MetgeService, private router : Router) { }
 
   ngOnInit() {
     this.loadPersonal();
@@ -81,5 +81,17 @@ export class MetgeComponent {
         break;
     }
     this.metges = busqueda;
+  }
+  updatePersonal(idPersonal : string) {
+    this.router.navigate(['/modif-personal', idPersonal]);
+  }
+
+  deletePersonal(idPersonal : string) {
+    this.metgeService.deletePacient(idPersonal).subscribe({
+      error: error => alert('Hay Consultas relacionadas'),
+      complete: () => {
+        alert('Borrado con éxito'), this.loadPersonal()
+      }
+    })
   }
 }

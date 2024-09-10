@@ -17,7 +17,7 @@ export class MetgeService {
     return this.http.get<Metge[]>(this.apiUrl);
   }
 
-  getPersonalId(id: number): Observable<Metge> {
+  getPersonalId(id: string): Observable<Metge> {
     const url = `${this.apiUrl}/id?id=${id}`;
     return this.http.get<Metge>(url);
   }
@@ -27,7 +27,7 @@ export class MetgeService {
   }
 
   putPacient(metge: Metge): Observable<Metge> {
-    return this.http.put<Metge>(this.apiUrl, metge);
+    return this.http.put<Metge>(`${this.apiUrl}/id?id=${metge.dni}`, metge);
   }
 
   deletePacient(id: string): Observable<Metge> {

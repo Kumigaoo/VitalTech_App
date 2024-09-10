@@ -13,7 +13,7 @@
                         <option value="especialitat">Especialitat</option>
                     </select>
                     <input type="text" id="searchInput" name="searchInput" placeholder="Ingresa la busqueda..." [(ngModel)]="searchInput">
-                    <button type="submit" (click)="searchPersonal()">Buscar</button>
+                    <button type="submit" id="Buscar" (click)="searchPersonal()">Buscar</button>
                     
                 </div>
             </form>
@@ -44,6 +44,8 @@
                     <td>{{ metge.nom }}</td>
                     <td>{{ metge.especialitat }}</td>  
                     <td class = "coleccio" mat-button (click)="openConsultes(metge)">Consultes</td>
+                    <button class = "ico" (click)="updatePersonal(metge.dni)">🔄</button>
+                    <button class = "ico" (click)="deletePersonal(metge.dni)">❎</button>
                   </tr>
             </tbody>
         </table>

@@ -51,7 +51,6 @@ button {
     cursor: pointer;
     font-size: 16px;
     margin-right: 20px;
-
 }
 
 button:hover {
@@ -75,6 +74,7 @@ button:hover {
 
 #searchInput {
     margin: 0px;
+    margin-right: px;
 }
 .searchCriteriaContainer {
     display: flex;
@@ -216,3 +216,10 @@ th a {
     text-decoration: none;
 }
 
+.ico {
+    padding: 0%;
+    background-color: antiquewhite;
+    font-size: 5vh;
+    margin: 0%;
+    margin-left: 9px;
+}
