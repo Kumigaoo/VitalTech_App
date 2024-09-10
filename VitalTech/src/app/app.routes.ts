@@ -42,8 +42,9 @@ export const routes: Routes = [
     {path: 'modif-planta', component: ModifPlantaComponent},
     {path: 'modif-planta/:id', component: ModifPlantaComponent},
     {path: 'registro-planta', component: RegistroPlantaComponent},
-  { path: 'modif-paciente', component: ModifPacienteComponent },
-  { path: 'modif-episodi', component: ModifEpisodiComponent },
+    {path: 'modif-paciente', component: ModifPacienteComponent },
+    {path: 'modif-episodi', component: ModifEpisodiComponent },
+    {path: 'modif-episodi/:id', component: ModifEpisodiComponent },
     {path: 'modif-paciente/:id', component: ModifPacienteComponent}
 
 ];

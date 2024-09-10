@@ -19,14 +19,16 @@ import { ModifIngresComponent } from './formularis/modif-ingres/modif-ingres.com
 import { IngresComponent } from './models/ingres/ingres.component';
 import { ModifLlitComponent } from './formularis/modif-llit/modif-llit.component';
 import { CamasComponent } from './models/camas/camas.component';
+import { EpisodisComponent } from './models/episodis/episodis.component';
+import { ModifEpisodiComponent } from './formularis/modif-episodi/modif-episodi.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
 }
 // estas rutas sirven para los put de cada modelo
 const routes: Routes = [
-  { path: 'consultas', component: ConsultaComponent },
-  { path: 'modif-consulta/:id', component: ModifConsultaComponent },
+  {path: 'consultas', component: ConsultaComponent },
+  {path: 'modif-consulta/:id', component: ModifConsultaComponent },
   {path: 'modif-planta/:id', component: ModifPlantaComponent},
   {path: 'planta', component: PlantaComponent},
   {path: 'modif-paciente', component: ModifPacienteComponent},
@@ -35,8 +37,9 @@ const routes: Routes = [
   {path: 'modif-ingres', component: ModifIngresComponent},
   {path: 'modif-ingres/:id', component: ModifIngresComponent},
   {path: 'modif-llit/:id', component: ModifLlitComponent},
-  {path: 'camas', component: CamasComponent}
-
+  {path: 'camas', component: CamasComponent},
+  {path: 'episodis', component: EpisodisComponent},
+  {path: 'modif-episodi/:id', component: ModifEpisodiComponent}
 ];
 @NgModule({
   imports: [
