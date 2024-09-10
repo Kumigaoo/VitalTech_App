@@ -10,35 +10,37 @@
                   <select id="searchCriteria" name="searchCriteria" [(ngModel)]="searchCriteria">
                     <option value="id">ID</option>
                     <option value="dolencia">Dolencia</option>
+                    <option value="estat">Estado</option>
+                    <option value="pacientId">DNI paciente</option>
                   </select>
-                  <input type="text" id="searchInput" name="searchInput" placeholder="Ingresa la busqueda..." [(ngModel)]="searchInput">
+                  <input type="text" id="searchInput" name="searchInput" placeholder="Ingresa la búsqueda" [(ngModel)]="searchInput">
                   <button type="button" (click)="searchEpisodi()">Buscar</button>
 
                 </div>
             </form>
         </div>
         <div class="registro">
-            <button id="registrarse"><a routerLink="/registro-episodi"> + Registrar Episodio</a></button>
+            <button id="registrarse"><a routerLink="/registro-episodi"> + Registrar episodio médico</a></button>
         </div>
     </div>
     
 </div>
 <div class ="texto">
-    <p>Llista d'Episodis Medics</p>
+    <p>Lista de episodios médicos</p>
 </div>
 <div class="table-container">
     <div class="cosas">
         <table id="resultsTable">
             <thead>
                 <tr>
-                    <th>Id Episodi</th>
-                    <th>Data Obertura</th>
-                    <th>Data Tancament</th>
-                    <th>Estat</th>
+                    <th>Id episodio</th>
+                    <th>Fecha apertura</th>
+                    <th>Fecha cierre</th>
+                    <th>Estado</th>
                     <th>Dolencia</th>
-                    <th>DNI Pacient</th>
-                    <th>Consultes</th>
-                    <th>Ingressos</th>
+                    <th>DNI paciente</th>
+                    <th>Consultas</th>
+                    <th>Ingresos</th>
                 </tr>
             </thead>
             <tbody>
@@ -49,10 +51,12 @@
                 <td>{{ episodi.estat }}</td>
                 <td>{{ episodi.dolencia }}</td>
                 <td>{{ episodi.pacientId }}</td>
-                <td class="coleccio" mat-button (click)="openConsultes(episodi)">Consultes</td>
-                <td class="coleccio" mat-button (click)="openIngressos(episodi)">Ingressos</td>
-                <button class="ico" (click)="modificarEpisodi(episodi.id)">🔄</button>
-                <button class="ico" (click)="deleteEpisodi(episodi.id)">❎</button>
+                <td class="coleccio" mat-button (click)="openConsultes(episodi)">Consultas</td>
+                <td class="coleccio" mat-button (click)="openIngressos(episodi)">Ingresos</td>
+                <div class="botones">
+                       <button class="ico" (click)="modificarEpisodi(episodi.id)">🔄</button>
+                       <button class="ico" (click)="deleteEpisodi(episodi.id)">❎</button>
+                </div>
               </tr>
             </tbody>
         </table>

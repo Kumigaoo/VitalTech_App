@@ -8,11 +8,11 @@
                 </div>
                 <div class="searchCriteriaItemContainer">
                     <select id="searchCriteria" name="searchCriteria" [(ngModel)]="searchCriteria">
-                        <option value="id">Id Episodi</option>
-                        <option value="entrada">Data Entrada</option>
-                        <option value="sortida">Data Sortida</option>
-                        <option value="episodi">Episodi Medic</option>
-                        <option value="llit">Id LLit</option>
+                        <option value="id">ID</option>
+                        <option value="entrada">Fecha ingreso</option>
+                        <option value="sortida">Fecha salida</option>
+                        <option value="episodi">ID episodio médico</option>
+                        <option value="llit">ID cama</option>
                     </select>
                     <input type="text" id="searchInput" name="searchInput" placeholder="Ingresa la busqueda..." [(ngModel)]="searchInput">
                     <button type="button" (click)="search()">Buscar</button>
@@ -21,7 +21,7 @@
             </form>
         </div>
         <div class="registro">
-            <button id="registrarse"><a routerLink="/registro-ingres"> + Registrar Ingres</a></button>
+            <button id="registrarse"><a routerLink="/registro-ingres"> + Registrar ingreso</a></button>
         </div>
     </div>
     
@@ -34,11 +34,11 @@
         <table id="resultsTable">
             <thead>
                 <tr>
-                    <th>Id Ingres</th>
-                    <th>Data Entrada</th>
-                    <th>Data Sortida</th>
-                    <th>Episodi Medic</th>
-                    <th>Id Llit</th>
+                    <th>ID ingreso</th>
+                    <th>Fecha salida</th>
+                    <th>Fecha salida</th>
+                    <th>ID episodio médico</th>
+                    <th>ID cama</th>
                 </tr>
             </thead>
             <tbody>

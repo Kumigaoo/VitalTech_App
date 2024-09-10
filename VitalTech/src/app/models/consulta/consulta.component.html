@@ -7,31 +7,31 @@
                     <label for="searchCriteria">Buscar por:</label>
                 </div>
                 <div class="searchCriteriaItemContainer">
-                    <input type="number"  id="searchId" [(ngModel)]="searchId" name="searchId" placeholder="Ingresa la busqueda..." required>
+                    <input type="number"  id="searchId" [(ngModel)]="searchId" name="searchId" placeholder="Ingresa la búsqueda" required>
                     <button type="button" (click)="searchConsulta()">Buscar</button>
                 </div>
             </form>
         </div>
         <div class="registro">
-            <button id="registrarse"><a routerLink="/registro-consulta"> + Crear Consulta</a></button>
+            <button id="registrarse"><a routerLink="/registro-consulta"> + Registrar consulta</a></button>
         </div>
     </div>
     
 </div>
 <div class ="texto">
-    <p>Llista de Consultes</p>
+    <p>Lista de consultas</p>
 </div>
 <div class="table-container">
     <div class="cosas">
         <table id="resultsTable">
             <thead>
                 <tr>
-                    <th>Id Consulta</th>
+                    <th>Id consulta</th>
                     <th>Urgencia</th>
-                    <th>Sintomatologia</th>
-                    <th>Recepta</th>
-                    <th>DNI Personal</th>
-                    <th>ID Episodi Medic</th>
+                    <th>Sintomatología</th>
+                    <th>Receta</th>
+                    <th>DNI personal</th>
+                    <th>ID episodio médico</th>
                 </tr>
             </thead>
             <tbody>

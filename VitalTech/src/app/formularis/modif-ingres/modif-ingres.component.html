@@ -1,33 +1,33 @@
 <div class="container">
-    <h2>Formulario de Registro de Ingres</h2>
+    <h2>Formulario de modificación de ingresos</h2>
     
     <form type="submit" [formGroup]="modiIngresForm" (ngSubmit)="onUpdate()">
         <div class= "identificador">
 
             <div class = "masInfo">
                 <div class="capzalera1">
-                    <label for="entrada">Data Entrada:</label>
+                    <label for="entrada">Fecha de ingreso:</label>
                     <input type="text" id="entrada" ngModel name="dataEntrada" formControlName = "dataEntrada" required>
                 </div>
             </div>
 
             <div class = "capzalera1">
-                <label for="sortida">Data Sortida:</label>
+                <label for="sortida">Fecha de salida:</label>
                 <input type="text" id="sortida" ngModel name="dataSortida" formControlName="dataSortida" required>
             </div>
 
             <div class = "capzalera1">
-                <label for="episodi">Episodi Medic:</label>
+                <label for="episodi">Episodio médico:</label>
                 <input type="text" id="episodi" ngModel name="episodiMedicId" formControlName="episodiMedicId" required>
             </div>
 
             <div class = "capzalera1">
-                <label for="llit">Id Llit:</label>
+                <label for="llit">ID cama:</label>
                 <input type="text" id="llit" ngModel name="llitId" formControlName="llitId" required>
             </div>
             
         </div>
         
-        <button type="submit">Registrar</button>
+        <button type="submit">Modificar</button>
     </form>
 </div>

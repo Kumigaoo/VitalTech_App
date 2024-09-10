@@ -9,6 +9,15 @@
     justify-content: flex-start;
 }
 
+.ico {
+    padding: 0%;
+    font-size: 5vh;
+    margin: 0%;
+    margin-left: 9px;
+    background: none; 
+    border: none;
+}
+
 #eliminarse {
     margin-top: 4px;
     margin-left: 20px;
@@ -217,3 +226,6 @@ th a {
     text-decoration: none;
 }
 
+.botones{
+    display: flex;
+}

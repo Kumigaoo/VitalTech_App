@@ -49,7 +49,6 @@ export class ModifConsultaComponent {
           alert('Error al actualitzar la consulta');
         }
       })
-
     }
   }
 
@@ -67,10 +66,7 @@ export class ModifConsultaComponent {
           alert('Error al actualitzar la consulta');
         }
       })
-
-
     }
-
   }
 }
 
