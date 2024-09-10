@@ -1,32 +1,32 @@
 <div class="container">
     <h2>Formulario de Registro de Habitacions</h2>
 
-    <form type="submit" (ngSubmit)="onSubmit()" >
+    <form type="submit" [formGroup]="consultaForm" (ngSubmit)="onSubmit()" >
         <div class="identificador">
 
             <div class="capzalera4">
                 <label for="codiHabitacio">Codi d'habitacio:</label>
-                <input type="text" id="codiHabitacio" [(ngModel)]="id" name="codiHabitacio" required>
+                <input type="text" id="codiHabitacio" [(ngModel)]="id" formControlName="codiHabitacio" required>
             </div>
 
             <div class="masInfo">
                 <div class="capzalera1">
                     <label for="capacitatLlits">Capacitat de llits:</label>
-                    <input type="text" id="capacitatLlits" [(ngModel)]="capacitat" name="capacitatLlits" required>
+                    <input type="text" id="capacitatLlits" [(ngModel)]="capacitat" formControlName="capacitatLlits" required>
                 </div>
             </div>
 
             <div class="capzalera1">
                 <label for="plantaId">Id planta:</label>
-                <input type="text" id="plantaId" [(ngModel)]="planta" name="plantaId" required>
+                <input type="text" id="plantaId" [(ngModel)]="planta" formControlName="plantaId" required>
             </div>
             
             <div class="capzalera1">
                 <label for="nLlits">Numero de llits:</label>
-                <input type="text" id="nLlits" [(ngModel)]="llits" name="nLlits" required>
+                <input type="text" id="nLlits" [(ngModel)]="llits" formControlName="nLlits" required>
             </div>
 
         </div>
-        <button type="submit">Registrar</button>
+        <button type="submit">Actualitzar</button>
     </form>
 </div>

@@ -1,12 +1,12 @@
 import { RouterLinkActive, RouterLink } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Habitacio } from '../../interface/habitacio.interface';
 import { HabitacioService } from '../../service/habitaciones.service';
 import { LlitsPopupComponent } from '../../pop-ups/llits-popup/llits-popup.component';
 import { MatDialog } from '@angular/material/dialog';
-import { ActualitzarHabitacionesComponent } from '../../formularis/actualitzar-habitaciones/actualitzar-habitaciones.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-habitaciones',
@@ -18,7 +18,7 @@ import { ActualitzarHabitacionesComponent } from '../../formularis/actualitzar-h
 
 export class HabitacionesComponent implements OnInit {
 
-  constructor(public dialog: MatDialog, private habService: HabitacioService) { }
+  constructor(public dialog: MatDialog, private habService: HabitacioService, private sb: FormBuilder, private router: Router) { }
 
   // Variables
   protected inputValueId: number = 101;
@@ -26,6 +26,8 @@ export class HabitacionesComponent implements OnInit {
   protected id: number = 0;
   protected capacitat: number = 0;
   protected planta: number = 0;
+
+  public objHabitacio: Habitacio = this.obllecteHabitacio();
 
   // Arays
   habitacions: Habitacio[] = [];
@@ -39,7 +41,7 @@ export class HabitacionesComponent implements OnInit {
 
   }
 
-  // Constructor obllecte habitacio
+  // Constructor objecte habitacio
   obllecteHabitacio(): Habitacio {
     const habitacioObject: Habitacio = this.habService.habitacioModel(this.id, this.capacitat, this.planta, this.nLlits);
     return habitacioObject;
@@ -70,14 +72,11 @@ export class HabitacionesComponent implements OnInit {
 
   }
 
-  // Actualiçar habitacio
+  // Actualizar habitacio
+
   updateHabitacio(habitacio: Habitacio) {
 
-    ActualitzarHabitacionesComponent.cargaFormulario(habitacio);
-
-    this.habService.patchHabitcio(habitacio.codiHabitacio, habitacio).subscribe({
-
-    });
+    this.router.navigate(['/habitaciones/actualizar', habitacio.codiHabitacio]);
 
   }
 
@@ -85,8 +84,14 @@ export class HabitacionesComponent implements OnInit {
   deleteHabitacio(id: number) {
 
     this.habService.deleteHabitacio(id).subscribe({
-
-    });
+      next: (response) => {
+              console.log('Habitació eliminada amb èxit', response);
+              this.loadHabitacions();
+            },
+            error: (error) => {
+              console.error('Error al eliminar la habitació', error);
+            }
+          });
 
   }
 

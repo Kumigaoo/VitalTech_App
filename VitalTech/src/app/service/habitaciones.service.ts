@@ -67,7 +67,7 @@ export class HabitacioService {
 
     let params = new HttpParams().set('id', id)
 
-    return this.http.delete<any>(this.apiUrl, { params });
+    return this.http.delete<any>(this.apiUrl + '/id', { params });
 
   }
 
@@ -81,7 +81,7 @@ export class HabitacioService {
   // PATCH
   patchHabitcio(id: number, habitacio: Habitacio): Observable<any> {
 
-    return this.http.put<Habitacio>(`${this.apiUrl}/${id}`, habitacio);
+    return this.http.patch<Habitacio>(`${this.apiUrl}/${id}`, habitacio);
 
   }
 

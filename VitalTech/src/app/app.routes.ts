@@ -22,6 +22,7 @@ import { RegistroEpisodiComponent } from './formularis/registro-episodi/registro
 import { RegistrarPersonalComponent } from './formularis/registrar-personal/registrar-personal.component';
 import { ModifPersonalComponent } from './formularis/modif-personal/modif-personal.component';
 import { ActualitzarHabitacionesComponent } from './formularis/actualitzar-habitaciones/actualitzar-habitaciones.component';
+import { Component } from '@angular/core';
 
 export const routes: Routes = [
     {path: '', redirectTo: '/pacientes', pathMatch: 'full' },
@@ -30,7 +31,7 @@ export const routes: Routes = [
     {path: 'camas', component: CamasComponent},
     {path: 'habitaciones', component: HabitacionesComponent},
     {path: 'habitaciones/agregar', component: AgregarHabitacionesComponent},
-    {path: 'habitaciones/actualitzar', component: ActualitzarHabitacionesComponent},
+    {path: 'agregar-habitaciones/:id', component: ActualitzarHabitacionesComponent},
     {path: 'pacientes', component: PacientesComponent},
     {path: 'configuracion', component: ConfiguracionComponent},
     {path: 'registro', component: RegistroComponent},
@@ -46,6 +47,7 @@ export const routes: Routes = [
     {path: 'modif-planta', component: ModifPlantaComponent},
     {path: 'modif-planta/:id', component: ModifPlantaComponent},
     {path: 'registro-planta', component: RegistroPlantaComponent},
+    {path: 'habitaciones/actualizar/:id', component : ActualitzarHabitacionesComponent},
     {path: 'modif-paciente', component: ModifPacienteComponent },
     {path: 'modif-episodi', component: ModifEpisodiComponent },
     {path: 'modif-episodi/:id', component: ModifEpisodiComponent },

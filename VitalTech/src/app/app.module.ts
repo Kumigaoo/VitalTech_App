@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { HTTP_INTERCEPTORS} from '@angular/common/http';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtModule } from '@auth0/angular-jwt';
 import { ReactiveFormsModule } from '@angular/forms';
 import { JwtInterceptor } from '@auth0/angular-jwt';
@@ -21,25 +21,19 @@ import { ModifLlitComponent } from './formularis/modif-llit/modif-llit.component
 import { CamasComponent } from './models/camas/camas.component';
 import { EpisodisComponent } from './models/episodis/episodis.component';
 import { ModifEpisodiComponent } from './formularis/modif-episodi/modif-episodi.component';
+import { HabitacionesComponent } from './models/habitaciones/habitaciones.component';
+import { ActualitzarHabitacionesComponent } from './formularis/actualitzar-habitaciones/actualitzar-habitaciones.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
 }
 // estas rutas sirven para los put de cada modelo
 const routes: Routes = [
-  {path: 'consultas', component: ConsultaComponent },
-  {path: 'modif-consulta/:id', component: ModifConsultaComponent },
+  { path: 'consultas', component: ConsultaComponent },
+  { path: 'modif-consulta/:id', component: ModifConsultaComponent },
   {path: 'modif-planta/:id', component: ModifPlantaComponent},
-  {path: 'planta', component: PlantaComponent},
-  {path: 'modif-paciente', component: ModifPacienteComponent},
-  {path: 'paciente', component: PacientesComponent},
-  {path: 'ingres', component: IngresComponent},
-  {path: 'modif-ingres', component: ModifIngresComponent},
-  {path: 'modif-ingres/:id', component: ModifIngresComponent},
-  {path: 'modif-llit/:id', component: ModifLlitComponent},
-  {path: 'camas', component: CamasComponent},
-  {path: 'episodis', component: EpisodisComponent},
-  {path: 'modif-episodi/:id', component: ModifEpisodiComponent}
+  {path: 'planta', component: PlantaComponent}
+
 ];
 @NgModule({
   imports: [
@@ -59,8 +53,8 @@ const routes: Routes = [
     })
   ],
   providers: [
-    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
   ],
-  
+
 })
 export class AppModule { }
