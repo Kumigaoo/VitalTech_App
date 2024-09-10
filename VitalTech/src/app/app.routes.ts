@@ -16,6 +16,7 @@ import { ModifConsultaComponent } from './formularis/modif-consulta/modif-consul
 import { ModifPlantaComponent } from './formularis/modif-planta/modif-planta.component';
 import { RegistroPlantaComponent } from './formularis/registro-planta/registro-planta.component';
 import { ModifPacienteComponent } from './formularis/modif-paciente/modif-paciente.component';
+import { ModifEpisodiComponent } from './formularis/modif-episodi/modif-episodi.component';
 import { AgregarHabitacionesComponent } from './formularis/agregar-habitaciones/agregar-habitaciones.component';
 import { RegistroEpisodiComponent } from './formularis/registro-episodi/registro-episodi.component';
 
@@ -41,7 +42,8 @@ export const routes: Routes = [
     {path: 'modif-planta', component: ModifPlantaComponent},
     {path: 'modif-planta/:id', component: ModifPlantaComponent},
     {path: 'registro-planta', component: RegistroPlantaComponent},
-    {path: 'modif-paciente', component: ModifPacienteComponent},
+  { path: 'modif-paciente', component: ModifPacienteComponent },
+  { path: 'modif-episodi', component: ModifEpisodiComponent },
     {path: 'modif-paciente/:id', component: ModifPacienteComponent}
 
 ];

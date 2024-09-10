@@ -1,4 +1,4 @@
-import { RouterLinkActive, RouterLink } from '@angular/router';
+import { RouterLinkActive, RouterLink, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common'; 
 import { EpisodiService } from '../../service/episodis.service';
@@ -25,9 +25,8 @@ export class EpisodisComponent {
 
   searchCriteria: string = "id";
   searchInput: string = "";
-    router: any;
 
-  constructor(public dialog: MatDialog,private episodiService: EpisodiService) { }
+  constructor(public dialog: MatDialog, private episodiService: EpisodiService, private router: Router) { }
 
   ngOnInit() {
     this.loadEpisodis();
@@ -62,6 +61,13 @@ export class EpisodisComponent {
       case 'dolencia':
         for (let i = 0; i < this.episodis.length; i++) {
           if (this.episodis[i].dolencia.toLowerCase().includes(this.searchInput.toLowerCase())) {
+            busqueda.push(this.episodis[i]);
+          }
+        }
+        break;
+      case 'estat':
+        for (let i = 0; i < this.episodis.length; i++) {
+          if (this.episodis[i].estat.toLowerCase().includes(this.searchInput.toLowerCase())) {
             busqueda.push(this.episodis[i]);
           }
         }

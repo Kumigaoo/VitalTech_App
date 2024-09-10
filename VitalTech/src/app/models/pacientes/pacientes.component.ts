@@ -142,6 +142,5 @@ export class PacientesComponent {
     this.pagedPacient = busqueda;
 
   }
-
-
+  
 }

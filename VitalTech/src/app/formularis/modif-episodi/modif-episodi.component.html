@@ -1,0 +1,33 @@
+<div class="container">
+    <h2>Formulario de registro de episodios médicos</h2>
+    
+    <form type="submit" [formGroup]="modifEpisodiForm" (ngSubmit)="onUpdate()">
+      <div class="identificador">
+
+        <div class="capzalera4">
+          <label for="id">ID:</label>
+          <input type="text" id="id" ngModel name="id" formControlName="id" required>
+        </div>
+
+        <div class="masInfo">
+          <div class="capzalera1">
+            <label for="dolencia">Dolencia:</label>
+            <input type="text" id="dolencia" ngModel name="dolencia" formControlName="dolencia" required>
+          </div>
+        </div>
+
+        <div class="capzalera1">
+          <label for="estat">Estat:</label>
+          <input type="text" id="estat" ngModel name="estat" formControlName="estat" required>
+        </div>
+
+        <div class="capzalera1">
+          <label for="pacientId">ID del pacient:</label>
+          <input type="text" id="pacientId" ngModel name="pacientId" formControlName="pacientId" required>
+        </div>
+
+      </div>
+        
+        <button type="submit">Modificar</button>
+    </form>
+</div>

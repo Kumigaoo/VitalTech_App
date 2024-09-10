@@ -4,7 +4,6 @@ import { HttpClient } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { EpisodiService } from '../../service/episodis.service';
 
-
 @Component({
   selector: 'app-registro-episodi',
   standalone: true,
