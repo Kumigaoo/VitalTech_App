@@ -32,4 +32,9 @@ export class ConsultaService {
     const url = `${this.apiUrl}/id?id=${consulta.id}`;
     return this.http.put<Consulta>(url, consulta);
   }
+
+  patchConsulta(consulta: Partial<Consulta>): Observable<Consulta> {
+    const url = `${this.apiUrl}/id?id=${consulta.id}`;
+    return this.http.patch<Consulta>(url, consulta);
+  }
 }

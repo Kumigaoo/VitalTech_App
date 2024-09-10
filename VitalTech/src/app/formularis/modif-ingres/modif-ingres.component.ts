@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
-import { IngresComponent } from '../../models/ingres/ingres.component';
 import { Ingres } from '../../interface/ingres.interface';
 import { IngresService } from '../../service/ingres.service';
 

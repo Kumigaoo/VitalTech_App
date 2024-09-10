@@ -53,5 +53,24 @@ export class ModifConsultaComponent {
     }
   }
 
+  onActualicePatch(): void {
+    if(this.consultaForm.valid) {
+      const updatedConsulta = this.consultaForm.getRawValue();
+      const patchData: Partial<Consulta> = { ...updatedConsulta, id: this.consultaId };
+      this.consultaService.patchConsulta(patchData).subscribe({
+        next:() => {
+          alert('Consulta actualitzada amb exit');
+          this.router.navigate(['/consulta']);
+        },
+        error: (error) => {
+          console.error('Error al actualitzar la consulta:', error);
+          alert('Error al actualitzar la consulta');
+        }
+      })
+
+
+    }
+
+  }
 }
 

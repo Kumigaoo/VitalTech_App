@@ -140,4 +140,18 @@ export class CamasComponent {
 
   }
 
+  firstPage(): void {
+    if (this.currentPage > 1) {
+      this.currentPage = 1;
+      this.updatePage();
+    }
+  }
+
+  lastPage(): void {
+    if(this.currentPage < this.totalPages) {
+      this.currentPage = this.totalPages;
+      this.updatePage();
+    }
+  }
+
 }

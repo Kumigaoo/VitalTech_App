@@ -94,8 +94,22 @@ export class ConsultaComponent {
   }
 
   previousPage(): void {
-    if (this.currentPage >1) {
+    if (this.currentPage > 1) {
       this.currentPage--;
+      this.updatePagedConsultes();
+    }
+  }
+
+  firstPage(): void {
+    if (this.currentPage > 1) {
+      this.currentPage = 1;
+      this.updatePagedConsultes();
+    }
+  }
+
+  lastPage(): void {
+    if(this.currentPage < this.totalPages) {
+      this.currentPage = this.totalPages;
       this.updatePagedConsultes();
     }
   }
