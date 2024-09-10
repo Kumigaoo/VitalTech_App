@@ -108,4 +108,18 @@ export class PlantaComponent {
     }
   }
 
+  firstPage(): void {
+    if (this.currentPage > 1) {
+      this.currentPage = 1;
+      this.updateItemsPerPage();
+    }
+  }
+
+  lastPage(): void {
+    if(this.currentPage < this.totalPages) {
+      this.currentPage = this.totalPages;
+      this.updateItemsPerPage();
+    }
+  }
+
 }

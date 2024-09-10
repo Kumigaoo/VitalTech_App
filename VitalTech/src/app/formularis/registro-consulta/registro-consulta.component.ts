@@ -33,5 +33,4 @@ export class RegistroConsultaComponent {
       complete: () => alert('Operacio completada')
     })
   }
-
 }

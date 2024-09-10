@@ -16,12 +16,9 @@ import { ModifConsultaComponent } from './formularis/modif-consulta/modif-consul
 import { ModifPlantaComponent } from './formularis/modif-planta/modif-planta.component';
 import { RegistroPlantaComponent } from './formularis/registro-planta/registro-planta.component';
 import { ModifPacienteComponent } from './formularis/modif-paciente/modif-paciente.component';
+import { ModifEpisodiComponent } from './formularis/modif-episodi/modif-episodi.component';
 import { AgregarHabitacionesComponent } from './formularis/agregar-habitaciones/agregar-habitaciones.component';
-import { RegistroIngresComponent } from './formularis/registro-ingres/registro-ingres.component';
-import { ModifIngresComponent } from './formularis/modif-ingres/modif-ingres.component';
-import { RegistroLlitComponent } from './formularis/registro-llit/registro-llit.component';
-import { ModifLlitComponent } from './formularis/modif-llit/modif-llit.component';
-import { ModifPersonalComponent } from './formularis/modif-personal/modif-personal.component';
+import { RegistroEpisodiComponent } from './formularis/registro-episodi/registro-episodi.component';
 
 export const routes: Routes = [
     {path: '', redirectTo: '/pacientes', pathMatch: 'full' },
@@ -38,22 +35,17 @@ export const routes: Routes = [
     {path: 'metge', component: MetgeComponent},
     {path: 'ingres', component: IngresComponent},
     {path: 'planta', component: PlantaComponent},
-    {path: 'registro-consulta', component: RegistroConsultaComponent},
+    {path: 'registro-consulta', component: RegistroConsultaComponent },
+    {path: 'registro-episodi', component: RegistroEpisodiComponent },
     {path: 'modif-consulta', component: ModifConsultaComponent},
     {path: 'modif-consulta/:id', component: ModifConsultaComponent },
     {path: 'modif-planta', component: ModifPlantaComponent},
     {path: 'modif-planta/:id', component: ModifPlantaComponent},
     {path: 'registro-planta', component: RegistroPlantaComponent},
-    {path: 'modif-paciente', component: ModifPacienteComponent},
-    {path: 'modif-ingres', component: ModifIngresComponent},
-    {path: 'modif-ingres/:id', component: ModifIngresComponent},
-    {path: 'modif-paciente/:id', component: ModifPacienteComponent},
-    {path: 'registro-ingres', component: RegistroIngresComponent},
-    {path: 'modif-paciente/:id', component: ModifPacienteComponent},
-    {path: 'registro-llit', component: RegistroLlitComponent},
-    {path: 'modif-llit', component: ModifLlitComponent},
-    {path: 'modif-llit/:id', component: ModifLlitComponent},
-    {path: 'modif-personal/:id', component: ModifPersonalComponent}
+    {path: 'modif-paciente', component: ModifPacienteComponent },
+    {path: 'modif-episodi', component: ModifEpisodiComponent },
+    {path: 'modif-episodi/:id', component: ModifEpisodiComponent },
+    {path: 'modif-paciente/:id', component: ModifPacienteComponent}
 
 ];
 

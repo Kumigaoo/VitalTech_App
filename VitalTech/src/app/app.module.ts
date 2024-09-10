@@ -19,8 +19,8 @@ import { ModifIngresComponent } from './formularis/modif-ingres/modif-ingres.com
 import { IngresComponent } from './models/ingres/ingres.component';
 import { ModifLlitComponent } from './formularis/modif-llit/modif-llit.component';
 import { CamasComponent } from './models/camas/camas.component';
-import { ModifPersonalComponent } from './formularis/modif-personal/modif-personal.component';
-import { MetgeComponent } from './models/metge/metge.component';
+import { EpisodisComponent } from './models/episodis/episodis.component';
+import { ModifEpisodiComponent } from './formularis/modif-episodi/modif-episodi.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -38,9 +38,8 @@ const routes: Routes = [
   {path: 'modif-ingres/:id', component: ModifIngresComponent},
   {path: 'modif-llit/:id', component: ModifLlitComponent},
   {path: 'camas', component: CamasComponent},
-  {path: 'modif-personal/:id', component: ModifPersonalComponent},
-  { path: 'metge', component: MetgeComponent}
-
+  {path: 'episodis', component: EpisodisComponent},
+  {path: 'modif-episodi/:id', component: ModifEpisodiComponent}
 ];
 @NgModule({
   imports: [

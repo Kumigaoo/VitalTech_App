@@ -140,4 +140,18 @@ export class IngresComponent {
       this.updatedPage();
     }
   }
+
+  firstPage(): void {
+    if (this.currentPage > 1) {
+      this.currentPage = 1;
+      this.updatedPage();
+    }
+  }
+
+  lastPage(): void {
+    if(this.currentPage < this.totalPages) {
+      this.currentPage = this.totalPages;
+      this.updatedPage();
+    }
+  }
 }

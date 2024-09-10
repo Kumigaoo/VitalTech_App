@@ -18,7 +18,7 @@
             </form>
         </div>
         <div class="registro">
-            <button id="registrarse"><a routerLink="/registro"> + Registrar Episodio</a></button>
+            <button id="registrarse"><a routerLink="/registro-episodi"> + Registrar Episodio</a></button>
         </div>
     </div>
     
@@ -51,6 +51,7 @@
                 <td>{{ episodi.pacientId }}</td>
                 <td class="coleccio" mat-button (click)="openConsultes(episodi)">Consultes</td>
                 <td class="coleccio" mat-button (click)="openIngressos(episodi)">Ingressos</td>
+                <button class="ico" (click)="modificarEpisodi(episodi.id)">🔄</button>
                 <button class="ico" (click)="deleteEpisodi(episodi.id)">❎</button>
               </tr>
             </tbody>
