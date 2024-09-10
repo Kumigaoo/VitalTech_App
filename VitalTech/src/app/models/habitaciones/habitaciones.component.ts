@@ -6,6 +6,7 @@ import { Habitacio } from '../../interface/habitacio.interface';
 import { HabitacioService } from '../../service/habitaciones.service';
 import { LlitsPopupComponent } from '../../pop-ups/llits-popup/llits-popup.component';
 import { MatDialog } from '@angular/material/dialog';
+import { ActualitzarHabitacionesComponent } from '../../formularis/actualitzar-habitaciones/actualitzar-habitaciones.component';
 
 @Component({
   selector: 'app-habitaciones',
@@ -72,7 +73,7 @@ export class HabitacionesComponent implements OnInit {
   // Actualiçar habitacio
   updateHabitacio(habitacio: Habitacio) {
 
-    
+    ActualitzarHabitacionesComponent.cargaFormulario(habitacio);
 
     this.habService.patchHabitcio(habitacio.codiHabitacio, habitacio).subscribe({
 
