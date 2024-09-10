@@ -7,7 +7,6 @@ import { IngressosPopupComponent } from '../../pop-ups/ingressos-popup/ingressos
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { U } from '@angular/cdk/keycodes';
 
 @Component({
   selector: 'app-camas',
@@ -75,7 +74,7 @@ export class CamasComponent {
         for (let i = 0; i < this.llits.length; i++) {
           if (this.llits[i].codiLlit.toLowerCase().includes(this.searchInput.toLowerCase())) {
             busqueda.push(this.llits[i]);
-          } 
+          }
         }
       break;
       case 'ocupat':
