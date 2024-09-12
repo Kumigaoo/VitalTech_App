@@ -27,7 +27,7 @@ export class PacientesComponent {
   searchInput: string = "";
 
   currentPage: number = 1;
-  itemsPerPage: number = 5;
+  itemsPerPage: number = 4;
   totalPages: number = 1;
 
   constructor(public dialog: MatDialog, private pacienteService: PacientService, private router: Router) { }
