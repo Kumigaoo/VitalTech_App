@@ -25,6 +25,8 @@ import { ModifPersonalComponent } from './formularis/modif-personal/modif-person
 import { ActualitzarHabitacionesComponent } from './formularis/actualitzar-habitaciones/actualitzar-habitaciones.component';
 import { RegistroIngresComponent } from './formularis/registro-ingres/registro-ingres.component';
 import { ModifIngresComponent } from './formularis/modif-ingres/modif-ingres.component';
+import { ModifLlitComponent } from './formularis/modif-llit/modif-llit.component';
+import { RegistroLlitComponent } from './formularis/registro-llit/registro-llit.component';
 
 export const routes: Routes = [
     {path: '', redirectTo: '/pacientes', pathMatch: 'full' },
@@ -43,9 +45,12 @@ export const routes: Routes = [
     {path: 'ingres', component: IngresComponent},
     {path: 'planta', component: PlantaComponent},
     {path: 'registro-consulta', component: RegistroConsultaComponent },
+    {path: 'registro-ingres', component: RegistroIngresComponent },
     {path: 'registro-episodi', component: RegistroEpisodiComponent },
     {path: 'modif-consulta', component: ModifConsultaComponent},
     {path: 'modif-consulta/:id', component: ModifConsultaComponent },
+    {path: 'modif-ingres/:id', component: ModifIngresComponent },
+    {path: 'modif-ingres', component: ModifIngresComponent },
     {path: 'modif-planta', component: ModifPlantaComponent},
     {path: 'modif-planta/:id', component: ModifPlantaComponent},
     {path: 'registro-planta', component: RegistroPlantaComponent},
