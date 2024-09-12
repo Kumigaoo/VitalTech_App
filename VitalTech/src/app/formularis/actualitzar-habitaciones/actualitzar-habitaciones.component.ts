@@ -21,15 +21,11 @@ export class ActualitzarHabitacionesComponent {
   protected capacitat: number = 0;
   protected planta: number = 0;
 
-  // Array
-  protected llits: string[] = [];
-
   constructor(private habService: HabitacioService, private fb: FormBuilder, private router: Router, private route: ActivatedRoute) {
     this.consultaForm = this.fb.group({
       codiHabitacio: [{ value: '', disabled: true }],
       capacitatLlits: [''],
-      plantaId: [''],
-      nLlits: ['']
+      plantaId: ['']
     });
   }
 
