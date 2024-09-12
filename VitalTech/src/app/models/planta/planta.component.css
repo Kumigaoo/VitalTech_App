@@ -2,7 +2,17 @@
 .search-container {
     margin-top: 100px;
     display: flex;
-    justify-content: flex-start;
+    align-items: center;
+}
+
+.registro{
+    margin-left: 30px;
+    margin-top: 10px;
+}
+
+.coleccio {
+    cursor: pointer;
+    color: #02789b;
 }
 
 #eliminarse {
@@ -10,20 +20,16 @@
     margin-left: 20px;
 }
 
-#coleccio {
-    cursor: pointer;
-    color: #02789b;
-}
-
 .lala {
     background: #fff;
     padding: 30px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 33vw;
     margin-left: 250px;
     margin-top: 30px;
+    display: flex;
 }
+
 form {
     display: flex;
     flex-direction: column;
@@ -38,7 +44,7 @@ label {
 
 select, input {
     margin-bottom: 20px;
-    padding: 10px;
+    padding: 3px;
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 16px;
@@ -86,12 +92,6 @@ button:hover {
     margin-right: 20px;
 }
 
-
-.registro {
-    justify-self: flex-end;
-    margin-top: 68px;
-    margin-left: 30px;    
-}
 
 a {
     text-decoration: none;
@@ -233,5 +233,5 @@ th a {
 .botones{
     display: flex;
     
-
 }
+
