@@ -142,5 +142,19 @@ export class PacientesComponent {
     this.pagedPacient = busqueda;
 
   }
+
+  firstPage(): void {
+    if (this.currentPage > 1) {
+      this.currentPage = 1;
+      this.updatePagedPacientes();
+    }
+  }
+
+  lastPage(): void {
+    if(this.currentPage < this.totalPages) {
+      this.currentPage = this.totalPages;
+      this.updatePagedPacientes();
+    }
+  }
   
 }
