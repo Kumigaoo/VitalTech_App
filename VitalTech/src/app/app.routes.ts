@@ -25,6 +25,8 @@ import { ActualitzarHabitacionesComponent } from './formularis/actualitzar-habit
 import { Component } from '@angular/core';
 import { RegistroIngresComponent } from './formularis/registro-ingres/registro-ingres.component';
 import { ModifIngresComponent } from './formularis/modif-ingres/modif-ingres.component';
+import { ModifLlitComponent } from './formularis/modif-llit/modif-llit.component';
+import { RegistroLlitComponent } from './formularis/registro-llit/registro-llit.component';
 
 export const routes: Routes = [
     {path: '', redirectTo: '/pacientes', pathMatch: 'full' },
@@ -53,7 +55,9 @@ export const routes: Routes = [
     {path: 'modif-paciente', component: ModifPacienteComponent },
     {path: 'modif-episodi', component: ModifEpisodiComponent },
     {path: 'modif-episodi/:id', component: ModifEpisodiComponent },
-    {path: 'modif-paciente/:id', component: ModifPacienteComponent}
+    {path: 'modif-paciente/:id', component: ModifPacienteComponent},
+    {path: 'modif-llit/:id', component: ModifLlitComponent },
+    {path: 'registro-llit', component: RegistroLlitComponent}
 
 ];
 
