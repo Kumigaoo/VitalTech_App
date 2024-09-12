@@ -10,9 +10,9 @@
                 </div>
                 <div class="searchCriteriaItemContainer">
                     <select id="searchCriteria" name="searchCriteria" [(ngModel)]="searchCriteria">
-                        <option value="idLlit">Id llit</option>
-                        <option value="ocupat">Ocupat</option>
-                        <option value="idHabitacion">Id habitación</option>
+                        <option value="idLlit">ID cama</option>
+                        <option value="ocupat">Ocupada</option>
+                        <option value="idHabitacion">ID habitación</option>
                     </select>
                     <input type="text" id="searchInput" name="searchInput" placeholder="Ingresa la búsqueda" [(ngModel)]="searchInput">
                     <button type="button" (click)="searchLlit()">Buscar</button>
@@ -26,18 +26,18 @@
     
 </div>
 <div class ="texto">
-    <p>Llista de Llits</p>
+    <p>Lista de camas</p>
 </div>
 <div class="table-container">
     <div class="cosas">
         <table id="resultsTable">
             <thead>
                 <tr>
-                    <th>Id Llit</th>
-                    <th>Ocupat</th>
-                    <th>Fora de Servei</th>
-                    <th>Id Habitacio</th>
-                    <th>Ingressos</th>
+                    <th>ID cama</th>
+                    <th>Ocupada</th>
+                    <th>Fuera de servicio</th>
+                    <th>ID de habitación</th>
+                    <th>Ingresos</th>
                 </tr>
             </thead>
             <tbody>
