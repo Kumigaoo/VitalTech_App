@@ -61,7 +61,10 @@ export const routes: Routes = [
     {path: 'modif-paciente/:id', component: ModifPacienteComponent},
     {path: 'registro-ingres', component: RegistroIngresComponent},
     {path: 'modif-ingres', component: ModifIngresComponent},
-    {path: 'registro-personal',component: RegistrarPersonalComponent},
-    {path: 'modif-personal', component: ModifPersonalComponent}
+    {path: 'modif-ingres/:id', component: ModifIngresComponent},
+    {path: 'registrar-personal',component: RegistrarPersonalComponent},
+    {path: 'modif-personal/:id', component: ModifPersonalComponent},
+    {path: 'modif-llit/:id', component: ModifLlitComponent },
+    {path: 'registro-llit', component: RegistroLlitComponent}
 ];
 
