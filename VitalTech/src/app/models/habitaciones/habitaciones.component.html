@@ -33,7 +33,7 @@
                 </tr>
             </thead>
             <tbody>
-                  <tr *ngFor="let hab of habitacions">
+                  <tr *ngFor="let hab of pagedConsultes">
                     <td>{{ hab.codiHabitacio }}</td>
                     <td>{{ hab.capacitatLlits }}</td>
                     <td>{{ hab.plantaId }}</td>  
@@ -48,9 +48,11 @@
     </div>
     
     <div class="pagination">
-        <button id="prevPage">Anterior</button>
-        <span id="pageInfo">Página 1 de X</span>
-        <button id="nextPage">Siguiente</button>
+        <button id="firstPage" (click)="firstPage()" [disabled]="currentPage ===1">&lt;&lt;</button>
+        <button id="prevPage" (click)="previousPage()" [disabled]="currentPage ===1">Anterior</button>
+        <span id="pageInfo">Página {{ currentPage }} de {{ totalPages }}</span>
+        <button id="nextPage" (click)="nextPage()" [disabled]="currentPage === totalPages">Siguiente</button>
+        <button id="lastPage" (click)="lastPage()" [disabled]="currentPage ===totalPages">&gt;&gt;</button>
     </div>
 </div>
 
