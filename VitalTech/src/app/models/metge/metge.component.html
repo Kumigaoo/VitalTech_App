@@ -8,24 +8,24 @@
                 </div>
                 <div class="searchCriteriaItemContainer">
                     <select id="searchCriteria" name="searchCriteria" [(ngModel)]="searchCriteria">
-                        <option value="nom">Nom</option>
+                        <option value="nom">Nombre</option>
                         <option value="dni">DNI</option>
-                        <option value="especialitat">Especialitat</option>
+                        <option value="especialitat">Especialidat</option>
                     </select>
-                    <input type="text" id="searchInput" name="searchInput" placeholder="Ingresa la busqueda..." [(ngModel)]="searchInput">
+                    <input type="text" id="searchInput" name="searchInput" placeholder="Ingresa la búsqueda" [(ngModel)]="searchInput">
                     <button type="submit" id="Buscar" (click)="searchPersonal()">Buscar</button>
                     
                 </div>
             </form>
         </div>
         <div class="registro">
-            <button id="registrarse"><a routerLink="/registrar-personal"> + Registrar Personal</a></button>
+            <button id="registrarse"><a routerLink="/registrar-personal"> + Registrar personal</a></button>
         </div>
     </div>
     
 </div>
 <div class ="texto">
-    <p>Llista del Personal</p>
+    <p>Lista del Personal</p>
 </div>
 <div class="table-container">
     <div class="cosas">
@@ -33,9 +33,9 @@
             <thead>
                 <tr>
                     <th>DNI</th>
-                    <th>Nom</th>
-                    <th>Especialitat</th>
-                    <th>Consultes</th>
+                    <th>Nombre</th>
+                    <th>Especialidad</th>
+                    <th>Consultas</th>
                 </tr>
             </thead>
             <tbody>
