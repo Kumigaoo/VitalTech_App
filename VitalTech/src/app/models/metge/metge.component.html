@@ -25,7 +25,7 @@
     
 </div>
 <div class ="texto">
-    <p>Lista del Personal</p>
+    <p>Lista de empleados</p>
 </div>
 <div class="table-container">
     <div class="cosas">
@@ -43,7 +43,7 @@
                     <td>{{ metge.dni }}</td>
                     <td>{{ metge.nom }}</td>
                     <td>{{ metge.especialitat }}</td>  
-                    <td class = "coleccio" mat-button (click)="openConsultes(metge)">Consultes</td>
+                    <td class = "coleccio" mat-button (click)="openConsultes(metge)">Consultas</td>
                     <button class = "ico" (click)="updatePersonal(metge.dni)">🔄</button>
                     <button class = "ico" (click)="deletePersonal(metge.dni)">❎</button>
                   </tr>
