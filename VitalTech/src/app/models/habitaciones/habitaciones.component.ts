@@ -18,7 +18,12 @@ import { Router } from '@angular/router';
 
 export class HabitacionesComponent implements OnInit {
 
-  constructor(public dialog: MatDialog, private habService: HabitacioService, private sb: FormBuilder, private router: Router) { }
+  constructor(
+    public dialog: MatDialog, 
+    private habService: HabitacioService, 
+    private sb: FormBuilder, 
+    private router: Router
+  ) { }
 
   // Variables
   protected inputValueId: number = 101;
@@ -43,7 +48,12 @@ export class HabitacionesComponent implements OnInit {
 
   // Constructor objecte habitacio
   obllecteHabitacio(): Habitacio {
-    const habitacioObject: Habitacio = this.habService.habitacioModel(this.id, this.capacitat, this.planta, this.nLlits);
+    const habitacioObject: Habitacio = this.habService.habitacioModel(
+      this.id, 
+      this.capacitat, 
+      this.planta, 
+      this.nLlits
+    );
     return habitacioObject;
   }
 
@@ -67,17 +77,13 @@ export class HabitacionesComponent implements OnInit {
 
   // Afegir habitacio
   postHabitacio() {
-
     this.habService.postHabitacio(this.obllecteHabitacio());
-
   }
 
   // Actualizar habitacio
 
   updateHabitacio(habitacio: Habitacio) {
-
     this.router.navigate(['/habitaciones/actualizar', habitacio.codiHabitacio]);
-
   }
 
   // Eliminar habitacio
