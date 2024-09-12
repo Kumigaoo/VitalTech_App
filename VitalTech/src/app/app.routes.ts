@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { Component } from '@angular/core';
 import { InicioComponent } from './common/inicio/inicio.component';
 import { CamasComponent } from './models/camas/camas.component';
 import { HabitacionesComponent } from './models/habitaciones/habitaciones.component';  
@@ -22,7 +23,6 @@ import { RegistroEpisodiComponent } from './formularis/registro-episodi/registro
 import { RegistrarPersonalComponent } from './formularis/registrar-personal/registrar-personal.component';
 import { ModifPersonalComponent } from './formularis/modif-personal/modif-personal.component';
 import { ActualitzarHabitacionesComponent } from './formularis/actualitzar-habitaciones/actualitzar-habitaciones.component';
-import { Component } from '@angular/core';
 import { RegistroIngresComponent } from './formularis/registro-ingres/registro-ingres.component';
 import { ModifIngresComponent } from './formularis/modif-ingres/modif-ingres.component';
 
@@ -53,7 +53,10 @@ export const routes: Routes = [
     {path: 'modif-paciente', component: ModifPacienteComponent },
     {path: 'modif-episodi', component: ModifEpisodiComponent },
     {path: 'modif-episodi/:id', component: ModifEpisodiComponent },
-    {path: 'modif-paciente/:id', component: ModifPacienteComponent}
-
+    {path: 'modif-paciente/:id', component: ModifPacienteComponent},
+    {path: 'registro-ingres', component: RegistroIngresComponent},
+    {path: 'modif-ingres', component: ModifIngresComponent},
+    {path: 'registro-personal',component: RegistrarPersonalComponent},
+    {path: 'modif-personal', component: ModifPersonalComponent}
 ];
 
