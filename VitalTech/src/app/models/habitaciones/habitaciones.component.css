@@ -59,7 +59,7 @@ button {
     cursor: pointer;
     font-size: 16px;
     margin-right: 20px;
-
+    margin-left: 20px;
 }
 
 button:hover {
@@ -68,12 +68,6 @@ button:hover {
 
 #searchForm {
     display: flex;
-}
-
-.searchCriteriaItemContainer {
-    display: flex;
-    justify-content: flex-start;
-    
 }
 
 #searchCriteria {
