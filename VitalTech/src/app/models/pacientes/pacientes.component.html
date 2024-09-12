@@ -13,20 +13,20 @@
                         <option value="ss">SS</option>
                         <option value="sexe">Sexo</option>
                     </select>
-                    <input type="text" id="searchInput" name="searchInput" placeholder="Ingresa la busqueda..." [(ngModel)]="searchInput">
+                    <input type="text" id="searchInput" name="searchInput" placeholder="Ingresa la búsqueda" [(ngModel)]="searchInput">
                     <button type="button" (click)="searchPatient()">Buscar</button>
                     
                 </div>
             </form>
         </div>
         <div class="registro">
-            <button id="registrarse"><a routerLink="/registro"> + Registra pacient</a></button>
+            <button id="registrarse"><a routerLink="/registro"> + Registro de paciente</a></button>
         </div>
     </div>
     
 </div>
 <div class ="texto">
-    <p>Lista de Pacientes</p>
+    <p>Lista de pacientes</p>
 </div>
 <div class="table-container">
     <div class="cosas">
@@ -34,10 +34,10 @@
             <thead>
                 <tr>
                     <th>DNI</th>
-                    <th>Num Seguretat Social</th>
-                    <th>Nom</th>
-                    <th>Sexe</th>
-                    <th>Episodis Medics</th>
+                    <th>Num. SS</th>
+                    <th>Nombre</th>
+                    <th>Sexo</th>
+                    <th>Episodios médicos</th>
                 </tr>
             </thead>
             <tbody>
@@ -46,7 +46,7 @@
                     <td>{{ pacient.numSS }}</td>
                     <td>{{ pacient.nom }}</td>  
                     <td>{{ pacient.sexe }}</td>
-                    <td id="coleccio" mat-button (click)="openEpisodisMedics(pacient)">Episodis</td>
+                    <td id="coleccio" mat-button (click)="openEpisodisMedics(pacient)">Episodios</td>
                     <button class = "ico" (click)="updatePacient(pacient.dni)">🔄</button>
                     <button class = "ico" (click)="deletePacient(pacient.dni)">❎</button>
                   </tr>
