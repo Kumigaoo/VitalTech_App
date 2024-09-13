@@ -32,6 +32,7 @@ export class ModifConsultaComponent {
   ngOnInit(): void {
     this.consultaId = Number(this.route.snapshot.paramMap.get('id')); // obtiene el id de la consulta desde la url 
     this.consultaService.getConsulta(this.consultaId).subscribe(consulta => {
+      
       this.consultaForm.patchValue(consulta);
     })
   }

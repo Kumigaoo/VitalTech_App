@@ -2,26 +2,26 @@
     <h2>Formulario de registro de episodio médico</h2>
     <form type="submit" [formGroup]="episodiForm" (ngSubmit)="onSubmit()">
 
-        <div>
+        <div class = "grid-container">
 
-            <div class = "box1">
-            
+            <div>
                 <label for="dataObertura">Fecha de apertura:</label> 
                 <input type="date" id="dataObertura" ngModel name="dataObertura" formControlName="dataObertura" required>
-            
-                
+            </div>
+                <div>
                     <label for="dataTancament">Fecha de cierre:</label>
                     <input type="date" id="dataTancament" ngModel name="dataTancament" formControlName = "dataTancament" required>
-            </div>
+                </div>
            
-            <div class = "box2">
+            <div>
                 <label for="dolencia">Dolencia:</label>
                 <input type="text" id="dolencia" ngModel name="dolencia" formControlName="dolencia" required>
-            
-
+            </div>
+            <div>
                 <label for="estat">Estado:</label>
                 <input type="text" id="estat" ngModel name="estat" formControlName="estat" required>
-
+            </div>
+            <div>
               <label for="pacientId">DNI paciente:</label>
               <input type="text" id="pacientId" ngModel name="pacientId" formControlName="pacientId" required>
             </div>

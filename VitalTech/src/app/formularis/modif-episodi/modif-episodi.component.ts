@@ -34,7 +34,15 @@ export class ModifEpisodiComponent {
   ngOnInit(): void {
     this.episodiId = Number(this.route.snapshot.paramMap.get('id'));
     this.episodiService.getEpisodisId(this.episodiId).subscribe(consulta => {
+
+      consulta.dataObertura = consulta.dataObertura.split('T')[0];
+
+      if(consulta.dataTancament != null) {
+        consulta.dataTancament = consulta.dataTancament.split('T')[0];
+      }
+
       this.modifEpisodiForm.patchValue(consulta);
+      
     })
   }
 

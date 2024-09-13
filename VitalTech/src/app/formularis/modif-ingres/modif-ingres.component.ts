@@ -31,6 +31,13 @@ export class ModifIngresComponent {
   ngOnInit(): void {
     this.ingresId = Number(this.route.snapshot.paramMap.get('id')); 
     this.ingresService.getIngresId(String(this.ingresId)).subscribe(consulta => {
+
+      consulta.dataEntrada = consulta.dataEntrada.split('T')[0];
+
+      if(consulta.dataSortida != null) {
+        consulta.dataSortida = consulta.dataSortida.split('T')[0];
+      }
+
       this.modiIngresForm.patchValue(consulta);
     })
   }
