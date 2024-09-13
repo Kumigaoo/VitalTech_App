@@ -36,7 +36,7 @@ export class HabitacionesComponent implements OnInit {
 
   // Estas son las variables de paginación
   currentPage: number = 1;
-  itemsPerPage: number = 3;
+  itemsPerPage: number = 5;
   totalPages: number = 1;
   consultesHabitacio: Habitacio[] = [];
   pagedConsultes: Habitacio[] = []; // creo otra array de consultas que mostrara solamente aquellas por pagina
@@ -112,7 +112,8 @@ export class HabitacionesComponent implements OnInit {
   // Eliminar habitacio
   deleteHabitacio(id: number) {
 
-    this.habService.deleteHabitacio(id).subscribe({
+    if(confirm('¿Esta seguro de eliminar esta habitación?')){
+      this.habService.deleteHabitacio(id).subscribe({
       next: (response) => {
         console.log('Habitació eliminada amb èxit', response);
         this.loadHabitacions();
@@ -121,6 +122,7 @@ export class HabitacionesComponent implements OnInit {
         console.error('Error al eliminar la habitació', error);
       }
     });
+  }
 
   }
 
