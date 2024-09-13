@@ -3,11 +3,12 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { IngresService } from '../../service/ingres.service';
+import { NavComponent } from '../../common/nav/nav.component';
 
 @Component({
   selector: 'app-registro-ingres',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, NavComponent],
   templateUrl: './registro-ingres.component.html',
   styleUrl: './registro-ingres.component.css'
 })

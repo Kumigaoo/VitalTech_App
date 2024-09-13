@@ -7,11 +7,13 @@ import { Metge } from '../../interface/metge.interface'
 import { ConsultesPopupComponent } from '../../pop-ups/consultes-popup/consultes-popup.component';
 import { MatDialog } from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
+import { NavComponent } from '../../common/nav/nav.component';
+
 
 @Component({
   selector: 'app-metge',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterLinkActive, FormsModule],
+  imports: [CommonModule, RouterLink, RouterLinkActive, FormsModule, NavComponent],
   templateUrl: './metge.component.html',
   styleUrl: './metge.component.css'
 })

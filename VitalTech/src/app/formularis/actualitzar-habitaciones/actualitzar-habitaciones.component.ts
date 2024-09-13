@@ -5,11 +5,12 @@ import { HabitacioService } from '../../service/habitaciones.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RouterLinkActive, RouterLink } from '@angular/router';
+import { NavComponent } from '../../common/nav/nav.component';
 
 @Component({
   selector: 'app-actualitzar-habitaciones',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, RouterLink, RouterLinkActive],
+  imports: [FormsModule, ReactiveFormsModule, RouterLink, RouterLinkActive, NavComponent],
   templateUrl: './actualitzar-habitaciones.component.html',
   styleUrl: './actualitzar-habitaciones.component.css'
 })

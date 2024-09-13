@@ -5,11 +5,13 @@ import { IngresService } from '../../service/ingres.service';
 import { Ingres } from '../../interface/ingres.interface';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NavComponent } from '../../common/nav/nav.component';
+
 
 @Component({
   selector: 'app-ingres',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterLinkActive, FormsModule],
+  imports: [CommonModule, RouterLink, RouterLinkActive, FormsModule, NavComponent],
   templateUrl: './ingres.component.html',
   styleUrl: './ingres.component.css',
 })

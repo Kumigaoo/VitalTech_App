@@ -2,11 +2,12 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MetgeService } from '../../service/metge.service';
+import { NavComponent } from '../../common/nav/nav.component';
 
 @Component({
   selector: 'app-registrar-personal',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, NavComponent],
   templateUrl: './registrar-personal.component.html',
   styleUrl: './registrar-personal.component.css'
 })

@@ -7,11 +7,13 @@ import { IngressosPopupComponent } from '../../pop-ups/ingressos-popup/ingressos
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { NavComponent } from '../../common/nav/nav.component';
+
 
 @Component({
   selector: 'app-camas',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterLinkActive, FormsModule],
+  imports: [CommonModule, RouterLink, RouterLinkActive, FormsModule, NavComponent],
   templateUrl: './camas.component.html',
   styleUrl: './camas.component.css'
 })

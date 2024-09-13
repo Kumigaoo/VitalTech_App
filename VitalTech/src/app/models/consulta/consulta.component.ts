@@ -5,11 +5,12 @@ import { ConsultaService } from '../../service/consulta.service';
 import { Consulta } from '../../interface/consulta.interface';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NavComponent } from '../../common/nav/nav.component';
 
 @Component({
   selector: 'app-consulta',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterLinkActive, FormsModule],
+  imports: [CommonModule, RouterLink, RouterLinkActive, FormsModule, NavComponent],
   templateUrl: './consulta.component.html',
   styleUrl: './consulta.component.css'
 })

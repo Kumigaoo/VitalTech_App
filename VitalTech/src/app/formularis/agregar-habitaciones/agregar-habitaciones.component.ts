@@ -7,12 +7,13 @@ import { HabitacioService } from '../../service/habitaciones.service';
 import { LlitsPopupComponent } from '../../pop-ups/llits-popup/llits-popup.component';
 import { MatDialog } from '@angular/material/dialog';
 import { HabitacionesComponent } from '../../models/habitaciones/habitaciones.component';
+import { NavComponent } from '../../common/nav/nav.component';
 
 
 @Component({
   selector: 'app-agregar-habitaciones',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterLinkActive, FormsModule],
+  imports: [CommonModule, RouterLink, RouterLinkActive, FormsModule, NavComponent],
   templateUrl: './agregar-habitaciones.component.html',
   styleUrl: './agregar-habitaciones.component.css'
 })

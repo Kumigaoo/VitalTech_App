@@ -5,11 +5,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { EpisodiService } from '../../service/episodis.service';
 import { EpisodiMedic } from '../../interface/episodis-medics.interface';
+import { NavComponent } from '../../common/nav/nav.component';
 
 @Component({
   selector: 'app-registro',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, NavComponent],
   templateUrl: './modif-episodi.component.html',
   styleUrl: './modif-episodi.component.css'
 })

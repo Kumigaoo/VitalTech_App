@@ -5,11 +5,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PacientService } from '../../service/pacientes.service';
 import { Pacient } from '../../interface/pacient.interface';
+import { NavComponent } from '../../common/nav/nav.component';
 
 @Component({
   selector: 'app-registro',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, NavComponent],
   templateUrl: './modif-paciente.component.html',
   styleUrl: './modif-paciente.component.css'
 })

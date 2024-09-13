@@ -7,11 +7,12 @@ import { PlantaPopupComponent } from '../../pop-ups/planta-popup/planta-popup.co
 import { MatDialog } from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NavComponent } from '../../common/nav/nav.component';
 
 @Component({
   selector: 'app-planta',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterLinkActive, FormsModule],
+  imports: [CommonModule, RouterLink, RouterLinkActive, FormsModule, NavComponent],
   templateUrl: './planta.component.html',
   styleUrl: './planta.component.css'
 })

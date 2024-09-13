@@ -5,11 +5,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Ingres } from '../../interface/ingres.interface';
 import { IngresService } from '../../service/ingres.service';
+import { NavComponent } from '../../common/nav/nav.component';
 
 @Component({
   selector: 'app-modif-ingres',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, NavComponent],
   templateUrl: './modif-ingres.component.html',
   styleUrl: './modif-ingres.component.css'
 })

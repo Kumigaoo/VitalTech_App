@@ -4,11 +4,12 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MetgeService } from '../../service/metge.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Metge } from '../../interface/metge.interface';
+import { NavComponent } from '../../common/nav/nav.component';
 
 @Component({
   selector: 'app-modif-personal',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, NavComponent],
   templateUrl: './modif-personal.component.html',
   styleUrl: './modif-personal.component.css'
 })

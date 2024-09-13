@@ -8,11 +8,12 @@ import { MatDialog } from '@angular/material/dialog';
 import { EpisodisMedicsPopupComponent } from '../../pop-ups/episodis-medics-popup/episodis-medics-popup.component';
 import { FormsModule } from '@angular/forms';
 import {Router} from '@angular/router';
+import { NavComponent } from '../../common/nav/nav.component';
 
 @Component({
   selector: 'app-pacientes',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterLinkActive, FormsModule],
+  imports: [CommonModule, RouterLink, RouterLinkActive, FormsModule, NavComponent],
   templateUrl: './pacientes.component.html',
   styleUrl: './pacientes.component.css'
 })

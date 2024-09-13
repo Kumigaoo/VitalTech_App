@@ -5,11 +5,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Planta } from '../../interface/planta.interface';
 import { PlantaService } from '../../service/planta.service';
+import { NavComponent } from '../../common/nav/nav.component';
 
 @Component({
   selector: 'app-modif-planta',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, NavComponent],
   templateUrl: './modif-planta.component.html',
   styleUrl: './modif-planta.component.css'
 })

@@ -7,11 +7,13 @@ import { HabitacioService } from '../../service/habitaciones.service';
 import { LlitsPopupComponent } from '../../pop-ups/llits-popup/llits-popup.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { NavComponent } from '../../common/nav/nav.component';
+
 
 @Component({
   selector: 'app-habitaciones',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterLinkActive, FormsModule],
+  imports: [CommonModule, RouterLink, RouterLinkActive, FormsModule, NavComponent],
   templateUrl: './habitaciones.component.html',
   styleUrl: './habitaciones.component.css'
 })

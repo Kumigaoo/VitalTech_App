@@ -7,12 +7,13 @@ import { ConsultesPopupComponent } from '../../pop-ups/consultes-popup/consultes
 import { IngressosPopupComponent } from '../../pop-ups/ingressos-popup/ingressos-popup.component';
 import { MatDialog } from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
+import { NavComponent } from '../../common/nav/nav.component';
 
 
 @Component({
   selector: 'app-episodis',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterLinkActive, FormsModule],
+  imports: [CommonModule, RouterLink, RouterLinkActive, FormsModule, NavComponent],
   templateUrl: './episodis.component.html',
   styleUrl: './episodis.component.css'
 })

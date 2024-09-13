@@ -5,11 +5,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Llit } from '../../interface/llit.interface';
 import { CamasService } from '../../service/camas.service';
+import { NavComponent } from '../../common/nav/nav.component';
 
 @Component({
   selector: 'app-modif-llit',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, NavComponent],
   templateUrl: './modif-llit.component.html',
   styleUrl: './modif-llit.component.css'
 })
