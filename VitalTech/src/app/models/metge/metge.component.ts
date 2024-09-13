@@ -138,11 +138,13 @@ export class MetgeComponent {
   }
 
   deletePersonal(idPersonal : string) {
-    this.metgeService.deletePacient(idPersonal).subscribe({
+    if(confirm('¿Desea eliminar este personal?')){
+      this.metgeService.deletePacient(idPersonal).subscribe({
       error: error => alert('Hay Consultas relacionadas'),
       complete: () => {
         alert('Borrado con éxito'), this.loadPersonal()
       }
     })
   }
+}
 }
