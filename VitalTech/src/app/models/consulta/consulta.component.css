@@ -50,6 +50,10 @@ select, input {
     font-size: 16px;
 }
 
+input {
+    width: 160px;
+}
+
 button {
     padding: 10px;
     background-color: darkcyan;
@@ -81,9 +85,7 @@ button:hover {
     margin-right: 20px;
 }
 
-#searchInput {
-    margin: 0px;
-}
+
 .searchCriteriaContainer {
     display: flex;
 
@@ -235,3 +237,6 @@ th a {
     
 }
 
+#buscar{
+    margin-left: 10px;
+}
