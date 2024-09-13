@@ -44,7 +44,7 @@
                 </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let episodi of episodis; let i = index">
+              <tr *ngFor="let episodi of pagedEpisodis">
                 <td>{{ episodi.id }}</td>
                 <td>{{ episodi.dataObertura }}</td>
                 <td>{{ episodi.dataTancament }}</td>
@@ -65,9 +65,11 @@
     </div>
     
     <div class="pagination">
-        <button id="prevPage">Anterior</button>
-        <span id="pageInfo">Página 1 de X</span>
-        <button id="nextPage">Siguiente</button>
+        <button id="firstPage" (click)="firstPage()" [disabled]="currentPage ===1">&lt;&lt;</button>
+        <button (click) = "previousPage()" id="prevPage" [disabled]="currentPage === 1">Anterior</button>
+        <span id="pageInfo">Página {{currentPage}} de {{totalPages}}</span>
+        <button (click) = "nextPage()" id="nextPage" [disabled]="currentPage === totalPages">Siguiente</button>
+        <button id="lastPage" (click)="lastPage()" [disabled]="currentPage ===totalPages">&gt;&gt;</button>
     </div>
 </div>
 

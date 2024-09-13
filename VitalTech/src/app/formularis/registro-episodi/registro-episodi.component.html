@@ -1,34 +1,30 @@
 <div class="container">
     <h2>Formulario de registro de episodio médico</h2>
     <form type="submit" [formGroup]="episodiForm" (ngSubmit)="onSubmit()">
-        <div class= "identificador">
-            <div class = "capzalera1">
+
+        <div>
+
+            <div class = "box1">
+
                 <label for="id">ID:</label>
                 <input type="text" id="id" ngModel name="id" formControlName="id" required>
-            </div>
-            <div class = "capzalera4">
+            
                 <label for="dataObertura">Fecha de apertura:</label> 
-                <input type="text" id="dataObertura" ngModel name="dataObertura" formControlName="dataObertura" required>
-            </div>
-
-            <div class = "masInfo">
-                <div class="capzalera1">
+                <input type="date" id="dataObertura" ngModel name="dataObertura" formControlName="dataObertura" required>
+            
+                
                     <label for="dataTancament">Fecha de cierre:</label>
-                    <input type="text" id="dataTancament" ngModel name="dataTancament" formControlName = "dataTancament" required>
-                </div>
+                    <input type="date" id="dataTancament" ngModel name="dataTancament" formControlName = "dataTancament" required>
             </div>
            
-            <div class = "capzalera1">
+            <div class = "box2">
                 <label for="dolencia">Dolencia:</label>
                 <input type="text" id="dolencia" ngModel name="dolencia" formControlName="dolencia" required>
-            </div>
+            
 
-            <div class = "capzalera2">
                 <label for="estat">Estado:</label>
                 <input type="text" id="estat" ngModel name="estat" formControlName="estat" required>
-            </div>
 
-            <div class="capzalera2">
               <label for="pacientId">DNI paciente:</label>
               <input type="text" id="pacientId" ngModel name="pacientId" formControlName="pacientId" required>
             </div>

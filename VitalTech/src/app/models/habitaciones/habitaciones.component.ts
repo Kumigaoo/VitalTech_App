@@ -36,7 +36,8 @@ export class HabitacionesComponent implements OnInit {
 
   // Estas son las variables de paginación
   currentPage: number = 1;
-  itemsPerPage: number = 5;
+  itemsPerPage: number = 4;
+
   totalPages: number = 1;
   consultesHabitacio: Habitacio[] = [];
   pagedConsultes: Habitacio[] = []; // creo otra array de consultas que mostrara solamente aquellas por pagina

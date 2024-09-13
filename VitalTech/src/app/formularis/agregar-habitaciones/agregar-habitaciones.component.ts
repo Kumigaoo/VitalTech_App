@@ -27,7 +27,7 @@ export class AgregarHabitacionesComponent {
 
   // Constructor obllecte habitacio
   obllecteHabitacioNoLlit(): HabitacioNoLlit {
-    const habitacioObjectNoLlit: HabitacioNoLlit = this.habService.habitacioModelNoLlit(this.id, this.capacitat, this.planta);
+    let habitacioObjectNoLlit: HabitacioNoLlit = this.habService.habitacioModelNoLlit(this.id, this.capacitat, this.planta);
     return habitacioObjectNoLlit;
   }
 

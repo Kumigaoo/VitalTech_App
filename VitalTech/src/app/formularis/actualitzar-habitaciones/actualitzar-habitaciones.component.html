@@ -1,26 +1,26 @@
 <div class="container">
-    <h2>Formulario d'Actualizar de Habitacions</h2>
+    <h2>Formulario de actualización de habitaciones</h2>
 
     <form type="submit" [formGroup]="consultaForm" (ngSubmit)="onSubmit()" >
         <div class="identificador">
 
             <div class="capzalera4">
-                <label for="codiHabitacio">Codi d'habitacio:</label>
+                <label for="codiHabitacio">ID habitación</label>
                 <input type="text" id="codiHabitacio" [(ngModel)]="id" formControlName="codiHabitacio" required>
             </div>
 
             <div class="masInfo">
                 <div class="capzalera1">
-                    <label for="capacitatLlits">Capacitat de llits:</label>
+                    <label for="capacitatLlits">Capacidad de camas  :</label>
                     <input type="text" id="capacitatLlits" [(ngModel)]="capacitat" formControlName="capacitatLlits" required>
                 </div>
             </div>
 
             <div class="capzalera1">
-                <label for="plantaId">Id planta:</label>
+                <label for="plantaId">ID de planta:</label>
                 <input type="text" id="plantaId" [(ngModel)]="planta" formControlName="plantaId" required>
             </div>
         </div>
-        <button type="submit">Actualitzar</button>
+        <button type="submit">Actualizar</button>
     </form>
 </div>
