@@ -37,12 +37,10 @@ main {
     justify-content: center;
     flex-direction: column;
     background: #fff;
-    padding: 30px;
+    padding: 50px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin-left: 250px;
-    margin-top: 30px;
-    margin-right: 50px;
+    margin: 40px;
 
 }
 
