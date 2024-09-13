@@ -24,7 +24,7 @@ export class PlantaComponent {
 
   currentPage: number = 1;
   totalPages: number = 1;
-  itemsPerPage: number = 3;
+  itemsPerPage: number = 4;
 
   constructor(public dialog: MatDialog, private plantaService: PlantaService, private router: Router) { }
 

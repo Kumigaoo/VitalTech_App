@@ -46,7 +46,7 @@
                     <td>{{ pacient.numSS }}</td>
                     <td>{{ pacient.nom }}</td>  
                     <td>{{ pacient.sexe }}</td>
-                    <td id="coleccio" mat-button (click)="openEpisodisMedics(pacient)">Episodios</td>
+                    <td class="coleccio" mat-button (click)="openEpisodisMedics(pacient)">Episodios</td>
                     <button class = "ico" (click)="updatePacient(pacient.dni)">🔄</button>
                     <button class = "ico" (click)="deletePacient(pacient.dni)">❎</button>
                   </tr>

@@ -29,7 +29,7 @@ import { ModifLlitComponent } from './formularis/modif-llit/modif-llit.component
 import { RegistroLlitComponent } from './formularis/registro-llit/registro-llit.component';
 
 export const routes: Routes = [
-    {path: '', redirectTo: '/pacientes', pathMatch: 'full' },
+    {path: '', redirectTo: '/login', pathMatch: 'full' },
     {path: 'login', component: LoginComponent},
     {path: 'inicio', component: InicioComponent},
     {path: 'camas', component: CamasComponent},

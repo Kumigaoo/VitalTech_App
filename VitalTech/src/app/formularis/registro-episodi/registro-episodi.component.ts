@@ -17,7 +17,6 @@ export class RegistroEpisodiComponent {
 
   constructor(private fb: FormBuilder, private http: HttpClient){
     this.episodiForm = this.fb.group({
-      id: [''],
       dataObertura: [''],
       dataTancament: [''],
       dolencia: [''],

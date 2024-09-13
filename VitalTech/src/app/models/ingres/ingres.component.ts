@@ -23,7 +23,7 @@ export class IngresComponent {
   pagedIngress: Ingres[] = [];
   currentPage: number = 1;
   totalPages: number = 1;
-  itemsPerPage: number = 3;
+  itemsPerPage: number = 4;
 
   constructor(private ingresService: IngresService, private router: Router) {}
 

@@ -7,8 +7,8 @@ export interface Habitacio {
 
   export interface HabitacioNoLlit {
 
-    codiHabitacio: number;
+    codiHabitacio: (number | null);
     capacitatLlits: number;
-    plantaId: number;
+    plantaId: number; 
 
   }

@@ -26,6 +26,11 @@ export class EpisodisComponent {
   searchCriteria: string = "id";
   searchInput: string = "";
 
+  pagedEpisodis: EpisodiMedic[] = [];
+  currentPage: number = 1;
+  totalPages: number = 1;
+  itemsPerPage: number = 3;
+
   constructor(public dialog: MatDialog, private episodiService: EpisodiService, private router: Router) { }
 
   ngOnInit() {
@@ -36,7 +41,15 @@ export class EpisodisComponent {
     this.episodiService.getEpisodis().subscribe(data => {
       this.episodis = data;
       this.originalEpisodis = data;
+      this.totalPages = Math.ceil(this.episodis.length / this.itemsPerPage);
+      this.updatePage();
     });
+  }
+
+  updatePage(): void {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    this.pagedEpisodis = this.episodis.slice(startIndex, endIndex);
   }
 
   searchEpisodi(): void {
@@ -76,6 +89,9 @@ export class EpisodisComponent {
     }
 
     this.episodis = busqueda;
+    this.currentPage = 1;
+    this.totalPages = Math.ceil(this.episodis.length / this.itemsPerPage);
+    this.updatePage();
 
   }
 
@@ -94,6 +110,36 @@ export class EpisodisComponent {
           alert('Error, no se puede eliminar este episodio médico: todavía existen consultas o ingresos.');
         }
       });
+    }
+  }
+
+  nextPage() {
+    if(this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.updatePage();
+    }
+
+  }
+
+  previousPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.updatePage();
+    }
+
+  }
+
+  firstPage(): void {
+    if (this.currentPage > 1) {
+      this.currentPage = 1;
+      this.updatePage();
+    }
+  }
+
+  lastPage(): void {
+    if(this.currentPage < this.totalPages) {
+      this.currentPage = this.totalPages;
+      this.updatePage();
     }
   }
     

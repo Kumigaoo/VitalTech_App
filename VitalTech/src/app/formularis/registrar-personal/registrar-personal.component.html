@@ -1,5 +1,5 @@
 <div class="container">
-    <h2>Formulario de Registro de Personal</h2>
+    <h2>Formulario de registro de personal</h2>
     
     <form type="submit" [formGroup]="personalForm" (ngSubmit)="onSubmit()">
         <div class= "identificador">
@@ -17,12 +17,12 @@
             </div>
 
             <div class = "capzalera1">
-                <label for="name">Especialitat:</label>
+                <label for="name">Especialidad:</label>
                 <input type="text" id="especialitat" ngModel name="especialitat" formControlName="especialitat" required>
             </div>
             
         </div>
         
-        <button type="submit">Registrar</button>
+        <button type="submit">Registrar empleado</button>
     </form>
 </div>
