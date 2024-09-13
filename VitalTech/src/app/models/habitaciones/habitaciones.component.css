@@ -42,8 +42,12 @@ label {
 
 }
 
+#inputSearch{
+    width: 200px;
+    height: 30px;
+}
 select, input {
-    margin-bottom: 20px;
+    margin:0px;
     padding: 3px;
     border: 1px solid #ccc;
     border-radius: 4px;

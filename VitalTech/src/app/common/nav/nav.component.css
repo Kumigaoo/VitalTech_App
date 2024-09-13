@@ -19,7 +19,7 @@ html {
 
 .sidebar nav {
   height: 80%;
-  overflow: scroll;
+  overflow-y: scroll;
 }
 
 .sidebar nav ul {

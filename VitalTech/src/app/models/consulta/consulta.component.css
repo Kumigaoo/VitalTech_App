@@ -43,11 +43,11 @@ label {
 }
 
 select, input {
-    margin-bottom: 20px;
     padding: 3px;
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 16px;
+    margin: 0px;
 }
 
 input {
