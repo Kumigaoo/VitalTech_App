@@ -2,39 +2,38 @@
     <h2>Formulario de modificación de episodio médico</h2>
     
     <form type="submit" [formGroup]="modifEpisodiForm" (ngSubmit)="onUpdate()">
-      <div class="identificador">
 
-        <div class="capzalera4">
+        <div class="grid-container">
+
+        <div>
           <label for="id">ID: </label>
           <input type="text" id="id" ngModel name="id" formControlName="id" required>
         </div>
 
-        <div class="masInfo">
-          <div class="capzalera1">
-            <label for="dolencia">Dolencia: </label>
-            <input type="text" id="dolencia" ngModel name="dolencia" formControlName="dolencia" required>
-          </div>
+        <div>
+          <label for="dolencia">Dolencia: </label>
+          <input type="text" id="dolencia" ngModel name="dolencia" formControlName="dolencia" required>
         </div>
 
-        <div class="capzalera1">
+        <div>
           <label for="estat">Estado: </label>
           <input type="text" id="estat" ngModel name="estat" formControlName="estat" required>
         </div>
 
-        <div class="capzalera1">
+        <div>
           <label for="pacientId">DNI del paciente: </label>
           <input type="text" id="pacientId" ngModel name="pacientId" formControlName="pacientId" required>
         </div>
-        <div class="capzalera1">
+
+        <div>
           <label for="pacientId">Fecha de apertura: </label>
-          <input type="text" id="pacientId" ngModel name="pacientId" formControlName="pacientId" required>
+          <input type="date" id="pacientId" ngModel name="pacientId" formControlName="pacientId" required>
         </div>
-
-        <div class="capzalera1">
+        
+        <div>
           <label for="pacientId">Fecha de cierre: </label>
-          <input type="text" id="pacientId" ngModel name="pacientId" formControlName="pacientId" required>
+          <input type="date" id="pacientId" ngModel name="pacientId" formControlName="pacientId" required>
         </div>
-
 
       </div>
         
