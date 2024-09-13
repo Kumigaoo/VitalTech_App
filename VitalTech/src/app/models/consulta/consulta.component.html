@@ -4,11 +4,19 @@
         <div class="lala">
             <form id="searchForm">
                 <div class="searchCriteriaContainer">
-                    <label for="searchCriteria">ID consulta:</label>
+                    <label for="searchCriteria">Buscar por:</label>
                 </div>
                 <div class="searchCriteriaItemContainer">
-                    <input type="number"  id="searchId" [(ngModel)]="searchId" name="searchId" placeholder="Ingresa la búsqueda" required>
-                    <button type="button" (click)="searchConsulta()">Buscar</button>
+                    <select name="searchCriteria" id="searchCriteria" [(ngModel)]="searchCriteria">
+                        <option value="idConsulta">Consulta</option>
+                        <option value="urgencia">Urgencia</option>
+                        <option value="sintomatologia">Sintomatología</option>
+                        <option value="receta">Receta</option>
+                        <option value="dni">DNI personal</option>
+                        <option value="episodio">Epsiodio médico</option>
+                    </select>
+                    <input type="text"  id="searchId" [(ngModel)]="searchInput" name="searchId" placeholder="Ingresa la búsqueda" required>
+                    <button type="submit" (click)="searchConsulta()">Buscar</button>
                 </div>
             </form>
         </div>
