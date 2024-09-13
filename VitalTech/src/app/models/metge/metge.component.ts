@@ -26,6 +26,13 @@ export class MetgeComponent {
 
   constructor(public dialog: MatDialog, private metgeService: MetgeService, private router : Router) { }
 
+  pagedPersonals: Metge[] = []; // creo otra array de consultas que mostrara solamente aquellas por pagina
+
+  // Estas son las variables de paginación
+  currentPage: number = 1;
+  itemsPerPage: number = 3;
+  totalPages: number = 1;
+
   ngOnInit() {
     this.loadPersonal();
   }
@@ -34,7 +41,15 @@ export class MetgeComponent {
     this.metgeService.getPersonals().subscribe(data => {
       this.metges = data;
       this.originalMetge = data;
+      this.totalPages = Math.ceil(this.metges.length / this.itemsPerPage); // calcula cuantas paginas tendra dependiendo de los items que tenga cada una
+      this.updatePagedPersonals();
     });
+  }
+  
+  updatePagedPersonals(): void {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    this.pagedPersonals = this. metges.slice(startIndex, endIndex);
   }
 
   openConsultes(metge: any): void {
@@ -81,7 +96,41 @@ export class MetgeComponent {
         break;
     }
     this.metges = busqueda;
+    this.currentPage = 1;
+    this.totalPages = Math.ceil(this.metges.length / this.itemsPerPage);
+    this.updatePagedPersonals();
   }
+
+  nextPage() {
+    if(this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.updatePagedPersonals();
+    }
+
+  }
+
+  previousPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.updatePagedPersonals();
+    }
+
+  }
+
+  firstPage(): void {
+    if (this.currentPage > 1) {
+      this.currentPage = 1;
+      this.updatePagedPersonals();
+    }
+  }
+
+  lastPage(): void {
+    if(this.currentPage < this.totalPages) {
+      this.currentPage = this.totalPages;
+      this.updatePagedPersonals();
+    }
+  }
+
   updatePersonal(idPersonal : string) {
     this.router.navigate(['/modif-personal', idPersonal]);
   }
