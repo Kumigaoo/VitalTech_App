@@ -21,10 +21,13 @@ export class ModifEpisodiComponent {
 
   constructor(private fb: FormBuilder, private http: HttpClient, private episodiService: EpisodiService, private router: Router, private route: ActivatedRoute) {
     this.modifEpisodiForm = this.fb.group({
-      id: [''],
+      id: [{value: '', disabled: true}],
+      dataObertura: [''],
+      dataTancament: [''],
       dolencia: [''],
       estat: [''],
-      pacientId: ['']
+      pacientId: [''],
+      
     });
   }
 
