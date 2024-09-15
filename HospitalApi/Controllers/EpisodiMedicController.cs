@@ -41,7 +41,7 @@ namespace HospitalAPI.Controllers
 
         }
 
-        [HttpGet("id", Name = "GetEpi")]
+        [HttpGet("{id:int}", Name = "GetEpi")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -96,7 +96,7 @@ namespace HospitalAPI.Controllers
 
         }
 
-        [HttpDelete("id")]
+        [HttpDelete("{id:int}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -142,7 +142,7 @@ namespace HospitalAPI.Controllers
 
         }
 
-        [HttpPut("id")]
+        [HttpPut("{id:int}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> UpdateEpisodisMedics(int id, [FromBody] EpisodiMedicUpdateDTO userEpiDTO)

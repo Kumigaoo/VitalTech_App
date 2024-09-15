@@ -18,7 +18,7 @@ export class PacientService {
   }
 
   getPacientId(id : string): Observable<Pacient> {
-    return this.http.get<Pacient>(this.apiUrl+"/id?id="+id);
+    return this.http.get<Pacient>(this.apiUrl+"/"+id);
   }
 
   postPacient(pacient : Pacient): Observable<Pacient> {
@@ -26,12 +26,12 @@ export class PacientService {
   }
 
   putPacient(pacient : Pacient): Observable<Pacient> {
-    const url = `${this.apiUrl}/id?id=${pacient.dni}`;
+    const url = `${this.apiUrl}/${pacient.dni}`;
     return this.http.put<Pacient>(url, pacient);
   }
 
   deletePacient(id : string): Observable<Pacient> {
-    return this.http.delete<Pacient>(`${this.apiUrl}/id?id=${id}`);
+    return this.http.delete<Pacient>(`${this.apiUrl}/${id}`);
   }
 
 

@@ -42,7 +42,7 @@ namespace HospitalAPI.Controllers
             return Ok(_mapper.Map<IEnumerable<HabitacioDTO>>(habList));
         }
 
-        [HttpGet("id", Name = "GetHab")]
+        [HttpGet("{id:int}", Name = "GetHab")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -117,7 +117,7 @@ namespace HospitalAPI.Controllers
             return CreatedAtRoute("GetHab", _mapper.Map<HabitacioCreateDTO>(habitacio));
         }
 
-        [HttpDelete("id")]
+        [HttpDelete("{id:int}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -151,7 +151,7 @@ namespace HospitalAPI.Controllers
             return NoContent();
         }
 
-        [HttpPut("id")]
+        [HttpPut("{id:int}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> UpdateHabitacio(int id, [FromBody] HabitacioCreateDTO userHabDTO)

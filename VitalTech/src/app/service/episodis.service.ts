@@ -19,7 +19,7 @@ export class EpisodiService {
   }
 
   getEpisodisId(id: number): Observable<EpisodiMedic> {
-    return this.http.get<EpisodiMedic>(this.apiUrl + "/id?id=" + id);
+    return this.http.get<EpisodiMedic>(this.apiUrl + "/" + id);
   }
 
   postEpisodi(episodi: EpisodiMedic): Observable<EpisodiMedic> {
@@ -27,13 +27,13 @@ export class EpisodiService {
   }
 
   putEpisodi(episodi: EpisodiMedic): Observable<EpisodiMedic> {
-    const url = `${this.apiUrl}/id?id=${episodi.id}`;
+    const url = `${this.apiUrl}/${episodi.id}`;
     return this.http.put<EpisodiMedic>(url, episodi
     );
   }
 
   deleteEpisodi(id: string): Observable<EpisodiMedic> {
-    return this.http.delete<EpisodiMedic>(`${this.apiUrl}/id?id=${id}`);
+    return this.http.delete<EpisodiMedic>(`${this.apiUrl}/${id}`);
   }
 
  

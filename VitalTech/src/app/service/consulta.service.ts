@@ -19,22 +19,22 @@ export class ConsultaService {
   }
 
   getConsulta(id:number): Observable<Consulta> {
-    const url = `${this.apiUrl}/id?id=${id}`;
+    const url = `${this.apiUrl}/${id}`;
     return this.http.get<Consulta>(url);
   }
 
   deleteConsulta(id:number): Observable<Consulta> {
-    const url = `${this.apiUrl}/id?id=${id}`;
+    const url = `${this.apiUrl}/${id}`;
     return this.http.delete<Consulta>(url);
   }
 
   putConsulta(consulta: Consulta): Observable<Consulta> {
-    const url = `${this.apiUrl}/id?id=${consulta.id}`;
+    const url = `${this.apiUrl}/${consulta.id}`;
     return this.http.put<Consulta>(url, consulta);
   }
 
   patchConsulta(consulta: Partial<Consulta>): Observable<Consulta> {
-    const url = `${this.apiUrl}/id?id=${consulta.id}`;
+    const url = `${this.apiUrl}/${consulta.id}`;
     return this.http.patch<Consulta>(url, consulta);
   }
 }

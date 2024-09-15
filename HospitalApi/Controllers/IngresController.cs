@@ -39,7 +39,7 @@ namespace HospitalAPI.Controllers
         }
 
 
-        [HttpGet("id", Name = "GetIngres")]
+        [HttpGet("{id:int}", Name = "GetIngres")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -103,7 +103,7 @@ namespace HospitalAPI.Controllers
 
         }
 
-        [HttpDelete("id")]
+        [HttpDelete("{id:int}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -134,7 +134,7 @@ namespace HospitalAPI.Controllers
 
         }
 
-        [HttpPut("id")]
+        [HttpPut("{id:int}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> UpdateIngres(int id, [FromBody] IngresDTO userIngresDTO)

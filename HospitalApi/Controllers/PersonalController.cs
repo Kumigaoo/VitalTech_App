@@ -42,7 +42,7 @@ namespace HospitalAPI.Controllers
             return Ok(_mapper.Map<IEnumerable<PersonalDTO>>(perList));
         }
 
-        [HttpGet("id", Name = "GetPer")]
+        [HttpGet("{id}", Name = "GetPer")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -90,7 +90,7 @@ namespace HospitalAPI.Controllers
             return CreatedAtRoute("GetPer", _mapper.Map<PersonalCreateDTO>(personal));
         }
 
-        [HttpDelete("id")]
+        [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -112,7 +112,7 @@ namespace HospitalAPI.Controllers
             return NoContent();
         }
 
-        [HttpPut("id")]
+        [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> UpdatePer(string id, [FromBody] PersonalCreateDTO userPerDTO)
@@ -133,7 +133,7 @@ namespace HospitalAPI.Controllers
             return NoContent();
         }
 
-        [HttpPatch("id")]
+        [HttpPatch("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
 
