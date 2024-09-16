@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
-import { Llit } from '../../interface/llit.interface';
+import { Llit } from '../../../../interface/llit.interface';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { CamasService } from '../../service/camas.service';
-import { IngressosPopupComponent } from '../../pop-ups/ingressos-popup/ingressos-popup.component';
+import { CamasService } from '../../../../service/camas.service';
+import { IngressosPopupComponent } from '../../../../components/pop-ups/ingressos-popup/ingressos-popup.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { NavComponent } from '../../common/nav/nav.component';
+import { NavComponent } from '../../../../components/nav/nav.component';
 
 
 @Component({
@@ -16,7 +16,7 @@ import { NavComponent } from '../../common/nav/nav.component';
   templateUrl: './camas.component.html',
   styleUrl: './camas.component.css'
 })
-export class CamasComponent {
+export class CamaComponent {
 
   llits: Llit[] = [];
   originalLlit: Llit[] = [];

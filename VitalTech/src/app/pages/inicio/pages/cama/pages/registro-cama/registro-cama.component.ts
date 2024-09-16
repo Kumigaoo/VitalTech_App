@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NavComponent } from '../../common/nav/nav.component';
+import { NavComponent } from '../../../../../../components/nav/nav.component';
 
 @Component({
   selector: 'app-registro-llit',
@@ -11,7 +11,7 @@ import { NavComponent } from '../../common/nav/nav.component';
   templateUrl: './registro-llit.component.html',
   styleUrl: './registro-llit.component.css'
 })
-export class RegistroLlitComponent {
+export class RegistroCamaComponent {
   llitForm: FormGroup;
 
   constructor(private fb: FormBuilder, private http: HttpClient,private router: Router, private route: ActivatedRoute ){

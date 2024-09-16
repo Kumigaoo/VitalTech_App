@@ -1,6 +1,6 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import {CamasComponent} from "./camas.component";
+import {CamaComponent} from "./cama.component";
 import { CamaRoutes} from "./cama-routing.module"
 
 
@@ -8,7 +8,7 @@ import { CamaRoutes} from "./cama-routing.module"
 
 @NgModule ({
     declarations:
-        [CamasComponent],
+        [CamaComponent],
     imports: 
         [CommonModule, CamaRoutes],
 

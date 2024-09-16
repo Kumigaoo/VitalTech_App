@@ -1,15 +1,15 @@
 import { Routes, RouterModule } from "@angular/router";
 import { NgModule } from "@angular/core";
-import { CamasComponent } from "./camas.component";
+import { CamaComponent } from "./cama.component";
 
 const routes: Routes = [
     {
         path: '',
-        component: CamasComponent
+        component: CamaComponent
     },
     {
         path: 'modif-llit',
-        loadChildren: ()=> import('./pages/modif-cama/modif-llit.module').then(m => m.ModifCamaModule)
+        loadChildren: ()=> import('./pages/modif-cama/modif-cama.module').then(m => m.ModifCamaModule)
     },
     {
         path: 'registro-llit',

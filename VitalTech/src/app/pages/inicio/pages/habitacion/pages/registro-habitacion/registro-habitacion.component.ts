@@ -2,12 +2,12 @@ import { RouterLinkActive, RouterLink } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Habitacio, HabitacioNoLlit } from '../../interface/habitacio.interface';
-import { HabitacioService } from '../../service/habitaciones.service';
-import { LlitsPopupComponent } from '../../pop-ups/llits-popup/llits-popup.component';
+import { Habitacio } from '../../../../../../interface/habitacio.interface';
+import { HabitacioService } from '../../../../../../service/habitaciones.service';
+import { LlitsPopupComponent } from '../../../../../../components/pop-ups/llits-popup/llits-popup.component';
 import { MatDialog } from '@angular/material/dialog';
-import { HabitacionesComponent } from '../../models/habitaciones/habitaciones.component';
-import { NavComponent } from '../../common/nav/nav.component';
+import { HabitacionComponent } from '../../../habitacion/habitacion.component';
+import { NavComponent } from '../../../../../../components/nav/nav.component';
 
 
 @Component({
@@ -16,7 +16,7 @@ import { NavComponent } from '../../common/nav/nav.component';
   templateUrl: './agregar-habitaciones.component.html',
   styleUrl: './agregar-habitaciones.component.css'
 })
-export class AgregarHabitacionesComponent {
+export class RegistroHabitacionComponent {
 
   // Variables
   protected id: number = 0;
@@ -25,7 +25,7 @@ export class AgregarHabitacionesComponent {
 
   constructor(private habService: HabitacioService) {};
 
-  // Constructor obllecte habitacio
+  /* Constructor obllecte habitacio
   obllecteHabitacioNoLlit(): HabitacioNoLlit {
     let habitacioObjectNoLlit: HabitacioNoLlit = this.habService.habitacioModelNoLlit(this.id, this.capacitat, this.planta);
     return habitacioObjectNoLlit;
@@ -40,6 +40,6 @@ export class AgregarHabitacionesComponent {
 
   });
 
-  }
+  }*/
 
 }

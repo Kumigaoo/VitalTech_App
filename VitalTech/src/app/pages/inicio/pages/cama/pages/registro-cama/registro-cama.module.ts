@@ -1,15 +1,13 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import {RegistroLlitComponent} from "./registro-llit.component";
-
-
-
+import {RegistroCamaComponent} from "./registro-cama.component";
+import { RegistroCamaRoutes } from "./registro-cama-routing.module";
 
 @NgModule ({
     declarations:
-        [RegistroLlitComponent],
+        [RegistroCamaComponent ],
     imports: 
-        [CommonModule],
+        [CommonModule, RegistroCamaRoutes],
 
 })
 

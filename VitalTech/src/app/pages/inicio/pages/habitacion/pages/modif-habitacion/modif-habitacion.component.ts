@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule } from '@angular/forms';
-import { Habitacio } from '../../interface/habitacio.interface';
-import { HabitacioService } from '../../service/habitaciones.service';
+import { Habitacio } from '../../../../../../interface/habitacio.interface';
+import { HabitacioService } from '../../../../../../service/habitaciones.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RouterLinkActive, RouterLink } from '@angular/router';
-import { NavComponent } from '../../common/nav/nav.component';
+import { NavComponent } from '../../../../../../components/nav/nav.component';
 
 @Component({
   selector: 'app-actualitzar-habitaciones',
@@ -13,7 +13,7 @@ import { NavComponent } from '../../common/nav/nav.component';
   templateUrl: './actualitzar-habitaciones.component.html',
   styleUrl: './actualitzar-habitaciones.component.css'
 })
-export class ActualitzarHabitacionesComponent {
+export class ModifHabitacionComponent {
   consultaForm: FormGroup;
 
   // Variables

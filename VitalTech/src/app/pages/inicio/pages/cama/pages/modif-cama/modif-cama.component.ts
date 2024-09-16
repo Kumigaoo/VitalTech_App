@@ -3,9 +3,9 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Llit } from '../../interface/llit.interface';
-import { CamasService } from '../../service/camas.service';
-import { NavComponent } from '../../common/nav/nav.component';
+import { Llit } from '../../../../../../interface/llit.interface';
+import { CamasService } from '../../.,/../../../../../service/camas.service';
+import { NavComponent } from '../../../../../../components/nav/nav.component';
 
 @Component({
   selector: 'app-modif-llit',
@@ -14,7 +14,7 @@ import { NavComponent } from '../../common/nav/nav.component';
   templateUrl: './modif-llit.component.html',
   styleUrl: './modif-llit.component.css'
 })
-export class ModifLlitComponent {
+export class ModifCamaComponent {
   llitForm: FormGroup;
   llitId: string = "";
 

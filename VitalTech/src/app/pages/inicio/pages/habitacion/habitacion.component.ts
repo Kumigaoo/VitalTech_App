@@ -2,12 +2,12 @@ import { RouterLinkActive, RouterLink } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Habitacio } from '../../interface/habitacio.interface';
-import { HabitacioService } from '../../service/habitaciones.service';
-import { LlitsPopupComponent } from '../../pop-ups/llits-popup/llits-popup.component';
+import { Habitacio } from '../../../../interface/habitacio.interface';
+import { HabitacioService } from '../../../../service/habitaciones.service';
+import { LlitsPopupComponent } from '../../../../components/pop-ups/llits-popup/llits-popup.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { NavComponent } from '../../common/nav/nav.component';
+import { NavComponent } from '../../../../components/nav/nav.component';
 
 
 @Component({
@@ -17,7 +17,7 @@ import { NavComponent } from '../../common/nav/nav.component';
   styleUrl: './habitaciones.component.css'
 })
 
-export class HabitacionesComponent implements OnInit {
+export class HabitacionComponent implements OnInit {
 
   constructor(
     public dialog: MatDialog, 
