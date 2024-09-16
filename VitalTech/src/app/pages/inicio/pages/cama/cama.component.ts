@@ -9,7 +9,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { NavComponent } from '../../../../components/nav/nav.component';
 
-
 @Component({
   selector: 'app-camas',
   imports: [CommonModule, RouterLink, RouterLinkActive, FormsModule, NavComponent],
@@ -103,7 +102,6 @@ export class CamaComponent {
     this.updatePage();
 
   }
-
 
   deleteLlit(id: string): void {
     if (confirm('Estas seguro de eliminar esta cama?')) { 

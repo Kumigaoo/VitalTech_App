@@ -1,11 +1,11 @@
 import { Routes, RouterModule } from "@angular/router";
 import { NgModule } from "@angular/core";
-import { EpisodisComponent } from "./modif-episodis.component";
+import { ModifEpisodiComponent } from "./modif-episodio.component";
 
 const routes: Routes = [
     {
         path: '',
-        component: EpisodisComponent
+        component: ModifEpisodiComponent
     },
 ]
 

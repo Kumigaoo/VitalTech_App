@@ -1,6 +1,6 @@
 import { Routes, RouterModule } from "@angular/router";
 import { NgModule } from "@angular/core";
-import { EpisodisComponent } from "./modif-episodis.component";
+import { EpisodisComponent } from "./episodis.component";
 
 const routes: Routes = [
     {
