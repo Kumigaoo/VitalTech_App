@@ -7,6 +7,16 @@ const routes: Routes = [
         path: '',
         component: CamasComponent
     },
+    {
+        path: 'modif-llit',
+        loadChildren: ()=> import('./pages/modif-cama/modif-llit.module').then(m => m.ModifCamaModule)
+    },
+    {
+        path: 'registro-llit',
+        loadChildren: ()=> import('./pages/registro-cama/registro-cama.module').then(m => m.RegistroCamaModule)
+    }
+
+
 ]
 
 @NgModule ({
