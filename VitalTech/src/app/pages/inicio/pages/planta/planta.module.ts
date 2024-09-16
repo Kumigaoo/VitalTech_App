@@ -14,6 +14,6 @@ import { PlantaRoutes} from "./planta-routing.module";
 
 })
 
-export class CamaModule {
+export class PlantaModule {
 
 }

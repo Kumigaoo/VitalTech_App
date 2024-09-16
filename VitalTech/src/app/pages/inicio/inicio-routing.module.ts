@@ -14,6 +14,26 @@ const routes: Routes = [
     {
         path: 'consulta',
 
+    }, 
+    {
+        path: 'episodio',
+    },
+    {
+        path: 'habitacion',
+        loadChildren: ()=> import('./pages/habitacion/habitacion.module').then(m => m.HabitacionModule)
+    },
+    {
+        path: 'ingreso',
+    },
+    {
+        path: 'paciente',
+    },
+    {
+        path: 'personal',
+    },
+    {
+        path: 'planta',
+        loadChildren: ()=> import('./pages/planta/planta.module').then(m => m.PlantaModule)
     }
 ]
 
