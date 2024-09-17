@@ -1,6 +1,6 @@
 import { Routes, RouterModule } from "@angular/router";
 import { NgModule } from "@angular/core";
-import InicioComponent from "./inicio.component";
+import InicioComponent from "../../pages/inicio/inicio.component";
 
 const routes: Routes = [
     {
@@ -9,7 +9,7 @@ const routes: Routes = [
     },
     {
         path: 'cama',
-        loadChildren: ()=> import('./pages/cama/cama.module').then(m => m.CamaModule)
+        loadChildren: ()=> import('./cama/cama.module').then(m => m.CamaModule)
     },
     {
         path: 'consulta',
@@ -20,7 +20,7 @@ const routes: Routes = [
     },
     {
         path: 'habitacion',
-        loadChildren: ()=> import('./pages/habitacion/habitacion.module').then(m => m.HabitacionModule)
+        loadChildren: ()=> import('../../pages/inicio/pages/habitacion/habitacion.module').then(m => m.HabitacionModule)
     },
     {
         path: 'ingreso',
@@ -33,7 +33,7 @@ const routes: Routes = [
     },
     {
         path: 'planta',
-        loadChildren: ()=> import('./pages/planta/planta.module').then(m => m.PlantaModule)
+        loadChildren: ()=> import('../../pages/inicio/pages/planta/planta.module').then(m => m.PlantaModule)
     }
 ]
 

@@ -1,6 +1,8 @@
 import { Routes, RouterModule } from "@angular/router";
 import { NgModule } from "@angular/core";
-import { CamaComponent } from "./cama.component";
+import { CamaComponent } from "../../../pages/inicio/pages/cama/cama.component";
+import { ModifCamaComponent } from "../../../pages/inicio/pages/cama/pages/modif-cama/modif-cama.component";
+import { RegistroCamaComponent } from "../../../pages/inicio/pages/cama/pages/registro-cama/registro-cama.component";
 
 const routes: Routes = [
     {
@@ -9,11 +11,11 @@ const routes: Routes = [
     },
     {
         path: 'modif-llit',
-        loadChildren: ()=> import('./pages/modif-cama/modif-cama.module').then(m => m.ModifCamaModule)
+        component: ModifCamaComponent
     },
     {
         path: 'registro-llit',
-        loadChildren: ()=> import('./pages/registro-cama/registro-cama.module').then(m => m.RegistroCamaModule)
+        component: RegistroCamaComponent
     }
 
 

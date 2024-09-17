@@ -16,7 +16,7 @@ export function tokenGetter() {
 
 export const routes: Routes = [
   { path: 'inicio',
-      loadChildren: ()=> import('./pages/inicio/inicio.module').then(m => m.InicioModule)
+      loadChildren: ()=> import('./modules/inicio/inicio.module').then(m => m.InicioModule)
   },
   {path: '', redirectTo: 'login', pathMatch: 'full'},
   {path: '**', redirectTo: 'login', pathMatch: 'full'},

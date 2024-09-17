@@ -1,6 +1,6 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import InicioComponent from "./inicio.component";
+import InicioComponent from "../../pages/inicio/inicio.component";
 import { InicioRoutes} from "./inicio-routing.module"
 
 
