@@ -2,17 +2,18 @@ import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { ConsultaComponent } from "./consulta.component";
 import { ConsultaComponentRout } from "./consulta-routing.module"
+import { NavComponent } from "../../../../components/nav/nav.component";
 
 
 
 @NgModule ({
     declarations:
-        [ConsultaComponentRout],
+        [ConsultaComponentRout, ConsultaComponent],
     imports: 
-        [CommonModule, ConsultaComponent],
+        [CommonModule, NavComponent],
 
 })
 
-export class CamaModule {
+export class consultaModule {
 
 }
