@@ -1,12 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { ReactiveFormsModule } from '@angular/forms';
-import { NavComponent } from '../../../../../../components/nav/nav.component';
 
 @Component({
   selector: 'app-registro-consulta',
-  imports: [ReactiveFormsModule, NavComponent],
   templateUrl: './registro-consulta.component.html',
   styleUrl: './registro-consulta.component.css'
 })
