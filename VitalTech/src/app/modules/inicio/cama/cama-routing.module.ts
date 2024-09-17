@@ -10,11 +10,11 @@ const routes: Routes = [
         component: CamaComponent
     },
     {
-        path: 'modif-llit',
+        path: 'modif-cama',
         component: ModifCamaComponent
     },
     {
-        path: 'registro-llit',
+        path: 'registro-cama',
         component: RegistroCamaComponent
     }
 

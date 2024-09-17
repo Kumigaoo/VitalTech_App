@@ -109,6 +109,9 @@ export class CamaComponent {
         next: () => {
           console.log('Planta eliminada correctamente');
           alert('Cama eliminada');
+          if (this.pagedLlits.length === 0){
+            this.currentPage--;
+          }
           this.loadLlits();
         },
         error: (error) => {

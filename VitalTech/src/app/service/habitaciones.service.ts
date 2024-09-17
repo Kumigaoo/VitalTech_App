@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Habitacio, HabitacioNoLlit } from '../interface/habitacio.interface';
+import { Habitacio } from '../interface/habitacio.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -13,31 +13,6 @@ export class HabitacioService {
 
   constructor(private http: HttpClient) { }
 
-  // Instancia de Habitacion
-  habitacioModel(codiHabitacio: number,
-    capacitatLlits: number,
-    plantaId: number,
-    llits: string[]):
-    Habitacio {
-    return {
-      codiHabitacio,
-      capacitatLlits,
-      plantaId,
-      llits
-    };
-  }
-
-  // Instancia de Habitacion sense llits
-  habitacioModelNoLlit(codiHabitacio: number,
-    capacitatLlits: number,
-    plantaId: number):
-    HabitacioNoLlit {
-    return {
-      codiHabitacio,
-      capacitatLlits,
-      plantaId
-    };
-  }
 
   // GET
   getHabitacions(): Observable<Habitacio[]> {
@@ -47,7 +22,7 @@ export class HabitacioService {
   }
 
   // GET{id}
-  getHabitacio(id: number): Observable<any> {
+  getHabitacio(id: number): Observable<Habitacio> {
 
     let params = new HttpParams().set('id', id)
 
@@ -56,14 +31,14 @@ export class HabitacioService {
   }
 
   // POST
-  postHabitacio(habitacio: HabitacioNoLlit): Observable<any> {
+  postHabitacio(habitacio: Habitacio): Observable<Habitacio> {
 
     return this.http.post<Habitacio>(this.apiUrl, habitacio);
 
   }
 
   // DELETE
-  deleteHabitacio(id: number): Observable<any> {
+  deleteHabitacio(id: number): Observable<Habitacio> {
 
     let params = new HttpParams().set('id', id)
 
@@ -72,16 +47,16 @@ export class HabitacioService {
   }
 
   // PUT
-  putHabitcions(id: number, habitacio: HabitacioNoLlit): Observable<Habitacio> {
+  putHabitcions(habitacio: Habitacio): Observable<Habitacio> {
 
-    return this.http.put<Habitacio>(`${this.apiUrl}/${id}`, habitacio);
+    return this.http.put<Habitacio>(`${this.apiUrl}/${habitacio.codiHabitacio}`, habitacio);
 
   }
 
   // PATCH
-  patchHabitcio(id: number, habitacio: Habitacio): Observable<any> {
+  patchHabitcio(habitacio: Habitacio): Observable<Habitacio> {
 
-    return this.http.patch<Habitacio>(`${this.apiUrl}/${id}`, habitacio);
+    return this.http.patch<Habitacio>(`${this.apiUrl}/${habitacio.codiHabitacio}`, habitacio);
 
   }
 

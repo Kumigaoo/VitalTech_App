@@ -27,43 +27,22 @@ export class HabitacionComponent implements OnInit {
   ) { }
 
   // Variables
-  protected inputValueId: number = 101;
-
-  protected id: number = 0;
-  protected capacitat: number = 0;
-  protected planta: number = 0;
-
-  public objHabitacio: Habitacio = this.obllecteHabitacio();
+  inputValueId: number = 101;
 
   // Estas son las variables de paginación
   currentPage: number = 1;
   itemsPerPage: number = 5;
-
   totalPages: number = 1;
-  consultesHabitacio: Habitacio[] = [];
   pagedConsultes: Habitacio[] = []; // creo otra array de consultas que mostrara solamente aquellas por pagina
 
   // Arays
   habitacions: Habitacio[] = [];
-
-  nLlits: string[] = [];
 
   async ngOnInit() {
 
     // Inicialització graella 
     this.loadHabitacions();
 
-  }
-
-  // Constructor objecte habitacio
-  obllecteHabitacio(): Habitacio {
-    const habitacioObject: Habitacio = this.habService.habitacioModel(
-      this.id, 
-      this.capacitat, 
-      this.planta, 
-      this.nLlits
-    );
-    return habitacioObject;
   }
 
   // Mostra tota les habitacions
@@ -101,14 +80,9 @@ export class HabitacionComponent implements OnInit {
 
   }
 
-  // Afegir habitacio
-  postHabitacio() {
-    this.habService.postHabitacio(this.obllecteHabitacio());
-  }
-
   // Actualizar habitacio
   updateHabitacio(habitacio: Habitacio) {
-    this.router.navigate(['/habitaciones/actualizar', habitacio.codiHabitacio]);
+    this.router.navigate(['/modif-habitacion', habitacio.codiHabitacio]);
   }
 
   // Eliminar habitacio

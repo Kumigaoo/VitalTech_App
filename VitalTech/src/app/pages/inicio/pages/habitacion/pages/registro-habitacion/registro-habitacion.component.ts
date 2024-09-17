@@ -1,45 +1,37 @@
-import { RouterLinkActive, RouterLink } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { Habitacio } from '../../../../../../interface/habitacio.interface';
+import { FormBuilder, FormGroup, FormsModule } from '@angular/forms';
 import { HabitacioService } from '../../../../../../service/habitaciones.service';
-import { LlitsPopupComponent } from '../../../../../../components/pop-ups/llits-popup/llits-popup.component';
-import { MatDialog } from '@angular/material/dialog';
-import { HabitacionComponent } from '../../../habitacion/habitacion.component';
 import { NavComponent } from '../../../../../../components/nav/nav.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 
 
 @Component({
-  selector: 'app-agregar-habitaciones',
-  imports: [CommonModule, RouterLink, RouterLinkActive, FormsModule, NavComponent],
-  templateUrl: './agregar-habitaciones.component.html',
-  styleUrl: './agregar-habitaciones.component.css'
+  selector: 'app-registro-habitacion',
+  imports: [NavComponent, ReactiveFormsModule],
+  templateUrl: './registro-habitacion.component.html',
+  styleUrl: './registro-habitacion.component.css'
 })
 export class RegistroHabitacionComponent {
 
-  // Variables
-  protected id: number = 0;
-  protected capacitat: number = 0;
-  protected planta: number = 0;
+  habitacionForm: FormGroup;
 
-  constructor(private habService: HabitacioService) {};
-
-  /* Constructor obllecte habitacio
-  obllecteHabitacioNoLlit(): HabitacioNoLlit {
-    let habitacioObjectNoLlit: HabitacioNoLlit = this.habService.habitacioModelNoLlit(this.id, this.capacitat, this.planta);
-    return habitacioObjectNoLlit;
+  constructor(private fb: FormBuilder, private http: HttpClient, private habService: HabitacioService) {
+    this.habitacionForm = this.fb.group({
+      codiHabitacio: [''],
+      capacitatLlits: [''],
+      plantaId:[''],
+    })
   }
 
   onSubmit() {
-    
-  this.habService.postHabitacio(this.obllecteHabitacioNoLlit()).subscribe({
-
-    error: error => alert('ERROR, camps no valids'),
-    complete: () => alert('Operacio completada')
-
+    const habitacionData = this.habitacionForm.value;
+    this.habService.postHabitacio(habitacionData).subscribe({
+      next: response => alert('Personal creat'),
+      error: error => alert('Error, camps no vàlids'),
+      complete: () => alert('Operació completada'),
   });
 
-  }*/
+  }
 
 }
