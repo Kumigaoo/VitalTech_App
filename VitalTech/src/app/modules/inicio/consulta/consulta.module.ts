@@ -1,8 +1,8 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { ConsultaComponent } from "./consulta.component";
+import { ConsultaComponent } from "../../../pages/inicio/pages/consulta/consulta.component";
 import { ConsultaComponentRout } from "./consulta-routing.module"
-import { NavComponent } from "../../../../components/nav/nav.component";
+import { NavComponent } from "../../../components/nav/nav.component";
 
 
 

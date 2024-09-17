@@ -1,8 +1,8 @@
 import { Routes, RouterModule } from "@angular/router";
 import { NgModule } from "@angular/core";
-import { ConsultaComponent } from "./consulta.component";
-import { ModifConsultaComponent } from "./pages/modif-consulta/modif-consulta.component";
-import { RegistroConsultaComponent } from "./pages/registro-consulta/registro-consulta.component";
+import { ConsultaComponent } from "../../../pages/inicio/pages/consulta/consulta.component";
+import { ModifConsultaComponent } from "../../../pages/inicio/pages/consulta/pages/modif-consulta/modif-consulta.component";
+import { RegistroConsultaComponent } from "../../../pages/inicio/pages/consulta/pages/registro-consulta/registro-consulta.component";
 
 const routes: Routes = [  
       
