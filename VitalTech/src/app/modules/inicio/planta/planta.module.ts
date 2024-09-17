@@ -1,19 +1,18 @@
 import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
 import {PlantaComponent} from "../../../pages/inicio/pages/planta/planta.component";
 import { PlantaRoutes} from "./planta-routing.module";
-import { RouterLink, RouterLinkActive } from "@angular/router";
-import { FormsModule } from "@angular/forms";
-import { NavComponent } from "../../../components/nav/nav.component";
+import { RegistroPlantaComponent } from "../../../pages/inicio/pages/planta/pages/registro-planta/registro-planta.component";
+import { ModifPlantaComponent } from "../../../pages/inicio/pages/planta/pages/modif-planta/modif-planta.component";
+import { SharedModule } from "../../shared/shared.module";
 
 
 
 
 @NgModule ({
     declarations:
-        [PlantaComponent],
+        [PlantaComponent, RegistroPlantaComponent, ModifPlantaComponent],
     imports: 
-        [CommonModule, PlantaRoutes, RouterLink, RouterLinkActive, FormsModule, NavComponent],
+        [PlantaRoutes, SharedModule],
 
 })
 
