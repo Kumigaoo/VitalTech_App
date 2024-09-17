@@ -8,9 +8,9 @@ import { Router } from '@angular/router';
 
 
 @Component({
-  selector: 'app-habitaciones',
-  templateUrl: './habitaciones.component.html',
-  styleUrl: './habitaciones.component.css'
+  selector: 'app-habitacion',
+  templateUrl: './habitacion.component.html',
+  styleUrl: './habitacion.component.css'
 })
 
 export class HabitacionComponent implements OnInit {
