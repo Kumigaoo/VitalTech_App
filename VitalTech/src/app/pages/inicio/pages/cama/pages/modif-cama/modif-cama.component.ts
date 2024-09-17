@@ -7,9 +7,9 @@ import { CamasService } from '../../.,/../../../../../service/camas.service';
 
 
 @Component({
-  selector: 'app-modif-llit',
-  templateUrl: './modif-llit.component.html',
-  styleUrl: './modif-llit.component.css'
+  selector: 'app-modif-cama',
+  templateUrl: './modif-cama.component.html',
+  styleUrl: './modif-cama.component.css'
 })
 export class ModifCamaComponent {
   llitForm: FormGroup;

@@ -6,9 +6,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-camas',
-  templateUrl: './camas.component.html',
-  styleUrl: './camas.component.css'
+  selector: 'app-cama',
+  templateUrl: './cama.component.html',
+  styleUrl: './cama.component.css'
 })
 export class CamaComponent {
 

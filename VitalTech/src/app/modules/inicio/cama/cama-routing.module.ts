@@ -6,7 +6,7 @@ import { RegistroCamaComponent } from "../../../pages/inicio/pages/cama/pages/re
 
 const routes: Routes = [
     {
-        path: '',
+        path: 'cama',
         component: CamaComponent
     },
     {

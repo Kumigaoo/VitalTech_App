@@ -1,16 +1,20 @@
 import { NgModule } from "@angular/core";
-import {CamaComponent} from "../../../pages/inicio/pages/cama/cama.component";
+import { CamaComponent } from "../../../pages/inicio/pages/cama/cama.component";
 import { CamaRoutes} from "./cama-routing.module"
-import { RouterLinkActive } from "@angular/router";
+import { NavComponent } from "../../../components/nav/nav.component";
+import { ReactiveFormsModule } from "@angular/forms";
+import { RouterLinkActive, RouterLink } from "@angular/router";
 import { FormsModule } from "@angular/forms";
+import { RegistroCamaComponent } from "../../../pages/inicio/pages/cama/pages/registro-cama/registro-cama.component";
+import { ModifCamaComponent } from "../../../pages/inicio/pages/cama/pages/modif-cama/modif-cama.component";
 
 
 
 @NgModule ({
     declarations:
-        [CamaComponent],
+        [CamaComponent, RegistroCamaComponent, ModifCamaComponent],
     imports:
-        [CamaRoutes],
+        [CamaRoutes, NavComponent, ReactiveFormsModule, RouterLinkActive, FormsModule, RouterLink],
 })
 
 export class CamaModule {
