@@ -6,6 +6,7 @@ import { RouterLink, RouterLinkActive } from "@angular/router";
 import { FormsModule } from "@angular/forms";
 import { NavComponent } from "../../../components/nav/nav.component";
 
+
 @NgModule ({
     declarations:
         [CamaComponent],
