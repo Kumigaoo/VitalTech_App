@@ -20,7 +20,7 @@ const routes: Routes = [
     },
     {
         path: 'habitacion',
-        loadChildren: ()=> import('../../pages/inicio/pages/habitacion/habitacion.module').then(m => m.HabitacionModule)
+        loadChildren: ()=> import('./habitacion/habitacion.module').then(m => m.HabitacionModule)
     },
     {
         path: 'ingreso',
@@ -33,7 +33,7 @@ const routes: Routes = [
     },
     {
         path: 'planta',
-        loadChildren: ()=> import('../../pages/inicio/pages/planta/planta.module').then(m => m.PlantaModule)
+        loadChildren: ()=> import('./planta/planta.module').then(m => m.PlantaModule)
     }
 ]
 

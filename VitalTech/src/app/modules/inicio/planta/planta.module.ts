@@ -1,6 +1,6 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import {PlantaComponent} from "./planta.component";
+import {PlantaComponent} from "../../../pages/inicio/pages/planta/planta.component";
 import { PlantaRoutes} from "./planta-routing.module";
 
 

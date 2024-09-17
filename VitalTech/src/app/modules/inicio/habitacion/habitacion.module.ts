@@ -1,6 +1,6 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import {HabitacionComponent} from "./habitacion.component";
+import {HabitacionComponent} from "../../../pages/inicio/pages/habitacion/habitacion.component";
 import { HabitacionRoutes } from "./habitacion-routing.module";
 
 
