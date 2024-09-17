@@ -2,19 +2,18 @@
 import { RouterLinkActive, RouterLink, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MetgeService } from '../../service/metge.service';
-import { Metge } from '../../interface/metge.interface'
-import { ConsultesPopupComponent } from '../../pop-ups/consultes-popup/consultes-popup.component';
+import { MetgeService } from '../../../../service/metge.service';
+import { Metge } from '../../../../interface/metge.interface';
+import { ConsultesPopupComponent } from '../../../../components/pop-ups/consultes-popup/consultes-popup.component';
 import { MatDialog } from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
-import { NavComponent } from '../../common/nav/nav.component';
+import { NavComponent } from '../../../../components/nav/nav.component';
 
 
 @Component({
   selector: 'app-metge',
-  imports: [CommonModule, RouterLink, RouterLinkActive, FormsModule, NavComponent],
-  templateUrl: './metge.component.html',
-  styleUrl: './metge.component.css'
+  templateUrl: './personal.component.html',
+  styleUrl: './personal.component.css'
 })
 
 
