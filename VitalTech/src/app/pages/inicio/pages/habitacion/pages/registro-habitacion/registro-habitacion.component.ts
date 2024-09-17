@@ -8,7 +8,6 @@ import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-registro-habitacion',
-  imports: [NavComponent, ReactiveFormsModule],
   templateUrl: './registro-habitacion.component.html',
   styleUrl: './registro-habitacion.component.css'
 })

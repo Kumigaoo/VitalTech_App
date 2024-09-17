@@ -1,16 +1,13 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Llit } from '../../../../../../interface/llit.interface';
 import { CamasService } from '../../.,/../../../../../service/camas.service';
-import { NavComponent } from '../../../../../../components/nav/nav.component';
+
 
 @Component({
   selector: 'app-modif-llit',
-
-  imports: [ReactiveFormsModule, NavComponent],
   templateUrl: './modif-llit.component.html',
   styleUrl: './modif-llit.component.css'
 })

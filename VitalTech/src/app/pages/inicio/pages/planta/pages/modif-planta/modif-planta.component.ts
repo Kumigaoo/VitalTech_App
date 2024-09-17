@@ -1,15 +1,12 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Planta } from '../../../../../../interface/planta.interface';
 import { PlantaService } from '../../../../../../service/planta.service';
-import { NavComponent } from '../../../../../../components/nav/nav.component';
 
 @Component({
   selector: 'app-modif-planta',
-  imports: [ReactiveFormsModule, NavComponent],
   templateUrl: './modif-planta.component.html',
   styleUrl: './modif-planta.component.css'
 })

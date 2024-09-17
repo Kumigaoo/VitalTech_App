@@ -9,7 +9,6 @@ import { NavComponent } from '../../../../../../components/nav/nav.component';
 
 @Component({
   selector: 'app-actualitzar-habitaciones',
-  imports: [FormsModule, ReactiveFormsModule, RouterLink, RouterLinkActive, NavComponent],
   templateUrl: './actualitzar-habitaciones.component.html',
   styleUrl: './actualitzar-habitaciones.component.css'
 })

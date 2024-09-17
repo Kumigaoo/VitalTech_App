@@ -11,7 +11,6 @@ import { NavComponent } from '../../../../components/nav/nav.component';
 
 @Component({
   selector: 'app-planta',
-  imports: [CommonModule, RouterLink, RouterLinkActive, FormsModule, NavComponent],
   templateUrl: './planta.component.html',
   styleUrl: './planta.component.css'
 })

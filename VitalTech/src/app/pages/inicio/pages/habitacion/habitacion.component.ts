@@ -1,18 +1,14 @@
-import { RouterLinkActive, RouterLink } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
 import { Habitacio } from '../../../../interface/habitacio.interface';
 import { HabitacioService } from '../../../../service/habitaciones.service';
 import { LlitsPopupComponent } from '../../../../components/pop-ups/llits-popup/llits-popup.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { NavComponent } from '../../../../components/nav/nav.component';
 
 
 @Component({
   selector: 'app-habitaciones',
-  imports: [CommonModule, RouterLink, RouterLinkActive, FormsModule, NavComponent],
   templateUrl: './habitaciones.component.html',
   styleUrl: './habitaciones.component.css'
 })

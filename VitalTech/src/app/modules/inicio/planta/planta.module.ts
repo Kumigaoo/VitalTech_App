@@ -2,6 +2,9 @@ import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import {PlantaComponent} from "../../../pages/inicio/pages/planta/planta.component";
 import { PlantaRoutes} from "./planta-routing.module";
+import { RouterLink, RouterLinkActive } from "@angular/router";
+import { FormsModule } from "@angular/forms";
+import { NavComponent } from "../../../components/nav/nav.component";
 
 
 
@@ -10,7 +13,7 @@ import { PlantaRoutes} from "./planta-routing.module";
     declarations:
         [PlantaComponent],
     imports: 
-        [CommonModule, PlantaRoutes],
+        [CommonModule, PlantaRoutes, RouterLink, RouterLinkActive, FormsModule, NavComponent],
 
 })
 
