@@ -3,9 +3,9 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
-  selector: 'app-registro-episodi',
-  templateUrl: './registro-episodi.component.html',
-  styleUrl: './registro-episodi.component.css'
+  selector: 'app-registro-episodio',
+  templateUrl: './registro-episodio.component.html',
+  styleUrl: './registro-episodio.component.css'
 })
 export class RegistroEpisodiComponent {
 

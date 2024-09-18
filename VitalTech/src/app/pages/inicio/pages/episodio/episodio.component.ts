@@ -5,16 +5,14 @@ import { EpisodiMedic } from '../../../../interface/episodis-medics.interface';
 import { ConsultesPopupComponent } from '../../../../components/pop-ups/consultes-popup/consultes-popup.component';
 import { IngressosPopupComponent } from '../../../../components/pop-ups/ingressos-popup/ingressos-popup.component';
 import { MatDialog } from '@angular/material/dialog';
-
-
-
 @Component({
-  selector: 'app-episodis',
-  templateUrl: './episodis.component.html',
-  styleUrl: './episodis.component.css'
+  selector: 'app-episodio',
+  templateUrl: './episodio.component.html',
+  styleUrl: './episodio.component.css'
+
 })
 
-export class EpisodisComponent {
+export class EpisodioComponent {
 
   episodis: EpisodiMedic[] = [];
   originalEpisodis: EpisodiMedic[] = [];
