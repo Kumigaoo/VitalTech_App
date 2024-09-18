@@ -1,8 +1,7 @@
-import { RouterLinkActive, RouterLink } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component,  } from '@angular/core';
 import { ConsultaService } from '../../../../service/consulta.service';
 import { Consulta } from '../../../../interface/consulta.interface';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-consulta',
@@ -60,7 +59,7 @@ export class ConsultaComponent {
   }
 
   modificarConsulta(id: number): void {
-    this.router.navigate(['/modif-consulta', id]);
+    this.router.navigate(['/inicio/consulta/modif-consulta/:id', id]);
   }
 
   searchConsulta(): void {

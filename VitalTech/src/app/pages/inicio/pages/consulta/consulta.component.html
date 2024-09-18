@@ -17,12 +17,12 @@
                         <option value="episodio">Epsiodio médico</option>
                     </select>
                     <input type="text"  id="searchId" [(ngModel)]="searchInput" name="searchId" placeholder="Ingresa la búsqueda" required>
-                    <button type="submit" id="buscar" (click)="searchConsulta()">Buscar</button>
+                    <button type="button" id="buscar" (click)="searchConsulta()">Buscar</button>
                 </div>
             </form>
         </div>
         <div class="registro">
-            <button id="registrarse"><a routerLink="/registro-consulta"> + Registrar consulta</a></button>
+            <button id="registrarse"><a [routerLink]="['/inicio/consulta/registro-consulta']"> + Registrar consulta</a></button>
         </div>
     </div>
     

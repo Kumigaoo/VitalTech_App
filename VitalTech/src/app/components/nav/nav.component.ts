@@ -9,6 +9,6 @@ import { RouterLinkActive, RouterLink } from '@angular/router';
   styleUrl: './nav.component.css'
 })
 export class NavComponent {
-
+  
 }
 

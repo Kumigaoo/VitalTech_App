@@ -13,7 +13,7 @@ export class RegistroCamaComponent {
 
   constructor(private fb: FormBuilder, private http: HttpClient,private router: Router, private route: ActivatedRoute ){
     this.llitForm = this.fb.group({
-      codiLlit: ['', [Validators.required, Validators.minLength(4)], Validators.pattern(/^\d{4}[AB]$/)],
+      codiLlit: ['', [Validators.required, Validators.minLength(4), Validators.pattern(/^\d{3}[AB]$/)]],
       ocupat: ['', Validators.required],
       foraDeServei: ['', Validators.required],
       habitacioId: ['', Validators.required],
