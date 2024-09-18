@@ -15,6 +15,6 @@ import { SharedModule } from "../../shared/shared.module";
 
 })
 
-export class consultaModule {
+export class ConsultaModule {
 
 }
