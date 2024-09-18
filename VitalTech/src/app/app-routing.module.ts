@@ -1,14 +1,5 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { JwtModule } from '@auth0/angular-jwt';
-import { ReactiveFormsModule } from '@angular/forms';
-import { JwtInterceptor } from '@auth0/angular-jwt';
-import { CommonModule } from '@angular/common';
-import { MatDialogModule } from '@angular/material/dialog';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { Routes } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './pages/login/login.component';
 
 export function tokenGetter() {
@@ -23,24 +14,7 @@ export const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [
-    BrowserModule,
-    FormsModule,
-    ReactiveFormsModule,
-    CommonModule,
-    MatDialogModule,
-    BrowserAnimationsModule,
-    JwtModule.forRoot({
-      config: {
-        tokenGetter: tokenGetter,
-        allowedDomains: ["localhost:5001"],
-        disallowedRoutes: ["localhost:5001/api/auth"]
-      }
-    })
-  ],
-  providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
-  ],
-
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
 })
-export class AppModule { }
+export class AppRoutingModule {}

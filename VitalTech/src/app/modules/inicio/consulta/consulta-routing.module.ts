@@ -7,7 +7,7 @@ import { RegistroConsultaComponent } from "../../../pages/inicio/pages/consulta/
 const routes: Routes = [  
   
   {
-    path: 'consulta',
+    path: '',
     component: ConsultaComponent
   },
 

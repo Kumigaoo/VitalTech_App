@@ -4,12 +4,13 @@ import { HttpClient } from '@angular/common/http';
 import { IngresService } from '../../../../../../service/ingres.service';
 
 @Component({
-  selector: 'app-registro-ingres',
-  templateUrl: './registro-ingres.component.html',
-  styleUrl: './registro-ingres.component.css'
+  selector: 'app-registro-ingreso',
+  templateUrl: './registro-ingreso.component.html',
+  styleUrl: './registro-ingreso.component.css'
+
 })
 
-export class RegistroIngresComponent {
+export class RegistroIngresoComponent {
 
   ingresForm: FormGroup;
 

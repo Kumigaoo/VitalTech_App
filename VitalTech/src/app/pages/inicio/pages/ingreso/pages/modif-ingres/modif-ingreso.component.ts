@@ -2,16 +2,16 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Ingres } from '../../../../../../interface/ingres.interface';
+import { Ingres } from '../../../../../../interface/../interface/ingres.interface';
 import { IngresService } from '../../../../../../service/ingres.service';
 
 @Component({
-  selector: 'app-modif-ingres',
-  templateUrl: './modif-ingres.component.html',
-  styleUrl: './modif-ingres.component.css'
+  selector: 'app-modif-ingreso',
+  templateUrl: './modif-ingreso.component.html',
+  styleUrl: './modif-ingreso.component.css'
 })
 
-export class ModifIngresComponent {
+export class ModifIngresoComponent {
 
   modiIngresForm: FormGroup;
   ingresId: number = 0;

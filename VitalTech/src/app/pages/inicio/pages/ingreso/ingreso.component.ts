@@ -1,19 +1,15 @@
-import { RouterLinkActive, RouterLink } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { IngresService } from '../../../../service/ingres.service';
 import { Ingres } from '../../../../interface/ingres.interface';
-import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 
 
 @Component({
   selector: 'app-ingres',
-  templateUrl: './ingres.component.html',
-  styleUrl: './ingres.component.css',
+  templateUrl: './ingreso.component.html',
+  styleUrl: './ingreso.component.css',
 })
-
-export class IngresComponent {
+export class IngresoComponent {
   searchCriteria: string = 'id';
   searchInput: string = '';
 
@@ -47,7 +43,7 @@ export class IngresComponent {
   }
 
   updateIngres(idIngres: number) {
-    this.router.navigate(['/modif-ingres', idIngres]);
+    this.router.navigate(['/modif-ingreso', idIngres]);
   }
 
   deleteIngres(id: number) {

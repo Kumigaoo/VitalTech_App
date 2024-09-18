@@ -6,11 +6,11 @@ import { RegistroCamaComponent } from "../../../pages/inicio/pages/cama/pages/re
 
 const routes: Routes = [
     {
-        path: 'cama',
+        path: '',
         component: CamaComponent
     },
     {
-        path: 'modif-cama',
+        path: 'modif-cama/:id',
         component: ModifCamaComponent
     },
     {

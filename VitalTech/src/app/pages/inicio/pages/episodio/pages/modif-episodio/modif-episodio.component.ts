@@ -6,7 +6,8 @@ import { EpisodiService } from '../../../../../../service/episodis.service';
 import { EpisodiMedic } from '../../../../../../interface/episodis-medics.interface';
 
 @Component({
-  selector: 'app-registro',
+
+  selector: 'app-modif-episodio',
   templateUrl: './modif-episodio.component.html',
   styleUrl: './modif-episodio.component.css'
 })
