@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Llit } from '../../../../../../interface/llit.interface';
-import { CamasService } from '../../.,/../../../../../service/camas.service';
+import { CamasService } from '../../../../../../service/camas.service';
 
 
 @Component({
