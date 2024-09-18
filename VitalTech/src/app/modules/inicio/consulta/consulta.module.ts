@@ -5,9 +5,10 @@ import { ModifConsultaComponent } from "../../../pages/inicio/pages/consulta/pag
 import { SharedModule } from "../../shared/shared.module";
 import { ConsultaComponentRout } from "./consulta-routing.module";
 
+
 @NgModule ({        
     declarations:
-        [RegistroConsultaComponent, ConsultaComponent, ModifConsultaComponent],
+        [ConsultaComponent, RegistroConsultaComponent, ModifConsultaComponent],
     imports: 
         [ConsultaComponentRout, SharedModule],
 

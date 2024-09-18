@@ -1,13 +1,10 @@
 
 import { RouterLinkActive, RouterLink, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { MetgeService } from '../../../../service/metge.service';
 import { Metge } from '../../../../interface/metge.interface';
 import { ConsultesPopupComponent } from '../../../../components/pop-ups/consultes-popup/consultes-popup.component';
 import { MatDialog } from '@angular/material/dialog';
-import { FormsModule } from '@angular/forms';
-import { NavComponent } from '../../../../components/nav/nav.component';
 
 
 @Component({

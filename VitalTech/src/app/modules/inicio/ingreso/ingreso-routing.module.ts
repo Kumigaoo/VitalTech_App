@@ -1,8 +1,8 @@
 import { Routes, RouterModule } from "@angular/router";
 import { NgModule } from "@angular/core";
 import { IngresoComponent } from "../../../pages/inicio/pages/ingreso/ingreso.component";
-import { ModifIngresComponent } from "../../../pages/inicio/pages/ingreso/pages/modif-ingres/modif-ingreso.component";
-import { RegistroIngresComponent } from "../../../pages/inicio/pages/ingreso/pages/registro-ingres/registro-ingreso.component";
+import { ModifIngresoComponent } from "../../../pages/inicio/pages/ingreso/pages/modif-ingres/modif-ingreso.component";
+import { RegistroIngresoComponent } from "../../../pages/inicio/pages/ingreso/pages/registro-ingres/registro-ingreso.component";
 
 const routes: Routes = [
     {
@@ -11,11 +11,11 @@ const routes: Routes = [
     },
     {
         path: 'modif-ingreso',
-        component: ModifIngresComponent
+        component: ModifIngresoComponent
     },
     {
         path: 'registro-ingreso',
-        component: RegistroIngresComponent
+        component: RegistroIngresoComponent
     }
 
 
@@ -26,6 +26,6 @@ const routes: Routes = [
     exports: [RouterModule]
 })
 
-export class IngresRoutes {
+export class IngresoRoutes {
     
 }

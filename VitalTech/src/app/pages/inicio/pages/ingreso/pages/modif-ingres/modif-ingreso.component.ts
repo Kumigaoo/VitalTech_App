@@ -11,7 +11,7 @@ import { IngresService } from '../../../../../../service/ingres.service';
   styleUrl: './modif-ingreso.component.css'
 })
 
-export class ModifIngresComponent {
+export class ModifIngresoComponent {
 
   modiIngresForm: FormGroup;
   ingresId: number = 0;

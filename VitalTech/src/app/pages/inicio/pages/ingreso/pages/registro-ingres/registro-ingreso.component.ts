@@ -10,7 +10,7 @@ import { IngresService } from '../../../../../../service/ingres.service';
 
 })
 
-export class RegistroIngresComponent {
+export class RegistroIngresoComponent {
 
   ingresForm: FormGroup;
 

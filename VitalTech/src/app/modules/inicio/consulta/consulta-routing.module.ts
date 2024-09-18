@@ -17,8 +17,8 @@ const routes: Routes = [
   {
     path: 'registro-consulta', 
     component: RegistroConsultaComponent
-  }
 
+  }
 ]
 
   @NgModule ({

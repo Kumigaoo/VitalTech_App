@@ -5,8 +5,6 @@ import { RegistroCamaComponent } from "../../../pages/inicio/pages/cama/pages/re
 import { ModifCamaComponent } from "../../../pages/inicio/pages/cama/pages/modif-cama/modif-cama.component";
 import { SharedModule } from "../../shared/shared.module";
 
-
-
 @NgModule ({
     declarations:
         [CamaComponent, RegistroCamaComponent, ModifCamaComponent],

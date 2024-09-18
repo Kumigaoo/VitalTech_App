@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
-import { Consulta } from '../../../../interface/consulta.interface';
-import { Router } from '@angular/router';
+import { RouterLinkActive, RouterLink } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 import { ConsultaService } from '../../../../service/consulta.service';
+import { Consulta } from '../../../../interface/consulta.interface';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-consulta',

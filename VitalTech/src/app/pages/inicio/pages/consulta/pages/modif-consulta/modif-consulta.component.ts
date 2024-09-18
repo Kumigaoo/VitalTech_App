@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConsultaService } from '../../../../../../service/consulta.service';
-import { Consulta } from  '../../../../../../interface/consulta.interface'
+import { Consulta } from '../../../../../../interface/consulta.interface';
 
 @Component({
   selector: 'app-modif-consulta',

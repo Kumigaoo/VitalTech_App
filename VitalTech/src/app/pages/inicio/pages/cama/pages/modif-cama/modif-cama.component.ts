@@ -11,6 +11,7 @@ import { CamasService } from '../../../../../../service/camas.service';
   templateUrl: './modif-cama.component.html',
   styleUrl: './modif-cama.component.css'
 })
+
 export class ModifCamaComponent {
   llitForm: FormGroup;
   llitId: string = "";
