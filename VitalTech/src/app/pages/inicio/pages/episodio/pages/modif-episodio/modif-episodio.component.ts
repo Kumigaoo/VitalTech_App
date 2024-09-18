@@ -2,16 +2,13 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ReactiveFormsModule } from '@angular/forms';
-import { EpisodiService } from '../../service/episodis.service';
-import { EpisodiMedic } from '../../interface/episodis-medics.interface';
-import { NavComponent } from '../../common/nav/nav.component';
+import { EpisodiService } from '../../../../../../service/episodis.service';
+import { EpisodiMedic } from '../../../../../../interface/episodis-medics.interface';
 
 @Component({
-  selector: 'app-registro',
-  imports: [ReactiveFormsModule, NavComponent],
-  templateUrl: './modif-episodi.component.html',
-  styleUrl: './modif-episodi.component.css'
+  selector: 'app-modif-episodio',
+  templateUrl: './modif-episodio.component.html',
+  styleUrl: './modif-episodio.component.css'
 })
 
 export class ModifEpisodiComponent {

@@ -1,18 +1,15 @@
-import { RouterLinkActive, RouterLink, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common'; 
-import { EpisodiService } from '../../service/episodis.service';
-import { EpisodiMedic } from '../../interface/episodis-medics.interface';
-import { ConsultesPopupComponent } from '../../pop-ups/consultes-popup/consultes-popup.component';
-import { IngressosPopupComponent } from '../../pop-ups/ingressos-popup/ingressos-popup.component';
+import { EpisodiService } from '../../../../service/episodis.service';
+import { EpisodiMedic } from '../../../../interface/episodis-medics.interface';
+import { ConsultesPopupComponent } from '../../../../components/pop-ups/consultes-popup/consultes-popup.component';
+import { IngressosPopupComponent } from '../../../../components/pop-ups/ingressos-popup/ingressos-popup.component';
 import { MatDialog } from '@angular/material/dialog';
-import { FormsModule } from '@angular/forms';
-import { NavComponent } from '../../common/nav/nav.component';
+
 
 
 @Component({
   selector: 'app-episodis',
-  imports: [CommonModule, RouterLink, RouterLinkActive, FormsModule, NavComponent],
   templateUrl: './episodis.component.html',
   styleUrl: './episodis.component.css'
 })

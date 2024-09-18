@@ -118,7 +118,7 @@ export class CamaComponent {
   }
 
   modificarLlit(id: string): void {
-    this.router.navigate(['/modif-llit', id]);
+    this.router.navigate(['/inicio/cama/modif-cama', id]);
   }
   nextPage() {
     if(this.currentPage < this.totalPages) {

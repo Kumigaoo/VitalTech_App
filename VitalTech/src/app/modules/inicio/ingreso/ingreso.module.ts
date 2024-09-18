@@ -1,13 +1,15 @@
 import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
 import { IngresRoutes} from "./ingreso-routing.module"
-import { IngresComponent } from "../../../pages/inicio/pages/ingreso/ingres.component";
+import { IngresoComponent } from "../../../pages/inicio/pages/ingreso/ingreso.component";
+import { SharedModule } from "../../shared/shared.module";
+import { RegistroIngresComponent} from "../../../pages/inicio/pages/ingreso/pages/registro-ingres/registro-ingreso.component";
+import { ModifIngresComponent } from "../../../pages/inicio/pages/ingreso/pages/modif-ingres/modif-ingreso.component";
 
 @NgModule ({
     declarations:
-        [IngresComponent],
+        [IngresoComponent, RegistroIngresComponent, ModifIngresComponent],
     imports:
-        [CommonModule, IngresRoutes],
+        [IngresRoutes, SharedModule],
 })
 
 export class IngresoModule {

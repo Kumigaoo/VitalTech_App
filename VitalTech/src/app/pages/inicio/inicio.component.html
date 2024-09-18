@@ -7,16 +7,16 @@
         <p>Seleccione una opción para continuar:</p>
         <div class="button-container">
             <div>
-                <a routerLink="/consulta" routerLinkActive= "active" class="button">Consultas</a>
-                <a routerLink="/pacientes" routerLinkActive= "active" class="button">Pacientes</a>
-                <a routerLink="/metge" routerLinkActive= "active" class="button">Personal</a>
-                <a routerLink="/episodis" routerLinkActive= "active" class="button">Episodi Medic</a>
+                <a [routerLink]="['/inicio/consulta']" routerLinkActive= "active" class="button">Consultas</a>
+                <a [routerLink]="['/inicio/paciente']" routerLinkActive= "active" class="button">Pacientes</a>
+                <a [routerLink]="['/inicio/personal']" routerLinkActive= "active" class="button">Personal</a>
+                <a [routerLink]="['/inicio/episodio']" routerLinkActive= "active" class="button">Episodi Medic</a>
             </div>
             <div class="lala">
-                <a routerLink="/camas" routerLinkActive= "active" class="button">Llit</a>
-                <a routerLink="/habitaciones" routerLinkActive= "active" class="button">Habitacions</a>
-                <a routerLink="/planta" routerLinkActive= "active" class="button">Plantes</a>
-                <a routerLink="/ingres" routerLinkActive= "active" class="button">Ingresos</a>
+                <a [routerLink]="['/inicio/cama']" routerLinkActive= "active" class="button">Llit</a>
+                <a [routerLink]="['/inicio/habitacion']" routerLinkActive= "active" class="button">Habitacions</a>
+                <a [routerLink]="['/inicio/planta']" routerLinkActive= "active" class="button">Plantes</a>
+                <a [routerLink]="['/inicio/ingreso']" routerLinkActive= "active" class="button">Ingresos</a>
             </div>
         </div>
     </main>
@@ -24,6 +24,7 @@
     <footer>
         <p>© 2024 Hospital Maricarmen. Todos los derechos reservados.</p>
     </footer>
+    <router-outlet></router-outlet>
 
 
 

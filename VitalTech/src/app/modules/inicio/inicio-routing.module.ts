@@ -11,12 +11,10 @@ const routes: Routes = [
         path: 'cama',
         loadChildren: ()=> import('./cama/cama.module').then(m => m.CamaModule)
     },
-    {
-        path: 'consulta',
-
-    }, 
+   
     {
         path: 'episodio',
+        loadChildren: ()=> import('./episodio/episodio.module').then(m => m.EpisodioModule)
     },
     {
         path: 'habitacion',
@@ -24,13 +22,9 @@ const routes: Routes = [
     },
     {
         path: 'ingreso',
+        loadChildren: ()=> import ('./ingreso/ingreso.module').then(m => m.IngresoModule)
     },
-    {
-        path: 'paciente',
-    },
-    {
-        path: 'personal',
-    },
+ 
     {
         path: 'planta',
         loadChildren: ()=> import('./planta/planta.module').then(m => m.PlantaModule)
