@@ -14,6 +14,6 @@ import { ConsultaComponentRout } from "./consulta-routing.module";
 
 })
 
-export class consultaModule {
+export class ConsultaModule {
 
 }

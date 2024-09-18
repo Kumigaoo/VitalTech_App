@@ -16,11 +16,11 @@ const routes: Routes = [
 
     {
         path: 'consulta',
-        loadChildren: ()=> import('./consulta/consulta.module').then(m => m.consultaModule)
+        loadChildren: ()=> import('./consulta/consulta.module').then(m => m.ConsultaModule)
     }, 
 
     {
-        path: 'episodis',
+        path: 'episodio',
         loadChildren: ()=> import('./episodio/episodio.module').then(m => m.EpisodioModule)
     },
 
@@ -30,12 +30,12 @@ const routes: Routes = [
     },
 
     {
-        path: 'ingres',
+        path: 'ingreso',
         loadChildren: ()=> import('./ingreso/ingreso.module').then(m => m.IngresoModule)
     },
 
     {
-        path: 'pacientes',
+        path: 'paciente',
         loadChildren: ()=> import('./paciente/paciente.module').then(m => m.PacienteModule)
     },
 
