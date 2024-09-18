@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Habitacio } from '../../../../../../interface/habitacio.interface';
 import { HabitacioService } from '../../../../../../service/habitaciones.service';
 import { ActivatedRoute, Router } from '@angular/router';
-
 
 @Component({
   selector: 'app-modif-habitacion',
@@ -28,7 +27,7 @@ export class ModifHabitacionComponent {
     this.habService.getHabitacio(this.habitacioId).subscribe(habitacio => {
     this.habitacionForm.patchValue(habitacio);
 
-    })
+   })
   }
 
   onSubmit() {
