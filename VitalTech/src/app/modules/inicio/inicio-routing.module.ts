@@ -50,7 +50,7 @@ const routes: Routes = [
     },
     {
         path: 'consulta',
-        loadChildren: ()=> import('./consulta/consulta.module').then(m => m.consultaModule)
+        loadChildren: ()=> import('./consulta/consulta.module').then(m => m.ConsultaModule)
     }
 ]
 
