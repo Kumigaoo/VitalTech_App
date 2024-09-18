@@ -1,18 +1,13 @@
 
-import { RouterLinkActive, RouterLink } from '@angular/router';
-import { Component, OnInit, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { PacientService } from '../../service/pacientes.service';
-import { Pacient } from '../../interface/pacient.interface'
+import { Component} from '@angular/core';
+import { PacientService } from '../../../../service/pacientes.service';
+import { Pacient } from '../../../../interface/pacient.interface'
 import { MatDialog } from '@angular/material/dialog';
-import { EpisodisMedicsPopupComponent } from '../../pop-ups/episodis-medics-popup/episodis-medics-popup.component';
-import { FormsModule } from '@angular/forms';
+import { EpisodisMedicsPopupComponent } from '../../../../components/pop-ups/episodis-medics-popup/episodis-medics-popup.component';
 import {Router} from '@angular/router';
-import { NavComponent } from '../../common/nav/nav.component';
 
 @Component({
   selector: 'app-pacientes',
-  imports: [CommonModule, RouterLink, RouterLinkActive, FormsModule, NavComponent],
   templateUrl: './pacientes.component.html',
   styleUrl: './pacientes.component.css'
 })

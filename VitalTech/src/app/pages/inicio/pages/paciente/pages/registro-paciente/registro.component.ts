@@ -2,12 +2,10 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
-import { PacientService } from '../../service/pacientes.service';
-import { NavComponent } from '../../common/nav/nav.component';
+import { PacientService } from '../../../../../../service/pacientes.service';
 
 @Component({
   selector: 'app-registro',
-  imports: [ReactiveFormsModule, NavComponent],
   templateUrl: './registro.component.html',
   styleUrl: './registro.component.css'
 })

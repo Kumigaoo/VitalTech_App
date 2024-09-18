@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
   templateUrl: './cama.component.html',
   styleUrl: './cama.component.css'
 })
+
 export class CamaComponent {
 
   llits: Llit[] = [];
