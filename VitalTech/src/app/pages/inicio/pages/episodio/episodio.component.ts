@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { EpisodiService } from '../../../../service/episodis.service';
 import { EpisodiMedic } from '../../../../interface/episodis-medics.interface';
 import { ConsultesPopupComponent } from '../../../../components/pop-ups/consultes-popup/consultes-popup.component';

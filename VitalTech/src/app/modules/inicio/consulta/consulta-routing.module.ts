@@ -5,12 +5,19 @@ import { ModifConsultaComponent } from "../../../pages/inicio/pages/consulta/pag
 import { RegistroConsultaComponent } from "../../../pages/inicio/pages/consulta/pages/registro-consulta/registro-consulta.component";
 
 const routes: Routes = [  
+  { 
+    path: '',
+    component: ConsultaComponent
+  },
+  {
+    path: 'modif-consulta/:id', 
+    component: ModifConsultaComponent
+  },
       
-  {path: 'modif-consulta', 
-  component: ModifConsultaComponent},
-      
-  {path: 'registro-consulta', 
-  component: RegistroConsultaComponent},
+  {
+    path: 'registro-consulta', 
+    component: RegistroConsultaComponent
+  }
 
 ]
 
