@@ -1,14 +1,14 @@
 <div class="sidebar">
     <nav>
       <ul>
-        <li><a routerLink="/inico/consulta" routerLinkActive= "active">Consultas</a></li>
-        <li><a routerLink="/inico/episodis" routerLinkActive= "active">Episodos médicos</a></li>
-        <li><a routerLink="/inico/habitaciones" routerLinkActive= "active">Habitaciones</a></li>
-        <li><a routerLink="/inico/ingres" routerLinkActive= "active">Ingresos</a></li>
-        <li><a routerLink="/inico/camas" routerLinkActive= "active">Camas</a></li>
-        <li><a routerLink="/inico/pacientes" routerLinkActive= "active">Pacientes</a></li>
-        <li><a routerLink="/inico/metge" routerLinkActive= "active">Personal</a></li>        
-        <li><a routerLink="/inico/planta" routerLinkActive= "active">Plantas</a></li>
+        <li><a [routerLink]="['/inicio/cama']" routerLinkActive= "active">Camas</a></li>
+        <li><a [routerLink]="['/inicio/consulta']" routerLinkActive= "active">Consultas</a></li>
+        <li><a [routerLink]="['/inicio/episodio']" routerLinkActive= "active">Episodios Medicos</a></li>
+        <li><a [routerLink]="['/inicio/habitacion']" routerLinkActive= "active">Habitaciones</a></li>
+        <li><a [routerLink]="['/inicio/ingreso']" routerLinkActive= "active">Ingresos</a></li>
+        <li><a [routerLink]="['/inicio/paciente']" routerLinkActive= "active">Pacientes</a></li>
+        <li><a [routerLink]="['/inicio/personal']" routerLinkActive= "active">Personal</a></li>
+        <li><a [routerLink]="['/inicio/planta']" routerLinkActive= "active">Plantas</a></li>
       </ul>
     </nav>
   </div>
