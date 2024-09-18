@@ -1,15 +1,12 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ConsultaService } from '../../service/consulta.service';
-import { Consulta } from '../../interface/consulta.interface';
-import { NavComponent } from '../../common/nav/nav.component';
+import { ConsultaService } from '../../../../../../service/consulta.service';
+import { Consulta } from  '../../../../../../interface/consulta.interface'
 
 @Component({
   selector: 'app-modif-consulta',
-  imports: [ReactiveFormsModule, NavComponent],
   templateUrl: './modif-consulta.component.html',
   styleUrl: './modif-consulta.component.css'
 })
