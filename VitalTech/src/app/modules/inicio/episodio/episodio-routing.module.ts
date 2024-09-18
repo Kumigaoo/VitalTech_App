@@ -6,7 +6,7 @@ import { RegistroEpisodiComponent } from "../../../pages/inicio/pages/episodio/p
 
 const routes: Routes = [
     {
-        path: '',
+        path: 'episodis',
         component: EpisodisComponent
     },
     {

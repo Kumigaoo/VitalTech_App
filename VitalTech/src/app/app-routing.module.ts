@@ -9,17 +9,17 @@ import { CommonModule } from '@angular/common';
 import { MatDialogModule } from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Routes } from '@angular/router';
+import { LoginComponent } from './pages/login/login.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
 }
 
 export const routes: Routes = [
-  { path: 'inicio',
-      loadChildren: ()=> import('./modules/inicio/inicio.module').then(m => m.InicioModule)
-  },
+  {path: 'inicio', loadChildren: ()=> import('./modules/inicio/inicio.module').then(m => m.InicioModule)},
   {path: '', redirectTo: 'login', pathMatch: 'full'},
   {path: '**', redirectTo: 'login', pathMatch: 'full'},
+  {path: 'login', component: LoginComponent}
 ];
 
 @NgModule({

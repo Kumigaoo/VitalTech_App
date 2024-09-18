@@ -1,19 +1,18 @@
 import { RouterLinkActive, RouterLink } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IngresService } from '../../service/ingres.service';
-import { Ingres } from '../../interface/ingres.interface';
+import { IngresService } from '../../../../service/ingres.service';
+import { Ingres } from '../../../../interface/ingres.interface';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { NavComponent } from '../../common/nav/nav.component';
 
 
 @Component({
   selector: 'app-ingres',
-  imports: [CommonModule, RouterLink, RouterLinkActive, FormsModule, NavComponent],
   templateUrl: './ingres.component.html',
   styleUrl: './ingres.component.css',
 })
+
 export class IngresComponent {
   searchCriteria: string = 'id';
   searchInput: string = '';

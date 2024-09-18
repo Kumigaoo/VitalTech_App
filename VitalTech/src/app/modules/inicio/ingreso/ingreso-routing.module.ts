@@ -6,15 +6,15 @@ import { RegistroIngresComponent } from "../../../pages/inicio/pages/ingreso/pag
 
 const routes: Routes = [
     {
-        path: '',
+        path: 'ingres',
         component: IngresComponent
     },
     {
-        path: 'modif-ingreso',
+        path: 'modif-ingres',
         component: ModifIngresComponent
     },
     {
-        path: 'registro-ingreso',
+        path: 'registro-ingres',
         component: RegistroIngresComponent
     }
 

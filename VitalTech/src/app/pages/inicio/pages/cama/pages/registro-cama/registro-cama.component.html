@@ -8,10 +8,10 @@
                 <label for="codiLlit">ID de cama:</label> 
                 <input type="text" id="codiLlit" ngModel name="codiLlit" formControlName="codiLlit" required>
             </div>
-            <div *ngIf="llitForm.get('codiLlit').errors && llitForm.get('codiLlit').dirty">
-                <p *ngIf="llitForm.get('codiLlit').hasError('required')">Se requiere un código</p>
-                <p *ngIf="llitForm.get('codiLlit').hasError('minlength')">Mínimo 4 carácteres</p>
-                <p *ngIf="llitForm.get('codiLlit').hasError('pattern')">Tiene que estar construido por el número de habitación más la letra A o B</p>
+            <div *ngIf="llitForm.get('codiLlit')?.errors && llitForm.get('codiLlit')?.dirty">
+                <p *ngIf="llitForm.get('codiLlit')?.hasError('required')">Se requiere un código</p>
+                <p *ngIf="llitForm.get('codiLlit')?.hasError('minlength')">Mínimo 4 carácteres</p>
+                <p *ngIf="llitForm.get('codiLlit')?.hasError('pattern')">Tiene que estar construido por el número de habitación más la letra A o B</p>
             </div>
             <div class = "capzalera1">
                 <label for="ocupat">Ocupada:</label>
