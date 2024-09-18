@@ -10,7 +10,7 @@ const routes: Routes = [
         component: IngresoComponent
     },
     {
-        path: 'modif-ingreso',
+        path: 'modif-ingreso/:id',
         component: ModifIngresoComponent
     },
     {

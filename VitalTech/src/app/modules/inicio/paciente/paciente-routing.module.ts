@@ -10,7 +10,7 @@ const routes: Routes = [
         component: PacientesComponent
     },
     {
-        path: 'modif-paciente',
+        path: 'modif-paciente/:id',
         component: ModifPacienteComponent
     },
     {

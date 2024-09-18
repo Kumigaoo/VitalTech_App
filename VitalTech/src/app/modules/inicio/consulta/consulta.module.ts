@@ -10,7 +10,7 @@ import { ConsultaRout } from "./consulta-routing.module";
     declarations:
         [ConsultaComponent, RegistroConsultaComponent, ModifConsultaComponent],
     imports: 
-        [SharedModule, ConsultaRout],
+        [ConsultaRout, SharedModule],
 
 })
 

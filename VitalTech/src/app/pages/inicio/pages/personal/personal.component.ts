@@ -128,8 +128,8 @@ export class PersonalComponent {
     }
   }
 
-  updatePersonal(idPersonal : string) {
-    this.router.navigate(['/modif-personal', idPersonal]);
+  updatePersonal(id : string) {
+    this.router.navigate(['/inicio/personal/modif-personal', id]);
   }
 
   deletePersonal(idPersonal : string) {

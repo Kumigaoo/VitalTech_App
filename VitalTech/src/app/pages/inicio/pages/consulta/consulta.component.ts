@@ -59,7 +59,7 @@ export class ConsultaComponent {
   }
 
   modificarConsulta(id: number): void {
-    this.router.navigate(['/inicio/consulta/modif-consulta/:id', id]);
+    this.router.navigate(['/inicio/consulta/modif-consulta', id]);
   }
 
   searchConsulta(): void {

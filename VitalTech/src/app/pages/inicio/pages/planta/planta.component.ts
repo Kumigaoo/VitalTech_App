@@ -80,7 +80,7 @@ export class PlantaComponent {
   }
 
   modificarPlanta(id: number): void {
-    this.router.navigate(['/modif-planta', id]);
+    this.router.navigate(['/inicio/planta/modif-planta', id]);
   }
   
   openHabitacions(planta: any): void {

@@ -10,7 +10,7 @@ const routes: Routes = [
         component: EpisodioComponent
     },
     {
-        path: 'modif-episodio',
+        path: 'modif-episodio/:id',
         component: ModifEpisodiComponent
     },
     {

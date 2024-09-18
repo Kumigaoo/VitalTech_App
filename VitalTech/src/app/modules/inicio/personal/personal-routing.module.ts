@@ -10,7 +10,7 @@ const routes: Routes = [
         component: PersonalComponent
     },
     {
-        path: 'modif-personal',
+        path: 'modif-personal/:id',
         component: ModifPersonalComponent
     },
     {

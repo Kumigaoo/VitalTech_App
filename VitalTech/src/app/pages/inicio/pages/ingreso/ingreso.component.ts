@@ -43,7 +43,7 @@ export class IngresoComponent {
   }
 
   updateIngres(idIngres: number) {
-    this.router.navigate(['/modif-ingreso', idIngres]);
+    this.router.navigate(['/inicio/ingreso/modif-ingreso', idIngres]);
   }
 
   deleteIngres(id: number) {

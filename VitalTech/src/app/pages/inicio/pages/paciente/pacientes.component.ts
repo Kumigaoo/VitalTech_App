@@ -64,7 +64,7 @@ export class PacientesComponent {
   }
 
   updatePacient(idPacient: string) {
-    this.router.navigate(['/modif-paciente', idPacient]);
+    this.router.navigate(['/inicio/paciente/modif-paciente', idPacient]);
   }
 
   updatePagedPacientes(): void {
