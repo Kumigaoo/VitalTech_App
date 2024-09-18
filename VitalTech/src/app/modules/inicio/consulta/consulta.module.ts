@@ -7,7 +7,7 @@ import { SharedModule } from "../../shared/shared.module";
 
 
 
-@NgModule ({
+@NgModule ({        
     declarations:
         [ConsultaComponent, RegistroConsultaComponent, ModifConsultaComponent],
     imports: 
