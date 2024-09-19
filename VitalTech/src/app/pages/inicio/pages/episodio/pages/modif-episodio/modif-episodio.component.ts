@@ -4,6 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EpisodiService } from '../../../../../../service/episodis.service';
 import { EpisodiMedic } from '../../../../../../interface/episodis-medics.interface';
+import Swal from 'sweetalert2';
+
 
 @Component({
 
@@ -45,17 +47,35 @@ export class ModifEpisodiComponent {
   }
 
   onUpdate(): void {
-
+    
     if (this.modifEpisodiForm.valid) {
       const updatedPacient: EpisodiMedic = { ...this.modifEpisodiForm.getRawValue(), id: this.episodiId };
       this.episodiService.putEpisodi(updatedPacient).subscribe({
-        next:() => {
-          alert('Episodio actualizado con éxito.');
-          this.router.navigate(['/episodis']);
+
+        // next:() => {
+        //   alert('Episodio actualizado con éxito.');
+        //   this.router.navigate(['/episodis']);
+        // },
+        // error: (error) => {
+        //   console.error('Error al actualitzar el pacient:', error);
+        // }
+
+        next: response => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Episodio médico modificado',
+            text: 'El episodio se ha modificado correctamente.'
+          });
         },
-        error: (error) => {
-          console.error('Error al actualitzar el pacient:', error);
+        error: error => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'ERROR, campos no válidos.'
+          });
         }
+
+
       })
 
     }

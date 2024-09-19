@@ -99,7 +99,7 @@ namespace HospitalAPI.Controllers
             await _bbdd.Ingressos.AddAsync(ingres);
             await _bbdd.SaveChangesAsync();
 
-            return StatusCode(201, "Ingres creat satisfactoriamente");
+            return CreatedAtAction(nameof(GetIngres), new { id = ingres.Id }, userIngresDTO);
 
         }
 

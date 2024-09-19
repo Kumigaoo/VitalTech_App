@@ -88,7 +88,7 @@ namespace HospitalAPI.Controllers
             await _bbdd.SaveChangesAsync();
 
             _logger.LogInformation("Pacient afegit exitosament.");
-            return StatusCode(201, "Pacient creada satisfactoriamente");
+            return CreatedAtAction(nameof(GetPacient), new { id = userPacientDTO.DNI }, userPacientDTO);
 
         }
 

@@ -87,7 +87,7 @@ namespace HospitalAPI.Controllers
             await _bbdd.Personals.AddAsync(personal);
             await _bbdd.SaveChangesAsync();
 
-            return StatusCode(201, "Personal creada satisfactoriamente");
+            return CreatedAtAction(nameof(GetPersonal), new { id = userPerDTO.DNI }, userPerDTO);
 
         }
 

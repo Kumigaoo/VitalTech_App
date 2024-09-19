@@ -115,8 +115,8 @@ namespace HospitalAPI.Controllers
             await _bbdd.SaveChangesAsync();
 
             _logger.LogInformation("Habitació creada correctament.");
-            
-            return StatusCode(201, "Habitació creada satisfactoriamente");
+
+            return CreatedAtAction(nameof(GetHabitacio), new { id = userHabDTO.CodiHabitacio }, userHabDTO);
 
         }
 

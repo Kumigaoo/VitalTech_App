@@ -93,7 +93,7 @@ namespace HospitalAPI.Controllers
 
             _logger.LogInformation("Episodi creat exitosament.");
 
-            return StatusCode(201, "Episodi creada satisfactoriamente");
+            return CreatedAtAction(nameof(GetEpisodi), new { id = episodi.Id }, userEpiDTO);
 
         }
 

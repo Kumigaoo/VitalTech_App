@@ -97,41 +97,54 @@ export class EpisodioComponent {
   }
 
   deleteEpisodi(id: number): void {
-    if (confirm('¿Estás seguro de querer eliminar este episodio médico?')) {
+    Swal.fire({
 
-      // this.episodiService.deleteEpisodi(String(id)).subscribe({
-      //   next: () => {
-      //     alert('Episodio médico eliminado correctamente.');
-      //     this.loadEpisodis();
-      //   },
-      //   error: (error) => {
-      //     alert('Error, no se puede eliminar este episodio médico: todavía existen consultas o ingresos.');
-      //   }
-      // });
+      title: 'Eliminar episodio médico',
+      text: "¿Quieres borrar este episodio médico?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí',
+      cancelButtonText: 'Cancelar'
 
-      this.episodiService.deleteEpisodi(String(id)).subscribe({
-        next: response => {
-          this.loadEpisodis();
-          Swal.fire({
-            
-            icon: 'success',
-            title: 'Episodio médico eliminado',
-            text: 'El episodio médico se ha registrado correctamente.'
-          });
-        },
-        error: error => {
-          Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: 'Error, no se puede eliminar este episodio médico: todavía existen consultas o ingresos.'
-          });
-        }        
-      });
-      this.loadEpisodis();
+    }).then((result) => {
 
-
-    }
+      if (result.isConfirmed) { 
+        this.episodiService.deleteEpisodi(String(id)).subscribe({
+          next: response => {
+            Swal.fire({
+              icon: 'success',
+              title: 'Episodio médico eliminado',
+              text: 'El episodio médico ha sido eliminado con éxito.'
+            });
+            if (this.pagedEpisodis.length === 0){
+                this.currentPage--;
+            }
+            this.loadEpisodis();
+          },
+          error: error => {
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: 'Error, no se puede eliminar este episodio médico: todavía existen consultas o ingresos.'
+            });
+          }        
+        });
+      }
+    });
   }
+
+  //delete antiguo
+  //     // this.episodiService.deleteEpisodi(String(id)).subscribe({
+  //     //   next: () => {
+  //     //     alert('Episodio médico eliminado correctamente.');
+  //     //     this.loadEpisodis();
+  //     //   },
+  //     //   error: (error) => {
+  //     //     alert('Error, no se puede eliminar este episodio médico: todavía existen consultas o ingresos.');
+  //     //   }
+  //     // });
 
   nextPage() {
     if(this.currentPage < this.totalPages) {
