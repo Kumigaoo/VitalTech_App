@@ -4,6 +4,7 @@ import { CamasService } from '../../../../service/camas.service';
 import { IngressosPopupComponent } from '../../../../components/pop-ups/ingressos-popup/ingressos-popup.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-cama',
@@ -100,23 +101,58 @@ export class CamaComponent {
   }
 
   deleteLlit(id: string): void {
-    if (confirm('Estas seguro de eliminar esta cama?')) { 
-      this.llitService.deleteLlit(id).subscribe({
-        next: () => {
-          console.log('Planta eliminada correctamente');
-          alert('Cama eliminada');
-          if (this.pagedLlits.length === 0){
-            this.currentPage--;
-          }
-          this.loadLlits();
-        },
-        error: (error) => {
-          console.error('Error, no se pudo eliminar esta cama:', error);
-          alert('La cama no se ha eliminado porque tiene ingresos asociados');
-        }
-      });
-    }
+    Swal.fire({
+
+      title: 'Eliminar cama',
+      text: "¿Quieres borrar esta cama?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí',
+      cancelButtonText: 'Cancelar'
+
+    }).then((result) => {
+
+      if (result.isConfirmed) { 
+        this.llitService.deleteLlit(id).subscribe({
+          next: response => {
+            Swal.fire({
+              icon: 'success',
+              title: 'Cama eliminada',
+              text: 'La cama ha sido eliminada con éxito.'
+            });
+            if (this.pagedLlits.length === 0){
+                this.currentPage--;
+            }
+            this.loadLlits();
+          },
+          error: error => {
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: 'Error, no se puede eliminar la cama.'
+            });
+          }        
+        });
+      }
+    });
   }
+    // antiguo delete
+    // if (confirm('Estas seguro de eliminar esta cama?')) { 
+     // this.llitService.deleteLlit(id).subscribe({
+
+        // next: () => {
+        //   alert('Cama eliminada');
+        //   if (this.pagedLlits.length === 0){
+        //     this.currentPage--;
+        //   }
+        //   this.loadLlits();
+        // },
+        // error: (error) => {
+        //   alert('La cama no se ha eliminado porque tiene ingresos asociados');
+        // }
+ 
 
   modificarLlit(id: string): void {
     this.router.navigate(['/inicio/cama/modif-cama', id]);

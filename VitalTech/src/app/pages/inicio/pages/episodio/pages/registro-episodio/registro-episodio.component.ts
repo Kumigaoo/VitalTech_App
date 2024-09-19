@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-registro-episodio',
@@ -26,10 +27,39 @@ export class RegistroEpisodiComponent {
   onSubmit(){
     const episodiData = this.episodiForm.value;
 
+    /*
     this.http.post('http://localhost:5296/api/EpisodiMedic', episodiData).subscribe({
-      next: response => alert('Episodi mèdic registrat:'),
-      error: error => alert('ERROR, camps no valids'),
+      next: response => alert('Episodio médico registrado:'),
+      error: error => alert('ERROR, campos no válidos'),
       complete: () => alert('Operació completada')
     })
+    */
+
+    this.http.post('http://localhost:5296/api/EpisodiMedic', episodiData).subscribe({
+      next: response => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Episodio médico registrado',
+          text: 'El episodio se ha registrado correctamente.'
+        });
+      },
+      error: error => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'ERROR, campos no válidos.'
+        });
+      },
+      complete: () => {
+        Swal.fire({
+          icon: 'info',
+          title: 'Operación completada',
+          text: 'La operación ha finalizado.'
+        });
+      }
+    });
+
+
+
   }
 }

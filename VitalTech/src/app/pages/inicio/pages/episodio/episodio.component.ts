@@ -5,6 +5,7 @@ import { EpisodiMedic } from '../../../../interface/episodis-medics.interface';
 import { ConsultesPopupComponent } from '../../../../components/pop-ups/consultes-popup/consultes-popup.component';
 import { IngressosPopupComponent } from '../../../../components/pop-ups/ingressos-popup/ingressos-popup.component';
 import { MatDialog } from '@angular/material/dialog';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-episodio',
@@ -81,7 +82,7 @@ export class EpisodioComponent {
           }
         }
         break;
-     
+
     }
 
     this.episodis = busqueda;
@@ -92,22 +93,58 @@ export class EpisodioComponent {
   }
 
   modificarEpisodi(id: number): void {
-    this.router.navigate(['/modif-episodi', id]);
+    this.router.navigate(['inicio/episodio/modif-episodio', id]);
   }
 
   deleteEpisodi(id: number): void {
-    if (confirm('¿Estás seguro de querer eliminar este episodio médico?')) {
-      this.episodiService.deleteEpisodi(String(id)).subscribe({
-        next: () => {
-          alert('Episodio médico eliminado correctamente.');
-          this.loadEpisodis();
-        },
-        error: (error) => {
-          alert('Error, no se puede eliminar este episodio médico: todavía existen consultas o ingresos.');
-        }
-      });
-    }
+    Swal.fire({
+
+      title: 'Eliminar episodio médico',
+      text: "¿Quieres borrar este episodio médico?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí',
+      cancelButtonText: 'Cancelar'
+
+    }).then((result) => {
+
+      if (result.isConfirmed) { 
+        this.episodiService.deleteEpisodi(String(id)).subscribe({
+          next: response => {
+            Swal.fire({
+              icon: 'success',
+              title: 'Episodio médico eliminado',
+              text: 'El episodio médico ha sido eliminado con éxito.'
+            });
+            if (this.pagedEpisodis.length === 0){
+                this.currentPage--;
+            }
+            this.loadEpisodis();
+          },
+          error: error => {
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: 'Error, no se puede eliminar este episodio médico: todavía existen consultas o ingresos.'
+            });
+          }        
+        });
+      }
+    });
   }
+
+  //delete antiguo
+  //     // this.episodiService.deleteEpisodi(String(id)).subscribe({
+  //     //   next: () => {
+  //     //     alert('Episodio médico eliminado correctamente.');
+  //     //     this.loadEpisodis();
+  //     //   },
+  //     //   error: (error) => {
+  //     //     alert('Error, no se puede eliminar este episodio médico: todavía existen consultas o ingresos.');
+  //     //   }
+  //     // });
 
   nextPage() {
     if(this.currentPage < this.totalPages) {
@@ -138,25 +175,25 @@ export class EpisodioComponent {
       this.updatePage();
     }
   }
-    
+
   openConsultes(episodi: any): void {
     this.dialog.open(ConsultesPopupComponent, {
       data: { consultes: episodi.consultes },
-      width: '80vw', 
-      height: '70vh', 
+      width: '80vw',
+      height: '70vh',
       maxWidth: '1000px',
-      maxHeight: '500px' 
+      maxHeight: '500px'
     });
   }
 
   openIngressos(episodi: any): void {
     this.dialog.open(IngressosPopupComponent, {
       data: { ingressos: episodi.ingressos },
-      width: '80vw', 
-      height: '70vh', 
+      width: '80vw',
+      height: '70vh',
       maxWidth: '1000px',
-      maxHeight: '500px' 
+      maxHeight: '500px'
     });
   }
-  
+
 }

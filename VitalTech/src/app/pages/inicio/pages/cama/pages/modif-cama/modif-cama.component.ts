@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Llit } from '../../../../../../interface/llit.interface';
 import { CamasService } from '../../../../../../service/camas.service';
-
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-modif-cama',
@@ -38,13 +38,28 @@ export class ModifCamaComponent {
     if(this.llitForm.valid) {
       const updatedLlit: Llit = { ...this.llitForm.getRawValue(), id: this.llitId };
       this.llitService.putLlit(updatedLlit).subscribe({
-        next:() => {
-          alert('Llit actualitzada amb exit');
-          this.router.navigate(['/camas']);
+        // next:() => {
+        //   alert('Llit actualitzada amb exit');
+        //   this.router.navigate(['/camas']);
+        // },
+        // error: (error) => {
+        //   console.error('Error al actualitzar la cama:', error);
+        //   alert('Error al actualitzar la cama');
+        // }
+
+        next: response => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Cama modificada',
+            text: 'La cama se ha modificado correctamente.'
+          });
         },
-        error: (error) => {
-          console.error('Error al actualitzar la cama:', error);
-          alert('Error al actualitzar la cama');
+        error: error => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'ERROR, campos no válidos.'
+          });
         }
       })
 
