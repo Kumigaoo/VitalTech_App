@@ -23,17 +23,11 @@ export class RegistroCamaComponent {
         asyncValidators: [camaidValidator(this.llitService)],
         updateOn: 'blur'
       }],
-<<<<<<< HEAD
-      foraDeServei: ['', Validators.required],
-      ocupat: ['', Validators.required],
-      habitacioId: ['', Validators.required],
-=======
       habitacioId: ['', {
         validators: [Validators.required, Validators.pattern(/^\d{3}$/)],
         asyncValidators: [habidValidator(this.habitacioService)],
         updateOn: 'blur'
       }]
->>>>>>> 386fa88c60749e782028e234e737396ae2bb7f57
     });
   }
   onSubmit(){
