@@ -22,7 +22,8 @@ export class RegistroPersonalComponent {
   onSubmit() {
     const personalData = this.personalForm.value;
 
-    this.personalService.postPersonal(personalData).subscribe({
+    this.personalService.postPersonal(personalData).subscribe(
+      {
       next: response => alert('Personal creat'),
       error: error => alert('Error, camps no vàlids'),
       complete: () => alert('Operació completada'),

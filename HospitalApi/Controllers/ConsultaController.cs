@@ -93,7 +93,7 @@ namespace HospitalAPI.Controllers
             await _bbdd.Consultes.AddAsync(consulta);
             await _bbdd.SaveChangesAsync();
 
-            return StatusCode(201, "Consulta creada satisfactoriamente");
+            return CreatedAtAction(nameof(GetConsulta), new { id = consulta.Id }, userConDTO);
 
         }
 

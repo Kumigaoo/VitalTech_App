@@ -80,7 +80,7 @@ namespace HospitalAPI.Controllers
             await _bbdd.SaveChangesAsync();
 
             _logger.LogInformation("Planta creada satisfact�riament.");
-            return StatusCode(201, "Planta creada satisfactoriamente");
+            return CreatedAtAction(nameof(GetPlanta), new { id = planta.Id }, planta);
         }
 
         [HttpDelete("{id:int}")]
