@@ -125,6 +125,7 @@ export class EpisodioComponent {
           });
         }        
       });
+      this.loadEpisodis();
 
 
     }

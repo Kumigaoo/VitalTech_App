@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CamasService } from '../../../../../../service/camas.service';
+import { camaidValidator } from '../../../../../../validator/cama/cama-id.validator';
 @Component({
   selector: 'app-registro-cama',
   templateUrl: './registro-cama.component.html',
@@ -13,7 +14,11 @@ export class RegistroCamaComponent {
 
   constructor(private fb: FormBuilder, private http: HttpClient,private router: Router, private route: ActivatedRoute,private llitService: CamasService){
     this.llitForm = this.fb.group({
-      codiLlit: ['', [Validators.required, Validators.minLength(4), Validators.pattern(/^\d{3}[AB]$/)]],
+      codiLlit: ['', {
+        validators: [Validators.required, Validators.minLength(4), Validators.pattern(/^\d{3}[AB]$/)],
+        asyncValidators: [camaidValidator(this.llitService)],
+        updateOn: 'blur'
+      }],
       ocupat: ['', Validators.required],
       habitacioId: ['', Validators.required],
     });

@@ -12,6 +12,7 @@
                     <small *ngIf="llitForm.get('codiLlit')?.hasError('required')">Este campo es obligatorio</small>
                     <small *ngIf="llitForm.get('codiLlit')?.hasError('minlength')">Mínimo 4 carácteres</small>
                     <small *ngIf="llitForm.get('codiLlit')?.hasError('pattern')">Construido por 3 núm y A o B</small>
+                    <small *ngIf="llitForm.get('codiLlit')?.hasError('camaIdExists')">El ID ya existe</small>
                 </div>
             </div>         
             <div class = "capzalera1">
