@@ -47,7 +47,7 @@ export class ModifEpisodiComponent {
   }
 
   onUpdate(): void {
-
+    
     if (this.modifEpisodiForm.valid) {
       const updatedPacient: EpisodiMedic = { ...this.modifEpisodiForm.getRawValue(), id: this.episodiId };
       this.episodiService.putEpisodi(updatedPacient).subscribe({

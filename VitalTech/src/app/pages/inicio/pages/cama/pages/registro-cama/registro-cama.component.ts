@@ -4,6 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CamasService } from '../../../../../../service/camas.service';
 import { camaidValidator } from '../../../../../../validator/cama/cama-id.validator';
+import Swal from 'sweetalert2';
+
 @Component({
   selector: 'app-registro-cama',
   templateUrl: './registro-cama.component.html',
@@ -30,10 +32,28 @@ export class RegistroCamaComponent {
     }
     const llitData = this.llitForm.value;
     
-    this.http.post('http://localhost:5296/api/Llit', llitData).subscribe({
-      next: response => console.log('Llit registrada:', response),
-      error: error => alert('ERROR, camps no valids'),
-      complete: () => alert('Operacio completada'),
+    this.http.post('http://localhost:5296/api/EpisodiMedic', llitData).subscribe({
+      next: response => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Cama registrada',
+          text: 'La cama se ha registrado correctamente.'
+        });
+      },
+      error: error => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'ERROR, campos no válidos.'
+        });
+      }
     })
   }
 }
+
+    // this.http.post('http://localhost:5296/api/Llit', llitData).subscribe({
+    //   next: response => console.log('Llit registrada:', response),
+    //   error: error => alert('ERROR, camps no valids'),
+    //   complete: () => alert('Operacio completada'),
+    // })
+    
