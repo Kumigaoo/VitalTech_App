@@ -2,6 +2,8 @@ import { Component,  } from '@angular/core';
 import { ConsultaService } from '../../../../service/consulta.service';
 import { Consulta } from '../../../../interface/consulta.interface';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-consulta',
@@ -45,18 +47,58 @@ export class ConsultaComponent {
   }
 
   deleteConsulta(id: number): void {
-    if (confirm('Estas seguro de eliminar esta consulta?')) {
-      this.consultaService.deleteConsulta(id).subscribe({
-        next: () => {
-          console.log('Consulta eliminada correctamente');
-          this.loadConsultes();
-        },
-        error: (error) => {
-          console.error('Error, no se pudo eliminar esta consulta:', error);
-        }
-      });
-    }
+
+    Swal.fire({
+
+      title: 'Eliminar consulta',
+      text: "¿Quieres borrar esta consulta?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí',
+      cancelButtonText: 'Cancelar'
+
+    }).then((result) => {
+
+      if (result.isConfirmed) { 
+        this.consultaService.deleteConsulta(id).subscribe({
+          next: response => {
+            Swal.fire({
+              icon: 'success',
+              title: 'Consulta eliminada',
+              text: 'La consulta ha sido eliminada con éxito.'
+            });
+            if (this.pagedConsultes.length === 0){
+                this.currentPage--;
+            }
+            this.loadConsultes();
+          },
+          error: error => {
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: 'Error, no se puede eliminar este episodio médico: todavía existen consultas o ingresos.'
+            });
+          }        
+        });
+      }
+    });
   }
+
+    //delete antiguo x si acaso jeje
+    // if (confirm('Estas seguro de eliminar esta consulta?')) {
+    //   this.consultaService.deleteConsulta(id).subscribe({
+    //     next: () => {
+    //       console.log('Consulta eliminada correctamente');
+    //       this.loadConsultes();
+    //     },
+    //     error: (error) => {
+    //       console.error('Error, no se pudo eliminar esta consulta:', error);
+    //     }
+    //   });
+    // }
+  
 
   modificarConsulta(id: number): void {
     this.router.navigate(['/inicio/consulta/modif-consulta', id]);
