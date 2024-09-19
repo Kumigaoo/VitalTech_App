@@ -26,8 +26,8 @@ export class RegistroConsultaComponent {
 
     this.http.post('http://localhost:5296/api/Consulta', consultaData).subscribe({
       next: response => console.log('Consulta registrada:', response),
-      error: error => alert('ERROR, camps no valids'),
-      complete: () => alert('Operacio completada')
+      error: error => alert('ERROR, campos no válidos'),
+      complete: () => alert('Operación completada.')
     })
   }
 }
