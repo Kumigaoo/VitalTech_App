@@ -2,7 +2,7 @@ import { Routes, RouterModule } from "@angular/router";
 import { NgModule } from "@angular/core";
 import {PlantaComponent} from "../../../pages/inicio/pages/planta/planta.component";
 import { ModifPlantaComponent } from "../../../pages/inicio/pages/planta/pages/modif-planta/modif-planta.component";
-import { RegistroIngresoComponent } from "../../../pages/inicio/pages/ingreso/pages/registro-ingres/registro-ingreso.component";
+import { RegistroPlantaComponent } from "../../../pages/inicio/pages/planta/pages/registro-planta/registro-planta.component";
 
 const routes: Routes = [
     {
@@ -15,7 +15,7 @@ const routes: Routes = [
     },
     {
         path: 'registro-planta',
-        component: RegistroIngresoComponent
+        component: RegistroPlantaComponent
         
     }
 

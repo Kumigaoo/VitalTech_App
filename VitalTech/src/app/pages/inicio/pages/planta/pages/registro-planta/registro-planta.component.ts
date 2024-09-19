@@ -18,6 +18,7 @@ export class RegistroPlantaComponent {
 
 
   onSubmit(){
+    
     const plantaData = this.plantaForm.value;
 
     this.http.post('http://localhost:5296/api/Planta', plantaData).subscribe({

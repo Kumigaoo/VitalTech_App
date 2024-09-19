@@ -92,7 +92,8 @@ namespace HospitalAPI.Controllers
             await _bbdd.SaveChangesAsync();
 
             _logger.LogInformation("Episodi creat exitosament.");
-            return CreatedAtRoute("GetEpi", _mapper.Map<EpisodiMedicCreateDTO>(episodi));
+
+            return StatusCode(201, "Episodi creada satisfactoriamente");
 
         }
 

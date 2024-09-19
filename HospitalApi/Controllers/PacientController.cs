@@ -88,7 +88,7 @@ namespace HospitalAPI.Controllers
             await _bbdd.SaveChangesAsync();
 
             _logger.LogInformation("Pacient afegit exitosament.");
-            return CreatedAtRoute("GetPacient", _mapper.Map<PacientCreateDTO>(pacient));
+            return StatusCode(201, "Pacient creada satisfactoriamente");
 
         }
 

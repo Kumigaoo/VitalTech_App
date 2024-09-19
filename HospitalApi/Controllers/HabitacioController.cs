@@ -88,7 +88,7 @@ namespace HospitalAPI.Controllers
 
             var planta = await _bbdd
                 .Plantes.Include(h => h.Habitacions)
-                .FirstOrDefaultAsync(h => h.Id == userHabDTO.PlantaId);
+                .FirstOrDefaultAsync(p => p.Id == userHabDTO.PlantaId);
 
             if (planta == null)
             {
@@ -111,10 +111,13 @@ namespace HospitalAPI.Controllers
             habitacio.PlantaId = planta.Id;
 
             await _bbdd.Habitacions.AddAsync(habitacio);
+            
             await _bbdd.SaveChangesAsync();
 
             _logger.LogInformation("Habitació creada correctament.");
-            return CreatedAtRoute("GetHab", _mapper.Map<HabitacioCreateDTO>(habitacio));
+            
+            return StatusCode(201, "Habitació creada satisfactoriamente");
+
         }
 
         [HttpDelete("{id:int}")]

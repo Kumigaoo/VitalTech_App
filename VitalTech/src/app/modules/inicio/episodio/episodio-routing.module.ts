@@ -26,6 +26,6 @@ const routes: Routes = [
     exports: [RouterModule]
 })
 
-export class CamaRoutes {
+export class EpisodioRout {
     
 }

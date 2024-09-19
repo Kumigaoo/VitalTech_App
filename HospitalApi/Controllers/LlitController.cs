@@ -114,7 +114,9 @@ namespace HospitalAPI.Controllers
             await _bbdd.SaveChangesAsync();
 
             _logger.LogInformation("Llit creat exitosament.");
-            return CreatedAtRoute("GetLlit", _mapper.Map<LlitCreateDTO>(llit));
+            return StatusCode(201, "Llit creat satisfactoriamente");
+
+
 
         }
 
