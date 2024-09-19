@@ -24,9 +24,7 @@ export class HabitacioService {
   // GET{id}
   getHabitacio(id: number): Observable<Habitacio> {
 
-    let params = new HttpParams().set('id', id)
-
-    return this.http.get<Habitacio>(`${this.apiUrl}/id`, { params });
+    return this.http.get<Habitacio>(`${this.apiUrl}/${id}`);
 
   }
 
