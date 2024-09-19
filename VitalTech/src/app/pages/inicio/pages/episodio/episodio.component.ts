@@ -93,7 +93,7 @@ export class EpisodioComponent {
   }
 
   modificarEpisodi(id: number): void {
-    this.router.navigate(['/modif-episodi', id]);
+    this.router.navigate(['inicio/episodio/modif-episodio', id]);
   }
 
   deleteEpisodi(id: number): void {
@@ -111,7 +111,9 @@ export class EpisodioComponent {
 
       this.episodiService.deleteEpisodi(String(id)).subscribe({
         next: response => {
+          this.loadEpisodis();
           Swal.fire({
+            
             icon: 'success',
             title: 'Episodio médico eliminado',
             text: 'El episodio médico se ha registrado correctamente.'
