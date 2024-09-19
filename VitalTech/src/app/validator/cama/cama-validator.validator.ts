@@ -1,4 +1,4 @@
-import { AbstractControl, AsyncValidatorFn, ValidationErrors } from '@angular/forms';
+import { AbstractControl, ValidatorFn, AsyncValidatorFn, ValidationErrors, FormGroup, Form } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { CamasService } from '../../service/camas.service';
@@ -39,3 +39,31 @@ export function habidValidator(habitacionService: HabitacioService): AsyncValida
         ));
     };
 }
+
+export function codiLlitHabitacioValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+        const formGroup = control as FormGroup;
+        
+        const codillit = formGroup.get('codiLlit')?.value;
+        const habitacioId = formGroup.get('habitacioId')?.value;
+
+
+        if(!codillit || !habitacioId){
+            return null;
+        }
+
+
+        const codiLlitPrefix = codillit.substring(0,3);
+
+        if (codiLlitPrefix == habitacioId.toString()) {
+            return null;
+        } else {
+            return { codiLlitHabitacioMismatch: true };
+        }
+    }
+}
+
+
+
+
+

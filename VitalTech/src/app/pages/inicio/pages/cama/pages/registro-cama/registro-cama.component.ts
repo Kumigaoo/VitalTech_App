@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CamasService } from '../../../../../../service/camas.service';
-import { camaidValidator, habidValidator } from '../../../../../../validator/cama/cama-validator.validator';
+import { camaidValidator, codiLlitHabitacioValidator, habidValidator } from '../../../../../../validator/cama/cama-validator.validator';
 import { HabitacioService } from '../../../../../../service/habitaciones.service';
 import Swal from 'sweetalert2';
 
@@ -23,13 +23,34 @@ export class RegistroCamaComponent {
         asyncValidators: [camaidValidator(this.llitService)],
         updateOn: 'blur'
       }],
+      ocupat: [''],
+      foraDeServei: [''],
       habitacioId: ['', {
         validators: [Validators.required, Validators.pattern(/^\d{3}$/)],
         asyncValidators: [habidValidator(this.habitacioService)],
         updateOn: 'blur'
       }]
+    }, {
+      validator: codiLlitHabitacioValidator()
+    });
+    this.validadorDeDisponibilidad();
+  }
+
+  validadorDeDisponibilidad(){
+    this.llitForm.get('ocupat')?.valueChanges.subscribe((isOcupat) => {
+      if(isOcupat == 'true'){
+        this.llitForm.get('foraDeServei')?.setValue('false', {emitEvent: false });
+      }
+    });
+
+    this.llitForm.get('foraDeServei')?.valueChanges.subscribe((isForaDeServei) => {
+      if(isForaDeServei == 'true'){
+        this.llitForm.get('ocupat')?.setValue('false', {emitEvent: false});
+      }
     });
   }
+
+
   onSubmit(){
     if(this.llitForm.invalid){
       this.llitForm.markAllAsTouched();
@@ -55,10 +76,4 @@ export class RegistroCamaComponent {
     })
   }
 }
-
-    // this.http.post('http://localhost:5296/api/Llit', llitData).subscribe({
-    //   next: response => console.log('Llit registrada:', response),
-    //   error: error => alert('ERROR, camps no valids'),
-    //   complete: () => alert('Operacio completada'),
-    // })
     
