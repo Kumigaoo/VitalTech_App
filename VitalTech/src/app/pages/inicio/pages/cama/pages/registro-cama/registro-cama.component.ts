@@ -3,7 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CamasService } from '../../../../../../service/camas.service';
-import { camaidValidator } from '../../../../../../validator/cama/cama-id.validator';
+import { camaidValidator, habidValidator } from '../../../../../../validator/cama/cama-validator.validator';
+import { HabitacioService } from '../../../../../../service/habitaciones.service';
 @Component({
   selector: 'app-registro-cama',
   templateUrl: './registro-cama.component.html',
@@ -12,15 +13,18 @@ import { camaidValidator } from '../../../../../../validator/cama/cama-id.valida
 export class RegistroCamaComponent {
   llitForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private http: HttpClient,private router: Router, private route: ActivatedRoute,private llitService: CamasService){
+  constructor(private fb: FormBuilder, private http: HttpClient,private router: Router, private route: ActivatedRoute,private llitService: CamasService, private habitacioService: HabitacioService){
     this.llitForm = this.fb.group({
       codiLlit: ['', {
         validators: [Validators.required, Validators.minLength(4), Validators.pattern(/^\d{3}[AB]$/)],
         asyncValidators: [camaidValidator(this.llitService)],
         updateOn: 'blur'
       }],
-      ocupat: ['', Validators.required],
-      habitacioId: ['', Validators.required],
+      habitacioId: ['', {
+        validators: [Validators.required, Validators.pattern(/^\d{3}$/)],
+        asyncValidators: [habidValidator(this.habitacioService)],
+        updateOn: 'blur'
+      }]
     });
   }
   onSubmit(){
