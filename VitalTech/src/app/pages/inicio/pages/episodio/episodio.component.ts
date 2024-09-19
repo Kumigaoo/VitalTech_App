@@ -5,6 +5,7 @@ import { EpisodiMedic } from '../../../../interface/episodis-medics.interface';
 import { ConsultesPopupComponent } from '../../../../components/pop-ups/consultes-popup/consultes-popup.component';
 import { IngressosPopupComponent } from '../../../../components/pop-ups/ingressos-popup/ingressos-popup.component';
 import { MatDialog } from '@angular/material/dialog';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-episodio',
@@ -81,7 +82,7 @@ export class EpisodioComponent {
           }
         }
         break;
-     
+
     }
 
     this.episodis = busqueda;
@@ -97,15 +98,35 @@ export class EpisodioComponent {
 
   deleteEpisodi(id: number): void {
     if (confirm('¿Estás seguro de querer eliminar este episodio médico?')) {
+
+      // this.episodiService.deleteEpisodi(String(id)).subscribe({
+      //   next: () => {
+      //     alert('Episodio médico eliminado correctamente.');
+      //     this.loadEpisodis();
+      //   },
+      //   error: (error) => {
+      //     alert('Error, no se puede eliminar este episodio médico: todavía existen consultas o ingresos.');
+      //   }
+      // });
+
       this.episodiService.deleteEpisodi(String(id)).subscribe({
-        next: () => {
-          alert('Episodio médico eliminado correctamente.');
-          this.loadEpisodis();
+        next: response => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Episodio médico eliminado',
+            text: 'El episodio médico se ha registrado correctamente.'
+          });
         },
-        error: (error) => {
-          alert('Error, no se puede eliminar este episodio médico: todavía existen consultas o ingresos.');
-        }
+        error: error => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Error, no se puede eliminar este episodio médico: todavía existen consultas o ingresos.'
+          });
+        }        
       });
+
+
     }
   }
 
@@ -138,25 +159,25 @@ export class EpisodioComponent {
       this.updatePage();
     }
   }
-    
+
   openConsultes(episodi: any): void {
     this.dialog.open(ConsultesPopupComponent, {
       data: { consultes: episodi.consultes },
-      width: '80vw', 
-      height: '70vh', 
+      width: '80vw',
+      height: '70vh',
       maxWidth: '1000px',
-      maxHeight: '500px' 
+      maxHeight: '500px'
     });
   }
 
   openIngressos(episodi: any): void {
     this.dialog.open(IngressosPopupComponent, {
       data: { ingressos: episodi.ingressos },
-      width: '80vw', 
-      height: '70vh', 
+      width: '80vw',
+      height: '70vh',
       maxWidth: '1000px',
-      maxHeight: '500px' 
+      maxHeight: '500px'
     });
   }
-  
+
 }
