@@ -6,7 +6,7 @@
         <div class= "identificador">
             <div class = "capzalera4">
                 <label for="codiLlit">ID de cama:</label> 
-                <input type="text" id="codiLlit" ngModel name="codiLlit" formControlName="codiLlit" required
+                <input type="text" id="codiLlit" name="codiLlit" formControlName="codiLlit" required
                 [ngClass]="{'is-invalid': llitForm.get('codiLlit')?.touched && llitForm.get('codiLlit')?.invalid}">
                 <div class="error-messages" *ngIf="llitForm.get('codiLlit')?.touched  && llitForm.get('codiLlit')?.invalid">
                     <small *ngIf="llitForm.get('codiLlit')?.hasError('required')">Este campo es obligatorio</small>
@@ -17,7 +17,14 @@
             </div>         
             <div class = "capzalera1">
                 <label for="ocupat">Ocupada:</label>
-                <select id="ocupat" ngModel name="ocupat" formControlName="ocupat">
+                <select id="ocupat" name="ocupat" formControlName="ocupat">
+                    <option value="true">Sí</option>
+                    <option value="false">No</option>
+                </select>
+            </div>
+            <div class = "capzalera2">
+                <label for="foraDeServei">Fuera de servicio:</label>
+                <select id="foraDeServei" ngModel name="ForaDeServei" formControlName="foraDeServei">
                     <option value="true">Sí</option>
                     <option value="false">No</option>
                 </select>
@@ -25,7 +32,7 @@
             <div class = "masInfo">
                 <div class="capzalera1">
                     <label for="habitacioId">ID habitación:</label>
-                    <input type="number" id="habitacioId" ngModel name="habitacioId" formControlName = "habitacioId" required>
+                    <input type="number" id="habitacioId" name="habitacioId" formControlName = "habitacioId" required>
                     <div *ngIf="llitForm.get('habitacioId')?.touched && llitForm.get('habitacioId')?.invalid" class="text-danger">
                         <small *ngIf="llitForm.get('habitacioId')?.hasError('required')">Este campo es obligatorio</small>
                     </div>

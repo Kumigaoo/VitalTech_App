@@ -45,7 +45,7 @@ namespace HospitalAPI.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<HabitacioDTO>> GetLlit(string id)
+        public async Task<ActionResult<LlitCreateDTO>> GetLlit(string id)
         {
 
             if (id.Length < 4)
@@ -70,7 +70,7 @@ namespace HospitalAPI.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<HabitacioCreateDTO>> PostLlit([FromBody] LlitCreateDTO userLlitDTO)
+        public async Task<ActionResult<LlitCreateDTO>> PostLlit([FromBody] LlitCreateDTO userLlitDTO)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
@@ -114,7 +114,7 @@ namespace HospitalAPI.Controllers
             await _bbdd.SaveChangesAsync();
 
             _logger.LogInformation("Llit creat exitosament.");
-            return CreatedAtAction(nameof(GetLlit), new { id = userLlitDTO.HabitacioId }, userLlitDTO);
+            return CreatedAtAction(nameof(GetLlit), new { id = userLlitDTO.CodiLlit }, userLlitDTO);
 
 
 

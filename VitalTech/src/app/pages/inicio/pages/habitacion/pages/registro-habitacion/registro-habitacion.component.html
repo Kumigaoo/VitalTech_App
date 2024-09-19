@@ -3,23 +3,23 @@
 <div class="container">
     <h2>Formulario de registro de habitaciones</h2>
 
-    <form type="submit" (ngSubmit)="onSubmit()" >
+    <form type="submit" [formGroup]="habitacionForm" (ngSubmit)="onSubmit()" >
         <div class="identificador">
 
             <div class="capzalera4">
                 <label for="CodiHabitacio">ID de habitación:</label>
-                <input type="text" id="CodiHabitacio" ngModel name="CodiHabitacio" required>
+                <input type="text" id="CodiHabitacio" name="CodiHabitacio" formControlName="CodiHabitacio" required>
             </div>
 
             <div class="capzalera1">
                 <label for="PlantaId">ID de planta:</label>
-                <input type="text" id="PlantaId" ngModel name="PlantaId" name="PlantaId" required>
+                <input type="text" id="PlantaId" name="PlantaId" formControlName="PlantaId" required>
             </div>
 
             <div class="masInfo">
                 <div class="capzalera1">
                     <label for="CapacitatLlits">Capacidad de camas:</label>
-                    <input type="text" id="CapacitatLlits" ngModel name="CapacitatLlits" required>
+                    <input type="text" id="CapacitatLlits" name="CapacitatLlits" formControlName="CapacitatLlits" required>
                 </div>
             </div>
 

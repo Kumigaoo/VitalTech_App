@@ -18,14 +18,13 @@ export class RegistroHabitacionComponent {
       CodiHabitacio: [''],
       PlantaId:[''],
       CapacitatLlits: ['']
-      
     })
   }
 
   onSubmit() {
     const habitacionData = this.habitacionForm.value;
     this.habService.postHabitacio(habitacionData).subscribe({
-      next: response => alert('Personal creat'),
+      next: response => alert('Habitació creada'),
       error: error => alert('Error, camps no vàlids'),
       complete: () => alert('Operació completada'),
   });

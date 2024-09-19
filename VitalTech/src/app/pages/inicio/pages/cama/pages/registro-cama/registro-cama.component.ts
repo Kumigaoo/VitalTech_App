@@ -21,6 +21,7 @@ export class RegistroCamaComponent {
         asyncValidators: [camaidValidator(this.llitService)],
         updateOn: 'blur'
       }],
+      foraDeServei: ['', Validators.required],
       ocupat: ['', Validators.required],
       habitacioId: ['', Validators.required],
     });
@@ -32,7 +33,7 @@ export class RegistroCamaComponent {
     }
     const llitData = this.llitForm.value;
     
-    this.http.post('http://localhost:5296/api/EpisodiMedic', llitData).subscribe({
+    this.http.post('http://localhost:5296/api/Llit', llitData).subscribe({
       next: response => {
         Swal.fire({
           icon: 'success',
