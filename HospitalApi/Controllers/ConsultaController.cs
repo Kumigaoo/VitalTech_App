@@ -93,7 +93,8 @@ namespace HospitalAPI.Controllers
             await _bbdd.Consultes.AddAsync(consulta);
             await _bbdd.SaveChangesAsync();
 
-            return CreatedAtRoute("GetCon", _mapper.Map<ConsultaCreateDTO>(consulta));
+            return StatusCode(201, "Consulta creada satisfactoriamente");
+
         }
 
         [HttpDelete("{id:int}")]

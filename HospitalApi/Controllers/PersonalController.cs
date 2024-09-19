@@ -87,7 +87,8 @@ namespace HospitalAPI.Controllers
             await _bbdd.Personals.AddAsync(personal);
             await _bbdd.SaveChangesAsync();
 
-            return CreatedAtRoute("GetPer", _mapper.Map<PersonalCreateDTO>(personal));
+            return StatusCode(201, "Personal creada satisfactoriamente");
+
         }
 
         [HttpDelete("{id}")]
@@ -108,7 +109,7 @@ namespace HospitalAPI.Controllers
             _bbdd.Personals.Remove(personal);
             await _bbdd.SaveChangesAsync();
 
-            _logger.LogInformation("Personal esborrat amb èxit.");
+            _logger.LogInformation("Personal esborrat amb ï¿½xit.");
             return NoContent();
         }
 

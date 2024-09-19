@@ -22,6 +22,10 @@ export class PlantaService {
     return this.http.get<Planta>(url);
   }
 
+  postPlanta(planta : Planta): Observable<Planta> {
+    return this.http.post<Planta>(this.apiUrl,planta);
+  }
+
   deletePlanta(id:number): Observable<Planta> {
     const url = `${this.apiUrl}/${id}`;
     return this.http.delete<Planta>(url);
