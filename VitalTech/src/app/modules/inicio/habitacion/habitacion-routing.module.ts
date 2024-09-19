@@ -10,7 +10,7 @@ const routes: Routes = [
         component: HabitacionComponent
     },
     {
-        path: 'modif-habitacion',
+        path: 'modif-habitacion/:id',
         component: ModifHabitacionComponent
     },
     {

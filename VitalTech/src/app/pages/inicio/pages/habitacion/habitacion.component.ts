@@ -78,7 +78,7 @@ export class HabitacionComponent implements OnInit {
 
   // Actualizar habitacio
   updateHabitacio(habitacio: Habitacio) {
-    this.router.navigate(['/modif-habitacion', habitacio.codiHabitacio]);
+    this.router.navigate(['/inicio/habitacion/modif-habitacion', habitacio.codiHabitacio]);
   }
 
   // Eliminar habitacio
