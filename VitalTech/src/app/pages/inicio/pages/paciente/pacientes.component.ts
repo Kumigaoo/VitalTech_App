@@ -71,6 +71,16 @@ export class PacientesComponent {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
     this.pagedPacient = this.pacients.slice(startIndex, endIndex);
+
+    if(this.pacients.length == 0){
+      return;
+    }
+
+    if(this.pagedPacient.length == 0) {
+        this.currentPage = this.currentPage - 1;
+        this.loadPacients();
+    }
+    
   }
 
   nextPage(): void {

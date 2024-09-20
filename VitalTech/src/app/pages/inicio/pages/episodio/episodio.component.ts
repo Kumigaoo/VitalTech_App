@@ -47,6 +47,16 @@ export class EpisodioComponent {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
     this.pagedEpisodis = this.episodis.slice(startIndex, endIndex);
+
+    if(this.episodis.length == 0){
+      return;
+    }
+
+    if(this.pagedEpisodis.length == 0) {
+        this.currentPage = this.currentPage - 1;
+        this.loadEpisodis();
+    }
+
   }
 
   searchEpisodi(): void {
@@ -134,17 +144,6 @@ export class EpisodioComponent {
       }
     });
   }
-
-  //delete antiguo
-  //     // this.episodiService.deleteEpisodi(String(id)).subscribe({
-  //     //   next: () => {
-  //     //     alert('Episodio médico eliminado correctamente.');
-  //     //     this.loadEpisodis();
-  //     //   },
-  //     //   error: (error) => {
-  //     //     alert('Error, no se puede eliminar este episodio médico: todavía existen consultas o ingresos.');
-  //     //   }
-  //     // });
 
   nextPage() {
     if(this.currentPage < this.totalPages) {

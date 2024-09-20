@@ -115,6 +115,16 @@ export class HabitacionComponent implements OnInit {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
     this.pagedConsultes = this.habitacions.slice(startIndex, endIndex);
+
+    if(this.habitacions.length == 0){
+      return;
+    }
+
+    if(this.pagedConsultes.length == 0) {
+        this.currentPage = this.currentPage - 1;
+        this.loadHabitacio();
+    }
+
   }
 
   nextPage(): void {

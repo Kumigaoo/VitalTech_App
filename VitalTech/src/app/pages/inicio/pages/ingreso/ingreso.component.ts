@@ -41,9 +41,16 @@ export class IngresoComponent {
     const startIndex = (this.currentPage -1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
     this.pagedIngress = this.ingressos.slice(startIndex, endIndex);
-    if(this.pagedIngress.length == 0) {
-      
+
+    if(this.ingressos.length == 0){
+      return;
     }
+
+    if(this.pagedIngress.length == 0) {
+        this.currentPage = this.currentPage - 1;
+        this.loadIngres();
+    }
+
   }
 
   updateIngres(idIngres: number) {

@@ -43,6 +43,16 @@ export class PlantaComponent {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
     this.pagedPlantes = this.plantes.slice(startIndex, endIndex);
+
+    if(this.plantes.length == 0){
+      return;
+    }
+
+    if(this.pagedPlantes.length == 0) {
+        this.currentPage = this.currentPage - 1;
+        this.loadPlantes();
+    }
+
   }
   searchPlanta(): void {
     if (!isNaN(this.searchInput)) { 
