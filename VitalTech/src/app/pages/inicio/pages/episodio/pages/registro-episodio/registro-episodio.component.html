@@ -9,12 +9,13 @@
         <div class = "grid-container">
 
             <div>
-                <label for="dataObertura">Fecha de apertura:</label> 
+                <label for="dataObertura">Fecha de apertura:<span style="color: red;">*</span></label> 
                 <input type="date" id="dataObertura" ngModel name="dataObertura" formControlName="dataObertura" required>
             </div>
                 <div>
-                    <label for="dataTancament">Fecha de cierre:</label>
-                    <input type="date" id="dataTancament" ngModel name="dataTancament" formControlName = "dataTancament" required>
+                    <label for="dataTancament">Fecha de cierre:<span style="color: red;">*</span></label>
+                    <input type="date" id="dataTancament" ngModel name="dataTancament" formControlName = "dataTancament" required
+>
                 </div>
            
             <div>
@@ -26,10 +27,9 @@
                 <input type="text" id="estat" ngModel name="estat" formControlName="estat" required>
             </div>
             <div>
-              <label for="pacientId">DNI paciente:</label>
+              <label for="pacientId">DNI paciente:<span style="color: red;">*</span></label>
               <input type="text" id="pacientId" ngModel name="pacientId" formControlName="pacientId" required>
             </div>
-          
         </div>
         <button type="submit">Publicar</button>
     </form>

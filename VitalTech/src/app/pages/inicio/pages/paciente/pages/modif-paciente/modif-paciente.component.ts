@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PacientService } from '../../../../../../service/pacientes.service';
 import { Pacient } from '../../../../../../interface/pacient.interface';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-registro',
@@ -37,18 +38,33 @@ export class ModifPacienteComponent {
     if(this.modiPacientForm.valid) {
       const updatedPacient: Pacient = { ...this.modiPacientForm.getRawValue(), dni: this.pacientId };
       this.pacientService.putPacient(updatedPacient).subscribe({
-        next:() => {
-          alert('Pacient actualizat amb exit');
-          this.router.navigate(['/pacientes']);
+
+        next: response => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Paciente modificado',
+            text: 'El paciente se ha modificado correctamente.'
+          });
         },
-        error: (error) => {
-          console.error('Error al actualitzar el pacient:', error);
-          alert('Error al actualitzar el paciente');
+        error: error => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'ERROR, campos no válidos.'
+          });
         }
+
+        // next:() => {
+        //   alert('Pacient actualizat amb exit');
+        //   this.router.navigate(['/pacientes']);
+        // },
+        // error: (error) => {
+        //   console.error('Error al actualitzar el pacient:', error);
+        //   alert('Error al actualitzar el paciente');
+        // }
       })
 
     }
-
   }
 
 }

@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import Swal from 'sweetalert2';
 
+
+
 @Component({
   selector: 'app-registro-episodio',
   templateUrl: './registro-episodio.component.html',
@@ -21,10 +23,12 @@ export class RegistroEpisodiComponent {
       pacientId: [''],
       consultes: [''],
       ingressos: ['']
-    });
+    }
+);
   }
 
   onSubmit() {
+
     const episodiData = this.episodiForm.value;
 
     if (new Date(episodiData.dataObertura) > new Date(episodiData.dataTancament)) {

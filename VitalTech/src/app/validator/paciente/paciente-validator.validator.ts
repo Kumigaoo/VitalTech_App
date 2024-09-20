@@ -2,6 +2,7 @@ import { AbstractControl, ValidatorFn, AsyncValidatorFn, ValidationErrors, FormG
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { PacientService} from '../../service/pacientes.service';
+import { P } from '@angular/cdk/keycodes';
 
 
 export function pacienteDniValidator(pacienteService: PacientService): AsyncValidatorFn{
@@ -39,4 +40,20 @@ export function pacienteDniLetraCorrect(): ValidatorFn {
             return { dniLletraIncorrect: true};
         }
     }
+}
+
+export function pacienteSSValidator(pacienteService: PacientService): AsyncValidatorFn{
+    return (control: AbstractControl): Observable<ValidationErrors | null> => {
+        if(!control.value){
+            return of(null);
+        }
+
+        return pacienteService.getPacients().pipe(
+            map(pacients => {
+                const pacient = pacients.find(p =>p.numSS === control.value);
+                return pacient ? {pacientSSExistes: true } : null;
+            }),
+            catchError(() => of(null))
+        );
+    };
 }
