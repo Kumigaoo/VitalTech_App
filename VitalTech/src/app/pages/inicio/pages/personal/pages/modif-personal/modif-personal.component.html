@@ -20,7 +20,12 @@
 
             <div class="capzalera1">
                 <label for="name">Especialidad:</label>
-                <input type="text" id="especialitat" ngModel name="especialitat" formControlName="especialitat" required>
+                <select name="Especialidad" id="Especialidad" formControlName="especialitat">
+                    <option value="Cirujano">Cirujano</option>
+                    <option value="Pediatra">Pediatra</option>
+                    <option value="Odontólogo">Odontólogo</option>
+                    <option value="Traumatólogo">Traumatólogo</option>
+                </select>
             </div>
         </div>
         <button type="submit">Modificar empleado</button>
