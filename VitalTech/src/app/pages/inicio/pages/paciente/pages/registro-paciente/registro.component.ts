@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { PacientService } from '../../../../../../service/pacientes.service';
 import { pacienteDniValidator, pacienteDniLetraCorrect } from '../../../../../../validator/paciente/paciente-validator.validator';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-registro',
@@ -39,11 +40,35 @@ export class RegistroComponent {
     }
     const pacienteData = this.pacientForm.value;
 
-    this.pacientService.postPacient(pacienteData).subscribe({
-      next: response => alert('Pacient registrat'),
-      error: error => alert('ERROR, camps no valids '),
-      complete: () => alert('Operacio completada')
+    this.http.post('http://localhost:5296/api/Pacient', pacienteData).subscribe({
+      next: response => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Paciente registrado',
+          text: 'El paciente se ha registrado correctamente.'
+        });
+      },
+      error: error => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'ERROR, campos no válidos.'
+        });
+      },
+      complete: () => {
+        Swal.fire({
+          icon: 'info',
+          title: 'Operación completada',
+          text: 'La operación ha finalizado.'
+        });
+      }
     });
+
+    // this.pacientService.postPacient(pacienteData).subscribe({
+    //   next: response => alert('Pacient registrat'),
+    //   error: error => alert('ERROR, camps no valids '),
+    //   complete: () => alert('Operacio completada')
+    // });
 
   }
 

@@ -5,6 +5,7 @@ import { Pacient } from '../../../../interface/pacient.interface'
 import { MatDialog } from '@angular/material/dialog';
 import { EpisodisMedicsPopupComponent } from '../../../../components/pop-ups/episodis-medics-popup/episodis-medics-popup.component';
 import {Router} from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-pacientes',
@@ -52,15 +53,53 @@ export class PacientesComponent {
 
   deletePacient(id: string): void {
 
-    if(confirm('Esta seguro de eliminar este paciente?')) {
-      this.pacienteService.deletePacient(id).subscribe({
-        error: error => alert('ERROR, el pacient encara té episodis médics'),
-        complete: () => {
-          alert('Pacient Borrat'),
-          this.loadPacients()
-        }
-      });
-    }
+    Swal.fire({
+
+      title: 'Eliminar episodio médico',
+      text: "¿Quieres borrar este episodio médico?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí',
+      cancelButtonText: 'Cancelar'
+
+    }).then((result) => {
+
+      if (result.isConfirmed) { 
+        this.pacienteService.deletePacient(String(id)).subscribe({
+          next: response => {
+            Swal.fire({
+              icon: 'success',
+              title: 'Paciente eliminado',
+              text: 'El paciente ha sido eliminado con éxito.'
+            });
+            if (this.pagedPacient.length === 0){
+                this.currentPage--;
+            }
+            this.loadPacients();
+          },
+          error: error => {
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: 'Error'
+            });
+          }        
+        });
+      }
+    });
+    
+    //delete antiguo por si aca
+    // if(confirm('Esta seguro de eliminar este paciente?')) {
+    //   this.pacienteService.deletePacient(id).subscribe({
+    //     error: error => alert('ERROR, el pacient encara té episodis médics'),
+    //     complete: () => {
+    //       alert('Pacient Borrat'),
+    //       this.loadPacients()
+    //     }
+    //   });
+    // }
   }
 
   updatePacient(idPacient: string) {

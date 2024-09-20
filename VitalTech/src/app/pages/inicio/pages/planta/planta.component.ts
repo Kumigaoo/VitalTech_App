@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NavComponent } from '../../../../components/nav/nav.component';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-planta',
@@ -74,19 +75,57 @@ export class PlantaComponent {
   }
 
   deletePlanta(id: number): void {
-    if (confirm('Estas seguro de eliminar esta planta?')) { 
-      this.plantaService.deletePlanta(id).subscribe({
-        next: () => {
-          console.log('Planta eliminada correctamente');
-          alert('Planta eliminada');
-          this.loadPlantes();
-        },
-        error: (error) => {
-          console.error('Error, no se pudo eliminar esta planta:', error);
-          alert('La planta no se ha eliminado porque tiene habitaciones o camas asociadas');
-        }
-      });
-    }
+
+    Swal.fire({
+
+      title: 'Eliminar planta',
+      text: "¿Quieres borrar esta planta?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí',
+      cancelButtonText: 'Cancelar'
+
+    }).then((result) => {
+
+      if (result.isConfirmed) { 
+        this.plantaService.deletePlanta(id).subscribe({
+          next: response => {
+            Swal.fire({
+              icon: 'success',
+              title: 'Planta eliminada',
+              text: 'La planta ha sido eliminada con éxito.'
+            });
+            if (this.pagedPlantes.length === 0){
+                this.currentPage--;
+            }
+            this.loadPlantes();
+          },
+          error: error => {
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: 'No se puede eliminar esta planta porque todavía tiene habitaciones o camas asociadas.'
+            });
+          }        
+        });
+      }
+    });
+
+    // if (confirm('Estas seguro de eliminar esta planta?')) { 
+    //   this.plantaService.deletePlanta(id).subscribe({
+    //     next: () => {
+    //       console.log('Planta eliminada correctamente');
+    //       alert('Planta eliminada');
+    //       this.loadPlantes();
+    //     },
+    //     error: (error) => {
+    //       console.error('Error, no se pudo eliminar esta planta:', error);
+    //       alert('La planta no se ha eliminado porque tiene habitaciones o camas asociadas');
+    //     }
+    //   });
+    // }
   }
 
   modificarPlanta(id: number): void {

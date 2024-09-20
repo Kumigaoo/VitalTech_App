@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
+
 @Component({
   selector: 'app-registro-planta',
   templateUrl: './registro-planta.component.html',
@@ -21,9 +23,33 @@ export class RegistroPlantaComponent {
   onSubmit(){
     const plantaData = this.plantaForm.value;
     this.http.post('http://localhost:5296/api/Planta', plantaData).subscribe({
-      next: response => console.log('Planta registrada:', response),
-      error: error => alert('ERROR, camps no valids'),
-      complete: () => alert('Operacio completada')
-    })
+      next: response => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Planta registrada',
+          text: 'La planta se ha registrado correctamente.'
+        });
+      },
+      error: error => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'ERROR, campos no válidos.'
+        });
+      },
+      complete: () => {
+        Swal.fire({
+          icon: 'info',
+          title: 'Operación completada',
+          text: 'La operación ha finalizado.'
+        });
+      }
+    });
+
+    // this.http.post('http://localhost:5296/api/Planta', plantaData).subscribe({
+    //   next: response => console.log('Planta registrada:', response),
+    //   error: error => alert('ERROR, camps no valids'),
+    //   complete: () => alert('Operacio completada')
+    // })
   }
 }

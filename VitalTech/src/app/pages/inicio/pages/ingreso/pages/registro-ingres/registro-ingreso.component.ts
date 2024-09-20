@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { IngresService } from '../../../../../../service/ingres.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-registro-ingreso',
@@ -35,11 +36,36 @@ export class RegistroIngresoComponent {
       return;
     }
 
-    this.ingresService.postIngres(ingresData).subscribe({
-      next: response => alert('Ingres registrat'),
-      error: error => alert('ERROR, camps no valids '),
-      complete: () => alert('Operacio completada')
+    // this.ingresService.postIngres(ingresData).subscribe({
+    //   next: response => alert('Ingres registrat'),
+    //   error: error => alert('ERROR, camps no valids '),
+    //   complete: () => alert('Operacio completada')
+    // });
+
+    this.http.post('http://localhost:5296/api/Ingres', ingresData).subscribe({
+      next: response => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Ingreso registrado',
+          text: 'El ingreso se ha registrado correctamente.'
+        });
+      },
+      error: error => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'ERROR, campos no válidos.'
+        });
+      },
+      complete: () => {
+        Swal.fire({
+          icon: 'info',
+          title: 'Operación completada',
+          text: 'La operación ha finalizado.'
+        });
+      }
     });
+
 
   }
 

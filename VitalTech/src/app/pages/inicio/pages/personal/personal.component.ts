@@ -5,14 +5,13 @@ import { MetgeService } from '../../../../service/metge.service';
 import { Metge } from '../../../../interface/metge.interface';
 import { ConsultesPopupComponent } from '../../../../components/pop-ups/consultes-popup/consultes-popup.component';
 import { MatDialog } from '@angular/material/dialog';
-
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-metge',
   templateUrl: './personal.component.html',
   styleUrl: './personal.component.css'
 })
-
 
 export class PersonalComponent {
 
@@ -143,13 +142,52 @@ export class PersonalComponent {
   }
 
   deletePersonal(idPersonal : string) {
-    if(confirm('¿Desea eliminar este personal?')){
-      this.metgeService.deletePacient(idPersonal).subscribe({
-      error: error => alert('Hay Consultas relacionadas'),
-      complete: () => {
-        alert('Borrado con éxito'), this.loadPersonal()
+
+    Swal.fire({
+
+      title: 'Eliminar episodio médico',
+      text: "¿Quieres borrar este episodio médico?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí',
+      cancelButtonText: 'Cancelar'
+
+    }).then((result) => {
+
+      if (result.isConfirmed) { 
+        this.metgeService.deletePacient(idPersonal).subscribe({
+          next: response => {
+            Swal.fire({
+              icon: 'success',
+              title: 'Empleado eliminado',
+              text: 'El empleado ha sido eliminado con éxito.'
+            });
+            if (this.pagedPersonals.length === 0){
+                this.currentPage--;
+            }
+            this.loadPersonal();
+          },
+          error: error => {
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: 'No se puede eliminar este empleado: todavía existen consultas asociadas.'
+            });
+          }        
+        });
       }
-    })
-  }
+    });
+
+  //   if(confirm('¿Desea eliminar este personal?')){
+  //     this.metgeService.deletePacient(idPersonal).subscribe({
+  //     error: error => alert('Hay Consultas relacionadas'),
+  //     complete: () => {
+  //       alert('Borrado con éxito'), this.loadPersonal()
+  //     }
+  //   })
+  // }
+
 }
 }

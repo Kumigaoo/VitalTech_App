@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MetgeService } from '../../../../../../service/metge.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Metge } from '../../../../../../interface/metge.interface';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-modif-personal',
@@ -33,14 +34,30 @@ export class ModifPersonalComponent {
     if (this.modiPersonalForm.valid) {
       const updatePersonal: Metge = { ...this.modiPersonalForm.getRawValue(), dni: this.personalId };
       this.personalService.putPacient(updatePersonal).subscribe({
-        next: () => {
-          alert("Personal modificat amb éxit");
-          this.router.navigate(['/metge']);
+
+        next: response => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Empleado modificado',
+            text: 'El empleado se ha modificado correctamente.'
+          });
         },
-        error: (error) => {
-          console.error('Error al modificar el personal', error);
-          alert('Error al modificar el personal');
+        error: error => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'ERROR, campos no válidos.'
+          });
         }
+
+        // next: () => {
+        //   alert("Personal modificat amb éxit");
+        //   this.router.navigate(['/metge']);
+        // },
+        // error: (error) => {
+        //   console.error('Error al modificar el personal', error);
+        //   alert('Error al modificar el personal');
+        // }
       })
     }
   }
