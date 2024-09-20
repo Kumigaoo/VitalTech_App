@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
   styleUrl: './ingreso.component.css',
 })
 export class IngresoComponent {
+
   searchCriteria: string = 'id';
   searchInput: string = '';
 
@@ -40,6 +41,9 @@ export class IngresoComponent {
     const startIndex = (this.currentPage -1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
     this.pagedIngress = this.ingressos.slice(startIndex, endIndex);
+    if(this.pagedIngress.length == 0) {
+      
+    }
   }
 
   updateIngres(idIngres: number) {
@@ -54,6 +58,7 @@ export class IngresoComponent {
         alert('Ingres Borrat'), this.loadIngres();
       },
     });
+
   }
   }
 

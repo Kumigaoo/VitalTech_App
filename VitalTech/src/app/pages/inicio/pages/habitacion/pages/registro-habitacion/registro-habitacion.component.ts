@@ -16,8 +16,8 @@ export class RegistroHabitacionComponent {
   constructor(private fb: FormBuilder, private http: HttpClient, private habService: HabitacioService) {
     this.habitacionForm = this.fb.group({
       CodiHabitacio: [''],
-      PlantaId:[''],
-      CapacitatLlits: ['']
+      CapacitatLlits: [''],
+      PlantaId:['']
     })
   }
 
