@@ -16,7 +16,7 @@ export class ModifIngresoComponent {
   modiIngresForm: FormGroup;
   ingresId: number = 0;
 
-  constructor(private fb: FormBuilder, private http: HttpClient, private ingresService: IngresService,private router: Router, private route: ActivatedRoute) {
+  constructor(private fb: FormBuilder, private http: HttpClient, private ingresService: IngresService, private router: Router, private route: ActivatedRoute) {
     this.modiIngresForm = this.fb.group({
       dataEntrada: [''],
       dataSortida: [''],
@@ -26,12 +26,12 @@ export class ModifIngresoComponent {
   }
 
   ngOnInit(): void {
-    this.ingresId = Number(this.route.snapshot.paramMap.get('id')); 
+    this.ingresId = Number(this.route.snapshot.paramMap.get('id'));
     this.ingresService.getIngresId(String(this.ingresId)).subscribe(consulta => {
 
       consulta.dataEntrada = consulta.dataEntrada.split('T')[0];
 
-      if(consulta.dataSortida != null) {
+      if (consulta.dataSortida != null) {
         consulta.dataSortida = consulta.dataSortida.split('T')[0];
       }
 
@@ -40,11 +40,17 @@ export class ModifIngresoComponent {
   }
 
   onUpdate(): void {
-
-    if(this.modiIngresForm.valid) {
+    if (this.modiIngresForm.valid) {
       const updatedIngres: Ingres = { ...this.modiIngresForm.getRawValue(), id: this.ingresId };
+      if (updatedIngres.dataEntrada > updatedIngres.dataSortida) {
+        alert("No se puede viajar al pasado");
+        return;
+      } else if (new Date(updatedIngres.dataEntrada) > new Date()) {
+        alert("No puedes viajar al futuro");
+        return;
+      }
       this.ingresService.putIngres(updatedIngres).subscribe({
-        next:() => {
+        next: () => {
           alert('Ingres actualizat amb exit');
           this.router.navigate(['/ingres']);
         },
