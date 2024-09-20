@@ -55,8 +55,8 @@ export class PacientesComponent {
 
     Swal.fire({
 
-      title: 'Eliminar episodio médico',
-      text: "¿Quieres borrar este episodio médico?",
+      title: 'Eliminar paciente',
+      text: "¿Quieres borrar este paciente?",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
