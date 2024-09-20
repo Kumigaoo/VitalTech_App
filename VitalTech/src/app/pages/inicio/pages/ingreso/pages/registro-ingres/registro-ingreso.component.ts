@@ -27,6 +27,14 @@ export class RegistroIngresoComponent {
 
     const ingresData = this.ingresForm.value;
 
+    if (ingresData.dataEntrada > ingresData.dataSortida) {
+      alert("No se puede viajar al pasado");
+      return;
+    } else if (new Date(ingresData.dataEntrada) > new Date()) {
+      alert("No puedes viajar al futuro");
+      return;
+    }
+
     this.ingresService.postIngres(ingresData).subscribe({
       next: response => alert('Ingres registrat'),
       error: error => alert('ERROR, camps no valids '),

@@ -47,6 +47,16 @@ export class PersonalComponent {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
     this.pagedPersonals = this. metges.slice(startIndex, endIndex);
+
+    if(this.metges.length == 0){
+      return;
+    }
+
+    if(this.pagedPersonals.length == 0) {
+        this.currentPage = this.currentPage - 1;
+        this.loadPersonal();
+    }
+
   }
 
   openConsultes(metge: any): void {

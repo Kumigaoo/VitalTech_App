@@ -50,6 +50,15 @@ export class ModifEpisodiComponent {
     
     if (this.modifEpisodiForm.valid) {
       const updatedPacient: EpisodiMedic = { ...this.modifEpisodiForm.getRawValue(), id: this.episodiId };
+
+      if (new Date(updatedPacient.dataObertura) > new Date(updatedPacient.dataTancament)) {
+        alert("No se puede viajar al pasado");
+        return;
+      } else if (new Date(updatedPacient.dataObertura) > new Date()) {
+        alert("No puedes viajar al futuro");
+        return;
+      }
+
       this.episodiService.putEpisodi(updatedPacient).subscribe({
 
         // next:() => {

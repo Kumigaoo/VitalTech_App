@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConsultaService } from '../../../../../../service/consulta.service';
 import { Consulta } from '../../../../../../interface/consulta.interface';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-modif-consulta',
@@ -35,19 +36,37 @@ export class ModifConsultaComponent {
   }
 
   onActualice(): void {
+
     if(this.consultaForm.valid) {
       const updatedConsulta: Consulta = { ...this.consultaForm.getRawValue(), id: this.consultaId };
       this.consultaService.putConsulta(updatedConsulta).subscribe({
-        next:() => {
-          alert('Consulta actualitzada amb exit');
-          this.router.navigate(['/consulta']);
+
+        next: response => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Consulta modificada',
+            text: 'La consulta se ha modificado correctamente.'
+          });
         },
-        error: (error) => {
-          console.error('Error al actualitzar la consulta:', error);
-          alert('Error al actualitzar la consulta');
+        error: error => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'ERROR, campos no válidos.'
+          });
         }
+
+        // next:() => {
+        //   alert('Consulta actualitzada amb exit');
+        //   this.router.navigate(['/consulta']);
+        // },
+        // error: (error) => {
+        //   console.error('Error al actualitzar la consulta:', error);
+        //   alert('Error al actualitzar la consulta');
+        // }
       })
     }
+
   }
 
   onActualicePatch(): void {

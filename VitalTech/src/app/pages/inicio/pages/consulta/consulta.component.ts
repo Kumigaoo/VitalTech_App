@@ -44,6 +44,16 @@ export class ConsultaComponent {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
     this.pagedConsultes = this.consultes.slice(startIndex, endIndex);
+
+    if(this.consultes.length == 0){
+      return;
+    }
+
+    if(this.pagedConsultes.length == 0) {
+        this.currentPage = this.currentPage - 1;
+        this.loadConsultes();
+    }
+
   }
 
   deleteConsulta(id: number): void {

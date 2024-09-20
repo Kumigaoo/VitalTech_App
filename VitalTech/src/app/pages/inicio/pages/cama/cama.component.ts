@@ -43,6 +43,16 @@ export class CamaComponent {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
     this.pagedLlits = this.llits.slice(startIndex, endIndex);
+
+    if(this.llits.length == 0){
+      return;
+    }
+
+    if(this.pagedLlits.length == 0) {
+        this.currentPage = this.currentPage - 1;
+        this.loadLlits();
+    }
+
   }
 
   openIngressos(episodi: any): void {
@@ -138,25 +148,11 @@ export class CamaComponent {
       }
     });
   }
-    // antiguo delete
-    // if (confirm('Estas seguro de eliminar esta cama?')) { 
-     // this.llitService.deleteLlit(id).subscribe({
-
-        // next: () => {
-        //   alert('Cama eliminada');
-        //   if (this.pagedLlits.length === 0){
-        //     this.currentPage--;
-        //   }
-        //   this.loadLlits();
-        // },
-        // error: (error) => {
-        //   alert('La cama no se ha eliminado porque tiene ingresos asociados');
-        // }
- 
 
   modificarLlit(id: string): void {
     this.router.navigate(['/inicio/cama/modif-cama', id]);
   }
+
   nextPage() {
     if(this.currentPage < this.totalPages) {
       this.currentPage++;

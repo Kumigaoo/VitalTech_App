@@ -5,7 +5,7 @@ import { HabitacioService } from '../../../../service/habitaciones.service';
 import { LlitsPopupComponent } from '../../../../components/pop-ups/llits-popup/llits-popup.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-habitacion',
@@ -84,18 +84,42 @@ export class HabitacionComponent implements OnInit {
   // Eliminar habitacio
   deleteHabitacio(id: number) {
 
-    if(confirm('¿Esta seguro de eliminar esta habitación?')){
-      this.habService.deleteHabitacio(id).subscribe({
-      next: (response) => {
-        console.log('Habitació eliminada amb èxit', response);
-        this.loadHabitacions();
-      },
-      error: (error) => {
-        console.error('Error al eliminar la habitació', error);
+    Swal.fire({
+
+      title: 'Eliminar habitación',
+      text: "¿Quieres borrar esta habitación?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí',
+      cancelButtonText: 'Cancelar'
+
+    }).then((result) => {
+
+      if (result.isConfirmed) { 
+        this.habService.deleteHabitacio(id).subscribe({
+          next: response => {
+            Swal.fire({
+              icon: 'success',
+              title: 'Habitación eliminada',
+              text: 'La habitación ha sido eliminada con éxito.'
+            });
+            if (this.pagedConsultes.length === 0){
+                this.currentPage--;
+            }
+            this.loadHabitacions();
+          },
+          error: error => {
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: 'Error, no se puede eliminar esta habitación.'
+            });
+          }        
+        });
       }
     });
-  }
-
   }
 
   // Mostre els llits
@@ -115,6 +139,16 @@ export class HabitacionComponent implements OnInit {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
     this.pagedConsultes = this.habitacions.slice(startIndex, endIndex);
+
+    if(this.habitacions.length == 0){
+      return;
+    }
+
+    if(this.pagedConsultes.length == 0) {
+        this.currentPage = this.currentPage - 1;
+        this.loadHabitacio();
+    }
+
   }
 
   nextPage(): void {
