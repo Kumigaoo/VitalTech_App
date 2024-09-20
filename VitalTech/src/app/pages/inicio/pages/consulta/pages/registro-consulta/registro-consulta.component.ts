@@ -25,7 +25,7 @@ export class RegistroConsultaComponent {
   onSubmit(){
     const consultaData = this.consultaForm.value;
 
-    this.http.post('http://localhost:5296/api/EpisodiMedic', consultaData).subscribe({
+    this.http.post('http://localhost:5296/api/Consulta', consultaData).subscribe({
       next: response => {
         Swal.fire({
           icon: 'success',
@@ -42,10 +42,5 @@ export class RegistroConsultaComponent {
       }
     });
 
-    // this.http.post('http://localhost:5296/api/Consulta', consultaData).subscribe({
-    //   next: response => console.log('Consulta registrada:', response),
-    //   error: error => alert('ERROR, campos no válidos'),
-    //   complete: () => alert('Operación completada.')
-    // })
   }
 }
