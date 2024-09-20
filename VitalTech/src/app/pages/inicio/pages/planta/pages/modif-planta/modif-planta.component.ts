@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Planta } from '../../../../../../interface/planta.interface';
 import { PlantaService } from '../../../../../../service/planta.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-modif-planta',
@@ -31,17 +32,34 @@ export class ModifPlantaComponent {
   }
 
   onActualice(): void {
+
     if(this.plantaForm.valid) {
       const updatedLlit: Planta = { ...this.plantaForm.getRawValue(), id: this.plantaId };
       this.plantaService.putPlanta(updatedLlit).subscribe({
-        next:() => {
-          alert('Planta actualitzada amb exit');
-          this.router.navigate(['/planta']);
+
+        next: response => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Planta modificada',
+            text: 'La planta se ha modificado correctamente.'
+          });
         },
-        error: (error) => {
-          console.error('Error al actualitzar la planta:', error);
-          alert('Error al actualitzar la planta');
+        error: error => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'ERROR, campos no válidos.'
+          });
         }
+
+        // next:() => {
+        //   alert('Planta actualitzada amb exit');
+        //   this.router.navigate(['/planta']);
+        // },
+        // error: (error) => {
+        //   console.error('Error al actualitzar la planta:', error);
+        //   alert('Error al actualitzar la planta');
+        // }
       })
 
     }

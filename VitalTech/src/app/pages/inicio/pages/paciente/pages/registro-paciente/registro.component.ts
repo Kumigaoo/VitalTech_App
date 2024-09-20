@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { PacientService } from '../../../../../../service/pacientes.service';
 import { pacienteDniValidator, pacienteDniLetraCorrect, pacienteSSValidator } from '../../../../../../validator/paciente/paciente-validator.validator';
+
 import Swal from 'sweetalert2';
 
 @Component({
