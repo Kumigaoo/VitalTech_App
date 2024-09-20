@@ -38,9 +38,11 @@ export class HabitacioService {
   // DELETE
   deleteHabitacio(id: number): Observable<Habitacio> {
 
-    let params = new HttpParams().set('id', id)
+    // let params = new HttpParams().set('id', id)
 
-    return this.http.delete<any>(this.apiUrl + '/id', { params });
+    // return this.http.delete<any>(this.apiUrl, { params });
+
+    return this.http.delete<any>(this.apiUrl + '/' + id);
 
   }
 
