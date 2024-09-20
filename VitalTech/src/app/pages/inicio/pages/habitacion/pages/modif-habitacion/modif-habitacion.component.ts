@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Habitacio } from '../../../../../../interface/habitacio.interface';
 import { HabitacioService } from '../../../../../../service/habitaciones.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-modif-habitacion',
@@ -34,14 +35,31 @@ export class ModifHabitacionComponent {
     if(this.habitacionForm.valid){
       const updateHabitacion: Habitacio = { ...this.habitacionForm.getRawValue(), id: this.habitacioId};
       this.habService.putHabitcions(updateHabitacion).subscribe({
-        next:() => {
-          alert('Habitación actualitzada amb exit');
-          this.router.navigate(['/habitacion']);
+
+        // next:() => {
+        //   alert('Habitación actualitzada amb exit');
+        //   this.router.navigate(['/habitacion']);
+        // },
+        // error: (error) => {
+        //   console.error('Error al actualitzar la habitación:', error);
+        //   alert('Error al actualitzar la habitación');
+        // }
+
+        next: response => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Habitación modificada',
+            text: 'La habitación se ha modificado correctamente.'
+          });
         },
-        error: (error) => {
-          console.error('Error al actualitzar la habitación:', error);
-          alert('Error al actualitzar la habitación');
+        error: error => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'ERROR, campos no válidos.'
+          });
         }
+
       })
     }
   }

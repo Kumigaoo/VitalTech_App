@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Ingres } from '../../../../../../interface/../interface/ingres.interface';
 import { IngresService } from '../../../../../../service/ingres.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-modif-ingreso',
@@ -50,14 +51,30 @@ export class ModifIngresoComponent {
         return;
       }
       this.ingresService.putIngres(updatedIngres).subscribe({
-        next: () => {
-          alert('Ingres actualizat amb exit');
-          this.router.navigate(['/ingres']);
+
+        next: response => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Ingreso modificado',
+            text: 'El ingreso se ha modificado correctamente.'
+          });
         },
-        error: (error) => {
-          alert('Algun camp erroni');
-          console.error('Error al actualitzar el ingres:', error);
+        error: error => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'ERROR, campos no válidos.'
+          });
         }
+
+        // next:() => {
+        //   alert('Ingres actualizat amb exit');
+        //   this.router.navigate(['/ingres']);
+        // },
+        // error: (error) => {
+        //   alert('Algun camp erroni');
+        //   console.error('Error al actualitzar el ingres:', error);
+        // }
       })
 
     }

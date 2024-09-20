@@ -12,7 +12,7 @@ export class RegistroEpisodiComponent {
 
   episodiForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private http: HttpClient){
+  constructor(private fb: FormBuilder, private http: HttpClient) {
     this.episodiForm = this.fb.group({
       dataObertura: [''],
       dataTancament: [''],
@@ -24,8 +24,16 @@ export class RegistroEpisodiComponent {
     });
   }
 
-  onSubmit(){
+  onSubmit() {
     const episodiData = this.episodiForm.value;
+
+    if (new Date(episodiData.dataObertura) > new Date(episodiData.dataTancament)) {
+      alert("No se puede viajar al pasado");
+      return;
+    } else if (new Date(episodiData.dataObertura) > new Date()) {
+      alert("No puedes viajar al futuro");
+      return;
+    }
 
     /*
     this.http.post('http://localhost:5296/api/EpisodiMedic', episodiData).subscribe({
