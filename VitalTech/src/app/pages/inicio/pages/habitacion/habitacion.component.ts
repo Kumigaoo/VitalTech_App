@@ -120,19 +120,6 @@ export class HabitacionComponent implements OnInit {
         });
       }
     });
-    
-  //   if(confirm('¿Esta seguro de eliminar esta habitación?')){
-  //     this.habService.deleteHabitacio(id).subscribe({
-  //     next: (response) => {
-  //       console.log('Habitació eliminada amb èxit', response);
-  //       this.loadHabitacions();
-  //     },
-  //     error: (error) => {
-  //       console.error('Error al eliminar la habitació', error);
-  //     }
-  //   });
-  // }
-
   }
 
   // Mostre els llits
