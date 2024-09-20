@@ -59,7 +59,7 @@ export class RegistroCamaComponent {
     const llitData = this.llitForm.value;
     
     this.http.post('http://localhost:5296/api/Llit', llitData).subscribe({
-      next: response => {
+      next: () => {
         Swal.fire({
           icon: 'success',
           title: 'Cama registrada',

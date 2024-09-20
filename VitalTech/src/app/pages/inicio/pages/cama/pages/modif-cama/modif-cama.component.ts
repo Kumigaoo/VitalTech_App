@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Llit } from '../../../../../../interface/llit.interface';
 import { CamasService } from '../../../../../../service/camas.service';
 import Swal from 'sweetalert2';
+import { camaidValidator, habidValidator, codiLlitHabitacioValidator, camaIdValidatorModif } from '../../../../../../validator/cama/cama-validator.validator';
+import { HabitacioService } from '../../../../../../service/habitaciones.service';
 
 @Component({
   selector: 'app-modif-cama',
@@ -15,16 +17,30 @@ import Swal from 'sweetalert2';
 export class ModifCamaComponent {
   llitForm: FormGroup;
   llitId: string = "";
+  originalCamaId: string | null= null;
 
-  constructor(private fb: FormBuilder, private http: HttpClient, private llitService: CamasService,
-    private router: Router, private route: ActivatedRoute,){
+  constructor(private fb: FormBuilder, private http: HttpClient,private router: Router, private route: ActivatedRoute,private llitService: CamasService, private habitacioService: HabitacioService){
+    
+    const camaId = this.route.snapshot.paramMap.get('id') || '';
+    this.originalCamaId = camaId;
+    
     this.llitForm = this.fb.group({
-      codiLlit: [''],
+      codiLlit: ['', {
+        validators: [Validators.required, Validators.minLength(4), Validators.pattern(/^\d{3}[AB]$/)],
+        asyncValidators: [camaIdValidatorModif(this.llitService, this.originalCamaId)],
+        updateOn: 'blur'
+      }],
       ocupat: [''],
       foraDeServei: [''],
-      habitacioId: [''],
-      
+      habitacioId: ['', {
+        validators: [Validators.required, Validators.pattern(/^\d{3}$/)],
+        asyncValidators: [habidValidator(this.habitacioService)],
+        updateOn: 'blur'
+      }]
+    }, {
+      validator: codiLlitHabitacioValidator()
     });
+    this.validadorDeDisponibilidad();
   }
 
   ngOnInit(): void {
@@ -34,7 +50,26 @@ export class ModifCamaComponent {
     })
   }
 
+  validadorDeDisponibilidad(){
+    this.llitForm.get('ocupat')?.valueChanges.subscribe((isOcupat) => {
+      if(isOcupat == 'true'){
+        this.llitForm.get('foraDeServei')?.setValue('false', {emitEvent: false });
+      }
+    });
+
+    this.llitForm.get('foraDeServei')?.valueChanges.subscribe((isForaDeServei) => {
+      if(isForaDeServei == 'true'){
+        this.llitForm.get('ocupat')?.setValue('false', {emitEvent: false});
+      }
+    });
+  }
+
   onActualice(): void {
+    
+    if(this.llitForm.invalid){
+      this.llitForm.markAllAsTouched();
+      return;
+    }
     if(this.llitForm.valid) {
       const updatedLlit: Llit = { ...this.llitForm.getRawValue(), id: this.llitId };
       this.llitService.putLlit(updatedLlit).subscribe({

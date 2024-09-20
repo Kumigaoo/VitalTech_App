@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { ReactiveFormsModule } from '@angular/forms';
 import { PacientService } from '../../../../../../service/pacientes.service';
+import { pacienteDniValidator, pacienteDniLetraCorrect } from '../../../../../../validator/paciente/paciente-validator.validator';
 
 @Component({
   selector: 'app-registro',
@@ -16,15 +16,27 @@ export class RegistroComponent {
 
   constructor(private fb: FormBuilder, private http: HttpClient, private pacientService: PacientService) {
     this.pacientForm = this.fb.group({
-      dni: [''],
-      numSS: [''],
+      dni: ['', {
+        validators: [Validators.required, Validators.minLength(9), Validators.pattern(/^\d{8}[A-Za-z]$/)],
+        asyncValidators: [pacienteDniValidator(this.pacientService)],
+        updateOn: 'blur'
+      }],
+      numSS: ['', {
+        validators: [Validators.required, Validators.minLength(10), Validators.pattern(/^\d{3}[-\s]?\d{3}[-\s]?\d{4}$/)]
+      }],
       nom: [''],
       sexe: ['']
-    });
+    },
+  {
+    validator:pacienteDniLetraCorrect()
+  });
   }
 
   onSubmit() {
-
+    if(this.pacientForm.invalid){
+      this.pacientForm.markAllAsTouched();
+      return;
+    }
     const pacienteData = this.pacientForm.value;
 
     this.pacientService.postPacient(pacienteData).subscribe({

@@ -16,8 +16,6 @@ export function camaidValidator(camasService: CamasService): AsyncValidatorFn{
             catchError(() => of(null)) 
         );
     };
-
-    
 }
 
 export function habidValidator(habitacionService: HabitacioService): AsyncValidatorFn{
@@ -63,6 +61,18 @@ export function codiLlitHabitacioValidator(): ValidatorFn {
     }
 }
 
+export function camaIdValidatorModif(camasService: CamasService, originalId: string | null = null): AsyncValidatorFn {
+    return (control: AbstractControl): Observable<ValidationErrors | null> => {
+        if (!control.value || control.value === originalId){
+            return of(null);
+        }
+
+        return camasService.getLlit(control.value).pipe(
+            map(llit => (llit? {camaIdExists: true} : null)),
+            catchError(() => of(null))
+        );
+    };
+}
 
 
 
