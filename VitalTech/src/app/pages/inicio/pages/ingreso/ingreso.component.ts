@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IngresService } from '../../../../service/ingres.service';
 import { Ingres } from '../../../../interface/ingres.interface';
 import { Router } from '@angular/router';
-
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-ingres',
@@ -47,14 +47,52 @@ export class IngresoComponent {
   }
 
   deleteIngres(id: number) {
-    if(confirm('¿Estas seguro de eliminar este ingreso?')) {
-      this.ingresService.deleteIngres(id).subscribe({
-      error: (error) => alert('ERROR'),
-      complete: () => {
-        alert('Ingres Borrat'), this.loadIngres();
-      },
+
+    Swal.fire({
+
+      title: 'Eliminar ingreso',
+      text: "¿Quieres borrar este ingreso?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí',
+      cancelButtonText: 'Cancelar'
+
+    }).then((result) => {
+
+      if (result.isConfirmed) { 
+        this.ingresService.deleteIngres(id).subscribe({
+          next: response => {
+            Swal.fire({
+              icon: 'success',
+              title: 'Ingreso eliminado',
+              text: 'El ingreso ha sido eliminado con éxito.'
+            });
+            if (this.pagedIngress.length === 0){
+                this.currentPage--;
+            }
+            this.loadIngres();
+          },
+          error: error => {
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: 'Error, no se puede eliminar este ingreso.'
+            });
+          }        
+        });
+      }
     });
-  }
+
+    // if(confirm('¿Estas seguro de eliminar este ingreso?')) {
+    //   this.ingresService.deleteIngres(id).subscribe({
+    //   error: (error) => alert('ERROR'),
+    //   complete: () => {
+    //     alert('Ingres Borrat'), this.loadIngres();
+    //   },
+    // });
+    // }
   }
 
   search(): void {
