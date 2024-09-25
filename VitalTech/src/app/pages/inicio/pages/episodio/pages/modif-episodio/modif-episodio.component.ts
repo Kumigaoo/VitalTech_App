@@ -52,10 +52,20 @@ export class ModifEpisodiComponent {
       const updatedPacient: EpisodiMedic = { ...this.modifEpisodiForm.getRawValue(), id: this.episodiId };
 
       if (new Date(updatedPacient.dataObertura) > new Date(updatedPacient.dataTancament)) {
-        alert("No se puede viajar al pasado");
+        
+        Swal.fire({
+          icon: 'error',
+          title: 'No se puede modificar',
+          text: 'La nueva fecha de cierre del episodio es anterior a la de apertura.'
+        });
         return;
+
       } else if (new Date(updatedPacient.dataObertura) > new Date()) {
-        alert("No puedes viajar al futuro");
+         Swal.fire({
+          icon: 'error',
+          title: 'No se puede modificar',
+          text: 'La nueva fecha de apertura del episodio es posterior a la fecha actual.'
+        });
         return;
       }
 

@@ -32,21 +32,22 @@ export class RegistroEpisodiComponent {
     const episodiData = this.episodiForm.value;
 
     if (new Date(episodiData.dataObertura) > new Date(episodiData.dataTancament)) {
-      alert("No se puede viajar al pasado");
+      Swal.fire({
+        icon: 'error',
+        title: 'No se puede registrar episodio',
+        text: 'La fecha de cierre del episodio introducida es anterior a la de apertura.'
+      });
       return;
     } else if (new Date(episodiData.dataObertura) > new Date()) {
-      alert("No puedes viajar al futuro");
+      Swal.fire({
+        icon: 'error',
+        title: 'No se puede registrar episodio',
+        text: 'La fecha de apertura del episodio es posterior a la fecha actual.'
+      });
       return;
     }
 
-    /*
-    this.http.post('http://localhost:5296/api/EpisodiMedic', episodiData).subscribe({
-      next: response => alert('Episodio médico registrado:'),
-      error: error => alert('ERROR, campos no válidos'),
-      complete: () => alert('Operació completada')
-    })
-    */
-
+   
     this.http.post('http://localhost:5296/api/EpisodiMedic', episodiData).subscribe({
       next: response => {
         Swal.fire({
