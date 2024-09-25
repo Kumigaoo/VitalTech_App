@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Ingres } from '../../../../../../interface/../interface/ingres.interface';
+import { ModifCamaComponent } from '../../../cama/pages/modif-cama/modif-cama.component';
 import { IngresService } from '../../../../../../service/ingres.service';
 import Swal from 'sweetalert2';
 
@@ -35,7 +36,7 @@ export class ModifIngresoComponent {
       if (consulta.dataSortida != null) {
         consulta.dataSortida = consulta.dataSortida.split('T')[0];
       }
-
+      
       this.modiIngresForm.patchValue(consulta);
     })
   }
@@ -58,7 +59,12 @@ export class ModifIngresoComponent {
         });
         return;
       }
+
+      
+
       this.ingresService.putIngres(updatedIngres).subscribe({
+
+        
 
         next: response => {
           Swal.fire({
@@ -74,20 +80,7 @@ export class ModifIngresoComponent {
             text: 'ERROR, campos no válidos.'
           });
         }
-
-        // next:() => {
-        //   alert('Ingres actualizat amb exit');
-        //   this.router.navigate(['/ingres']);
-        // },
-        // error: (error) => {
-        //   alert('Algun camp erroni');
-        //   console.error('Error al actualitzar el ingres:', error);
-        // }
       })
-
     }
-
   }
-
-
 }

@@ -44,6 +44,8 @@ export class RegistroIngresoComponent {
       return;
     }
 
+
+
     this.http.post('http://localhost:5296/api/Ingres', ingresData).subscribe({
       next: response => {
         Swal.fire({
@@ -68,6 +70,7 @@ export class RegistroIngresoComponent {
       }
     });
 
+    
 
   }
 
