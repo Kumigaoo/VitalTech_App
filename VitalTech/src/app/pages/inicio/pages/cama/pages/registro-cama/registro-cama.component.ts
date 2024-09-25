@@ -50,7 +50,6 @@ export class RegistroCamaComponent {
     });
   }
 
-
   onSubmit(){
     if(this.llitForm.invalid){
       this.llitForm.markAllAsTouched();

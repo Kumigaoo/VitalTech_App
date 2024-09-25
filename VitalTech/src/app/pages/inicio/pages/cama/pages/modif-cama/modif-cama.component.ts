@@ -73,15 +73,7 @@ export class ModifCamaComponent {
     if(this.llitForm.valid) {
       const updatedLlit: Llit = { ...this.llitForm.getRawValue(), id: this.llitId };
       this.llitService.putLlit(updatedLlit).subscribe({
-        // next:() => {
-        //   alert('Llit actualitzada amb exit');
-        //   this.router.navigate(['/camas']);
-        // },
-        // error: (error) => {
-        //   console.error('Error al actualitzar la cama:', error);
-        //   alert('Error al actualitzar la cama');
-        // }
-
+        
         next: response => {
           Swal.fire({
             icon: 'success',
