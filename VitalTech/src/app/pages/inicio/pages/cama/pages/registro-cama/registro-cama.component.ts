@@ -23,7 +23,7 @@ export class RegistroCamaComponent {
         asyncValidators: [camaidValidator(this.llitService)],
         updateOn: 'blur'
       }],
-      ocupat: [''],
+      ocupat: ['false'],
       foraDeServei: [''],
       habitacioId: ['', {
         validators: [Validators.required, Validators.pattern(/^\d{3}$/)],
