@@ -17,7 +17,7 @@
 .is-invalid {
     border-color: red;
   }
-  .error-messages {
+.error-messages {
       display: flex;
       flex-direction: column;
       color: red;
@@ -60,7 +60,6 @@ label {
 
 input {
     padding: 2px;
-    margin-bottom: 15px;
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 16px;

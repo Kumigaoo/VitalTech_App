@@ -27,12 +27,10 @@ export class RegistroConsultaComponent {
       personalId: ['' , {
         validators: [Validators.required, Validators.minLength(9), Validators.pattern(/^\d{8}[A-Za-z]$/)],
         asyncValidators: [personalidValidator(this.personalService)],
-        updateOn: 'blur'
       }],
       episodiMedicId: ['', {
         validators: [Validators.required],
         asyncValidators: [episodiidValidator(this.episodiService)],
-        updateOn: 'blur'
       }]
     }, {
       validators: personalDniLetraCorrect()

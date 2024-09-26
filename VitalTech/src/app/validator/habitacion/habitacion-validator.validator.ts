@@ -24,8 +24,9 @@ export function plantaidValidator(plantaService: PlantaService): AsyncValidatorF
           return of(null); 
         }
 
+        const id = +control.value;
 
-        return plantaService.getPlanta(control.value).pipe(
+        return plantaService.getPlanta(id).pipe(
             map(planta => (
                 planta ? null : { plantaIdNotFound: true }
             )),
@@ -52,7 +53,7 @@ export function codiHabitacioPlantaValidator(): ValidatorFn {
 
         const codiHabPrefix = habitacioId.substring(0,1);
 
-        if (codiHabPrefix == habitacioId.toString()) {
+        if (codiHabPrefix == plantaId.toString()) {
             return null;
         } else {
             return { codiHabitacioPlantaMismatch: true };

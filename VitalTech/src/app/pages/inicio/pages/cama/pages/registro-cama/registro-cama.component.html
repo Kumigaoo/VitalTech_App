@@ -6,7 +6,7 @@
         <div class= "identificador">
             <div class = "capzalera4">
                 <label for="codiLlit">ID de cama:<span style="color: red;">*</span></label> 
-                <input type="text" id="codiLlit" name="codiLlit" formControlName="codiLlit" required
+                <input type="number" id="codiLlit" name="codiLlit" formControlName="codiLlit" required
                 [ngClass]="{'is-invalid': llitForm.get('codiLlit')?.touched && llitForm.get('codiLlit')?.invalid || 
                 llitForm.hasError('codiLlitHabitacioMismatch')}">
                 <div class="error-messages" *ngIf="llitForm.get('codiLlit')?.touched  && llitForm.get('codiLlit')?.invalid">

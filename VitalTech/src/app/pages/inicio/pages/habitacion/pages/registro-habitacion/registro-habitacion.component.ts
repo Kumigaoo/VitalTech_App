@@ -21,16 +21,14 @@ export class RegistroHabitacionComponent {
       codiHabitacio: ['', {
         validators: [Validators.required, Validators.minLength(3), Validators.pattern(/^\d{3}$/)],
         asyncValidators: [habidValidator(habService)],
-        updateOn: 'blur'
         
       }],
       capacitatLlits: ['', {
         validators: [Validators.required, Validators.pattern(/^[12]$/)]
       }],
       plantaId:['', {
-        validators: [Validators.required],
+        validators: [Validators.required, Validators.pattern(/^\d$/)],
         asyncValidators: [plantaidValidator(plantaService)],
-        updateOn: 'blur'
       }]
     }, {
       validator: codiHabitacioPlantaValidator()
