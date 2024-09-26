@@ -2,6 +2,7 @@ import { AbstractControl, ValidatorFn, AsyncValidatorFn, ValidationErrors, FormG
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { EpisodiService } from '../../service/episodis.service';
+import { PacientService } from '../../service/pacientes.service';
 
 export function dataIniciFinalValidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
@@ -15,10 +16,32 @@ export function dataIniciFinalValidator(): ValidatorFn {
             return null;
         }
 
-        if (dataObertura > dataTancament) {
-            return null;
+        if (new Date(dataObertura) > new Date(dataTancament)) {
+            return {viatjeEnElTemps: true};
+        } else if (new Date(dataObertura) > new Date()){
+            return {viatjeEnElTemps: true};
         } else {
-            return { viajealtemps: true };
+            return null;
         }
     }
+}
+
+
+export function pacientIdexists(pacientService: PacientService): AsyncValidatorFn{
+    return (control: AbstractControl): Observable<ValidationErrors | null> => {
+        if (!control.value) {
+          return of(null); 
+        }
+
+
+        return pacientService.getPacientId(control.value).pipe(
+            map(paciente => (
+                paciente ? null : { pacienteIdNotFound: true }
+            )),
+            catchError( error => {
+                return of({ pacienteIdNotFound: true });
+            }
+
+        ));
+    };
 }

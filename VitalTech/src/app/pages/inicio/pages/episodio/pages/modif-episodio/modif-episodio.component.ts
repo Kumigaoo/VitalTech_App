@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EpisodiService } from '../../../../../../service/episodis.service';
 import { EpisodiMedic } from '../../../../../../interface/episodis-medics.interface';
 import Swal from 'sweetalert2';
+import { dataIniciFinalValidator,pacientIdexists } from '../../../../../../validator/episodio/episodio-validator.validator';
+import { PacientService } from '../../../../../../service/pacientes.service';
 
 
 @Component({
@@ -19,15 +21,27 @@ export class ModifEpisodiComponent {
   modifEpisodiForm: FormGroup;
   episodiId: number=0;
 
-  constructor(private fb: FormBuilder, private http: HttpClient, private episodiService: EpisodiService, private router: Router, private route: ActivatedRoute) {
+  constructor(private fb: FormBuilder, private http: HttpClient, private episodiService: EpisodiService, private router: Router, private route: ActivatedRoute,  private pacienteService: PacientService) {
     this.modifEpisodiForm = this.fb.group({
-      id: [{value: '', disabled: true}],
-      dataObertura: [''],
-      dataTancament: [''],
-      dolencia: [''],
-      estat: [''],
-      pacientId: [''],
-      
+      dataObertura: ['', {
+        validators: [Validators.required],
+      }],
+      dataTancament: ['', {
+        validators: [Validators.required],
+      }],
+      dolencia: ['', {
+        validators: [Validators.required],
+      }],
+      estat: ['', {
+        validators: [Validators.required],
+      }],
+      pacientId: ['', {
+        validators: [Validators.required, Validators.minLength(9), Validators.pattern(/^\d{8}[A-Za-z]$/)],
+        asyncValidators: [pacientIdexists(pacienteService)]
+      }]
+    },
+    {
+      validators: dataIniciFinalValidator()
     });
   }
 
@@ -47,17 +61,20 @@ export class ModifEpisodiComponent {
   }
 
   onUpdate(): void {
-    
+    if(this.modifEpisodiForm.invalid){
+      this.modifEpisodiForm.markAllAsTouched();
+      return;
+    }
     if (this.modifEpisodiForm.valid) {
       const updatedPacient: EpisodiMedic = { ...this.modifEpisodiForm.getRawValue(), id: this.episodiId };
 
-      if (new Date(updatedPacient.dataObertura) > new Date(updatedPacient.dataTancament)) {
+      /*if (new Date(updatedPacient.dataObertura) > new Date(updatedPacient.dataTancament)) {
         alert("No se puede viajar al pasado");
         return;
       } else if (new Date(updatedPacient.dataObertura) > new Date()) {
         alert("No puedes viajar al futuro");
         return;
-      }
+      }*/
 
       this.episodiService.putEpisodi(updatedPacient).subscribe({
 

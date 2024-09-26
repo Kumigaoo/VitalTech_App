@@ -2,7 +2,6 @@ import { AbstractControl, ValidatorFn, AsyncValidatorFn, ValidationErrors, FormG
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { PacientService} from '../../service/pacientes.service';
-import { P } from '@angular/cdk/keycodes';
 
 
 export function pacienteDniValidator(pacienteService: PacientService): AsyncValidatorFn{

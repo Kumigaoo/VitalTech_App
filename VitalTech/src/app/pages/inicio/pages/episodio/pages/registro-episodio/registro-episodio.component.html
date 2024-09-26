@@ -8,27 +8,54 @@
 
         <div class = "grid-container">
 
-            <div>
+            <div class>
                 <label for="dataObertura">Fecha de apertura:<span style="color: red;">*</span></label> 
-                <input type="date" id="dataObertura" ngModel name="dataObertura" formControlName="dataObertura" required>
+                <input type="date" id="dataObertura" ngModel name="dataObertura" formControlName="dataObertura" required
+                [ngClass]="{'is-invalid': episodiForm.get('dataObertura')?.touched && episodiForm.get('dataObertura')?.invalid || 
+                episodiForm.hasError('viatjeEnElTemps')}">
+                <div class="error-messages" *ngIf="episodiForm.get('dataObertura')?.touched  && episodiForm.get('dataObertura')?.invalid">
+                    <small *ngIf="episodiForm.get('dataObertura')?.hasError('required')">Este campo es obligatorio</small>
+                </div>
             </div>
                 <div>
                     <label for="dataTancament">Fecha de cierre:<span style="color: red;">*</span></label>
                     <input type="date" id="dataTancament" ngModel name="dataTancament" formControlName = "dataTancament" required
->
+                    [ngClass]="{'is-invalid': episodiForm.get('dataTancament')?.touched && episodiForm.get('dataTancament')?.invalid || 
+                    episodiForm.hasError('viatjeEnElTemps')}">
+                    <div class="error-messages" *ngIf="episodiForm.get('dataTancament')?.touched  && episodiForm.get('dataTancament')?.invalid">
+                        <small *ngIf="episodiForm.get('dataTancament')?.hasError('required')">Este campo es obligatorio</small>
+                    </div>
                 </div>
            
             <div>
-                <label for="dolencia">Dolencia:</label>
-                <input type="text" id="dolencia" ngModel name="dolencia" formControlName="dolencia" required>
+                <label for="dolencia">Dolencia:<span style="color: red;">*</span></label>
+                <input type="text" id="dolencia" ngModel name="dolencia" formControlName="dolencia" required
+                [ngClass]="{'is-invalid': episodiForm.get('dolencia')?.touched && episodiForm.get('dolencia')?.invalid}">
+                <div class="error-messages" *ngIf="episodiForm.get('dolencia')?.touched  && episodiForm.get('dolencia')?.invalid">
+                    <small *ngIf="episodiForm.get('dolencia')?.hasError('required')">Este campo es obligatorio</small>
+                </div>
             </div>
             <div>
-                <label for="estat">Estado:</label>
-                <input type="text" id="estat" ngModel name="estat" formControlName="estat" required>
+                <label for="estat">Estado:<span style="color: red;">*</span></label>
+                <input type="text" id="estat" ngModel name="estat" formControlName="estat" required
+                [ngClass]="{'is-invalid': episodiForm.get('estat')?.touched && episodiForm.get('estat')?.invalid}">
+                <div class="error-messages" *ngIf="episodiForm.get('estat')?.touched  && episodiForm.get('estat')?.invalid">
+                    <small *ngIf="episodiForm.get('estat')?.hasError('required')">Este campo es obligatorio</small>
+                </div>
             </div>
-            <div>
+            <div class="ola">
               <label for="pacientId">DNI paciente:<span style="color: red;">*</span></label>
-              <input type="text" id="pacientId" ngModel name="pacientId" formControlName="pacientId" required>
+              <input type="text" id="pacientId" ngModel name="pacientId" formControlName="pacientId" required
+              [ngClass]="{'is-invalid': episodiForm.get('pacientId')?.touched && episodiForm.get('pacientId')?.invalid}">
+              <div class="error-messages" *ngIf="episodiForm.get('pacientId')?.touched  && episodiForm.get('pacientId')?.invalid">
+                <small *ngIf="episodiForm.get('pacientId')?.hasError('required')">Este campo es obligatorio</small>
+                <small *ngIf="episodiForm.get('pacientId')?.hasError('minlength')">Mínimo 9 carácteres</small>
+                <small *ngIf="episodiForm.get('pacientId')?.hasError('pattern')">Construido por 8 núm y una letra</small>
+                <small *ngIf="episodiForm.get('pacientId')?.hasError('pacienteIdNotFound')">El DNI no existe</small>
+            </div>
+            </div>
+            <div *ngIf="episodiForm.hasError('viatjeEnElTemps')" class="error-messages">
+                <small>No es poden fer viatjes en el temps</small>
             </div>
         </div>
         <button type="submit">Publicar</button>

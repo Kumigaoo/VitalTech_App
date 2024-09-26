@@ -18,7 +18,7 @@ namespace HospitalAPI.Models
         public string Dolencia { get; set; }
 
         [Required]
-        public string Estat { get; set; }
+        public String Estat { get; set; }
 
         [ForeignKey("PacientId")]
         [JsonIgnore]

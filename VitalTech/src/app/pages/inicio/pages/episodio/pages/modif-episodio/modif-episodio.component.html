@@ -1,39 +1,63 @@
 <app-nav></app-nav>
 
 <div class="container">
-    <h2>Formulario de modificación de episodio médico</h2>
+
+    <h2>Formulario de registro de episodio médico</h2>
     
     <form type="submit" [formGroup]="modifEpisodiForm" (ngSubmit)="onUpdate()">
 
-        <div class="grid-container">
+        <div class = "grid-container">
 
-          <div>
-            <label for="dolencia">Dolencia: </label>
-            <input type="text" id="dolencia" ngModel name="dolencia" formControlName="dolencia" required>
-          </div>
-
-          <div>
-            <label for="estat">Estado: </label>
-            <input type="text" id="estat" ngModel name="estat" formControlName="estat" required>
-          </div>
-
-          <div>
-            <label for="pacientId">DNI del paciente: </label>
-            <input type="text" id="pacientId" ngModel name="pacientId" formControlName="pacientId" required>
-          </div>
-
-          <div>
-            <label for="dataObertura">Fecha de apertura: </label>
-            <input type="date" id="dataObertura" ngModel name="dataObertura" formControlName="dataObertura" required>
-          </div>
-          
-          <div>
-            <label for="dataTancament">Fecha de cierre: </label>
-            <input type="date" id="dataTancament" ngModel name="dataTancament" formControlName="dataTancament" required>
-          </div>
-
-      </div>
-        
-        <button type="submit">Modificar</button>
+            <div class>
+                <label for="dataObertura">Fecha de apertura:<span style="color: red;">*</span></label> 
+                <input type="date" id="dataObertura" ngModel name="dataObertura" formControlName="dataObertura" required
+                [ngClass]="{'is-invalid': modifEpisodiForm.get('dataObertura')?.touched && modifEpisodiForm.get('dataObertura')?.invalid || 
+                modifEpisodiForm.hasError('viatjeEnElTemps')}">
+                <div class="error-messages" *ngIf="modifEpisodiForm.get('dataObertura')?.touched  && modifEpisodiForm.get('dataObertura')?.invalid">
+                    <small *ngIf="modifEpisodiForm.get('dataObertura')?.hasError('required')">Este campo es obligatorio</small>
+                </div>
+            </div>
+                <div>
+                    <label for="dataTancament">Fecha de cierre:<span style="color: red;">*</span></label>
+                    <input type="date" id="dataTancament" ngModel name="dataTancament" formControlName = "dataTancament" required
+                    [ngClass]="{'is-invalid': modifEpisodiForm.get('dataTancament')?.touched && modifEpisodiForm.get('dataTancament')?.invalid || 
+                    modifEpisodiForm.hasError('viatjeEnElTemps')}">
+                    <div class="error-messages" *ngIf="modifEpisodiForm.get('dataTancament')?.touched  && modifEpisodiForm.get('dataTancament')?.invalid">
+                        <small *ngIf="modifEpisodiForm.get('dataTancament')?.hasError('required')">Este campo es obligatorio</small>
+                    </div>
+                </div>
+           
+            <div>
+                <label for="dolencia">Dolencia:<span style="color: red;">*</span></label>
+                <input type="text" id="dolencia" ngModel name="dolencia" formControlName="dolencia" required
+                [ngClass]="{'is-invalid': modifEpisodiForm.get('dolencia')?.touched && modifEpisodiForm.get('dolencia')?.invalid}">
+                <div class="error-messages" *ngIf="modifEpisodiForm.get('dolencia')?.touched  && modifEpisodiForm.get('dolencia')?.invalid">
+                    <small *ngIf="modifEpisodiForm.get('dolencia')?.hasError('required')">Este campo es obligatorio</small>
+                </div>
+            </div>
+            <div>
+                <label for="estat">Estado:<span style="color: red;">*</span></label>
+                <input type="text" id="estat" ngModel name="estat" formControlName="estat" required
+                [ngClass]="{'is-invalid': modifEpisodiForm.get('estat')?.touched && modifEpisodiForm.get('estat')?.invalid}">
+                <div class="error-messages" *ngIf="modifEpisodiForm.get('estat')?.touched  && modifEpisodiForm.get('estat')?.invalid">
+                    <small *ngIf="modifEpisodiForm.get('estat')?.hasError('required')">Este campo es obligatorio</small>
+                </div>
+            </div>
+            <div class="ola">
+              <label for="pacientId">DNI paciente:<span style="color: red;">*</span></label>
+              <input type="text" id="pacientId" ngModel name="pacientId" formControlName="pacientId" required
+              [ngClass]="{'is-invalid': modifEpisodiForm.get('pacientId')?.touched && modifEpisodiForm.get('pacientId')?.invalid}">
+              <div class="error-messages" *ngIf="modifEpisodiForm.get('pacientId')?.touched  && modifEpisodiForm.get('pacientId')?.invalid">
+                <small *ngIf="modifEpisodiForm.get('pacientId')?.hasError('required')">Este campo es obligatorio</small>
+                <small *ngIf="modifEpisodiForm.get('pacientId')?.hasError('minlength')">Mínimo 9 carácteres</small>
+                <small *ngIf="modifEpisodiForm.get('pacientId')?.hasError('pattern')">Construido por 8 núm y una letra</small>
+                <small *ngIf="modifEpisodiForm.get('pacientId')?.hasError('pacienteIdNotFound')">El DNI no existe</small>
+            </div>
+            </div>
+            <div *ngIf="modifEpisodiForm.hasError('viatjeEnElTemps')" class="error-messages">
+                <small>No es poden fer viatjes en el temps</small>
+            </div>
+        </div>
+        <button type="submit">Publicar</button>
     </form>
 </div>

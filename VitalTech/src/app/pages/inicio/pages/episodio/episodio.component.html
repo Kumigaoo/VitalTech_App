@@ -49,7 +49,7 @@
                 <td>{{ episodi.id }}</td>
                 <td>{{ episodi.dataObertura }}</td>
                 <td>{{ episodi.dataTancament }}</td>
-                <td>{{ episodi.estat }}</td>
+                <td>{{ episodi.estat ? "Resuelto": "No Resuelto"}}</td>
                 <td>{{ episodi.dolencia }}</td>
                 <td>{{ episodi.pacientId }}</td>
                 <td class="coleccio" mat-button (click)="openConsultes(episodi)">Consultas</td>

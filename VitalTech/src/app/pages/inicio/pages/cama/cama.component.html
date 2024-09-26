@@ -43,8 +43,8 @@
             <tbody>
                 <tr *ngFor="let llit of pagedLlits">
                     <td>{{ llit.codiLlit }}</td>
-                    <td>{{ llit.ocupat }}</td>
-                    <td>{{ llit.foraDeServei }}</td>  
+                    <td>{{ llit.ocupat ? "Si" : "No"}}</td>
+                    <td>{{ llit.foraDeServei? "Si" : "No" }}</td>  
                     <td>{{ llit.habitacioId }}</td>
                     <td class = "coleccio" mat-button (click)="openIngressos(llit)">Ingresos</td>
                     <div class="botones">

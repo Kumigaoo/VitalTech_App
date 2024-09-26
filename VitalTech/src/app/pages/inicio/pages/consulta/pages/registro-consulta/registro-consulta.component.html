@@ -15,25 +15,49 @@
                 </select>
             </div>
             <div class = "capzalera4">
-                <label for="sintomatologia">Sintomatología:</label> 
-                <input type="text" id="sintomatologia" name="sintomatologia" formControlName="sintomatologia" required>
+                <label for="sintomatologia">Sintomatología:<span style="color: red;">*</span></label> 
+                <input type="text" id="sintomatologia" name="sintomatologia" formControlName="sintomatologia" required
+                [ngClass]="{'is-invalid': consultaForm.get('sintomatologia')?.touched && consultaForm.get('sintomatologia')?.invalid }">
+                <div class="error-messages" *ngIf="consultaForm.get('sintomatologia')?.touched  && consultaForm.get('sintomatologia')?.invalid">
+                    <small *ngIf="consultaForm.get('sintomatologia')?.hasError('required')">Este campo es obligatorio</small>
+                </div>
             </div>
 
             <div class = "masInfo">
                 <div class="capzalera1">
-                    <label for="recepta">Receta:</label>
-                    <input type="text" id="recepta" name="recepta" formControlName = "recepta" required>
+                    <label for="recepta">Receta:<span style="color: red;">*</span></label>
+                    <input type="text" id="recepta" name="recepta" formControlName = "recepta" required
+                    [ngClass]="{'is-invalid': consultaForm.get('recepta')?.touched && consultaForm.get('recepta')?.invalid}">
+                    <div class="error-messages" *ngIf="consultaForm.get('recepta')?.touched  && consultaForm.get('recepta')?.invalid">
+                        <small *ngIf="consultaForm.get('recepta')?.hasError('required')">Este campo es obligatorio</small>
+                    </div>
                 </div>
             </div>
 
             <div class = "capzalera1">
-                <label for="personalId">DNI del personal:</label>
-                <input type="text" id="personalId" name="personalId" formControlName="personalId" required>
+                <label for="personalId">DNI del personal:<span style="color: red;">*</span></label>
+                <input type="text" id="personalId" name="personalId" formControlName="personalId" required
+                [ngClass]="{'is-invalid': consultaForm.get('personalId')?.touched && consultaForm.get('personalId')?.invalid ||
+                consultaForm.hasError('dniLletraIncorrect')}">
+                <div class="error-messages" *ngIf="consultaForm.get('personalId')?.touched  && consultaForm.get('personalId')?.invalid">
+                    <small *ngIf="consultaForm.get('personalId')?.hasError('required')">Este campo es obligatorio</small>
+                    <small *ngIf="consultaForm.get('personalId')?.hasError('minlength')">Mínimo 9 carácteres</small>
+                    <small *ngIf="consultaForm.get('personalId')?.hasError('pattern')">Construido por 8 núm y una letra</small>
+                    <small *ngIf="consultaForm.get('personalId')?.hasError('personalNotFound')">El DNI no existe</small>
+                </div>
             </div>
 
             <div class = "capzalera2">
-                <label for="episodiMedicId">Episodio médico:</label>
-                <input type="number" id="episodiMedicId" name="episodiMedicId" formControlName="episodiMedicId" required>
+                <label for="episodiMedicId">Episodio médico:<span style="color: red;">*</span></label>
+                <input type="number" id="episodiMedicId" name="episodiMedicId" formControlName="episodiMedicId" required
+                [ngClass]="{'is-invalid': consultaForm.get('episodiMedicId')?.touched && consultaForm.get('episodiMedicId')?.invalid}">
+                <div class="error-messages" *ngIf="consultaForm.get('episodiMedicId')?.touched  && consultaForm.get('episodiMedicId')?.invalid">
+                    <small *ngIf="consultaForm.get('episodiMedicId')?.hasError('required')">Este campo es obligatorio</small>
+                    <small *ngIf="consultaForm.get('episodiMedicId')?.hasError('episodiNotFound')">El episodio no existe</small>
+                </div>
+            </div>
+            <div *ngIf="consultaForm.hasError('dniLletraIncorrect')" class="error-messages">
+                <small>DNI invalido</small>
             </div>
         </div>
 

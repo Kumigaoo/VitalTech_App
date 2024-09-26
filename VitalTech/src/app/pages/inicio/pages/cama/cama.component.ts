@@ -86,10 +86,10 @@ export class CamaComponent {
       break;
       case 'ocupat':
         for (let i = 0; i < this.llits.length; i++) {
-          if (this.searchInput.toLowerCase() === "true" && this.llits[i].ocupat == true) {
+          if (this.searchInput.toLowerCase() === "si" && this.llits[i].ocupat == true) {
             busqueda.push(this.llits[i]);
           }
-          if (this.searchInput.toLowerCase() === "false" && this.llits[i].ocupat == false) {
+          if (this.searchInput.toLowerCase() === "no" && this.llits[i].ocupat == false) {
             busqueda.push(this.llits[i]);
           } 
         }

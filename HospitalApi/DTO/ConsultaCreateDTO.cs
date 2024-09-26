@@ -3,7 +3,7 @@
     public class ConsultaCreateDTO
     {
 
-        public bool Urgencia { get; set; }
+        public bool? Urgencia { get; set; } = false;
 
         public string Sintomatologia { get; set; }
 

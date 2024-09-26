@@ -87,7 +87,7 @@ export class EpisodioComponent {
         break;
       case 'estat':
         for (let i = 0; i < this.episodis.length; i++) {
-          if (this.episodis[i].estat.toLowerCase().includes(this.searchInput.toLowerCase())) {
+          if (this.episodis[i].estat.includes(this.searchInput.toLowerCase())) {
             busqueda.push(this.episodis[i]);
           }
         }

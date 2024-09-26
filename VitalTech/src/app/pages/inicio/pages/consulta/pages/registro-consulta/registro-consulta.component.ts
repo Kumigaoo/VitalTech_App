@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import Swal from 'sweetalert2';
+import { MetgeService } from '../../../../../../service/metge.service';
+import { personalidValidator, episodiidValidator, personalDniLetraCorrect } from '../../../../../../validator/consulta/consulta-validator.validator';
+import { EpisodiService } from '../../../../../../service/episodis.service';
 
 @Component({
   selector: 'app-registro-consulta',
@@ -12,17 +15,35 @@ export class RegistroConsultaComponent {
 
   consultaForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private http: HttpClient){
+  constructor(private fb: FormBuilder, private http: HttpClient, private personalService: MetgeService, private episodiService: EpisodiService){
     this.consultaForm = this.fb.group({
       urgencia: [''],
-      sintomatologia: [''],
-      recepta: [''],
-      personalId: [''],
-      episodiMedicId: ['']
+      sintomatologia: ['',{
+        validators: [Validators.required]
+      }],
+      recepta: ['', {
+        validators: [Validators.required]
+      }],
+      personalId: ['' , {
+        validators: [Validators.required, Validators.minLength(9), Validators.pattern(/^\d{8}[A-Za-z]$/)],
+        asyncValidators: [personalidValidator(this.personalService)],
+        updateOn: 'blur'
+      }],
+      episodiMedicId: ['', {
+        validators: [Validators.required],
+        asyncValidators: [episodiidValidator(this.episodiService)],
+        updateOn: 'blur'
+      }]
+    }, {
+      validators: personalDniLetraCorrect()
     });
   }
 
   onSubmit(){
+    if(this.consultaForm.invalid){
+      this.consultaForm.markAllAsTouched();
+      return;
+    }
     const consultaData = this.consultaForm.value;
 
     this.http.post('http://localhost:5296/api/Consulta', consultaData).subscribe({

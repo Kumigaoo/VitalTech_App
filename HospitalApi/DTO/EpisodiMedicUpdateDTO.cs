@@ -11,7 +11,7 @@
 
         public string Dolencia { get; set; }
 
-        public string Estat { get; set; }
+        public String Estat { get; set; }
 
         public string PacientId { get; set; }
 
