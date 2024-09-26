@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Ingres } from '../../../../../../interface/../interface/ingres.interface';
+import { ModifCamaComponent } from '../../../cama/pages/modif-cama/modif-cama.component';
 import { IngresService } from '../../../../../../service/ingres.service';
 import Swal from 'sweetalert2';
 
@@ -35,7 +36,7 @@ export class ModifIngresoComponent {
       if (consulta.dataSortida != null) {
         consulta.dataSortida = consulta.dataSortida.split('T')[0];
       }
-
+      
       this.modiIngresForm.patchValue(consulta);
     })
   }
@@ -44,13 +45,26 @@ export class ModifIngresoComponent {
     if (this.modiIngresForm.valid) {
       const updatedIngres: Ingres = { ...this.modiIngresForm.getRawValue(), id: this.ingresId };
       if (updatedIngres.dataEntrada > updatedIngres.dataSortida) {
-        alert("No se puede viajar al pasado");
+        Swal.fire({
+          icon: 'error',
+          title: 'No se puede modificar el ingreso',
+          text: 'La nueva fecha de salida del ingreso es anterior a la de entrada.'
+        });
         return;
       } else if (new Date(updatedIngres.dataEntrada) > new Date()) {
-        alert("No puedes viajar al futuro");
+        Swal.fire({
+          icon: 'error',
+          title: 'No se puede modificar el ingreso',
+          text: 'La nueva fecha de entrada del ingreso es posterior a la fecha actual.'
+        });
         return;
       }
+
+      
+
       this.ingresService.putIngres(updatedIngres).subscribe({
+
+        
 
         next: response => {
           Swal.fire({
@@ -66,20 +80,7 @@ export class ModifIngresoComponent {
             text: 'ERROR, campos no válidos.'
           });
         }
-
-        // next:() => {
-        //   alert('Ingres actualizat amb exit');
-        //   this.router.navigate(['/ingres']);
-        // },
-        // error: (error) => {
-        //   alert('Algun camp erroni');
-        //   console.error('Error al actualitzar el ingres:', error);
-        // }
       })
-
     }
-
   }
-
-
 }

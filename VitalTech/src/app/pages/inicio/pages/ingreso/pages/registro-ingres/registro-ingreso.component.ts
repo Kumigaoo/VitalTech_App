@@ -29,18 +29,22 @@ export class RegistroIngresoComponent {
     const ingresData = this.ingresForm.value;
 
     if (ingresData.dataEntrada > ingresData.dataSortida) {
-      alert("No se puede viajar al pasado");
+      Swal.fire({
+        icon: 'error',
+        title: 'No se puede registrar el ingreso',
+        text: 'La fecha de salida introducida es anterior a la de entrada.'
+      });
       return;
     } else if (new Date(ingresData.dataEntrada) > new Date()) {
-      alert("No puedes viajar al futuro");
+      Swal.fire({
+        icon: 'error',
+        title: 'No se puede registrar el ingreso',
+        text: 'La fecha de entrada del ingreso es posterior a la fecha actual.'
+      });
       return;
     }
 
-    // this.ingresService.postIngres(ingresData).subscribe({
-    //   next: response => alert('Ingres registrat'),
-    //   error: error => alert('ERROR, camps no valids '),
-    //   complete: () => alert('Operacio completada')
-    // });
+
 
     this.http.post('http://localhost:5296/api/Ingres', ingresData).subscribe({
       next: response => {
@@ -66,6 +70,7 @@ export class RegistroIngresoComponent {
       }
     });
 
+    
 
   }
 
