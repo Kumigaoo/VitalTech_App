@@ -31,7 +31,7 @@ export class RegistroHabitacionComponent {
         asyncValidators: [plantaidValidator(plantaService)],
       }]
     }, {
-      validator: codiHabitacioPlantaValidator()
+      validators: codiHabitacioPlantaValidator()
     });
   }
 
