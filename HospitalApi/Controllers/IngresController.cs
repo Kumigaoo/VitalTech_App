@@ -56,7 +56,7 @@ namespace HospitalAPI.Controllers
 
 
             if (ingres == null)
-             {
+            {
                 _logger.LogInformation("Error: no existeix l'ID indicat.");
                 return NotFound("Error: no existeix l'ID indicat.");
             }
@@ -95,6 +95,10 @@ namespace HospitalAPI.Controllers
             Ingres ingres = _mapper.Map<Ingres>(userIngresDTO);
             ingres.LlitId = llit.CodiLlit;
             ingres.EpisodiMedicId = episodi.Id;
+            
+            ingres.DataSortida=null;
+            llit.Ocupat = true;
+            _bbdd.Update(llit);
 
             await _bbdd.Ingressos.AddAsync(ingres);
             await _bbdd.SaveChangesAsync();
@@ -118,12 +122,14 @@ namespace HospitalAPI.Controllers
 
             var ingres = await _bbdd.Ingressos.FirstOrDefaultAsync(h => h.Id == id);
 
-
             if (ingres == null)
-             {
-                  _logger.LogError("Error: ingrés indicat no trobat.");
-                    return NotFound("Error: ingrés indicat no trobat.");
-             }
+            {
+                _logger.LogError("Error: ingrés indicat no trobat.");
+                return NotFound("Error: ingrés indicat no trobat.");
+            }
+            var llit = await _bbdd.Llits.FindAsync(ingres.LlitId);
+            llit.Ocupat=false;
+            _bbdd.Update(llit);
 
 
             _bbdd.Ingressos.Remove(ingres);
@@ -140,19 +146,30 @@ namespace HospitalAPI.Controllers
         public async Task<IActionResult> UpdateIngres(int id, [FromBody] IngresDTO userIngresDTO)
         {
 
-            if (userIngresDTO.Id == null){
-                    _logger.LogError("Error: ID indicat invalid.");
-                    return BadRequest("Error: ID indicat invalid.");
+            if (userIngresDTO.Id == null)
+            {
+                _logger.LogError("Error: ID indicat invalid.");
+                return BadRequest("Error: ID indicat invalid.");
             }
 
             var existeixIngres = await _bbdd.Ingressos.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id);
 
-            if (existeixIngres == null){
+            if (existeixIngres == null)
+            {
                 _logger.LogError("No existeix ingrés amb aquest ID.");
                 return NotFound("No existeix ingrés amb aquest ID.");
             }
 
             Ingres ingres = _mapper.Map<Ingres>(userIngresDTO);
+            DateTime data = DateTime.Now;
+
+            if (ingres.DataSortida.HasValue)
+            {
+                var llit = await _bbdd.Llits.FindAsync(userIngresDTO.LlitId);
+                llit.Ocupat = false;
+                _bbdd.Update(llit);
+            }
+         
 
             _bbdd.Ingressos.Update(ingres);
             await _bbdd.SaveChangesAsync();

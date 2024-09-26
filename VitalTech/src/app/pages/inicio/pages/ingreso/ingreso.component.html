@@ -45,7 +45,10 @@
                 <tr *ngFor="let ingres of pagedIngress">
                     <td>{{ ingres.id }}</td>
                     <td>{{ ingres.dataEntrada }}</td>
-                    <td>{{ ingres.dataSortida }}</td>  
+                    <td *ngIf="ingres.dataSortida != '0001-01-01T00:00:00'; else pte">{{ ingres.dataSortida }}</td>
+                    <ng-template #pte>
+                        <td>Pendiente</td>
+                    </ng-template>
                     <td>{{ ingres.episodiMedicId }}</td>
                     <td>{{ ingres.llitId }}</td>
                     <button class = "ico" (click)="updateIngres(ingres.id)">🔄</button>
