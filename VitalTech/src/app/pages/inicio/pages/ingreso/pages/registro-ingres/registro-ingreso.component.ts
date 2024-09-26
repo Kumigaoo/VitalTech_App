@@ -28,14 +28,7 @@ export class RegistroIngresoComponent {
 
     const ingresData = this.ingresForm.value;
 
-    if (ingresData.dataEntrada > ingresData.dataSortida) {
-      Swal.fire({
-        icon: 'error',
-        title: 'No se puede registrar el ingreso',
-        text: 'La fecha de salida introducida es anterior a la de entrada.'
-      });
-      return;
-    } else if (new Date(ingresData.dataEntrada) > new Date()) {
+     if (new Date(ingresData.dataEntrada) > new Date()) {
       Swal.fire({
         icon: 'error',
         title: 'No se puede registrar el ingreso',
