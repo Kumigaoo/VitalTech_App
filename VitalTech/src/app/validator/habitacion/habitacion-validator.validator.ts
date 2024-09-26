@@ -47,7 +47,7 @@ export function codiHabitacioPlantaValidator(): ValidatorFn {
 
 
         if(!plantaId || !habitacioId){
-            return null;
+            return of(null);
         }
 
 

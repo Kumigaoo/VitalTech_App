@@ -47,7 +47,7 @@ export function codiLlitHabitacioValidator(): ValidatorFn {
 
 
         if(!codillit || !habitacioId){
-            return null;
+            return of(null);
         }
 
 

@@ -50,6 +50,7 @@ export class RegistroCamaComponent {
     });
   }
 
+
   onSubmit(){
     if(this.llitForm.invalid){
       this.llitForm.markAllAsTouched();
@@ -58,7 +59,7 @@ export class RegistroCamaComponent {
     const llitData = this.llitForm.value;
     
     this.http.post('http://localhost:5296/api/Llit', llitData).subscribe({
-      next: () => {
+      next: response => {
         Swal.fire({
           icon: 'success',
           title: 'Cama registrada',
@@ -75,4 +76,6 @@ export class RegistroCamaComponent {
     })
   }
 }
+    
+
     
