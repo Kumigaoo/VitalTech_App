@@ -54,9 +54,10 @@
                 <small *ngIf="modifEpisodiForm.get('pacientId')?.hasError('pacienteIdNotFound')">El DNI no existe</small>
             </div>
             </div>
-            <div *ngIf="modifEpisodiForm.hasError('viatjeEnElTemps')" class="error-messages">
-                <small>No es poden fer viatjes en el temps</small>
-            </div>
+            
+        </div>
+        <div *ngIf="modifEpisodiForm.hasError('viatjeEnElTemps')" class="error-messages">
+            <small>No es poden fer viatjes en el temps</small>
         </div>
         <button type="submit">Publicar</button>
     </form>

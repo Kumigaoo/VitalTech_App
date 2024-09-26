@@ -20,7 +20,7 @@ export class RegistroHabitacionComponent {
     this.habitacionForm = this.fb.group({
       codiHabitacio: ['', {
         validators: [Validators.required, Validators.minLength(3), Validators.pattern(/^\d{3}$/)],
-        asyncValidators: [habidValidator(habService)],
+        asyncValidators: [habidValidator(this.habService)],
         
       }],
       capacitatLlits: ['', {
@@ -28,10 +28,10 @@ export class RegistroHabitacionComponent {
       }],
       plantaId:['', {
         validators: [Validators.required, Validators.pattern(/^\d$/)],
-        asyncValidators: [plantaidValidator(plantaService)],
+        asyncValidators: [plantaidValidator(this.plantaService)],
       }]
     }, {
-      validators: codiHabitacioPlantaValidator()
+      validator: codiHabitacioPlantaValidator()
     });
   }
 

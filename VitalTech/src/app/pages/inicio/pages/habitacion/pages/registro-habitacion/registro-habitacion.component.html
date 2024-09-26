@@ -42,10 +42,11 @@
                     <small *ngIf="habitacionForm.get('plantaId')?.hasError('plantaIdNotFound')">El ID no existe</small>
                 </div>
             </div>
-            <div *ngIf="habitacionForm.hasError('codiHabitacioPlantaMismatch')" class="error-messages">
-                <small>El primer número del id ha de coincidir con la planta</small>
-            </div> 
+            
         </div>
+        <div *ngIf="habitacionForm.hasError('codiHabitacioPlantaMismatch')" class="error-messages">
+            <small>El primer número del id ha de coincidir con la planta</small>
+        </div> 
         <button type="submit">Registrar</button>
     </form>
 </div>

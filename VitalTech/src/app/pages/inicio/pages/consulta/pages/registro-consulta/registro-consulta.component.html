@@ -56,11 +56,11 @@
                     <small *ngIf="consultaForm.get('episodiMedicId')?.hasError('episodiNotFound')">El episodio no existe</small>
                 </div>
             </div>
-            <div *ngIf="consultaForm.hasError('dniLletraIncorrect')" class="error-messages">
-                <small>DNI invalido</small>
-            </div>
+            
         </div>
-
+        <div *ngIf="consultaForm.hasError('dniLletraIncorrect')" class="error-messages">
+            <small>DNI invalido</small>
+        </div>
         <button type="submit">Publicar</button>
         
     </form>

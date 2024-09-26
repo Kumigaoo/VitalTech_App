@@ -51,9 +51,8 @@ export function codiHabitacioPlantaValidator(): ValidatorFn {
         }
 
 
-        const codiHabPrefix = habitacioId.substring(0,1);
-
-        if (codiHabPrefix == plantaId.toString()) {
+        const codiHabPrefix = Number(habitacioId.toString().charAt(0));
+        if (codiHabPrefix === plantaId) {
             return null;
         } else {
             return { codiHabitacioPlantaMismatch: true };
