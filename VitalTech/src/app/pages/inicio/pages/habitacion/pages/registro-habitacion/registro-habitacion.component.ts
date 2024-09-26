@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HabitacioService } from '../../../../../../service/habitaciones.service';
 import { HttpClient } from '@angular/common/http';
 import Swal from 'sweetalert2';
+import { codiHabitacioPlantaValidator, plantaidValidator, habidValidator } from '../../../../../../validator/habitacion/habitacion-validator.validator';
+import { PlantaService } from '../../../../../../service/planta.service';
 
 @Component({
   selector: 'app-registro-habitacion',
@@ -14,15 +16,32 @@ export class RegistroHabitacionComponent {
 
   habitacionForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private http: HttpClient, private habService: HabitacioService) {
+  constructor(private fb: FormBuilder, private http: HttpClient, private habService: HabitacioService, private plantaService: PlantaService) {
     this.habitacionForm = this.fb.group({
-      CodiHabitacio: [''],
-      CapacitatLlits: [''],
-      PlantaId:['']
-    })
+      codiHabitacio: ['', {
+        validators: [Validators.required, Validators.minLength(3), Validators.pattern(/^\d{3}$/)],
+        asyncValidators: [habidValidator(habService)],
+        updateOn: 'blur'
+        
+      }],
+      capacitatLlits: ['', {
+        validators: [Validators.required, Validators.pattern(/^[12]$/)]
+      }],
+      plantaId:['', {
+        validators: [Validators.required],
+        asyncValidators: [plantaidValidator(plantaService)],
+        updateOn: 'blur'
+      }]
+    }, {
+      validator: codiHabitacioPlantaValidator()
+    });
   }
 
   onSubmit() {
+    if(this.habitacionForm.invalid){
+      this.habitacionForm.markAllAsTouched();
+      return;
+    }
     const habitacionData = this.habitacionForm.value;
 
   //   this.habService.postHabitacio(habitacionData).subscribe({

@@ -7,8 +7,16 @@
         <div class="identificador">
 
             <div class="capzalera4">
-                <label for="CodiHabitacio">ID de habitación:</label>
-                <input type="text" id="CodiHabitacio" name="CodiHabitacio" formControlName="CodiHabitacio" required>
+                <label for="codiHabitacio">ID de habitación:</label>
+                <input type="text" id="codiHabitacio" name="codiHabitacio" formControlName="codiHabitacio" required
+                [ngClass]="{'is-invalid': habitacionForm.get('codiHabitacio')?.touched && habitacionForm.get('codiHabitacio')?.invalid || 
+                habitacionForm.hasError('codiHabitacioPlantaMismatch')}">
+                <div class="error-messages" *ngIf="habitacionForm.get('codiHabitacio')?.touched  && habitacionForm.get('codiHabitacio')?.invalid">
+                    <small *ngIf="habitacionForm.get('codiHabitacio')?.hasError('required')">Este campo es obligatorio</small>
+                    <small *ngIf="habitacionForm.get('codiHabitacio')?.hasError('minlength')">Mínimo 3 carácteres</small>
+                    <small *ngIf="habitacionForm.get('codiHabitacio')?.hasError('pattern')">Construido por 3 números</small>
+                    <small *ngIf="habitacionForm.get('codiHabitacio')?.hasError('habIdExists')">El ID ya existe</small>
+                </div>
             </div>
 
             <div class="masInfo">
