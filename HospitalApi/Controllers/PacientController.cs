@@ -74,7 +74,11 @@ namespace HospitalAPI.Controllers
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            if (userPacientDTO.DNI.Length < 9) return BadRequest(ModelState);
+            if (!CheckDNI(userPacientDTO.DNI))
+            {
+                _logger.LogError("Error: DNI Invalid.");
+                return BadRequest(ModelState);
+            }
 
             if (userPacientDTO == null)
             {
@@ -180,6 +184,39 @@ namespace HospitalAPI.Controllers
 
             _logger.LogInformation("Pacient actualitzat.");
             return NoContent();
+
+        }
+
+        public static bool CheckDNI(string dni)
+        {
+
+            var lettersArray = "TRWAGMYFPDXBNJZSQVHLCKE".ToCharArray();
+
+            if (dni.Length != 9) return false;
+
+            int dniValue = 0;
+            char dniLetter = char.Parse(dni.Substring(8));
+
+            if (int.TryParse(dni.Substring(0, 8), out dniValue))
+            {
+
+                Dictionary<int, char> letterToNum = new Dictionary<int, char>(23);
+
+                for (int i = 0; i < 23; i++)
+                {
+                    letterToNum.Add(i, lettersArray[i]);
+                }
+
+                dniValue = dniValue % 23;
+
+                foreach (var item in letterToNum)
+                {
+                    if (item.Key == dniValue && item.Value == dniLetter) return true;
+                }
+
+            }
+
+            return false;
 
         }
 
