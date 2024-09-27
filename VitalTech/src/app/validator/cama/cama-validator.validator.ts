@@ -3,6 +3,8 @@ import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { CamasService } from '../../service/camas.service';
 import { HabitacioService } from '../../service/habitaciones.service';
+import { PacientService } from '../../service/pacientes.service';
+import { IngresService } from '../../service/ingres.service';
 
 
 export function camaidValidator(camasService: CamasService): AsyncValidatorFn{
@@ -72,6 +74,29 @@ export function camaIdValidatorModif(camasService: CamasService, originalId: str
             catchError(() => of(null))
         );
     };
+}
+
+export function camaOcupadaPaciente(ingresoService: IngresService) : AsyncValidatorFn {
+    return (control: AbstractControl): Observable<ValidationErrors | null> => {
+        const formGroup = control as FormGroup;
+
+        const foraDeServei = formGroup.get('foraDeServei')?.value;
+        const codiLlit = formGroup.get('codiLlit')?.value;
+
+        if(!foraDeServei || foraDeServei != true || !codiLlit){
+            return of(null);
+        }
+        
+        return ingresoService.getIngressos().pipe(
+            map(ingresos => {
+                const ingresosRelacionados = ingresos.filter(ingreso => ingreso.llitId === codiLlit);
+                return ingresosRelacionados.length > 0 ? {camaOcupadaPaciente: true} : null;
+            }),
+            catchError(() => of(null))
+        );
+
+
+    }
 }
 
 

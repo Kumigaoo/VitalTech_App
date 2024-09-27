@@ -5,8 +5,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Llit } from '../../../../../../interface/llit.interface';
 import { CamasService } from '../../../../../../service/camas.service';
 import Swal from 'sweetalert2';
-import { camaidValidator, habidValidator, codiLlitHabitacioValidator, camaIdValidatorModif } from '../../../../../../validator/cama/cama-validator.validator';
+import { habidValidator, codiLlitHabitacioValidator, camaIdValidatorModif, camaOcupadaPaciente } from '../../../../../../validator/cama/cama-validator.validator';
 import { HabitacioService } from '../../../../../../service/habitaciones.service';
+import { IngresService } from '../../../../../../service/ingres.service';
 
 @Component({
   selector: 'app-modif-cama',
@@ -19,7 +20,7 @@ export class ModifCamaComponent {
   llitId: string = "";
   originalCamaId: string | null= null;
 
-  constructor(private fb: FormBuilder, private http: HttpClient,private router: Router, private route: ActivatedRoute,private llitService: CamasService, private habitacioService: HabitacioService){
+  constructor(private fb: FormBuilder, private http: HttpClient,private router: Router, private route: ActivatedRoute,private llitService: CamasService, private habitacioService: HabitacioService, private ingresService: IngresService){
     
     const camaId = this.route.snapshot.paramMap.get('id') || '';
     this.originalCamaId = camaId;
@@ -30,7 +31,6 @@ export class ModifCamaComponent {
         asyncValidators: [camaIdValidatorModif(this.llitService, this.originalCamaId)],
         updateOn: 'blur'
       }],
-      ocupat: [''],
       foraDeServei: [''],
       habitacioId: ['', {
         validators: [Validators.required, Validators.pattern(/^\d{3}$/)],
@@ -38,9 +38,10 @@ export class ModifCamaComponent {
         updateOn: 'blur'
       }]
     }, {
-      validator: codiLlitHabitacioValidator()
+      validator: [codiLlitHabitacioValidator()],
+      asyncValidators: [camaOcupadaPaciente(this.ingresService)],
+      updateOn: 'blur'
     });
-    this.validadorDeDisponibilidad();
   }
 
   ngOnInit(): void {
@@ -50,19 +51,6 @@ export class ModifCamaComponent {
     })
   }
 
-  validadorDeDisponibilidad(){
-    this.llitForm.get('ocupat')?.valueChanges.subscribe((isOcupat) => {
-      if(isOcupat == 'true'){
-        this.llitForm.get('foraDeServei')?.setValue('false', {emitEvent: false });
-      }
-    });
-
-    this.llitForm.get('foraDeServei')?.valueChanges.subscribe((isForaDeServei) => {
-      if(isForaDeServei == 'true'){
-        this.llitForm.get('ocupat')?.setValue('false', {emitEvent: false});
-      }
-    });
-  }
 
   onActualice(): void {
     
