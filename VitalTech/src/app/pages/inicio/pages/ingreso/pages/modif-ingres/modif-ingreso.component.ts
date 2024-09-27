@@ -17,6 +17,9 @@ export class ModifIngresoComponent {
 
   modiIngresForm: FormGroup;
   ingresId: number = 0;
+  sysdate: Date = new Date();
+  fechaMin: string = "2020-01-01";
+  fechaMax: string = "2030-12-30";
 
   constructor(private fb: FormBuilder, private http: HttpClient, private ingresService: IngresService, private router: Router, private route: ActivatedRoute) {
     this.modiIngresForm = this.fb.group({
@@ -25,6 +28,13 @@ export class ModifIngresoComponent {
       episodiMedicId: [''],
       llitId: ['']
     });
+  }
+
+  formatearFecha(fecha: Date): string {
+    const any = fecha.getFullYear();
+    const mes = (fecha.getMonth() + 1).toString().padStart(2, '0');
+    const dia = fecha.getDate().toString().padStart(2, '0');
+    return `${any}-${mes}-${dia}`;
   }
 
   ngOnInit(): void {
@@ -36,9 +46,11 @@ export class ModifIngresoComponent {
       if (consulta.dataSortida != null) {
         consulta.dataSortida = consulta.dataSortida.split('T')[0];
       }
-      
+
       this.modiIngresForm.patchValue(consulta);
     })
+    this.fechaMax = this.formatearFecha(this.sysdate);
+    this.fechaMin = this.formatearFecha(new Date(this.sysdate.getTime() - 432000000));
   }
 
   onUpdate(): void {
@@ -60,11 +72,11 @@ export class ModifIngresoComponent {
         return;
       }
 
-      
+
 
       this.ingresService.putIngres(updatedIngres).subscribe({
 
-        
+
 
         next: response => {
           Swal.fire({

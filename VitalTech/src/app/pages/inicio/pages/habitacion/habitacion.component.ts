@@ -10,17 +10,15 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-habitacion',
   templateUrl: './habitacion.component.html',
-  styleUrl: './habitacion.component.css'
+  styleUrl: './habitacion.component.css',
 })
-
 export class HabitacionComponent implements OnInit {
-
   constructor(
-    public dialog: MatDialog, 
-    private habService: HabitacioService, 
-    private sb: FormBuilder, 
+    public dialog: MatDialog,
+    private habService: HabitacioService,
+    private sb: FormBuilder,
     private router: Router
-  ) { }
+  ) {}
 
   // Variables
   inputValueId: number = 101;
@@ -35,88 +33,87 @@ export class HabitacionComponent implements OnInit {
   habitacions: Habitacio[] = [];
 
   async ngOnInit() {
-
-    // Inicialització graella 
+    // Inicialització graella
     this.loadHabitacions();
-
   }
 
   // Mostra tota les habitacions
   loadHabitacions() {
-
     this.habService.getHabitacions().subscribe({
-
       next: (Response) => {
         this.habitacions = Response;
-        this.totalPages = Math.ceil(this.habitacions.length / this.itemsPerPage); // calcula cuantas paginas tendra dependiendo de los items que tenga cada una
+        this.totalPages = Math.ceil(
+          this.habitacions.length / this.itemsPerPage
+        ); // calcula cuantas paginas tendra dependiendo de los items que tenga cada una
         this.updatePagedConsultes();
       },
       error: (error) => {
-        console.error('Error al buscar las habitaciones', error)
-      }
-
+        console.error('Error al buscar las habitaciones', error);
+      },
     });
-
   }
 
   // Mostra habitacio per ID
   loadHabitacio() {
-
     this.habService.getHabitacio(this.inputValueId).subscribe({
-
       next: (response) => {
         this.habitacions.splice(0, this.habitacions.length + 1, response);
-        this.totalPages = Math.ceil(this.habitacions.length / this.itemsPerPage); // calcula cuantas paginas tendra dependiendo de los items que tenga cada una
+        this.totalPages = Math.ceil(
+          this.habitacions.length / this.itemsPerPage
+        ); // calcula cuantas paginas tendra dependiendo de los items que tenga cada una
         this.updatePagedConsultes();
       },
       error: (error) => {
         console.error('Error al buscar la habitació', error);
-      }
+      },
     });
-
   }
 
   // Actualizar habitacio
   updateHabitacio(habitacio: Habitacio) {
-    this.router.navigate(['/inicio/habitacion/modif-habitacion', habitacio.codiHabitacio]);
+    this.router.navigate([
+      '/inicio/habitacion/modif-habitacion',
+      habitacio.codiHabitacio,
+    ]);
   }
 
   // Eliminar habitacio
   deleteHabitacio(id: number) {
-
     Swal.fire({
 
       title: 'Eliminar habitación',
-      text: "¿Quieres borrar esta habitación?",
+      text: '¿Quieres borrar esta habitación?',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Sí',
-      cancelButtonText: 'Cancelar'
+      cancelButtonText: 'Cancelar',
 
     }).then((result) => {
-
-      if (result.isConfirmed) { 
+      
+      if (result.isConfirmed) {
         this.habService.deleteHabitacio(id).subscribe({
-          next: response => {
+          next: (response) => {
             Swal.fire({
               icon: 'success',
               title: 'Habitación eliminada',
-              text: 'La habitación ha sido eliminada con éxito.'
+              text: 'La habitación ha sido eliminada con éxito.',
             });
-            if (this.pagedConsultes.length === 0){
-                this.currentPage--;
+
+            if (this.pagedConsultes.length === 1 && this.currentPage > 1) {
+              this.currentPage--;
             }
+
             this.loadHabitacions();
           },
-          error: error => {
+          error: (error) => {
             Swal.fire({
               icon: 'error',
               title: 'Error',
-              text: 'Error, no se puede eliminar esta habitación.'
+              text: 'Error, no se puede eliminar esta habitación.',
             });
-          }        
+          },
         });
       }
     });
@@ -129,7 +126,7 @@ export class HabitacionComponent implements OnInit {
       width: '80vw',
       height: '70vh',
       maxWidth: '1000px',
-      maxHeight: '500px'
+      maxHeight: '500px',
     });
   }
 
@@ -140,15 +137,14 @@ export class HabitacionComponent implements OnInit {
     const endIndex = startIndex + this.itemsPerPage;
     this.pagedConsultes = this.habitacions.slice(startIndex, endIndex);
 
-    if(this.habitacions.length == 0){
+    if (this.habitacions.length == 0) {
       return;
     }
 
-    if(this.pagedConsultes.length == 0) {
-        this.currentPage = this.currentPage - 1;
-        this.loadHabitacio();
+    if (this.pagedConsultes.length == 0) {
+      this.currentPage = this.currentPage - 1;
+      this.loadHabitacio();
     }
-
   }
 
   nextPage(): void {
@@ -178,5 +174,4 @@ export class HabitacionComponent implements OnInit {
       this.updatePagedConsultes();
     }
   }
-
 }
