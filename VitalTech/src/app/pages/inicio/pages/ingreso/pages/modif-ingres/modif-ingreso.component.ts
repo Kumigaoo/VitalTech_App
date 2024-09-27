@@ -26,7 +26,7 @@ export class ModifIngresoComponent {
       dataEntrada: [''],
       dataSortida: [''],
       episodiMedicId: [''],
-      llitId: ['']
+      llitId: [''],
     });
   }
 
