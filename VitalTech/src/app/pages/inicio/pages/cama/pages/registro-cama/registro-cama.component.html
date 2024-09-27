@@ -5,7 +5,7 @@
     <form type="submit" [formGroup]="llitForm" (ngSubmit)="onSubmit()">
         <div class= "identificador">
             <div class = "capzalera4">
-                <label for="codiLlit">ID de cama:</label> 
+                <label for="codiLlit">ID de cama:<span style="color: red;">*</span></label> 
                 <input type="text" id="codiLlit" name="codiLlit" formControlName="codiLlit" required
                 [ngClass]="{'is-invalid': llitForm.get('codiLlit')?.touched && llitForm.get('codiLlit')?.invalid || 
                 llitForm.hasError('codiLlitHabitacioMismatch')}">
@@ -19,7 +19,7 @@
             
             <div class = "masInfo">
                 <div class="capzalera1">
-                    <label for="habitacioId">ID habitación:</label>
+                    <label for="habitacioId">ID habitación:<span style="color: red;">*</span></label>
                     <input type="number" id="habitacioId" ngModel name="habitacioId" formControlName = "habitacioId" required
                     [ngClass]="{'is-invalid': llitForm.get('habitacioId')?.touched && llitForm.get('habitacioId')?.invalid || 
                 llitForm.hasError('codiLlitHabitacioMismatch')}">

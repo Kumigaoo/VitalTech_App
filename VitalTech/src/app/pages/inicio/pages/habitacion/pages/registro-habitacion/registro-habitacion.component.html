@@ -7,7 +7,7 @@
         <div class="identificador">
 
             <div class="capzalera4">
-                <label for="codiHabitacio">ID de habitación:</label>
+                <label for="codiHabitacio">ID de habitación:<span style="color: red;">*</span></label>
                 <input type="number" id="codiHabitacio" name="codiHabitacio" formControlName="codiHabitacio" required
                 [ngClass]="{'is-invalid': habitacionForm.get('codiHabitacio')?.touched && habitacionForm.get('codiHabitacio')?.invalid || 
                 habitacionForm.hasError('codiHabitacioPlantaMismatch')}">
@@ -21,7 +21,7 @@
 
             <div class="masInfo">
                 <div class="capzalera1">
-                    <label for="capacitatLlits">Capacidad de camas:</label>
+                    <label for="capacitatLlits">Capacidad de camas:<span style="color: red;">*</span></label>
                     <input type="text" id="capacitatLlits" name="capacitatLlits" formControlName="capacitatLlits" required
                     [ngClass]="{'is-invalid': habitacionForm.get('capacitatLlits')?.touched && habitacionForm.get('capacitatLlits')?.invalid}">
                     <div class="error-messages" *ngIf="habitacionForm.get('capacitatLlits')?.touched  && habitacionForm.get('capacitatLlits')?.invalid">
@@ -32,7 +32,7 @@
             </div>
 
             <div class="capzalera1">
-                <label for="plantaId">ID de planta:</label>
+                <label for="plantaId">ID de planta:<span style="color: red;">*</span></label>
                 <input type="number" id="plantaId" name="plantaId" formControlName="plantaId" required
                 [ngClass]="{'is-invalid': habitacionForm.get('plantaId')?.touched && habitacionForm.get('plantaId')?.invalid || 
                 habitacionForm.hasError('codiHabitacioPlantaMismatch')}">
