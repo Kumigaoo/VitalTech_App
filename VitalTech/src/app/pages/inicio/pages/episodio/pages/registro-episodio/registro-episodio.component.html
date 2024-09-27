@@ -18,13 +18,11 @@
                 </div>
             </div>
                 <div>
-                    <label for="dataTancament">Fecha de cierre:<span style="color: red;">*</span></label>
+                    <label for="dataTancament">Fecha de cierre:</label>
                     <input type="date" id="dataTancament" ngModel name="dataTancament" formControlName = "dataTancament" required
                     [ngClass]="{'is-invalid': episodiForm.get('dataTancament')?.touched && episodiForm.get('dataTancament')?.invalid || 
                     episodiForm.hasError('viatjeEnElTemps')}">
-                    <div class="error-messages" *ngIf="episodiForm.get('dataTancament')?.touched  && episodiForm.get('dataTancament')?.invalid">
-                        <small *ngIf="episodiForm.get('dataTancament')?.hasError('required')">Este campo es obligatorio</small>
-                    </div>
+                    
                 </div>
            
             <div>

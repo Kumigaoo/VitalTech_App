@@ -27,7 +27,7 @@ export class IngresoComponent {
   ngOnInit() {
     this.loadIngres();
   }
-
+  
   loadIngres(): void {
     this.ingresService.getIngressos().subscribe((data) => {
       this.ingressos = data;

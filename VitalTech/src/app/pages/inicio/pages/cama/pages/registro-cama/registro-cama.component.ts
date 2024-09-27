@@ -23,8 +23,6 @@ export class RegistroCamaComponent {
         asyncValidators: [camaidValidator(this.llitService)],
         updateOn: 'blur'
       }],
-      ocupat: ['false'],
-      foraDeServei: [''],
       habitacioId: ['', {
         validators: [Validators.required, Validators.pattern(/^\d{3}$/)],
         asyncValidators: [habidValidator(this.habitacioService)],
@@ -33,23 +31,7 @@ export class RegistroCamaComponent {
     }, {
       validator: codiLlitHabitacioValidator()
     });
-    this.validadorDeDisponibilidad();
   }
-
-  validadorDeDisponibilidad(){
-    this.llitForm.get('ocupat')?.valueChanges.subscribe((isOcupat) => {
-      if(isOcupat == 'true'){
-        this.llitForm.get('foraDeServei')?.setValue('false', {emitEvent: false });
-      }
-    });
-
-    this.llitForm.get('foraDeServei')?.valueChanges.subscribe((isForaDeServei) => {
-      if(isForaDeServei == 'true'){
-        this.llitForm.get('ocupat')?.setValue('false', {emitEvent: false});
-      }
-    });
-  }
-
 
   onSubmit(){
     if(this.llitForm.invalid){
