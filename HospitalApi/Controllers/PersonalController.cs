@@ -1,5 +1,6 @@
 using AutoMapper;
 using HospitalApi.Data;
+using HospitalApi.Enums;
 using HospitalAPI.DTO;
 using HospitalAPI.Models;
 using Microsoft.AspNetCore.JsonPatch;
@@ -72,14 +73,19 @@ namespace HospitalAPI.Controllers
             [FromBody] PersonalCreateDTO userPerDTO
         )
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+            if (!ModelState.IsValid) return BadRequest(ModelState);
             
             
             if (!CheckDNI(userPerDTO.DNI))
             {
                 _logger.LogError("Format de DNI incorrecte.");
                 return BadRequest("Format de DNI incorrecte.");
+            }
+
+            if (!Enum.TryParse(typeof(EnumProfessions), userPerDTO.Especialitat.Replace(" ",""), true, out _))
+            {
+                _logger.LogError("Professio incorrecte.");
+                return BadRequest("Professio incorrecte.");
             }
 
             Personal personal = _mapper.Map<Personal>(userPerDTO);

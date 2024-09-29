@@ -74,16 +74,28 @@ namespace HospitalAPI.Controllers
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            if (!CheckDNI(userPacientDTO.DNI))
-            {
-                _logger.LogError("Error: DNI Invalid.");
-                return BadRequest(ModelState);
-            }
-
             if (userPacientDTO == null)
             {
                 _logger.LogError("Error: dades introduïdes incorrectes.");
                 return BadRequest("Error: dades introduïdes incorrectes.");
+            }
+
+            if (!CheckDNI(userPacientDTO.DNI))
+            {
+                _logger.LogError("Error: DNI Invalid.");
+                return BadRequest("Error: DNI Invalid.");
+            }
+
+            if(CheckTS(userPacientDTO.NumSS))
+            {
+                _logger.LogError("Error: Num SS Invalid.");
+                return BadRequest("Error: Num SS Invalid.");
+            }
+
+            if (userPacientDTO.Sexe != "F" && userPacientDTO.Sexe != "M")
+            {
+                _logger.LogError("Error: Sexe Invalid.");
+                return BadRequest("Error: Sexe Invalid.");
             }
 
             Pacient pacient = _mapper.Map<Pacient>(userPacientDTO);
@@ -151,7 +163,6 @@ namespace HospitalAPI.Controllers
         [HttpPatch("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-
         public async Task<IActionResult> UpdateParcialPacient(string id, JsonPatchDocument<PacientCreateDTO> patchDto)
         {
             if (patchDto == null || id.Length < 9)
@@ -187,6 +198,22 @@ namespace HospitalAPI.Controllers
 
         }
 
+        public static bool CheckTS(String ts)
+        {
+
+            if (ts.Length != 15) return true;
+            
+            for (int i = 0; i < 15; i++)
+            {
+                if (i < 4 && !char.IsLetter(ts[i])) return true;
+                if (i > 3 && !char.IsDigit(ts[i])) return true;
+             
+            }
+
+            return false;
+
+        }
+
         public static bool CheckDNI(string dni)
         {
 
@@ -195,7 +222,7 @@ namespace HospitalAPI.Controllers
             if (dni.Length != 9) return false;
 
             int dniValue = 0;
-            char dniLetter = char.Parse(dni.Substring(8));
+            char dniLetter = char.Parse(dni.Substring(8).ToUpper());
 
             if (int.TryParse(dni.Substring(0, 8), out dniValue))
             {
