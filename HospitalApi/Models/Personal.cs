@@ -5,8 +5,9 @@ namespace HospitalAPI.Models
     public class Personal
     {
         [Key]
+        public int Id { get; set; }
+
         [Required]
-        [MinLength(9, ErrorMessage = "El DNI debe tener 9 caracteres.")]
         public string DNI { get; set; }
         public string Especialitat { get; set; }
         public string Nom { get; set; }

@@ -86,7 +86,7 @@ namespace HospitalAPI.Controllers
             }
 
             EpisodiMedic episodi = _mapper.Map<EpisodiMedic>(userEpiDTO);
-            episodi.PacientId = pacient.DNI;
+            episodi.PacientId = pacient.Id;
 
             await _bbdd.EpisodisMedics.AddAsync(episodi);
             await _bbdd.SaveChangesAsync();

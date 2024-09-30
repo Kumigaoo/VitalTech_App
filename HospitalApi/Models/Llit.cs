@@ -9,6 +9,8 @@ namespace HospitalAPI.Models
     {
 
         [Key]
+        public int Id { get; set; }
+
         [Required]
         [MinLength(4, ErrorMessage = "El codi del llit ha de tenir el num de la habitació i si és el A o el B.")]
         public string CodiLlit { get; set; }

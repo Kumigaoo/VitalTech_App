@@ -76,19 +76,20 @@ namespace HospitalAPI.Controllers
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            var personal = await _bbdd.Personals.FindAsync(userConDTO.PersonalId);
-
+            var personal = await (from p in _bbdd.Personals where p.DNI == userConDTO.PersonalId select p).FirstOrDefaultAsync();
             var episodi = await _bbdd.EpisodisMedics.FindAsync(userConDTO.EpisodiMedicId);
 
-            if (personal == null)
-                return BadRequest("No existeix cap metge amb l'ID indicat.");
+            if (personal == null) return BadRequest("No existeix cap metge amb l'ID indicat.");
+            if (episodi == null) return BadRequest("No existeix cap episodi mèdic amb l'ID indicat.");
 
-            if (episodi == null)
-                return BadRequest("No existeix cap episodi mèdic amb l'ID indicat.");
-
-            Consulta consulta = _mapper.Map<Consulta>(userConDTO);
-            consulta.PersonalId = personal.DNI;
+            Consulta consulta = new Consulta();
+            consulta.Urgencia = userConDTO.Urgencia;
+            consulta.Sintomatologia = userConDTO.Sintomatologia;
+            consulta.Recepta = userConDTO.Recepta;
+            consulta.PersonalId = personal.Id;
+            consulta.Personal = personal;
             consulta.EpisodiMedicId = episodi.Id;
+            consulta.EpisodiMedic = episodi;
 
             await _bbdd.Consultes.AddAsync(consulta);
             await _bbdd.SaveChangesAsync();

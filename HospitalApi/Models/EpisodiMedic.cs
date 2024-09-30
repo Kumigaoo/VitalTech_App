@@ -23,7 +23,7 @@ namespace HospitalAPI.Models
         [ForeignKey("PacientId")]
         [JsonIgnore]
         [IgnoreDataMember]
-        public string PacientId {get; set;}
+        public int PacientId {get; set;}
 
         [JsonIgnore]
         [IgnoreDataMember]

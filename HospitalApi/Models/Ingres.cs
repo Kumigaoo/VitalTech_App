@@ -20,7 +20,7 @@ namespace HospitalAPI.Models
         public EpisodiMedic EpisodiMedic { get; set; }
 
         [ForeignKey("LlitId")]
-        public string LlitId {  get; set; }
+        public int LlitId {  get; set; }
         public Llit Llit { get; set; }
 
     }

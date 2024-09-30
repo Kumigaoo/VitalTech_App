@@ -66,20 +66,20 @@ namespace HospitalApi.Data
             .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Habitacio>()
-            .Property(e => e.CodiHabitacio)
-            .ValueGeneratedNever();
+            .HasIndex(e => e.CodiHabitacio)
+            .IsUnique();
 
             modelBuilder.Entity<Llit>()
-            .Property(e => e.CodiLlit)
-            .ValueGeneratedNever();
+            .HasIndex(e => e.CodiLlit)
+            .IsUnique();
 
             modelBuilder.Entity<Pacient>()
-            .Property(e => e.DNI)
-            .ValueGeneratedNever();
+            .HasIndex(e => e.DNI)
+            .IsUnique();
 
             modelBuilder.Entity<Personal>()
-            .Property(e => e.DNI)
-            .ValueGeneratedNever();
+            .HasIndex(e => e.DNI)
+            .IsUnique();
 
             modelBuilder.Entity<Pacient>()
             .HasIndex(e => e.NumSS)
