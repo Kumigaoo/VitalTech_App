@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import Swal from 'sweetalert2';
-import { dataIniciFinalValidator,pacientIdexists } from '../../../../../../validator/episodio/episodio-validator.validator';
+import { pacientIdexists,dataIniciValidator } from '../../../../../../validator/episodio/episodio-validator.validator';
 import { PacientService } from '../../../../../../service/pacientes.service';
  
 
@@ -21,9 +21,7 @@ export class RegistroEpisodiComponent {
       dataObertura: ['', {
         validators: [Validators.required],
       }],
-      dataTancament: ['', {
-        validators: [Validators.required],
-      }],
+      dataTancament: [''],
       dolencia: ['', {
         validators: [Validators.required],
       }],
@@ -37,7 +35,7 @@ export class RegistroEpisodiComponent {
       }]
     },
     {
-      validators: dataIniciFinalValidator()
+      validators: dataIniciValidator()
     }
 );
   }
