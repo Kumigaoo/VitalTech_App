@@ -18,13 +18,9 @@
                 </div>
             </div>
                 <div>
-                    <label for="dataTancament">Fecha de cierre:<span style="color: red;">*</span></label>
-                    <input type="date" id="dataTancament" ngModel name="dataTancament" formControlName = "dataTancament" required
-                    [ngClass]="{'is-invalid': modifEpisodiForm.get('dataTancament')?.touched && modifEpisodiForm.get('dataTancament')?.invalid || 
-                    modifEpisodiForm.hasError('viatjeEnElTemps')}">
-                    <div class="error-messages" *ngIf="modifEpisodiForm.get('dataTancament')?.touched  && modifEpisodiForm.get('dataTancament')?.invalid">
-                        <small *ngIf="modifEpisodiForm.get('dataTancament')?.hasError('required')">Este campo es obligatorio</small>
-                    </div>
+                    <label for="dataTancament">Fecha de cierre:</label>
+                    <input type="date" id="dataTancament" ngModel name="dataTancament" formControlName = "dataTancament" 
+                    [ngClass]="{'is-invalid': modifEpisodiForm.hasError('viatjeEnElTemps')}">
                 </div>
            
             <div>
@@ -37,8 +33,11 @@
             </div>
             <div>
                 <label for="estat">Estado:<span style="color: red;">*</span></label>
-                <input type="text" id="estat" ngModel name="estat" formControlName="estat" required
+                <select id="estat" ngModel name="estat" formControlName="estat" required
                 [ngClass]="{'is-invalid': modifEpisodiForm.get('estat')?.touched && modifEpisodiForm.get('estat')?.invalid}">
+                    <option value="Resuelto">Resuelto</option>
+                    <option value="No Resuelto">No Resuelto</option>
+                </select>
                 <div class="error-messages" *ngIf="modifEpisodiForm.get('estat')?.touched  && modifEpisodiForm.get('estat')?.invalid">
                     <small *ngIf="modifEpisodiForm.get('estat')?.hasError('required')">Este campo es obligatorio</small>
                 </div>

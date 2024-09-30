@@ -37,7 +37,17 @@ export class RegistroEpisodiComponent {
     {
       validators: dataIniciValidator()
     }
-);
+
+    
+  );
+    this.episodiForm.get('estat')?.valueChanges.subscribe(estat => {
+      if(estat ==="Resuelto"){
+        this.episodiForm.addControl('dataTancament', this.fb.control(new Date())); // es parecido al setValue, pero como este atrivuto no lo tenemos inicializado en el formulario se usa addControl
+      } else {
+        this.episodiForm.removeControl('dataTancament');
+      }
+      
+    });
   }
 
   onSubmit() {

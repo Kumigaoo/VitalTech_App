@@ -26,9 +26,7 @@ export class ModifEpisodiComponent {
       dataObertura: ['', {
         validators: [Validators.required],
       }],
-      dataTancament: ['', {
-        validators: [Validators.required],
-      }],
+      dataTancament: [''],
       dolencia: ['', {
         validators: [Validators.required],
       }],
@@ -43,6 +41,20 @@ export class ModifEpisodiComponent {
     {
       validators: dataIniciFinalValidator()
     });
+
+    this.modifEpisodiForm.get('estat')?.valueChanges.subscribe(estat => {
+      if(estat ==="No Resuelto"){
+        this.modifEpisodiForm.get('dataTancament')?.setValue(null);
+      } else if (estat === "Resuelto" && this.modifEpisodiForm.get('dataTancament')?.value === null){
+        this.modifEpisodiForm.get('dataTancament')?.setValue(new Date());
+      }
+    });
+
+    this.modifEpisodiForm.get('dataTancament')?.valueChanges.subscribe(dataTancament => {
+      if(dataTancament != null) {
+        this.modifEpisodiForm.get('estat')?.setValue("Resuelto");
+      }
+    })
   }
 
   ngOnInit(): void {
