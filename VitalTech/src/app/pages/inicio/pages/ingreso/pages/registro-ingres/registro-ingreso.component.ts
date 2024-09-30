@@ -14,9 +14,9 @@ import Swal from 'sweetalert2';
 export class RegistroIngresoComponent {
 
   ingresForm: FormGroup;
-  sysdate: Date = new Date();
+  /*sysdate: Date = new Date();
   fechaMin: string = "2020-01-01";
-  fechaMax: string = "2030-12-30";
+  fechaMax: string = "2030-12-30";^*/
 
   constructor(private fb: FormBuilder, private http: HttpClient, private ingresService: IngresService) {
     this.ingresForm = this.fb.group({
@@ -26,7 +26,7 @@ export class RegistroIngresoComponent {
       llitId: ['']
     });
   }
-
+  /*
   formatearFecha(fecha: Date): string {
     const any = fecha.getFullYear();
     const mes = (fecha.getMonth() + 1).toString().padStart(2, '0');
@@ -37,22 +37,20 @@ export class RegistroIngresoComponent {
   ngOnInit() {
     this.fechaMax = this.formatearFecha(this.sysdate);
     this.fechaMin = this.formatearFecha(new Date(this.sysdate.getTime() - 432000000));
-  }
+  }*/
 
   onSubmit() {
-
     const ingresData = this.ingresForm.value;
+    
 
-    if (new Date(ingresData.dataEntrada) > new Date()) {
+    /*if (new Date(ingresData.dataEntrada) > new Date()) {
       Swal.fire({
         icon: 'error',
         title: 'No se puede registrar el ingreso',
         text: 'La fecha de entrada del ingreso es posterior a la fecha actual.'
       });
       return;
-    }
-
-
+    }*/
 
     this.http.post('http://localhost:5296/api/Ingres', ingresData).subscribe({
       next: response => {

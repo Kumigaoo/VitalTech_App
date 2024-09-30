@@ -20,16 +20,16 @@ export class ModifIngresoComponent {
   sysdate: Date = new Date();
   fechaMin: string = "2020-01-01";
   fechaMax: string = "2030-12-30";
+  nulo = null;
 
   constructor(private fb: FormBuilder, private http: HttpClient, private ingresService: IngresService, private router: Router, private route: ActivatedRoute) {
     this.modiIngresForm = this.fb.group({
       dataEntrada: [''],
-      dataSortida: [''],
+      dataSortida: [null],
       episodiMedicId: [''],
       llitId: [''],
     });
   }
-
   formatearFecha(fecha: Date): string {
     const any = fecha.getFullYear();
     const mes = (fecha.getMonth() + 1).toString().padStart(2, '0');
