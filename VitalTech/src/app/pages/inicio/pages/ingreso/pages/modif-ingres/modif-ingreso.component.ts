@@ -56,7 +56,7 @@ export class ModifIngresoComponent {
   onUpdate(): void {
     if (this.modiIngresForm.valid) {
       const updatedIngres: Ingres = { ...this.modiIngresForm.getRawValue(), id: this.ingresId };
-      if (updatedIngres.dataEntrada > updatedIngres.dataSortida) {
+      /*if (updatedIngres.dataEntrada > updatedIngres.dataSortida) {
         Swal.fire({
           icon: 'error',
           title: 'No se puede modificar el ingreso',
@@ -70,7 +70,7 @@ export class ModifIngresoComponent {
           text: 'La nueva fecha de entrada del ingreso es posterior a la fecha actual.'
         });
         return;
-      }
+      }*/
 
 
 

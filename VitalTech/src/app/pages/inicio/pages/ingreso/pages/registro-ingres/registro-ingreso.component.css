@@ -14,7 +14,15 @@
     flex-direction: column;
     margin-right: 20px;
 }
-
+.is-invalid {
+    border-color: red;
+  }
+  .error-messages {
+    display: flex;
+    flex-direction: column;
+    color: red;
+    font-size: 12px;
+}
 .identificador, .ubicacion, .comunicarse, .masInfo, .consulta{
     display: flex;
 }
@@ -51,7 +59,6 @@ label {
 
 input {
     padding: 2px;
-    margin-bottom: 15px;
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 16px;
