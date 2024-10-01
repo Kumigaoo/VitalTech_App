@@ -31,12 +31,16 @@
             <div class = "capzalera1">
                 <label for="llit">ID cama:<span style="color: red;">*</span></label>
                 <input type="text" id="llit" ngModel name="llitId" formControlName="llitId" required
-                [ngClass]="{'is-invalid': ingresForm.get('llitId')?.touched && ingresForm.get('llitId')?.invalid}">
+                [ngClass]="{'is-invalid': ingresForm.get('llitId')?.touched && ingresForm.get('llitId')?.invalid ||
+                    ingresForm.hasError('camaOcupadaPaciente')}">
               <div class="error-messages" *ngIf="ingresForm.get('llitId')?.touched  && ingresForm.get('llitId')?.invalid">
                 <small *ngIf="ingresForm.get('llitId')?.hasError('required')">Este campo es obligatorio</small>
                 <small *ngIf="ingresForm.get('llitId')?.hasError('minlength')">Mínimo 4 carácteres</small>
                 <small *ngIf="ingresForm.get('llitId')?.hasError('pattern')">Construido por 3 núm y A o B</small>
                 <small *ngIf="ingresForm.get('llitId')?.hasError('llitIdNotFound')">El ID de cama no existe</small>
+            </div>
+            <div class="error-messages" *ngIf="ingresForm.hasError('camaOcupadaPaciente')">
+                <small>Ya hay un paciente ingresado</small>
             </div>
             </div>
         </div>

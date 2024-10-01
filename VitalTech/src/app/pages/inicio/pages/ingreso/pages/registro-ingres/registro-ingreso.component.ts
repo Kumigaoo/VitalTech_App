@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { IngresService } from '../../../../../../service/ingres.service';
 import Swal from 'sweetalert2';
 import { EpisodiService } from '../../../../../../service/episodis.service';
-import { episodioidexists, dataIniciValidator, llitIdexists } from '../../../../../../validator/ingreso/ingreso-validator.validator';
+import { episodioidexists, dataIniciValidator,dataIniciFinalValidator,  llitIdexists, ingresoEnCama } from '../../../../../../validator/ingreso/ingreso-validator.validator';
 import { CamasService } from '../../../../../../service/camas.service';
 
 @Component({
@@ -17,9 +17,9 @@ import { CamasService } from '../../../../../../service/camas.service';
 export class RegistroIngresoComponent {
 
   ingresForm: FormGroup;
-  /*sysdate: Date = new Date();
+  sysdate: Date = new Date();
   fechaMin: string = "2020-01-01";
-  fechaMax: string = "2030-12-30";*/
+  fechaMax: string = "2030-12-30";
 
   constructor(private fb: FormBuilder, private http: HttpClient, private ingresService: IngresService, private episodiService: EpisodiService, private llitService: CamasService) {
     this.ingresForm = this.fb.group({
@@ -34,15 +34,17 @@ export class RegistroIngresoComponent {
       }],
       llitId: ['', {
         validators: [Validators.required, Validators.minLength(4), Validators.pattern(/^\d{3}[AB]$/)],
-        asyncValidators: [llitIdexists(llitService)],
+        asyncValidators: [llitIdexists(llitService), ],
         updateOn: 'blur'
       }]
     }, {
-      validators: [dataIniciValidator()]
+      validators: [dataIniciValidator()],
+      asyncValidators: [ingresoEnCama(ingresService)],
+      updateOn: 'blur'
     });
   }
   
-  /*formatearFecha(fecha: Date): string {
+  formatearFecha(fecha: Date): string {
     const any = fecha.getFullYear();
     const mes = (fecha.getMonth() + 1).toString().padStart(2, '0');
     const dia = fecha.getDate().toString().padStart(2, '0');
@@ -52,9 +54,13 @@ export class RegistroIngresoComponent {
   ngOnInit() {
     this.fechaMax = this.formatearFecha(this.sysdate);
     this.fechaMin = this.formatearFecha(new Date(this.sysdate.getTime() - 432000000));
-  }*/
+  }
 
   onSubmit() {
+    if(this.ingresForm.invalid){
+      this.ingresForm.markAllAsTouched();
+      return;
+    }
     const ingresData = this.ingresForm.value;
     
 

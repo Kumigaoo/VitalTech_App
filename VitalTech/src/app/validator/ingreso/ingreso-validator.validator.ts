@@ -3,7 +3,29 @@ import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { EpisodiService } from '../../service/episodis.service';
 import { CamasService } from '../../service/camas.service';
+import { IngresService } from '../../service/ingres.service';
 
+export function dataIniciFinalValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+        const formGroup = control as FormGroup;
+        
+        const dataEntrada = formGroup.get('dataEntrada')?.value;
+        const dataSortida = formGroup.get('dataSortida')?.value;
+
+
+        if(!dataEntrada || !dataSortida){
+            return null;
+        }
+
+        if (new Date(dataEntrada) > new Date(dataSortida)) {
+            return {viatjeEnElTemps: true};
+        } else if (new Date(dataEntrada) > new Date()){
+            return {viatjeEnElTemps: true};
+        } else {
+            return null;
+        }
+    }
+}
 export function dataIniciValidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
         const formGroup = control as FormGroup;
@@ -58,4 +80,54 @@ export function llitIdexists(llitService: CamasService): AsyncValidatorFn{
 
         ));
     };
+}
+
+export function ingresoEnCama(ingresService: IngresService): AsyncValidatorFn {
+    return (control: AbstractControl): Observable<ValidationErrors | null> => {
+      const formGroup = control as FormGroup;
+
+      const codiLlit = formGroup.get('llitId')?.value;
+
+
+      if(!codiLlit){
+        return of(null);
+      }
+
+      return ingresService.getIngressos().pipe(
+        map(ingresos => {
+            const ingresosRelacionados = ingresos.filter(ingreso => ingreso.llitId === codiLlit);
+            return ingresosRelacionados.length > 0 ? { camaOcupadaPaciente: true } : null;
+
+        }),
+        catchError(err => {
+            return of(null);
+        })
+      )
+    }
+
+}
+
+export function ingresoEnCamaModif(ingresService: IngresService, originalCamaId: string): AsyncValidatorFn {
+    return (control: AbstractControl): Observable<ValidationErrors | null> => {
+      const formGroup = control as FormGroup;
+
+      const codiLlit = formGroup.get('llitId')?.value;
+
+
+      if(!codiLlit || codiLlit === originalCamaId){
+        return of(null);
+      }
+
+      return ingresService.getIngressos().pipe(
+        map(ingresos => {
+            const ingresosRelacionados = ingresos.filter(ingreso => ingreso.llitId === codiLlit);
+            return ingresosRelacionados.length > 0 ? { camaOcupadaPaciente: true } : null;
+
+        }),
+        catchError(err => {
+            return of(null);
+        })
+      )
+    }
+
 }
