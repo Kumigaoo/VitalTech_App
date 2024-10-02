@@ -21,13 +21,14 @@
 
             <div class = "masInfo">
                 <div class="capzalera1">
-                    <label for="SS">Número de la SS:<span style="color: red;">*</span></label>
+                    <label for="SS">Targeta Sanitaria:<span style="color: red;">*</span></label>
                     <input type="text" id="SS" ngModel name="SS" formControlName = "numSS" required
                     [ngClass]="{'is-invalid': pacientForm.get('numSS')?.touched && pacientForm.get('numSS')?.invalid}">
                     <div class ="error-messages" *ngIf="pacientForm.get('numSS')?.touched && pacientForm.get('numSS')?.invalid">
                         <small *ngIf="pacientForm.get('numSS')?.hasError('required')">Este campo es obligatorio</small>
-                        <small *ngIf="pacientForm.get('numSS')?.hasError('minlength')">Mínimo 10 carácteres</small>
-                        <small *ngIf="pacientForm.get('numSS')?.hasError('pattern')">Construido por 10 números</small>
+                        <small *ngIf="pacientForm.get('numSS')?.hasError('minlength')">Mínimo 15 carácteres</small>
+                        <small *ngIf="pacientForm.get('numSS')?.hasError('maxlength')">Máximo 15 carácteres</small>
+                        <small *ngIf="pacientForm.get('numSS')?.hasError('pattern')">Construido por 4 letras y 11 números</small>
                         <small *ngIf="pacientForm.get('numSS')?.hasError('pacientSSExistes')">El num SS ya existe</small>
                     </div>
                 </div>

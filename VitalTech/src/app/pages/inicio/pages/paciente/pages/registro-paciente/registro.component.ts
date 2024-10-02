@@ -24,11 +24,12 @@ export class RegistroComponent {
         updateOn: 'blur'
       }],
       numSS: ['', {
-        validators: [Validators.required, Validators.minLength(10), Validators.pattern(/^\d{3}[-\s]?\d{3}[-\s]?\d{4}$/)],
-        asyncValidators: [pacienteSSValidator(this.pacientService)]
+        validators: [Validators.required, Validators.maxLength(15), Validators.minLength(15), Validators.pattern(/^[A-Z]{4}\d{11}$/)],
+        asyncValidators: [pacienteSSValidator(this.pacientService)],
+        updateOn: 'blur'
       }],
       nom: ['', {
-        validotors: [Validators.required]
+        validators: [Validators.required]
       }],
       sexe: ['', {
         validators: [Validators.required]

@@ -56,3 +56,15 @@ export function pacienteSSValidator(pacienteService: PacientService): AsyncValid
         );
     };
 }
+export function pacienteDniValidatorModif(pacienteService: PacientService, dniOriginal: string): AsyncValidatorFn{
+    return (control: AbstractControl): Observable<ValidationErrors | null> => {
+        if(!control.value || control.value === dniOriginal){
+            return of(null);
+        }
+
+        return pacienteService.getPacientId(control.value).pipe(
+            map(pacient => (pacient? {pacientIdExistes: true } : null)),
+            catchError(() => of(null))
+        );
+    };
+}
