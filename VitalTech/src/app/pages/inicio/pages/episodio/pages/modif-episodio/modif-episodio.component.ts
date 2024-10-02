@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { EpisodiService } from '../../../../../../service/episodis.service';
 import { EpisodiMedic } from '../../../../../../interface/episodis-medics.interface';
 import Swal from 'sweetalert2';
-import { dataIniciFinalValidator,pacientIdexists } from '../../../../../../validator/episodio/episodio-validator.validator';
+import { dataIniciFinalValidator,dataIniciValidator,pacientIdexists } from '../../../../../../validator/episodio/episodio-validator.validator';
 import { PacientService } from '../../../../../../service/pacientes.service';
 
 
@@ -39,7 +39,7 @@ export class ModifEpisodiComponent {
       }]
     },
     {
-      validators: dataIniciFinalValidator()
+      validators: [dataIniciFinalValidator(), dataIniciValidator()]
     });
 
     this.modifEpisodiForm.get('estat')?.valueChanges.subscribe(estat => {

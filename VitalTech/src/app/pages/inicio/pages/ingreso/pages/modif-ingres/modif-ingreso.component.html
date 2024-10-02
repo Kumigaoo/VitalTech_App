@@ -8,28 +8,51 @@
 
             <div class = "masInfo">
                 <div class="capzalera1">
-                    <label forx="entrada">Fecha de ingreso:</label>
-                    <input type="date" id="entrada" ngModel name="dataEntrada" formControlName = "dataEntrada" required>
+                    <label forx="entrada">Fecha de ingreso: <span style="color: red;">*</span></label>
+                    <input type="date" id="entrada" ngModel name="dataEntrada" formControlName = "dataEntrada" required
+                    [ngClass]="{'is-invalid': modiIngresForm.get('dataEntrada')?.touched && modiIngresForm.get('dataEntrada')?.invalid || 
+                    modiIngresForm.hasError('viatjeEnElTemps')}">
+                    <div class="error-messages" *ngIf="modiIngresForm.get('dataEntrada')?.touched  && modiIngresForm.get('dataEntrada')?.invalid">
+                        <small *ngIf="modiIngresForm.get('dataEntrada')?.hasError('required')">Este campo es obligatorio</small>
+                    </div>
                 </div>
             </div>
 
             <div class = "capzalera1">
                 <label for="sortida">Fecha de salida:</label>
-                <input type="date" id="sortida" ngModel name="dataSortida" formControlName="dataSortida" required>
+                <input type="date" id="sortida" ngModel name="dataSortida" formControlName="dataSortida"
+                [ngClass]="{'is-invalid':modiIngresForm.hasError('viatjeEnElTemps')}">
             </div>
 
             <div class = "capzalera1">
-                <label for="episodi">Episodio médico:</label>
-                <input type="text" id="episodi" ngModel name="episodiMedicId" formControlName="episodiMedicId" required>
+                <label for="episodi">Episodio médico: <span style="color: red;">*</span></label>
+                <input type="text" id="episodi" ngModel name="episodiMedicId" formControlName="episodiMedicId" required
+                [ngClass]="{'is-invalid': modiIngresForm.get('episodiMedicId')?.touched && modiIngresForm.get('episodiMedicId')?.invalid}">
+                <div class="error-messages" *ngIf="modiIngresForm.get('episodiMedicId')?.touched  && modiIngresForm.get('episodiMedicId')?.invalid">
+                    <small *ngIf="modiIngresForm.get('episodiMedicId')?.hasError('required')">Este campo es obligatorio</small>
+                    <small *ngIf="modiIngresForm.get('episodiMedicId')?.hasError('episodioIdNotFound')">El ID de episodio no existe</small>
+                </div>
             </div>
 
             <div class = "capzalera1">
-                <label for="llit">ID cama:</label>
-                <input type="text" id="llit" ngModel name="llitId" formControlName="llitId" required>
+                <label for="llit">ID cama: <span style="color: red;">*</span></label>
+                <input type="text" id="llit" ngModel name="llitId" formControlName="llitId" required
+                [ngClass]="{'is-invalid': modiIngresForm.get('llitId')?.touched && modiIngresForm.get('llitId')?.invalid ||
+                    modiIngresForm.hasError('camaOcupadaPaciente')}">
+              <div class="error-messages" *ngIf="modiIngresForm.get('llitId')?.touched  && modiIngresForm.get('llitId')?.invalid ||
+              modiIngresForm.hasError('camaOcupadaPaciente')">
+                <small *ngIf="modiIngresForm.get('llitId')?.hasError('required')">Este campo es obligatorio</small>
+                <small *ngIf="modiIngresForm.get('llitId')?.hasError('minlength')">Mínimo 4 carácteres</small>
+                <small *ngIf="modiIngresForm.get('llitId')?.hasError('pattern')">Construido por 3 núm y A o B</small>
+                <small *ngIf="modiIngresForm.get('llitId')?.hasError('llitIdNotFound')">El ID de cama no existe</small>
+                <small *ngIf="modiIngresForm.get('llitId')?.hasError('camaOcupadaPaciente')">Ya hay un paciente ingresado</small>
+            </div>
             </div>
             
         </div>
-        
+        <div *ngIf="modiIngresForm.hasError('viatjeEnElTemps')" class="error-messages">
+            <small>No es poden fer viatjes en el temps</small>
+        </div>
         <button type="submit">Modificar</button>
     </form>
 </div>

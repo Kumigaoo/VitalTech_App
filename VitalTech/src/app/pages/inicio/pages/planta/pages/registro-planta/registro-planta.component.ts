@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
@@ -15,13 +15,23 @@ export class RegistroPlantaComponent {
 
   constructor(private fb: FormBuilder, private http: HttpClient, private router: Router){
     this.plantaForm = this.fb.group({
-      capacitatHabitacions: [''],
+      capacitatHabitacions: ['', {
+        validators: [Validators.pattern(/^(?:[0-9]|[1-6][0-9]|70)$/)]
+      }],
     });
   }
 
 
   onSubmit(){
+    
+    if(this.plantaForm.invalid){
+      this.plantaForm.markAllAsTouched();
+      return;
+    }
     const plantaData = this.plantaForm.value;
+    if (plantaData.capacitatHabitacions === null || plantaData.capacitatHabitacions === ''){
+      plantaData.capacitatHabitacions = 0;
+    }
     this.http.post('http://localhost:5296/api/Planta', plantaData).subscribe({
       next: response => {
         Swal.fire({
