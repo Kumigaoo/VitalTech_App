@@ -64,13 +64,6 @@ export class RegistroComponent {
           title: 'Error',
           text: 'ERROR, campos no válidos.'
         });
-      },
-      complete: () => {
-        Swal.fire({
-          icon: 'info',
-          title: 'Operación completada',
-          text: 'La operación ha finalizado.'
-        });
       }
     });
 
