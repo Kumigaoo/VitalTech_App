@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { PacientService } from '../../../../../../service/pacientes.service';
-import { pacienteDniValidator, pacienteDniLetraCorrect, pacienteSSValidator } from '../../../../../../validator/paciente/paciente-validator.validator';
+import { pacienteDniValidator, pacienteDniLetraCorrect, pacienteSSValidator, pacienteSSLetrasNumValidators } from '../../../../../../validator/paciente/paciente-validator.validator';
 
 import Swal from 'sweetalert2';
 
@@ -24,19 +24,22 @@ export class RegistroComponent {
         updateOn: 'blur'
       }],
       numSS: ['', {
-        validators: [Validators.required, Validators.maxLength(15), Validators.minLength(15), Validators.pattern(/^[A-Z]{4}\d{11}$/)],
+        validators: [Validators.required, Validators.maxLength(14), Validators.minLength(14), Validators.pattern(/^[A-Z]{4}\d{10}$/)],
         asyncValidators: [pacienteSSValidator(this.pacientService)],
         updateOn: 'blur'
+        
       }],
       nom: ['', {
-        validators: [Validators.required]
+        validators: [Validators.required],
+        updateOn: 'blur'
       }],
       sexe: ['', {
         validators: [Validators.required]
       }]
     },
   {
-    validator:pacienteDniLetraCorrect()
+    validator:[pacienteDniLetraCorrect(), pacienteSSLetrasNumValidators()],
+
   });
   }
 
