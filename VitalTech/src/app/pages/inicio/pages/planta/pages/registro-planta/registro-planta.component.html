@@ -6,10 +6,14 @@
         <div class= "identificador">
             <div class = "capzalera4">
                 <label for="capacitatHabitacions">Capacidad:</label> 
-                <input type="number" id="capacitatHabitacions" name="capacitatHabitacions" formControlName="capacitatHabitacions" required>
+                <input type="number" id="capacitatHabitacions" name="capacitatHabitacions" formControlName="capacitatHabitacions" 
+                [ngClass]="{'is-invalid': plantaForm.get('capacitatHabitacions')?.touched && plantaForm.get('capacitatHabitacions')?.invalid}">
+                <div class ="error-messages" *ngIf="plantaForm.get('capacitatHabitacions')?.touched && plantaForm.get('capacitatHabitacions')?.invalid">
+                    <small *ngIf="plantaForm.get('capacitatHabitacions')?.hasError('pattern')">Máximo 70 habitaciones por planta</small>
+                </div>
             </div>
         </div>
-        <button type="submit">Registrar nueva planta    </button>
+        <button type="submit">Registrar nueva planta</button>
     </form>
 </div>
 
