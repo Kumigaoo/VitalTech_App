@@ -6,6 +6,7 @@ import { Metge } from '../../../../interface/metge.interface';
 import { ConsultesPopupComponent } from '../../../../components/pop-ups/consultes-popup/consultes-popup.component';
 import { MatDialog } from '@angular/material/dialog';
 import Swal from 'sweetalert2';
+import { EnumTranslatePipe } from '../../../../pipes/enum-translate.pipe';
 
 @Component({
   selector: 'app-metge',

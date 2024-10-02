@@ -18,22 +18,15 @@
         Radiologo,
         Traumatologo,
         Urologo,
+        Anestesiologo,
+        Oftalmologo,
+        Otorrinolaringologo,
 
         // Cirujanos
         CirujanoGeneral,
         CirujanoCardiovascular,
         CirujanoPlastico,
         Neurocirujano,
-        CirujanoOrtopedico,
-
-        // Otros especialistas médicos
-        Anestesiologo,
-        Endocrinologo,
-        Gastroenterologo,
-        Hematologo,
-        Nefrologo,
-        Oftalmologo,
-        Otorrinolaringologo,
 
         // Enfermeros
         EnfermeroGeneral,

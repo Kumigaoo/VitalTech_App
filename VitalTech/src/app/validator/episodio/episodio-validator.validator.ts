@@ -1,7 +1,6 @@
 import { AbstractControl, ValidatorFn, AsyncValidatorFn, ValidationErrors, FormGroup, Form } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { EpisodiService } from '../../service/episodis.service';
 import { PacientService } from '../../service/pacientes.service';
 
 export function dataIniciFinalValidator(): ValidatorFn {
@@ -19,6 +18,23 @@ export function dataIniciFinalValidator(): ValidatorFn {
         if (new Date(dataObertura) > new Date(dataTancament)) {
             return {viatjeEnElTemps: true};
         } else if (new Date(dataObertura) > new Date()){
+            return {viatjeEnElTemps: true};
+        } else {
+            return null;
+        }
+    }
+}
+export function dataIniciValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+        const formGroup = control as FormGroup;
+        
+        const dataObertura = formGroup.get('dataObertura')?.value;
+
+        if(!dataObertura){
+            return null;
+        }
+
+        if (new Date(dataObertura) > new Date()){
             return {viatjeEnElTemps: true};
         } else {
             return null;

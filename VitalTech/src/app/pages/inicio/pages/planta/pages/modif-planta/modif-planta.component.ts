@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Planta } from '../../../../../../interface/planta.interface';
@@ -19,7 +19,9 @@ export class ModifPlantaComponent {
     private router: Router, private route: ActivatedRoute,){
     this.plantaForm = this.fb.group({
       id: [{value: '', disabled: true}],
-      capacitatHabitacions: ['']
+      capacitatHabitacions: ['', {
+        validators: [Validators.pattern(/^(?:[0-9]|[1-6][0-9]|70)$/)]
+      }]
       
     });
   }
@@ -32,9 +34,15 @@ export class ModifPlantaComponent {
   }
 
   onActualice(): void {
-
+    if(this.plantaForm.invalid){
+      this.plantaForm.markAllAsTouched();
+      return;
+    }
     if(this.plantaForm.valid) {
       const updatedLlit: Planta = { ...this.plantaForm.getRawValue(), id: this.plantaId };
+      if(updatedLlit.capacitatHabitacions === null || updatedLlit.capacitatHabitacions.toString() === '') {
+        updatedLlit.capacitatHabitacions = 0;
+      }
       this.plantaService.putPlanta(updatedLlit).subscribe({
 
         next: response => {

@@ -31,7 +31,7 @@ export class ModifCamaComponent {
         asyncValidators: [camaIdValidatorModif(this.llitService, this.originalCamaId)],
         updateOn: 'blur'
       }],
-      foraDeServei: [''],
+      foraDeServei: [false],
       habitacioId: ['', {
         validators: [Validators.required, Validators.pattern(/^\d{3}$/)],
         asyncValidators: [habidValidator(this.habitacioService)],
@@ -40,7 +40,7 @@ export class ModifCamaComponent {
     }, {
       validator: [codiLlitHabitacioValidator()],
       asyncValidators: [camaOcupadaPaciente(this.ingresService)],
-      updateOn: 'blur'
+      updateOn: 'change'
     });
   }
 
@@ -48,7 +48,7 @@ export class ModifCamaComponent {
     this.llitId = String(this.route.snapshot.paramMap.get('id')); // obtiene el id de la planta desde la url 
     this.llitService.getLlit(this.llitId).subscribe(llit => {
       this.llitForm.patchValue(llit);
-    })
+    });
   }
 
 

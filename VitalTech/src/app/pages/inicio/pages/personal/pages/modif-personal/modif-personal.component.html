@@ -18,7 +18,7 @@
                 </div>
             </div>
 
-            <div class="capzalera1">
+            <!-- <div class="capzalera1">
                 <label for="name">Especialidad:</label>
                 <select name="Especialidad" id="Especialidad" formControlName="especialitat">
                     <option value="Cirujano">Cirujano</option>
@@ -26,7 +26,51 @@
                     <option value="Odontólogo">Odontólogo</option>
                     <option value="Traumatólogo">Traumatólogo</option>
                 </select>
+            </div> -->
+
+            <div class = "capzalera1">
+                <label for="name">Especialidad:</label>
+                <select name="Especialidad" id="Especialidad" formControlName="especialitat">
+                    
+                    <optgroup label="Médico general">
+                    <option value="MG">Médico general</option>
+                    <optgroup label="Cirujano">
+                    <option value="Cirujano">Cirujano general</option>
+                    <option value="Cirujano">Cirujano cardiovascular</option>
+                    <option value="Cirujano">Cirujano plástico</option>
+                    <option value="Cirujano">Neurocirujano</option>
+                    <option value="Cirujano">Cirujano ortopédico</option>
+                    <optgroup label="Especialista">
+                        <option value="Especialistas">Cardiólogo</option>
+                        <option value="Especialistas">Dermatólogo</option>
+                        <option value="Especialistas">Ginecólogo</option>
+                        <option value="Especialistas">Neumólogo</option>
+                        <option value="Especialistas">Oncólogo</option>
+                        <option value="Especialistas">Pediatra</option>
+                        <option value="Especialistas">Psiquiatra</option>
+                        <option value="Especialistas">Traumatólogo</option>
+                        <option value="Especialistas">Neurólogo</option>
+                        <option value="Especialistas">Urólogo</option>
+                        <option value="Especialistas">Radiólogo</option>
+                        <option value="Especialistas">Anestesiólogo</option>
+                        <option value="Especialistas">Endocrinólogo</option>
+                        <option value="Especialistas">Gastroenterólogo</option>
+                        <option value="Especialistas">Hematólogo</option>
+                        <option value="Especialistas">Nefrólogo</option>
+                        <option value="Especialistas">Oftalmólogo</option>
+                        <option value="Especialistas">Otorrinolaringólogo</option>
+                    <optgroup label="Enfermero">
+                        <option value="Enfermeros">Enfermero general</option>
+                        <option value="Enfermeros">Enfermero pediátrico</option>
+                        <option value="Enfermeros">Enfermero psiquiátrico</option>
+                        <option value="Enfermeros">Enfermero quirúrgico</option>
+                        <option value="Enfermeros">Enfermero de emergencias</option>
+                        <option value="Enfermeros">Enfermero de cuidados intensivos</option>
+                        <option value="Enfermeros">Enfermero geriátrico</option>
+                    
+                </select>
             </div>
+
         </div>
         <button type="submit">Modificar empleado</button>
     </form>

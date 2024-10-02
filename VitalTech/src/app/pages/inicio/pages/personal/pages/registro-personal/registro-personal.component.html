@@ -17,17 +17,47 @@
                     <input type="text" id="nom" ngModel name="nom" formControlName = "nom" required>
                 </div>
             </div>
-
-            <div class = "capzalera1">
+    
+           <div class = "capzalera1">
                 <label for="name">Especialidad:</label>
                 <select name="Especialidad" id="Especialidad" formControlName="especialitat">
-                    <option value="Cirujano">Cirujano</option>
-                    <option value="Pediatra">Pediatra</option>
-                    <option value="Odontólogo">Odontólogo</option>
-                    <option value="Traumatólogo">Traumatólogo</option>
+                    
+                    <optgroup label="Médico general">
+                    <option value="MedicoGeneral">Médico general</option>
+                    <optgroup label="Cirujano">
+                    <option value="CirujanoGeneral">Cirujano general</option>
+                    <option value="CirujanoCardiovascular">Cirujano cardiovascular</option>
+                    <option value="CirujanoPlastico">Cirujano plástico</option>
+                    <option value="Neurocirujano">Neurocirujano</option>
+                    <optgroup label="Especialistas">
+                        <option value="Cardiologo">Cardiólogo</option>
+                        <option value="Dermatologo">Dermatólogo</option>
+                        <option value="Ginecologo">Ginecólogo</option>
+                        <option value="Neumologo">Neumólogo</option>
+                        <option value="Oncologo">Oncólogo</option>
+                        <option value="Pediatra">Pediatra</option>
+                        <option value="Psiquiatra">Psiquiatra</option>
+                        <option value="Traumatologo">Traumatólogo</option>
+                        <option value="Neurologo">Neurólogo</option>
+                        <option value="Urologo">Urólogo</option>
+                        <option value="Radiologo">Radiólogo</option>
+                        <option value="Anestesiologo">Anestesiólogo</option>
+                        <option value="Oftalmologo">Oftalmólogo</option>
+                        <option value="Otorrinolaringologo">Otorrinolaringólogo</option>
+                    <optgroup label="Enfermeros">
+                        <option value="EnfermeroGeneral">Enfermero general</option>
+                        <option value="EnfermeroPediatrico">Enfermero pediátrico</option>
+                        <option value="EnfermeroPsiquiatrico">Enfermero psiquiátrico</option>
+                        <option value="EnfermeroQuirurgico">Enfermero quirúrgico</option>
+                        <option value="EnfermeroDeEmergencias">Enfermero de emergencias</option>
+                        <option value="EnfermeroDeCuidadosIntensivos">Enfermero de cuidados intensivos</option>
+                        <option value="EnfermeroGeriatrico">Enfermero geriátrico</option>
+                    
                 </select>
-            </div>
+            </div> 
+
             
+
         </div>
         
         <button type="submit">Registrar empleado</button>
