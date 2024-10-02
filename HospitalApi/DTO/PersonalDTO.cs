@@ -1,16 +1,17 @@
 ﻿using HospitalAPI.Models;
 
-namespace HospitalAPI.DTO
+namespace HospitalApi.DTO
+
 {
     public class PersonalDTO
     
     {
-        public string DNI { get; set; }
+        public string DNI { get; set; } = string.Empty;
 
-        public string Especialitat { get; set; }
+        public string Especialitat { get; set; } = string.Empty;
 
-        public string Nom { get; set; }
+        public string Nom { get; set; } = string.Empty;
 
-        public ICollection<ConsultaDTO> Consultes { get; set; }
+        public ICollection<ConsultaReadDTO>? Consultes { get; set; }
     }
 }

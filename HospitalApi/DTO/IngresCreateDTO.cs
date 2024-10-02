@@ -9,7 +9,7 @@
 
         public int EpisodiMedicId { get; set; }
 
-        public string LlitId { get; set; }
+        public string CodiLlit { get; set; } = string.Empty;
 
     }
 }

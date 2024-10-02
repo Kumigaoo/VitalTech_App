@@ -12,16 +12,16 @@ namespace HospitalAPI.Models
         public bool Urgencia { get; set; }
 
         [Required]
-        public string Sintomatologia { get; set; }
+        public string? Sintomatologia { get; set; }
 
         public string? Recepta { get; set; }
 
         [ForeignKey("PersonalId")]
         public int PersonalId { get; set; }
-        public Personal Personal { get; set; }
+        public Personal? Personal { get; set; }
 
         [ForeignKey("EpisodiMedicId")]
         public int EpisodiMedicId { get; set; }
-        public EpisodiMedic EpisodiMedic { get; set; }
+        public EpisodiMedic? EpisodiMedic { get; set; }
     }
 }

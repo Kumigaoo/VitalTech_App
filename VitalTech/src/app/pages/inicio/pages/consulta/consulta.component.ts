@@ -155,7 +155,7 @@ export class ConsultaComponent {
         break;
       case "dni":
         for (let i = 0; i < this.consultes.length; i++) {
-          if (this.consultes[i].personalId.toLowerCase().includes(this.searchInput.toLowerCase())) {
+          if (this.consultes[i].dniPersonal.toLowerCase().includes(this.searchInput.toLowerCase())) {
             busqueda.push(this.consultes[i]);
           }
         }

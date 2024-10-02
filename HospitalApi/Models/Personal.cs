@@ -8,9 +8,12 @@ namespace HospitalAPI.Models
         public int Id { get; set; }
 
         [Required]
-        public string DNI { get; set; }
-        public string Especialitat { get; set; }
-        public string Nom { get; set; }
-        public ICollection<Consulta> Consultes { get; set; }
+        public string DNI { get; set; } = string.Empty;
+
+        public string Especialitat { get; set; } = string.Empty;
+
+        public string Nom { get; set; } = string.Empty;
+
+        public ICollection<Consulta>? Consultes { get; set; }
     }
 }

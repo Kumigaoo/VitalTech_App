@@ -1,13 +1,9 @@
 ﻿namespace HospitalApi.DTO
 {
-    public class HabitacioCreateDTO
+    public class HabitacionReferenceDTO
     {
-
         public int CodiHabitacio { get; set; }
-
         public int CapacitatLlits { get; set; }
-
-         public int PlantaId { get; set; }
 
     }
 }

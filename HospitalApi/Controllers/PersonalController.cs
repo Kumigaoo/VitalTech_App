@@ -1,14 +1,10 @@
 using AutoMapper;
 using HospitalApi.Data;
 using HospitalApi.Enums;
-using HospitalAPI.DTO;
+using HospitalApi.DTO;
 using HospitalAPI.Models;
-using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis.Elfie.Extensions;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Internal;
-using Microsoft.JSInterop.Infrastructure;
 
 namespace HospitalAPI.Controllers
 {
@@ -36,10 +32,7 @@ namespace HospitalAPI.Controllers
         public async Task<ActionResult<IEnumerable<PersonalDTO>>> GetPersonals()
         {
             _logger.LogInformation("Obtenint el personal");
-
             IEnumerable<Personal> perList = await _bbdd.Personals.Include("Consultes").ToListAsync();
-
-
             return Ok(_mapper.Map<IEnumerable<PersonalDTO>>(perList));
         }
 
@@ -138,39 +131,6 @@ namespace HospitalAPI.Controllers
             _bbdd.Personals.Update(personal);
             await _bbdd.SaveChangesAsync();
             return NoContent();
-        }
-
-        [HttpPatch("{id}")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-
-        public async Task<IActionResult> UpdatePerTotal (string id, JsonPatchDocument<PersonalDTO> patchDto)
-        {
-            if (patchDto == null || id.Length < 9)
-            {
-                _logger.LogError("Error: no existeix l'empleat amb el ID indicat.");
-                return BadRequest("Error: no existeix l'empleat amb el ID indicat.");
-            }
-
-            var personal = await _bbdd.Personals.AsNoTracking().FirstOrDefaultAsync(v => v.DNI == id);
-
-            PersonalDTO personaldto = _mapper.Map<PersonalDTO>(personal);
-
-            patchDto.ApplyTo(personaldto, ModelState);
-
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            Personal modelo = _mapper.Map<Personal>(personaldto);
-
-            _bbdd.Update(modelo);
-            await _bbdd.SaveChangesAsync();
-
-            _logger.LogInformation("Empleat actualitzat.");
-            return NoContent();
-
         }
 
         public static bool CheckDNI(string dni)

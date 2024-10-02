@@ -1,20 +1,18 @@
 ﻿using HospitalAPI.Models;
+using System.ComponentModel.DataAnnotations.Schema;
 
-
-namespace HospitalAPI.DTO
+namespace HospitalApi.DTO
 {
-    public class IngresDTO
+    public class IngresReadDTO
 
     {
         public int Id { get; set; }
-
         public DateTime DataEntrada { get; set; }
-
         public DateTime DataSortida { get; set; }
-        
         public int EpisodiMedicId { get; set; }
 
-        public string LlitId { get; set; }
+        [NotMapped]
+        public string CodiLlit { get; set; } = string.Empty;
        
 
     }

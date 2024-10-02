@@ -1,9 +1,7 @@
 using AutoMapper;
 using HospitalApi.Data;
-using HospitalAPI.DTO;
 using HospitalApi.DTO;
 using HospitalAPI.Models;
-using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -121,10 +119,7 @@ namespace HospitalAPI.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> UpdatePlanta(
-            int id,
-            [FromBody] PlantaUpdateDTO userPlantaDTO
-        )
+        public async Task<IActionResult> UpdatePlanta(int id, [FromBody] PlantaUpdateDTO userPlantaDTO)
         {
             if (userPlantaDTO == null || id != userPlantaDTO.Id || id <= 0)
             {
@@ -140,8 +135,6 @@ namespace HospitalAPI.Controllers
 
             Planta planta = _mapper.Map<Planta>(userPlantaDTO);
 
-
-
             _bbdd.Plantes.Update(planta);
             await _bbdd.SaveChangesAsync();
 
@@ -149,38 +142,6 @@ namespace HospitalAPI.Controllers
             return NoContent();
         }
 
-        [HttpPatch("{id:int}")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> UpdateParcialPlanta(
-            int id,
-            JsonPatchDocument<PlantaDTO> patchDto
-        )
-        {
-            if (patchDto == null || id <= 0)
-            {
-                _logger.LogError("Error: no existeix la planta amb l'ID indicat.");
-                return BadRequest("Error: no existeix la planta amb l'ID indicat.");
-            }
-
-            var planta = await _bbdd.Plantes.AsNoTracking().FirstOrDefaultAsync(v => v.Id == id);
-
-            PlantaDTO plantadto = _mapper.Map<PlantaDTO>(planta);
-
-            patchDto.ApplyTo(plantadto, ModelState);
-
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            Planta modelo = _mapper.Map<Planta>(plantadto);
-
-            _bbdd.Update(modelo);
-            await _bbdd.SaveChangesAsync();
-
-            _logger.LogInformation("Planta actualitzada.");
-            return NoContent();
-        }
+        
     }
 }

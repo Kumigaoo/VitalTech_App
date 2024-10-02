@@ -2,12 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using AutoMapper;
-using HospitalApi.Data;
-using HospitalApi.DTO;
-using HospitalAPI.DTO;
 using HospitalAPI.Models;
-using Microsoft.EntityFrameworkCore;
 using System.Text;
 
 namespace HospitalAPI.Controllers
@@ -38,7 +33,9 @@ namespace HospitalAPI.Controllers
 
         private string GenerateJwtToken(User user)
         {
-            var securitykey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jxt:Key"]));
+            var x = _configuration["Jxt:Key"];
+            if (x == null) return "NaN";
+            var securitykey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(x));
             var credentials = new SigningCredentials(securitykey, SecurityAlgorithms.HmacSha256);
 
             var claims = new[]

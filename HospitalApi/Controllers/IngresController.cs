@@ -1,9 +1,8 @@
 ﻿using AutoMapper;
 using HospitalApi.Data;
 using HospitalApi.DTO;
-using HospitalAPI.DTO;
 using HospitalAPI.Models;
-using Microsoft.AspNetCore.JsonPatch;
+using Humanizer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -29,12 +28,22 @@ namespace HospitalAPI.Controllers
 
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<IEnumerable<IngresDTO>>> GetIngressos()
+        public async Task<ActionResult<IEnumerable<IngresReadDTO>>> GetIngressos()
         {
 
             _logger.LogInformation("Obtenint els ingressos");
             IEnumerable<Ingres> ingresList = await _bbdd.Ingressos.Include("EpisodiMedic").Include("Llit").ToListAsync();
-            return Ok(_mapper.Map<IEnumerable<IngresDTO>>(ingresList));
+
+            IEnumerable<IngresReadDTO> ingresos = _mapper.Map<IEnumerable<IngresReadDTO>>(ingresList);
+
+            for (int i = 0; i < ingresos.Count(); i++)
+            {
+                var codiLlit = await (from p in _bbdd.Llits where p.Id == ingresList.ElementAt(i).LlitId select p.CodiLlit).FirstOrDefaultAsync();
+                if (codiLlit == null) { continue; }
+                ingresos.ElementAt(i).CodiLlit = codiLlit;
+            }
+
+            return Ok(ingresos);
 
         }
 
@@ -43,7 +52,7 @@ namespace HospitalAPI.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<IngresDTO>> GetIngres(int id)
+        public async Task<ActionResult<IngresReadDTO>> GetIngres(int id)
         {
 
             if (id <= 0)
@@ -52,17 +61,21 @@ namespace HospitalAPI.Controllers
                 return BadRequest("Error: format d'ID incorrecte.");
             }
 
-            var ingres = await _bbdd.Ingressos.FirstOrDefaultAsync(h => h.Id == id);
+            var ing = await _bbdd.Ingressos.FirstOrDefaultAsync(h => h.Id == id);
 
-
-            if (ingres == null)
+            if (ing == null)
             {
                 _logger.LogInformation("Error: no existeix l'ID indicat.");
                 return NotFound("Error: no existeix l'ID indicat.");
             }
 
-            return Ok(_mapper.Map<IngresDTO>(ingres));
+            IngresReadDTO ingres = _mapper.Map<IngresReadDTO>(ing);
 
+            var codi = await (from p in _bbdd.Llits where p.Id == ing.LlitId select p.CodiLlit).FirstOrDefaultAsync();
+            if (codi == null) return NotFound("No existeix el Llit amb l'ID indicat.");
+
+            ingres.CodiLlit = codi;
+            return Ok(ingres);
         }
 
         [HttpPost]
@@ -77,7 +90,7 @@ namespace HospitalAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            var llit = await _bbdd.Llits.FindAsync(userIngresDTO.LlitId);
+            var llit = await (from p in _bbdd.Llits where p.CodiLlit == userIngresDTO.CodiLlit select p).FirstOrDefaultAsync();
             var episodi = await _bbdd.EpisodisMedics.FindAsync(userIngresDTO.EpisodiMedicId);
 
             if (llit == null)
@@ -128,7 +141,10 @@ namespace HospitalAPI.Controllers
                 return NotFound("Error: ingrés indicat no trobat.");
             }
             var llit = await _bbdd.Llits.FindAsync(ingres.LlitId);
+            if (llit == null) return NotFound("No existeix llit amb aquest ID.");
+
             llit.Ocupat=false;
+
             _bbdd.Update(llit);
 
 
@@ -143,14 +159,8 @@ namespace HospitalAPI.Controllers
         [HttpPut("{id:int}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> UpdateIngres(int id, [FromBody] IngresDTO userIngresDTO)
+        public async Task<IActionResult> UpdateIngres(int id, [FromBody] IngresReadDTO userIngresDTO)
         {
-
-            if (userIngresDTO.Id == null)
-            {
-                _logger.LogError("Error: ID indicat invalid.");
-                return BadRequest("Error: ID indicat invalid.");
-            }
 
             var existeixIngres = await _bbdd.Ingressos.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id);
 
@@ -161,16 +171,19 @@ namespace HospitalAPI.Controllers
             }
 
             Ingres ingres = _mapper.Map<Ingres>(userIngresDTO);
+
+            var llit = await (from p in _bbdd.Llits where p.CodiLlit == userIngresDTO.CodiLlit select p).FirstOrDefaultAsync();
+            if (llit == null) return NotFound("No existeix llit amb aquest ID.");
+
             DateTime data = DateTime.Now;
 
             if (ingres.DataSortida.HasValue)
             {
-                var llit = await _bbdd.Llits.FindAsync(userIngresDTO.LlitId);
                 llit.Ocupat = false;
                 _bbdd.Update(llit);
             }
-         
 
+            ingres.LlitId = llit.Id;
             _bbdd.Ingressos.Update(ingres);
             await _bbdd.SaveChangesAsync();
 
@@ -179,37 +192,6 @@ namespace HospitalAPI.Controllers
 
         }
 
-        [HttpPatch("{id:int}")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-
-        public async Task<IActionResult> UpdateParcialIngres(int id, JsonPatchDocument<IngresDTO> patchDto)
-        {
-            if (patchDto == null || id <= 0)
-            {
-                _logger.LogError("Error: no existeix l'ingrés amb l'ID indicat.");
-                return BadRequest("Error: no existeix l'ingrés amb l'ID indicat.");
-            }
-
-            var ingres = await _bbdd.Ingressos.AsNoTracking().FirstOrDefaultAsync(v => v.Id == id);
-
-            IngresDTO ingresdto = _mapper.Map<IngresDTO>(ingres);
-
-            patchDto.ApplyTo(ingresdto, ModelState);
-
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            Ingres modelo = _mapper.Map<Ingres>(ingresdto);
-
-            _bbdd.Update(modelo);
-            await _bbdd.SaveChangesAsync();
-
-            _logger.LogInformation("Ingrés actualitzat.");
-            return NoContent();
-
-        }
+        
     }
 }

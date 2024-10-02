@@ -3,6 +3,6 @@ export interface Consulta {
     urgencia: string;
     sintomatologia: string;
     recepta: string;
-    personalId: string;
+    dniPersonal: string;
     episodiMedicId: number;
   }

@@ -1,6 +1,6 @@
 ﻿using HospitalAPI.Models;
 
-namespace HospitalAPI.DTO
+namespace HospitalApi.DTO
 {
     public class PlantaDTO
     {
@@ -8,7 +8,7 @@ namespace HospitalAPI.DTO
 
         public int CapacitatHabitacions { get; set; }
 
-        public ICollection<HabitacioDTO> Habitacions { get; set; }
+        public ICollection<HabitacioReadDTO>? Habitacions { get; set; }
 
     }
 }

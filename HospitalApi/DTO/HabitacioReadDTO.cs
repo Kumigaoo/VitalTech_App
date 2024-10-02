@@ -1,17 +1,13 @@
 ﻿
 using System.ComponentModel.DataAnnotations;
 
-namespace HospitalAPI.DTO
+namespace HospitalApi.DTO
 {
-    public class HabitacioDTO
+    public class HabitacioReadDTO
     {
-
         public int CodiHabitacio { get; set; }
-
         public int CapacitatLlits { get; set; }
-
         public int PlantaId { get; set; }
-
-        public ICollection<LlitDTO> Llits { get; set; }
+        public ICollection<LlitReferenceDTO>? Llits { get; set; }
     }
 }

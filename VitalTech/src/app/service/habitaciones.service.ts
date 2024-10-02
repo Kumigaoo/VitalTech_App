@@ -53,13 +53,6 @@ export class HabitacioService {
 
   }
 
-  // PATCH
-  patchHabitcio(habitacio: Habitacio): Observable<Habitacio> {
-
-    return this.http.patch<Habitacio>(`${this.apiUrl}/${habitacio.codiHabitacio}`, habitacio);
-
-  }
-
 
 
 }

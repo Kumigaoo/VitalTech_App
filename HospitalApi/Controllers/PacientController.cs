@@ -1,9 +1,7 @@
 ﻿using AutoMapper;
 using HospitalApi.Data;
 using HospitalApi.DTO;
-using HospitalAPI.DTO;
 using HospitalAPI.Models;
-using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -41,7 +39,7 @@ namespace HospitalAPI.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<HabitacioDTO>> GetPacient(string id)
+        public async Task<ActionResult<HabitacioReadDTO>> GetPacient(string id)
         {
 
             if (id.Length <= 0)
@@ -50,7 +48,7 @@ namespace HospitalAPI.Controllers
                 return BadRequest("Error: dades introduïdes en format incorrecte.");
             }
 
-            var pacient = await _bbdd.Pacients.FirstOrDefaultAsync(h => h.DNI == id);
+            var pacient = await _bbdd.Pacients.Include("EpisodisMedics").FirstOrDefaultAsync(h => h.DNI == id);
 
             if (pacient == null)
             {
@@ -133,63 +131,39 @@ namespace HospitalAPI.Controllers
         public async Task<IActionResult> UpdatePacient(string id, [FromBody] PacientCreateDTO userPacientDTO)
         {
 
-            if (userPacientDTO == null || id != userPacientDTO.DNI)
+            if (userPacientDTO == null)
             {
                 _logger.LogError("Error: no existeix pacient amb l'ID indicat o les dades introduïdes són incorrectes.");
                 return BadRequest("Error: no existeix pacient amb l'ID indicat o les dades introduïdes són incorrectes.");
             }
 
-            var existeixPacient = await _bbdd.Pacients.AsNoTracking().FirstOrDefaultAsync(p => p.DNI == id);
+            if(!CheckDNI(userPacientDTO.DNI)) return BadRequest("Error: DNI no correcte.");
 
-            if (existeixPacient == null){
+            if (CheckTS(userPacientDTO.NumSS))
+            {
+                _logger.LogError("Error: Num SS Invalid.");
+                return BadRequest("Error: Num SS Invalid.");
+            }
+
+            if (userPacientDTO.Sexe != "F" && userPacientDTO.Sexe != "M")
+            {
+                _logger.LogError("Error: Sexe Invalid.");
+                return BadRequest("Error: Sexe Invalid.");
+            }
+
+            var pacient = await (from p in _bbdd.Pacients where p.DNI == id select p).FirstOrDefaultAsync();
+
+            if (pacient == null){
                 _logger.LogError("No existeix un pacient amb aquest DNI.");
                 return NotFound("No existeix un pacient amb aquest DNI.");
             }
 
-            Pacient pacient = _mapper.Map<Pacient>(userPacientDTO);
+            _mapper.Map(userPacientDTO, pacient);
 
             _bbdd.Pacients.Update(pacient);
             await _bbdd.SaveChangesAsync();
 
             _logger.LogInformation("Pacient modificat exitosament.");
-            return NoContent();
-
-        }
-
-        [HttpPatch("{id}")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> UpdateParcialPacient(string id, JsonPatchDocument<PacientCreateDTO> patchDto)
-        {
-            if (patchDto == null || id.Length < 9)
-            {
-                _logger.LogError("Error: no existeix el pacient amb l'ID indicat.");
-                return BadRequest("Error: no existeix el pacient amb l'ID indicat.");
-            }
-
-            var pacient = await _bbdd.Pacients.AsNoTracking().FirstOrDefaultAsync(v => v.DNI == id);
-
-            if (pacient == null)
-            {
-                _logger.LogError("Error: no existeix el pacient amb l'ID indicat.");
-                return BadRequest("Error: no existeix el pacient amb l'ID indicat.");
-            }
-
-            PacientCreateDTO pacientdto = _mapper.Map<PacientCreateDTO>(pacient);
-
-            patchDto.ApplyTo(pacientdto, ModelState);
-
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            Pacient modelo = _mapper.Map<Pacient>(pacientdto);
-
-            _bbdd.Update(modelo);
-            await _bbdd.SaveChangesAsync();
-
-            _logger.LogInformation("Pacient actualitzat.");
             return NoContent();
 
         }

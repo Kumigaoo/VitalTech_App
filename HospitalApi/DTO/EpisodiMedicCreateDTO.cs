@@ -1,4 +1,5 @@
 ﻿using HospitalAPI.Models;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HospitalApi.DTO
 {
@@ -9,11 +10,12 @@ namespace HospitalApi.DTO
 
         public DateTime? DataTancament { get; set; }
 
-        public string PacientId { get; set; }
+        [NotMapped]
+        public string DNIPacient { get; set; } = string.Empty;
 
-        public string Dolencia { get; set; }
+        public string Dolencia { get; set; } = string.Empty;
 
-        public String Estat { get; set; }
+        public String Estat { get; set; } = String.Empty;
 
     }
 }

@@ -10,6 +10,6 @@ namespace HospitalAPI.Models
 
         public int CapacitatHabitacions { get; set; }
 
-        public ICollection<Habitacio> Habitacions { get; set; }
+        public ICollection<Habitacio>? Habitacions { get; set; }
     }
 }

@@ -1,13 +1,13 @@
 ﻿using HospitalAPI.Models;
 
-namespace HospitalAPI.DTO
+namespace HospitalApi.DTO
 {
     public class PersonalCreateDTO
     {
-        public string DNI { get; set; }
+        public string DNI { get; set; } = string.Empty;
 
-        public string Especialitat { get; set; }
+        public string Especialitat { get; set; } = string.Empty;
 
-        public string Nom { get; set; }
+        public string Nom { get; set; } = string.Empty;
     }
 }

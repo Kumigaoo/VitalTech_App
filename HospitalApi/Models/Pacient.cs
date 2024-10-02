@@ -8,17 +8,17 @@ namespace HospitalAPI.Models
         public int Id { get; set; }
 
         [Required]
-        public string DNI { get; set; }
+        public string DNI { get; set; } = string.Empty;
 
         [Required]
-        public string NumSS { get; set; }
+        public string NumSS { get; set; } = string.Empty;
 
         [Required]
-        public string Nom { get; set; }
+        public string Nom { get; set; } = string.Empty;
 
-        public string Sexe { get; set; }
+        public string Sexe { get; set; } = string.Empty;
 
-        public ICollection<EpisodiMedic> EpisodisMedics { get; set; }
+        public ICollection<EpisodiMedic>? EpisodisMedics { get; set; }
 
     }
 }

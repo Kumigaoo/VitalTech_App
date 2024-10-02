@@ -6,8 +6,6 @@ namespace HospitalAPI.Models
     public class Habitacio
     {
 
-        
-
         [Key]
         public int Id { get; set; }
 
@@ -20,9 +18,9 @@ namespace HospitalAPI.Models
 
         [ForeignKey("PlantaId")]
         public int PlantaId { get; set; }
-        public Planta Planta { get; set; }
+        public Planta? Planta { get; set; }
 
-        public ICollection<Llit> Llits { get; set; }
+        public ICollection<Llit>? Llits { get; set; }
 
     }
 }

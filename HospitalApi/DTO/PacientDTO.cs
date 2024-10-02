@@ -1,15 +1,15 @@
 ﻿using HospitalAPI.Models;
 
-namespace HospitalAPI.DTO
+namespace HospitalApi.DTO
 {
     public class PacientDTO
     {
 
-        public string DNI { get; set; }
-        public string NumSS { get; set; }
-        public string Nom { get; set; }
-        public string Sexe { get; set; }
-        public ICollection<EpisodiMedicDTO> EpisodisMedics { get; set; }
+        public string DNI { get; set; } = string.Empty;
+        public string NumSS { get; set; } = string.Empty;
+        public string Nom { get; set; } = string.Empty;
+        public string Sexe { get; set; } = string.Empty;
+        public ICollection<EpisodiMedicReferenceDTO>? EpisodisMedics { get; set; }
 
 
     }

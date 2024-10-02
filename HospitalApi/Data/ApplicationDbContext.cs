@@ -1,12 +1,10 @@
 ﻿using HospitalAPI.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Xml;
 
 namespace HospitalApi.Data
 {
     public class ApplicationDbContext : DbContext
     {
-
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
         }

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using HospitalApi.DTO;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 using System.Text.Json.Serialization;
@@ -13,7 +14,7 @@ namespace HospitalAPI.Models
 
         [Required]
         [MinLength(4, ErrorMessage = "El codi del llit ha de tenir el num de la habitació i si és el A o el B.")]
-        public string CodiLlit { get; set; }
+        public string CodiLlit { get; set; } = string.Empty;
 
         public bool Ocupat { get; set; }
         
@@ -26,11 +27,11 @@ namespace HospitalAPI.Models
 
         [JsonIgnore]
         [IgnoreDataMember]
-        public Habitacio Habitacio { get; set; }
+        public Habitacio? Habitacio { get; set; }
 
         [JsonIgnore]
         [IgnoreDataMember]
-        public ICollection<Ingres> Ingressos { get; set; }
+        public ICollection<Ingres>? Ingressos { get; set; }
 
     }
 }

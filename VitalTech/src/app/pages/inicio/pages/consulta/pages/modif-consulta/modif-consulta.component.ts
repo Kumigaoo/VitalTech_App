@@ -22,7 +22,7 @@ export class ModifConsultaComponent {
       urgencia: [''],
       sintomatologia: [''],
       recepta: [''],
-      personalId: [''],
+      dniPersonal: [''],
       episodiMedicId: ['']
     });
   }
@@ -38,7 +38,8 @@ export class ModifConsultaComponent {
   onActualice(): void {
 
     if(this.consultaForm.valid) {
-      const updatedConsulta: Consulta = { ...this.consultaForm.getRawValue(), id: this.consultaId };
+      const updatedConsulta: Consulta = { ...this.consultaForm.getRawValue(), id: this.consultaId }
+
       this.consultaService.putConsulta(updatedConsulta).subscribe({
 
         next: response => {
@@ -55,35 +56,11 @@ export class ModifConsultaComponent {
             text: 'ERROR, campos no válidos.'
           });
         }
-
-        // next:() => {
-        //   alert('Consulta actualitzada amb exit');
-        //   this.router.navigate(['/consulta']);
-        // },
-        // error: (error) => {
-        //   console.error('Error al actualitzar la consulta:', error);
-        //   alert('Error al actualitzar la consulta');
-        // }
       })
     }
 
   }
 
-  onActualicePatch(): void {
-    if(this.consultaForm.valid) {
-      const updatedConsulta = this.consultaForm.getRawValue();
-      const patchData: Partial<Consulta> = { ...updatedConsulta, id: this.consultaId };
-      this.consultaService.patchConsulta(patchData).subscribe({
-        next:() => {
-          alert('Consulta actualitzada amb exit');
-          this.router.navigate(['/consulta']);
-        },
-        error: (error) => {
-          console.error('Error al actualitzar la consulta:', error);
-          alert('Error al actualitzar la consulta');
-        }
-      })
-    }
-  }
+  
 }
 

@@ -15,10 +15,10 @@ namespace HospitalAPI.Models
         public DateTime? DataTancament { get; set; }
 
         [Required]
-        public string Dolencia { get; set; }
+        public string? Dolencia { get; set; }
 
         [Required]
-        public String Estat { get; set; }
+        public string Estat { get; set; } = string.Empty;
 
         [ForeignKey("PacientId")]
         [JsonIgnore]
@@ -27,15 +27,15 @@ namespace HospitalAPI.Models
 
         [JsonIgnore]
         [IgnoreDataMember]
-        public Pacient Pacient {get; set;}
+        public Pacient? Pacient { get; set; }
 
         [JsonIgnore]
         [IgnoreDataMember]
-        public ICollection<Consulta> Consultes {get; set;}
+        public ICollection<Consulta>? Consultes {get; set;}
         
         [JsonIgnore]
         [IgnoreDataMember]
-        public ICollection<Ingres> Ingressos {get; set;}
+        public ICollection<Ingres>? Ingressos {get; set;}
 
     }
 }

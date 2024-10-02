@@ -1,15 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using HospitalAPI.Models;
 
-namespace HospitalAPI.DTO
+namespace HospitalApi.DTO
 {
-    public class LlitDTO
+    public class LlitReadDTO
     {
-        public string CodiLlit { get; set; }
+        public string CodiLlit { get; set; } = string.Empty;
         public bool Ocupat {get;set;}
         public bool ForaDeServei {get;set;}
         public int HabitacioId { get; set; }
-
-        public ICollection<IngresDTO> Ingressos { get; set; }
+        public ICollection<IngresReferenceDTO>? Ingressos { get; set; }
     }
 }
