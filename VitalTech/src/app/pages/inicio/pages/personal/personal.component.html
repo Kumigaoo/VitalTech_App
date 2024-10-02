@@ -43,7 +43,7 @@
                 <tr *ngFor="let metge of pagedPersonals">
                     <td>{{ metge.dni }}</td>
                     <td>{{ metge.nom }}</td>
-                    <td>{{ metge.especialitat }}</td>  
+                    <td>{{ metge.especialitat | enumTranslate }}</td>
                     <td class = "coleccio" mat-button (click)="openConsultes(metge)">Consultas</td>
                     <button class = "ico" (click)="updatePersonal(metge.dni)">🔄</button>
                     <button class = "ico" (click)="deletePersonal(metge.dni)">❎</button>
