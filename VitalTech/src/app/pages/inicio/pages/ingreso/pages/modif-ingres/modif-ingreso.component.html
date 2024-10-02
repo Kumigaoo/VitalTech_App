@@ -39,14 +39,13 @@
                 <input type="text" id="llit" ngModel name="llitId" formControlName="llitId" required
                 [ngClass]="{'is-invalid': modiIngresForm.get('llitId')?.touched && modiIngresForm.get('llitId')?.invalid ||
                     modiIngresForm.hasError('camaOcupadaPaciente')}">
-              <div class="error-messages" *ngIf="modiIngresForm.get('llitId')?.touched  && modiIngresForm.get('llitId')?.invalid">
+              <div class="error-messages" *ngIf="modiIngresForm.get('llitId')?.touched  && modiIngresForm.get('llitId')?.invalid ||
+              modiIngresForm.hasError('camaOcupadaPaciente')">
                 <small *ngIf="modiIngresForm.get('llitId')?.hasError('required')">Este campo es obligatorio</small>
                 <small *ngIf="modiIngresForm.get('llitId')?.hasError('minlength')">Mínimo 4 carácteres</small>
                 <small *ngIf="modiIngresForm.get('llitId')?.hasError('pattern')">Construido por 3 núm y A o B</small>
                 <small *ngIf="modiIngresForm.get('llitId')?.hasError('llitIdNotFound')">El ID de cama no existe</small>
-            </div>
-            <div class="error-messages" *ngIf="modiIngresForm.hasError('camaOcupadaPaciente')">
-                <small>Ya hay un paciente ingresado</small>
+                <small *ngIf="modiIngresForm.get('llitId')?.hasError('camaOcupadaPaciente')">Ya hay un paciente ingresado</small>
             </div>
             </div>
             

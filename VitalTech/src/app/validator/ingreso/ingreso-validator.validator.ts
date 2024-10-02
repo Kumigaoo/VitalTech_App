@@ -109,12 +109,10 @@ export function ingresoEnCama(ingresService: IngresService): AsyncValidatorFn {
 
 export function ingresoEnCamaModif(ingresService: IngresService, originalCamaId: string): AsyncValidatorFn {
     return (control: AbstractControl): Observable<ValidationErrors | null> => {
-      const formGroup = control as FormGroup;
 
-      const codiLlit = formGroup.get('llitId')?.value;
+      const codiLlit = control.value;
 
-
-      if(!codiLlit || codiLlit === originalCamaId){
+      if(!codiLlit || codiLlit ===originalCamaId){
         return of(null);
       }
 

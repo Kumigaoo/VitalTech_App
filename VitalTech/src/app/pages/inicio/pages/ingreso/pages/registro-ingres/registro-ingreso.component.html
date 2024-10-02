@@ -38,6 +38,7 @@
                 <small *ngIf="ingresForm.get('llitId')?.hasError('minlength')">Mínimo 4 carácteres</small>
                 <small *ngIf="ingresForm.get('llitId')?.hasError('pattern')">Construido por 3 núm y A o B</small>
                 <small *ngIf="ingresForm.get('llitId')?.hasError('llitIdNotFound')">El ID de cama no existe</small>
+                <small *ngIf="ingresForm.hasError('camaOcupadaPaciente')">Ya hay un paciente ingresado</small>
             </div>
             <div class="error-messages" *ngIf="ingresForm.hasError('camaOcupadaPaciente')">
                 <small>Ya hay un paciente ingresado</small>

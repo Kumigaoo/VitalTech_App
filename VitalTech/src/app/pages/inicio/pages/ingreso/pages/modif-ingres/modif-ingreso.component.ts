@@ -27,9 +27,7 @@ export class ModifIngresoComponent {
 
   constructor(private fb: FormBuilder, private http: HttpClient, private ingresService: IngresService, private router: Router, private route: ActivatedRoute, private episodiService: EpisodiService, private llitService: CamasService) {
     this.ingresId = Number(this.route.snapshot.paramMap.get('id'));
-    this.ingresService.getIngresId(String(this.ingresId)).subscribe(ingreso => {
-      this.originalCamaId =ingreso.llitId;
-    });
+    
 
     this.modiIngresForm = this.fb.group({
       dataEntrada: ['', {
@@ -48,8 +46,16 @@ export class ModifIngresoComponent {
       }]
     }, {
       validators: [dataIniciFinalValidator(), dataIniciValidator()],
-      asyncValidators: [ingresoEnCamaModif(this.ingresService, this.originalCamaId ?? '')],
-      updateOn: 'blur'
+    });
+
+    this.ingresService.getIngresId(String(this.ingresId)).subscribe(ingreso => {
+      this.originalCamaId =ingreso.llitId;
+
+      const llitControl = this.modiIngresForm.get('llitId'); // guardo su control(campo)
+      if(llitControl){ // si existe
+        llitControl.setAsyncValidators([llitIdexists(this.llitService), ingresoEnCamaModif(this.ingresService, this.originalCamaId )]); //valida primero que la cama existe y despues si esta ocupada
+        llitControl.updateValueAndValidity(); // vuelve a validar todo
+      }
     });
   }
   formatearFecha(fecha: Date): string {
