@@ -156,6 +156,7 @@ namespace HospitalAPI.Controllers
             if (personal == null) return BadRequest("No existeix cap metge amb l'ID indicat.");
             if (episodi == null) return BadRequest("No existeix cap episodi mèdic amb l'ID indicat.");
 
+
             consulta.PersonalId = personal.Id;
             consulta.EpisodiMedicId = episodi.Id;
 

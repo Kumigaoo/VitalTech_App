@@ -180,10 +180,7 @@ namespace HospitalAPI.Controllers
                 _logger.LogInformation("Error: no existeix el pacient indicat.");
                 return BadRequest("Error: no existeix el pacient indicat.");
             }
-
             episodi.PacientId = pacient.Id;
-            episodi.Consultes = existeixEpi.Consultes;
-            episodi.Ingressos = existeixEpi.Ingressos;
 
             _bbdd.EpisodisMedics.Update(episodi);
             await _bbdd.SaveChangesAsync();

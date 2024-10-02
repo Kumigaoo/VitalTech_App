@@ -148,9 +148,8 @@ namespace HospitalAPI.Controllers
                 _logger.LogError("No existeix llit amb aquest ID.");
                 return NotFound("No existeix llit amb aquest ID.");
             }
-
-            llit.CodiLlit = userLlitDTO.CodiLlit;
-            llit.HabitacioId = userLlitDTO.HabitacioId;
+            
+            _mapper.Map(userLlitDTO, llit);
 
             _bbdd.Llits.Update(llit);
             await _bbdd.SaveChangesAsync();

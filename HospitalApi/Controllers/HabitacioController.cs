@@ -166,9 +166,7 @@ namespace HospitalAPI.Controllers
                 return NotFound("No existeix habiatció amb aquest ID.");
             }
 
-            hab.CodiHabitacio = userHabDTO.CodiHabitacio;
-            hab.PlantaId = userHabDTO.PlantaId;
-            hab.CapacitatLlits = userHabDTO.CapacitatLlits;
+            _mapper.Map(userHabDTO, hab);
 
             _bbdd.Habitacions.Update(hab);
             await _bbdd.SaveChangesAsync();
