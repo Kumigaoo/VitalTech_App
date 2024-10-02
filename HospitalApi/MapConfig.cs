@@ -21,7 +21,7 @@ namespace HospitalAPI
             CreateMap<Llit, LlitReferenceDTO>().ReverseMap();
             CreateMap<Llit, LlitCreateDTO>().ReverseMap();
 
-            CreateMap<Planta, PlantaDTO>().ReverseMap();
+            CreateMap<Planta, PlantaReadDTO>().ReverseMap();
             CreateMap<Planta, PlantaCreateDTO>().ReverseMap();
             CreateMap<Planta, PlantaUpdateDTO>().ReverseMap();
 
@@ -34,10 +34,10 @@ namespace HospitalAPI
             CreateMap<Ingres, IngresCreateDTO>().ReverseMap();
             CreateMap<Ingres, IngresReferenceDTO>().ReverseMap();
 
-            CreateMap<Pacient, PacientDTO>().ReverseMap();
+            CreateMap<Pacient, PacientReadDTO>().ReverseMap();
             CreateMap<Pacient, PacientCreateDTO>().ReverseMap();
 
-            CreateMap<Personal, PersonalDTO>().ReverseMap();
+            CreateMap<Personal, PersonalReadDTO>().ReverseMap();
             CreateMap<Personal, PersonalCreateDTO>().ReverseMap();
 
         }

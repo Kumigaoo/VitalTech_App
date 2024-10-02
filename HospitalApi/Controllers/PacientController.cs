@@ -27,11 +27,11 @@ namespace HospitalAPI.Controllers
 
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<IEnumerable<PacientDTO>>> GetPacients()
+        public async Task<ActionResult<IEnumerable<PacientReadDTO>>> GetPacients()
         {
             _logger.LogInformation("Obtenint els pacients");
             IEnumerable<Pacient> pacientList = await _bbdd.Pacients.Include("EpisodisMedics").ToListAsync();
-            return Ok(_mapper.Map<IEnumerable<PacientDTO>>(pacientList));
+            return Ok(_mapper.Map<IEnumerable<PacientReadDTO>>(pacientList));
         }
 
 
@@ -56,7 +56,7 @@ namespace HospitalAPI.Controllers
                 return NotFound("Error, no existeix el pacient amb l'ID indicat.");
             }
 
-            return Ok(_mapper.Map<PacientDTO>(pacient));
+            return Ok(_mapper.Map<PacientReadDTO>(pacient));
 
         }
 

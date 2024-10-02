@@ -3,6 +3,7 @@ using HospitalApi.Data;
 using HospitalApi.DTO;
 using HospitalAPI.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 
 namespace HospitalAPI.Controllers
@@ -28,20 +29,20 @@ namespace HospitalAPI.Controllers
 
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<IEnumerable<PlantaDTO>>> GetPlantes()
+        public async Task<ActionResult<IEnumerable<PlantaReadDTO>>> GetPlantes()
         {
             _logger.LogInformation("Obtenint les habitacions");
             IEnumerable<Planta> plantaList = await _bbdd
                 .Plantes.Include("Habitacions")
                 .ToListAsync();
-            return Ok(_mapper.Map<IEnumerable<PlantaDTO>>(plantaList));
+            return Ok(_mapper.Map<IEnumerable<PlantaReadDTO>>(plantaList));
         }
 
         [HttpGet("{id:int}", Name = "GetPlanta")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<PlantaDTO>> GetPlanta(int id)
+        public async Task<ActionResult<PlantaReadDTO>> GetPlanta(int id)
         {
             if (id <= 0)
             {
@@ -49,13 +50,10 @@ namespace HospitalAPI.Controllers
                 return BadRequest("Error, no existeix la planta amb l'ID indicat.");
             }
 
-            var planta = await _bbdd
-                .Plantes.Include("Habitacions")
-                .FirstOrDefaultAsync(h => h.Id == id);
-            if (planta == null)
-                return NotFound();
+            var planta = await _bbdd.Plantes.Include("Habitacions").FirstOrDefaultAsync(p => p.Piso == id);
+            if (planta == null) return NotFound();
 
-            return Ok(_mapper.Map<PlantaDTO>(planta));
+            return Ok(_mapper.Map<PlantaReadDTO>(planta));
         }
 
         [HttpPost]
@@ -78,7 +76,7 @@ namespace HospitalAPI.Controllers
             await _bbdd.SaveChangesAsync();
 
             _logger.LogInformation("Planta creada satisfact�riament.");
-            return CreatedAtAction(nameof(GetPlanta), new { id = planta.Id }, planta);
+            return Ok(planta);
         }
 
         [HttpDelete("{id:int}")]
@@ -93,7 +91,7 @@ namespace HospitalAPI.Controllers
                 return BadRequest("Error: format d'ID introduït incorrecte.");
             }
 
-            var planta = await _bbdd.Plantes.FirstOrDefaultAsync(h => h.Id == id);
+            var planta = await _bbdd.Plantes.FirstOrDefaultAsync(p => p.Piso == id);
             var habis = await _bbdd.Habitacions.Where(h => h.PlantaId == id).ToListAsync();
 
             if (planta == null)
@@ -121,19 +119,21 @@ namespace HospitalAPI.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> UpdatePlanta(int id, [FromBody] PlantaUpdateDTO userPlantaDTO)
         {
-            if (userPlantaDTO == null || id != userPlantaDTO.Id || id <= 0)
+            if (userPlantaDTO == null || id <= 0)
             {
                 _logger.LogError("Error: planta no trobada o dades introduïdes incorrectes.");
                 return BadRequest("Error: planta no trobada o dades introduïdes incorrectes.");
             }
-            var existeixPlanta = await _bbdd.Plantes.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id);
 
-            if (existeixPlanta == null){
+            var planta = await (from p in _bbdd.Plantes where p.Piso == id select p).FirstOrDefaultAsync();
+
+            if (planta == null){
                 _logger.LogError("No existeix una planta amb aquest ID.");
                 return NotFound("No existeix una planta amb aquest ID.");
             }
 
-            Planta planta = _mapper.Map<Planta>(userPlantaDTO);
+
+            _mapper.Map(userPlantaDTO, planta);
 
             _bbdd.Plantes.Update(planta);
             await _bbdd.SaveChangesAsync();

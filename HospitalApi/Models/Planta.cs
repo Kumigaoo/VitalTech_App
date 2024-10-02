@@ -8,6 +8,8 @@ namespace HospitalAPI.Models
         [Key]
         public int Id { get; set; }
 
+        public int Piso {  get; set; }
+
         public int CapacitatHabitacions { get; set; }
 
         public ICollection<Habitacio>? Habitacions { get; set; }

@@ -16,11 +16,7 @@ namespace HospitalAPI.Controllers
         private readonly ApplicationDbContext _bbdd;
         private readonly IMapper _mapper;
 
-        public PersonalController(
-            ILogger<PersonalController> logger,
-            ApplicationDbContext bbdd,
-            IMapper mapper
-        )
+        public PersonalController(ILogger<PersonalController> logger, ApplicationDbContext bbdd, IMapper mapper)
         {
             _logger = logger;
             _bbdd = bbdd;
@@ -29,18 +25,18 @@ namespace HospitalAPI.Controllers
 
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<IEnumerable<PersonalDTO>>> GetPersonals()
+        public async Task<ActionResult<IEnumerable<PersonalReadDTO>>> GetPersonals()
         {
             _logger.LogInformation("Obtenint el personal");
             IEnumerable<Personal> perList = await _bbdd.Personals.Include("Consultes").ToListAsync();
-            return Ok(_mapper.Map<IEnumerable<PersonalDTO>>(perList));
+            return Ok(_mapper.Map<IEnumerable<PersonalReadDTO>>(perList));
         }
 
         [HttpGet("{id}", Name = "GetPer")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<PersonalDTO>> GetPersonal(string id)
+        public async Task<ActionResult<PersonalReadDTO>> GetPersonal(string id)
         {
             if (id.Length < 9)
             {
@@ -48,14 +44,14 @@ namespace HospitalAPI.Controllers
                 return BadRequest();
             }
 
-            var per = await _bbdd.Personals.FirstOrDefaultAsync(h => h.DNI == id);
+            var per = await _bbdd.Personals.Include("Consultes").FirstOrDefaultAsync(h => h.DNI == id);
 
             if (per == null)
             {
                 _logger.LogError("No existeix cap empleat amb l'ID: " + id);
                 return NotFound("No existeix cap empleat amb l'ID: " + id);
             }
-            return Ok(_mapper.Map<PersonalDTO>(per));
+            return Ok(_mapper.Map<PersonalReadDTO>(per));
         }
 
         [HttpPost]
@@ -117,18 +113,20 @@ namespace HospitalAPI.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> UpdatePer(string id, [FromBody] PersonalCreateDTO userPerDTO)
         {
-            if (userPerDTO.DNI == null || id != userPerDTO.DNI)
-                return BadRequest();
-            Personal personal = _mapper.Map<Personal>(userPerDTO);
+            if (id == null || !CheckDNI(userPerDTO.DNI)) return BadRequest("DNI invalid");
+            if (!Enum.TryParse(typeof(EnumProfessions), userPerDTO.Especialitat.Replace(" ", ""), true, out _)) return BadRequest("Professio incorrecte.");
+            
 
-            var existeixPersonal = await _bbdd.Personals.AsNoTracking().FirstOrDefaultAsync(p => p.DNI == id);
+            var pro = await (from p in _bbdd.Personals where p.DNI == id select p).FirstOrDefaultAsync();
 
-            if (existeixPersonal == null){
+            if (pro == null){
                 _logger.LogError("No existeix personal amb aquest ID.");
                 return NotFound("No existeix personal amb aquest ID.");
             }
 
-            _bbdd.Personals.Update(personal);
+            _mapper.Map(userPerDTO, pro);
+
+            _bbdd.Personals.Update(pro);
             await _bbdd.SaveChangesAsync();
             return NoContent();
         }

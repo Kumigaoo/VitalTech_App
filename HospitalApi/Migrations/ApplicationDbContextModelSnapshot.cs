@@ -248,6 +248,9 @@ namespace HospitalApi.Migrations
                     b.Property<int>("CapacitatHabitacions")
                         .HasColumnType("int");
 
+                    b.Property<int>("Piso")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.ToTable("Plantes");
