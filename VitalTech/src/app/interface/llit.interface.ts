@@ -2,6 +2,6 @@ export interface Llit {
     codiLlit: string;
     ocupat: boolean;
     foraDeServei: boolean;
-    habitacioId: number;
+    codiHabitacio: number;
     ingressos: string[];
   }

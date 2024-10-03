@@ -96,7 +96,7 @@ export class CamaComponent {
       break;
       case 'idHabitacion':
         for (let i = 0; i < this.llits.length; i++) {
-          if(Number(this.searchInput) === this.llits[i].habitacioId) {
+          if(Number(this.searchInput) === this.llits[i].codiHabitacio) {
             busqueda.push(this.llits[i]);
           }
         }      

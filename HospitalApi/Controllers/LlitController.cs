@@ -32,7 +32,16 @@ namespace HospitalAPI.Controllers
         {
             _logger.LogInformation("Obtenint els llits.");
             IEnumerable<Llit> llitList = await _bbdd.Llits.Include("Habitacio").Include("Ingressos").ToListAsync();
-            return Ok(_mapper.Map<IEnumerable<LlitReadDTO>>(llitList));
+            IEnumerable<LlitReadDTO> llits = _mapper.Map<IEnumerable<LlitReadDTO>>(llitList);
+
+            for (int i = 0; i < llits.Count(); i++)
+            {
+                var codi = await (from h in _bbdd.Llits where h.Id == llitList.ElementAt(i).HabitacioId select h.HabitacioId).FirstOrDefaultAsync();
+                if (codi == null) { continue; }
+                llits.ElementAt(i).CodiHabitacio = codi;
+            }
+
+            return Ok(llits);
         }
 
 
