@@ -8,7 +8,7 @@ namespace HospitalApi.DTO
         public string CodiLlit { get; set; } = string.Empty;
         public bool Ocupat {get;set;}
         public bool ForaDeServei {get;set;}
-        public int HabitacioId { get; set; }
+        public int CodiHabitacio { get; set; }
         public ICollection<IngresReferenceDTO>? Ingressos { get; set; }
     }
 }

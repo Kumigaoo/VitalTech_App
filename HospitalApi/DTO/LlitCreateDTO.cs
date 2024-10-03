@@ -5,7 +5,7 @@
    
         public string CodiLlit { get; set; } = string.Empty;
 
-        public int HabitacioId { get; set; }
+        public int CodiHabitacio { get; set; }
 
        
     }

@@ -4,6 +4,7 @@ using HospitalAPI.Models;
 using HospitalApi.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.SignalR;
 
 namespace HospitalAPI.Controllers
 {
@@ -80,7 +81,7 @@ namespace HospitalAPI.Controllers
                 return BadRequest(userLlitDTO);
             }
 
-            var habitacio = await _bbdd.Habitacions.FirstOrDefaultAsync(h => h.CodiHabitacio == userLlitDTO.HabitacioId);
+            var habitacio = await _bbdd.Habitacions.FirstOrDefaultAsync(h => h.CodiHabitacio == userLlitDTO.CodiHabitacio);
 
             if (habitacio == null)
             {
@@ -130,25 +131,25 @@ namespace HospitalAPI.Controllers
 
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("{codi}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> UpdateLlit(string id, [FromBody] LlitCreateDTO userLlitDTO)
+        public async Task<IActionResult> UpdateLlit(string codi, [FromBody] LlitCreateDTO userLlitDTO)
         {
 
-            if (userLlitDTO == null || id.Length != 4)
+            if (userLlitDTO == null || codi.Length != 4)
             {
                 _logger.LogError("Error: no existeix el llit amb l'ID indicat.");
                 return NotFound("Error: no existeix el llit amb l'ID indicat.");
             }
 
-            var llit = await (from h in _bbdd.Llits where h.CodiLlit == id select h).FirstOrDefaultAsync();
+            var llit = await (from l in _bbdd.Llits where l.CodiLlit == codi select l).FirstOrDefaultAsync();
 
             if (llit == null){
                 _logger.LogError("No existeix llit amb aquest ID.");
                 return NotFound("No existeix llit amb aquest ID.");
             }
-            
+
             _mapper.Map(userLlitDTO, llit);
 
             _bbdd.Llits.Update(llit);
