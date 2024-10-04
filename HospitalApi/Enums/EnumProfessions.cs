@@ -21,12 +21,18 @@
         Anestesiologo,
         Oftalmologo,
         Otorrinolaringologo,
+        Nefrologo,
+        Hematologo,
+        Gastroenterologo,
+        Endocrinologo,
+
 
         // Cirujanos
         CirujanoGeneral,
         CirujanoCardiovascular,
         CirujanoPlastico,
         Neurocirujano,
+        CirujanoOrtopedico,
 
         // Enfermeros
         EnfermeroGeneral,
