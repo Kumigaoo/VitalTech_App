@@ -146,8 +146,8 @@ export class PersonalComponent {
 
     Swal.fire({
 
-      title: 'Eliminar episodio médico',
-      text: "¿Quieres borrar este episodio médico?",
+      title: 'Eliminar empleado',
+      text: "¿Quieres borrar este empleado?",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
