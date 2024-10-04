@@ -95,7 +95,7 @@ export function ingresoEnCama(ingresService: IngresService): AsyncValidatorFn {
 
       return ingresService.getIngressos().pipe(
         map(ingresos => {
-            const ingresosRelacionados = ingresos.filter(ingreso => ingreso.llitId === codiLlit);
+            const ingresosRelacionados = ingresos.filter(ingreso => ingreso.codiLlit === codiLlit);
             return ingresosRelacionados.length > 0 ? { camaOcupadaPaciente: true } : null;
 
         }),
@@ -118,7 +118,7 @@ export function ingresoEnCamaModif(ingresService: IngresService, originalCamaId:
 
       return ingresService.getIngressos().pipe(
         map(ingresos => {
-            const ingresosRelacionados = ingresos.filter(ingreso => ingreso.llitId === codiLlit);
+            const ingresosRelacionados = ingresos.filter(ingreso => ingreso.codiLlit === codiLlit);
             return ingresosRelacionados.length > 0 ? { camaOcupadaPaciente: true } : null;
 
         }),

@@ -147,7 +147,7 @@ export class IngresoComponent {
       case 'llit':
         for (let i = 0; i < this.ingressos.length; i++) {
           if (
-            this.ingressos[i].llitId
+            this.ingressos[i].codiLlit
               .toLowerCase()
               .includes(this.searchInput.toLowerCase())
           ) {

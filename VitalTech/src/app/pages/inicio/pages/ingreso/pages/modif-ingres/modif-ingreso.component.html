@@ -36,16 +36,16 @@
 
             <div class = "capzalera1">
                 <label for="llit">ID cama: <span style="color: red;">*</span></label>
-                <input type="text" id="llit" ngModel name="llitId" formControlName="llitId" required
-                [ngClass]="{'is-invalid': modiIngresForm.get('llitId')?.touched && modiIngresForm.get('llitId')?.invalid ||
+                <input type="text" id="llit" ngModel name="codiLlit" formControlName="codiLlit" required
+                [ngClass]="{'is-invalid': modiIngresForm.get('codiLlit')?.touched && modiIngresForm.get('codiLlit')?.invalid ||
                     modiIngresForm.hasError('camaOcupadaPaciente')}">
-              <div class="error-messages" *ngIf="modiIngresForm.get('llitId')?.touched  && modiIngresForm.get('llitId')?.invalid ||
+              <div class="error-messages" *ngIf="modiIngresForm.get('codiLlit')?.touched  && modiIngresForm.get('codiLlit')?.invalid ||
               modiIngresForm.hasError('camaOcupadaPaciente')">
-                <small *ngIf="modiIngresForm.get('llitId')?.hasError('required')">Este campo es obligatorio</small>
-                <small *ngIf="modiIngresForm.get('llitId')?.hasError('minlength')">Mínimo 4 carácteres</small>
-                <small *ngIf="modiIngresForm.get('llitId')?.hasError('pattern')">Construido por 3 núm y A o B</small>
-                <small *ngIf="modiIngresForm.get('llitId')?.hasError('llitIdNotFound')">El ID de cama no existe</small>
-                <small *ngIf="modiIngresForm.get('llitId')?.hasError('camaOcupadaPaciente')">Ya hay un paciente ingresado</small>
+                <small *ngIf="modiIngresForm.get('codiLlit')?.hasError('required')">Este campo es obligatorio</small>
+                <small *ngIf="modiIngresForm.get('codiLlit')?.hasError('minlength')">Mínimo 4 carácteres</small>
+                <small *ngIf="modiIngresForm.get('codiLlit')?.hasError('pattern')">Construido por 3 núm y A o B</small>
+                <small *ngIf="modiIngresForm.get('codiLlit')?.hasError('llitIdNotFound')">El ID de cama no existe</small>
+                <small *ngIf="modiIngresForm.get('codiLlit')?.hasError('camaOcupadaPaciente')">Ya hay un paciente ingresado</small>
             </div>
             </div>
             

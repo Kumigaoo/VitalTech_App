@@ -28,7 +28,7 @@ export class RegistroEpisodiComponent {
       estat: ['', {
         validators: [Validators.required],
       }],
-      pacientId: ['', {
+      dniPacient: ['', {
         validators: [Validators.required, Validators.minLength(9), Validators.pattern(/^\d{8}[A-Za-z]$/)],
         asyncValidators: [pacientIdexists(pacienteService)],
 

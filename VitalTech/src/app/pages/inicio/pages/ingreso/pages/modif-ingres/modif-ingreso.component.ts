@@ -39,7 +39,7 @@ export class ModifIngresoComponent {
         asyncValidators: [episodioidexists(this.episodiService)],
         updateOn: 'blur'
       }],
-      llitId: ['', {
+      codiLlit: ['', {
         validators: [Validators.required, Validators.minLength(4), Validators.pattern(/^\d{3}[AB]$/)],
         asyncValidators: [llitIdexists(this.llitService), ingresoEnCama(this.ingresService)],
         updateOn: 'blur'
@@ -49,7 +49,7 @@ export class ModifIngresoComponent {
     });
 
     this.ingresService.getIngresId(String(this.ingresId)).subscribe(ingreso => {
-      this.originalCamaId =ingreso.llitId;
+      this.originalCamaId =ingreso.codiLlit;
 
       const llitControl = this.modiIngresForm.get('llitId'); // guardo su control(campo)
       if(llitControl){ // si existe
@@ -88,28 +88,8 @@ export class ModifIngresoComponent {
     }
     if (this.modiIngresForm.valid) {
       const updatedIngres: Ingres = { ...this.modiIngresForm.getRawValue(), id: this.ingresId };
-      /*if (updatedIngres.dataEntrada > updatedIngres.dataSortida) {
-        Swal.fire({
-          icon: 'error',
-          title: 'No se puede modificar el ingreso',
-          text: 'La nueva fecha de salida del ingreso es anterior a la de entrada.'
-        });
-        return;
-      } else if (new Date(updatedIngres.dataEntrada) > new Date()) {
-        Swal.fire({
-          icon: 'error',
-          title: 'No se puede modificar el ingreso',
-          text: 'La nueva fecha de entrada del ingreso es posterior a la fecha actual.'
-        });
-        return;
-      }*/
-
-
 
       this.ingresService.putIngres(updatedIngres).subscribe({
-
-
-
         next: response => {
           Swal.fire({
             icon: 'success',

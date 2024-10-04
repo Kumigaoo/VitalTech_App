@@ -96,20 +96,6 @@ export class ConsultaComponent {
     });
   }
 
-    //delete antiguo x si acaso jeje
-    // if (confirm('Estas seguro de eliminar esta consulta?')) {
-    //   this.consultaService.deleteConsulta(id).subscribe({
-    //     next: () => {
-    //       console.log('Consulta eliminada correctamente');
-    //       this.loadConsultes();
-    //     },
-    //     error: (error) => {
-    //       console.error('Error, no se pudo eliminar esta consulta:', error);
-    //     }
-    //   });
-    // }
-  
-
   modificarConsulta(id: number): void {
     this.router.navigate(['/inicio/consulta/modif-consulta', id]);
   }
