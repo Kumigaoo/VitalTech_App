@@ -3,5 +3,5 @@ export interface Ingres {
     dataEntrada: string;
     dataSortida: string;
     episodiMedicId: number;
-    llitId: string;
+    codiLlit: string;
   }

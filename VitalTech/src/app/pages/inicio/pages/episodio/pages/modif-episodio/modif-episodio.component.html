@@ -43,20 +43,20 @@
                 </div>
             </div>
             <div class="ola">
-              <label for="pacientId">DNI paciente:<span style="color: red;">*</span></label>
-              <input type="text" id="pacientId" ngModel name="pacientId" formControlName="pacientId" required
-              [ngClass]="{'is-invalid': modifEpisodiForm.get('pacientId')?.touched && modifEpisodiForm.get('pacientId')?.invalid}">
-              <div class="error-messages" *ngIf="modifEpisodiForm.get('pacientId')?.touched  && modifEpisodiForm.get('pacientId')?.invalid">
-                <small *ngIf="modifEpisodiForm.get('pacientId')?.hasError('required')">Este campo es obligatorio</small>
-                <small *ngIf="modifEpisodiForm.get('pacientId')?.hasError('minlength')">Mínimo 9 carácteres</small>
-                <small *ngIf="modifEpisodiForm.get('pacientId')?.hasError('pattern')">Construido por 8 núm y una letra</small>
-                <small *ngIf="modifEpisodiForm.get('pacientId')?.hasError('pacienteIdNotFound')">El DNI no existe</small>
+              <label for="dniPacient">DNI paciente:<span style="color: red;">*</span></label>
+              <input type="text" id="dniPacient" ngModel name="dniPacient" formControlName="dniPacient" required
+              [ngClass]="{'is-invalid': modifEpisodiForm.get('pacientId')?.touched && modifEpisodiForm.get('dniPacient')?.invalid}">
+              <div class="error-messages" *ngIf="modifEpisodiForm.get('dniPacient')?.touched  && modifEpisodiForm.get('dniPacient')?.invalid">
+                <small *ngIf="modifEpisodiForm.get('dniPacient')?.hasError('required')">Este campo es obligatorio</small>
+                <small *ngIf="modifEpisodiForm.get('dniPacient')?.hasError('minlength')">Mínimo 9 carácteres</small>
+                <small *ngIf="modifEpisodiForm.get('dniPacient')?.hasError('pattern')">Construido por 8 números y una letra</small>
+                <small *ngIf="modifEpisodiForm.get('dniPacient')?.hasError('pacienteIdNotFound')">El DNI no existe</small>
             </div>
             </div>
             
         </div>
         <div *ngIf="modifEpisodiForm.hasError('viatjeEnElTemps')" class="error-messages">
-            <small>No es poden fer viatjes en el temps</small>
+            <small>No se pueden hacer viajes en el tiempo</small>
         </div>
         <button type="submit">Publicar</button>
     </form>

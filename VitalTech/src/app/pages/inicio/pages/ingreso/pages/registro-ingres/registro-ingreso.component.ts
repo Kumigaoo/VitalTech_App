@@ -32,7 +32,7 @@ export class RegistroIngresoComponent {
         asyncValidators: [episodioidexists(episodiService)],
         updateOn: 'blur'
       }],
-      llitId: ['', {
+      codiLlit: ['', {
         validators: [Validators.required, Validators.minLength(4), Validators.pattern(/^\d{3}[AB]$/)],
         asyncValidators: [llitIdexists(llitService), ],
         updateOn: 'blur'

@@ -35,15 +35,15 @@
             </div>
 
             <div class = "capzalera1">
-                <label for="personalId">DNI del personal:<span style="color: red;">*</span></label>
-                <input type="text" id="personalId" name="personalId" formControlName="personalId" required
-                [ngClass]="{'is-invalid': consultaForm.get('personalId')?.touched && consultaForm.get('personalId')?.invalid ||
+                <label for="dniPersonal">DNI del personal:<span style="color: red;">*</span></label>
+                <input type="text" id="dniPersonal" name="dniPersonal" formControlName="dniPersonal" required
+                [ngClass]="{'is-invalid': consultaForm.get('dniPersonal')?.touched && consultaForm.get('dniPersonal')?.invalid ||
                 consultaForm.hasError('dniLletraIncorrect')}">
-                <div class="error-messages" *ngIf="consultaForm.get('personalId')?.touched  && consultaForm.get('personalId')?.invalid">
-                    <small *ngIf="consultaForm.get('personalId')?.hasError('required')">Este campo es obligatorio</small>
-                    <small *ngIf="consultaForm.get('personalId')?.hasError('minlength')">Mínimo 9 carácteres</small>
-                    <small *ngIf="consultaForm.get('personalId')?.hasError('pattern')">Construido por 8 núm y una letra</small>
-                    <small *ngIf="consultaForm.get('personalId')?.hasError('personalNotFound')">El DNI no existe</small>
+                <div class="error-messages" *ngIf="consultaForm.get('dniPersonal')?.touched  && consultaForm.get('dniPersonal')?.invalid">
+                    <small *ngIf="consultaForm.get('dniPersonal')?.hasError('dniPersonal')">Este campo es obligatorio</small>
+                    <small *ngIf="consultaForm.get('dniPersonal')?.hasError('minlength')">Mínimo 9 carácteres</small>
+                    <small *ngIf="consultaForm.get('dniPersonal')?.hasError('pattern')">Construido por 8 núm y una letra</small>
+                    <small *ngIf="consultaForm.get('dniPersonal')?.hasError('personalNotFound')">El DNI no existe</small>
                 </div>
             </div>
 

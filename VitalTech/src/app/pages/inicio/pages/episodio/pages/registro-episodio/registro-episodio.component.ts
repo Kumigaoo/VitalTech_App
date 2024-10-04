@@ -6,7 +6,6 @@ import { pacientIdexists,dataIniciValidator } from '../../../../../../validator/
 import { PacientService } from '../../../../../../service/pacientes.service';
  
 
-
 @Component({
   selector: 'app-registro-episodio',
   templateUrl: './registro-episodio.component.html',
@@ -28,7 +27,7 @@ export class RegistroEpisodiComponent {
       estat: ['', {
         validators: [Validators.required],
       }],
-      pacientId: ['', {
+      dniPacient: ['', {
         validators: [Validators.required, Validators.minLength(9), Validators.pattern(/^\d{8}[A-Za-z]$/)],
         asyncValidators: [pacientIdexists(pacienteService)],
 

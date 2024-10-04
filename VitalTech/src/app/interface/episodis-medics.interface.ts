@@ -4,7 +4,7 @@ export interface EpisodiMedic {
     dataTancament: string;
     dolencia: string;
     estat: string;
-    pacientId: string;
+    dniPacient: string;
     consultes: string[];
     ingressos: string[];
   }

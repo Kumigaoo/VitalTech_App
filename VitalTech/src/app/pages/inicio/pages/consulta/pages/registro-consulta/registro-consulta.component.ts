@@ -24,7 +24,7 @@ export class RegistroConsultaComponent {
       recepta: ['', {
         validators: [Validators.required]
       }],
-      personalId: ['' , {
+      dniPersonal: ['' , {
         validators: [Validators.required, Validators.minLength(9), Validators.pattern(/^\d{8}[A-Za-z]$/)],
         asyncValidators: [personalidValidator(this.personalService)],
       }],

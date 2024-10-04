@@ -92,7 +92,7 @@ export function camaOcupadaPaciente(ingresoService: IngresService): AsyncValidat
   
       return ingresoService.getIngressos().pipe(
         map(ingresos => {
-          const ingresosRelacionados = ingresos.filter(ingreso => ingreso.llitId === codiLlit);
+          const ingresosRelacionados = ingresos.filter(ingreso => ingreso.codiLlit === codiLlit);
           const error = ingresosRelacionados.length > 0 ? { camaOcupadaPaciente: true } : null;
           console.log('Resultado del validador:', error);
           return error;
