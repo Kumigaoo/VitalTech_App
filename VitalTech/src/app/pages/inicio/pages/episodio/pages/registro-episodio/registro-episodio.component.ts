@@ -6,7 +6,6 @@ import { pacientIdexists,dataIniciValidator } from '../../../../../../validator/
 import { PacientService } from '../../../../../../service/pacientes.service';
  
 
-
 @Component({
   selector: 'app-registro-episodio',
   templateUrl: './registro-episodio.component.html',

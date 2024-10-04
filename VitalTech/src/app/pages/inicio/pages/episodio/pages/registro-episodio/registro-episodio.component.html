@@ -39,7 +39,7 @@
             <div class="ola">
               <label for="dniPacient">DNI paciente:<span style="color: red;">*</span></label>
               <input type="text" id="dniPacient" ngModel name="dniPacient" formControlName="dniPacient" required
-              [ngClass]="{'is-invalid': episodiForm.get('pacientId')?.touched && episodiForm.get('dniPacient')?.invalid}">
+              [ngClass]="{'is-invalid': episodiForm.get('dniPacient')?.touched && episodiForm.get('dniPacient')?.invalid}">
               <div class="error-messages" *ngIf="episodiForm.get('dniPacient')?.touched  && episodiForm.get('dniPacient')?.invalid">
                 <small *ngIf="episodiForm.get('dniPacient')?.hasError('required')">Este campo es obligatorio</small>
                 <small *ngIf="episodiForm.get('dniPacient')?.hasError('minlength')">Mínimo 9 carácteres</small>
