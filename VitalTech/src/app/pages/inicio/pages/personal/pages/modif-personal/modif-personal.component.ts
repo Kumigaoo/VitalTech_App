@@ -14,6 +14,7 @@ import Swal from 'sweetalert2';
 export class ModifPersonalComponent {
   modiPersonalForm: FormGroup;
   personalId: string = "";
+  dniOriginal: string = "";
 
 
   constructor(private fb: FormBuilder, private http: HttpClient, private personalService: MetgeService, private router: Router, private route: ActivatedRoute) {
@@ -28,12 +29,13 @@ export class ModifPersonalComponent {
     this.personalId = String(this.route.snapshot.paramMap.get('id'));
     this.personalService.getPersonalId(this.personalId).subscribe(personal => {
       this.modiPersonalForm.patchValue(personal);
+      this.dniOriginal = personal.dni;
     })
   }
   onUpdate() {
     if (this.modiPersonalForm.valid) {
-      const updatePersonal: Metge = { ...this.modiPersonalForm.getRawValue(), dni: this.personalId };
-      this.personalService.putPacient(updatePersonal).subscribe({
+      const updatePersonal: Metge = { ...this.modiPersonalForm.getRawValue() };
+      this.personalService.putPacient(updatePersonal, this.dniOriginal).subscribe({
 
         next: response => {
           Swal.fire({

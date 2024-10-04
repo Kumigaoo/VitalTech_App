@@ -26,8 +26,8 @@ export class MetgeService {
     return this.http.post<Metge>(this.apiUrl, metge);
   }
 
-  putPacient(metge: Metge): Observable<Metge> {
-    return this.http.put<Metge>(`${this.apiUrl}/${metge.dni}`, metge);
+  putPacient(metge: Metge, dni: string): Observable<Metge> {
+    return this.http.put<Metge>(`${this.apiUrl}/${dni}`, metge);
   }
 
   deletePacient(id: string): Observable<Metge> {
