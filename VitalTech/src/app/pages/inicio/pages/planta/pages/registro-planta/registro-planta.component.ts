@@ -47,7 +47,7 @@ export class RegistroPlantaComponent {
         Swal.fire({
           icon: 'error',
           title: 'Error',
-          text: 'ERROR, campos no válidos.'
+          text: 'Campos no válidos o el piso ya existe.'
         });
       }
     });

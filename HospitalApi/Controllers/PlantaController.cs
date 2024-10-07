@@ -70,12 +70,18 @@ namespace HospitalAPI.Controllers
                 return BadRequest("Error: dades introduïdes incorrectes.");
             }
 
+            var plantaz = await _bbdd.Plantes.FirstOrDefaultAsync(p => p.Piso == userPlantaDTO.Piso);
+
+            if(plantaz!=null){
+                return BadRequest("Error: el piso introducido ya existe.");
+            }
+
             Planta planta = _mapper.Map<Planta>(userPlantaDTO);
 
             await _bbdd.Plantes.AddAsync(planta);
             await _bbdd.SaveChangesAsync();
 
-            _logger.LogInformation("Planta creada satisfact�riament.");
+            _logger.LogInformation("Planta creada satisfactòriament.");
             return Ok(planta);
         }
 
@@ -85,11 +91,12 @@ namespace HospitalAPI.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> DeletePlanta(int id)
         {
-            if (id <= 0)
-            {
-                _logger.LogError("Error: format d'ID introduït incorrecte.");
-                return BadRequest("Error: format d'ID introduït incorrecte.");
-            }
+            //comentado para que se pueda borrar habitaciones accidentalmente creadas con id(piso) <= 0; si no, no deja
+            // if (id <= 0)
+            // {
+            //     _logger.LogError("Error: format d'ID introduït incorrecte.");
+            //     return BadRequest("Error: format d'ID introduït incorrecte.");
+            // }
 
             var planta = await _bbdd.Plantes.FirstOrDefaultAsync(p => p.Piso == id);
             var habis = await _bbdd.Habitacions.Where(h => h.PlantaId == id).ToListAsync();

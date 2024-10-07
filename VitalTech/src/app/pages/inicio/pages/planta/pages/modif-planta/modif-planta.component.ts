@@ -18,7 +18,7 @@ export class ModifPlantaComponent {
   constructor(private fb: FormBuilder, private http: HttpClient, private plantaService: PlantaService,
     private router: Router, private route: ActivatedRoute,){
     this.plantaForm = this.fb.group({
-      piso: [{value: '', disabled: true}],
+      piso: [{value: '', disabled: false}],
       capacitatHabitacions: ['', {
         validators: [Validators.pattern(/^(?:[0-9]|[1-6][0-9]|70)$/)]
       }]
@@ -34,12 +34,16 @@ export class ModifPlantaComponent {
   }
 
   onActualice(): void {
+
+    this.plantaId = Number(this.route.snapshot.paramMap.get('piso'));
+    console.log(this.plantaId);
     if(this.plantaForm.invalid){
       this.plantaForm.markAllAsTouched();
       return;
     }
     if(this.plantaForm.valid) {
       const updatedLlit: Planta = { ...this.plantaForm.getRawValue(), id: this.plantaId };
+      console.log(this.plantaId);
       if(updatedLlit.capacitatHabitacions === null || updatedLlit.capacitatHabitacions.toString() === '') {
         updatedLlit.capacitatHabitacions = 0;
       }
@@ -56,7 +60,7 @@ export class ModifPlantaComponent {
           Swal.fire({
             icon: 'error',
             title: 'Error',
-            text: 'ERROR, campos no válidos.'
+            text: 'Campos no válidos.'
           });
         }
 

@@ -10,7 +10,7 @@ const routes: Routes = [
         component: PlantaComponent
     },
     {
-        path: 'modif-planta/:id',
+        path: 'modif-planta/:piso',
        component: ModifPlantaComponent
     },
     {
