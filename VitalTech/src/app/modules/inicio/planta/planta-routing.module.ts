@@ -16,9 +16,7 @@ const routes: Routes = [
     {
         path: 'registro-planta',
         component: RegistroPlantaComponent
-        
     }
-
 
 ]
 

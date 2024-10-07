@@ -27,7 +27,7 @@ export class PersonalComponent {
 
   // Estas son las variables de paginación
   currentPage: number = 1;
-  itemsPerPage: number = 3;
+  itemsPerPage: number = 4;
   totalPages: number = 1;
 
   ngOnInit() {
