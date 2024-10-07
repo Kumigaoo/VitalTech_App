@@ -74,7 +74,7 @@ export class PlantaComponent {
       }
   }
 
-  deletePlanta(id: number): void {
+  deletePlanta(piso: number): void {
 
     Swal.fire({
 
@@ -90,7 +90,7 @@ export class PlantaComponent {
     }).then((result) => {
 
       if (result.isConfirmed) { 
-        this.plantaService.deletePlanta(id).subscribe({
+        this.plantaService.deletePlanta(piso).subscribe({
           next: response => {
             Swal.fire({
               icon: 'success',

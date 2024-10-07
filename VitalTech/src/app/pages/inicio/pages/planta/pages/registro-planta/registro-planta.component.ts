@@ -15,6 +15,7 @@ export class RegistroPlantaComponent {
 
   constructor(private fb: FormBuilder, private http: HttpClient, private router: Router){
     this.plantaForm = this.fb.group({
+      piso: [''],
       capacitatHabitacions: ['', {
         validators: [Validators.pattern(/^(?:[0-9]|[1-6][0-9]|70)$/)]
       }],
@@ -29,9 +30,11 @@ export class RegistroPlantaComponent {
       return;
     }
     const plantaData = this.plantaForm.value;
+
     if (plantaData.capacitatHabitacions === null || plantaData.capacitatHabitacions === ''){
       plantaData.capacitatHabitacions = 0;
     }
+
     this.http.post('http://localhost:5296/api/Planta', plantaData).subscribe({
       next: response => {
         Swal.fire({

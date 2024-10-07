@@ -83,6 +83,10 @@ namespace HospitalApi.Data
             .HasIndex(e => e.NumSS)
             .IsUnique();
 
+            modelBuilder.Entity<Planta>()
+            .HasIndex(e => e.Piso)
+            .IsUnique();
+
             base.OnModelCreating(modelBuilder);
 
         }
