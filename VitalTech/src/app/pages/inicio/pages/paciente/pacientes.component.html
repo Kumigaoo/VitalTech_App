@@ -37,7 +37,10 @@
                     <th>DNI</th>
                     <th>Num. SS</th>
                     <th>Nombre</th>
+                    <th>Primer Cognom</th>
+                    <th>Segon Cognom</th>
                     <th>Sexo</th>
+                    <th>Data Naixement</th>
                     <th>Episodios médicos</th>
                 </tr>
             </thead>
@@ -46,7 +49,10 @@
                     <td>{{ pacient.dni }}</td>
                     <td>{{ pacient.numSS }}</td>
                     <td>{{ pacient.nom }}</td>  
+                    <td>{{ pacient.cognom1 }}</td>  
+                    <td>{{ pacient.cognom2 }}</td>  
                     <td>{{ pacient.sexe }}</td>
+                    <td>{{ pacient.birthDay.split("T")[0]}}</td>
                     <td class="coleccio" mat-button (click)="openEpisodisMedics(pacient)">Episodios</td>
                     <button class = "ico" (click)="updatePacient(pacient.dni)">🔄</button>
                     <button class = "ico" (click)="deletePacient(pacient.dni)">❎</button>
