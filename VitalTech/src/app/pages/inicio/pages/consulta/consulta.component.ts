@@ -1,23 +1,27 @@
-import { Component,  } from '@angular/core';
+import { Component } from '@angular/core';
 import { ConsultaService } from '../../../../service/consulta.service';
 import { Consulta } from '../../../../interface/consulta.interface';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
-
+import Fuse from 'fuse.js';
 
 @Component({
   selector: 'app-consulta',
   templateUrl: './consulta.component.html',
-  styleUrl: './consulta.component.css'
+  styleUrl: './consulta.component.css',
 })
-
 export class ConsultaComponent {
-  constructor(private consultaService: ConsultaService, private router: Router) { }
+  fuse: Fuse<Consulta> | null = null;
+
+  constructor(
+    private consultaService: ConsultaService,
+    private router: Router
+  ) {}
 
   consultes: Consulta[] = [];
   protected searchId: number = 1;
   pagedConsultes: Consulta[] = []; // creo otra array de consultas que mostrara solamente aquellas por pagina
-  searchCriteria: string = "dni";
+  searchCriteria: string = 'dni';
   // Estas son las variables de paginación
   currentPage: number = 1;
   itemsPerPage: number = 4;
@@ -25,15 +29,27 @@ export class ConsultaComponent {
   searchInput: string = '';
   originalConsultes: Consulta[] = [];
 
-
   ngOnInit() {
     this.loadConsultes();
   }
 
   loadConsultes(): void {
-    this.consultaService.getConsultes().subscribe(data => {
+    this.consultaService.getConsultes().subscribe((data) => {
       this.consultes = data;
       this.originalConsultes = data;
+
+      this.fuse = new Fuse(this.originalConsultes, {
+        keys: [
+          'idConsulta',
+          'urgencia',
+          'sintomatologia',
+          'receta',
+          'dni',
+          'episodio',
+        ],
+        threshold: 0.3,
+      });
+
       this.totalPages = Math.ceil(this.consultes.length / this.itemsPerPage); // calcula cuantas paginas tendra dependiendo de los items que tenga cada una
       this.updatePagedConsultes();
     });
@@ -45,52 +61,47 @@ export class ConsultaComponent {
     const endIndex = startIndex + this.itemsPerPage;
     this.pagedConsultes = this.consultes.slice(startIndex, endIndex);
 
-    if(this.consultes.length == 0){
+    if (this.consultes.length == 0) {
       return;
     }
 
-    if(this.pagedConsultes.length == 0) {
-        this.currentPage = this.currentPage - 1;
-        this.loadConsultes();
+    if (this.pagedConsultes.length == 0) {
+      this.currentPage = this.currentPage - 1;
+      this.loadConsultes();
     }
-
   }
 
   deleteConsulta(id: number): void {
-
     Swal.fire({
-
       title: 'Eliminar consulta',
-      text: "¿Quieres borrar esta consulta?",
+      text: '¿Quieres borrar esta consulta?',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Sí',
-      cancelButtonText: 'Cancelar'
-
+      cancelButtonText: 'Cancelar',
     }).then((result) => {
-
-      if (result.isConfirmed) { 
+      if (result.isConfirmed) {
         this.consultaService.deleteConsulta(id).subscribe({
-          next: response => {
+          next: (response) => {
             Swal.fire({
               icon: 'success',
               title: 'Consulta eliminada',
-              text: 'La consulta ha sido eliminada con éxito.'
+              text: 'La consulta ha sido eliminada con éxito.',
             });
-            if (this.pagedConsultes.length === 0){
-                this.currentPage--;
+            if (this.pagedConsultes.length === 0) {
+              this.currentPage--;
             }
             this.loadConsultes();
           },
-          error: error => {
+          error: (error) => {
             Swal.fire({
               icon: 'error',
               title: 'Error',
-              text: 'Error, no se puede eliminar este episodio médico: todavía existen consultas o ingresos.'
+              text: 'Error, no se puede eliminar este episodio médico: todavía existen consultas o ingresos.',
             });
-          }        
+          },
         });
       }
     });
@@ -101,65 +112,20 @@ export class ConsultaComponent {
   }
 
   searchConsulta(): void {
-    if (this.searchInput.trim() == "") {
-      this.loadConsultes()
+    if (this.searchInput.trim() === '') {
+      this.consultes = this.originalConsultes;
+      this.updatePagedConsultes();
       return;
     }
 
-    this.consultes = this.originalConsultes
-    let busqueda: Consulta[] = [];
+    if (this.fuse) {
+      const result = this.fuse.search(this.searchInput);
+      this.consultes = result.map((res) => res.item);
+    }
 
-    switch (this.searchCriteria.toLowerCase()) {
-      case "idconsulta":
-        for (let i = 0; i < this.consultes.length; i++) {
-          if (this.consultes[i].id.toString() == this.searchInput) {
-            busqueda.push(this.consultes[i]);
-          }
-        }
-        break;
-
-      case "urgencia":
-        for (let i = 0; i < this.consultes.length; i++) {
-          if (this.consultes[i].urgencia.toString().toLowerCase().includes(this.searchInput.toLowerCase())) {
-            busqueda.push(this.consultes[i]);
-          }
-        }
-        break;
-      case "sintomatologia":
-        for (let i = 0; i < this.consultes.length; i++) {
-          if (this.consultes[i].sintomatologia.toLowerCase().includes(this.searchInput.toLowerCase())) {
-            busqueda.push(this.consultes[i]);
-          }
-        }
-        break;
-      case "receta":
-        for (let i = 0; i < this.consultes.length; i++) {
-          if (this.consultes[i].recepta?.toLowerCase().includes(this.searchInput)) {
-            busqueda.push(this.consultes[i]);
-          }
-        }
-        break;
-      case "dni":
-        for (let i = 0; i < this.consultes.length; i++) {
-          if (this.consultes[i].dniPersonal.toLowerCase().includes(this.searchInput.toLowerCase())) {
-            busqueda.push(this.consultes[i]);
-          }
-        }
-        break;
-      case "episodio":
-        for (let i = 0; i < this.consultes.length; i++) {
-          if (this.consultes[i].episodiMedicId.toString() == this.searchInput) {
-            busqueda.push(this.consultes[i]);
-          }
-        }
-        break;
-    }// como solo se muestra una solo hay una pagina
-    
-    this.consultes = busqueda;
     this.currentPage = 1;
     this.totalPages = Math.ceil(this.consultes.length / this.itemsPerPage);
     this.updatePagedConsultes();
-   
   }
 
   nextPage(): void {
@@ -189,5 +155,4 @@ export class ConsultaComponent {
       this.updatePagedConsultes();
     }
   }
-
 }
