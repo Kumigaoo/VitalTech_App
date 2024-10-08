@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace HospitalApi.Migrations
 {
     /// <inheritdoc />
-    public partial class xD2 : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -256,6 +256,12 @@ namespace HospitalApi.Migrations
                 name: "IX_Personals_DNI",
                 table: "Personals",
                 column: "DNI",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Plantes_Piso",
+                table: "Plantes",
+                column: "Piso",
                 unique: true);
         }
 

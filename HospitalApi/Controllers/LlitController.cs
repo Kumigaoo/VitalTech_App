@@ -58,15 +58,20 @@ namespace HospitalAPI.Controllers
                 return BadRequest("Error: dades introduïdes amb format incorrecte.");
             }
 
-            var llit = await _bbdd.Llits.Include("Ingressos").FirstOrDefaultAsync(h => h.CodiLlit == id);
+            var llit = await _bbdd.Llits
+            .Include(l => l.Habitacio)
+            .Include(l => l.Ingressos).FirstOrDefaultAsync(h => h.CodiLlit == id);
 
             if (llit == null)
             {
                 _logger.LogError("Error: no existeix el llit amb l'ID indicat.");
                 return NotFound("Error: no existeix el llit amb l'ID indicat.");
             }
-
-            return Ok(_mapper.Map<LlitReadDTO>(llit));
+            var llitReadDTO = _mapper.Map<LlitReadDTO>(llit);
+            if(llit.Habitacio != null){
+                llitReadDTO.CodiHabitacio = llit.Habitacio.CodiHabitacio;
+            }
+            return Ok(llitReadDTO);
 
         }
 
@@ -90,7 +95,9 @@ namespace HospitalAPI.Controllers
                 return BadRequest(userLlitDTO);
             }
 
-            var habitacio = await _bbdd.Habitacions.FirstOrDefaultAsync(h => h.CodiHabitacio == userLlitDTO.CodiHabitacio);
+            var habitacio = await _bbdd.Habitacions
+            .Include(h => h.Llits)
+            .FirstOrDefaultAsync(h => h.CodiHabitacio == userLlitDTO.CodiHabitacio);
 
             if (habitacio == null)
             {
@@ -143,7 +150,7 @@ namespace HospitalAPI.Controllers
         [HttpPut("{codi}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> UpdateLlit(string codi, [FromBody] LlitCreateDTO userLlitDTO)
+        public async Task<IActionResult> UpdateLlit(string codi, [FromBody] LlitUpdateDTO userLlitDTO)
         {
 
             if (userLlitDTO == null || codi.Length != 4)

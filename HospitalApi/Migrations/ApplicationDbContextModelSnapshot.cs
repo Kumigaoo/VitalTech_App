@@ -253,6 +253,9 @@ namespace HospitalApi.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Piso")
+                        .IsUnique();
+
                     b.ToTable("Plantes");
                 });
 

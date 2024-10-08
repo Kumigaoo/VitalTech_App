@@ -5,7 +5,7 @@ namespace HospitalApi.DTO
     public class ConsultaReadDTO
     {
         public int Id { get; set; }
-        public bool Urgencia { get; set; }
+        public bool? Urgencia { get; set; }
         public string? Sintomatologia { get; set; }
         public string? Recepta { get; set; }
         [NotMapped]
