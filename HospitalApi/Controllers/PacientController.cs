@@ -2,6 +2,7 @@
 using HospitalApi.Data;
 using HospitalApi.DTO;
 using HospitalAPI.Models;
+//using EntityFrameworkCore.MySQL.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TextTemplating;

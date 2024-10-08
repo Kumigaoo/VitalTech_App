@@ -3,6 +3,7 @@ using HospitalApi.Data;
 using HospitalApi.Enums;
 using HospitalApi.DTO;
 using HospitalAPI.Models;
+//using EntityFrameworkCore.MySQL.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
