@@ -9,7 +9,7 @@ namespace HospitalAPI.Models
         public int Id { get; set; }
 
         [Required]
-        public bool Urgencia { get; set; }
+        public bool? Urgencia { get; set; }
 
         [Required]
         public string? Sintomatologia { get; set; }

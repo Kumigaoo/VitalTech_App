@@ -2,6 +2,7 @@ using AutoMapper;
 using HospitalApi.Data;
 using HospitalApi.DTO;
 using HospitalAPI.Models;
+//using EntityFrameworkCore.MySQL.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -82,7 +83,7 @@ namespace HospitalAPI.Controllers
 
             var planta = await _bbdd
                 .Plantes.Include(h => h.Habitacions)
-                .FirstOrDefaultAsync(p => p.Id == userHabDTO.PlantaId);
+                .FirstOrDefaultAsync(p => p.Piso == userHabDTO.PlantaId);
 
             if (planta == null)
             {

@@ -4,7 +4,7 @@ namespace HospitalApi.DTO
 {
     public class ConsultaCreateDTO
     {
-        public bool Urgencia { get; set; } = false;
+        public bool? Urgencia { get; set; } = false;
         public string? Sintomatologia { get; set; }
         public string? Recepta { get; set; }
         [NotMapped]

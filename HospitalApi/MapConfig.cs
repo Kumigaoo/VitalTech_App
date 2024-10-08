@@ -20,6 +20,7 @@ namespace HospitalAPI
             CreateMap<Llit, LlitReadDTO>().ReverseMap();
             CreateMap<Llit, LlitReferenceDTO>().ReverseMap();
             CreateMap<Llit, LlitCreateDTO>().ReverseMap();
+            CreateMap<Llit, LlitUpdateDTO>().ReverseMap();
 
             CreateMap<Planta, PlantaReadDTO>().ReverseMap();
             CreateMap<Planta, PlantaCreateDTO>().ReverseMap();

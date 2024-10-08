@@ -6,38 +6,48 @@ import { ConsultesPopupComponent } from '../../../../components/pop-ups/consulte
 import { IngressosPopupComponent } from '../../../../components/pop-ups/ingressos-popup/ingressos-popup.component';
 import { MatDialog } from '@angular/material/dialog';
 import Swal from 'sweetalert2';
+import Fuse from 'fuse.js';
 
 @Component({
   selector: 'app-episodio',
   templateUrl: './episodio.component.html',
-  styleUrl: './episodio.component.css'
-
+  styleUrl: './episodio.component.css',
 })
-
 export class EpisodioComponent {
-
   episodis: EpisodiMedic[] = [];
   originalEpisodis: EpisodiMedic[] = [];
   selectedEpisodi: any;
 
-  searchCriteria: string = "id";
-  searchInput: string = "";
+  searchCriteria: string = 'id';
+  searchInput: string = '';
 
   pagedEpisodis: EpisodiMedic[] = [];
   currentPage: number = 1;
   totalPages: number = 1;
   itemsPerPage: number = 3;
 
-  constructor(public dialog: MatDialog, private episodiService: EpisodiService, private router: Router) { }
+  fuse: Fuse<EpisodiMedic> | null = null; 
+
+  constructor(
+    public dialog: MatDialog,
+    private episodiService: EpisodiService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.loadEpisodis();
   }
 
   loadEpisodis(): void {
-    this.episodiService.getEpisodis().subscribe(data => {
+    this.episodiService.getEpisodis().subscribe((data) => {
       this.episodis = data;
       this.originalEpisodis = data;
+
+        this.fuse = new Fuse(this.originalEpisodis, {
+        keys: ['id', 'dolencia', 'estat', 'dniPacient'], 
+        threshold: 0.3, // <-----para ajusar nivel de fuzzy; 1=  ultra difuso, 0 -> búsqueda estricta/exacta
+      });
+
       this.totalPages = Math.ceil(this.episodis.length / this.itemsPerPage);
       this.updatePage();
     });
@@ -47,59 +57,31 @@ export class EpisodioComponent {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
     this.pagedEpisodis = this.episodis.slice(startIndex, endIndex);
-
     if(this.episodis.length == 0){
       return;
     }
 
     if(this.pagedEpisodis.length == 0) {
-        this.currentPage = this.currentPage - 1;
-        this.loadEpisodis();
-    }
+      this.currentPage = this.currentPage - 1;
+      this.loadEpisodis();
+  }
 
   }
 
   searchEpisodi(): void {
-
     if (this.searchInput.trim() === '') {
       this.loadEpisodis();
       return;
     }
 
-    this.episodis = this.originalEpisodis
-
-    let busqueda: EpisodiMedic[] = [];
-
-    switch (this.searchCriteria) {
-      case 'id':
-        for (let i = 0; i < this.episodis.length; i++) {
-          if (this.episodis[i].id.toString().includes(this.searchInput)) {
-            busqueda.push(this.episodis[i]);
-          }
-        }
-        break;
-      case 'dolencia':
-        for (let i = 0; i < this.episodis.length; i++) {
-          if (this.episodis[i].dolencia.toLowerCase().includes(this.searchInput.toLowerCase())) {
-            busqueda.push(this.episodis[i]);
-          }
-        }
-        break;
-      case 'estat':
-        for (let i = 0; i < this.episodis.length; i++) {
-          if (this.episodis[i].estat.includes(this.searchInput.toLowerCase())) {
-            busqueda.push(this.episodis[i]);
-          }
-        }
-        break;
-
+    if (this.fuse) {
+      const result = this.fuse.search(this.searchInput);
+      this.episodis = result.map((res) => res.item);
     }
 
-    this.episodis = busqueda;
     this.currentPage = 1;
     this.totalPages = Math.ceil(this.episodis.length / this.itemsPerPage);
     this.updatePage();
-
   }
 
   modificarEpisodi(id: number): void {
@@ -108,49 +90,45 @@ export class EpisodioComponent {
 
   deleteEpisodi(id: number): void {
     Swal.fire({
-
       title: 'Eliminar episodio médico',
-      text: "¿Quieres borrar este episodio médico?",
+      text: '¿Quieres borrar este episodio médico?',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Sí',
-      cancelButtonText: 'Cancelar'
-
+      cancelButtonText: 'Cancelar',
     }).then((result) => {
-
-      if (result.isConfirmed) { 
+      if (result.isConfirmed) {
         this.episodiService.deleteEpisodi(String(id)).subscribe({
-          next: response => {
+          next: (response) => {
             Swal.fire({
               icon: 'success',
               title: 'Episodio médico eliminado',
-              text: 'El episodio médico ha sido eliminado con éxito.'
+              text: 'El episodio médico ha sido eliminado con éxito.',
             });
-            if (this.pagedEpisodis.length === 0){
-                this.currentPage--;
+            if (this.pagedEpisodis.length === 0) {
+              this.currentPage--;
             }
             this.loadEpisodis();
           },
-          error: error => {
+          error: (error) => {
             Swal.fire({
               icon: 'error',
               title: 'Error',
-              text: 'Error, no se puede eliminar este episodio médico: todavía existen consultas o ingresos.'
+              text: 'Error, no se puede eliminar este episodio médico: todavía existen consultas o ingresos.',
             });
-          }        
+          },
         });
       }
     });
   }
 
   nextPage() {
-    if(this.currentPage < this.totalPages) {
+    if (this.currentPage < this.totalPages) {
       this.currentPage++;
       this.updatePage();
     }
-
   }
 
   previousPage() {
@@ -158,7 +136,6 @@ export class EpisodioComponent {
       this.currentPage--;
       this.updatePage();
     }
-
   }
 
   firstPage(): void {
@@ -169,7 +146,7 @@ export class EpisodioComponent {
   }
 
   lastPage(): void {
-    if(this.currentPage < this.totalPages) {
+    if (this.currentPage < this.totalPages) {
       this.currentPage = this.totalPages;
       this.updatePage();
     }
@@ -181,7 +158,7 @@ export class EpisodioComponent {
       width: '80vw',
       height: '70vh',
       maxWidth: '1000px',
-      maxHeight: '500px'
+      maxHeight: '500px',
     });
   }
 
@@ -191,8 +168,7 @@ export class EpisodioComponent {
       width: '80vw',
       height: '70vh',
       maxWidth: '1000px',
-      maxHeight: '500px'
+      maxHeight: '500px',
     });
   }
-
 }

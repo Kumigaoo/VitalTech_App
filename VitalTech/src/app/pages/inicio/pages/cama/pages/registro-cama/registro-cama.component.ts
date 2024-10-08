@@ -23,7 +23,7 @@ export class RegistroCamaComponent {
         asyncValidators: [camaidValidator(this.llitService)],
         updateOn: 'blur'
       }],
-      habitacioId: ['', {
+      codiHabitacio: ['', {
         validators: [Validators.required, Validators.pattern(/^\d{3}$/)],
         asyncValidators: [habidValidator(this.habitacioService)],
         updateOn: 'blur'
@@ -34,28 +34,28 @@ export class RegistroCamaComponent {
   }
 
   onSubmit(){
-    if(this.llitForm.invalid){
-      this.llitForm.markAllAsTouched();
-      return;
-    }
     const llitData = this.llitForm.value;
     
-    this.http.post('http://localhost:5296/api/Llit', llitData).subscribe({
-      next: response => {
+    this.http.post('http://localhost:5296/api/Llit', llitData).subscribe(
+      (response) => {
         Swal.fire({
           icon: 'success',
           title: 'Cama registrada',
           text: 'La cama se ha registrado correctamente.'
         });
       },
-      error: error => {
+      (error) => {
+        if(error.status === 400 && error.error === "No es poden afegir més llits a aquesta habitació.") {
+          this.llitForm.setErrors({ limiteCapacidad: true});
+        } else {
         Swal.fire({
           icon: 'error',
           title: 'Error',
           text: 'ERROR, campos no válidos.'
         });
       }
-    })
+      }
+    )
   }
 }
     

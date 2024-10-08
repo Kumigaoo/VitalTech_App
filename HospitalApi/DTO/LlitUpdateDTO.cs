@@ -1,12 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HospitalApi.DTO
 {
-    public class LlitCreateDTO
+    public class LlitUpdateDTO
     {
    
         public string CodiLlit { get; set; } = string.Empty;
         
+        public bool ForaDeServei {get;set;}
         [NotMapped]
         public int CodiHabitacio { get; set; }
 
