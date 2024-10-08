@@ -7,51 +7,49 @@ import { MetgeService } from '../../service/metge.service';
 
 export function personalidValidator(personalService: MetgeService): AsyncValidatorFn {
     return (control: AbstractControl): Observable<ValidationErrors | null> => {
-        if (!control.value){
-            return of (null);
+        if (!control.value) {
+            return of(null);
         }
 
         return personalService.getPersonalId(control.value).pipe(
-            map(personal => (personal? null : {personalNotFound:true})),
+            map(personal => (personal ? null : { personalNotFound: true })),
             catchError(error => {
-                return of({personalNotFound:true})
+                return of({ personalNotFound: true })
             }
-        ));
-
-        
+            ));
     };
 }
 
 export function episodiidValidator(episodiService: EpisodiService): AsyncValidatorFn {
     return (control: AbstractControl): Observable<ValidationErrors | null> => {
-        if (!control.value){
-            return of (null);
+        if (!control.value) {
+            return of(null);
         }
 
         return episodiService.getEpisodisId(control.value).pipe(
-            map(episodi => (episodi? null : {episodiNotFound:true})),
+            map(episodi => (episodi ? null : { episodiNotFound: true })),
             catchError(error => {
-                return of({episodiNotFound:true})
+                return of({ episodiNotFound: true })
             }
-        ));
+            ));
 
-        
+
     };
 }
 
 export function personalDniLetraCorrect(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
-        const formGroup= control as FormGroup;
+        const formGroup = control as FormGroup;
 
         const dni = formGroup.get('dni')?.value;
 
-        if(!dni){
+        if (!dni) {
             return null;
         }
         const abc: string[] = ['T', 'R', 'W', 'A', 'G', 'M', 'Y', 'F', 'P', 'D', 'X', 'B', 'N',
             'J', 'Z', 'S', 'Q', 'V', 'H', 'L', 'C', 'K', 'E'];
-        const numDni = Number(dni.substring(0,8));
-        const letra = dni.substring(dni.length-1).toUpperCase();
+        const numDni = Number(dni.substring(0, 8));
+        const letra = dni.substring(dni.length - 1).toUpperCase();
 
         const resto = numDni % 23;
         const letraCorrecta = abc[resto];
@@ -59,7 +57,7 @@ export function personalDniLetraCorrect(): ValidatorFn {
         if (letra === letraCorrecta) {
             return null;
         } else {
-            return { dniLletraIncorrect: true};
+            return { dniLletraIncorrect: true };
         }
     }
 }
