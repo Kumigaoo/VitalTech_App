@@ -37,7 +37,6 @@ namespace HospitalAPI.Controllers
             for (int i = 0; i < llits.Count(); i++)
             {
                 var codi = await (from h in _bbdd.Habitacions where h.Id == llitList.ElementAt(i).HabitacioId select h.CodiHabitacio).FirstOrDefaultAsync();
-                if (codi == null) { continue; }
                 llits.ElementAt(i).CodiHabitacio = codi;
             }
 

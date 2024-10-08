@@ -4,6 +4,7 @@ using HospitalApi.DTO;
 using HospitalAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualStudio.TextTemplating;
 
 namespace HospitalAPI.Controllers
 {
@@ -80,7 +81,7 @@ namespace HospitalAPI.Controllers
                 return BadRequest("Error: DNI Invalid.");
             }
 
-            if(CheckTS(userPacientDTO.NumSS))
+            if(!CheckTS(userPacientDTO.NumSS, userPacientDTO.Cognom1, userPacientDTO.Cognom2, userPacientDTO.BirthDay))
             {
                 _logger.LogError("Error: Num SS Invalid.");
                 return BadRequest("Error: Num SS Invalid.");
@@ -139,7 +140,7 @@ namespace HospitalAPI.Controllers
 
             if(!CheckDNI(userPacientDTO.DNI)) return BadRequest("Error: DNI no correcte.");
 
-            if (CheckTS(userPacientDTO.NumSS))
+            if (!CheckTS(userPacientDTO.NumSS, userPacientDTO.Cognom1, userPacientDTO.Cognom2, userPacientDTO.BirthDay))
             {
                 _logger.LogError("Error: Num SS Invalid.");
                 return BadRequest("Error: Num SS Invalid.");
@@ -168,19 +169,25 @@ namespace HospitalAPI.Controllers
 
         }
 
-        public static bool CheckTS(String ts)
+        public static bool CheckTS(String ts, String cognom1, String cognom2, DateTime naix)
         {
 
-            if (ts.Length != 15) return true;
-            
-            for (int i = 0; i < 15; i++)
-            {
-                if (i < 4 && !char.IsLetter(ts[i])) return true;
-                if (i > 3 && !char.IsDigit(ts[i])) return true;
-             
-            }
+            Console.WriteLine(ts.Length);
+            if (ts.Length != 14) return false;
 
-            return false;
+            String day = naix.ToString().Substring(0, 2);
+            String month = naix.ToString().Substring(3, 2);
+            String year = naix.ToString().Substring(8, 2);
+
+            if (year != ts.Substring(5, 2) || month != ts.Substring(7, 2) || day != ts.Substring(9, 2)) return false;
+
+            String lletres = cognom1.Substring(0, 2) + cognom2.Substring(0, 2);
+
+            if (lletres.ToUpper() != ts.Substring(0, 4)) return false;
+
+            if (ts.Substring(4, 1) != "0" || ts.Substring(11, 2) != "00") return false;
+            
+            return true;
 
         }
 
