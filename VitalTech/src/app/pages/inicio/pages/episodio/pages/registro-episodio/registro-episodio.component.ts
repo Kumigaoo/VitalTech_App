@@ -24,9 +24,7 @@ export class RegistroEpisodiComponent {
       dolencia: ['', {
         validators: [Validators.required],
       }],
-      estat: ['', {
-        validators: [Validators.required],
-      }],
+      estat: [''],
       dniPacient: ['', {
         validators: [Validators.required, Validators.minLength(9), Validators.pattern(/^\d{8}[A-Za-z]$/)],
         asyncValidators: [pacientIdexists(pacienteService)],
@@ -56,6 +54,9 @@ export class RegistroEpisodiComponent {
       return;
     }
     const episodiData = this.episodiForm.value;
+    if (episodiData.estat === null || episodiData.estat === ''){
+      episodiData.estat = "No Resuelto"
+    }
 
     /*if (new Date(episodiData.dataObertura) > new Date(episodiData.dataTancament)) {
       Swal.fire({

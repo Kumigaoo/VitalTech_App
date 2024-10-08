@@ -44,6 +44,10 @@ export class RegistroConsultaComponent {
     }
     const consultaData = this.consultaForm.value;
 
+    if (consultaData.urgencia === null || consultaData.urgencia === ''){
+      consultaData.urgencia = false;
+    }
+
     this.http.post('http://localhost:5296/api/Consulta', consultaData).subscribe({
       next: response => {
         Swal.fire({

@@ -1,10 +1,14 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConsultaService } from '../../../../../../service/consulta.service';
 import { Consulta } from '../../../../../../interface/consulta.interface';
 import Swal from 'sweetalert2';
+import { MetgeService } from '../../../../../../service/metge.service';
+import { personalidValidator, episodiidValidator, personalDniLetraCorrect } from '../../../../../../validator/consulta/consulta-validator.validator';
+import { EpisodiService } from '../../../../../../service/episodis.service';
+
 
 @Component({
   selector: 'app-modif-consulta',
@@ -16,14 +20,26 @@ export class ModifConsultaComponent {
   consultaId: number = 0;
 
   constructor(private fb: FormBuilder, private http: HttpClient, private consultaService: ConsultaService,
-    private router: Router, private route: ActivatedRoute,){
+    private router: Router, private route: ActivatedRoute, private personalService: MetgeService, private episodiService: EpisodiService){
     this.consultaForm = this.fb.group({
       id: [{value: '', disabled: true}],
       urgencia: [''],
-      sintomatologia: [''],
-      recepta: [''],
-      dniPersonal: [''],
-      episodiMedicId: ['']
+      sintomatologia: ['', {
+        validators: [Validators.required]
+      }],
+      recepta: ['',{
+        validators: [Validators.required]
+      }],
+      dniPersonal: ['', {
+        validators: [Validators.required, Validators.minLength(9), Validators.pattern(/^\d{8}[A-Za-z]$/)],
+        asyncValidators: [personalidValidator(this.personalService)],
+      }],
+      episodiMedicId: ['', {
+        validators: [Validators.required],
+        asyncValidators: [episodiidValidator(this.episodiService)],
+      }]
+    }, {
+      validators: personalDniLetraCorrect()
     });
   }
 

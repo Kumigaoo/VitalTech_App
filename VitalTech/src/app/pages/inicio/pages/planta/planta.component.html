@@ -27,19 +27,19 @@
         <table id="resultsTable">
             <thead>
                 <tr>
-                    <th>ID de planta</th>
-                    <th>Capacitad de la habitación</th>
-                    <th>Habitaciones</th>
+                    <th>Piso</th>
+                    <th>Capacidad de habitaciones</th>
+                    <th>Listado habitaciones</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let planta of pagedPlantes; let i = index">
-                    <td>{{ planta.id }}</td>
+                    <td>{{ planta.piso }}</td>
                     <td>{{ planta.capacitatHabitacions }}</td>  
                     <td class="coleccio" mat-button (click)="openHabitacions(planta)">Habitaciones</td>
                     <div class="botones">
-                        <button class= "ico" (click)="modificarPlanta(planta.id)" id = "modificar">🔄</button>
-                        <button class= "ico" (click)="deletePlanta(planta.id)" id = "eliminar">❎</button>
+                        <button class= "ico" (click)="modificarPlanta(planta.piso)" id = "modificar">🔄</button>
+                        <button class= "ico" (click)="deletePlanta(planta.piso)" id = "eliminar">❎</button>
                     </div>
                 </tr>
             </tbody>

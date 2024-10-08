@@ -32,7 +32,7 @@ export class PlantaService {
   }
   
   putPlanta(planta: Planta): Observable<Planta> {
-    const url = `${this.apiUrl}/${planta.id}`;
+    const url = `${this.apiUrl}/${planta.piso}`;
     return this.http.put<Planta>(url, planta);
   }
 

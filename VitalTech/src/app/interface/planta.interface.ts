@@ -1,7 +1,7 @@
 
 
 export interface Planta {
-    id: number;
+    piso: number;
     capacitatHabitacions: number;
     habitacions: string[];
   }

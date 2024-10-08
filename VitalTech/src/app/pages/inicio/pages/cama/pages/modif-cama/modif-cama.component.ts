@@ -32,7 +32,7 @@ export class ModifCamaComponent {
         updateOn: 'blur'
       }],
       foraDeServei: [false],
-      habitacioId: ['', {
+      codiHabitacio: ['', {
         validators: [Validators.required, Validators.pattern(/^\d{3}$/)],
         asyncValidators: [habidValidator(this.habitacioService)],
         updateOn: 'blur'
