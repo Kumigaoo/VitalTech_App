@@ -44,6 +44,7 @@ export class RegistroComponent {
   }
 
   onSubmit() {
+    console.log(this.pacientForm.invalid);
     if(this.pacientForm.invalid){
       this.pacientForm.markAllAsTouched();
       return;

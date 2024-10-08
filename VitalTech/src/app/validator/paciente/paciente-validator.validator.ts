@@ -11,7 +11,7 @@ export function pacienteDniValidator(pacienteService: PacientService): AsyncVali
         }
 
         return pacienteService.getPacientId(control.value).pipe(
-            map(pacient => (pacient? {pacientIdExistes: true } : null)),
+            map(pacient => (pacient? {pacientIdExists: true } : null)),
             catchError(() => of(null))
         );
     };
