@@ -82,7 +82,7 @@ namespace HospitalAPI.Controllers
 
             var planta = await _bbdd
                 .Plantes.Include(h => h.Habitacions)
-                .FirstOrDefaultAsync(p => p.Id == userHabDTO.PlantaId);
+                .FirstOrDefaultAsync(p => p.Piso == userHabDTO.PlantaId);
 
             if (planta == null)
             {
