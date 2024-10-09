@@ -86,7 +86,7 @@ export function ingresoEnCama(ingresService: IngresService): AsyncValidatorFn {
     return (control: AbstractControl): Observable<ValidationErrors | null> => {
       const formGroup = control as FormGroup;
 
-      const codiLlit = formGroup.get('llitId')?.value;
+      const codiLlit = formGroup.get('codiLlit')?.value;
 
 
       if(!codiLlit){
