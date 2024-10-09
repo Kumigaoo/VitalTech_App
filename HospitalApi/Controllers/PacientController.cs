@@ -186,7 +186,7 @@ namespace HospitalAPI.Controllers
 
             if (lletres.ToUpper() != ts.Substring(0, 4)) return false;
 
-            if (ts.Substring(4, 1) != "0" || ts.Substring(11, 2) != "00") return false;
+            if ((ts.Substring(4,1) != "1" && ts.Substring(4, 1) != "0") || ts.Substring(11, 2) != "00") return false;
             
             return true;
 

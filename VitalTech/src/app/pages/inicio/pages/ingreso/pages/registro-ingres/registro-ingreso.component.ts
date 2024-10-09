@@ -62,16 +62,6 @@ export class RegistroIngresoComponent {
       return;
     }
     const ingresData = this.ingresForm.value;
-    
-
-    /*if (new Date(ingresData.dataEntrada) > new Date()) {
-      Swal.fire({
-        icon: 'error',
-        title: 'No se puede registrar el ingreso',
-        text: 'La fecha de entrada del ingreso es posterior a la fecha actual.'
-      });
-      return;
-    }*/
 
     this.http.post('http://localhost:5296/api/Ingres', ingresData).subscribe({
       next: response => {
