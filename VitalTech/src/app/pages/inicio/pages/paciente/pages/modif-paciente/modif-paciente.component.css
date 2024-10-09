@@ -21,10 +21,12 @@
     display: flex;
     flex-direction: column;
     margin-right: 20px;
+    margin-top: 30px;
 }
 
 .identificador, .ubicacion, .comunicarse, .masInfo, .consulta{
     display: flex;
+    flex-wrap: wrap;
 }
 textarea {
     width: 900px;
@@ -47,14 +49,12 @@ h2 {
 form {
     display: flex;
     flex-direction: column;
-    
 }
 
 label {
     margin-bottom: 5px;
     color: #333;
     font-family: Arial, sans-serif;
-    
 }
 
 input {
@@ -74,7 +74,7 @@ button {
     border-radius: 4px;
     font-size: 16px;
     cursor: pointer;
-    margin-top: 150px;
+    margin-top: 80px;
     margin-bottom: 1px;
 }
 

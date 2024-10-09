@@ -80,35 +80,8 @@ export class ModifEpisodiComponent {
     if (this.modifEpisodiForm.valid) {
       const updatedPacient: EpisodiMedic = { ...this.modifEpisodiForm.getRawValue(), id: this.episodiId };
 
-
-      /*if (new Date(updatedPacient.dataObertura) > new Date(updatedPacient.dataTancament)) {
-        
-        Swal.fire({
-          icon: 'error',
-          title: 'No se puede modificar',
-          text: 'La nueva fecha de cierre del episodio es anterior a la de apertura.'
-        });
-        return;
-
-      } else if (new Date(updatedPacient.dataObertura) > new Date()) {
-         Swal.fire({
-          icon: 'error',
-          title: 'No se puede modificar',
-          text: 'La nueva fecha de apertura del episodio es posterior a la fecha actual.'
-        });
-        return;
-      }*/
-
       this.episodiService.putEpisodi(updatedPacient).subscribe({
-
-        // next:() => {
-        //   alert('Episodio actualizado con éxito.');
-        //   this.router.navigate(['/episodis']);
-        // },
-        // error: (error) => {
-        //   console.error('Error al actualitzar el pacient:', error);
-        // }
-
+        
         next: response => {
           Swal.fire({
             icon: 'success',

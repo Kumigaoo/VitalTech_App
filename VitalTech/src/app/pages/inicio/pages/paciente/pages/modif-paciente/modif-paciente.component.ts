@@ -31,14 +31,23 @@ export class ModifPacienteComponent {
         updateOn: 'blur'
       }],
       numSS: ['', {
-        validators: [Validators.required, Validators.maxLength(14), Validators.minLength(14), Validators.pattern(/^[A-Z]{4}\d{11}$/)],
+        validators: [Validators.required, Validators.maxLength(14), Validators.minLength(14), Validators.pattern(/^[A-Z]{4}\d{10}$/)],
         asyncValidators: [pacienteSSValidator(this.pacientService)],
         updateOn: 'blur'
       }],
       nom: ['', {
         validators: [Validators.required]
       }],
+      cognom1: ['', {
+        validators: [Validators.required]
+      }],
+      cognom2: ['', {
+        validators: [Validators.required]
+      }],
       sexe: ['', {
+        validators:[Validators.required]
+      }],
+      birthDay: ['', {
         validators:[Validators.required]
       }]
     }, {
@@ -49,6 +58,7 @@ export class ModifPacienteComponent {
   ngOnInit(): void {
     this.pacientId = String(this.route.snapshot.paramMap.get('id')); 
     this.pacientService.getPacientId(this.pacientId).subscribe(pacient => {
+      pacient.birthDay = pacient.birthDay.split("T")[0];
       this.modiPacientForm.patchValue(pacient);
       this.dniSuperOriginal = pacient.dni;
     })
