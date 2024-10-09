@@ -33,7 +33,7 @@
                 <input type="text" id="llit" ngModel name="codiLlit" formControlName="codiLlit" required
                 [ngClass]="{'is-invalid': ingresForm.get('codiLlit')?.touched && ingresForm.get('codiLlit')?.invalid ||
                     ingresForm.hasError('camaOcupadaPaciente')}">
-              <div class="error-messages" *ngIf="ingresForm.get('llitId')?.touched  && ingresForm.get('codiLlit')?.invalid">
+              <div class="error-messages" *ngIf="ingresForm.get('codiLlit')?.touched  && ingresForm.get('codiLlit')?.invalid">
                 <small *ngIf="ingresForm.get('codiLlit')?.hasError('required')">Este campo es obligatorio</small>
                 <small *ngIf="ingresForm.get('codiLlit')?.hasError('minlength')">Mínimo 4 carácteres</small>
                 <small *ngIf="ingresForm.get('codiLlit')?.hasError('pattern')">Construido por 3 núm y A o B</small>

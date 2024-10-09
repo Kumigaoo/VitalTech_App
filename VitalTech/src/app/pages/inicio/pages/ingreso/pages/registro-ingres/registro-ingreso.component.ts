@@ -34,7 +34,7 @@ export class RegistroIngresoComponent {
       }],
       codiLlit: ['', {
         validators: [Validators.required, Validators.minLength(4), Validators.pattern(/^\d{3}[AB]$/)],
-        asyncValidators: [llitIdexists(llitService), ],
+        asyncValidators: [llitIdexists(llitService)],
         updateOn: 'blur'
       }]
     }, {

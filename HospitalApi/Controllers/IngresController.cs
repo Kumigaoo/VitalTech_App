@@ -164,6 +164,7 @@ namespace HospitalAPI.Controllers
         {
 
             var existeixIngres = await _bbdd.Ingressos.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id);
+            var codiLlitOrig = existeixIngres.LlitId;
 
             if (existeixIngres == null)
             {
@@ -175,14 +176,25 @@ namespace HospitalAPI.Controllers
 
             var llit = await (from p in _bbdd.Llits where p.CodiLlit == userIngresDTO.CodiLlit select p).FirstOrDefaultAsync();
             if (llit == null) return NotFound("No existeix llit amb aquest ID.");
+            var llitOrig = await (from p in _bbdd.Llits where p.Id == codiLlitOrig select p).FirstOrDefaultAsync();
 
             DateTime data = DateTime.Now;
 
-            if (ingres.DataSortida.HasValue)
-            {
+            if (llit.CodiLlit != llitOrig.CodiLlit){
+               llitOrig.Ocupat = false;
+               _bbdd.Update(llitOrig);
+            }
+
+            if(llit.Ocupat == false){
+                llit.Ocupat = true;
+                _bbdd.Update(llit);
+                
+            }
+            if (ingres.DataSortida.HasValue){
                 llit.Ocupat = false;
                 _bbdd.Update(llit);
             }
+        
 
             ingres.LlitId = llit.Id;
             _bbdd.Ingressos.Update(ingres);
