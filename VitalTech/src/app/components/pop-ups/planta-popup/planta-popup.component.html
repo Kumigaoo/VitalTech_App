@@ -5,14 +5,12 @@
           <tr>
               <th>Codi Habitació</th>
               <th>Capacitat Llits</th>
-              <th>Planta Id</th>
           </tr>
       </thead>
       <tbody>
           <tr *ngFor="let hab of data.habitacions; let i = index">
               <td>{{ hab.codiHabitacio }}</td>
               <td>{{ hab.capacitatLlits }}</td>
-              <td>{{ hab.plantaId }}</td> 
             </tr>
       </tbody>
     </table>

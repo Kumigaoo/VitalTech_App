@@ -47,8 +47,8 @@
             <tbody>
               <tr *ngFor="let episodi of pagedEpisodis">
                 <td>{{ episodi.id }}</td>
-                <td>{{ episodi.dataObertura }}</td>
-                <td *ngIf="episodi.dataTancament != null; else pte">{{ episodi.dataTancament }}</td>
+                <td>{{ episodi.dataObertura.split("T")[0]}}</td>
+                <td *ngIf="episodi.dataTancament != null; else pte">{{ episodi.dataTancament.split("T")[0] }}</td>
                 <ng-template #pte>
                     <td>Pendiente</td>
                 </ng-template>

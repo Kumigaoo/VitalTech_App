@@ -46,26 +46,30 @@ export function pacienteSSLetrasNumValidators(): ValidatorFn {
         const formGroup= control as FormGroup;
 
         const SS = formGroup.get('numSS')?.value;
-        const nombre = formGroup.get('nom')?.value;
+        const apellido1 = formGroup.get('cognom1')?.value;
+        const apellido2 = formGroup.get('cognom2')?.value;        
         
-
-        if(!SS || !nombre){
+        if(!SS || !apellido1 || !apellido2){
             return of (null);
         }
 
         const regex = /^[A-Z]{4}[01][0-9]{6}00[0-9]$/;
 
         if(regex.test(SS)) {
-            const letrasSS = SS.substring(0, 4).toUpperCase();
 
-            const partes = nombre.split(' ');
-            const fisrtApellido = partes.length > 1 ? partes[1].substring(0,2).toUpperCase() : '';
-            const firstApellido2 =  partes.length > 2 ? partes[2].substring(0,2).toUpperCase() : '';
+            const a1 = SS.substring(0, 2).toUpperCase();
+            const a2 = SS.substring(2, 4).toUpperCase();
 
-            if(fisrtApellido === letrasSS.substring(0,2) && firstApellido2 === letrasSS.substring(2,4)) {
-            return of (null);
+            const fisrtApellido = apellido1.length > 2 ? apellido1.substring(0,2).toUpperCase() : '';
+            const firstApellido2 =  apellido2.length > 2 ? apellido2.substring(0,2).toUpperCase() : '';
+
+            console.log(a1 + " " + a2 + " " + fisrtApellido + " " + firstApellido2);
+
+            if(fisrtApellido === a1 && firstApellido2 === a2) {
+                return of (null);
             } 
         } 
+
         return { SSLletraIncorrect: true};
 
 
@@ -73,6 +77,7 @@ export function pacienteSSLetrasNumValidators(): ValidatorFn {
 }
 export function pacienteSSValidator(pacienteService: PacientService): AsyncValidatorFn{
     return (control: AbstractControl): Observable<ValidationErrors | null> => {
+
         if(!control.value){
             return of(null);
         }
@@ -85,6 +90,7 @@ export function pacienteSSValidator(pacienteService: PacientService): AsyncValid
             catchError(() => of(null))
         );
     };
+
 }
 export function pacienteDniValidatorModif(pacienteService: PacientService, dniOriginal: string): AsyncValidatorFn{
     return (control: AbstractControl): Observable<ValidationErrors | null> => {

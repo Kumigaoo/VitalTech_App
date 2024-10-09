@@ -57,6 +57,7 @@ export class EpisodioComponent {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
     this.pagedEpisodis = this.episodis.slice(startIndex, endIndex);
+  
     if(this.episodis.length == 0){
       return;
     }

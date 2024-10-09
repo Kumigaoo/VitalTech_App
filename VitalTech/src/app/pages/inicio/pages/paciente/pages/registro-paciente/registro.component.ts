@@ -33,8 +33,20 @@ export class RegistroComponent {
         validators: [Validators.required],
         updateOn: 'blur'
       }],
+      cognom1: ['', {
+        validators: [Validators.required],
+        updateOn: 'blur'
+      }],
+      cognom2: ['', {
+        validators: [Validators.required],
+        updateOn: 'blur'
+      }],
       sexe: ['', {
         validators: [Validators.required]
+      }],
+      birthDay: ['', {
+        validators: [Validators.required],
+        updateOn: 'blur'
       }]
     },
   {
