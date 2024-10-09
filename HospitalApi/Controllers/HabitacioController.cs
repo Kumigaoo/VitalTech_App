@@ -32,8 +32,15 @@ namespace HospitalAPI.Controllers
                 .Habitacions.Include("Planta")
                 .Include("Llits")
                 .ToListAsync();
+            IEnumerable<HabitacioReadDTO> habitacions = _mapper.Map<IEnumerable<HabitacioReadDTO>>(habList);
 
-            return Ok(_mapper.Map<IEnumerable<HabitacioReadDTO>>(habList));
+            for (int i = 0; i < habitacions.Count(); i++){
+                var codi = await (from h in _bbdd.Plantes where h.Id == habList.ElementAt(i).PlantaId select h.Piso).FirstOrDefaultAsync();
+                if (codi == null) { continue; }
+                habitacions.ElementAt(i).PlantaId = codi;
+            }
+
+            return Ok(habitacions);
         }
 
         [HttpGet("{id:int}", Name = "GetHab")]
@@ -48,7 +55,9 @@ namespace HospitalAPI.Controllers
                 return BadRequest("Error: format d'ID incorrecte.");
             }
 
-            var hab = await _bbdd.Habitacions.Include("Llits").FirstOrDefaultAsync(h => h.CodiHabitacio == id);
+            var hab = await _bbdd.Habitacions
+            .Include(l => l.Planta)
+            .Include(l => l.Llits).FirstOrDefaultAsync(h => h.CodiHabitacio == id);
 
             if (hab == null)
             {
@@ -56,8 +65,12 @@ namespace HospitalAPI.Controllers
                 return NotFound("Error: no existeix l'habitació amb l'ID indicat.");
             }
 
+            var habitacioReadDTO = _mapper.Map<HabitacioReadDTO>(hab);
+            if(hab.Planta != null){
+                habitacioReadDTO.PlantaId = hab.Planta.Piso;
+            }
             _logger.LogInformation("Habitació recuperada exitosament.");
-            return Ok(_mapper.Map<HabitacioReadDTO>(hab));
+            return Ok(habitacioReadDTO);
         }
 
         [HttpPost]

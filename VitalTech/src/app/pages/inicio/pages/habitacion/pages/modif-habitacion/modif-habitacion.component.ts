@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Habitacio } from '../../../../../../interface/habitacio.interface';
 import { HabitacioService } from '../../../../../../service/habitaciones.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { codiHabitacioPlantaValidator, plantaidValidator, habidValidatorModif } from '../../../../../../validator/habitacion/habitacion-validator.validator';
+import { PlantaService } from '../../../../../../service/planta.service';
 
 @Component({
   selector: 'app-modif-habitacion',
@@ -14,11 +16,22 @@ export class ModifHabitacionComponent {
   habitacionForm: FormGroup;
   habitacioId: number = 0;
 
-  constructor(private habService: HabitacioService, private fb: FormBuilder, private router: Router, private route: ActivatedRoute) {
+  constructor(private habService: HabitacioService, private fb: FormBuilder, private router: Router, private route: ActivatedRoute, private plantaService: PlantaService) {
+    
     this.habitacionForm = this.fb.group({
-      codiHabitacio: [{ value: '', disabled: true }],
-      capacitatLlits: [''],
-      plantaId: ['']
+      codiHabitacio: ['', {
+        validators: [Validators.required, Validators.minLength(3), Validators.pattern(/^\d{3}$/)],
+      }],
+      capacitatLlits: ['', {
+        validators: [Validators.required, Validators.pattern(/^[12]$/)]
+      }],
+      plantaId: ['', {
+        validators: [Validators.required, Validators.pattern(/^\d$/)],
+        asyncValidators: [plantaidValidator(this.plantaService)],
+
+      }]
+    }, {
+      validator: [codiHabitacioPlantaValidator()],
     });
   }
 
@@ -27,11 +40,14 @@ export class ModifHabitacionComponent {
     this.habitacioId = Number(this.route.snapshot.paramMap.get('id')); // obtiene el id de la consulta desde la url 
     this.habService.getHabitacio(this.habitacioId).subscribe(habitacio => {
     this.habitacionForm.patchValue(habitacio);
-
    })
   }
 
   onSubmit() {
+    if(this.habitacionForm.invalid){
+      this.habitacionForm.markAllAsTouched();
+      return;
+    }
     if(this.habitacionForm.valid){
       const updateHabitacion: Habitacio = { ...this.habitacionForm.getRawValue(), id: this.habitacioId};
       this.habService.putHabitcions(updateHabitacion).subscribe({
