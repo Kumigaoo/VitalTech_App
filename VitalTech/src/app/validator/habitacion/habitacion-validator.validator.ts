@@ -18,6 +18,21 @@ export function habidValidator(habitacionService: HabitacioService): AsyncValida
     };
 }
 
+export function habidValidatorModif(habitacionService: HabitacioService, originalHabitacionId: number | null =null): AsyncValidatorFn {
+    return (control: AbstractControl): Observable<ValidationErrors | null> => {
+      // Si el campo está vacío o coincide con el código original, no hacemos validación
+      if (!control.value || control.value === originalHabitacionId) {
+        return of(null);  // Validación exitosa, no hay error
+      }
+  
+      // Si no es el mismo valor, hacemos la validación llamando al servicio
+      return habitacionService.getHabitacio(control.value).pipe(
+        map(hab => (hab ? { habIdExists: true } : null)), // Si existe la habitación, devuelve error
+        catchError(() => of(null))  // Si hay un error en la llamada, asumimos que no existe
+      );
+    };
+  }
+
 export function plantaidValidator(plantaService: PlantaService): AsyncValidatorFn{
     return (control: AbstractControl): Observable<ValidationErrors | null> => {
         if (!control.value) {
