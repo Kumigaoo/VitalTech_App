@@ -7,6 +7,7 @@ import { ConsultesPopupComponent } from '../../../../components/pop-ups/consulte
 import { MatDialog } from '@angular/material/dialog';
 import Swal from 'sweetalert2';
 import { EnumTranslatePipe } from '../../../../pipes/enum-translate.pipe';
+import Fuse from 'fuse.js';
 
 @Component({
   selector: 'app-metge',
@@ -30,6 +31,9 @@ export class PersonalComponent {
   itemsPerPage: number = 4;
   totalPages: number = 1;
 
+  fuse: Fuse<Metge> | null = null; 
+
+
   ngOnInit() {
     this.loadPersonal();
   }
@@ -38,6 +42,12 @@ export class PersonalComponent {
     this.metgeService.getPersonals().subscribe(data => {
       this.metges = data;
       this.originalMetge = data;
+
+      this.fuse = new Fuse(this.originalMetge, {
+        keys: ['nom', 'especialitat'], 
+        threshold: 0.5, // <-----para ajusar nivel de fuzzy; 1=  ultra difuso, 0 -> búsqueda estricta/exacta
+      });
+
       this.totalPages = Math.ceil(this.metges.length / this.itemsPerPage); // calcula cuantas paginas tendra dependiendo de los items que tenga cada una
       this.updatePagedPersonals();
     });
@@ -75,34 +85,11 @@ export class PersonalComponent {
       return;
     }
 
-    this.metges = this.originalMetge;
-
-    let busqueda: Metge[] = [];
-
-    switch (this.searchCriteria.toLowerCase()) {
-      case 'dni':
-        for (let i = 0; i < this.metges.length; i++) {
-          if (this.metges[i].dni.toLowerCase().includes(this.searchInput.toLowerCase())) {
-            busqueda.push(this.metges[i]);
-          }
-        }
-        break;
-      case 'nom':
-        for (let i = 0; i < this.metges.length; i++) {
-          if (this.metges[i].nom.toLowerCase().includes(this.searchInput.toLowerCase())) {
-            busqueda.push(this.metges[i]);
-          }
-        }
-        break;
-      case 'especialitat':
-        for (let i = 0; i < this.metges.length; i++) {
-          if (this.metges[i].especialitat.toLowerCase().includes(this.searchInput.toLowerCase())) {
-            busqueda.push(this.metges[i]);
-          }
-        }
-        break;
+    if (this.fuse) {
+      const result = this.fuse.search(this.searchInput);
+      this.metges = result.map((res) => res.item);
     }
-    this.metges = busqueda;
+
     this.currentPage = 1;
     this.totalPages = Math.ceil(this.metges.length / this.itemsPerPage);
     this.updatePagedPersonals();
