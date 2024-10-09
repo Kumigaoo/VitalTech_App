@@ -45,7 +45,7 @@ export class EpisodioComponent {
 
         this.fuse = new Fuse(this.originalEpisodis, {
         keys: ['id', 'dolencia', 'estat', 'dniPacient'], 
-        threshold: 0.4, // <-----para ajusar nivel de fuzzy; 1=  ultra difuso, 0 -> búsqueda estricta/exacta
+        threshold: 0.3, // <-----para ajusar nivel de fuzzy; 1=  ultra difuso, 0 -> búsqueda estricta/exacta
       });
 
       this.totalPages = Math.ceil(this.episodis.length / this.itemsPerPage);
@@ -57,6 +57,15 @@ export class EpisodioComponent {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
     this.pagedEpisodis = this.episodis.slice(startIndex, endIndex);
+    if(this.episodis.length == 0){
+      return;
+    }
+
+    if(this.pagedEpisodis.length == 0) {
+      this.currentPage = this.currentPage - 1;
+      this.loadEpisodis();
+  }
+
   }
 
   searchEpisodi(): void {

@@ -9,6 +9,22 @@ namespace HospitalApi.Data
         {
         }
 
+        // public bool TestConnection()
+        // {
+        //     try
+        //     {
+        //         this.Database.OpenConnection();
+        //         this.Database.CloseConnection();
+        //         return true; // La conexión fue exitosa
+        //     }
+        //     catch (Exception ex)
+        //     {
+        //         Aquí puedes registrar el error o manejarlo como desees
+        //         Console.WriteLine($"Error de conexión: {ex.Message}");
+        //         return false; // La conexión falló
+        //     }
+        // }
+
         public DbSet<Consulta> Consultes { get; set; }
         public DbSet<EpisodiMedic> EpisodisMedics { get; set; }
         public DbSet<Habitacio> Habitacions { get; set; }

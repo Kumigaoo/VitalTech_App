@@ -44,10 +44,9 @@ export class RegistroComponent {
   }
 
   onSubmit() {
-    if(this.pacientForm.invalid){
-      this.pacientForm.markAllAsTouched();
-      return;
-    }
+
+    
+
     const pacienteData = this.pacientForm.value;
 
     this.http.post('http://localhost:5296/api/Pacient', pacienteData).subscribe({
@@ -66,12 +65,6 @@ export class RegistroComponent {
         });
       }
     });
-
-    // this.pacientService.postPacient(pacienteData).subscribe({
-    //   next: response => alert('Pacient registrat'),
-    //   error: error => alert('ERROR, camps no valids '),
-    //   complete: () => alert('Operacio completada')
-    // });
 
   }
 

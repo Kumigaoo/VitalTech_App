@@ -18,6 +18,7 @@ export class ModifPacienteComponent {
   modiPacientForm: FormGroup;
   pacientId: string = "";
   originalDni: string | null = null;
+  dniSuperOriginal : string = "";
 
   constructor(private fb: FormBuilder, private http: HttpClient, private pacientService: PacientService,private router: Router, private route: ActivatedRoute) {
     const dniId = this.route.snapshot.paramMap.get('id') || '';
@@ -30,7 +31,7 @@ export class ModifPacienteComponent {
         updateOn: 'blur'
       }],
       numSS: ['', {
-        validators: [Validators.required, Validators.maxLength(15), Validators.minLength(15), Validators.pattern(/^[A-Z]{4}\d{11}$/)],
+        validators: [Validators.required, Validators.maxLength(14), Validators.minLength(14), Validators.pattern(/^[A-Z]{4}\d{11}$/)],
         asyncValidators: [pacienteSSValidator(this.pacientService)],
         updateOn: 'blur'
       }],
@@ -49,14 +50,16 @@ export class ModifPacienteComponent {
     this.pacientId = String(this.route.snapshot.paramMap.get('id')); 
     this.pacientService.getPacientId(this.pacientId).subscribe(pacient => {
       this.modiPacientForm.patchValue(pacient);
+      this.dniSuperOriginal = pacient.dni;
     })
   }
 
   onUpdate(): void {
 
-    if(this.modiPacientForm.valid) {
-      const updatedPacient: Pacient = { ...this.modiPacientForm.getRawValue(), dni: this.pacientId };
-      this.pacientService.putPacient(updatedPacient).subscribe({
+    
+      const updatedPacient: Pacient = { ...this.modiPacientForm.getRawValue()};
+
+      this.pacientService.putPacient(updatedPacient, this.dniSuperOriginal).subscribe({
 
         next: response => {
           Swal.fire({
@@ -73,17 +76,9 @@ export class ModifPacienteComponent {
           });
         }
 
-        // next:() => {
-        //   alert('Pacient actualizat amb exit');
-        //   this.router.navigate(['/pacientes']);
-        // },
-        // error: (error) => {
-        //   console.error('Error al actualitzar el pacient:', error);
-        //   alert('Error al actualitzar el paciente');
-        // }
       })
 
-    }
+    
   }
 
 }
