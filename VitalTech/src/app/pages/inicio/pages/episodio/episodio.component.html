@@ -11,12 +11,13 @@
                   <select id="searchCriteria" name="searchCriteria" [(ngModel)]="searchCriteria">
                     <option value="id">ID</option>
                     <option value="dolencia">Dolencia</option>
+                    <option value="dataObertura">Apertura</option>
+                    <option value="dataTancament">Cierre</option>
                     <option value="estat">Estado</option>
-                    <option value="pacientId">DNI paciente</option>
+                    <option value="dniPacient">DNI paciente</option>
                   </select>
                   <input type="text" id="searchInput" name="searchInput" placeholder="Ingresa la búsqueda" [(ngModel)]="searchInput">
                   <button type="button" (click)="searchEpisodi()">Buscar</button>
-
                 </div>
             </form>
         </div>

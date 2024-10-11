@@ -42,12 +42,6 @@ export class EpisodioComponent {
     this.episodiService.getEpisodis().subscribe((data) => {
       this.episodis = data;
       this.originalEpisodis = data;
-
-        this.fuse = new Fuse(this.originalEpisodis, {
-        keys: ['id', 'dolencia', 'estat', 'dniPacient'], 
-        threshold: 0.3, // <-----para ajusar nivel de fuzzy; 1=  ultra difuso, 0 -> búsqueda estricta/exacta
-      });
-
       this.totalPages = Math.ceil(this.episodis.length / this.itemsPerPage);
       this.updatePage();
     });
@@ -75,10 +69,13 @@ export class EpisodioComponent {
       return;
     }
 
-    if (this.fuse) {
-      const result = this.fuse.search(this.searchInput);
-      this.episodis = result.map((res) => res.item);
-    }
+    this.fuse = new Fuse(this.originalEpisodis, {
+      keys: [this.searchCriteria],
+      threshold: 0.3,
+    });
+
+    const result = this.fuse.search(this.searchInput);
+    this.episodis = result.map((res) => res.item);
 
     this.currentPage = 1;
     this.totalPages = Math.ceil(this.episodis.length / this.itemsPerPage);

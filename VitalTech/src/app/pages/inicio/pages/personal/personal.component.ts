@@ -85,10 +85,13 @@ export class PersonalComponent {
       return;
     }
 
-    if (this.fuse) {
-      const result = this.fuse.search(this.searchInput);
-      this.metges = result.map((res) => res.item);
-    }
+    this.fuse = new Fuse(this.originalMetge, {
+      keys: [this.searchCriteria],
+      threshold: 0.3,
+    });
+
+    const result = this.fuse.search(this.searchInput);
+    this.metges = result.map((res) => res.item);
 
     this.currentPage = 1;
     this.totalPages = Math.ceil(this.metges.length / this.itemsPerPage);
