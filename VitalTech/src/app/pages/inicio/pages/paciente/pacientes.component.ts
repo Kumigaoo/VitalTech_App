@@ -130,11 +130,11 @@ export class PacientesComponent {
       return;
     }
 
-    if (this.searchCriteria === 'birthDay') {
-      this.pacients = this.originalPacient.filter((pacient) => {
-        return pacient.birthDay.split('T')[0] === this.searchInput;
-      });
-    } else {
+    // if (this.searchCriteria === 'birthDay') {
+    //   this.pacients = this.originalPacient.filter((pacient) => {
+    //     return pacient.birthDay.split('T')[0] === this.searchInput;
+    //   });
+    // } else {
       this.fuse = new Fuse(this.originalPacient, {
         keys: [this.searchCriteria],
         threshold: 0.3,
@@ -142,7 +142,7 @@ export class PacientesComponent {
 
       const result = this.fuse.search(this.searchInput);
       this.pacients = result.map((res) => res.item);
-    }
+    
 
     this.currentPage = 1;
     this.totalPages = Math.ceil(this.pacients.length / this.itemsPerPage);
