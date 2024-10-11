@@ -103,10 +103,17 @@ export class ConsultaComponent {
       return;
     }
 
-    this.fuse = new Fuse(this.originalConsultes, {
-      keys: [this.searchCriteria],
-      threshold: 0.3,
-    });
+    if (this.searchCriteria == "id" || this.searchCriteria == "episodiMedicId" || this.searchCriteria == "dniPersonal") {
+      this.fuse = new Fuse(this.originalConsultes, {
+        keys: [this.searchCriteria],
+        threshold: 0,
+      });
+    } else {
+      this.fuse = new Fuse(this.originalConsultes, {
+        keys: [this.searchCriteria],
+        threshold: 0.3,
+      });
+    }
 
     const result = this.fuse.search(this.searchInput);
     this.consultes = result.map((res) => res.item);

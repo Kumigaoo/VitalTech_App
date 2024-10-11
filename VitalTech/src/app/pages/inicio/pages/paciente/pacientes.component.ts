@@ -130,7 +130,7 @@ export class PacientesComponent {
       return;
     }
 
-    if (this.searchCriteria == "birthDay") {
+    if (this.searchCriteria == "birthDay" || this.searchCriteria == "numSS") {
       this.fuse = new Fuse(this.originalPacient, {
         keys: [this.searchCriteria],
         threshold: 0,

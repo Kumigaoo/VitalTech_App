@@ -87,7 +87,7 @@ export class PersonalComponent {
 
     this.fuse = new Fuse(this.originalMetge, {
       keys: [this.searchCriteria],
-      threshold: 0.3,
+      threshold: 0.4,
     });
 
     const result = this.fuse.search(this.searchInput);
