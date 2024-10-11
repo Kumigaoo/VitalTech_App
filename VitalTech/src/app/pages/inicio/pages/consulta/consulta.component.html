@@ -9,12 +9,12 @@
                 </div>
                 <div class="searchCriteriaItemContainer">
                     <select name="searchCriteria" id="searchCriteria" [(ngModel)]="searchCriteria">
-                        <option value="idConsulta">Consulta</option>
+                        <option value="id">Consulta</option>
                         <option value="urgencia">Urgencia</option>
                         <option value="sintomatologia">Sintomatología</option>
-                        <option value="receta">Receta</option>
-                        <option value="dni">DNI personal</option>
-                        <option value="episodio">Epsiodio médico</option>
+                        <option value="recepta">Receta</option>
+                        <option value="dniPersonal">DNI personal</option>
+                        <option value="episodiMedicId">Epsiodio médico</option>
                     </select>
                     <input type="text"  id="searchId" [(ngModel)]="searchInput" name="searchId" placeholder="Ingresa la búsqueda" required>
                     <button type="button" id="buscar" (click)="searchConsulta()">Buscar</button>
@@ -58,8 +58,7 @@
                         <button class= "ico" (click)="modificarConsulta(consulta.id)" id = "modificar">🔄</button>
                         <button class= "ico" (click)="deleteConsulta(consulta.id)" id = "eliminar">❎</button>
                     </div>
-                  </tr>
-                  
+                </tr>
             </tbody>
         </table>
         

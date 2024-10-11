@@ -132,9 +132,8 @@ a {
     justify-content: flex-start;
     flex-direction: column;
     justify-content: space-around;
-
-
 }
+
 table {
     width: 100%;
     border-collapse: separate; 
@@ -162,9 +161,7 @@ table {
  
   th {
     background-color: #fff;
-    border-spacing: 0 5px;
-    
-    
+    border-spacing: 0 5px; 
   }
   
   td:first-child, th:first-child {

@@ -11,6 +11,7 @@ import Fuse from 'fuse.js';
   styleUrl: './consulta.component.css',
 })
 export class ConsultaComponent {
+
   fuse: Fuse<Consulta> | null = null;
 
   constructor(
@@ -20,9 +21,8 @@ export class ConsultaComponent {
 
   consultes: Consulta[] = [];
   protected searchId: number = 1;
-  pagedConsultes: Consulta[] = []; // creo otra array de consultas que mostrara solamente aquellas por pagina
-  searchCriteria: string = 'dni';
-  // Estas son las variables de paginación
+  pagedConsultes: Consulta[] = []; // Array para consultas paginadas
+  searchCriteria: string = 'dni'; // Inicializamos con un valor por defecto
   currentPage: number = 1;
   itemsPerPage: number = 4;
   totalPages: number = 1;
@@ -37,35 +37,21 @@ export class ConsultaComponent {
     this.consultaService.getConsultes().subscribe((data) => {
       this.consultes = data;
       this.originalConsultes = data;
-
-      this.fuse = new Fuse(this.originalConsultes, {
-        keys: [
-          'idConsulta',
-          'urgencia',
-          'sintomatologia',
-          'receta',
-          'dni',
-          'episodio',
-        ],
-        threshold: 0.3,
-      });
-
-      this.totalPages = Math.ceil(this.consultes.length / this.itemsPerPage); // calcula cuantas paginas tendra dependiendo de los items que tenga cada una
+      this.totalPages = Math.ceil(this.consultes.length / this.itemsPerPage);
       this.updatePagedConsultes();
     });
   }
 
-  //esta función calcula los indices inicial y final, y mediante una función de types (slice), elimina de la array todos aquellos items que no entren en esa pagina
   updatePagedConsultes(): void {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
     this.pagedConsultes = this.consultes.slice(startIndex, endIndex);
 
-    if (this.consultes.length == 0) {
+    if (this.consultes.length === 0) {
       return;
     }
 
-    if (this.pagedConsultes.length == 0) {
+    if (this.pagedConsultes.length === 0) {
       this.currentPage = this.currentPage - 1;
       this.loadConsultes();
     }
@@ -84,23 +70,23 @@ export class ConsultaComponent {
     }).then((result) => {
       if (result.isConfirmed) {
         this.consultaService.deleteConsulta(id).subscribe({
-          next: (response) => {
-            Swal.fire({
-              icon: 'success',
-              title: 'Consulta eliminada',
-              text: 'La consulta ha sido eliminada con éxito.',
-            });
+          next: () => {
+            Swal.fire(
+              'Consulta eliminada',
+              'La consulta ha sido eliminada con éxito.',
+              'success'
+            );
             if (this.pagedConsultes.length === 0) {
               this.currentPage--;
             }
             this.loadConsultes();
           },
-          error: (error) => {
-            Swal.fire({
-              icon: 'error',
-              title: 'Error',
-              text: 'Error, no se puede eliminar este episodio médico: todavía existen consultas o ingresos.',
-            });
+          error: () => {
+            Swal.fire(
+              'Error',
+              'No se puede eliminar este episodio médico: todavía existen consultas o ingresos.',
+              'error'
+            );
           },
         });
       }
@@ -113,15 +99,17 @@ export class ConsultaComponent {
 
   searchConsulta(): void {
     if (this.searchInput.trim() === '') {
-      this.consultes = this.originalConsultes;
-      this.updatePagedConsultes();
+      this.loadConsultes();
       return;
     }
 
-    if (this.fuse) {
-      const result = this.fuse.search(this.searchInput);
-      this.consultes = result.map((res) => res.item);
-    }
+    this.fuse = new Fuse(this.originalConsultes, {
+      keys: [this.searchCriteria],
+      threshold: 0.3,
+    });
+
+    const result = this.fuse.search(this.searchInput);
+    this.consultes = result.map((res) => res.item);
 
     this.currentPage = 1;
     this.totalPages = Math.ceil(this.consultes.length / this.itemsPerPage);

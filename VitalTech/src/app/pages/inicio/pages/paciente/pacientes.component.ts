@@ -1,39 +1,43 @@
-
-import { Component} from '@angular/core';
+import { Component } from '@angular/core';
 import { PacientService } from '../../../../service/pacientes.service';
-import { Pacient } from '../../../../interface/pacient.interface'
+import { Pacient } from '../../../../interface/pacient.interface';
 import { MatDialog } from '@angular/material/dialog';
 import { EpisodisMedicsPopupComponent } from '../../../../components/pop-ups/episodis-medics-popup/episodis-medics-popup.component';
-import {Router} from '@angular/router';
+import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import Fuse from 'fuse.js';
 
 @Component({
   selector: 'app-pacientes',
   templateUrl: './pacientes.component.html',
-  styleUrl: './pacientes.component.css'
+  styleUrl: './pacientes.component.css',
 })
-
 export class PacientesComponent {
-
   pacients: Pacient[] = [];
   originalPacient: Pacient[] = [];
   pagedPacient: Pacient[] = [];
 
-  searchCriteria: string = "dni";
-  searchInput: string = "";
+  searchCriteria: string = 'dni';
+  searchInput: string = '';
 
   currentPage: number = 1;
   itemsPerPage: number = 4;
   totalPages: number = 1;
 
-  constructor(public dialog: MatDialog, private pacienteService: PacientService, private router: Router) { }
+  fuse: Fuse<Pacient> | null = null;
+
+  constructor(
+    public dialog: MatDialog,
+    private pacienteService: PacientService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.loadPacients();
   }
 
   loadPacients(): void {
-    this.pacienteService.getPacients().subscribe(data => {
+    this.pacienteService.getPacients().subscribe((data) => {
       this.pacients = data;
       this.originalPacient = data;
       this.totalPages = Math.ceil(this.pacients.length / this.itemsPerPage);
@@ -47,45 +51,41 @@ export class PacientesComponent {
       width: '80vw',
       height: '70vh',
       maxWidth: '1000px',
-      maxHeight: '500px'
+      maxHeight: '500px',
     });
   }
 
   deletePacient(id: string): void {
-
     Swal.fire({
-
       title: 'Eliminar paciente',
-      text: "¿Quieres borrar este paciente?",
+      text: '¿Quieres borrar este paciente?',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Sí',
-      cancelButtonText: 'Cancelar'
-
+      cancelButtonText: 'Cancelar',
     }).then((result) => {
-
-      if (result.isConfirmed) { 
+      if (result.isConfirmed) {
         this.pacienteService.deletePacient(String(id)).subscribe({
-          next: response => {
+          next: (response) => {
             Swal.fire({
               icon: 'success',
               title: 'Paciente eliminado',
-              text: 'El paciente ha sido eliminado con éxito.'
+              text: 'El paciente ha sido eliminado con éxito.',
             });
-            if (this.pagedPacient.length === 0){
-                this.currentPage--;
+            if (this.pagedPacient.length === 0) {
+              this.currentPage--;
             }
             this.loadPacients();
           },
-          error: error => {
+          error: (error) => {
             Swal.fire({
               icon: 'error',
               title: 'Error',
-              text: 'Error'
+              text: 'Error',
             });
-          }        
+          },
         });
       }
     });
@@ -100,80 +100,56 @@ export class PacientesComponent {
     const endIndex = startIndex + this.itemsPerPage;
     this.pagedPacient = this.pacients.slice(startIndex, endIndex);
 
-    if(this.pacients.length == 0){
+    if (this.pacients.length == 0) {
       return;
     }
 
-    if(this.pagedPacient.length == 0) {
-        this.currentPage = this.currentPage - 1;
-        this.loadPacients();
+    if (this.pagedPacient.length == 0) {
+      this.currentPage = this.currentPage - 1;
+      this.loadPacients();
     }
-    
   }
 
   nextPage(): void {
-    if(this.currentPage < this.totalPages) {
+    if (this.currentPage < this.totalPages) {
       this.currentPage++;
       this.updatePagedPacientes();
     }
   }
 
   previousPage(): void {
-    if (this.currentPage >1) {
+    if (this.currentPage > 1) {
       this.currentPage--;
       this.updatePagedPacientes();
     }
   }
 
   searchPatient(): void {
-
     if (this.searchInput.trim() === '') {
       this.loadPacients();
       return;
     }
 
-    this.pagedPacient = this.originalPacient
-
-    let busqueda: Pacient[] = [];
-
-    this.totalPages = 1; // como solo se muestra una solo hay una pagina
-    this.currentPage = 1;
-    this.updatePagedPacientes(); 
-
-    switch (this.searchCriteria) {
-      case 'name':
-        for (let i = 0; i < this.pacients.length; i++) {
-          if (this.pacients[i].nom.toLowerCase().includes(this.searchInput.toLowerCase())) {
-            busqueda.push(this.pacients[i]);
-          }
-        }
-        break;
-      case 'dni':
-        for (let i = 0; i < this.pacients.length; i++) {
-          if (this.pacients[i].dni.toLowerCase().includes(this.searchInput.toLowerCase())) {
-            busqueda.push(this.pacients[i]);
-          }
-        }
-        break;
-      case 'ss':
-        for (let i = 0; i < this.pacients.length; i++) {
-          if (this.pacients[i].numSS.toLowerCase().includes(this.searchInput.toLowerCase())) {
-            busqueda.push(this.pacients[i]);
-          }
-        }
-        break;
-      case 'sexe':
-        for (let i = 0; i < this.pacients.length; i++) {
-          if (this.pacients[i].sexe.toLowerCase().includes(this.searchInput.toLowerCase())) {
-            busqueda.push(this.pacients[i]);
-          }
-        }
-        break;
-
+    if (this.searchCriteria == "birthDay") {
+      this.fuse = new Fuse(this.originalPacient, {
+        keys: [this.searchCriteria],
+        threshold: 0,
+      });
+    } else {
+      this.fuse = new Fuse(this.originalPacient, {
+        keys: [this.searchCriteria],
+        threshold: 0.3,
+      });
     }
+      
 
-    this.pagedPacient = busqueda;
+      const result = this.fuse.search(this.searchInput);
+      this.pacients = result.map((res) => res.item);
+    
 
+    this.currentPage = 1;
+    this.totalPages = Math.ceil(this.pacients.length / this.itemsPerPage);
+    this.updatePagedPacientes();
   }
 
   firstPage(): void {
@@ -184,10 +160,9 @@ export class PacientesComponent {
   }
 
   lastPage(): void {
-    if(this.currentPage < this.totalPages) {
+    if (this.currentPage < this.totalPages) {
       this.currentPage = this.totalPages;
       this.updatePagedPacientes();
     }
   }
-  
 }

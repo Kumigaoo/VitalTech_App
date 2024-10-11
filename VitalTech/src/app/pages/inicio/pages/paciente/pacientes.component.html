@@ -9,14 +9,16 @@
                 </div>
                 <div class="searchCriteriaItemContainer">
                     <select id="searchCriteria" name="searchCriteria" [(ngModel)]="searchCriteria">
-                        <option value="name">Nombre</option>
+                        <option value="nom">Nombre</option>
                         <option value="dni">DNI</option>
-                        <option value="ss">SS</option>
+                        <option value="numSS">SS</option>
+                        <option value="cognom1">Primer apellido</option>
+                        <option value="cognom2">Segundo apellido</option>
                         <option value="sexe">Sexo</option>
+                        <option value="birthDay">Fecha de nacimiento</option>
                     </select>
                     <input type="text" id="searchInput" name="searchInput" placeholder="Ingresa la búsqueda" [(ngModel)]="searchInput">
                     <button type="button" (click)="searchPatient()">Buscar</button>
-                    
                 </div>
             </form>
         </div>
