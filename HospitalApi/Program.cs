@@ -14,18 +14,9 @@ builder.Services.AddCors(opt => opt.AddDefaultPolicy(policy => policy.AllowAnyHe
 
 builder.Services.AddControllers();
 
-// builder.Services.AddDbContext<ApplicationDbContext>(options =>
-// {
-//     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-// });
-
-// var connectionString = builder.Configuration.GetConnectionString("AppDbConnectionString");
-// builder.Services.AddDbContext<ApplicationDbContext>(option => option.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
-
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<ApplicationDbContext>(option =>
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
-    option.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
 builder.Services.AddEndpointsApiExplorer();
