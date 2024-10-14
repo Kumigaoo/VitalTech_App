@@ -21,7 +21,7 @@
             
             
                 <div class="capzalera1">
-                    <label for="SS">Targeta Sanitaria: <span style="color: red;">*</span></label>
+                    <label for="SS">Tarjeta sanitaria: <span style="color: red;">*</span></label>
                     <input type="text" id="SS" ngModel name="SS" formControlName = "numSS" required
                     [ngClass]="{'is-invalid': modiPacientForm.get('numSS')?.touched && modiPacientForm.get('numSS')?.invalid}">
                     <div class ="error-messages" *ngIf="modiPacientForm.get('numSS')?.touched && modiPacientForm.get('numSS')?.invalid">
@@ -44,12 +44,12 @@
             </div>
 
             <div class = "capzalera1">
-                <label for="name">Apellido 1: <span style="color: red;">*</span></label>
+                <label for="name">Primer apellido: <span style="color: red;">*</span></label>
                 <input type="text" id="cognom1" ngModel name="cognom1" formControlName="cognom1" required>
             </div>
 
             <div class = "capzalera1">
-                <label for="name">Apellido 2: <span style="color: red;">*</span></label>
+                <label for="name">Segundo apellido: <span style="color: red;">*</span></label>
                 <input type="text" id="cognom2" ngModel name="cognom2" formControlName="cognom2" required>      
             </div>
 
@@ -67,13 +67,13 @@
             </div>
 
             <div class = "capzalera1">
-                <label for="name">Data de Naixement: <span style="color: red;">*</span></label>
+                <label for="name">Fecha de nacimiento: <span style="color: red;">*</span></label>
                 <input type="date" id="birthDay" ngModel name="birthDay" formControlName="birthDay" required>      
             </div>
             
         </div>
         <div *ngIf="modiPacientForm.hasError('dniLletraIncorrect')" class="error-messages">
-            <small>DNI invalido</small>
+            <small>DNI inválido</small>
         </div>
         <button type="submit">Modificar</button>
     </form>
