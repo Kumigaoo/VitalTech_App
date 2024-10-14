@@ -3,14 +3,15 @@
 <div class= "contendor">
     <div class="search-container">
         <div class="lala">
+
             <form id="searchForm">
                 <div class="searchCriteriaContainer">
                     <label for="searchCriteria">Buscar por:</label>
                 </div>
                 <div class="searchCriteriaItemContainer">
-                    <select name="searchCriteria" id="searchCriteria" [(ngModel)]="searchCriteria">
-                        <option value="id">Consulta</option>
+                    <select id="searchCriteria" name="searchCriteria" [(ngModel)]="searchCriteria">
                         <option value="urgencia">Urgencia</option>
+                        <option value="id">Consulta</option>
                         <option value="sintomatologia">Sintomatología</option>
                         <option value="recepta">Receta</option>
                         <option value="dniPersonal">DNI personal</option>

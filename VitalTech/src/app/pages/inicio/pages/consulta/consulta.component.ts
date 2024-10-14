@@ -22,7 +22,7 @@ export class ConsultaComponent {
   consultes: Consulta[] = [];
   protected searchId: number = 1;
   pagedConsultes: Consulta[] = []; // Array para consultas paginadas
-  searchCriteria: string = 'dni'; // Inicializamos con un valor por defecto
+  searchCriteria: string = 'id'; // Inicializamos con un valor por defecto
   currentPage: number = 1;
   itemsPerPage: number = 4;
   totalPages: number = 1;

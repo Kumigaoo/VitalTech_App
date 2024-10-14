@@ -38,7 +38,6 @@ export class RegistroComponent {
         updateOn: 'blur'
       }],
       cognom2: ['', {
-        validators: [Validators.required],
         updateOn: 'blur'
       }],
       sexe: ['', {

@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import Swal from 'sweetalert2';
 import { pacientIdexists,dataIniciValidator } from '../../../../../../validator/episodio/episodio-validator.validator';
 import { PacientService } from '../../../../../../service/pacientes.service';
+import { Pacient } from '../../../../../../interface/pacient.interface';
  
 
 @Component({
@@ -14,6 +15,8 @@ import { PacientService } from '../../../../../../service/pacientes.service';
 export class RegistroEpisodiComponent {
 
   episodiForm: FormGroup;
+  pacients: Pacient[] = [];
+  dropdownVisible = false;
 
   constructor(private fb: FormBuilder, private http: HttpClient, private pacienteService: PacientService) {
     this.episodiForm = this.fb.group({
@@ -33,10 +36,8 @@ export class RegistroEpisodiComponent {
     },
     {
       validators: dataIniciValidator()
-    }
+    });
 
-    
-  );
     this.episodiForm.get('estat')?.valueChanges.subscribe(estat => {
       if(estat ==="Resuelto"){
         this.episodiForm.addControl('dataTancament', this.fb.control(new Date())); // es parecido al setValue, pero como este atrivuto no lo tenemos inicializado en el formulario se usa addControl
@@ -45,7 +46,32 @@ export class RegistroEpisodiComponent {
       }
       
     });
+
+    this.pacienteService.getPacients().subscribe((data) => {
+      this.pacients = data;
+      this.pacients.sort((a, b) => a.nom.localeCompare(b.nom));
+    });
+
   }
+
+  showDropdown() {
+    this.dropdownVisible = true;
+  }
+
+  hideDropdown() {
+    setTimeout(() => {
+      this.dropdownVisible = false;
+    }, 200);
+  }
+
+  selectPacient(event: Event) {
+    const selectedDni = (event.target as HTMLSelectElement).value;
+    const selectedPatient = this.pacients.find(pacient => pacient.dni === selectedDni);
+    if (selectedPatient) {
+      this.episodiForm.get('dniPacient')?.setValue(selectedDni);
+    }
+  }
+
 
   onSubmit() {
 
@@ -57,23 +83,6 @@ export class RegistroEpisodiComponent {
     if (episodiData.estat === null || episodiData.estat === ''){
       episodiData.estat = "No Resuelto"
     }
-
-    /*if (new Date(episodiData.dataObertura) > new Date(episodiData.dataTancament)) {
-      Swal.fire({
-        icon: 'error',
-        title: 'No se puede registrar episodio',
-        text: 'La fecha de cierre del episodio introducida es anterior a la de apertura.'
-      });
-      return;
-    } else if (new Date(episodiData.dataObertura) > new Date()) {
-      Swal.fire({
-        icon: 'error',
-        title: 'No se puede registrar episodio',
-        text: 'La fecha de apertura del episodio es posterior a la fecha actual.'
-      });
-      return;
-    }*/
-
    
     this.http.post('http://localhost:5296/api/EpisodiMedic', episodiData).subscribe({
       next: response => {
