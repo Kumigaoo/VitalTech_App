@@ -135,6 +135,7 @@ export class PacientesComponent {
         keys: [this.searchCriteria],
         threshold: 0,
       });
+      
     } else {
       this.fuse = new Fuse(this.originalPacient, {
         keys: [this.searchCriteria],
