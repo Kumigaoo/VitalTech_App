@@ -42,12 +42,6 @@ export class PersonalComponent {
     this.metgeService.getPersonals().subscribe(data => {
       this.metges = data;
       this.originalMetge = data;
-
-      this.fuse = new Fuse(this.originalMetge, {
-        keys: ['nom', 'especialitat'], 
-        threshold: 0.5, // <-----para ajusar nivel de fuzzy; 1=  ultra difuso, 0 -> búsqueda estricta/exacta
-      });
-
       this.totalPages = Math.ceil(this.metges.length / this.itemsPerPage); // calcula cuantas paginas tendra dependiendo de los items que tenga cada una
       this.updatePagedPersonals();
     });
@@ -85,10 +79,18 @@ export class PersonalComponent {
       return;
     }
 
-    this.fuse = new Fuse(this.originalMetge, {
-      keys: [this.searchCriteria],
-      threshold: 0.4,
-    });
+    if (this.searchCriteria == "dni") {
+      this.fuse = new Fuse(this.originalMetge, {
+        keys: [this.searchCriteria],
+        threshold: 0,
+      });
+      
+    } else {
+      this.fuse = new Fuse(this.originalMetge, {
+        keys: [this.searchCriteria],
+        threshold: 0.3,
+      });
+    }
 
     const result = this.fuse.search(this.searchInput);
     this.metges = result.map((res) => res.item);
