@@ -15,9 +15,6 @@
   list-style: none;
   padding: 0;
   margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 10px; /* Espacio entre los elementos de la lista */
 }
 ::-webkit-scrollbar {
   display: none;

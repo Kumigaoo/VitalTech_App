@@ -6,9 +6,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './modules/shared/shared.module';  // Importa el SharedModule
 import { InicioComponent } from './pages/inicio/inicio.component';
+import { PlantesComponent } from './pages/inicio/pages/administrador-sistema/pages/plantes/plantes.component';
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    PlantesComponent
+  ],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
