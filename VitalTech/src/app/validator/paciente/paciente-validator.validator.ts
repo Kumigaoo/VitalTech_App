@@ -60,8 +60,17 @@ export function pacienteSSLetrasNumValidators(): ValidatorFn {
             const a1 = SS.substring(0, 2).toUpperCase();
             const a2 = SS.substring(2, 4).toUpperCase();
 
+            let firstApellido2;
+
+            if(apellido2) {
+                firstApellido2 =  apellido2.length > 2 ? apellido2.substring(0,2).toUpperCase() : '';
+            } else {
+                firstApellido2 = apellido1.length > 2 ? apellido1.substring(0,2).toUpperCase() : '';
+            }
+
+
             const fisrtApellido = apellido1.length > 2 ? apellido1.substring(0,2).toUpperCase() : '';
-            const firstApellido2 =  apellido2.length > 2 ? apellido2.substring(0,2).toUpperCase() : '';
+            
 
             console.log(a1 + " " + a2 + " " + fisrtApellido + " " + firstApellido2);
 

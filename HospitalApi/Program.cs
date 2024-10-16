@@ -3,8 +3,6 @@ using HospitalApi.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using System.Text;
-
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,10 +12,12 @@ builder.Services.AddCors(opt => opt.AddDefaultPolicy(policy => policy.AllowAnyHe
 
 builder.Services.AddControllers();
 
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

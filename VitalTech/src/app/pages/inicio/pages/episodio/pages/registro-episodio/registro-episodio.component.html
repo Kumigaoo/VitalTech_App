@@ -3,25 +3,28 @@
 <div class="container">
 
     <h2>Formulario de registro de episodio médico</h2>
-    
+
     <form type="submit" [formGroup]="episodiForm" (ngSubmit)="onSubmit()">
 
-        <div class = "grid-container">
+        <div class="grid-container">
 
             <div class>
-                <label for="dataObertura">Fecha de apertura:<span style="color: red;">*</span></label> 
+                <label for="dataObertura">Fecha de apertura:<span style="color: red;">*</span></label>
                 <input type="date" id="dataObertura" ngModel name="dataObertura" formControlName="dataObertura" required
-                [ngClass]="{'is-invalid': episodiForm.get('dataObertura')?.touched && episodiForm.get('dataObertura')?.invalid || 
+                    [ngClass]="{'is-invalid': episodiForm.get('dataObertura')?.touched && episodiForm.get('dataObertura')?.invalid || 
                 episodiForm.hasError('viatjeEnElTemps')}">
-                <div class="error-messages" *ngIf="episodiForm.get('dataObertura')?.touched  && episodiForm.get('dataObertura')?.invalid">
-                    <small *ngIf="episodiForm.get('dataObertura')?.hasError('required')">Este campo es obligatorio</small>
+                <div class="error-messages"
+                    *ngIf="episodiForm.get('dataObertura')?.touched  && episodiForm.get('dataObertura')?.invalid">
+                    <small *ngIf="episodiForm.get('dataObertura')?.hasError('required')">Este campo es
+                        obligatorio</small>
                 </div>
-            </div>      
+            </div>
             <div>
                 <label for="dolencia">Dolencia:<span style="color: red;">*</span></label>
                 <input type="text" id="dolencia" ngModel name="dolencia" formControlName="dolencia" required
-                [ngClass]="{'is-invalid': episodiForm.get('dolencia')?.touched && episodiForm.get('dolencia')?.invalid}">
-                <div class="error-messages" *ngIf="episodiForm.get('dolencia')?.touched  && episodiForm.get('dolencia')?.invalid">
+                    [ngClass]="{'is-invalid': episodiForm.get('dolencia')?.touched && episodiForm.get('dolencia')?.invalid}">
+                <div class="error-messages"
+                    *ngIf="episodiForm.get('dolencia')?.touched  && episodiForm.get('dolencia')?.invalid">
                     <small *ngIf="episodiForm.get('dolencia')?.hasError('required')">Este campo es obligatorio</small>
                 </div>
             </div>
@@ -33,21 +36,32 @@
                 </select>
             </div>
             <div class="ola">
-              <label for="dniPacient">DNI paciente:<span style="color: red;">*</span></label>
-              <input type="text" id="dniPacient" ngModel name="dniPacient" formControlName="dniPacient" required
-              [ngClass]="{'is-invalid': episodiForm.get('dniPacient')?.touched && episodiForm.get('dniPacient')?.invalid}">
-              <div class="error-messages" *ngIf="episodiForm.get('dniPacient')?.touched  && episodiForm.get('dniPacient')?.invalid">
-                <small *ngIf="episodiForm.get('dniPacient')?.hasError('required')">Este campo es obligatorio</small>
-                <small *ngIf="episodiForm.get('dniPacient')?.hasError('minlength')">Mínimo 9 carácteres</small>
-                <small *ngIf="episodiForm.get('dniPacient')?.hasError('pattern')">Construido por 8 núm y una letra</small>
-                <small *ngIf="episodiForm.get('dniPacient')?.hasError('pacienteIdNotFound')">El DNI no existe</small>
+
+                <label for="dniPacient">DNI paciente:<span style="color: red;">*</span></label>
+                <select id="dniPacient" ngModel name="dniPacient" formControlName="dniPacient" required
+                    [ngClass]="{'is-invalid': episodiForm.get('dniPacient')?.touched && episodiForm.get('dniPacient')?.invalid}">
+                    <option value="" disabled selected>Selecciona un paciente</option>
+                    <option *ngFor="let pacient of pacients" [value]="pacient.dni">{{pacient.nom}} - {{pacient.dni}}
+                    </option>
+                </select>
+                <div class="error-messages"
+                    *ngIf="episodiForm.get('dniPacient')?.touched  && episodiForm.get('dniPacient')?.invalid">
+                    <small *ngIf="episodiForm.get('dniPacient')?.hasError('required')">Este campo es obligatorio</small>
+                    <small *ngIf="episodiForm.get('dniPacient')?.hasError('minlength')">Mínimo 9 carácteres</small>
+                    <small *ngIf="episodiForm.get('dniPacient')?.hasError('pattern')">Construido por 8 núm y una
+                        letra</small>
+                    <small *ngIf="episodiForm.get('dniPacient')?.hasError('pacienteIdNotFound')">El DNI no
+                        existe</small>
+                </div>
+
             </div>
+            <div *ngIf="episodiForm.hasError('viatjeEnElTemps')" class="error-messages">
+                <small>No es poden fer viatjes en el temps</small>
             </div>
-            
         </div>
-        <div *ngIf="episodiForm.hasError('viatjeEnElTemps')" class="error-messages">
-            <small>No es poden fer viatjes en el temps</small>
-        </div>
+
         <button type="submit">Publicar</button>
+
     </form>
+
 </div>

@@ -69,13 +69,21 @@ export class EpisodioComponent {
       return;
     }
 
-    this.fuse = new Fuse(this.originalEpisodis, {
-      keys: [this.searchCriteria],
-      threshold: 0.3,
-    });
+    if (this.searchCriteria == "dataObertura" || this.searchCriteria == "dataTancament" || this.searchCriteria == "id") {
+      this.fuse = new Fuse(this.originalEpisodis, {
+        keys: [this.searchCriteria],
+        threshold: 0,
+      });
+    } else {
+      this.fuse = new Fuse(this.originalEpisodis, {
+        keys: [this.searchCriteria],
+        threshold: 0.3,
+      });
+    }
+      
 
-    const result = this.fuse.search(this.searchInput);
-    this.episodis = result.map((res) => res.item);
+      const result = this.fuse.search(this.searchInput);
+      this.episodis = result.map((res) => res.item);
 
     this.currentPage = 1;
     this.totalPages = Math.ceil(this.episodis.length / this.itemsPerPage);

@@ -5,6 +5,7 @@ using HospitalAPI.Models;
 //using EntityFrameworkCore.MySQL.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.VisualStudio.TextTemplating;
 
 namespace HospitalAPI.Controllers
@@ -173,19 +174,20 @@ namespace HospitalAPI.Controllers
         public static bool CheckTS(String ts, String cognom1, String cognom2, DateTime naix)
         {
 
-            Console.WriteLine(ts.Length);
             if (ts.Length != 14) return false;
 
             String day = naix.ToString().Substring(0, 2);
             String month = naix.ToString().Substring(3, 2);
             String year = naix.ToString().Substring(8, 2);
+            String lletres;
 
             if (year != ts.Substring(5, 2) || month != ts.Substring(7, 2) || day != ts.Substring(9, 2)) return false;
 
-            String lletres = cognom1.Substring(0, 2) + cognom2.Substring(0, 2);
+            if(string.IsNullOrEmpty(cognom2)) {  lletres = cognom1.Substring(0, 2) + cognom1.Substring(0, 2); }
+            else {  lletres = cognom1.Substring(0, 2) + cognom2.Substring(0, 2); }
+            
 
             if (lletres.ToUpper() != ts.Substring(0, 4)) return false;
-
             if ((ts.Substring(4,1) != "1" && ts.Substring(4, 1) != "0") || ts.Substring(11, 2) != "00") return false;
             
             return true;
