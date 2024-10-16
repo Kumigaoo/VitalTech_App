@@ -10,6 +10,7 @@ import { UsuariosComponent } from '../../../pages/inicio/pages/administrador-sis
 import { IngresosComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/ingresos/ingresos.component';
 import { ConsultasComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/consultas/consultas.component';
 import { AdministradorSistemaComponent } from '../../../pages/inicio/pages/administrador-sistema/administrador-sistema.component';
+import { PlantesComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/plantes/plantes.component';
 
 const routes: Routes = [
   {
@@ -51,6 +52,10 @@ const routes: Routes = [
   {
     path: 'consultas',
     component: ConsultasComponent
+  },
+  {
+    path: 'plantes',
+    component: PlantesComponent
   }
 ];
 
