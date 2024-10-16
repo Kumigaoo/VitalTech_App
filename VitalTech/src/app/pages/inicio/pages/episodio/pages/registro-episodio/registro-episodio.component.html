@@ -26,6 +26,7 @@
                 <div class="error-messages"
                     *ngIf="episodiForm.get('dolencia')?.touched  && episodiForm.get('dolencia')?.invalid">
                     <small *ngIf="episodiForm.get('dolencia')?.hasError('required')">Este campo es obligatorio</small>
+                    <small *ngIf="episodiForm.get('dolencia')?.hasError('buit') && episodiForm.get('dolencia')?.touched">No pueden haber solo espacios en blanco</small>
                 </div>
             </div>
             <div>

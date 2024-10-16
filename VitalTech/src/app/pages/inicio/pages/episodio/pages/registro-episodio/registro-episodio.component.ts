@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import Swal from 'sweetalert2';
-import { pacientIdexists,dataIniciValidator } from '../../../../../../validator/episodio/episodio-validator.validator';
+import { pacientIdexists,dataIniciValidator, buit } from '../../../../../../validator/episodio/episodio-validator.validator';
 import { PacientService } from '../../../../../../service/pacientes.service';
 import { Pacient } from '../../../../../../interface/pacient.interface';
  
@@ -25,7 +25,7 @@ export class RegistroEpisodiComponent {
       }],
       dataTancament: [''],
       dolencia: ['', {
-        validators: [Validators.required],
+        validators: [Validators.required, buit()],
       }],
       estat: [''],
       dniPacient: ['', {
