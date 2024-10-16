@@ -14,8 +14,13 @@ namespace HospitalAPI.Models
 
         public DateTime? DataTancament { get; set; }
 
+        // Quitar
         [Required]
         public string? Dolencia { get; set; }
+
+        // Urgencia
+
+        // Motivo
 
         [Required]
         public string Estat { get; set; } = string.Empty;
