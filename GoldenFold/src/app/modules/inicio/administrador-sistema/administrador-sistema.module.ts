@@ -22,12 +22,12 @@ import { MatButtonModule } from '@angular/material/button'; // Para los botones
 import { MatOption, MatSelectModule } from '@angular/material/select'; // Para los selectores
 import { SharedModule } from '../../shared/shared.module';
 import { AdministradorSistemaComponent } from '../../../pages/inicio/pages/administrador-sistema/administrador-sistema.component';
-
+import { PlantesComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/plantes/plantes.component'; 
 
 @NgModule({
   declarations: 
-  [ AdministradorSistemaComponent, CamasComponent, AsignacionesComponent, HabitacionesComponent, HistorialAltasComponent, PacientesComponent, RolesComponent, UsuariosComponent, IngresosComponent, ConsultasComponent ],
+  [ AdministradorSistemaComponent, CamasComponent, AsignacionesComponent, HabitacionesComponent, HistorialAltasComponent, PacientesComponent, RolesComponent, UsuariosComponent, IngresosComponent, ConsultasComponent, PlantesComponent ],
   imports: 
-  [ AdministradorSistemaRoute, AdministradorSistemaDashboardComponent, SharedModule]
+  [ AdministradorSistemaRoute, AdministradorSistemaDashboardComponent, SharedModule ]
 })
 export class AdministradorSistemaModule { }
