@@ -4,47 +4,52 @@ import { Observable } from 'rxjs';
 import { Consulta } from '../interface/consulta.interface';
 
 @Injectable({
-    providedIn: 'root'
-  })
-
+  providedIn: 'root',
+})
 export class ConsultaService {
-    private apiUrl = 'http://localhost:5076/api';
+  private apiUrl = 'http://localhost:5296/api';
 
-    constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-    getConsultas(
-        idPaciente?: number,
-        idMedico?: number,
-        estado?: string,
-        fechaSolicitud?: Date,
-        fechaConsulta?: Date,
-        motivo?: string
-      ): Observable<Consulta[]> {
-        let params = new HttpParams();
-        if (idPaciente) params = params.set('idPaciente', idPaciente.toString());
-        if (idMedico) params = params.set('idMedico', idMedico.toString());
-        if (estado) params = params.set('estado', estado);
-        if (fechaSolicitud)
-          params = params.set('fechaSolicitud', fechaSolicitud.toISOString());
-        if (fechaConsulta)
-          params = params.set('fechaConsulta', fechaConsulta.toISOString());
-        if (motivo) params = params.set('motivo', motivo);
-    
-        return this.http.get<Consulta[]>(`${this.apiUrl}/Consultas`, { params });
-      }
-    
-      addConsulta(consulta: Consulta): Observable<Consulta> {
-        return this.http.post<Consulta>(`${this.apiUrl}/Consultas`, consulta);
-      }
-    
-      updateConsulta(consulta: Consulta): Observable<Consulta> {
-        return this.http.put<Consulta>(
-          `${this.apiUrl}/Consultas/${consulta.IdConsulta}`,
-          consulta
-        );
-      }
-    
-      deleteConsulta(id: number): Observable<void> {
-        return this.http.delete<void>(`${this.apiUrl}/Consultas/${id}`);
-      }
+  getConsultas(
+    id?: number,
+    urgencia?: string,
+    sintomatologia?: string,
+    recepta?: string,
+    dniPersonal?: string,
+    episodiMedicId?: number
+    // idPaciente?: string,
+    // estado?: string,
+    // motivo?: string
+
+  ): Observable<Consulta[]> {
+    let params = new HttpParams();
+    // if (idPaciente) params = params.set('idPaciente', idPaciente.toString());
+    if (id) params = params.set('id', id.toString());
+    if (dniPersonal) params = params.set('dniPersonal', dniPersonal.toString());
+    if (episodiMedicId) params = params.set('episodiMedicId', episodiMedicId.toString());
+    if (urgencia) params = params.set('urgencia', urgencia.toString());
+    if (sintomatologia) params = params.set('sintomatologia', sintomatologia.toString());
+    if (recepta) params = params.set('recepta', recepta.toString());
+
+    //if (estado) params = params.set('estado', estado);
+    //if (motivo) params = params.set('motivo', motivo);
+
+    return this.http.get<Consulta[]>(`${this.apiUrl}/Consulta`, { params });
+  }
+
+  addConsulta(consulta: Consulta): Observable<Consulta> {
+    return this.http.post<Consulta>(`${this.apiUrl}/Consulta`, consulta);
+  }
+
+  updateConsulta(consulta: Consulta): Observable<Consulta> {
+    return this.http.put<Consulta>(
+      `${this.apiUrl}/Consulta/${consulta.id}`,
+      consulta
+    );
+  }
+
+  deleteConsulta(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/Consulta/${id}`);
+  }
 }
