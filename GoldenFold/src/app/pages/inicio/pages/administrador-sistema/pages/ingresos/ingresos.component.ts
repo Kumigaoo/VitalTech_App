@@ -7,6 +7,8 @@ import { IngresoService } from '../../../../../../services/ingreso.service';
 import { PacienteService } from '../../../../../../services/paciente.service';
 import { UsuarioService } from '../../../../../../services/usuario.service';
 import { IngresosValidators } from '../../../../../../validators/ingresos.validators';
+import { Cama } from '../../../../../../interface/cama.interface';
+import { CamaService } from '../../../../../../services/cama.service';
 
 @Component({
   selector: 'app-ingresos',
@@ -15,72 +17,47 @@ import { IngresosValidators } from '../../../../../../validators/ingresos.valida
 })
 export class IngresosComponent implements OnInit {
   ingresos: Ingreso[] = [];
-  pacientes: Paciente[] = [];
-  estados = [
-    { value: 1, label: 'Pendiente' },
-    { value: 2, label: 'Ingresado' },
-    { value: 3, label: 'Rechazado' },
-    { value: 4, label: 'Alta' }
-  ];
-  tipos = [
-    { value:1, label: 'General'},
-    { value:2, label: 'UCI'},
-    { value:3, label: 'Postoperatorio'},
-  ]
-  medicos: Usuario[] = [];
+  llits: Cama[] = [];
   ingresoForm!: FormGroup;
   ingresoParaActualizar: Ingreso | null = null;
 
-  constructor(private ingresoService: IngresoService, private pacienteService: PacienteService, private usuarioService: UsuarioService) {}
+  constructor(private ingresoService: IngresoService, private camaService: CamaService, private pacienteService: PacienteService, private usuarioService: UsuarioService) {}
 
   ngOnInit(): void {
     this.obtenerIngresos();
+    this.obtenerCamas();
     this.crearFormularioIngreso();
-    this.obtenerPacientes();
-    this.obtenerMedicos();
   }
 
   crearFormularioIngreso(): void{
     this.ingresoForm = new FormGroup({
-      IdIngreso: new FormControl(0),
-      IdPaciente: new FormControl('',[Validators.required]),
-      IdMedico: new FormControl('',[Validators.required]),
-      Motivo: new FormControl('',[IngresosValidators.noWhitespaceValidator()]),
-      FechaSolicitud: new FormControl(new Date()),
-      FechaIngreso: new FormControl (null),
-      Estado: new FormControl('',[Validators.required]),
-      TipoCama: new FormControl('',[Validators.required]),
-      IdAsignacion: new FormControl(null)
+      id: new FormControl(0),
+      dataEntrada: new FormControl(null),
+      //IdMedico: new FormControl('',[Validators.required]),
+      //Motivo: new FormControl('',[IngresosValidators.noWhitespaceValidator()]),
+      //FechaSolicitud: new FormControl(new Date()),
+      //FechaIngreso: new FormControl (null),
+      dataSortida: new FormControl(null),
+      episodiMedicId: new FormControl('',[Validators.required]),
+      codiLlit: new FormControl('',[Validators.required]),
+      //TipoCama: new FormControl('',[Validators.required]),
+      //IdAsignacion: new FormControl(null)
     });
   }
 
-  obtenerPacientes(): void{
-    this.pacienteService.getPacientes().subscribe({
-      next: (data: Paciente[]) => {
-        this.pacientes = data;
+  obtenerCamas(): void{
+    this.camaService.getCamas().subscribe({
+      next: (data: Cama[]) => {
+        this.llits = data;
       },
       error: (error : any) =>{
-        console.error('Error al cargar los pacientes',error);
-      }
-    })
-  }
-
-  obtenerMedicos(): void{
-    this.usuarioService.getUsuarios().subscribe({
-      next: (data:Usuario[]) =>{
-        const medicosApi = data.filter(medico =>
-          medico.IdRol == 2
-        );
-        this.medicos = medicosApi;
-      },
-      error: (error: any)=>{
-        console.error('Error al cargar los medicos',error);
+        console.error('Error al cargar las camas',error);
       }
     })
   }
 
   obtenerIngresos(): void {
-    this.ingresoService.getIngresos().subscribe({
+    this.ingresoService.getIngresosos().subscribe({
       next: (data: Ingreso[]) => {
         this.ingresos = data;
       },
@@ -93,9 +70,9 @@ export class IngresosComponent implements OnInit {
   agregarIngreso(): void {
     if(this.ingresoForm.valid) {
       const nuevoIngreso: Ingreso = this.ingresoForm.value; //obtener los datos del formulario
-      this.ingresoService.addIngreso(nuevoIngreso).subscribe({
+      this.ingresoService.postIngreso(nuevoIngreso).subscribe({
         next: (ingreso: Ingreso) => {
-          ingreso.FechaSolicitud = new Date();
+          ingreso.dataEntrada = new Date();
           this.ingresos.push(ingreso);
           console.log(ingreso);
           this.ingresoForm.reset(); //despues de agregarlo, reseteas el formulario
@@ -116,7 +93,7 @@ export class IngresosComponent implements OnInit {
   actualizarIngreso(): void {
     if(this.ingresoParaActualizar&&this.ingresoForm.valid){
       const ingresoActualizado: Ingreso = {...this.ingresoParaActualizar,...this.ingresoForm.value};
-      this.ingresoService.updateIngreso(ingresoActualizado).subscribe({
+      this.ingresoService.putIngreso(ingresoActualizado).subscribe({
         next:() =>{
           this.obtenerIngresos();
           this.ingresoParaActualizar=null;
@@ -133,7 +110,7 @@ export class IngresosComponent implements OnInit {
   borrarIngreso(id: number): void {
     this.ingresoService.deleteIngreso(id).subscribe({
       next: () => {
-        this.ingresos = this.ingresos.filter(i => i.IdIngreso !== id);
+        this.ingresos = this.ingresos.filter(i => i.id !== id);
       },
       error: (error: any) => {
         console.error('Error al borrar el ingreso', error);
@@ -142,7 +119,7 @@ export class IngresosComponent implements OnInit {
   }
 
   toggleActualizarIngreso(ingreso: Ingreso): void {
-    if(this.ingresoParaActualizar&&this.ingresoParaActualizar.IdIngreso===ingreso.IdIngreso){
+    if(this.ingresoParaActualizar&&this.ingresoParaActualizar.id===ingreso.id){
       this.ingresoParaActualizar==null;
       this.ingresoForm.reset();
     }
