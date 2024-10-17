@@ -16,46 +16,56 @@ import { CamaService } from '../../../../../../services/cama.service';
   styleUrls: ['./ingresos.component.css']
 })
 export class IngresosComponent implements OnInit {
+  // Lista de ingresos disponibles
   ingresos: Ingreso[] = [];
+  // Lista de camas disponibles
   llits: Cama[] = [];
+  // Formulario para agregar/editar ingresos
   ingresoForm!: FormGroup;
+  // Variable para almacenar el ingreso que se desea actualizar
   ingresoParaActualizar: Ingreso | null = null;
 
   constructor(private ingresoService: IngresoService, private camaService: CamaService, private pacienteService: PacienteService, private usuarioService: UsuarioService) {}
 
   ngOnInit(): void {
+    // Obtener los ingresos y camas disponibles al iniciar el componente
     this.obtenerIngresos();
     this.obtenerCamas();
+    // Crear el formulario para manejar los ingresos
     this.crearFormularioIngreso();
   }
 
+  // Crear formulario de ingreso con validaciones necesarias
   crearFormularioIngreso(): void{
     this.ingresoForm = new FormGroup({
       id: new FormControl(0),
       dataEntrada: new FormControl(null),
-      //IdMedico: new FormControl('',[Validators.required]),
-      //Motivo: new FormControl('',[IngresosValidators.noWhitespaceValidator()]),
-      //FechaSolicitud: new FormControl(new Date()),
-      //FechaIngreso: new FormControl (null),
+      // Definir campos adicionales si es necesario, comentados para este ejemplo
+      // IdMedico: new FormControl('',[Validators.required]),
+      // Motivo: new FormControl('',[IngresosValidators.noWhitespaceValidator()]),
+      // FechaSolicitud: new FormControl(new Date()),
+      // FechaIngreso: new FormControl (null),
       dataSortida: new FormControl(null),
       episodiMedicId: new FormControl('',[Validators.required]),
       codiLlit: new FormControl('',[Validators.required]),
-      //TipoCama: new FormControl('',[Validators.required]),
-      //IdAsignacion: new FormControl(null)
+      // TipoCama: new FormControl('',[Validators.required]),
+      // IdAsignacion: new FormControl(null)
     });
   }
 
+  // Obtener la lista de camas disponibles desde el servicio correspondiente
   obtenerCamas(): void{
     this.camaService.getCamas().subscribe({
       next: (data: Cama[]) => {
         this.llits = data;
       },
       error: (error : any) =>{
-        console.error('Error al cargar las camas',error);
+        console.error('Error al cargar las camas', error);
       }
-    })
+    });
   }
 
+  // Obtener la lista de ingresos desde el servicio correspondiente
   obtenerIngresos(): void {
     this.ingresoService.getIngresosos().subscribe({
       next: (data: Ingreso[]) => {
@@ -67,15 +77,20 @@ export class IngresosComponent implements OnInit {
     });
   }
 
+  // Agregar un nuevo ingreso a la lista
   agregarIngreso(): void {
     if(this.ingresoForm.valid) {
-      const nuevoIngreso: Ingreso = this.ingresoForm.value; //obtener los datos del formulario
+      // Crear un nuevo objeto de tipo Ingreso basado en los valores del formulario
+      const nuevoIngreso: Ingreso = this.ingresoForm.value;
       this.ingresoService.postIngreso(nuevoIngreso).subscribe({
         next: (ingreso: Ingreso) => {
+          // Asignar la fecha de entrada al nuevo ingreso
           ingreso.dataEntrada = new Date();
+          // Agregar el ingreso a la lista de ingresos
           this.ingresos.push(ingreso);
           console.log(ingreso);
-          this.ingresoForm.reset(); //despues de agregarlo, reseteas el formulario
+          // Reiniciar el formulario después de agregar el ingreso
+          this.ingresoForm.reset();
           alert('Ingreso creado con exito');
         },
         error: (error: any) => {
@@ -84,32 +99,37 @@ export class IngresosComponent implements OnInit {
           alert(mensajeError);
         },
       });
-    } else{
+    } else {
       alert('Por favor, completa todos los campos requeridos.');  
     }
   }
 
-
+  // Actualizar un ingreso existente
   actualizarIngreso(): void {
-    if(this.ingresoParaActualizar&&this.ingresoForm.valid){
-      const ingresoActualizado: Ingreso = {...this.ingresoParaActualizar,...this.ingresoForm.value};
+    if(this.ingresoParaActualizar && this.ingresoForm.valid){
+      // Crear una copia del ingreso existente con los valores actualizados
+      const ingresoActualizado: Ingreso = {...this.ingresoParaActualizar, ...this.ingresoForm.value};
       this.ingresoService.putIngreso(ingresoActualizado).subscribe({
-        next:() =>{
+        next:() => {
+          // Obtener la lista de ingresos actualizada
           this.obtenerIngresos();
-          this.ingresoParaActualizar=null;
+          // Restablecer las variables del formulario y del ingreso a actualizar
+          this.ingresoParaActualizar = null;
           this.ingresoForm.reset();
           alert('Ingreso actualizado con éxito.');
         },
-        error:(error: any)=>{
-          console.error('Error al actualizar el ingreso',error);
+        error:(error: any) => {
+          console.error('Error al actualizar el ingreso', error);
         }
-      })
+      });
     }
   }
 
+  // Borrar un ingreso de la lista
   borrarIngreso(id: number): void {
     this.ingresoService.deleteIngreso(id).subscribe({
       next: () => {
+        // Filtrar el ingreso eliminado de la lista de ingresos
         this.ingresos = this.ingresos.filter(i => i.id !== id);
       },
       error: (error: any) => {
@@ -118,21 +138,25 @@ export class IngresosComponent implements OnInit {
     });
   }
 
+  // Cambiar entre agregar o actualizar un ingreso existente
   toggleActualizarIngreso(ingreso: Ingreso): void {
-    if(this.ingresoParaActualizar&&this.ingresoParaActualizar.id===ingreso.id){
-      this.ingresoParaActualizar==null;
+    if(this.ingresoParaActualizar && this.ingresoParaActualizar.id === ingreso.id){
+      this.ingresoParaActualizar = null;
       this.ingresoForm.reset();
     }
-    else{
+    else {
+      // Cargar el ingreso seleccionado para actualizar en el formulario
       this.ingresoParaActualizar = {...ingreso};
       this.ingresoForm.patchValue(this.ingresoParaActualizar);
     }
   }
 
+  // Cancelar la creación de un nuevo ingreso
   cancelarNuevoIngreso(): void{
     this.ingresoForm.reset();
   }
 
+  // Cancelar la actualización de un ingreso existente
   cancelarActualizarIngreso(): void{
     this.ingresoParaActualizar = null;
     this.ingresoForm.reset();
