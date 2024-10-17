@@ -6,8 +6,6 @@ import { PlantaService } from '../../../../../../services/planta.service';
 import { MatDialog } from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-// import { NavComponent } from '../../../../components/nav/nav.component';
-// import { PlantaPopupComponent } from '../../../../components/pop-ups/planta-popup/planta-popup.component';
 import Swal from 'sweetalert2';
 
 @Component({
