@@ -1,23 +1,52 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { CamaService } from '../../../../../../services/cama.service';
 import { Cama } from '../../../../../../interface/cama.interface';
+import { SnackbarComponent } from '../../../../../../components/snackbar/snackbar.component';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-camas',
   templateUrl: './camas.component.html',
   styleUrls: ['./camas.component.css']
 })
-export class CamasComponent implements OnInit {
+export class CamasComponent implements OnInit, AfterViewInit {
+  @ViewChild(SnackbarComponent) snackbar!: SnackbarComponent
+  displayedColumns: string[] = ['Codigo Llit', 'Disponibilidad', 'Fuera de servicio', 'Codigo Habitacion'];
+  dataSource = new MatTableDataSource<Cama>([]);
+  totalItems = 0;
+  itemsPerPage = 300;
+  pageIndex = 0;
+
   camas: Cama[] = [];
+  nuevaCama: Cama;
+  notificacion: string | null = null;
   camasFiltradas: Cama[] = [];
 
-  nuevaCama: Cama = {
-    IdCama: 0,
-    Ubicacion: '',
-    Estado: '',
-    Tipo: '',
-    IdHabitacion: 0
-  };
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
+
+  camaSeleccionada: Cama | null = null;
+
+  constructor(private camaService: CamaService, public dialog: MatDialog){
+    this.nuevaCama = {
+      codiLlit: '',
+      ocupat: false,
+      foraDeServei: false,
+      codiHabitacio: 0,
+      ingressos: []
+    };
+  }
+
+  /*nuevaCama: Cama = {
+    codiLlit: '',
+    ocupat: false,
+    foraDeServei: false,
+    codiHabitacio: 0,
+    ingressos: []
+  };*/
   camaParaActualizar: Cama | null = null;
 
   paginaActual: number = 1;
@@ -33,14 +62,17 @@ export class CamasComponent implements OnInit {
   filtroEstado: string = '';
   filtroTipo: string = '';
 
-  constructor(private camaService: CamaService) {}
+  //constructor(private camaService: CamaService) {}
+  ngAfterViewInit(): void {
+    throw new Error('Method not implemented.');
+  }
 
   ngOnInit(): void {
     this.obtenerCamas();
   }
 
   obtenerCamas(): void {
-    this.camaService.getCamas().subscribe({
+    this.camaService.getLlits().subscribe({
       next: (data: Cama[]) => {
         this.camas = data;
         this.camasFiltradas = [...this.camas];
@@ -53,7 +85,7 @@ export class CamasComponent implements OnInit {
     });
   }
 
-  aplicarFiltros(): void {
+  /*aplicarFiltros(): void {
     this.camasFiltradas = this.camas.filter(cama => {
       const coincideUbicacion = this.filtroUbicacion
         ? cama.Ubicacion.toLowerCase().includes(this.filtroUbicacion.toLowerCase())
@@ -66,7 +98,7 @@ export class CamasComponent implements OnInit {
 
     this.totalPaginas = Math.ceil(this.camasFiltradas.length / this.camasPorPagina);
     this.verificarPaginaActual();
-  }
+  }*/
 
   verificarPaginaActual(): void {
     if (this.paginaActual > this.totalPaginas) {
@@ -77,7 +109,7 @@ export class CamasComponent implements OnInit {
     }
   }
 
-  filtrarPorUbicacion(event: Event): void {
+  /*filtrarPorUbicacion(event: Event): void {
     const inputElement = event.target as HTMLInputElement;
     this.filtroUbicacion = inputElement.value;
     this.aplicarFiltros();
@@ -93,7 +125,7 @@ export class CamasComponent implements OnInit {
     const selectElement = event.target as HTMLSelectElement;
     this.filtroTipo = selectElement.value;
     this.aplicarFiltros();
-  }
+  }*/
 
   siguientePagina(): void {
     this.paginaActual++;

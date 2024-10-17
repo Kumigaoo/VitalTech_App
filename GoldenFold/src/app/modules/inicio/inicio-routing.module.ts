@@ -8,7 +8,7 @@ const routes: Routes = [
         path: '',
         component: InicioComponent
     },
-    {
+    /*{
         path: 'administrativo',
         loadChildren: ()=> import('./administrativo/administrativo.module').then(m => m.AdministrativoModule)
     }, 
@@ -19,7 +19,7 @@ const routes: Routes = [
     {
         path: 'medico',
         loadChildren: ()=> import('./medico/medico.module').then(m => m.MedicoModule)
-    }, 
+    },*/ 
     {
         path: 'administrador-sistema',
         loadChildren: () => import('./administrador-sistema/administrador-sistema.module').then(m => m.AdministradorSistemaModule)
