@@ -1,12 +1,13 @@
-import { RouterLinkActive, RouterLink } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common'; 
+import { Component, ViewChild } from '@angular/core';
 import { Planta } from '../../../../../../interface/planta.interface';
 import { PlantaService } from '../../../../../../services/planta.service';
 import { MatDialog } from '@angular/material/dialog';
-import { FormsModule } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import Swal from 'sweetalert2';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { SnackbarComponent } from '../../../../../../components/snackbar/snackbar.component';
 
 @Component({
   selector: 'app-plantes',
@@ -14,6 +15,7 @@ import Swal from 'sweetalert2';
   styleUrl: './plantes.component.css'
 })
 export class PlantesComponent {
+ @ViewChild(SnackbarComponent) snackbar!: SnackbarComponent
 
   plantes: Planta[] = [];
   pagedPlantes: Planta[] = [];
@@ -23,10 +25,35 @@ export class PlantesComponent {
   totalPages: number = 1;
   itemsPerPage: number = 4;
 
-  constructor(public dialog: MatDialog, private plantaService: PlantaService, private router: Router) { }
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
+
+  displayedColumns: string[] = ['piso', 'capacitatHabitacions', 'habitacions'];
+  dataMostra = new MatTableDataSource<Planta>([]);
+  
+
+  Plantes: Planta[] = [];
+  nuevaPlanta: Planta;
+
+  constructor(public dialog: MatDialog, private plantaService: PlantaService, private router: Router) {
+    this.nuevaPlanta = {
+      piso: 0,
+      capacitatHabitacions: 0,
+      habitacions: [''] 
+    };
+   }
 
   ngOnInit() {
     this.loadPlantes();
+  }
+
+  ngAfterViewInit() {
+    this.dataMostra.paginator = this.paginator;
+    this.dataMostra.sort = this.sort;
+  }
+
+  toggleFormularioAgregar() {
+    //RouterLink = '/inicio/planta/registro-planta';
   }
 
   loadPlantes(): void {
