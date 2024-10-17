@@ -1,14 +1,15 @@
-.dashboard-layout {
-  display: flex;
-  height: 100vh;
-}
+
 
 .sidebar {
-  margin-top: 60px;
-  width: 200px; /* Ajusta el ancho del sidebar según lo necesario */
-  background-color: #343a40;
-  display: flex;
-  justify-content: center;
+  position: fixed;  /* Ahora está fijo en lugar de sticky */
+  top: 60px;        /* Ajusta este valor según la altura del header */
+  left: 0;          /* Coloca el sidenav en el borde izquierdo */
+  width: 200px;     /* Ajusta el ancho según lo que necesitas */
+  height: calc(100vh - 60px); /* Altura de toda la ventana menos la altura del header */
+  background-color: #343a40;  /* Color de fondo del sidenav */
+  overflow-y: auto;  /* Permite hacer scroll dentro del sidenav si es necesario */
+  padding: 20px;     /* Opcional, espacio interno para el contenido */
+  z-index: 1000;  
 }
 
 .sidebar ul {
