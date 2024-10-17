@@ -12,6 +12,26 @@ export class CamaService {
 
     constructor(private http: HttpClient) { }
 
+    
+    getLlits(): Observable<Cama[]> {
+      return this.http.get<Cama[]>(this.apiUrl);
+    }
+
+    getLlit(id:string): Observable<Cama> {
+      const url = `${this.apiUrl}/${id}`;
+      return this.http.get<Cama>(url);
+    }
+
+    deleteLlit(id:string): Observable<Cama> {
+      const url = `${this.apiUrl}/${id}`;
+      return this.http.delete<Cama>(url);
+    }
+  
+    putLlit(llit: Cama): Observable<Cama> {
+      const url = `${this.apiUrl}/${llit.codiLlit}`;
+      return this.http.put<Cama>(url, llit);
+    }
+    /*
     getCamas(
         Ubicacion?: string,
         Estado?: string,
@@ -27,5 +47,5 @@ export class CamaService {
           params = params.set('idHabitacion', IdHabitacion.toString());
         if (IdCama) params = params.set('idCama', IdCama.toString());
         return this.http.get<Cama[]>(`${this.apiUrl}/Camas`, { params });
-      }
+      }*/
 }
