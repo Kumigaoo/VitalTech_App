@@ -10,13 +10,15 @@ import { Consulta } from '../../../../../../interface/consulta.interface';
 export class ConsultasComponent implements OnInit {
   consultas: Consulta[] = [];
   nuevaConsulta: Consulta = {
-    IdConsulta: 0,
-    IdPaciente: 0,
-    IdMedico: 0,
-    Motivo: '',
-    FechaSolicitud: new Date(),
-    FechaConsulta: null,
-    Estado: ''
+    id: 0,
+    urgencia: '',
+    sintomatologia: '',
+    recepta: '',
+    //IdPaciente: 0,
+    dniPersonal: '',
+    episodiMedicId: 0
+    //Motivo: '',
+    //Estado: ''
   };
   consultaParaActualizar: Consulta | null = null;
 
@@ -42,13 +44,15 @@ export class ConsultasComponent implements OnInit {
       next: (nuevaConsulta: Consulta) => {
         this.consultas.push(nuevaConsulta);
         this.nuevaConsulta = {
-          IdConsulta: 0,
-          IdPaciente: 0,
-          IdMedico: 0,
-          Motivo: '',
-          FechaSolicitud: new Date(),
-          FechaConsulta: null,
-          Estado: ''
+          id: 0,
+          urgencia: '',
+          sintomatologia: '',
+          recepta: '',
+          //IdPaciente: 0,
+          dniPersonal: '',
+          episodiMedicId: 0
+          //Motivo: '',
+          //Estado: ''
         };
       },
       error: (error: any) => {
@@ -61,7 +65,7 @@ export class ConsultasComponent implements OnInit {
     if (this.consultaParaActualizar) {
       this.consultaService.updateConsulta(this.consultaParaActualizar).subscribe({
         next: (consultaActualizada: Consulta) => {
-          const index = this.consultas.findIndex(c => c.IdConsulta === consultaActualizada.IdConsulta);
+          const index = this.consultas.findIndex(c => c.id === consultaActualizada.id);
           if (index !== -1) {
             this.consultas[index] = consultaActualizada;
           }
@@ -77,7 +81,7 @@ export class ConsultasComponent implements OnInit {
   borrarConsulta(id: number): void {
     this.consultaService.deleteConsulta(id).subscribe({
       next: () => {
-        this.consultas = this.consultas.filter(c => c.IdConsulta !== id);
+        this.consultas = this.consultas.filter(c => c.id !== id);
       },
       error: (error: any) => {
         console.error('Error al borrar la consulta', error);
