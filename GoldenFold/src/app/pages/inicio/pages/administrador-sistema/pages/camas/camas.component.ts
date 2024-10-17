@@ -3,9 +3,11 @@ import { CamaService } from '../../../../../../services/cama.service';
 import { Cama } from '../../../../../../interface/cama.interface';
 import { SnackbarComponent } from '../../../../../../components/snackbar/snackbar.component';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
+import { DialogFormularioComponent } from '../../../../../../components/dialog-formulario/dialog-formulario.component';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-camas',
@@ -14,7 +16,7 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class CamasComponent implements OnInit, AfterViewInit {
   @ViewChild(SnackbarComponent) snackbar!: SnackbarComponent
-  displayedColumns: string[] = ['Codigo Llit', 'Disponibilidad', 'Fuera de servicio', 'Codigo Habitacion'];
+  displayedColumns: string[] = ['codiLlit', 'ocupat', 'foraDeServei', 'codiHabitacio', 'acciones'];
   dataSource = new MatTableDataSource<Cama>([]);
   totalItems = 0;
   itemsPerPage = 300;
@@ -23,14 +25,14 @@ export class CamasComponent implements OnInit, AfterViewInit {
   camas: Cama[] = [];
   nuevaCama: Cama;
   notificacion: string | null = null;
-  camasFiltradas: Cama[] = [];
+  //camasFiltradas: Cama[] = [];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
   camaSeleccionada: Cama | null = null;
 
-  constructor(private camaService: CamaService, public dialog: MatDialog){
+  constructor(private camaService: CamaService, public dialog: MatDialog, private http: HttpClient){
     this.nuevaCama = {
       codiLlit: '',
       ocupat: false,
@@ -47,9 +49,9 @@ export class CamasComponent implements OnInit, AfterViewInit {
     codiHabitacio: 0,
     ingressos: []
   };*/
-  camaParaActualizar: Cama | null = null;
+  //camaParaActualizar: Cama | null = null;
 
-  paginaActual: number = 1;
+  /*paginaActual: number = 1;
   camasPorPagina: number = 10;
   totalPaginas: number = 0;
 
@@ -60,29 +62,129 @@ export class CamasComponent implements OnInit, AfterViewInit {
 
   filtroUbicacion: string = '';
   filtroEstado: string = '';
-  filtroTipo: string = '';
+  filtroTipo: string = '';*/
 
   //constructor(private camaService: CamaService) {}
-  ngAfterViewInit(): void {
-    throw new Error('Method not implemented.');
-  }
-
   ngOnInit(): void {
     this.obtenerCamas();
   }
+  ngAfterViewInit(): void {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
+
+
 
   obtenerCamas(): void {
     this.camaService.getLlits().subscribe({
       next: (data: Cama[]) => {
         this.camas = data;
-        this.camasFiltradas = [...this.camas];
-        this.totalPaginas = Math.ceil(this.camasFiltradas.length / this.camasPorPagina);
-        this.verificarPaginaActual();
+        this.totalItems = data.length;
+        //this.camasFiltradas = [...this.camas];
+        //this.totalPaginas = Math.ceil(this.camasFiltradas.length / this.camasPorPagina);
+        //this.verificarPaginaActual();
+        this.actualizarPagina(0, this.itemsPerPage);
       },
       error: (error: any) => {
         console.error('Error al obtener las camas', error);
       }
     });
+  }
+
+  onPaginateChange(event: PageEvent) {
+    this.pageIndex = event.pageIndex;
+    this.itemsPerPage = event.pageSize;
+    this.actualizarPagina(this.pageIndex, this.itemsPerPage);
+  }
+  actualizarPagina(pageIndex: number, pageSize: number) {
+    const startIndex = pageIndex * pageSize;
+    const endIndex = startIndex + pageSize;
+    this.dataSource.data = this.camas.slice(startIndex, endIndex);
+  }
+
+  filtrarCamas(event: { type: string; term: string }): void {
+    const { term } = event;
+    this.dataSource.filter = term.trim().toLowerCase();
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  } 
+  // Mostrar el formulario para actualizar paciente
+  toggleActualizarCama(cama: Cama): void {
+    this.camaSeleccionada = { ...cama };
+    this.dialog.open(DialogFormularioComponent, {
+      data: this.camaSeleccionada
+    }).afterClosed().subscribe((camaActualizada) => {
+      if (camaActualizada) {
+        this.camaSeleccionada = camaActualizada;
+        this.actualizarCama();
+      }
+    });
+  }
+
+  toggleFormularioAgregar(): void {
+    this.nuevaCama = {
+      codiLlit: '',
+      ocupat: false,
+      foraDeServei: false,
+      codiHabitacio: 0,
+      ingressos: []
+    };
+    this.dialog.open(DialogFormularioComponent, {
+      data: this.nuevaCama
+    }).afterClosed().subscribe((camaCreada) => {
+      if (camaCreada) {
+        this.guardarCama();
+      }
+    });
+  } 
+  cerrarFormulario(): void {
+    this.camaSeleccionada = null;
+  }
+
+  borrarCama(codiLlit: string): void {
+    this.camaService.deleteLlit(codiLlit).subscribe({
+      next: () => {
+        this.obtenerCamas(); // Refrescar la tabla tras borrar
+        this.snackbar.showNotification('success', 'Cama eliminada correctamente'); // Notificación de éxito
+      },
+      error: (error: any) => {
+        console.error('Error al eliminar la cama', error);
+        this.snackbar.showNotification('error', 'Error al eliminar la cama'); // Notificación de error
+      },
+    });
+  }
+  // Guardar un nuevo paciente
+  guardarCama(): void {
+    this.http.post('http://localhost:5296/api/Llit', this.nuevaCama).subscribe({
+      next: () => {
+        this.obtenerCamas();
+        this.cerrarFormulario();
+        this.snackbar.showNotification('success', 'Cama guardada exitosamente'); // Notificación de éxito
+      },
+      error: (error: any) => {
+        console.error('Error al guardar la cama', error);
+        this.snackbar.showNotification('error', 'Error al guardar la cama'); // Notificación de error
+      },
+    });
+  }
+  actualizarCama(): void {
+    console.log(this.camaSeleccionada); // Para verificar que pacienteSeleccionado no sea null o undefined
+    if (this.camaSeleccionada) {
+      this.camaService.putLlit(this.camaSeleccionada).subscribe({
+        next: () => {
+          this.obtenerCamas();
+          this.cerrarFormulario();
+          this.snackbar.showNotification('success', 'Cama actualizada correctamente'); // Notificación de éxito
+        },
+        error: (error: any) => {
+          console.error('Error al actualizar la cama', error);
+          this.snackbar.showNotification('error', 'Error al actualizar la cama'); // Notificación de error
+        },
+      });
+    } else {
+      console.error('Cama seleccionada no es válida');
+    }
   }
 
   /*aplicarFiltros(): void {
@@ -98,7 +200,7 @@ export class CamasComponent implements OnInit, AfterViewInit {
 
     this.totalPaginas = Math.ceil(this.camasFiltradas.length / this.camasPorPagina);
     this.verificarPaginaActual();
-  }*/
+  }
 
   verificarPaginaActual(): void {
     if (this.paginaActual > this.totalPaginas) {
@@ -107,7 +209,7 @@ export class CamasComponent implements OnInit, AfterViewInit {
     if (this.paginaActual < 1) {
       this.paginaActual = 1; // Redirige a la primera página si la actual es menor
     }
-  }
+  }*/
 
   /*filtrarPorUbicacion(event: Event): void {
     const inputElement = event.target as HTMLInputElement;
@@ -127,7 +229,7 @@ export class CamasComponent implements OnInit, AfterViewInit {
     this.aplicarFiltros();
   }*/
 
-  siguientePagina(): void {
+  /*siguientePagina(): void {
     this.paginaActual++;
     this.verificarPaginaActual();
   }
@@ -149,5 +251,5 @@ export class CamasComponent implements OnInit, AfterViewInit {
   obtenerCamasParaPagina(): Cama[] {
     const inicio = (this.paginaActual - 1) * this.camasPorPagina;
     return this.camasFiltradas.slice(inicio, inicio + this.camasPorPagina);
-  }
+  }*/
 }
