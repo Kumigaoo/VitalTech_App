@@ -1,9 +1,15 @@
 export interface Consulta {
-    IdConsulta: number;
-    IdPaciente: number;
-    IdMedico: number;
-    Motivo: string;
-    FechaSolicitud: Date;
-    FechaConsulta: Date | null;
-    Estado: string;
-  }
+   
+  // IdPaciente: number;
+  // Motivo: string;
+  // Estado: string;
+
+  id: number;
+  urgencia: string;
+  sintomatologia: string;
+  recepta: string;
+  dniPersonal: string;
+  episodiMedicId: number;
+
+  
+}

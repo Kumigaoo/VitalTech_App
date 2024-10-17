@@ -17,3 +17,9 @@
     grid-area: main;
     margin-top: 15px;
 }
+
+.medico-inicio{
+    margin-top: 70px;   /* Ajusta según la altura del header */
+    margin-left: 220px; /* Ajusta según el ancho del sidenav */
+    padding: 20px;
+}

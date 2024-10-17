@@ -2,6 +2,9 @@
 .asignaciones-section {
   font-family: Arial, sans-serif;
   margin: 20px;
+  margin-top: 70px;   /* Ajusta según la altura del header */
+  margin-left: 220px; /* Ajusta según el ancho del sidenav */
+  padding: 20px;
 }
 
 /* Estilo para el título principal */
