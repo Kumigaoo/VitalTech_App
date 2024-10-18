@@ -118,7 +118,7 @@
       <!-- Campo para el código de la cama del ingreso -->
       <label for="codiLlit">Código cama:</label>
       <select name="codiLlit" id="codiLlit" formControlName="codiLlit" required>
-        <option *ngFor="let llit of llits" [value]="llit.IdCama">{{ llit.IdCama }}</option>
+        <option *ngFor="let llit of llits" [value]="llit.codiLlit">{{ llit.codiLlit }}</option>
       </select>
       <!-- Mensaje de error si el campo es inválido y ha sido tocado -->
       <div *ngIf="ingresoForm.get('codiLlit')?.invalid && ingresoForm.get('codiLlit')?.touched">

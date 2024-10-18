@@ -65,7 +65,7 @@ export class IngresosComponent implements OnInit {
 
   // Obtener la lista de camas disponibles desde el servicio correspondiente
   obtenerCamas(): void{
-    this.camaService.getCamas().subscribe({
+    this.camaService.getLlits().subscribe({
       next: (data: Cama[]) => {
         this.llits = data;
       },
