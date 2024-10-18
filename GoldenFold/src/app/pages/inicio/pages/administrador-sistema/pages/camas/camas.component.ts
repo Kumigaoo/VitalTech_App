@@ -8,6 +8,8 @@ import { MatSort } from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogFormularioComponent } from '../../../../../../components/dialog-formulario/dialog-formulario.component';
 import { HttpClient } from '@angular/common/http';
+import { DialogFormulariocamaComponent } from '../../../../../../components/Formularios/Cama/dialog-formulario-cama-registro/dialog-formulario-cama.component';
+import { DialogFormulariocamaModifComponent } from '../../../../../../components/Formularios/Cama/dialog-formulario-cama-modif/dialog-formulario-cama-modif.component';
 
 @Component({
   selector: 'app-camas',
@@ -112,7 +114,7 @@ export class CamasComponent implements OnInit, AfterViewInit {
   // Mostrar el formulario para actualizar paciente
   toggleActualizarCama(cama: Cama): void {
     this.camaSeleccionada = { ...cama };
-    this.dialog.open(DialogFormularioComponent, {
+    this.dialog.open(DialogFormulariocamaModifComponent, {
       data: this.camaSeleccionada
     }).afterClosed().subscribe((camaActualizada) => {
       if (camaActualizada) {
@@ -130,7 +132,7 @@ export class CamasComponent implements OnInit, AfterViewInit {
       codiHabitacio: 0,
       ingressos: []
     };
-    this.dialog.open(DialogFormularioComponent, {
+    this.dialog.open(DialogFormulariocamaComponent, {
       data: this.nuevaCama
     }).afterClosed().subscribe((camaCreada) => {
       if (camaCreada) {
