@@ -63,11 +63,10 @@
 
       <!--Filas de la tabla-->
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-
-      <!-- Paginación -->
-      <mat-paginator [pageSizeOptions]="[5, 10]" showFirstLastButtons=""></mat-paginator>
     </table>
   </div>
+  <!-- Paginación -->
+  <mat-paginator [pageSizeOptions]="[5, 10]" showFirstLastButtons=""></mat-paginator>
 
 
   <!-- Formulario para actualizar un ingreso existente -->
