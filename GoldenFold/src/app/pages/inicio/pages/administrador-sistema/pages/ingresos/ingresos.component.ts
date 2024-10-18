@@ -178,6 +178,7 @@ export class IngresosComponent implements OnInit {
       next: () => {
         // Eliminar el ingreso de la lista de ingresos
         this.ingresos.data = this.ingresos.data.filter(i => i.id !== id);
+        alert('Ingreso eliminado correctamente');
       },
       error: (error: any) => {
         console.error('Error al borrar el ingreso', error);
