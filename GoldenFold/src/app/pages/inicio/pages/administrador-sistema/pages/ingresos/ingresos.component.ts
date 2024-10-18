@@ -113,6 +113,7 @@ export class IngresosComponent implements OnInit {
           this.ingresos.data = [...this.ingresos.data,ingreso];
           console.log(ingreso);
           // Reiniciar el formulario después de agregar el ingreso
+          this.obtenerIngresos();
           this.ingresoForm.reset();
           alert('Ingreso creado con exito');
         },
