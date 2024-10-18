@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Ingreso } from '../../../../../../interface/ingreso.interface';
 import { Paciente } from '../../../../../../interface/paciente.interface';
@@ -9,6 +9,9 @@ import { UsuarioService } from '../../../../../../services/usuario.service';
 import { IngresosValidators } from '../../../../../../validators/ingresos.validators';
 import { Cama } from '../../../../../../interface/cama.interface';
 import { CamaService } from '../../../../../../services/cama.service';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-ingresos',
@@ -16,14 +19,21 @@ import { CamaService } from '../../../../../../services/cama.service';
   styleUrls: ['./ingresos.component.css']
 })
 export class IngresosComponent implements OnInit {
-  // Lista de ingresos disponibles
-  ingresos: Ingreso[] = [];
-  // Lista de camas disponibles
-  llits: Cama[] = [];
-  // Formulario para agregar/editar ingresos
+
+  //angular material
+  displayedColumns: string[] = ['id', 'dataEntrada', 'dataSortida', 'episodiMedicId', 'codiLlit','Actions'];
+  ingresos: MatTableDataSource<Ingreso> = new MatTableDataSource<Ingreso>([]);
+
+  //paginador y ordenador
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
+
+  // Formularios reactivos
   ingresoForm!: FormGroup;
-  // Variable para almacenar el ingreso que se desea actualizar
   ingresoParaActualizar: Ingreso | null = null;
+
+  //propiedaddes utiles
+  llits: Cama[] = [];
 
   constructor(private ingresoService: IngresoService, private camaService: CamaService, private pacienteService: PacienteService, private usuarioService: UsuarioService) {}
 
@@ -69,7 +79,9 @@ export class IngresosComponent implements OnInit {
   obtenerIngresos(): void {
     this.ingresoService.getIngresosos().subscribe({
       next: (data: Ingreso[]) => {
-        this.ingresos = data;
+        this.ingresos.data = data;
+        this.ingresos.paginator = this.paginator;
+        this.ingresos.sort = this.sort;
       },
       error: (error: any) => {
         console.error('Error al obtener los ingresos', error);
@@ -87,7 +99,7 @@ export class IngresosComponent implements OnInit {
           // Asignar la fecha de entrada al nuevo ingreso
           ingreso.dataEntrada = new Date();
           // Agregar el ingreso a la lista de ingresos
-          this.ingresos.push(ingreso);
+          this.ingresos.data = [...this.ingresos.data,ingreso];
           console.log(ingreso);
           // Reiniciar el formulario después de agregar el ingreso
           this.ingresoForm.reset();
@@ -124,13 +136,36 @@ export class IngresosComponent implements OnInit {
       });
     }
   }
-
+  filtrarIngresos(event: { type: string; term: string }): void {
+    const { type, term } = event;
+    const searchTerm = term.trim().toLowerCase();
+  
+    this.ingresos.filterPredicate = (data: Ingreso, filter: string) => {
+      const lowerCaseFilter = filter.toLowerCase();
+      
+      if (type === 'id') {
+        return data.id.toString().toLowerCase() === lowerCaseFilter.toString() || false;  // Si busca por ID
+      } else if (type === 'episodiMedicId') {
+        return data.episodiMedicId.toString().toLowerCase() === lowerCaseFilter.toString() || false;
+      } else if (type === 'codiLlit') {
+        return (data.codiLlit?.toString().toLowerCase().includes(lowerCaseFilter)) ?? false;
+      }
+      return false;  // Si no coincide ningún tipo
+    };
+  
+    this.ingresos.filter = searchTerm;
+  
+    if (this.ingresos.paginator) {
+      this.ingresos.paginator.firstPage();  // Resetea a la primera página si hay un filtro activo
+    }
+  }
+  
   // Borrar un ingreso de la lista
   borrarIngreso(id: number): void {
     this.ingresoService.deleteIngreso(id).subscribe({
       next: () => {
-        // Filtrar el ingreso eliminado de la lista de ingresos
-        this.ingresos = this.ingresos.filter(i => i.id !== id);
+        // Eliminar el ingreso de la lista de ingresos
+        this.ingresos.data = this.ingresos.data.filter(i => i.id !== id);
       },
       error: (error: any) => {
         console.error('Error al borrar el ingreso', error);

@@ -2,37 +2,73 @@
   <h2>Ingresos</h2>
   <app-snackbar #snackbar></app-snackbar>
 
+  <!-- Caja de búsqueda -->
+  <app-search-box
+  [searchOptions]="[
+    { label: 'ID Ingreso', value: 'id' },
+    { label: 'Episodio medico', value: 'episodiMedicId' },
+    { label: 'Codigo cama', value: 'codiLlit' }
+  ]"
+   [defaultSearchType]="'id'" placeholder="Escribe para buscar..." (search)="filtrarIngresos($event)">
+  </app-search-box>
+
+
+
+
   <!-- Tabla de ingresos angular material -->
   <div class="table-container">
-    <table class="table">
-      <thead>
-        <tr>
-          <th>ID Ingreso</th>
-          <th>Fecha de entrada</th>
-          <th>Fecha de salida</th>
-          <th>Episodio medico</th>
-          <th>Codigo cama</th>             
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- Itera sobre los ingresos y muestra cada uno en una fila de la tabla -->
-        <tr *ngFor="let ingreso of ingresos">
-          <td>{{ ingreso.id }}</td> <!-- Muestra el ID del ingreso -->
-          <td>{{ ingreso.dataEntrada | date:'dd/MM/yyyy'}}</td> <!-- Muestra la fecha de entrada -->
-          <td>{{ ingreso.dataSortida | date:'dd/MM/yyyy'}}</td> <!-- Muestra la fecha de salida -->
-          <td>{{ ingreso.episodiMedicId }}</td> <!-- Muestra el ID del episodio médico -->
-          <td>{{ ingreso.codiLlit }}</td> <!-- Muestra el código de la cama -->
-          <td>
-            <!-- Botón para actualizar el ingreso, llama a la función toggleActualizarIngreso -->
-            <button (click)="toggleActualizarIngreso(ingreso)">Actualizar</button>
-            <!-- Botón para borrar el ingreso, llama a la función borrarIngreso con el ID del ingreso -->
-            <button (click)="borrarIngreso(ingreso.id)">Borrar</button>
-          </td>
-        </tr>
-      </tbody>
+    <table mat-table [dataSource]="ingresos" matSort class="mat-elevation-z8">
+
+      <!-- Columna ID -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>ID Ingreso</th>
+        <td mat-cell *matCellDef="let ingreso">{{ ingreso.id }}</td>
+      </ng-container>
+
+      <!-- Data entrada -->
+      <ng-container matColumnDef="dataEntrada">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha de entrada</th>
+        <td mat-cell *matCellDef="let ingreso">{{ingreso.dataEntrada | date:'dd/MM/yyyy' }}</td>
+      </ng-container>
+
+      <!-- Data Sortida-->
+      <ng-container matColumnDef="dataSortida">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha de salida</th>
+        <td mat-cell *matCellDef="let ingreso">{{ingreso.dataSortida ? (ingreso.dataSortida | date:'dd/MM/yyyy' ) : 'N/A' }}</td>
+      </ng-container>
+
+      <!--Episodios Medicos-->
+      <ng-container matColumnDef="episodiMedicId">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Episodio Médico</th>
+        <td mat-cell *matCellDef="let ingreso">{{ingreso.episodiMedicId}}</td>
+      </ng-container>
+
+      <!--Columna Acciones-->
+      <ng-container matColumnDef="Actions">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Actions</th>
+        <td mat-cell *matCellDef="let ingreso">
+          <button mat-button (click)="toggleActualizarIngreso(ingreso)">Actualizar</button>
+          <button mat-button color="warn" (click)="borrarIngreso(ingreso.id)">Eliminar</button>
+        </td>
+      </ng-container>
+
+      <!--Codi llit-->
+      <ng-container matColumnDef="codiLlit">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Codi Llit</th>
+        <td mat-cell *matCellDef="let ingreso">{{ingreso.codiLlit}}</td>
+      </ng-container>
+
+      <!--Header de la tabla-->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+
+      <!--Filas de la tabla-->
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+      <!-- Paginación -->
+      <mat-paginator [pageSizeOptions]="[5, 10]" showFirstLastButtons=""></mat-paginator>
     </table>
   </div>
+
 
   <!-- Formulario para actualizar un ingreso existente -->
   <div class="form-container" *ngIf="ingresoParaActualizar">
