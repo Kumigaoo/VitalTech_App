@@ -19,7 +19,7 @@ import { DialogFormulariocamaModifComponent } from '../../../../../../components
 export class CamasComponent implements OnInit, AfterViewInit {
   @ViewChild(SnackbarComponent) snackbar!: SnackbarComponent
   displayedColumns: string[] = ['codiLlit', 'ocupat', 'foraDeServei', 'codiHabitacio', 'acciones'];
-  dataSource = new MatTableDataSource<Cama>([]);
+  dataSource: MatTableDataSource<Cama>  = new MatTableDataSource<Cama>([]);
   totalItems = 0;
   itemsPerPage = 300;
   pageIndex = 0;
@@ -104,13 +104,6 @@ export class CamasComponent implements OnInit, AfterViewInit {
     this.dataSource.data = this.camas.slice(startIndex, endIndex);
   }
 
-  filtrarCamas(event: { type: string; term: string }): void {
-    const { term } = event;
-    this.dataSource.filter = term.trim().toLowerCase();
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
-  } 
   // Mostrar el formulario para actualizar paciente
   toggleActualizarCama(cama: Cama): void {
     this.camaSeleccionada = { ...cama };
@@ -189,6 +182,42 @@ export class CamasComponent implements OnInit, AfterViewInit {
     }
   }
 
+  filtrarCamas(event: {type: string; term: string }): void{
+    const {type, term } = event;
+    const searchterm = term.trim().toLowerCase();
+
+    this.dataSource.filterPredicate = (data: Cama, filter: string) => {
+      switch (type) {
+        case 'codiLlit':
+          return data.codiLlit?.toLowerCase().includes(filter.toLowerCase()) ?? false;
+  
+        case 'ocupat':  
+          if(filter === "true" || filter === "false"){
+            const filterBoolean = filter === 'true';
+            return data.ocupat === filterBoolean;
+          }
+          return false;
+  
+        case 'foraDeServei':
+          if (filter === 'true' || filter === 'false') {
+            const filterBoolean = filter === 'true';
+            return data.foraDeServei === filterBoolean;
+          }
+          return false;
+  
+        case 'codiHabitacio':
+          return data.codiHabitacio.toString().toLowerCase() === filter;
+  
+        default:
+          return false;
+    }
+  };
+    this.dataSource.filter = searchterm;
+
+    if (this.dataSource.paginator){
+      this.dataSource.paginator.firstPage();
+    }
+  }
   /*aplicarFiltros(): void {
     this.camasFiltradas = this.camas.filter(cama => {
       const coincideUbicacion = this.filtroUbicacion
