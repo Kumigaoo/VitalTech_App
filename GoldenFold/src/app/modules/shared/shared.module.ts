@@ -20,6 +20,9 @@ import { DialogFormularioComponent } from '../../components/dialog-formulario/di
 import { SnackbarComponent } from '../../components/snackbar/snackbar.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatOption } from '@angular/material/core';
+import { DialogFormulariocamaComponent } from '../../components/Formularios/Cama/dialog-formulario-cama-registro/dialog-formulario-cama.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+
 import { MatCardTitle } from '@angular/material/card';
 import { MatSelect } from '@angular/material/select';
 
@@ -34,6 +37,8 @@ import { MatSelect } from '@angular/material/select';
     ReactiveFormsModule,
     SearchBoxComponent,
     DialogFormularioComponent,
+    DialogFormulariocamaComponent,
+    MatCheckboxModule,
 
     // Angular Material Modules
     MatTableModule,
@@ -74,7 +79,9 @@ import { MatSelect } from '@angular/material/select';
     MatSnackBarModule,
     SearchBoxComponent,
     DialogFormularioComponent,
-    SnackbarComponent // Incluido en exportaciones para su uso fuera del módulo
+    SnackbarComponent,
+    DialogFormulariocamaComponent,
+    MatCheckboxModule
   ],
   providers: [
     { provide: MAT_DIALOG_DATA, useValue: {} },
