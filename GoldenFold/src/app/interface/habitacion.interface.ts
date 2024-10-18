@@ -1,7 +1,9 @@
 export interface Habitacion {
-    IdHabitacion: number;
-    Edificio: string;
-    Planta: string;
-    NumeroHabitacion: string;
-    TipoCama: string;
-  }
+  codiHabitacio: number;
+  capacitatLlits: number;
+  plantaId: number;
+  llits: string[];
+
+  //Edificio: string;
+  //TipoCama: string;
+}

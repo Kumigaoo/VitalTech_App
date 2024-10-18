@@ -1,33 +1,45 @@
 <app-administratidor-sistema-dashboard></app-administratidor-sistema-dashboard>
 <div class="habitaciones-section">
   <h2>Habitaciones</h2>
+  <!--Botón de agregar habitación -->
+  <div class="filter-container">
+    <button mat-raised-button color="primary" (click)="toggleFormularioAgregar()">
+      Agregar Habitación
+    </button>
+  </div>
 
   <!-- Tabla Angular Material -->
   <div class="table-container">
     <app-snackbar></app-snackbar>
-    <table mat-table [dataSource]="habitaciones" class="mat-elevation-z8" matSort>
+    <table mat-table [dataSource]="habitacionesDataSource" class="mat-elevation-z8" matSort>
 
       <!-- Columna num habitaciones -->
-      <ng-container matColumnDef="Edificio">
+      <ng-container matColumnDef="NumeroHabitacion">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Número de habitación</th>
-        <td mat-cell *matCellDef="let habitacion">{{ habitacion.Edificio }}</td>
+        <td mat-cell *matCellDef="let habitacion">{{ habitacion.codiHabitacio }}</td>
       </ng-container>
 
-      <!-- Columna cap camas -->
-      <ng-container matColumnDef="Planta">
+      <!-- Columna cap CapCamas -->
+      <ng-container matColumnDef="CapCamas">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Capacidad de camas</th>
-        <td mat-cell *matCellDef="let habitacion">{{ habitacion.Planta }}</td>
+        <td mat-cell *matCellDef="let habitacion">{{ habitacion.capacitatLlits }}</td>
       </ng-container>
 
       <!-- Columna plantas -->
-      <ng-container matColumnDef="NumeroHabitacion">
+      <ng-container matColumnDef="Planta">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Planta</th>
-        <td mat-cell *matCellDef="let habitacion">{{ habitacion.NumeroHabitacion }}</td>
+        <td mat-cell *matCellDef="let habitacion">{{ habitacion.plantaId }}</td>
       </ng-container>
 
-      <!-- Columna camas -->
+      <!--Columna camas-->
+      <ng-container matColumnDef="Camas">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Camas</th>
+        <td mat-cell *matCellDef="let habitacion">{{ habitacion.llits }}</td>
+      </ng-container>
+
+      <!-- Columna Accion -->
       <ng-container matColumnDef="Acciones">
-        <th mat-header-cell *matHeaderCellDef>Camas</th>
+        <th mat-header-cell *matHeaderCellDef>Acciones</th>
         <td mat-cell *matCellDef="let habitacion">
           <button mat-raised-button color="primary" (click)="toggleActualizarHabitacion(habitacion)">
             Actualizar
@@ -39,8 +51,8 @@
       </ng-container>
 
       <!-- Filas de la tabla -->
-      <tr mat-header-row *matHeaderRowDef="['Edificio', 'Planta', 'NumeroHabitacion', 'Acciones']"></tr>
-      <tr mat-row *matRowDef="let row; columns: ['Edificio', 'Planta', 'NumeroHabitacion', 'Acciones'];"></tr>
+      <tr mat-header-row *matHeaderRowDef="['CapCamas', 'Planta', 'NumeroHabitacion', 'Camas', 'Acciones']"></tr>
+      <tr mat-row *matRowDef="let row; columns: ['CapCamas', 'Planta', 'NumeroHabitacion', 'Camas', 'Acciones'];"></tr>
 
     </table>
   </div>

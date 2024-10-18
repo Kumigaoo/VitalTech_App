@@ -21,7 +21,6 @@ const routes: Routes = [
         loadChildren: ()=> import('./medico/medico.module').then(m => m.MedicoModule)
     },*/
     {
-
         path: 'administrador-sistema',
         loadChildren: () => import('./administrador-sistema/administrador-sistema.module').then(m => m.AdministradorSistemaModule)
     }
