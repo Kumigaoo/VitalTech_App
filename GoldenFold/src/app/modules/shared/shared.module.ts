@@ -20,6 +20,8 @@ import { DialogFormularioComponent } from '../../components/dialog-formulario/di
 import { SnackbarComponent } from '../../components/snackbar/snackbar.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatOption } from '@angular/material/core';
+import { MatCardTitle } from '@angular/material/card';
+import { MatSelect } from '@angular/material/select';
 
 
 
@@ -35,6 +37,8 @@ import { MatOption } from '@angular/material/core';
 
     // Angular Material Modules
     MatTableModule,
+    MatCardTitle,
+    MatSelect,
     MatPaginatorModule,
     MatSortModule,
     MatButtonModule,
@@ -52,6 +56,8 @@ import { MatOption } from '@angular/material/core';
     ReactiveFormsModule,
     MatCardModule,
     MatOption,
+    MatCardTitle,
+    MatSelect,
 
     // Exportación de componentes
     SearchBoxComponent,

@@ -1,17 +1,14 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Ingreso } from '../../../../../../interface/ingreso.interface';
-import { Paciente } from '../../../../../../interface/paciente.interface';
-import { Usuario } from '../../../../../../interface/usuario.interface';
 import { IngresoService } from '../../../../../../services/ingreso.service';
-import { PacienteService } from '../../../../../../services/paciente.service';
-import { UsuarioService } from '../../../../../../services/usuario.service';
-import { IngresosValidators } from '../../../../../../validators/ingresos.validators';
 import { Cama } from '../../../../../../interface/cama.interface';
 import { CamaService } from '../../../../../../services/cama.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { EpisodiMedic } from '../../../../../../interface/episodis-medics.interface';
+import { EpisodiService } from '../../../../../../services/episodis.service';
 
 @Component({
   selector: 'app-ingresos',
@@ -34,13 +31,15 @@ export class IngresosComponent implements OnInit {
 
   //propiedaddes utiles
   llits: Cama[] = [];
+  episodisMedics: EpisodiMedic[] = [];
 
-  constructor(private ingresoService: IngresoService, private camaService: CamaService, private pacienteService: PacienteService, private usuarioService: UsuarioService) {}
+  constructor(private ingresoService: IngresoService, private camaService: CamaService, private episodiService: EpisodiService ) {}
 
   ngOnInit(): void {
     // Obtener los ingresos y camas disponibles al iniciar el componente
     this.obtenerIngresos();
     this.obtenerCamas();
+    this.obtenerEpisodisMedics();
     // Crear el formulario para manejar los ingresos
     this.crearFormularioIngreso();
   }
@@ -75,6 +74,18 @@ export class IngresosComponent implements OnInit {
     });
   }
 
+  // obtener la lista de episodios medicos desde el servicio correspondiente
+  obtenerEpisodisMedics(): void{
+    this.episodiService.getEpisodis().subscribe({
+      next: (data:EpisodiMedic[]) =>{
+        this.episodisMedics = data;
+      },
+      error: (error:any) =>{
+        console.log('Error al cargar los episodios medicos');
+      }
+    })
+  }
+
   // Obtener la lista de ingresos desde el servicio correspondiente
   obtenerIngresos(): void {
     this.ingresoService.getIngresosos().subscribe({
@@ -94,10 +105,10 @@ export class IngresosComponent implements OnInit {
     if(this.ingresoForm.valid) {
       // Crear un nuevo objeto de tipo Ingreso basado en los valores del formulario
       const nuevoIngreso: Ingreso = this.ingresoForm.value;
+      // Asignar la fecha de entrada al nuevo ingreso
+      nuevoIngreso.dataEntrada = new Date();
       this.ingresoService.postIngreso(nuevoIngreso).subscribe({
         next: (ingreso: Ingreso) => {
-          // Asignar la fecha de entrada al nuevo ingreso
-          ingreso.dataEntrada = new Date();
           // Agregar el ingreso a la lista de ingresos
           this.ingresos.data = [...this.ingresos.data,ingreso];
           console.log(ingreso);

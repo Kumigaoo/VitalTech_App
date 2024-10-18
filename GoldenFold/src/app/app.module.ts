@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
+import { MatCardModule } from '@angular/material/card';
 import { KeycloakAngularModule } from 'keycloak-angular';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -15,6 +16,7 @@ import { InicioComponent } from './pages/inicio/inicio.component';
   imports: [
     BrowserModule,
     ReactiveFormsModule,
+    MatCardModule,
     AppRoutingModule,
     KeycloakAngularModule,
     BrowserAnimationsModule,

@@ -99,13 +99,7 @@
     width: 100%;
   }
   
-  button[type="submit"] {
-    background-color: #28a745;
-  }
-  
-  button[type="submit"]:hover {
-    background-color: #218838;
-  }
+
   
   /* Estilo responsivo para móviles */
   @media (max-width: 768px) {
