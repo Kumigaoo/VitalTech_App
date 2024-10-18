@@ -1,3 +1,4 @@
+
 /* Estilo general de la sección de camas */
 .camas-section {
   font-family: Arial, sans-serif;
@@ -5,6 +6,20 @@
   margin-top: 70px;   /* Ajusta según la altura del header */
   margin-left: 220px; /* Ajusta según el ancho del sidenav */
   padding: 20px;
+}
+.header-container {
+  display: flex;
+  justify-content: space-between; /* Distribuye espacio entre el botón y la caja de búsqueda */
+  align-items: center; /* Alinea verticalmente los elementos */
+  gap: 10px; /* Espacio entre el botón y la caja de búsqueda */
+  margin-bottom: 15px; /* Espacio inferior si es necesario */
+}
+
+@media (max-width: 768px) {
+  .header-container {
+    flex-direction: column; /* Para pantallas más pequeñas, apilar verticalmente */
+    align-items: stretch; /* Alinea los elementos para que ocupen el ancho completo */
+  }
 }
 
 h2 {

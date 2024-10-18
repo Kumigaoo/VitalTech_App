@@ -16,6 +16,7 @@ span,
 }
 
 .navbar {
+ position: fixed;
   top: 0;            /* Pega el header al borde superior de la pantalla */
   left: 0;           /* Alineado a la izquierda */
   width: 100%;       /* Ocupa todo el ancho de la pantalla */
@@ -105,7 +106,7 @@ span,
 
 .avatar {
     width: 100px;
-    height: 100px;
+    height: auto;
     border-radius: 50%;
     background-color: #ccc;
 }

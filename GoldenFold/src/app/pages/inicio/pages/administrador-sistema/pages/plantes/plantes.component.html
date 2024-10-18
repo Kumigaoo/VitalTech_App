@@ -1,60 +1,54 @@
-<!-- <app-nav></app-nav> -->
+<div class="planta-section">
+    <h2>Plantas</h2>
+    <app-snackbar #snackbar></app-snackbar>
 
-<div class="contendor">
-    <div class="search-container">
-        <div class="lala">
-            <form id="searchForm">
-                <div class="searchCriteriaContainer">
-                    <label for="searchCriteria">Nº de planta:</label>
-                </div>
-                <div class="searchCriteriaItemContainer">
-                    <input type="number" id="searchInput" [(ngModel)]="searchInput" name="searchInput"
-                        placeholder="Ingresa la búsqueda" required>
-                    <button type="button" (click)="searchPlanta()">Buscar</button>
-                </div>
-            </form>
-        </div>
-        <div class="registro">
-            <!-- <button id="registrarse"><a [routerLink]="['/inicio/planta/registro-planta']"> + Registrar nueva -->
-            <!-- planta</a></button> -->
-        </div>
+    <div class="filter-container">
+        <button mat-raised-button color="primary" (click)="toggleFormularioAgregar()">
+            Agregar Planta
+        </button>
     </div>
 
-</div>
-<div class="texto">
-    <p>Lista de plantas</p>
-</div>
-<div class="table-container">
-    <div class="cosas">
-        <table id="resultsTable">
-            <thead>
-                <tr>
-                    <th>Piso</th>
-                    <th>Capacidad de habitaciones</th>
-                    <th>Listado habitaciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let planta of pagedPlantes; let i = index">
-                    <td>{{ planta.piso }}</td>
-                    <td>{{ planta.capacitatHabitacions }}</td>
-                    <td class="coleccio" mat-button (click)="openHabitacions(planta)">Habitaciones</td>
-                    <div class="botones">
-                        <button class="ico" (click)="modificarPlanta(planta.piso)" id="modificar">🔄</button>
-                        <button class="ico" (click)="deletePlanta(planta.piso)" id="eliminar">❎</button>
-                    </div>
-                </tr>
-            </tbody>
+    <!-- Tabla de plantas con Angular Material -->
+    <div class="table-container mat-elevation-z8">
+        <table mat-table [dataSource]="dataMostra" class="mat-table" matSort>
+
+            <!-- Piso -->
+            <ng-container matColumnDef="piso">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Piso </th>
+                <td mat-cell *matCellDef="let planta">{{planta.piso}}</td>
+            </ng-container>
+
+            <!-- Capacidad -->
+            <ng-container matColumnDef="capacitatHabitacions">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Capacidad de habitaciones </th>
+                <td mat-cell *matCellDef="let planta">{{planta.capacitatHabitacions}}</td>
+            </ng-container>
+
+            <!-- Listado -->
+            <ng-container matColumnDef="habitacions">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Listado habitaciones </th>
+                <td mat-cell *matCellDef="let planta">{{planta.habitacions}}</td>
+            </ng-container>
+
         </table>
 
+        <!-- Acciones -->
+        <ng-container matColumnDef="acciones">
+            <th mat-header-cell *matHeaderCellDef> Acciones </th>
+            <td mat-cell *matCellDef="let planta">
+                <button mat-raised-button color="primary" (click)="modificarPlanta(planta.piso)">
+                    Actualizar
+                </button>
+                <button mat-raised-button color="warn" (click)="deletePlanta(planta.piso)">
+                    Borrar
+                </button>
+            </td>
+        </ng-container>
 
     </div>
+</div>
 
-    <div class="pagination">
-        <button id="firstPage" (click)="firstPage()" [disabled]="currentPage ===1">&lt;&lt;</button>
-        <button id="prevPage" (click)="previousPage()" [disabled]="currentPage === 1">Anterior</button>
-        <span id="pageInfo">Página {{ currentPage }} de {{totalPages }}</span>
-        <button id="nextPage" (click)="nextPage()" [disabled]="currentPage === totalPages">Siguiente</button>
-        <button id="lastPage" (click)="lastPage()" [disabled]="currentPage ===totalPages">&gt;&gt;</button>
-    </div>
+<div>
+    <!-- Paginación -->
+    <mat-paginator [pageSizeOptions]="[5, 10]" showFirstLastButtons></mat-paginator>
 </div>

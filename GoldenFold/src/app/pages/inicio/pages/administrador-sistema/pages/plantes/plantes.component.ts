@@ -1,12 +1,14 @@
-import { RouterLinkActive, RouterLink } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common'; 
+import { Component, ViewChild } from '@angular/core';
 import { Planta } from '../../../../../../interface/planta.interface';
 import { PlantaService } from '../../../../../../services/planta.service';
 import { MatDialog } from '@angular/material/dialog';
-import { FormsModule } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { SnackbarComponent } from '../../../../../../components/snackbar/snackbar.component';
+import { DialogFormularioComponent } from '../../../../../../components/dialog-formulario/dialog-formulario.component';
 
 @Component({
   selector: 'app-plantes',
@@ -14,62 +16,111 @@ import Swal from 'sweetalert2';
   styleUrl: './plantes.component.css'
 })
 export class PlantesComponent {
+ @ViewChild(SnackbarComponent) snackbar!: SnackbarComponent
 
   plantes: Planta[] = [];
   pagedPlantes: Planta[] = [];
-   searchInput: number = 1;
+  searchInput: number = 1;
 
   currentPage: number = 1;
   totalPages: number = 1;
   itemsPerPage: number = 4;
 
-  constructor(public dialog: MatDialog, private plantaService: PlantaService, private router: Router) { }
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
+
+  PlantaSeleccionado: Planta | null = null;
+  displayedColumns: string[] = ['piso', 'capacitatHabitacions', 'habitacions'];
+  dataMostra = new MatTableDataSource<Planta>([]);
+  nuevaPlanta: Planta;
+
+  constructor(public dialog: MatDialog, private plantaService: PlantaService, private router: Router) {
+    this.nuevaPlanta = {
+      piso: 0,
+      capacitatHabitacions: 0,
+      habitacions: [''] 
+    };
+   }
 
   ngOnInit() {
-    this.loadPlantes();
+     this.loadPlantes();
+  }
+
+  ngAfterViewInit() {
+    this.dataMostra.paginator = this.paginator;
+    this.dataMostra.sort = this.sort;
+  }
+
+  toggleFormularioAgregar(): void {
+    this.nuevaPlanta = {
+      piso: 0,
+      capacitatHabitacions: 0,
+      habitacions: [''] 
+    };
+    this.dialog.open(DialogFormularioComponent, {
+      data: this.nuevaPlanta
+    }).afterClosed().subscribe((pacienteCreado) => {
+      if (pacienteCreado) {
+        this.guardarPaciente();
+      }
+    });
+  }
+
+  guardarPaciente(): void {
+    this.plantaService.postPlanta(this.nuevaPlanta).subscribe({
+      next: () => {
+        this.obtenerPacientes();
+        this.cerrarFormulario();
+        this.snackbar.showNotification('success', 'Paciente guardado exitosamente'); // Notificación de éxito
+      },
+      error: (error: any) => {
+        console.error('Error al guardar el paciente', error);
+        this.snackbar.showNotification('error', 'Error al guardar el paciente'); // Notificación de error
+      },
+    });
+  }
+
+  guardarPlanta(): void {
+    this.plantaService.putPlanta(this.nuevaPlanta).subscribe({
+      next: () => {
+        this.obtenerPacientes();
+        this.cerrarFormulario();
+        this.snackbar.showNotification('success', 'Paciente guardado exitosamente'); // Notificación de éxito
+      },
+      error: (error: any) => {
+        console.error('Error al guardar el paciente', error);
+        this.snackbar.showNotification('error', 'Error al guardar el paciente'); // Notificación de error
+      },
+    });
+  }
+
+  cerrarFormulario(): void {
+    this.PlantaSeleccionado = null;
+  }
+
+  obtenerPacientes(): void {
+    this.plantaService.getPlantes().subscribe((data: Planta[]) => {
+      this.plantes = data;
+      //this.totalItems = data.length;
+      this.actualizarPagina(0, this.itemsPerPage);
+    });
+  }
+
+  actualizarPagina(pageIndex: number, pageSize: number) {
+    const startIndex = pageIndex * pageSize;
+    const endIndex = startIndex + pageSize;
+    this.dataMostra.data = this.plantes.slice(startIndex, endIndex);
   }
 
   loadPlantes(): void {
     this.plantaService.getPlantes().subscribe(data => {
       this.plantes = data;
+      this.dataMostra.data = this.plantes;
       this.totalPages = Math.ceil(this.plantes.length / this.itemsPerPage);
-      this.updateItemsPerPage();
     });
   }
 
-  updateItemsPerPage(): void {
-    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-    const endIndex = startIndex + this.itemsPerPage;
-    this.pagedPlantes = this.plantes.slice(startIndex, endIndex);
 
-    if(this.plantes.length == 0){
-      return;
-    }
-
-    if(this.pagedPlantes.length == 0) {
-        this.currentPage = this.currentPage - 1;
-        this.loadPlantes();
-    }
-
-  }
-  searchPlanta(): void {
-    if (!isNaN(this.searchInput)) { 
-        this.plantaService.getPlanta(this.searchInput).subscribe({
-          next: (data) => {
-            this.plantes.splice(0, this.plantes.length + 1, data);
-            this.currentPage = 1;
-            this.totalPages = 1;
-            this.updateItemsPerPage();
-          },
-          error: (error) => {
-            console.error('Error al buscar la planta:', error),
-            alert('No existe la planta con id ' + this.searchInput );
-          }
-        });
-      } else {
-        alert('Por favor, ingresa un ID válido.'); 
-      }
-  }
 
   deletePlanta(piso: number): void {
 
@@ -123,34 +174,6 @@ export class PlantesComponent {
     //   maxWidth: '1000px',
     //   maxHeight: '500px' 
     // });
-  }
-
-  nextPage(): void {
-    if (this.currentPage < this.totalPages) {
-      this.currentPage++;
-      this.updateItemsPerPage();
-    }
-  }
-
-  previousPage(): void {
-    if (this.currentPage > 1) {
-      this.currentPage--;
-      this.updateItemsPerPage();
-    }
-  }
-
-  firstPage(): void {
-    if (this.currentPage > 1) {
-      this.currentPage = 1;
-      this.updateItemsPerPage();
-    }
-  }
-
-  lastPage(): void {
-    if(this.currentPage < this.totalPages) {
-      this.currentPage = this.totalPages;
-      this.updateItemsPerPage();
-    }
   }
 
 }

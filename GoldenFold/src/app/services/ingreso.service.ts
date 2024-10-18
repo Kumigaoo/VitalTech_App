@@ -8,36 +8,29 @@ import { Ingreso } from '../interface/ingreso.interface';
   })
 
 export class IngresoService {
-    private apiUrl = 'http://localhost:5076/api';
 
-    constructor(private http: HttpClient) { }
+  private apiUrl = 'http://localhost:5296/api/Ingres';
 
-    getIngresos(
-        idPaciente?: number,
-        idMedico?: number,
-        estado?: string,
-        tipoCama?: string 
-      ): Observable<Ingreso[]> {
-        let params = new HttpParams();
-        if (idPaciente) params = params.set('idPaciente', idPaciente.toString());
-        if (idMedico) params = params.set('idMedico', idMedico.toString());
-        if (estado) params = params.set('estado', estado);
-        if (tipoCama) params = params.set('tipoCama', tipoCama); 
-        return this.http.get<Ingreso[]>(`${this.apiUrl}/Ingresos`, { params });
-      }
-    
-      addIngreso(ingreso: Ingreso): Observable<Ingreso> {
-        return this.http.post<Ingreso>(`${this.apiUrl}/Ingresos`, ingreso);
-      }
-    
-      updateIngreso(ingreso: Ingreso): Observable<Ingreso> {
-        return this.http.put<Ingreso>(
-          `${this.apiUrl}/Ingresos/${ingreso.IdIngreso}`,
-          ingreso
-        );
-      }
-    
-      deleteIngreso(idIngreso: number): Observable<void> {
-        return this.http.delete<void>(`${this.apiUrl}/Ingresos/${idIngreso}`);
-      }
+  constructor(private http: HttpClient) { }
+
+  getIngresosos(): Observable<Ingreso[]> {
+    return this.http.get<Ingreso[]>(this.apiUrl);
+  }
+
+  getIngresoId(id : string): Observable<Ingreso> {
+    return this.http.get<Ingreso>(this.apiUrl+"/"+id);
+  }
+
+  postIngreso(ingreso : Ingreso): Observable<Ingreso> {
+    return this.http.post<Ingreso>(this.apiUrl,ingreso);
+  }
+
+  putIngreso(ingreso : Ingreso): Observable<Ingreso> {
+    const url = `${this.apiUrl}/${ingreso.id}`;
+    return this.http.put<Ingreso>(url, ingreso);
+  }
+
+  deleteIngreso(id : number): Observable<Ingreso> {
+    return this.http.delete<Ingreso>(`${this.apiUrl}/${id}`);
+  }
 }

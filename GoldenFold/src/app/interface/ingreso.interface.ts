@@ -1,11 +1,13 @@
 export interface Ingreso {
-    IdIngreso: number;
-    IdPaciente: number;
-    IdMedico: number;
-    Motivo: string;
-    FechaSolicitud: Date;
-    FechaIngreso: Date | null;
-    Estado: string;
-    TipoCama: string;
-    IdAsignacion: number | null;
+    id: number;
+    //IdPaciente: number;
+    //IdMedico: number;
+    //Motivo: string;
+    //FechaSolicitud: Date;
+    dataEntrada: Date;
+    //Estado: string;
+    //TipoCama: string;
+    dataSortida: Date | null;
+    episodiMedicId: number;
+    codiLlit: number | null;
   }

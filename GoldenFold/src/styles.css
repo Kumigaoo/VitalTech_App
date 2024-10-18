@@ -12,7 +12,5 @@ mat-form-field.full-width {
     margin-right: 8px;
   }
 
-
-
-
-  
+body { height: auto; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

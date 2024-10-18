@@ -1,124 +1,144 @@
 <div class="ingresos-section">
-    <h2>Ingresos</h2>
-    <div class="table-container">
-      <table class="table">
-        <thead>
-          <tr>
-            <th>ID Ingreso</th>
-            <th>ID Paciente</th>
-            <th>ID Médico</th>
-            <th>Motivo de Ingreso</th>
-            <th>Fecha de Solicitud</th>
-            <th>Fecha de Ingreso</th>
-            <th>Estado</th>
-            <th>Cama</th>
-             
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let ingreso of ingresos">
-            <td>{{ ingreso.IdIngreso }}</td>
-            <td>{{ ingreso.IdPaciente }}</td>
-            <td>{{ ingreso.IdMedico }}</td>
-            <td>{{ ingreso.Motivo }}</td>
-            <td>{{ ingreso.FechaSolicitud | date:'dd/MM/yyyy HH:mm\'h\'' }}</td>
-            <td>{{ ingreso.FechaIngreso | date:'dd/MM/yyyy HH:mm\'h\'' }}</td>
-            <td>{{ ingreso.Estado }}</td>
-            <td>{{ ingreso.TipoCama }}</td>
-            <td>
-              <button (click)="toggleActualizarIngreso(ingreso)">Actualizar</button>
-              <button (click)="borrarIngreso(ingreso.IdIngreso)">Borrar</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+  <h2>Ingresos</h2>
+  <app-snackbar #snackbar></app-snackbar>
 
-    <div class="form-container" *ngIf="ingresoParaActualizar">
-      <h3>Actualizar Ingreso</h3>
-      <form [formGroup]="ingresoForm"  (ngSubmit)="actualizarIngreso()">
-        <label for="idPaciente">Paciente:</label>
-        <select formControlName="IdPaciente" required>
-          <option *ngFor="let paciente of pacientes" [value]="paciente.IdPaciente">{{paciente.Nombre}}</option>
-        </select>
-        <div *ngIf="ingresoForm.get('IdPaciente')?.invalid && ingresoForm.get('IdPaciente')?.touched">
-          <small *ngIf="ingresoForm.get('IdPaciente')?.hasError('required')">Selecciona un paciente</small>
-        </div>
-        <label for="idMedico">Médico:</label>
-        <select formControlName="IdMedico" required>
-            <option *ngFor="let medico of medicos"  [value]="medico.IdUsuario">{{medico.Nombre}}</option>
-        </select>
-        <div *ngIf="ingresoForm.get('IdMedico')?.invalid&&ingresoForm.get('IdMedico')?.touched">
-          <small *ngIf="ingresoForm.get('IdMedico')?.hasError('required')">Selecciona un médico</small>
-        </div>
-        <label for="motivo">Motivo de Ingreso:</label>
-        <input type="text" id="motivo" formControlName="Motivo" name="motivo" required>
-        <div *ngIf="ingresoForm.get('Motivo')?.invalid&&ingresoForm.get('Motivo')?.touched">
-          <small *ngIf="ingresoForm.get('Motivo')?.hasError('whitespace')">El motivo no puede estar en blanco</small>
-        </div>
-        <label for="estado">Estado:</label>
-        <select formControlName="Estado" required>
-            <option *ngFor="let estado of estados" [value]="estado.label">{{estado.label}}</option>
-        </select>
-        <div *ngIf="ingresoForm.get('Estado')?.invalid&&ingresoForm.get('Estado')?.touched">
-          <small *ngIf="ingresoForm.get('Estado')?.getError('required')">Selecciona un estado</small>
-        </div>
-        <label for="tipoCama">Tipo cama:</label>
-        <select formControlName="TipoCama" required>
-            <option *ngFor="let tipo of tipos" [value]="tipo.label">{{tipo.label}}</option>
-        </select>
-        <div *ngIf="ingresoForm.get('TipoCama')?.invalid&&ingresoForm.get('TipoCama')?.touched">
-            <small *ngIf="ingresoForm.get('TipoCama')?.invalid&&ingresoForm.get('TipoCama')?.touched">Selecciona el tipo de cama</small>
-        </div>
-        <div>
-          <button type="submit" [disabled]="ingresoForm.invalid">Actualizar</button>
-          <button type="button" (click)="cancelarActualizarIngreso()">Cancelar</button>
-        </div>
-      </form>
-    </div>
-  
-    <div class="form-container" *ngIf="!ingresoParaActualizar">
-      <h3>Agregar Ingreso</h3>
-      <form [formGroup]="ingresoForm"  (ngSubmit)="agregarIngreso()">
-        <label for="idPaciente">Paciente:</label>
-        <select formControlName="IdPaciente" required>
-          <option *ngFor="let paciente of pacientes" [value]="paciente.IdPaciente">{{paciente.Nombre}}</option>
-        </select>
-        <div *ngIf="ingresoForm.get('IdPaciente')?.invalid && ingresoForm.get('IdPaciente')?.touched">
-          <small *ngIf="ingresoForm.get('IdPaciente')?.hasError('required')">Selecciona un paciente</small>
-        </div>
-        <label for="idMedico">Médico:</label>
-        <select formControlName="IdMedico" required>
-            <option *ngFor="let medico of medicos"  [value]="medico.IdUsuario">{{medico.Nombre}}</option>
-        </select>
-        <div *ngIf="ingresoForm.get('IdMedico')?.invalid&&ingresoForm.get('IdMedico')?.touched">
-          <small *ngIf="ingresoForm.get('IdMedico')?.hasError('required')">Selecciona un médico</small>
-        </div>
-        <label for="motivo">Motivo de Ingreso:</label>
-        <input type="text" id="motivo" formControlName="Motivo" name="motivo" required>
-        <div *ngIf="ingresoForm.get('Motivo')?.invalid&&ingresoForm.get('Motivo')?.touched">
-          <small *ngIf="ingresoForm.get('Motivo')?.hasError('whitespace')">El motivo no puede estar en blanco</small>
-        </div>
-        <label for="estado">Estado:</label>
-        <select formControlName="Estado" required>
-            <option *ngFor="let estado of estados" [value]="estado.label">{{estado.label}}</option>
-        </select>
-        <div *ngIf="ingresoForm.get('Estado')?.invalid&&ingresoForm.get('Estado')?.touched">
-          <small *ngIf="ingresoForm.get('Estado')?.getError('required')">Selecciona un estado</small>
-        </div>
-        <label for="tipoCama">Tipo cama:</label>
-        <select formControlName="TipoCama" required>
-            <option *ngFor="let tipo of tipos" [value]="tipo.label">{{tipo.label}}</option>
-        </select>
-        <div *ngIf="ingresoForm.get('TipoCama')?.invalid&&ingresoForm.get('TipoCama')?.touched">
-            <small *ngIf="ingresoForm.get('TipoCama')?.invalid&&ingresoForm.get('TipoCama')?.touched">Selecciona el tipo de cama</small>
-        </div>
-        <div>
-          <button type="submit" [disabled]="ingresoForm.invalid">Agregar</button>
-          <button type="button" (click)="cancelarNuevoIngreso()">Cancelar</button>
-        </div>
-      </form>
-    </div>
+  <!-- Caja de búsqueda -->
+  <app-search-box
+  [searchOptions]="[
+    { label: 'ID Ingreso', value: 'id' },
+    { label: 'Episodio medico', value: 'episodiMedicId' },
+    { label: 'Codigo cama', value: 'codiLlit' }
+  ]"
+   [defaultSearchType]="'id'" placeholder="Escribe para buscar..." (search)="filtrarIngresos($event)">
+  </app-search-box>
+
+
+
+
+  <!-- Tabla de ingresos angular material -->
+  <div class="table-container">
+    <table mat-table [dataSource]="ingresos" matSort class="mat-elevation-z8">
+
+      <!-- Columna ID -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>ID Ingreso</th>
+        <td mat-cell *matCellDef="let ingreso">{{ ingreso.id }}</td>
+      </ng-container>
+
+      <!-- Data entrada -->
+      <ng-container matColumnDef="dataEntrada">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha de entrada</th>
+        <td mat-cell *matCellDef="let ingreso">{{ingreso.dataEntrada | date:'dd/MM/yyyy' }}</td>
+      </ng-container>
+
+      <!-- Data Sortida-->
+      <ng-container matColumnDef="dataSortida">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha de salida</th>
+        <td mat-cell *matCellDef="let ingreso">{{ingreso.dataSortida ? (ingreso.dataSortida | date:'dd/MM/yyyy' ) : 'N/A' }}</td>
+      </ng-container>
+
+      <!--Episodios Medicos-->
+      <ng-container matColumnDef="episodiMedicId">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Episodio Médico</th>
+        <td mat-cell *matCellDef="let ingreso">{{ingreso.episodiMedicId}}</td>
+      </ng-container>
+
+      <!--Columna Acciones-->
+      <ng-container matColumnDef="Actions">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Actions</th>
+        <td mat-cell *matCellDef="let ingreso">
+          <button mat-button (click)="toggleActualizarIngreso(ingreso)">Actualizar</button>
+          <button mat-button color="warn" (click)="borrarIngreso(ingreso.id)">Eliminar</button>
+        </td>
+      </ng-container>
+
+      <!--Codi llit-->
+      <ng-container matColumnDef="codiLlit">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Codi Llit</th>
+        <td mat-cell *matCellDef="let ingreso">{{ingreso.codiLlit}}</td>
+      </ng-container>
+
+      <!--Header de la tabla-->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+
+      <!--Filas de la tabla-->
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
   </div>
-  
+  <!-- Paginación -->
+  <mat-paginator [pageSizeOptions]="[5, 10]" showFirstLastButtons=""></mat-paginator>
+
+
+  <!-- Formulario para actualizar un ingreso existente -->
+  <mat-card *ngIf="ingresoParaActualizar">
+    <mat-card-title>Actualizar Ingreso</mat-card-title>
+    <br />
+    <form [formGroup]="ingresoForm" (ngSubmit)="actualizarIngreso()">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Fecha de salida:</mat-label>
+        <input matInput type="date" formControlName="dataSortida" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Episodio medico:</mat-label>
+        <mat-select formControlName="episodiMedicId">
+          <mat-option *ngFor="let episodiMedic of episodisMedics" [value]="episodiMedic.id">
+            {{episodiMedic.id}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="ingresoForm.get('episodiMedicId')?.hasError('required')">Selecciona un episodio medico</mat-error>
+        <br />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Cama:</mat-label>
+        <mat-select formControlName="codiLlit">
+          <mat-option *ngFor="let cama of llits" [value]="cama.codiLlit">
+            {{cama.codiLlit}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="ingresoForm.get('camaId')?.hasError('required')">Selecciona una cama</mat-error>
+        <br />
+      </mat-form-field>
+      <div>
+        <button mat-raised-button color="primary" type="submit">Actualizar</button>
+        <button mat-button type="button" (click)="cancelarActualizarIngreso()">Cancelar</button>
+      </div>
+    </form>
+  </mat-card>
+
+  <!-- Formulario para agregar un nuevo ingreso -->
+  <mat-card *ngIf="!ingresoParaActualizar">
+    <mat-card-title>Agregar Ingreso</mat-card-title>
+    <br/>
+    <form [formGroup]="ingresoForm" (ngSubmit)="agregarIngreso()" >
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Episodio medico:</mat-label>
+        <mat-select formControlName="episodiMedicId">
+          <mat-option *ngFor="let episodiMedic of episodisMedics" [value]="episodiMedic.id">
+            {{episodiMedic.id}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="ingresoForm.get('episodiMedicId')?.hasError('required')">Selecciona un episodio medico</mat-error>
+        <br />
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Cama:</mat-label>
+        <mat-select formControlName="codiLlit">
+          <mat-option *ngFor="let cama of llits" [value]="cama.codiLlit">
+            {{cama.codiLlit}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="ingresoForm.get('codiLlit')?.hasError('required')">Selecciona una cama</mat-error>
+        <br />
+      </mat-form-field>
+      <div>
+        <button mat-raised-button color="primary" type="submit" [disabled]="ingresoForm.invalid">
+          Agregar
+        </button>
+        <button mat-button type="button" (click)="cancelarNuevoIngreso()">Cancelar</button>
+      </div>
+    </form>
+  </mat-card>
+
+</div>
