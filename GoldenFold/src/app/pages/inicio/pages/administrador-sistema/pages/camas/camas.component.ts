@@ -195,7 +195,7 @@ export class CamasComponent implements OnInit, AfterViewInit {
           if(filter === "true" || filter === "false"){
             const filterBoolean = filter === 'true';
             return data.ocupat === filterBoolean;
-          }
+          } 
           return false;
   
         case 'foraDeServei':
