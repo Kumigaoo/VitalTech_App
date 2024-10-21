@@ -8,6 +8,7 @@ import { Consulta } from '../../../../../../interface/consulta.interface';
   styleUrls: ['./consultas.component.css']
 })
 export class ConsultasComponent implements OnInit {
+  displayedColumns: string[] = ['id', 'urgencia', 'sintomatologia','receta','dniPersonal','episodiMedicId','acciones'];
   consultas: Consulta[] = [];
   nuevaConsulta: Consulta = {
     id: 0,
