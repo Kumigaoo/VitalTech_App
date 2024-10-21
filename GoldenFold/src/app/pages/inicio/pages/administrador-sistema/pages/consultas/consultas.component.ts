@@ -149,27 +149,41 @@ export class ConsultasComponent implements OnInit, AfterViewInit {
     }
   }
 
-  filtrarConsultas(event: {type: string; term: string }): void{
-    
-    const {type, term } = event;
+  filtrarConsultas(event: {type: string; term: string }): void {
+    const { type, term } = event;
     const searchterm = term.trim().toLowerCase();
-
+    
     this.dataSource.filterPredicate = (data: Consulta, filter: string) => {
-      switch (type) {
-          case 'urgencia': return data.sintomatologia?.toLowerCase().includes(filter.toLowerCase()) ?? false;
-          case 'recepta': return data.recepta?.toLowerCase().includes(filter.toLowerCase()) ?? false;
-          case 'dniPersonal': return data.urgencia?.toLowerCase().includes(filter.toLowerCase()) ?? false;
-          case 'episodiMedicId': return data.dniPersonal?.toLowerCase().includes(filter.toLowerCase()) ?? false;
-        default: return false;
-    }
-  };
-
+        switch (type) {
+            case 'urgencia': 
+                return data.urgencia?.toLowerCase().includes(filter) ?? false;
+            case 'sintomatologia': 
+                return data.sintomatologia?.toLowerCase().includes(filter) ?? false;
+            case 'receta': 
+                return data.recepta?.toLowerCase().includes(filter) ?? false;
+            case 'dniPersonal': 
+                return data.dniPersonal?.toLowerCase().includes(filter) ?? false;
+            case 'id': 
+                return data.id?.toString().includes(filter) ?? false;
+            default: 
+                return false;
+        }
+    };
+    
+    // Aplicar el filtro al dataSource
     this.dataSource.filter = searchterm;
 
     if (this.dataSource.paginator){
       this.dataSource.paginator.firstPage();
     }
+
+}
+
+// HTML code remains the same
+
+
     
-  }
+    
+  
 
 }
