@@ -200,12 +200,24 @@ export class CamasComponent implements OnInit, AfterViewInit {
             const filterBoolean = filter === 'true';
             return data.ocupat === filterBoolean;
           } 
+          if (filter.toLowerCase() === "si"){
+            return data.ocupat === true;
+          }
+          if (filter.toLowerCase() === "no"){
+            return data.ocupat === false;
+          }
           return false;
   
         case 'foraDeServei':
           if (filter === 'true' || filter === 'false') {
             const filterBoolean = filter === 'true';
             return data.foraDeServei === filterBoolean;
+          }
+          if (filter.toLowerCase() === "si"){
+            return data.foraDeServei === true;
+          }
+          if (filter.toLowerCase() === "no"){
+            return data.foraDeServei === false;
           }
           return false;
   
