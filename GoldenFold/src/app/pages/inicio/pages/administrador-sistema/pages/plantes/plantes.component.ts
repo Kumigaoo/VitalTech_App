@@ -2,7 +2,7 @@ import { Component, ViewChild, OnInit, AfterViewInit } from '@angular/core';
 import { Planta } from '../../../../../../interface/planta.interface';
 import { PlantaService } from '../../../../../../services/planta.service';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import Swal from 'sweetalert2';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -83,39 +83,7 @@ export class PlantesComponent implements OnInit, AfterViewInit {
     });
   }
 
-  updateItemsPerPage(): void {
-    const startIndex = this.pageIndex * this.itemsPerPage;
-    const endIndex = startIndex + this.itemsPerPage;
-    this.dataMostra.data = this.plantes.slice(startIndex, endIndex);
 
-    if (this.plantes.length === 0) {
-      return;
-    }
-
-    if (this.dataMostra.data.length === 0) {
-      this.currentPage = Math.max(1, this.currentPage - 1);
-      this.loadPlantes();
-    }
-  }
-
-  searchPlanta(): void {
-    if (!isNaN(this.searchInput)) {
-      this.plantaService.getPlanta(this.searchInput).subscribe({
-        next: (data) => {
-          this.plantes = [data];
-          this.currentPage = 1;
-          this.totalPages = 1;
-          this.updateItemsPerPage();
-        },
-        error: (error) => {
-          console.error('Error al buscar la planta:', error);
-          alert('No existe la planta con id ' + this.searchInput);
-        }
-      });
-    } else {
-      alert('Por favor, ingresa un ID válido.');
-    }
-  }
 
   deletePlanta(piso: number): void {
     Swal.fire({
