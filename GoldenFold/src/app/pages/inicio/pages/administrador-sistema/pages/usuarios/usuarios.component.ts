@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Rol } from '../../../../../../interface/rol.interface';
 import { RoleService } from '../../../../../../services/role.service';
 import { UsuarioService } from '../../../../../../services/usuario.service';
-import { Usuario } from '../../../../../../interface/usuario.interface';
+import { Personal } from '../../../../../../interface/personal.interface';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { UserValidators } from '../../../../../../validators/usuarios.validators';
 import { MatTableDataSource } from '@angular/material/table';
@@ -19,10 +19,10 @@ export class UsuariosComponent implements OnInit {
   @ViewChild(SnackbarComponent) snackbar!: SnackbarComponent;  // Referencia al snackbar
 
   //tabla Angular Material
-  usuarios: MatTableDataSource<Usuario> = new MatTableDataSource<Usuario>();
+  usuarios: MatTableDataSource<Personal> = new MatTableDataSource<Personal>();
 
   //columnas que se mostraran en la tabla
-  displayedColumns: string[] = ['IdUsuario','Nombre','NombreUsuario','IdRol','Actions'];
+  displayedColumns: string[] = ['dni','nom'];
 
   //paginador y ordenador
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -31,7 +31,7 @@ export class UsuariosComponent implements OnInit {
   //formularios reactivos
   usuarioForm!: FormGroup;
   buscarUsuario!: FormGroup;
-  usuarioParaActualizar: Usuario | null = null;
+  usuarioParaActualizar: Personal | null = null;
 
   //propiedades utiles
   roles: Rol[] = [];
@@ -41,34 +41,31 @@ export class UsuariosComponent implements OnInit {
   ngOnInit(): void {
     this.obtenerUsuarios();
     this.obtenerRoles();
-    this.crearFormularioUsuario();
-    this.configurarValidaciones();
+    this.crearFormularioUsuario()
   }
 
   crearFormularioUsuario(): void {
     this.usuarioForm = new FormGroup({
       IdUsuario: new FormControl({ value: '', disabled: true }),
-      Nombre: new FormControl('',[UserValidators.noWhitespaceValidator(),Validators.pattern(' *[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ.]+( [a-zA-ZáéíóúÁÉÍÓÚüÜñÑ.]+)+ *')]), //no puede estar en blanco y tiene que tener minimo 2 palabras
-      NombreUsuario: new FormControl('',[UserValidators.noWhitespaceValidator()]),
-      Contrasenya: new FormControl('',[Validators.required]),
-      IdRol: new FormControl('',[Validators.required])
+      Nombre: new FormControl('',[UserValidators.noWhitespaceValidator(),Validators.pattern(' *[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ.]+( [a-zA-ZáéíóúÁÉÍÓÚüÜñÑ.]+)+ *')]) //no puede estar en blanco y tiene que tener minimo 2 palabras
+
     });
 
   }
 
-  configurarValidaciones(): void{
-    if(!this.usuarioParaActualizar){
-      this.usuarioForm.get('NombreUsuario')?.setAsyncValidators(UserValidators.asyncFieldExisting(this.usuarioService));
-    }
-    else{
-      this.usuarioForm.get('NombreUsuario')?.clearAsyncValidators();
-    }
-    this.usuarioForm.get('NombreUsuario')?.updateValueAndValidity();
-  }
+  // configurarValidaciones(): void{
+  //   if(!this.usuarioParaActualizar){
+  //     this.usuarioForm.get('NombreUsuario')?.setAsyncValidators(UserValidators.asyncFieldExisting(this.usuarioService));
+  //   }
+  //   else{
+  //     this.usuarioForm.get('NombreUsuario')?.clearAsyncValidators();
+  //   }
+  //   this.usuarioForm.get('NombreUsuario')?.updateValueAndValidity();
+  // }
 
   obtenerUsuarios(): void {
     this.usuarioService.getUsuarios().subscribe({
-      next: (usuario: Usuario[]) => {
+      next: (usuario: Personal[]) => {
         this.usuarios.data = usuario;
         this.usuarios.paginator = this.paginator;
         this.usuarios.sort = this.sort;
@@ -104,9 +101,9 @@ export class UsuariosComponent implements OnInit {
 
   agregarUsuario(): void {
     if(this.usuarioForm.valid) {
-      const nuevoUsuario: Usuario = this.usuarioForm.value; // Obtener los datos del formulario
+      const nuevoUsuario: Personal = this.usuarioForm.value; // Obtener los datos del formulario
       this.usuarioService.addUsuario(nuevoUsuario).subscribe({
-        next: (usuario: Usuario) => {
+        next: (usuario: Personal) => {
           this.usuarios.data = [...this.usuarios.data,usuario];
           this.usuarioForm.reset(); //despues de agregarlo, reseteas el formulario
           alert('Usuario creado con exito');
@@ -123,23 +120,22 @@ export class UsuariosComponent implements OnInit {
   }
 
 
-  toggleActualizarUsuario(usuario: Usuario): void {
+  toggleActualizarUsuario(usuario: Personal): void {
     if (
       this.usuarioParaActualizar &&
-      this.usuarioParaActualizar.IdUsuario === usuario.IdUsuario
+      this.usuarioParaActualizar.dni === usuario.dni
     ) {
       this.usuarioParaActualizar = null;
       this.usuarioForm.reset();
     } else {
       this.usuarioParaActualizar = { ...usuario };
-      this.configurarValidaciones();
       this.usuarioForm.patchValue(this.usuarioParaActualizar); //rellenar el formulario con los datos del usuario
     }
   }
 
   actualizarUsuario(): void {
     if (this.usuarioParaActualizar) {
-      const usuarioActualizado: Usuario = { ...this.usuarioParaActualizar, ...this.usuarioForm.value };
+      const usuarioActualizado: Personal = { ...this.usuarioParaActualizar, ...this.usuarioForm.value };
 
       this.usuarioService.updateUsuario(usuarioActualizado).subscribe({
         next: () => {
@@ -171,13 +167,12 @@ export class UsuariosComponent implements OnInit {
   }
 
 
-  resetUsuario(): Usuario {
+  resetUsuario(): Personal {
     return {
-      IdUsuario: 0,
-      Nombre: '',
-      NombreUsuario: '',
-      Contrasenya: '',
-      IdRol: 0,
+      dni: 0,
+      especialitat: '',
+      nom: '',
+      consultes: ['']
     };
   }
 

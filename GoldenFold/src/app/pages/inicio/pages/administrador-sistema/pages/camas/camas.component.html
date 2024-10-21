@@ -39,13 +39,13 @@
       <!-- Disponibilidad -->
       <ng-container matColumnDef="ocupat">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Disponibilitat </th>
-        <td mat-cell *matCellDef="let cama"> {{ cama.ocupat }} </td>
+        <td mat-cell *matCellDef="let cama"> {{ cama.ocupat  ? "Si" : "No"}} </td>
       </ng-container>
 
       <!-- Fuera de servicio -->
       <ng-container matColumnDef="foraDeServei">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Fuera de Servicio </th>
-        <td mat-cell *matCellDef="let cama"> {{ cama.foraDeServei }} </td>
+        <td mat-cell *matCellDef="let cama"> {{ cama.foraDeServei  ? "Si" : "No"}} </td>
       </ng-container>
 
       <!-- Codigo habitación -->

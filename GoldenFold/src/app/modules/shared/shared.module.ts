@@ -25,6 +25,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { MatCardTitle } from '@angular/material/card';
 import { MatSelect } from '@angular/material/select';
+import { MatSelectModule } from '@angular/material/select';
+import { MatOptionModule } from '@angular/material/core';
 
 
 
@@ -39,6 +41,8 @@ import { MatSelect } from '@angular/material/select';
     DialogFormularioComponent,
     DialogFormulariocamaComponent,
     MatCheckboxModule,
+    MatSelectModule, 
+    MatOptionModule,
 
     // Angular Material Modules
     MatTableModule,
@@ -62,7 +66,9 @@ import { MatSelect } from '@angular/material/select';
     MatCardModule,
     MatOption,
     MatCardTitle,
-    MatSelect,
+    MatSelect,    
+    MatSelectModule, 
+    MatOptionModule,
 
     // Exportación de componentes
     SearchBoxComponent,
