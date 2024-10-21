@@ -69,7 +69,7 @@ export class IngresosComponent implements OnInit {
   obtenerCamas(): void{
     this.camaService.getLlits().subscribe({
       next: (data: Cama[]) => {
-        this.llits = data;
+        this.llits = data.filter(llit => !llit.ocupat && !llit.foraDeServei);
       },
       error: (error : any) =>{
         console.error('Error al cargar las camas', error);
