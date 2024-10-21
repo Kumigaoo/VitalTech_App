@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Ingreso } from '../../../../../../interface/ingreso.interface';
+import { Paciente } from '../../../../../../interface/paciente.interface';
+import { Personal } from '../../../../../../interface/personal.interface';
 import { IngresoService } from '../../../../../../services/ingreso.service';
 import { Cama } from '../../../../../../interface/cama.interface';
 import { CamaService } from '../../../../../../services/cama.service';
