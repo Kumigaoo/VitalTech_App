@@ -11,6 +11,7 @@ import { HttpClient } from '@angular/common/http';
 import { DialogFormulariocamaComponent } from '../../../../../../components/Formularios/Cama/dialog-formulario-cama-registro/dialog-formulario-cama.component';
 import { DialogFormulariocamaModifComponent } from '../../../../../../components/Formularios/Cama/dialog-formulario-cama-modif/dialog-formulario-cama-modif.component';
 import { DialogFormularioConsultaComponent } from '../../../../../../components/Formularios/Consulta/dialog-formulario-consulta-registro/dialog-formulario-consulta.component';
+import { DialogFormularioConsultaModifComponent } from '../../../../../../components/Formularios/Consulta/dialog-formulario-consulta-modif/dialog-formulario-consulta-modif.component';
 
 @Component({
   selector: 'app-consultas',
@@ -100,6 +101,19 @@ export class ConsultasComponent implements OnInit, AfterViewInit {
       }
     });
   } 
+
+  toggleActualizarConsulta(consulta: Consulta): void {
+    this.consultaSeleccionada = { ...consulta };
+    this.dialog.open(DialogFormularioConsultaModifComponent, {
+      data: this.consultaSeleccionada
+    }).afterClosed().subscribe((consultaActualizada) => {
+      if (consultaActualizada) {
+        this.consultaSeleccionada = consultaActualizada;
+        this.actualizarConsulta();
+      }
+    });
+  }
+
   cerrarFormulario(): void {
     this.consultaSeleccionada = null;
   }
