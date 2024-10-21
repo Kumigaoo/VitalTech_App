@@ -1,25 +1,38 @@
 <h2 mat-dialog-title>{{ 'Actualizar Cama' }}</h2>
 <mat-dialog-content>
-  <form (ngSubmit)="guardar()">
-    <mat-form-field appearance="outline">
-      <mat-label>Codigo cama</mat-label>
-      <input matInput [(ngModel)]="data.codiLlit" name="codiLlit" required />
-    </mat-form-field>
+<form [formGroup]="camaForm" (ngSubmit)="guardar()">
+  <br />
+  <mat-form-field appearance="outline">
+    <mat-label>Codigo cama</mat-label>
+    <input matInput formControlName="codiLlit" required />
+    <mat-error *ngIf="camaForm.get('codiLlit')?.hasError('required')">El código de la cama es requerido</mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Fuera de servicio</mat-label>
+    <mat-select formControlName="foraDeServei"> <!-- Cambiado a formControlName -->
+      <mat-option [value]="true">Sí</mat-option>
+      <mat-option [value]="false">No</mat-option>
+    </mat-select>
+    <mat-error *ngIf="camaForm.get('foraDeServei')?.hasError('required')">Selecciona su estado</mat-error>
+  </mat-form-field>
+  
 
     <mat-form-field appearance="outline">
-      <mat-label>Fuera de servicio</mat-label>
-        <input matInput [(ngModel)]="data.foraDeServei" name="foraDeServei"/>
+      <mat-label>Seleccionar Habitación</mat-label>
+      <mat-select  formControlName="codiHabitacio" required>
+        <mat-option *ngFor="let habitacion of habitaciones" [value]="habitacion.codiHabitacio">
+          {{ habitacion.codiHabitacio }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="camaForm.get('codiHabitacio')?.hasError('required')">Selecciona una habitación</mat-error>
     </mat-form-field>
-
-    <mat-form-field appearance="outline">
-      <mat-label>Codigo Habitación</mat-label>
-      <input matInput [(ngModel)]="data.codiHabitacio" name="codiHabitacio" required />
-    </mat-form-field>
+    <mat-dialog-actions>
+      <button mat-button mat-dialog-close>Cancelar</button>
+      <button mat-raised-button color="primary" (click)="guardar()">
+        {{ 'Actualizar' }}
+      </button>
+    </mat-dialog-actions>
   </form>
 </mat-dialog-content>
-<mat-dialog-actions>
-  <button mat-button mat-dialog-close>Cancelar</button>
-  <button mat-raised-button color="primary" (click)="guardar()">
-    {{ 'Actualizar' }}
-  </button>
-</mat-dialog-actions>
+
