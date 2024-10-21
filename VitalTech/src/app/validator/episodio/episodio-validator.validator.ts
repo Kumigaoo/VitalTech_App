@@ -6,19 +6,19 @@ import { PacientService } from '../../service/pacientes.service';
 export function dataIniciFinalValidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
         const formGroup = control as FormGroup;
-        
+
         const dataObertura = formGroup.get('dataObertura')?.value;
         const dataTancament = formGroup.get('dataTancament')?.value;
 
 
-        if(!dataObertura || !dataTancament){
+        if (!dataObertura || !dataTancament) {
             return null;
         }
 
         if (new Date(dataObertura) > new Date(dataTancament)) {
-            return {viatjeEnElTemps: true};
-        } else if (new Date(dataObertura) > new Date()){
-            return {viatjeEnElTemps: true};
+            return { viatjeEnElTemps: true };
+        } else if (new Date(dataObertura) > new Date()) {
+            return { viatjeEnElTemps: true };
         } else {
             return null;
         }
@@ -27,15 +27,15 @@ export function dataIniciFinalValidator(): ValidatorFn {
 export function dataIniciValidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
         const formGroup = control as FormGroup;
-        
+
         const dataObertura = formGroup.get('dataObertura')?.value;
 
-        if(!dataObertura){
+        if (!dataObertura) {
             return null;
         }
 
-        if (new Date(dataObertura) > new Date()){
-            return {viatjeEnElTemps: true};
+        if (new Date(dataObertura) > new Date()) {
+            return { viatjeEnElTemps: true };
         } else {
             return null;
         }
@@ -43,10 +43,10 @@ export function dataIniciValidator(): ValidatorFn {
 }
 
 
-export function pacientIdexists(pacientService: PacientService): AsyncValidatorFn{
+export function pacientIdexists(pacientService: PacientService): AsyncValidatorFn {
     return (control: AbstractControl): Observable<ValidationErrors | null> => {
         if (!control.value) {
-          return of(null); 
+            return of(null);
         }
 
 
@@ -54,10 +54,26 @@ export function pacientIdexists(pacientService: PacientService): AsyncValidatorF
             map(paciente => (
                 paciente ? null : { pacienteIdNotFound: true }
             )),
-            catchError( error => {
+            catchError(error => {
                 return of({ pacienteIdNotFound: true });
             }
 
-        ));
+            ));
+    };
+}
+
+export function buit(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+        const value = control.value;
+
+        if (!value || typeof value !== 'string') {
+            return null;
+        }
+
+        if (value.trim().length === 0) {
+            return { buit: "No se puede poner solo espacios en blanco" };
+        }
+
+        return null;
     };
 }

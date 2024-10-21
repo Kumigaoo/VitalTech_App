@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Ingreso } from '../../../../../../interface/ingreso.interface';
 import { IngresoService } from '../../../../../../services/ingreso.service';
 import { Cama } from '../../../../../../interface/cama.interface';
@@ -32,10 +32,9 @@ export class IngresosComponent implements OnInit {
   //propiedaddes utiles
   llits: Cama[] = [];
   episodisMedics: EpisodiMedic[] = [];
+  datasSortida: Date[] = [];
 
-  constructor(private ingresoService: IngresoService, private camaService: CamaService, private episodiService: EpisodiService ) {}
-
-  ngOnInit(): void {
+  constructor(private ingresoService: IngresoService, private camaService: CamaService, private episodiService: EpisodiService, private fb: FormBuilder ) {
     // Obtener los ingresos y camas disponibles al iniciar el componente
     this.obtenerIngresos();
     this.obtenerCamas();
@@ -44,22 +43,26 @@ export class IngresosComponent implements OnInit {
     this.crearFormularioIngreso();
   }
 
+  ngOnInit(): void {
+    
+  }
+
   // Crear formulario de ingreso con validaciones necesarias
   crearFormularioIngreso(): void{
-    this.ingresoForm = new FormGroup({
-      id: new FormControl(0),
-      dataEntrada: new FormControl(null),
+    this.ingresoForm = this.fb.group({
+      id: [0],
+      dataEntrada: [null],
       // Definir campos adicionales si es necesario, comentados para este ejemplo
-      // IdMedico: new FormControl('',[Validators.required]),
-      // Motivo: new FormControl('',[IngresosValidators.noWhitespaceValidator()]),
-      // FechaSolicitud: new FormControl(new Date()),
-      // FechaIngreso: new FormControl (null),
-      dataSortida: new FormControl(null),
-      episodiMedicId: new FormControl('',[Validators.required]),
-      codiLlit: new FormControl('',[Validators.required]),
-      // TipoCama: new FormControl('',[Validators.required]),
-      // IdAsignacion: new FormControl(null)
-    });
+      // IdMedico: ['', [Validators.required]],
+      // Motivo: ['', [IngresosValidators.noWhitespaceValidator()]],
+      // FechaSolicitud: [new Date()],
+      // FechaIngreso: [null],
+      dataSortida: [null],
+      episodiMedicId: ['', [Validators.required]],
+      codiLlit: ['', [Validators.required]],
+      // TipoCama: ['', [Validators.required]],
+      // IdAsignacion: [null]
+  });
   }
 
   // Obtener la lista de camas disponibles desde el servicio correspondiente
