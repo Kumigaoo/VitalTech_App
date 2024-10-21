@@ -1,82 +1,87 @@
-<div class="consultas-section">
+<app-administratidor-sistema-dashboard></app-administratidor-sistema-dashboard>
+<div class="camas-section">
   <h2>Consultas</h2>
-  <div class="table-container">
-    <table class="table">
-      <thead>
-        <tr>
-          <!-- 
-            <th>ID Paciente</th> 
-            <th>Motivo</th>
-            <th>Estado</th>
-            -->
-          <th>Id consulta</th>
-          <th>Urgencia</th>
-          <th>Sintomatología</th>
-          <th>Receta</th>
-          <th>DNI personal</th>
-          <th>ID episodio médico</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let consulta of consultas">
-          <td>{{ consulta.id }}</td>
-          <td>{{ consulta.urgencia }}</td>
-          <td>{{ consulta.sintomatologia }}</td>
-          <td>{{ consulta.recepta }}</td>
-          <td>{{ consulta.dniPersonal }}</td>
-          <td>{{ consulta.episodiMedicId }}</td>
-          
-            <button (click)="toggleActualizarConsulta(consulta)">Actualizar</button>
-            <button (click)="borrarConsulta(consulta.id)">Borrar</button>
-          
-        </tr>
-        <!--
-        <tr *ngIf="consultaParaActualizar">
-          <td colspan="8">
-            <div class="form-container">
-              <h3>Actualizar Consulta</h3>
-              <form (ngSubmit)="actualizarConsulta()">
-                <label for="idPaciente">ID Paciente:</label>
-                <input type="number" id="idPaciente" [(ngModel)]="consultaParaActualizar.IdPaciente" name="idPaciente"
-                  disabled>
-                <label for="idMedico">ID Médico:</label>
-                <input type="number" id="idMedico" [(ngModel)]="consultaParaActualizar.IdMedico" name="idMedico"
-                  required>
-                <label for="motivo">Motivo:</label>
-                <input type="text" id="motivo" [(ngModel)]="consultaParaActualizar.Motivo" name="motivo" required>
-                <label for="fechaSolicitud">Fecha de Solicitud:</label>
-                <input type="date" id="fechaSolicitud" [(ngModel)]="consultaParaActualizar.FechaSolicitud"
-                  name="fechaSolicitud" required>
-                <label for="fechaConsulta">Fecha de Consulta:</label>
-                <input type="date" id="fechaConsulta" [(ngModel)]="consultaParaActualizar.FechaConsulta"
-                  name="fechaConsulta">
-                <label for="estado">Estado:</label>
-                <input type="text" id="estado" [(ngModel)]="consultaParaActualizar.Estado" name="estado" required>
-                <button type="submit">Guardar</button>
-              </form>
-            </div>
-          </td>
-        </tr>
-        -->
-      </tbody>
+  <app-snackbar #snackbar></app-snackbar>
+
+  <!-- 
+    <th>ID Paciente</th> 
+    <th>Motivo</th>
+    <th>Estado</th>
+  -->
+
+  <div class="header-container">
+    <div>
+
+      <button mat-raised-button class="demo-button" (click)="toggleFormularioAgregar()" >Create</button>
+    </div>
+
+    <div>
+      <app-search-box [searchOptions]="[
+          {label: 'Codigo de Consulta', value: 'id'},
+          {label: 'Urgencia', value: 'urgencia'},
+          {label: 'Sintomatologia', value: 'sintomatologia'},
+          {label: 'Receta', value: 'receta'},
+          {label: 'Dni Personal', value: 'dniPersonal'},
+        ]" [defaultSearchType]="'id'" placeholder="Escribe para buscar..." (search)="filtrarConsultas($event)">
+      </app-search-box>
+    </div>
+  </div>
+
+  <div class="table-container mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> Id </th>
+        <td mat-cell *matCellDef="let consulta"> {{consulta.id}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="urgencia">
+        <th mat-header-cell *matHeaderCellDef> Urgencia </th>
+        <td mat-cell *matCellDef="let consulta"> {{consulta.urgencia}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="sintomatologia">
+        <th mat-header-cell *matHeaderCellDef> Sintomatologia</th>
+        <td mat-cell *matCellDef="let consulta"> {{consulta.sintomatologia}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="receta">
+        <th mat-header-cell *matHeaderCellDef> Receta </th>
+        <td mat-cell *matCellDef="let consulta"> {{consulta.recepta}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="dniPersonal">
+        <th mat-header-cell *matHeaderCellDef> Dni Personal </th>
+        <td mat-cell *matCellDef="let consulta"> {{consulta.dniPersonal}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="episodiMedicId">
+        <th mat-header-cell *matHeaderCellDef> Id E.M.</th>
+        <td mat-cell *matCellDef="let consulta"> {{consulta.episodiMedicId}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="acciones">
+
+        <th mat-header-cell *matHeaderCellDef> Acciones </th>
+
+        <td mat-cell *matCellDef="let consulta" id="accions">
+          <button mat-raised-button color="primary" (click)="toggleActualizarConsulta(consulta)">
+            Update
+          </button>
+          <button mat-raised-button color="warn" (click)="borrarConsulta(consulta.id)">
+            Delete
+          </button>
+        </td>
+
+      </ng-container>
+
+
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
   </div>
-<!--
-  <div class="form-container">
-    <h3>Agregar Consulta</h3>
-    <form (ngSubmit)="agregarConsulta()">
-      <label for="idPaciente">ID Paciente:</label>
-      <input type="number" id="idPaciente" [(ngModel)]="nuevaConsulta.IdPaciente" name="idPaciente" required>
-      <label for="idMedico">ID Médico:</label>
-      <input type="number" id="idMedico" [(ngModel)]="nuevaConsulta.IdMedico" name="idMedico" required>
-      <label for="motivo">Motivo:</label>
-      <input type="text" id="motivo" [(ngModel)]="nuevaConsulta.Motivo" name="motivo" required>
-      <label for="fechaSolicitud">Fecha de Solicitud:</label>
-      <input type="date" id="fechaSolicitud" [(ngModel)]="nuevaConsulta.FechaSolicitud" name="fechaSolicitud" required>
-      <label for="estado">Estado:</label>
-      <input type="text" id="estado" [(ngModel)]="nuevaConsulta.Estado" name="estado" required>
-      <button type="submit">Agregar</button>
-    </form>
-  </div>
--->
+
+  <mat-paginator [pageSizeOptions]="[5, 10]" showFirstLastButtons></mat-paginator>
+
 </div>

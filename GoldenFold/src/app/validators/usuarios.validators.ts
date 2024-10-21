@@ -5,29 +5,29 @@ import { UsuarioService } from '../services/usuario.service';
 export class UserValidators {
 
   // Validador asíncrono para nombre usuario
-  static asyncFieldExisting(usuarioService: UsuarioService) {
-    return (control: AbstractControl): Observable<ValidationErrors | null> => {
-        return of(control.value).pipe(
-            debounceTime(300),
-            switchMap(value => 
-                usuarioService.getUsuarios(undefined, value, undefined).pipe(
-                    map(usuarios => {
-                        //Filtrar los usuarios en el frontend
-                        const usuariosFiltrados = usuarios.filter(usuario => 
-                            usuario.NombreUsuario==value
-                        );
+//   static asyncFieldExisting(usuarioService: UsuarioService) {
+//     return (control: AbstractControl): Observable<ValidationErrors | null> => {
+//         return of(control.value).pipe(
+//             debounceTime(300),
+//             switchMap(value => 
+//                 usuarioService.getUsuarios(undefined, value, undefined).pipe(
+//                     map(usuarios => {
+//                         //Filtrar los usuarios en el frontend
+//                         const usuariosFiltrados = usuarios.filter(usuario => 
+//                             usuario.NombreUsuario==value
+//                         );
 
-                        if (usuariosFiltrados.length > 0) {
-                            return { asyncFieldExisting: true };
-                        }
-                        return null;
-                    }),
-                    catchError(() => of(null))
-                )
-            )
-        );
-    };
-}
+//                         if (usuariosFiltrados.length > 0) {
+//                             return { asyncFieldExisting: true };
+//                         }
+//                         return null;
+//                     }),
+//                     catchError(() => of(null))
+//                 )
+//             )
+//         );
+//     };
+// }
 
 static noWhitespaceValidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
