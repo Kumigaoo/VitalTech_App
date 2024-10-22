@@ -5,6 +5,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { EpisodiMedic } from '../../../../interface/episodis-medics.interface';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 @Component({
   selector: 'app-dialog-formulario-episodis-modif',
@@ -12,6 +13,7 @@ import { EpisodiMedic } from '../../../../interface/episodis-medics.interface';
   imports: [ReactiveFormsModule, 
     FormsModule,  // Necesario para ngModel
     MatFormFieldModule, 
+    MatDatepickerModule,
     MatInputModule, 
     MatDialogModule,
     MatButtonModule // Para el botón "Cancelar" y "Guardar"
