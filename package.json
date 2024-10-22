@@ -1,9 +1,0 @@
-{
-  "dependencies": {
-    "fuse.js": "^7.0.0",
-    "sweetalert2": "^11.14.0"
-  },
-  "devDependencies": {
-    "@angular-devkit/build-angular": "^18.2.7"
-  }
-}
