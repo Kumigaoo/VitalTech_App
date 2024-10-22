@@ -124,3 +124,9 @@ h3 {
 .service.pacientes .service-image {
   background-image: url("../../../assets/images/pacientes.jpg");
 }
+.navigation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5vh;
+}
