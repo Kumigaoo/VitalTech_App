@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AdministradorSistemaRoute } from './administrador-sistema-routing.module';
 import { CamasComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/camas/camas.component';
-import { AsignacionesComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/asignaciones/asignaciones.component';
 import { HabitacionesComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/habitaciones/habitaciones.component';
 import { HistorialAltasComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/historial-altas/historial-altas.component';
 import { PacientesComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/pacientes/pacientes.component';
@@ -27,7 +26,8 @@ import { EpisodisMedicsComponent } from '../../../pages/inicio/pages/administrad
 
 @NgModule({
   declarations: 
-  [ AdministradorSistemaComponent, CamasComponent, AsignacionesComponent, HabitacionesComponent, HistorialAltasComponent, PacientesComponent, RolesComponent, UsuariosComponent, IngresosComponent, ConsultasComponent, PlantesComponent, EpisodisMedicsComponent ],
+  [ AdministradorSistemaComponent, CamasComponent, HabitacionesComponent, PacientesComponent, RolesComponent, UsuariosComponent, IngresosComponent, ConsultasComponent, PlantesComponent,EpisodisMedicsComponent ],
+
   imports: 
   [ AdministradorSistemaRoute, AdministradorSistemaDashboardComponent, SharedModule ]
 })

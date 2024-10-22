@@ -4,13 +4,13 @@
   <main>
     <div class="filters-container">
       <div class="search-container">
-        <label for="searchNumeroSS">NSS:</label>
-        <input placeholder="NSS" name="searchNumeroSS" [(ngModel)]="numSSFiltro" type="text" id="searchNumeroSS" (input)="filtrarPorNumeroSS()">
+        <!--<label for="searchNumeroSS">NSS:</label>
+        <input placeholder="NSS" name="searchNumeroSS" [(ngModel)]="numSSFiltro" type="text" id="searchNumeroSS" (input)="filtrarPorNumeroSS()">-->
       </div>
       
       <div class="filter-container">
-        <label for="filterFechaAlta">Fecha Alta:</label>
-        <input type="date" id="filterFechaAlta" [(ngModel)]="fechaAltaFiltro" (change)="filtrarPorFecha()" />
+        <!--<label for="filterFechaAlta">Fecha Alta:</label>
+        <input type="date" id="filterFechaAlta" [(ngModel)]="fechaAltaFiltro" (change)="filtrarPorFecha()" />-->
       </div>
       
     </div>
@@ -31,7 +31,7 @@
           <tr *ngFor="let historial of historialAltas">
             <td>{{ historial.IdHistorial }}</td>
             <td>{{ historial.IdPaciente }}</td>
-            <td>{{ historial.FechaAlta | date }}</td>
+            <td>{{ historial.FechaAlta  }}</td>
             <td>{{ historial.Diagnostico }}</td>
             <td>{{ historial.Tratamiento }}</td>
             <td>
@@ -43,7 +43,7 @@
       </table>
     </div>
 
-    <!-- Formulario para agregar y actualizar -->
+    <!-- Formulario para agregar y actualizar 
     <div class="form-container" *ngIf="historialAltaParaActualizar">
       <h3>Actualizar Historial de Alta</h3>
       <form [formGroup]="historialAltaForm" (ngSubmit)="actualizarHistorialAlta()">
@@ -134,7 +134,7 @@
         </span>
         <button type="submit" [disabled]="historialAltaForm.invalid">Agregar</button>
       </form>
-    </div>
+    </div>-->
   </main>
 </div>
 

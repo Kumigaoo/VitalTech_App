@@ -51,8 +51,8 @@
       </ng-container>
 
       <!-- Filas de la tabla -->
-      <tr mat-header-row *matHeaderRowDef="['CapCamas', 'Planta', 'NumeroHabitacion', 'Camas', 'Acciones']"></tr>
-      <tr mat-row *matRowDef="let row; columns: ['CapCamas', 'Planta', 'NumeroHabitacion', 'Camas', 'Acciones'];"></tr>
+      <tr mat-header-row *matHeaderRowDef="['NumeroHabitacion', 'CapCamas', 'Planta', 'Camas', 'Acciones']"></tr>
+      <tr mat-row *matRowDef="let row; columns: ['NumeroHabitacion','CapCamas', 'Planta',  'Camas', 'Acciones'];"></tr>
 
     </table>
   </div>

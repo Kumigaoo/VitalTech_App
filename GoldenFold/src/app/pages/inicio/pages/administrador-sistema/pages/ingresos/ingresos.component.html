@@ -2,6 +2,12 @@
   <h2>Ingresos</h2>
   <app-snackbar #snackbar></app-snackbar>
   <div style="display: flex; justify-content: space-between; align-items: center;">
+    <!--Botono agregar ingreso-->
+    <div>
+      <button mat-raised-button color="primary" (click)="toggleAgregarIngreso()">
+        Agregar Ingreso
+      </button>
+    </div>
     <!-- Caja de búsqueda -->
     <app-search-box
       [searchOptions]="[
@@ -13,12 +19,6 @@
       placeholder="Escribe para buscar..." 
       (search)="filtrarIngresos($event)">
     </app-search-box>
-    <!--Botono agregar ingreso-->
-    <div>
-      <button mat-raised-button color="primary" (click)="toggleAgregarIngreso()">
-        Agregar Ingreso
-      </button>
-    </div>
   </div>
   
 

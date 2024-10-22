@@ -26,7 +26,7 @@ export class HabitacionesComponent implements OnInit {
   };
   habitacionParaActualizar: Habitacion | null = null;
 
-  displayedColumns: string[] = ['CapCamas', 'Planta', 'NumeroHabitacion', 'Camas', 'Acciones'];  // Columnas de la tabla
+  displayedColumns: string[] = ['NumeroHabitacion', 'CapCamas', 'Planta','Camas', 'Acciones'];  // Columnas de la tabla
 
   constructor(private habitacionService: HabitacionService) { }
 
