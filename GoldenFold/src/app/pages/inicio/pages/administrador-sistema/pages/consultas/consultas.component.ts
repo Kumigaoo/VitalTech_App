@@ -6,10 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogFormularioComponent } from '../../../../../../components/dialog-formulario/dialog-formulario.component';
 import { HttpClient } from '@angular/common/http';
-import { DialogFormulariocamaComponent } from '../../../../../../components/Formularios/Cama/dialog-formulario-cama-registro/dialog-formulario-cama.component';
-import { DialogFormulariocamaModifComponent } from '../../../../../../components/Formularios/Cama/dialog-formulario-cama-modif/dialog-formulario-cama-modif.component';
 import { DialogFormularioConsultaComponent } from '../../../../../../components/Formularios/Consulta/dialog-formulario-consulta-registro/dialog-formulario-consulta.component';
 import { DialogFormularioConsultaModifComponent } from '../../../../../../components/Formularios/Consulta/dialog-formulario-consulta-modif/dialog-formulario-consulta-modif.component';
 

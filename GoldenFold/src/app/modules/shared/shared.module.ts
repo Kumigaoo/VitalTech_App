@@ -16,7 +16,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 // Componentes personalizados
-import { DialogFormularioComponent } from '../../components/dialog-formulario/dialog-formulario.component';
+import { DialogFormularioComponent } from '../../components/Formularios/Paciente/dialog-formulario/dialog-formulario.component';
 import { SnackbarComponent } from '../../components/snackbar/snackbar.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatOption } from '@angular/material/core';
@@ -34,20 +34,15 @@ import { MatOptionModule } from '@angular/material/core';
   imports: [
     CommonModule,
     FormsModule,
-    MatOption,
-    MatCardModule,
     ReactiveFormsModule,
-    SearchBoxComponent,
-    DialogFormularioComponent,
-    DialogFormulariocamaComponent,
-    MatCheckboxModule,
+    MatCardModule,
+    MatOption,
+    MatCardTitle,
+    MatSelect,    
     MatSelectModule, 
     MatOptionModule,
-
-    // Angular Material Modules
+    DialogFormularioComponent,
     MatTableModule,
-    MatCardTitle,
-    MatSelect,
     MatPaginatorModule,
     MatSortModule,
     MatButtonModule,
@@ -56,8 +51,9 @@ import { MatOptionModule } from '@angular/material/core';
     MatInputModule,
     MatSnackBarModule,
     SearchBoxComponent,
-    DialogFormularioComponent,
-    SnackbarComponent
+    SnackbarComponent,
+    DialogFormulariocamaComponent,
+    MatCheckboxModule
   ],
   exports: [
     CommonModule,
@@ -69,12 +65,7 @@ import { MatOptionModule } from '@angular/material/core';
     MatSelect,    
     MatSelectModule, 
     MatOptionModule,
-
-    // Exportación de componentes
-    SearchBoxComponent,
-    DialogFormularioComponent, // Exportar si se va a usar fuera del módulo
-
-    // Exportación de Angular Material Modules
+    DialogFormularioComponent,
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
@@ -84,7 +75,6 @@ import { MatOptionModule } from '@angular/material/core';
     MatInputModule,
     MatSnackBarModule,
     SearchBoxComponent,
-    DialogFormularioComponent,
     SnackbarComponent,
     DialogFormulariocamaComponent,
     MatCheckboxModule
