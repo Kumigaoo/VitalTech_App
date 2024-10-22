@@ -1,8 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Ingreso } from '../../../../../../interface/ingreso.interface';
-import { Paciente } from '../../../../../../interface/paciente.interface';
-import { Personal } from '../../../../../../interface/personal.interface';
 import { IngresoService } from '../../../../../../services/ingreso.service';
 import { Cama } from '../../../../../../interface/cama.interface';
 import { CamaService } from '../../../../../../services/cama.service';
@@ -13,6 +11,7 @@ import { EpisodiMedic } from '../../../../../../interface/episodis-medics.interf
 import { EpisodiService } from '../../../../../../services/episodis.service';
 import { DialogFormularioIngresoModifComponent } from '../../../../../../components/Formularios/Ingreso/dialog-formulario-ingreso-modif/dialog-formulario-ingreso-modif.component';
 import { MatDialog } from '@angular/material/dialog';
+import { SnackbarComponent } from '../../../../../../components/snackbar/snackbar.component';
 
 @Component({
   selector: 'app-ingresos',
@@ -25,24 +24,19 @@ export class IngresosComponent implements OnInit {
   displayedColumns: string[] = ['id', 'dataEntrada', 'dataSortida', 'episodiMedicId', 'codiLlit','Actions'];
   ingresos: MatTableDataSource<Ingreso> = new MatTableDataSource<Ingreso>([]);
 
-  //paginador y ordenador
+  //paginador,ordenador y snackbar
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild(SnackbarComponent) snackbar!: SnackbarComponent
 
   // Formularios reactivos
   ingresoForm!: FormGroup;
   ingresoParaActualizar: Ingreso | null = null;
 
-  //propiedaddes utiles
-  llits: Cama[] = [];
-  episodisMedics: EpisodiMedic[] = [];
-  datasSortida: Date[] = [];
 
   constructor(private ingresoService: IngresoService, private camaService: CamaService, private episodiService: EpisodiService, private fb: FormBuilder, public dialog: MatDialog ) {
     // Obtener los ingresos y camas disponibles al iniciar el componente
     this.obtenerIngresos();
-    this.obtenerCamas();
-    this.obtenerEpisodisMedics();
     // Crear el formulario para manejar los ingresos
     this.crearFormularioIngreso();
   }
@@ -68,32 +62,6 @@ export class IngresosComponent implements OnInit {
       // IdAsignacion: [null]
   });
   }
-
-
-  // Obtener la lista de camas disponibles desde el servicio correspondiente
-  obtenerCamas(): void{
-    this.camaService.getLlits().subscribe({
-      next: (data: Cama[]) => {
-        this.llits = data.filter(llit => !llit.ocupat && !llit.foraDeServei);
-      },
-      error: (error : any) =>{
-        console.error('Error al cargar las camas', error);
-      }
-    });
-  }
-
-  // obtener la lista de episodios medicos desde el servicio correspondiente
-  obtenerEpisodisMedics(): void{
-    this.episodiService.getEpisodis().subscribe({
-      next: (data:EpisodiMedic[]) =>{
-        this.episodisMedics = data;
-      },
-      error: (error:any) =>{
-        console.log('Error al cargar los episodios medicos');
-      }
-    })
-  }
-
   // Obtener la lista de ingresos desde el servicio correspondiente
   obtenerIngresos(): void {
     this.ingresoService.getIngresosos().subscribe({
@@ -123,16 +91,16 @@ export class IngresosComponent implements OnInit {
           // Reiniciar el formulario después de agregar el ingreso
           this.obtenerIngresos();
           this.ingresoForm.reset();
-          alert('Ingreso creado con exito');
+          this.snackbar.showNotification('success', 'Ingreso creado con exito'); // Notificación de éxito
         },
         error: (error: any) => {
           const mensajeError =
             error.error || 'Error inesperado. Inténtalo de nuevo.';
-          alert(mensajeError);
+            this.snackbar.showNotification('error', error); // Notificación de éxito
         },
       });
     } else {
-      alert('Por favor, completa todos los campos requeridos.');  
+      console.log(this.ingresoForm.value);
     }
   }
 
@@ -148,7 +116,7 @@ export class IngresosComponent implements OnInit {
           // Restablecer las variables del formulario y del ingreso a actualizar
           this.ingresoParaActualizar = null;
           this.ingresoForm.reset();
-          alert('Ingreso actualizado con éxito.');
+          this.snackbar.showNotification('success', 'Ingreso actualizado correctamente'); // Notificación de éxito
         },
         error:(error: any) => {
           console.error('Error al actualizar el ingreso', error);
@@ -186,7 +154,7 @@ export class IngresosComponent implements OnInit {
       next: () => {
         // Eliminar el ingreso de la lista de ingresos
         this.ingresos.data = this.ingresos.data.filter(i => i.id !== id);
-        alert('Ingreso eliminado correctamente');
+        this.snackbar.showNotification('success', 'Ingreso eliminado correctamente'); // Notificación de éxito
       },
       error: (error: any) => {
         console.error('Error al borrar el ingreso', error);
@@ -208,14 +176,15 @@ export class IngresosComponent implements OnInit {
     });
   }
 
-  // Cancelar la creación de un nuevo ingreso
-  cancelarNuevoIngreso(): void{
-    this.ingresoForm.reset();
-  }
-
-  // Cancelar la actualización de un ingreso existente
-  cancelarActualizarIngreso(): void{
-    this.ingresoParaActualizar = null;
-    this.ingresoForm.reset();
+  toggleAgregarIngreso(): void {
+    this.crearFormularioIngreso();
+    this.dialog.open(DialogFormularioIngresoModifComponent, {
+      data: this.ingresoForm
+    }).afterClosed().subscribe((ingresoCreado) => {
+      if (ingresoCreado) {
+        this.ingresoForm.patchValue(ingresoCreado);
+        this.agregarIngreso();
+      }
+    });
   }
 }

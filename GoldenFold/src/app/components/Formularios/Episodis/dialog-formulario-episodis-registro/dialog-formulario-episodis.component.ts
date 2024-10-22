@@ -5,9 +5,10 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { EpisodiMedic } from '../../../../interface/episodis-medics.interface';
 
 @Component({
-  selector: 'app-dialog-formulario-cama',
+  selector: 'app-dialog-formulario-episodis',
   standalone: true,
   imports: [ReactiveFormsModule, 
     FormsModule,  // Necesario para ngModel
@@ -16,13 +17,13 @@ import { MatButtonModule } from '@angular/material/button';
     MatDialogModule,
     MatButtonModule // Para el botón "Cancelar" y "Guardar"
     ],
-  templateUrl: './dialog-formulario-cama.component.html',
-  styleUrls: ['./dialog-formulario-cama.component.css']
+  templateUrl: './dialog-formulario-episodis.component.html',
+  styleUrls: ['./dialog-formulario-episodis.component.css']
 })
-export class DialogFormulariocamaComponent {
+export class DialogFormularioEpisodisComponent {
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: Cama, 
-    public dialogRef: MatDialogRef<DialogFormulariocamaComponent>
+    @Inject(MAT_DIALOG_DATA) public data: EpisodiMedic, 
+    public dialogRef: MatDialogRef<DialogFormularioEpisodisComponent>
   ) {
   }
 

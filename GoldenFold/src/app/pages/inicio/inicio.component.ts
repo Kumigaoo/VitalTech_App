@@ -1,4 +1,5 @@
 import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-inicio',
@@ -6,6 +7,7 @@ import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
   styleUrls: ['./inicio.component.css']
 })
 export class InicioComponent implements OnInit, AfterViewInit, OnDestroy {
+  frontend2Url = environment.apiFrontVitaltech;
 
   constructor() { }
 

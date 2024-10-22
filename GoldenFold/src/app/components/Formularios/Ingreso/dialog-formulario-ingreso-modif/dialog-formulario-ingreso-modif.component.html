@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>{{ 'Actualizar Ingreso' }}</h2>
+<h2 mat-dialog-title>{{ data.id ? 'Actualizar Ingreso' : 'Agregar Ingreso' }}</h2>
 <mat-dialog-content>
   <form [formGroup]="ingresoForm">
     <br />
@@ -14,6 +14,7 @@
           {{ episodio.id }}
         </mat-option>
       </mat-select>
+      <mat-error *ngIf="ingresoForm.get('episodiMedicId')?.hasError('required')">Selecciona un episodio médico</mat-error>
     </mat-form-field>
     
     
@@ -33,6 +34,6 @@
 <mat-dialog-actions>
   <button mat-button mat-dialog-close>Cancelar</button>
   <button mat-raised-button color="primary" [disabled]="ingresoForm.invalid" (click)="guardar()" >
-    {{ 'Actualizar' }}
+    {{ data.id ? 'Actualizar' : 'Agregar' }}
   </button>
 </mat-dialog-actions>

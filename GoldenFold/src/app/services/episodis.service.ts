@@ -32,7 +32,7 @@ export class EpisodiService {
     );
   }
 
-  deleteEpisodi(id: string): Observable<EpisodiMedic> {
+  deleteEpisodi(id: number): Observable<EpisodiMedic> {
     return this.http.delete<EpisodiMedic>(`${this.apiUrl}/${id}`);
   }
 
