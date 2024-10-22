@@ -5,10 +5,10 @@
   <!-- Caja de búsqueda -->
   <app-search-box
   [searchOptions]="[
-  { label: 'ID Usuario', value: 'IdUsuario' },
+  { label: 'DNI', value: 'DNI' },
   { label: 'Nombre', value: 'Nombre' }
 ]"
-   [defaultSearchType]="'IdUsuario'" placeholder="Escribe para buscar..." (search)="filtrarUsuarios($event)">
+   [defaultSearchType]="'Nombre'" placeholder="Escribe para buscar..." (search)="filtrarUsuarios($event)">
   </app-search-box>
 
   <!--Tabla Angular Material-->
@@ -24,6 +24,16 @@
       <ng-container matColumnDef="nom">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
         <td mat-cell *matCellDef="let usuario">{{ usuario.nom }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="especialitat">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Especialidad</th>
+        <td mat-cell *matCellDef="let usuario">{{ usuario.especialitat }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="consultes">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Consultes</th>
+        <td mat-cell *matCellDef="let usuario">{{ usuario.consultes }}</td>
       </ng-container>
 
       <!--Columna Nombre Usuario-->
@@ -43,7 +53,7 @@
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Acciones</th>
         <td mat-cell *matCellDef="let usuario">
           <button mat-button (click)="toggleActualizarUsuario(usuario)">Actualizar</button>
-          <button mat-button color="warn" (click)="borrarUsuario(usuario.IdUsuario)">Eliminar</button>
+          <button mat-button color="warn" (click)="borrarUsuario(usuario.dni)">Eliminar</button>
         </td>
       </ng-container>
 
@@ -70,20 +80,20 @@
         <br *ngIf="usuarioForm.get('Nombre')?.hasError('whitespace') && usuarioForm.get('Nombre')?.hasError('pattern')">
         <small *ngIf="usuarioForm.get('Nombre')?.hasError('pattern')">Introduzca el nombre completo</small>
       </div>
-      <label for="nombreUsuario">Nombre Usuario:</label>
+      <!-- <label for="nombreUsuario">Nombre Usuario:</label>
       <input type="text" id="nombreUsuario" formControlName="NombreUsuario" />
       <div *ngIf="usuarioForm.get('NombreUsuario')?.invalid">
         <small
-          *ngIf="usuarioForm.get('NombreUsuario')?.hasError('whitespace')&&usuarioForm.get('NombreUsuario')?.touched">El
-          nombre de usuario no puede estar en blanco</small>
+          *ngIf="usuarioForm.get('NombreUsuario')?.hasError('whitespace') && usuarioForm.get('NombreUsuario')?.touched">El
+          nombre de usuario no puede estar en blanco.</small>
         <small
-          *ngIf="usuarioForm.get('NombreUsuario')?.hasError('asyncFieldExisting')&&usuarioForm.get('NombreUsuario')?.dirty">El
-          nombre de usuario ya existe</small>
+          *ngIf="usuarioForm.get('NombreUsuario')?.hasError('asyncFieldExisting') && usuarioForm.get('NombreUsuario')?.dirty">El
+          nombre de usuario ya existe.</small>
       </div>
       <label for="contrasenya">Contraseña:</label>
       <input type="password" id="contrasenya" formControlName="Contrasenya" />
-      <div *ngIf="usuarioForm.get('Contrasenya')?.invalid&&usuarioForm.get('Contrasenya')?.touched">
-        <small *ngIf="usuarioForm.get('Contrasenya')?.hasError('required')">La contraseña es requerida</small>
+      <div *ngIf="usuarioForm.get('Contrasenya')?.invalid && usuarioForm.get('Contrasenya')?.touched">
+        <small *ngIf="usuarioForm.get('Contrasenya')?.hasError('required')">La contraseña es obligatoria</small>
       </div>
       <label for="idRol">Rol:</label>
       <select formControlName="IdRol" required>
@@ -93,7 +103,7 @@
       </select>
       <div *ngIf="usuarioForm.get('IdRol')?.invalid && usuarioForm.get('IdRol')?.touched">
         <small *ngIf="usuarioForm.get('IdRol')?.hasError('required')">El rol es requerido</small>
-      </div>
+      </div> -->
       <div class="botones">
         <button type="submit" [disabled]="usuarioForm.invalid">Guardar</button>
         <button type="button" (click)="cancelarActualizarUsuario()">
@@ -104,29 +114,38 @@
   </div>
 
   <!--Agregar usuario form-->
-  <!-- <mat-card *ngIf="!usuarioParaActualizar">
+  <mat-card *ngIf="!usuarioParaActualizar">
     <mat-card-title>Agregar Usuario</mat-card-title>
     <br/>
     <form [formGroup]="usuarioForm" (ngSubmit)="agregarUsuario()" >
       <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Nombre:*</mat-label>
-        <input matInput formControlName="Nombre" />
-        <mat-error *ngIf="usuarioForm.get('Nombre')?.hasError('whitespace')">El nombre no puede estar en
+        <mat-label>Nombre:</mat-label>
+        <input matInput formControlName="nom" />
+        <mat-error *ngIf="usuarioForm.get('nom')?.hasError('whitespace')">El nombre no puede estar en
           blanco</mat-error>
-        <mat-error
-          *ngIf="usuarioForm.get('Nombre')?.hasError('pattern')&&!usuarioForm.get('Nombre')?.hasError('whitespace')">Introduzca
-          el nombre completo</mat-error>
+        <!-- <mat-error
+          *ngIf="usuarioForm.get('nom')?.hasError('pattern')&&!usuarioForm.get('nom')?.hasError('whitespace')">Introduzca
+          el nombre completo</mat-error> -->
         <br />
       </mat-form-field>
+
       <mat-form-field appearance="outline" class="full-width">
+        <mat-label>DNI:</mat-label>
+        <input matInput formControlName="dni" />
+        <mat-error *ngIf="usuarioForm.get('dni')?.hasError('whitespace')">El DNI no puede estar en
+          blanco</mat-error>
+        <br />
+      </mat-form-field>
+
+      <!-- <mat-form-field appearance="outline" class="full-width">
         <mat-label>Nombre usuario:*</mat-label>
         <input matInput formControlName="NombreUsuario" />
         <mat-error *ngIf="usuarioForm.get('NombreUsuario')?.hasError('whitespace')">El nombre de usuario no puede estar
           en blanco</mat-error>
         <mat-error *ngIf="usuarioForm.get('NombreUsuario')?.hasError('asyncFieldExisting')">El de nombre de usuario ya
           existe</mat-error>
-      </mat-form-field>
-      <mat-form-field appearance="outline" class="full-width">
+      </mat-form-field> -->
+      <!-- <mat-form-field appearance="outline" class="full-width">
         <mat-label>Contraseña:</mat-label>
         <input matInput formControlName="Contrasenya" type="password" />
         <mat-error *ngIf="usuarioForm.get('Contrasenya')?.hasError('required')">Introduzca una contraseña</mat-error>
@@ -135,13 +154,14 @@
         <mat-label>ID Rol:</mat-label>
         <input matInput formControlName="IdRol" />
         <mat-error *ngIf="usuarioForm.get('IdRol')?.hasError('required')">Introduzca un rol</mat-error>
-      </mat-form-field>
+      </mat-form-field> -->
+
       <div>
         <button mat-raised-button color="primary" type="submit" [disabled]="usuarioForm.invalid">
           Agregar
         </button>
-        <button mat-button type="button" (click)="cancelarNuevoUsuario()">Cancelar</button>
+        <button mat-button type="button" (click)="cancelarNuevoUsuario()">Cancelar</button> 
       </div>
     </form>
   </mat-card>
-</div> -->
+</div>

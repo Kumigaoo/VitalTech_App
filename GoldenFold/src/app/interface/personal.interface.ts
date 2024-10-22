@@ -1,5 +1,5 @@
 
-//esto es metge/personal
+
 export interface Personal {
     dni: number;   //antes IdUsuario
     nom: string;   //antes Nombre

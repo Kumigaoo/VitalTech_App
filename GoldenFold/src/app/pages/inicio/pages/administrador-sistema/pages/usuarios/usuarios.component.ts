@@ -15,6 +15,7 @@ import { SnackbarComponent } from '../../../../../../components/snackbar/snackba
   templateUrl: './usuarios.component.html',
   styleUrls: ['./usuarios.component.css'],
 })
+
 export class UsuariosComponent implements OnInit {
   @ViewChild(SnackbarComponent) snackbar!: SnackbarComponent;  // Referencia al snackbar
 
@@ -22,7 +23,7 @@ export class UsuariosComponent implements OnInit {
   usuarios: MatTableDataSource<Personal> = new MatTableDataSource<Personal>();
 
   //columnas que se mostraran en la tabla
-  displayedColumns: string[] = ['dni','nom'];
+  displayedColumns: string[] = ['dni','nom', 'especialitat', 'Actions'];
 
   //paginador y ordenador
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -48,9 +49,7 @@ export class UsuariosComponent implements OnInit {
     this.usuarioForm = new FormGroup({
       IdUsuario: new FormControl({ value: '', disabled: true }),
       Nombre: new FormControl('',[UserValidators.noWhitespaceValidator(),Validators.pattern(' *[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ.]+( [a-zA-ZáéíóúÁÉÍÓÚüÜñÑ.]+)+ *')]) //no puede estar en blanco y tiene que tener minimo 2 palabras
-
     });
-
   }
 
   // configurarValidaciones(): void{
@@ -61,7 +60,7 @@ export class UsuariosComponent implements OnInit {
   //     this.usuarioForm.get('NombreUsuario')?.clearAsyncValidators();
   //   }
   //   this.usuarioForm.get('NombreUsuario')?.updateValueAndValidity();
-  // }
+  //}
 
   obtenerUsuarios(): void {
     this.usuarioService.getUsuarios().subscribe({
@@ -153,8 +152,8 @@ export class UsuariosComponent implements OnInit {
   }
 
 
-  borrarUsuario(idUsuario: number): void {
-    this.usuarioService.deleteUsuario(idUsuario).subscribe({
+  borrarUsuario(dni: string): void {
+    this.usuarioService.deleteUsuario(dni).subscribe({
       next: () => {
         this.obtenerUsuarios(); // Refrescar la lista de usuarios
         this.snackbar.showNotification('success', 'Usuario eliminado con éxito'); // Notificación de éxito
@@ -166,13 +165,12 @@ export class UsuariosComponent implements OnInit {
     });
   }
 
-
   resetUsuario(): Personal {
     return {
       dni: 0,
       especialitat: '',
       nom: '',
-      consultes: ['']
+      consultes: []
     };
   }
 
