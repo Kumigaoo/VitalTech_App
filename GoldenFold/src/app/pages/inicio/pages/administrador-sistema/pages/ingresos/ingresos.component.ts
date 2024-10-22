@@ -136,7 +136,7 @@ export class IngresosComponent implements OnInit {
       } else if (type === 'episodiMedicId') {
         return data.episodiMedicId.toString().toLowerCase() === lowerCaseFilter.toString() || false;
       } else if (type === 'codiLlit') {
-        return (data.codiLlit?.toString().toLowerCase().includes(lowerCaseFilter)) ?? false;
+        return (data.codiLlit?.toString().toLowerCase().includes(lowerCaseFilter)) || false;
       }
       return false;  // Si no coincide ningún tipo
     };
