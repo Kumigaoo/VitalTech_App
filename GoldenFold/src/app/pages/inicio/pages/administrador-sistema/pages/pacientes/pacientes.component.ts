@@ -5,7 +5,7 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogFormularioComponent } from '../../../../../../components/dialog-formulario/dialog-formulario.component';
+import { DialogFormularioComponent } from '../../../../../../components/Formularios/Paciente/dialog-formulario/dialog-formulario.component';
 import { SnackbarComponent } from '../../../../../../components/snackbar/snackbar.component';
 
 @Component({
@@ -16,8 +16,8 @@ import { SnackbarComponent } from '../../../../../../components/snackbar/snackba
 export class PacientesComponent implements OnInit, AfterViewInit {
   @ViewChild(SnackbarComponent) snackbar!: SnackbarComponent
   // Variables relacionadas con la tabla y los datos
-  displayedColumns: string[] = ['IdPaciente', 'Nombre', 'Dni', 'FechaNacimiento', 'Estado', 'FechaRegistro', 'SeguridadSocial', 'acciones'];
-  dataSource = new MatTableDataSource<Paciente>([]);
+  displayedColumns: string[] = ['dni', 'numSS', 'nom', 'birthDay', 'sexe', 'acciones'];
+  dataSource: MatTableDataSource<Paciente> = new MatTableDataSource<Paciente>([]);
   totalItems = 0;
   itemsPerPage = 300;
   pageIndex = 0;
@@ -33,7 +33,15 @@ export class PacientesComponent implements OnInit, AfterViewInit {
 
   constructor(private pacienteService: PacienteService, public dialog: MatDialog) {
     this.nuevoPaciente = {
-      IdPaciente: 0,
+      dni: '',
+      numSS: '',
+      nom: '',
+      cognom1: '',
+      cognom2: '',
+      sexe: '',
+      birthDay : '',
+      episodisMedics: []
+      /*IdPaciente: 0,
       Nombre: '',
       Dni: '',
       FechaNacimiento: new Date(),
@@ -43,7 +51,7 @@ export class PacientesComponent implements OnInit, AfterViewInit {
       Direccion: '',
       Telefono: '',
       Email: '',
-      HistorialMedico: ''
+      HistorialMedico: ''*/
     };
   }
 
@@ -57,11 +65,16 @@ export class PacientesComponent implements OnInit, AfterViewInit {
   }
 
   obtenerPacientes(): void {
-    this.pacienteService.getPacientes().subscribe((data: Paciente[]) => {
+    this.pacienteService.getPacients().subscribe({
+      next: (data: Paciente[]) => {
       this.pacientes = data;
       this.totalItems = data.length;
       this.actualizarPagina(0, this.itemsPerPage);
-    });
+    },
+    error: (error: any) => {
+      console.error('Error al obtener los pacientes', error);
+    }
+  });
   }
 
   onPaginateChange(event: PageEvent) {
@@ -76,13 +89,13 @@ export class PacientesComponent implements OnInit, AfterViewInit {
     this.dataSource.data = this.pacientes.slice(startIndex, endIndex);
   }
 
-  filtrarPacientes(event: { type: string; term: string }): void {
+  /*filtrarPacientes(event: { type: string; term: string }): void {
     const { term } = event;
     this.dataSource.filter = term.trim().toLowerCase();
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
-  }
+  }*/
 
   // Mostrar el formulario para actualizar paciente
   toggleActualizarPaciente(paciente: Paciente): void {
@@ -99,22 +112,20 @@ export class PacientesComponent implements OnInit, AfterViewInit {
 
   toggleFormularioAgregar(): void {
     this.nuevoPaciente = {
-      IdPaciente: 0,
-      Nombre: '',
-      Dni: '',
-      FechaNacimiento: new Date(),
-      Estado: 'Registrado',
-      FechaRegistro: new Date(),
-      SeguridadSocial: '',
-      Direccion: '',
-      Telefono: '',
-      Email: '',
-      HistorialMedico: ''
+      dni: '',
+      numSS: '',
+      nom: '',
+      cognom1: '',
+      cognom2: '',
+      sexe: '',
+      birthDay : '',
+      episodisMedics: []
     };
     this.dialog.open(DialogFormularioComponent, {
       data: this.nuevoPaciente
     }).afterClosed().subscribe((pacienteCreado) => {
       if (pacienteCreado) {
+        this.nuevoPaciente = pacienteCreado;
         this.guardarPaciente();
       }
     });
@@ -125,8 +136,8 @@ export class PacientesComponent implements OnInit, AfterViewInit {
   }
 
   // Eliminar paciente
-borrarPaciente(id: number): void {
-  this.pacienteService.deletePaciente(id).subscribe({
+borrarPaciente(id: string): void {
+  this.pacienteService.deletePacient(id).subscribe({
     next: () => {
       this.obtenerPacientes(); // Refrescar la tabla tras borrar
       this.snackbar.showNotification('success', 'Paciente eliminado correctamente'); // Notificación de éxito
@@ -140,7 +151,7 @@ borrarPaciente(id: number): void {
 
 // Guardar un nuevo paciente
 guardarPaciente(): void {
-  this.pacienteService.addPaciente(this.nuevoPaciente).subscribe({
+  this.pacienteService.postPacient(this.nuevoPaciente).subscribe({
     next: () => {
       this.obtenerPacientes();
       this.cerrarFormulario();
@@ -156,7 +167,7 @@ guardarPaciente(): void {
 actualizarPaciente(): void {
   console.log(this.pacienteSeleccionado); // Para verificar que pacienteSeleccionado no sea null o undefined
   if (this.pacienteSeleccionado) {
-    this.pacienteService.updatePaciente(this.pacienteSeleccionado).subscribe({
+    this.pacienteService.putPacient(this.pacienteSeleccionado, this.pacienteSeleccionado.dni).subscribe({
       next: () => {
         this.obtenerPacientes();
         this.cerrarFormulario();
@@ -172,12 +183,34 @@ actualizarPaciente(): void {
   }
 }
 
+  filtrarPacientes(event: {type: string; term: string}): void {
+    const {type, term} = event;
+    const searchterm = term.trim().toLowerCase();
 
+    this.dataSource.filterPredicate = (data: Paciente, filter: string) => {
+      switch (type){
+        case 'dni':
+          return data.dni?.toLowerCase().includes(filter.toLowerCase()) ?? false;
+        
+        case 'numSS':
+          return data.numSS?.toLowerCase().includes(filter.toLowerCase()) ?? false;
 
-  // Función para ocultar la notificación después de 2 segundos
-  private ocultarNotificacion(): void {
-    setTimeout(() => {
-      this.notificacion = null;
-    }, 2000);
+        case 'nom':
+          return data.nom?.toLowerCase().includes(filter.toLowerCase()) ?? false;
+
+        case 'sexe':
+          return data.sexe?.toLowerCase().includes(filter.toLowerCase()) ?? false;
+
+        default: 
+          return false;
+      }
+    };
+    this.dataSource.filter = searchterm;
+
+    if (this.dataSource.paginator){
+      this.dataSource.paginator.firstPage();
+    }
   }
+
+
 }

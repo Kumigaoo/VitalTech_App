@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CamasComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/camas/camas.component';
-import { AsignacionesComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/asignaciones/asignaciones.component';
 import { HabitacionesComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/habitaciones/habitaciones.component';
 import { HistorialAltasComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/historial-altas/historial-altas.component';
 import { PacientesComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/pacientes/pacientes.component';
@@ -22,18 +21,20 @@ const routes: Routes = [
     path: 'camas', 
     component: CamasComponent
   },
+
   {
     path: 'episodis-medics', 
     component: EpisodisMedicsComponent
   }, 
+
   {
     path: 'habitaciones', 
     component: HabitacionesComponent
-  },
+  },/*
   {
     path: 'historial-altas', 
     component: HistorialAltasComponent
-  },
+  },*/
   {
     path: 'pacientes', 
     component: PacientesComponent

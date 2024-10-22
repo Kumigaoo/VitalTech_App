@@ -5,7 +5,6 @@ import { HistorialAltaService } from '../../../../../../services/historialAlta.s
 import { HistorialAlta } from '../../../../../../interface/historial-alta.interface';
 import { ConsultaService } from '../../../../../../services/consulta.service';
 import { Paciente } from '../../../../../../interface/paciente.interface';
-import { asyncPatientIdExistsValidator } from '../../../../../../validators/patientIdExistsValidator';
 import { CustomValidators } from '../../../../../../validators';
 import { asyncConsultaExistsValidator } from '../../../../../../validators/consultaExistsValidator';
 import { ChangeDetectorRef } from '@angular/core';
@@ -58,7 +57,7 @@ export class HistorialAltasComponent implements OnInit {
       IdPaciente: new FormControl('', {
         validators: [Validators.required],
         asyncValidators: [
-          asyncPatientIdExistsValidator(this.pacienteService), 
+          //asyncPatientIdExistsValidator(this.pacienteService), 
           asyncConsultaExistsValidator(this.consultaService)
         ],
         updateOn: 'blur' 
@@ -81,7 +80,7 @@ export class HistorialAltasComponent implements OnInit {
   configurarValidaciones(): void {
     if (!this.historialAltaParaActualizar) {
       this.historialAltaForm.get('IdPaciente')?.setAsyncValidators([
-        asyncPatientIdExistsValidator(this.pacienteService), 
+       // asyncPatientIdExistsValidator(this.pacienteService), 
         asyncConsultaExistsValidator(this.consultaService)
       ]);
     } else {
@@ -91,7 +90,7 @@ export class HistorialAltasComponent implements OnInit {
   }
 
   obtenerPacientes() {
-    this.pacienteService.getPacientes().subscribe({
+    this.pacienteService.getPacients().subscribe({
       next: (data: Paciente[]) => {
         this.pacientes = data;
         console.log('Pacientes:', this.pacientes);
@@ -101,7 +100,7 @@ export class HistorialAltasComponent implements OnInit {
       }
     });
   }
-
+  /*
   filtrarPorFecha() {
     if (this.fechaAltaFiltro) {
       this.historialAltas = this.historialAltas.filter(historial => {
@@ -118,23 +117,23 @@ export class HistorialAltasComponent implements OnInit {
     if (filtroSS.length > 0) {
       this.historialAltas = this.historialAltas.filter(historial => {
         const paciente = this.getPacienteById(historial.IdPaciente);
-        return paciente && paciente.SeguridadSocial && 
-               paciente.SeguridadSocial.toLowerCase().includes(filtroSS); 
+        return paciente && paciente.numSS && 
+               paciente.numSS.toLowerCase().includes(filtroSS); 
       }); 
       console.log(this.historialAltas);
     } 
 
   }
 
-  getPacienteById(idPaciente: number): Paciente | undefined {
-    return this.pacientes.find(paciente => paciente.IdPaciente === idPaciente);
-  }
+  getPacienteById(idPaciente: string): Paciente | undefined {
+    return this.pacientes.find(paciente => paciente.dni === idPaciente);
+  }*/
 
   obtenerHistorialAltas(): void {
     this.historialAltaService.getHistorialAltas().subscribe({
       next: (data: HistorialAlta[]) => {
         this.historialAltas = data;
-        this.filtrarPorFecha();
+        //this.filtrarPorFecha();
       },
       error: (error: any) => {
         console.error('Error al obtener el historial de altas', error);
@@ -144,7 +143,7 @@ export class HistorialAltasComponent implements OnInit {
 
   onFechaAltaFiltroChange(event: any) {
     this.fechaAltaFiltro = event.target.value; 
-    this.filtrarPorFecha();
+    //this.filtrarPorFecha();
   }
 
   agregarHistorialAlta(): void {
@@ -160,7 +159,7 @@ export class HistorialAltasComponent implements OnInit {
       this.historialAltaService.addHistorialAlta(this.nuevoHistorialAlta).subscribe({
         next: (nuevoHistorialAlta: HistorialAlta) => {
           this.historialAltas.push(nuevoHistorialAlta);
-          this.filtrarPorFecha(); 
+          //this.filtrarPorFecha(); 
           this.nuevoHistorialAlta = this.inicializarHistorialAlta();
           this.historialAltaForm.reset();
           this.cd.detectChanges();
