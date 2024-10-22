@@ -4,10 +4,10 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { Consulta } from '../../../../interface/consulta.interface';
+import { EpisodiMedic } from '../../../../interface/episodis-medics.interface';
 
 @Component({
-  selector: 'app-dialog-formulario-consulta-modif',
+  selector: 'app-dialog-formulario-episodis-modif',
   standalone: true,
   imports: [ReactiveFormsModule, 
     FormsModule,  // Necesario para ngModel
@@ -16,13 +16,13 @@ import { Consulta } from '../../../../interface/consulta.interface';
     MatDialogModule,
     MatButtonModule // Para el botón "Cancelar" y "Guardar"
     ],
-  templateUrl: './dialog-formulario-consulta-modif.component.html',
-  styleUrls: ['./dialog-formulario-consulta-modif.component.css']
+  templateUrl: './dialog-formulario-episodis-modif.component.html',
+  styleUrls: ['./dialog-formulario-episodis-modif.component.css']
 })
-export class DialogFormularioConsultaModifComponent {
+export class DialogFormularioEpisodisModifComponent {
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: Consulta, 
-    public dialogRef: MatDialogRef<DialogFormularioConsultaModifComponent>
+    @Inject(MAT_DIALOG_DATA) public data: EpisodiMedic, 
+    public dialogRef: MatDialogRef<DialogFormularioEpisodisModifComponent>
   ) {}
 
   // Método para manejar el envío del formulario
