@@ -5,6 +5,11 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { Habitacion } from '../../../../interface/habitacion.interface';
+import { HabitacionService } from '../../../../services/habitacion.service';
+import { MatSelectModule } from '@angular/material/select';
+import { MatOptionModule } from '@angular/material/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-dialog-formulario-cama',
@@ -13,21 +18,57 @@ import { MatButtonModule } from '@angular/material/button';
     FormsModule,  // Necesario para ngModel
     MatFormFieldModule, 
     MatInputModule, 
+    MatSelectModule, 
+    MatOptionModule,
     MatDialogModule,
-    MatButtonModule // Para el botón "Cancelar" y "Guardar"
+    MatButtonModule,
+    CommonModule// Para el botón "Cancelar" y "Guardar"
     ],
   templateUrl: './dialog-formulario-cama.component.html',
   styleUrls: ['./dialog-formulario-cama.component.css']
 })
 export class DialogFormulariocamaComponent {
-  constructor(
+  habitaciones: Habitacion[] = [];
+  camaForm: FormGroup;
+
+ constructor(
+    private fb: FormBuilder,  // Inyectamos el FormBuilder
+    private habitacionService: HabitacionService,
     @Inject(MAT_DIALOG_DATA) public data: Cama, 
     public dialogRef: MatDialogRef<DialogFormulariocamaComponent>
   ) {
+    // Inicializamos el FormGroup con los campos requeridos
+    this.camaForm = this.fb.group({
+      codiLlit: ['', Validators.required],
+      codiHabitacio: ['', Validators.required]
+    });
   }
 
   // Método para manejar el envío del formulario
   guardar(): void {
-    this.dialogRef.close(this.data);  
+    if (this.camaForm.valid) {
+      const formData = this.camaForm.value;
+      formData.codiHabitacio = Number(formData.codiHabitacio);
+      formData.ocupat = false;
+      formData.foraDeServei = false;
+      formData.ingressos = [];
+      this.dialogRef.close(formData);  
+    }
+  }
+
+  ngOnInit(): void {
+    this.obtenerHabitaciones();
+  }
+
+  obtenerHabitaciones(): void {
+    this.habitacionService.getHabitacions().subscribe({
+      next: (data: Habitacion[]) => {
+        this.habitaciones = data;
+        console.log('Habitaciones cargadas:', this.habitaciones);
+      },
+      error: (error: any) =>{
+        console.error('Error al cargar las habitaciones');
+      }
+    })
   }
 }

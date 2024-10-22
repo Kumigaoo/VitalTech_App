@@ -1,25 +1,38 @@
-<h2 mat-dialog-title>{{ 'Actualizar Cama' }}</h2>
+<h2 mat-dialog-title>{{ 'Actualizar Ingreso' }}</h2>
 <mat-dialog-content>
-  <form (ngSubmit)="guardar()">
+  <form [formGroup]="ingresoForm">
+    <br />
     <mat-form-field appearance="outline">
-      <mat-label>Codigo cama</mat-label>
-      <input matInput [(ngModel)]="data.codiLlit" name="codiLlit" required />
+      <mat-label>Fecha de salida:</mat-label>
+      <input matInput type="date" formControlName="dataSortida" />
     </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Fuera de servicio</mat-label>
-        <input matInput [(ngModel)]="data.foraDeServei" name="foraDeServei"/>
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Seleccione un Episodio Médico</mat-label>
+      <mat-select formControlName="episodiMedicId" required>
+        <mat-option *ngFor="let episodio of episodisMedics" [value]="episodio.id">
+          {{ episodio.id }}
+        </mat-option>
+      </mat-select>
     </mat-form-field>
+    
+    
 
-    <mat-form-field appearance="outline">
-      <mat-label>Codigo Habitación</mat-label>
-      <input matInput [(ngModel)]="data.codiHabitacio" name="codiHabitacio" required />
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Cama:</mat-label>
+      <mat-select formControlName="codiLlit">
+        <mat-option *ngFor="let cama of llits" [value]="cama.codiLlit">
+          {{cama.codiLlit}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="ingresoForm.get('codiLlit')?.hasError('required')">Selecciona una cama</mat-error>
+      <br />
     </mat-form-field>
   </form>
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-button mat-dialog-close>Cancelar</button>
-  <button mat-raised-button color="primary" (click)="guardar()">
+  <button mat-raised-button color="primary" [disabled]="ingresoForm.invalid" (click)="guardar()" >
     {{ 'Actualizar' }}
   </button>
 </mat-dialog-actions>

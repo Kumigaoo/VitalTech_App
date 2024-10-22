@@ -10,6 +10,8 @@ import { DialogFormularioComponent } from '../../../../../../components/dialog-f
 import { HttpClient } from '@angular/common/http';
 import { DialogFormulariocamaComponent } from '../../../../../../components/Formularios/Cama/dialog-formulario-cama-registro/dialog-formulario-cama.component';
 import { DialogFormulariocamaModifComponent } from '../../../../../../components/Formularios/Cama/dialog-formulario-cama-modif/dialog-formulario-cama-modif.component';
+import { HabitacionService } from '../../../../../../services/habitacion.service';
+import { Habitacion } from '../../../../../../interface/habitacion.interface';
 
 @Component({
   selector: 'app-camas',
@@ -34,7 +36,7 @@ export class CamasComponent implements OnInit, AfterViewInit {
 
   camaSeleccionada: Cama | null = null;
 
-  constructor(private camaService: CamaService, public dialog: MatDialog, private http: HttpClient){
+  constructor(private camaService: CamaService, public dialog: MatDialog, private http: HttpClient, private habitacionService: HabitacionService){
     this.nuevaCama = {
       codiLlit: '',
       ocupat: false,
@@ -129,6 +131,7 @@ export class CamasComponent implements OnInit, AfterViewInit {
       data: this.nuevaCama
     }).afterClosed().subscribe((camaCreada) => {
       if (camaCreada) {
+        this.nuevaCama = camaCreada;
         this.guardarCama();
       }
     });
@@ -151,6 +154,7 @@ export class CamasComponent implements OnInit, AfterViewInit {
   }
   // Guardar un nuevo paciente
   guardarCama(): void {
+   console.log(this.nuevaCama.toString());
     this.http.post('http://localhost:5296/api/Llit', this.nuevaCama).subscribe({
       next: () => {
         this.obtenerCamas();
@@ -196,12 +200,24 @@ export class CamasComponent implements OnInit, AfterViewInit {
             const filterBoolean = filter === 'true';
             return data.ocupat === filterBoolean;
           } 
+          if (filter.toLowerCase() === "si"){
+            return data.ocupat === true;
+          }
+          if (filter.toLowerCase() === "no"){
+            return data.ocupat === false;
+          }
           return false;
   
         case 'foraDeServei':
           if (filter === 'true' || filter === 'false') {
             const filterBoolean = filter === 'true';
             return data.foraDeServei === filterBoolean;
+          }
+          if (filter.toLowerCase() === "si"){
+            return data.foraDeServei === true;
+          }
+          if (filter.toLowerCase() === "no"){
+            return data.foraDeServei === false;
           }
           return false;
   

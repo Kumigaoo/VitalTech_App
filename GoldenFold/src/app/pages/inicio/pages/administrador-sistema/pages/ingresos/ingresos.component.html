@@ -69,44 +69,7 @@
   <mat-paginator [pageSizeOptions]="[5, 10]" showFirstLastButtons=""></mat-paginator>
 
 
-  <!-- Formulario para actualizar un ingreso existente -->
-  <mat-card *ngIf="ingresoParaActualizar">
-    <mat-card-title>Actualizar Ingreso</mat-card-title>
-    <br />
-    <form [formGroup]="ingresoForm" (ngSubmit)="actualizarIngreso()">
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Fecha de salida:</mat-label>
-        <input matInput type="date" formControlName="dataSortida" />
-      </mat-form-field>
-
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Episodio medico:</mat-label>
-        <mat-select formControlName="episodiMedicId">
-          <mat-option *ngFor="let episodiMedic of episodisMedics" [value]="episodiMedic.id">
-            {{episodiMedic.id}}
-          </mat-option>
-        </mat-select>
-        <mat-error *ngIf="ingresoForm.get('episodiMedicId')?.hasError('required')">Selecciona un episodio medico</mat-error>
-        <br />
-      </mat-form-field>
-
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Cama:</mat-label>
-        <mat-select formControlName="codiLlit">
-          <mat-option *ngFor="let cama of llits" [value]="cama.codiLlit">
-            {{cama.codiLlit}}
-          </mat-option>
-        </mat-select>
-        <mat-error *ngIf="ingresoForm.get('camaId')?.hasError('required')">Selecciona una cama</mat-error>
-        <br />
-      </mat-form-field>
-      <div>
-        <button mat-raised-button color="primary" type="submit">Actualizar</button>
-        <button mat-button type="button" (click)="cancelarActualizarIngreso()">Cancelar</button>
-      </div>
-    </form>
-  </mat-card>
-
+  
   <!-- Formulario para agregar un nuevo ingreso -->
   <mat-card *ngIf="!ingresoParaActualizar">
     <mat-card-title>Agregar Ingreso</mat-card-title>

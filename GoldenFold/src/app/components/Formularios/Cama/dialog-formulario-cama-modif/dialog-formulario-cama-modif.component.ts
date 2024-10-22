@@ -5,6 +5,11 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatSelectModule } from '@angular/material/select';
+import { MatOptionModule } from '@angular/material/core';
+import { CommonModule } from '@angular/common';
+import { Habitacion } from '../../../../interface/habitacion.interface';
+import { HabitacionService } from '../../../../services/habitacion.service';
 
 @Component({
   selector: 'app-dialog-formulario-cama-modif',
@@ -13,20 +18,57 @@ import { MatButtonModule } from '@angular/material/button';
     FormsModule,  // Necesario para ngModel
     MatFormFieldModule, 
     MatInputModule, 
+    MatSelectModule, 
+    MatOptionModule,
     MatDialogModule,
-    MatButtonModule // Para el botón "Cancelar" y "Guardar"
+    MatButtonModule,
+    CommonModule// Para el botón "Cancelar" y "Guardar"
     ],
   templateUrl: './dialog-formulario-cama-modif.component.html',
   styleUrls: ['./dialog-formulario-cama-modif.component.css']
 })
 export class DialogFormulariocamaModifComponent {
+  habitaciones: Habitacion[] = [];
+  camaForm: FormGroup;
+
   constructor(
+    private fb: FormBuilder,  // Inyectamos el FormBuilder
+    private habitacionService: HabitacionService,
     @Inject(MAT_DIALOG_DATA) public data: Cama, 
     public dialogRef: MatDialogRef<DialogFormulariocamaModifComponent>
-  ) {}
+  ) {
+    // Inicializamos el FormGroup con los campos requeridos
+    this.camaForm = this.fb.group({
+      codiLlit: [data.codiLlit, Validators.required],
+      foraDeServei: [data.foraDeServei, Validators.required],
+      codiHabitacio: [data.codiHabitacio, Validators.required]
+    });
+  }
 
   // Método para manejar el envío del formulario
   guardar(): void {
-    this.dialogRef.close(this.data);  
+    if (this.camaForm.valid) {
+      // Combina los valores existentes con los nuevos
+      const updatedCama = { ...this.data, ...this.camaForm.value };
+      updatedCama.codiHabitacio = Number(updatedCama.codiHabitacio); // Asegúrate de que sea un número
+  
+      // Cierra el diálogo y pasa el objeto actualizado
+      this.dialogRef.close(updatedCama);  
+    }
+  }
+
+  ngOnInit(): void {
+    this.obtenerHabitaciones();
+  }
+
+  obtenerHabitaciones(): void {
+    this.habitacionService.getHabitacions().subscribe({
+      next: (data: Habitacion[]) => {
+        this.habitaciones = data;
+      },
+      error: (error: any) => {
+        console.error('Error al cargar las habitaciones');
+      }
+    });
   }
 }

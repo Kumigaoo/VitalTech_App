@@ -8,7 +8,7 @@ import { Habitacion } from '../interface/habitacion.interface';
 })
 
 export class HabitacionService {
-  private apiUrl = 'http://localhost:5296/api/habitacio';
+  private apiUrl = 'http://localhost:5296/api/Habitacio';
 
   constructor(private http: HttpClient) { }
 

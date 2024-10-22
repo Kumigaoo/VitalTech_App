@@ -11,6 +11,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { EpisodiMedic } from '../../../../../../interface/episodis-medics.interface';
 import { EpisodiService } from '../../../../../../services/episodis.service';
+import { DialogFormularioIngresoModifComponent } from '../../../../../../components/Formularios/Ingreso/dialog-formulario-ingreso-modif/dialog-formulario-ingreso-modif.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-ingresos',
@@ -36,7 +38,7 @@ export class IngresosComponent implements OnInit {
   episodisMedics: EpisodiMedic[] = [];
   datasSortida: Date[] = [];
 
-  constructor(private ingresoService: IngresoService, private camaService: CamaService, private episodiService: EpisodiService, private fb: FormBuilder ) {
+  constructor(private ingresoService: IngresoService, private camaService: CamaService, private episodiService: EpisodiService, private fb: FormBuilder, public dialog: MatDialog ) {
     // Obtener los ingresos y camas disponibles al iniciar el componente
     this.obtenerIngresos();
     this.obtenerCamas();
@@ -66,6 +68,7 @@ export class IngresosComponent implements OnInit {
       // IdAsignacion: [null]
   });
   }
+
 
   // Obtener la lista de camas disponibles desde el servicio correspondiente
   obtenerCamas(): void{
@@ -135,9 +138,9 @@ export class IngresosComponent implements OnInit {
 
   // Actualizar un ingreso existente
   actualizarIngreso(): void {
-    if(this.ingresoParaActualizar && this.ingresoForm.valid){
+    if(this.ingresoParaActualizar){
       // Crear una copia del ingreso existente con los valores actualizados
-      const ingresoActualizado: Ingreso = {...this.ingresoParaActualizar, ...this.ingresoForm.value};
+      const ingresoActualizado: Ingreso = {...this.ingresoParaActualizar};
       this.ingresoService.putIngreso(ingresoActualizado).subscribe({
         next:() => {
           // Obtener la lista de ingresos actualizada
@@ -193,15 +196,16 @@ export class IngresosComponent implements OnInit {
 
   // Cambiar entre agregar o actualizar un ingreso existente
   toggleActualizarIngreso(ingreso: Ingreso): void {
-    if(this.ingresoParaActualizar && this.ingresoParaActualizar.id === ingreso.id){
-      this.ingresoParaActualizar = null;
-      this.ingresoForm.reset();
-    }
-    else {
-      // Cargar el ingreso seleccionado para actualizar en el formulario
-      this.ingresoParaActualizar = {...ingreso};
-      this.ingresoForm.patchValue(this.ingresoParaActualizar);
-    }
+    this.ingresoParaActualizar = {...ingreso};
+    this.dialog.open(DialogFormularioIngresoModifComponent,{
+      data: this.ingresoParaActualizar
+    }).afterClosed().subscribe((ingresoActualizado) =>{
+      if(ingresoActualizado){
+        this.ingresoParaActualizar = ingresoActualizado;
+        this.actualizarIngreso();
+      }
+
+    });
   }
 
   // Cancelar la creación de un nuevo ingreso
