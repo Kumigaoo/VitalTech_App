@@ -14,6 +14,7 @@
           {{ episodio.id }}
         </mat-option>
       </mat-select>
+      <mat-error *ngIf="ingresoForm.get('episodiMedicId')?.hasError('required')">Selecciona un episodio médico</mat-error>
     </mat-form-field>
     
     
