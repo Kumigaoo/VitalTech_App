@@ -1,0 +1,86 @@
+<app-administratidor-sistema-dashboard></app-administratidor-sistema-dashboard>
+<div class="camas-section">
+  <h2>Episodis Medics</h2>
+  <app-snackbar #snackbar></app-snackbar>
+
+  <!-- 
+    <th>ID Paciente</th> 
+    <th>Motivo</th>
+    <th>Estado</th>
+  -->
+
+  <div class="header-container">
+    <div>
+      <button mat-raised-button class="demo-button" (click)="toggleFormularioAgregar()">Crear</button>
+    </div>
+    <div>
+      <app-search-box [searchOptions]="[
+          {label: 'ID', value: 'id'},
+          {label: 'Data Obertura', value: 'dataObertura'},
+          {label: 'Data Tancament', value: 'dataTancament'},
+          {label: 'Dolencia', value: 'dolencia'},
+          {label: 'Estat', value: 'estat'},
+          {label: 'DNI Pacient', value: 'dniPacient'}
+        ]" [defaultSearchType]="'id'" placeholder="Escribe para buscar..." (search)="filtrarEpisodis($event)">
+      </app-search-box>
+    </div>
+  </div>
+
+  <div class="table-container mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> ID </th>
+        <td mat-cell *matCellDef="let episodi"> {{episodi.id}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="dataObertura">
+        <th mat-header-cell *matHeaderCellDef> Data Obertura </th>
+        <td mat-cell *matCellDef="let episodi"> {{episodi.dataObertura}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="dataTancament">
+        <th mat-header-cell *matHeaderCellDef> Data Tancament </th>
+        <td mat-cell *matCellDef="let episodi"> {{episodi.dataTancament}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="dolencia">
+        <th mat-header-cell *matHeaderCellDef> Dolencia </th>
+        <td mat-cell *matCellDef="let episodi"> {{episodi.dolencia}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="estat">
+        <th mat-header-cell *matHeaderCellDef> Estat </th>
+        <td mat-cell *matCellDef="let episodi"> {{episodi.estat}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="dniPacient">
+        <th mat-header-cell *matHeaderCellDef> DNI Pacient </th>
+        <td mat-cell *matCellDef="let episodi"> {{episodi.dniPacient}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="consultes">
+        <th mat-header-cell *matHeaderCellDef> Consultes </th>
+        <td mat-cell *matCellDef="let episodi"> {{episodi.consultes.length}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="acciones">
+        <th mat-header-cell *matHeaderCellDef> Acciones </th>
+        <td mat-cell *matCellDef="let episodi">
+          <button mat-raised-button color="primary" (click)="toggleActualizarEpisodi(episodi)">
+            Actualizar
+          </button>
+          <button mat-raised-button color="warn" (click)="borrarEpisodi(episodi.id)">
+            Eliminar
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
+    
+</div>
