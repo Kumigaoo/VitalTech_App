@@ -42,11 +42,15 @@
       <mat-error *ngIf="pacienteForm.get('sexe')?.hasError('required')">El sexo es requerido</mat-error>
     </mat-form-field>
 
-    <mat-form-field appearance="outline">
+    <mat-form-field appearance="outline" class="example-full-width">
       <mat-label>Fecha de nacimiento</mat-label>
-      <input matInput formControlName="birthDay" type="date" required />
-      <mat-error *ngIf="pacienteForm.get('birthDay')?.hasError( 'required')">La fecha de nacimiento es requerida</mat-error>
+      <input matInput [matDatepicker]="picker" formControlName="birthDay" required placeholder="Seleccione una fecha" />
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-error *ngIf="pacienteForm.get('birthDay')?.hasError('required')">La fecha de nacimiento es requerida.</mat-error>
     </mat-form-field>
+
   </form>
 </mat-dialog-content>
 
