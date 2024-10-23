@@ -19,6 +19,7 @@ import { MatButtonModule } from '@angular/material/button';
   templateUrl: './dialog-formulario-cama.component.html',
   styleUrls: ['./dialog-formulario-cama.component.css']
 })
+
 export class DialogFormulariocamaComponent {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: Cama, 
