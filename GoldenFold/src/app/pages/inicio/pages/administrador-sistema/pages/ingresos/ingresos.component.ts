@@ -85,9 +85,9 @@ export class IngresosComponent implements OnInit {
       nuevoIngreso.dataEntrada = new Date();
       this.ingresoService.postIngreso(nuevoIngreso).subscribe({
         next: (ingreso: Ingreso) => {
+          console.log('Ingreso: ',ingreso);
           // Agregar el ingreso a la lista de ingresos
           this.ingresos.data = [...this.ingresos.data,ingreso];
-          console.log(ingreso);
           // Reiniciar el formulario después de agregar el ingreso
           this.obtenerIngresos();
           this.ingresoForm.reset();
@@ -96,7 +96,7 @@ export class IngresosComponent implements OnInit {
         error: (error: any) => {
           const mensajeError =
             error.error || 'Error inesperado. Inténtalo de nuevo.';
-            this.snackbar.showNotification('error', error); // Notificación de éxito
+            this.snackbar.showNotification('error', mensajeError); // Notificación de éxito
         },
       });
     } else {

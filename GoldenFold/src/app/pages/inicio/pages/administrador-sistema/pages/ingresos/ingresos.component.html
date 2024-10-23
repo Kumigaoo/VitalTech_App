@@ -43,7 +43,7 @@
       <!-- Data Sortida-->
       <ng-container matColumnDef="dataSortida">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha de salida</th>
-        <td mat-cell *matCellDef="let ingreso">{{ingreso.dataSortida ? (ingreso.dataSortida | date:'dd/MM/yyyy' ) : 'N/A' }}</td>
+        <td mat-cell *matCellDef="let ingreso">{{ingreso.dataSortida ? (ingreso.dataSortida | date:'dd/MM/yyyy' ) : 'Pendiente' }}</td>
       </ng-container>
 
       <!--Episodios Medicos-->
