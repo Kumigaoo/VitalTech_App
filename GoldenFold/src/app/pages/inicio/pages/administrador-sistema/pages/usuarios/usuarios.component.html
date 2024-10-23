@@ -123,8 +123,8 @@
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>nom:</mat-label>
         <input matInput formControlName="nom" />
-        <mat-error *ngIf="usuarioForm.get('nom')?.hasError('whitespace')">El nom no puede estar en
-          blanco</mat-error>
+        <mat-error *ngIf="usuarioForm.get('nom')?.hasError('whitespace')">El nombre no puede estar en
+          blanco.</mat-error>
         <!-- <mat-error
           *ngIf="usuarioForm.get('nom')?.hasError('pattern')&&!usuarioForm.get('nom')?.hasError('whitespace')">Introduzca
           el nom completo</mat-error> -->

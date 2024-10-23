@@ -159,7 +159,7 @@ export class UsuariosComponent implements OnInit {
       },
       error: (error: any) => {
         console.error('Error al eliminar el usuario', error);
-        this.snackbar.showNotification('error', 'Error al eliminar el usuario. Por favor, inténtelo de nuevo.'); // Notificación de error
+        this.snackbar.showNotification('error', 'No se puede eliminar un usuario con consultas asociadas.'); // Notificación de error
       },
     });
   }
