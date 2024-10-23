@@ -15,6 +15,20 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
+import { CustomDateAdapter } from '../../../../custom-date-adapter';
+import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
+
+export const MY_DATE_FORMATS = {
+  parse: {
+    dateInput: 'DD/MM/YYYY',
+  },
+  display: {
+    dateInput: 'DD/MM/YYYY',
+    monthYearLabel: 'MMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY',
+  },
+};
 
 
 @Component({
@@ -34,8 +48,9 @@ import { MatIconModule } from '@angular/material/icon';
     MatDialogModule,
     MatButtonModule
   ],
-  providers: [  
-    provideNativeDateAdapter()  
+  providers: [
+    { provide: DateAdapter, useClass: CustomDateAdapter },
+    { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS },
   ],
   templateUrl: './dialog-formulario-ingreso-modif.component.html',
   styleUrls: ['./dialog-formulario-ingreso-modif.component.css']
@@ -57,9 +72,6 @@ export class DialogFormularioIngresoModifComponent implements OnInit {
     this.obtenerEpisodisMedics();
     this.obtenerCamas();
     this.crearFormularioIngreso();
-  }
-  parseDate(dateString: string): Date {
-    return new Date(dateString);
   }
 
   // Método para manejar el envío del formulario
