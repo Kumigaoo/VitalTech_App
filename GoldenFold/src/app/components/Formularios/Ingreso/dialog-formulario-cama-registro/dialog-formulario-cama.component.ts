@@ -20,10 +20,10 @@ import { MatButtonModule } from '@angular/material/button';
   styleUrls: ['./dialog-formulario-cama.component.css']
 })
 
-export class DialogFormulariocamaComponent {
+export class DialogFormulariocamaComponentPlanta {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: Cama, 
-    public dialogRef: MatDialogRef<DialogFormulariocamaComponent>
+    public dialogRef: MatDialogRef<DialogFormulariocamaComponentPlanta>
   ) {
   }
 

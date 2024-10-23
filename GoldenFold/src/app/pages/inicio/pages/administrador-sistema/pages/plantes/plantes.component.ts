@@ -8,7 +8,8 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { SnackbarComponent } from '../../../../../../components/snackbar/snackbar.component';
-import { DialogFormularioComponent } from '../../../../../../components/dialog-formulario/dialog-formulario.component';
+import { DialogFormulariocamaComponentPlanta } from '../../../../../../components/Formularios/Ingreso/dialog-formulario-cama-registro/dialog-formulario-cama.component';
+import { DialogFormularioConsultaPlantesModificar } from '../../../../../../components/Formularios/planta/dialog-formulario-plantes-registro-modificar/dialog-formulario-plantes.component';
 
 @Component({
   selector: 'app-plantes',
@@ -60,7 +61,7 @@ export class PlantesComponent implements OnInit, AfterViewInit {
       habitacions: ['']
     };
 
-    this.dialog.open(DialogFormularioComponent, {
+    this.dialog.open(DialogFormulariocamaComponentPlanta, {
       data: this.nuevaPlanta
     }).afterClosed().subscribe((consultaCreada) => {
       if (consultaCreada) {
@@ -147,7 +148,7 @@ export class PlantesComponent implements OnInit, AfterViewInit {
   }
 
   modificarPlanta(planta: Planta): void {
-    this.dialog.open(DialogFormularioComponent, {
+    this.dialog.open(DialogFormularioConsultaPlantesModificar, {
       data: planta
     }).afterClosed().subscribe((consultaCreada) => {
       if (consultaCreada) {
