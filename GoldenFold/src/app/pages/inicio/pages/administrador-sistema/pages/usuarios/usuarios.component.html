@@ -69,16 +69,17 @@
   </div>
 
   <div class="form-container" *ngIf="usuarioParaActualizar">
-    <h3>Actualizar Usuario</h3>
+    <h3>Actualizar usuario</h3>
     <form [formGroup]="usuarioForm" (ngSubmit)="actualizarUsuario()">
-      <label for="dni">ID Usuario:</label>
-      <input type="string" id="dni" formControlName="dni" />
-      <label for="nom">nom:</label>
+      <!-- campo de dni oculto: no debe dejar modificar el dni OPBIAMENTE -->
+      <!-- <label for="dni">DNI:</label>
+      <input type="string" id="dni" formControlName="dni" [disabled]="true" /> -->
+      <label for="nom">Nom:</label>
       <input type="text" id="nom" formControlName="nom" />
       <div *ngIf="usuarioForm.get('nom')?.invalid && usuarioForm.get('nom')?.touched">
-        <small *ngIf="usuarioForm.get('nom')?.hasError('whitespace')">El nom no puede estar en blanco</small>
+        <small *ngIf="usuarioForm.get('nom')?.hasError('whitespace')">El nombre no puede estar en blanco</small>
         <br *ngIf="usuarioForm.get('nom')?.hasError('whitespace') && usuarioForm.get('nom')?.hasError('pattern')">
-        <small *ngIf="usuarioForm.get('nom')?.hasError('pattern')">Introduzca el nom completo</small>
+        <small *ngIf="usuarioForm.get('nom')?.hasError('pattern')">Introduzca el nombre completo</small>
       </div>
       <label for="especialitat">Especialitat:</label>
       <input type="string" id="especialitat" formControlName="especialitat" />
@@ -117,7 +118,7 @@
 
   <!--Agregar usuario form-->
   <mat-card *ngIf="!usuarioParaActualizar">
-    <mat-card-title>Agregar Usuario</mat-card-title>
+    <mat-card-title>Agregar usuario</mat-card-title>
     <br/>
     <form [formGroup]="usuarioForm" (ngSubmit)="agregarUsuario()" >
       <mat-form-field appearance="outline" class="full-width">

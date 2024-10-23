@@ -134,7 +134,6 @@ namespace HospitalAPI.Controllers
             if (id == null || !CheckDNI(userPerDTO.DNI)) return BadRequest("DNI invalid");
             if (!Enum.TryParse(typeof(EnumProfessions), userPerDTO.Especialitat.Replace(" ", ""), true, out _)) return BadRequest("Professio incorrecte.");
             
-
             var pro = await (from p in _bbdd.Personals where p.DNI == id select p).FirstOrDefaultAsync();
 
             if (pro == null){
