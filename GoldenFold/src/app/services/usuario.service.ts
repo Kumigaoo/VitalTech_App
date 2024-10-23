@@ -34,7 +34,7 @@ export class UsuarioService {
     
       updateUsuario(usuario: Personal): Observable<Personal> {
         return this.http.put<Personal>(
-          `${this.apiUrl}/Usuarios/${usuario.dni}`,
+          `${this.apiUrl}/${usuario.dni}`,
           usuario
         );
       }

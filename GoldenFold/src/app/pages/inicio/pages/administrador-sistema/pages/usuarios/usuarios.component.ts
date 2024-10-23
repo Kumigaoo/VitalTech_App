@@ -47,8 +47,9 @@ export class UsuariosComponent implements OnInit {
 
   crearFormularioUsuario(): void {
     this.usuarioForm = new FormGroup({
-      dni: new FormControl({ value: '', disabled: true }),
-      nom: new FormControl('',[UserValidators.noWhitespaceValidator(),Validators.pattern(' *[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ.]+( [a-zA-ZáéíóúÁÉÍÓÚüÜñÑ.]+)+ *')]) //no puede estar en blanco y tiene que tener minimo 2 palabras
+      dni: new FormControl({ value: '', disabled: false }),
+      nom: new FormControl('',[UserValidators.noWhitespaceValidator(),Validators.pattern(' *[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ.]+( [a-zA-ZáéíóúÁÉÍÓÚüÜñÑ.]+)+ *')]), //no puede estar en blanco y tiene que tener minimo 2 palabras
+      especialitat: new FormControl()
     });
   }
 
@@ -118,7 +119,6 @@ export class UsuariosComponent implements OnInit {
     }
   }
 
-
   toggleActualizarUsuario(usuario: Personal): void {
     if (
       this.usuarioParaActualizar &&
@@ -150,7 +150,6 @@ export class UsuariosComponent implements OnInit {
       });
     }
   }
-
 
   borrarUsuario(dni: string): void {
     this.usuarioService.deleteUsuario(dni).subscribe({
