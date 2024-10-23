@@ -6,19 +6,26 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { EpisodiMedic } from '../../../../interface/episodis-medics.interface';
-import { MatOptionModule } from '@angular/material/core';
+import { MatOptionModule, provideNativeDateAdapter } from '@angular/material/core';
 import { EpisodiService } from '../../../../services/episodis.service';
 import { Cama } from '../../../../interface/cama.interface';
 import { CamaService } from '../../../../services/cama.service';
 import { CommonModule } from '@angular/common';
 import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatIconModule } from '@angular/material/icon';
+
 
 @Component({
   selector: 'app-dialog-formulario-ingreso-modif',
   standalone: true,
   imports: [
     ReactiveFormsModule,
+    MatNativeDateModule,
+    MatDatepickerModule,
     FormsModule,
+    MatIconModule,
     MatFormFieldModule,
     MatSelectModule,
     CommonModule,
@@ -26,6 +33,9 @@ import { MatSelectModule } from '@angular/material/select';
     MatInputModule,
     MatDialogModule,
     MatButtonModule
+  ],
+  providers: [  
+    provideNativeDateAdapter()  
   ],
   templateUrl: './dialog-formulario-ingreso-modif.component.html',
   styleUrls: ['./dialog-formulario-ingreso-modif.component.css']
@@ -48,6 +58,9 @@ export class DialogFormularioIngresoModifComponent implements OnInit {
     this.obtenerCamas();
     this.crearFormularioIngreso();
   }
+  parseDate(dateString: string): Date {
+    return new Date(dateString);
+  }
 
   // Método para manejar el envío del formulario
   guardar(): void {
@@ -56,6 +69,7 @@ export class DialogFormularioIngresoModifComponent implements OnInit {
         ...this.data,
         ...this.ingresoForm.value
       };
+      ingresoActualizado.dataSortida?.setDate(ingresoActualizado.dataSortida?.getDate() + 1); //para que ponga la fecha bien
       this.dialogRef.close(ingresoActualizado);
     } 
   }
