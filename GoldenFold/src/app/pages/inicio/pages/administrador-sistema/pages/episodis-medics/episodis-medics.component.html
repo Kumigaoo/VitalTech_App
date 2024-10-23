@@ -11,7 +11,7 @@
 
   <div class="header-container">
     <div>
-      <button mat-raised-button class="demo-button" (click)="toggleFormularioAgregar()">Crear</button>
+      <button mat-raised-button class="demo-button" (click)="toggleFormularioAgregar()">Agregar Episodio medico</button>
     </div>
     <div>
       <app-search-box [searchOptions]="[
@@ -41,7 +41,10 @@
 
       <ng-container matColumnDef="dataTancament">
         <th mat-header-cell *matHeaderCellDef> Data Tancament </th>
-        <td mat-cell *matCellDef="let episodi"> {{episodi.dataTancament}} </td>
+        <td mat-cell *matCellDef="let episodi"> {{ episodi.dataTancament ? (episodi.dataTancament) : 'Pendiente' }} </td>
+        <ng-template #pte>
+                    <td>Pendiente</td>
+                </ng-template>
       </ng-container>
 
       <ng-container matColumnDef="dolencia">

@@ -38,11 +38,9 @@ export class EpisodisMedicsComponent implements OnInit, AfterViewInit {
   constructor(private episodiService: EpisodiService, public dialog: MatDialog, private http: HttpClient) {
     this.addingEpisodi = {
       dataObertura: '',
-      dataTancament: '',
       dolencia: '',
       estat: '',
       dniPacient: '',
-      consultes: []
     };
   }
 
@@ -89,11 +87,9 @@ export class EpisodisMedicsComponent implements OnInit, AfterViewInit {
   toggleFormularioAgregar(): void {
     this.addingEpisodi = {
       dataObertura: '',
-      dataTancament: '',
       dolencia: '',
       estat: '',
-      dniPacient: '',
-      consultes: []
+      dniPacient: '',  
     };
     this.dialog.open(DialogFormularioEpisodisComponent, {
       data: this.addingEpisodi

@@ -1,40 +1,47 @@
 <h2 mat-dialog-title>{{ 'Actualizar Episodi Medic' }}</h2>
-<mat-dialog-content>
-  
-  <form (ngSubmit)="guardar()">
 
-    <mat-form-field appearance="outline">
+<mat-dialog-content>
+
+  <form [formGroup]="episodiForm" (ngSubmit)="guardar()">
+
+    <mat-form-field class="example-full-width">
       <mat-label>Data Obertura</mat-label>
-      <input matInput [(ngModel)]="data.dataObertura" name="dataObertura" required />
+      <input matInput [matDatepicker]="picker" [(ngModel)]="data.dataObertura" formControlName="dataObertura" required>
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
 
-    <mat-form-field appearance="outline">
+    <mat-form-field class="example-full-width">
       <mat-label>Data Tancament</mat-label>
-      <input matInput [(ngModel)]="data.dataTancament" name="dataTancament" required />
+      <input matInput [matDatepicker]="picker2" [(ngModel)]="data.dataTancament" formControlName="dataTancament" required>
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+      <mat-datepicker #picker2></mat-datepicker>
     </mat-form-field>
 
     <mat-form-field appearance="outline">
       <mat-label>Dolencia</mat-label>
-      <input matInput [(ngModel)]="data.dolencia" name="dolencia" required />
+      <input matInput name="dolencia" [(ngModel)]="data.dolencia" formControlName="dolencia" required />
     </mat-form-field>
 
     <mat-form-field appearance="outline">
       <mat-label>Estat</mat-label>
-      <input matInput [(ngModel)]="data.estat" name="estat" required />
+      <input matInput name="estat" [(ngModel)]="data.estat" formControlName="estat" required />
     </mat-form-field>
 
     <mat-form-field appearance="outline">
       <mat-label>DNI Pacient</mat-label>
-      <input matInput [(ngModel)]="data.dniPacient" name="dniPacient" required />
+      <input matInput name="dniPacient" [(ngModel)]="data.dniPacient" formControlName="dniPacient" required />
     </mat-form-field>
 
-
   </form>
-  
+
 </mat-dialog-content>
+
 <mat-dialog-actions>
   <button mat-button mat-dialog-close>Cancelar</button>
   <button mat-raised-button color="primary" (click)="guardar()">
-    {{ 'Actualizar' }}
+    {{ 'Guardar' }}
   </button>
 </mat-dialog-actions>

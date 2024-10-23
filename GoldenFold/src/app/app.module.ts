@@ -10,7 +10,14 @@ import { InicioComponent } from './pages/inicio/inicio.component';
 
 import { DialogActualizarHabitacionComponent } from './components/Formularios/Habitacion/dialog-formulario-actualizar-habitacion/dialog-actualizar-habitacion.component';
 import { EpisodisMedicsComponent } from './pages/inicio/pages/administrador-sistema/pages/episodis-medics/episodis-medics.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 //import { PlantesComponent } from './pages/inicio/pages/administrador-sistema/pages/plantes/plantes.component';
+
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -24,9 +31,15 @@ import { EpisodisMedicsComponent } from './pages/inicio/pages/administrador-sist
     AppRoutingModule,
     KeycloakAngularModule,
     BrowserAnimationsModule,
-    SharedModule  // Asegúrate de incluir el SharedModule aquí
+    SharedModule, 
+    MatDatepickerModule,
+    MatNativeDateModule ,
+    MatButtonModule,
+    MatDialogModule,
+    MatInputModule,
+    MatFormFieldModule
   ],
-  providers: [],
+  providers: [ { provide: MAT_DATE_LOCALE, useValue: 'es-ES' },],
   bootstrap: [InicioComponent]  // Asegúrate de hacer bootstrap AppComponent
 })
 export class AppModule { }
