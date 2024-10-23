@@ -53,10 +53,6 @@ export class PlantesComponent implements OnInit, AfterViewInit {
     this.dataMostra.sort = this.sort;
   }
 
-  ngOnInit() {
-    this.loadPlantes();
-  }
-
   toggleFormularioAgregar() {
     this.nuevaPlanta = {
       piso: 0,
@@ -64,7 +60,7 @@ export class PlantesComponent implements OnInit, AfterViewInit {
       habitacions: [''] 
     };
 
-    this.dialog.open(DialogFormularioConsultaPlantes, {
+    this.dialog.open(DialogFormularioComponent, {
       data: this.nuevaPlanta
     }).afterClosed().subscribe((consultaCreada) => {
         this.plantaService.postPlanta(consultaCreada);
@@ -82,7 +78,7 @@ export class PlantesComponent implements OnInit, AfterViewInit {
 
 
   updateItemsPerPage(): void {
-    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const startIndex = this.pageIndex * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
     this.pagedPlantes = this.plantes.slice(startIndex, endIndex);
 
@@ -151,39 +147,11 @@ export class PlantesComponent implements OnInit, AfterViewInit {
 
   modificarPlanta(planta: Planta): void {
 
-    this.dialog.open(DialogFormularioConsultaPlantes, {
+    this.dialog.open(DialogFormularioComponent, {
       data: planta
     }).afterClosed().subscribe((consultaCreada) => {
        this.plantaService.putPlanta(planta);
     });
-  }
-
-  nextPage(): void {
-    if (this.currentPage < this.totalPages) {
-      this.currentPage++;
-      this.updateItemsPerPage();
-    }
-  }
-
-  previousPage(): void {
-    if (this.currentPage > 1) {
-      this.currentPage--;
-      this.updateItemsPerPage();
-    }
-  }
-
-  firstPage(): void {
-    if (this.currentPage > 1) {
-      this.currentPage = 1;
-      this.updateItemsPerPage();
-    }
-  }
-
-  lastPage(): void {
-    if(this.currentPage < this.totalPages) {
-      this.currentPage = this.totalPages;
-      this.updateItemsPerPage();
-    }
   }
 
 }
