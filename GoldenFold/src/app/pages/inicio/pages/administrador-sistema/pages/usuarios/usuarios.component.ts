@@ -41,14 +41,14 @@ export class UsuariosComponent implements OnInit {
 
   ngOnInit(): void {
     this.obtenerUsuarios();
-    this.obtenerRoles();
+    //this.obtenerRoles();
     this.crearFormularioUsuario()
   }
 
   crearFormularioUsuario(): void {
     this.usuarioForm = new FormGroup({
-      IdUsuario: new FormControl({ value: '', disabled: true }),
-      Nombre: new FormControl('',[UserValidators.noWhitespaceValidator(),Validators.pattern(' *[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ.]+( [a-zA-ZáéíóúÁÉÍÓÚüÜñÑ.]+)+ *')]) //no puede estar en blanco y tiene que tener minimo 2 palabras
+      dni: new FormControl({ value: '', disabled: true }),
+      nom: new FormControl('',[UserValidators.noWhitespaceValidator(),Validators.pattern(' *[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ.]+( [a-zA-ZáéíóúÁÉÍÓÚüÜñÑ.]+)+ *')]) //no puede estar en blanco y tiene que tener minimo 2 palabras
     });
   }
 
@@ -167,7 +167,7 @@ export class UsuariosComponent implements OnInit {
 
   resetUsuario(): Personal {
     return {
-      dni: 0,
+      dni: '',
       especialitat: '',
       nom: '',
       consultes: []

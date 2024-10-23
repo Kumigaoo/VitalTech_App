@@ -1,7 +1,7 @@
 
 
 export interface Personal {
-    dni: number;   //antes IdUsuario
+    dni: string;   //antes IdUsuario
     nom: string;   //antes Nombre
     especialitat: string;
     consultes: string[];
