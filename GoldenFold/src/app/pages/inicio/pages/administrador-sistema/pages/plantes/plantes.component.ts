@@ -21,7 +21,6 @@ export class PlantesComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) sort!: MatSort;
 
   plantes: Planta[] = [];
-  pagedPlantes: Planta[] = [];
   searchInput: number = 1;
   currentPage: number = 1;
   
@@ -30,9 +29,7 @@ export class PlantesComponent implements OnInit, AfterViewInit {
   pageIndex = 0;
 
   displayedColumns: string[] = ['piso', 'capacitatHabitacions', 'habitacions','acciones'];
-  dataMostra = new MatTableDataSource<Planta>([]);
-  
-
+  dataMostra: MatTableDataSource<Planta> = new MatTableDataSource<Planta>([]);
   nuevaPlanta: Planta;
 
   constructor(public dialog: MatDialog, private plantaService: PlantaService, private router: Router) {
@@ -80,13 +77,13 @@ export class PlantesComponent implements OnInit, AfterViewInit {
   updateItemsPerPage(): void {
     const startIndex = this.pageIndex * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
-    this.pagedPlantes = this.plantes.slice(startIndex, endIndex);
+    this.dataMostra.data = this.plantes.slice(startIndex, endIndex);
 
     if(this.plantes.length == 0){
       return;
     }
 
-    if(this.pagedPlantes.length == 0) {
+    if(this.dataMostra.data.length == 0) {
         this.currentPage = this.currentPage - 1;
         this.loadPlantes();
     }
