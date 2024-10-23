@@ -8,6 +8,7 @@ import { EpisodiMedic } from '../../../../interface/episodis-medics.interface';
 import { FormsModule } from '@angular/forms';
 import {provideNativeDateAdapter} from '@angular/material/core';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-dialog-formulario-episodis',
@@ -49,8 +50,10 @@ export class DialogFormularioEpisodisComponent {
   }
 
   guardar(): void {
+
+    
    
-      this.data.dataObertura = this.episodiForm.value.dataObertura;
+      this.data.dataObertura = formatDate(this.episodiForm.value.dataObertura, 'yyyy-MM-dd', 'en');
       this.data.dolencia = this.episodiForm.value.dolencia;
       this.data.estat =this.episodiForm.value.estat;
       this.data.dniPacient =this.episodiForm.value.dniPacient;
