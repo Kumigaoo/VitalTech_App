@@ -4,7 +4,7 @@ import { PlantaService } from '../../../../../../services/planta.service';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { SnackbarComponent } from '../../../../../../components/snackbar/snackbar.component';
@@ -23,26 +23,28 @@ export class PlantesComponent implements OnInit, AfterViewInit {
   plantes: Planta[] = [];
   searchInput: number = 1;
   currentPage: number = 1;
-  
   totalPages: number = 1;
   itemsPerPage: number = 5;
-  pageIndex = 0;
+  pageIndex: number = 0;
 
-  displayedColumns: string[] = ['piso', 'capacitatHabitacions', 'habitacions','acciones'];
+  displayedColumns: string[] = ['piso', 'capacitatHabitacions', 'habitacions', 'acciones'];
   dataMostra: MatTableDataSource<Planta> = new MatTableDataSource<Planta>([]);
   nuevaPlanta: Planta;
 
-  constructor(public dialog: MatDialog, private plantaService: PlantaService, private router: Router) {
+  constructor(
+    public dialog: MatDialog,
+    private plantaService: PlantaService,
+    private router: Router
+  ) {
     this.nuevaPlanta = {
       piso: 0,
       capacitatHabitacions: 0,
-      habitacions: [''] 
+      habitacions: ['']
     };
-   }
+  }
 
   ngOnInit() {
     this.loadPlantes();
-    
   }
 
   ngAfterViewInit() {
@@ -50,19 +52,40 @@ export class PlantesComponent implements OnInit, AfterViewInit {
     this.dataMostra.sort = this.sort;
   }
 
+  public getServerData(event?: PageEvent) {
+    this.plantaService.getdata(event).subscribe(
+      response => {
+        if (response.error) {
+          // handle error
+        } else {
+          this.dataMostra.data = response.data; // Asegúrate de que esto sea correcto
+          this.pageIndex = response.pageIndex;
+          this.itemsPerPage = response.pageSize;
+        }
+      },
+      error => {
+        // handle error
+      }
+    );
+    return event;
+  }
+
   toggleFormularioAgregar() {
     this.nuevaPlanta = {
       piso: 0,
       capacitatHabitacions: 0,
-      habitacions: [''] 
+      habitacions: ['']
     };
 
     this.dialog.open(DialogFormularioComponent, {
       data: this.nuevaPlanta
     }).afterClosed().subscribe((consultaCreada) => {
-        this.plantaService.postPlanta(consultaCreada);
+      if (consultaCreada) {
+        this.plantaService.postPlanta(consultaCreada).subscribe(() => {
+          this.loadPlantes(); // Cargar plantas después de agregar
+        });
+      }
     });
-    
   }
 
   loadPlantes(): void {
@@ -73,40 +96,38 @@ export class PlantesComponent implements OnInit, AfterViewInit {
     });
   }
 
-
   updateItemsPerPage(): void {
     const startIndex = this.pageIndex * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
     this.dataMostra.data = this.plantes.slice(startIndex, endIndex);
 
-    if(this.plantes.length == 0){
+    if (this.plantes.length === 0) {
       return;
     }
 
-    if(this.dataMostra.data.length == 0) {
-        this.currentPage = this.currentPage - 1;
-        this.loadPlantes();
+    if (this.dataMostra.data.length === 0) {
+      this.currentPage = Math.max(1, this.currentPage - 1); // Asegúrate de que currentPage no sea menor que 1
+      this.loadPlantes();
     }
-
   }
+
   searchPlanta(): void {
-    if (!isNaN(this.searchInput)) { 
-        this.plantaService.getPlanta(this.searchInput).subscribe({
-          next: (data) => {
-            console.log(this.plantes.splice(0, this.plantes.length + 1, data));
-            this.plantes.splice(0, this.plantes.length + 1, data);
-            this.currentPage = 1;
-            this.totalPages = 1;
-            this.updateItemsPerPage();
-          },
-          error: (error) => {
-            console.error('Error al buscar la planta:', error),
-            alert('No existe la planta con id ' + this.searchInput );
-          }
-        });
-      } else {
-        alert('Por favor, ingresa un ID válido.'); 
-      }
+    if (!isNaN(this.searchInput)) {
+      this.plantaService.getPlanta(this.searchInput).subscribe({
+        next: (data) => {
+          this.plantes = [data]; // Reemplaza el array de plantas con el resultado
+          this.currentPage = 1;
+          this.totalPages = 1;
+          this.updateItemsPerPage();
+        },
+        error: (error) => {
+          console.error('Error al buscar la planta:', error);
+          alert('No existe la planta con id ' + this.searchInput);
+        }
+      });
+    } else {
+      alert('Por favor, ingresa un ID válido.');
+    }
   }
 
   deletePlanta(piso: number): void {
@@ -143,13 +164,14 @@ export class PlantesComponent implements OnInit, AfterViewInit {
   }
 
   modificarPlanta(planta: Planta): void {
-
     this.dialog.open(DialogFormularioComponent, {
       data: planta
     }).afterClosed().subscribe((consultaCreada) => {
-       this.plantaService.putPlanta(planta);
+      if (consultaCreada) {
+        this.plantaService.putPlanta(consultaCreada).subscribe(() => {
+          this.loadPlantes(); // Cargar plantas después de modificar
+        });
+      }
     });
   }
-
 }
-
