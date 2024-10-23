@@ -16,6 +16,7 @@ import { DialogFormularioComponent } from '../../../../../../components/dialog-f
   styleUrls: ['./plantes.component.css'] // Corregido 'styleUrl' a 'styleUrls'
 })
 export class PlantesComponent implements OnInit, AfterViewInit {
+
   @ViewChild(SnackbarComponent) snackbar!: SnackbarComponent;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -24,7 +25,7 @@ export class PlantesComponent implements OnInit, AfterViewInit {
   searchInput: number = 1;
   currentPage: number = 1;
   totalPages: number = 1;
-  itemsPerPage: number = 5;
+  itemsPerPage: number = 300;
   pageIndex: number = 0;
 
   displayedColumns: string[] = ['piso', 'capacitatHabitacions', 'habitacions', 'acciones'];
@@ -50,24 +51,6 @@ export class PlantesComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     this.dataMostra.paginator = this.paginator;
     this.dataMostra.sort = this.sort;
-  }
-
-  public getServerData(event?: PageEvent) {
-    this.plantaService.getdata(event).subscribe(
-      response => {
-        if (response.error) {
-          // handle error
-        } else {
-          this.dataMostra.data = response.data; // Asegúrate de que esto sea correcto
-          this.pageIndex = response.pageIndex;
-          this.itemsPerPage = response.pageSize;
-        }
-      },
-      error => {
-        // handle error
-      }
-    );
-    return event;
   }
 
   toggleFormularioAgregar() {
@@ -106,7 +89,7 @@ export class PlantesComponent implements OnInit, AfterViewInit {
     }
 
     if (this.dataMostra.data.length === 0) {
-      this.currentPage = Math.max(1, this.currentPage - 1); // Asegúrate de que currentPage no sea menor que 1
+      this.currentPage = Math.max(1, this.currentPage - 1);
       this.loadPlantes();
     }
   }
@@ -115,7 +98,7 @@ export class PlantesComponent implements OnInit, AfterViewInit {
     if (!isNaN(this.searchInput)) {
       this.plantaService.getPlanta(this.searchInput).subscribe({
         next: (data) => {
-          this.plantes = [data]; // Reemplaza el array de plantas con el resultado
+          this.plantes = [data];
           this.currentPage = 1;
           this.totalPages = 1;
           this.updateItemsPerPage();
@@ -169,7 +152,7 @@ export class PlantesComponent implements OnInit, AfterViewInit {
     }).afterClosed().subscribe((consultaCreada) => {
       if (consultaCreada) {
         this.plantaService.putPlanta(consultaCreada).subscribe(() => {
-          this.loadPlantes(); // Cargar plantas después de modificar
+          this.loadPlantes();
         });
       }
     });
