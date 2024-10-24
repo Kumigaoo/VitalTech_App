@@ -86,7 +86,7 @@ export class PlantesComponent implements OnInit, AfterViewInit {
     this.plantaService.getPlantes().subscribe(data => {
       this.plantes = data;
       this.totalPages = Math.ceil(this.plantes.length / this.itemsPerPage);
-      this.updateItemsPerPage();
+
     });
   }
 
