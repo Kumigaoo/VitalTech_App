@@ -20,12 +20,21 @@ import { Consulta } from '../../../../interface/consulta.interface';
   templateUrl: './dialog-formulario-consulta.component.html',
   styleUrls: ['./dialog-formulario-consulta.component.css']
 })
+<<<<<<< HEAD:GoldenFold/src/app/components/Formularios/Consulta/dialog-formulario-consulta-registro/dialog-formulario-consulta.component.ts
 export class DialogFormularioConsultaComponent {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: Consulta, 
     public dialogRef: MatDialogRef<DialogFormularioConsultaComponent>
   ) {
   }
+=======
+
+
+
+export class DialogFormularioConsultaPlantes {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: Planta,
+    public dialogRef: MatDialogRef<DialogFormularioConsultaPlantes>) { };
+>>>>>>> 8ab311b (FullPlanta):GoldenFold/src/app/components/Formularios/planta/dialog-formulario-plantes-registro/dialog-formulario-plantes.component.ts
 
   // Método para manejar el envío del formulario
   guardar(): void {
