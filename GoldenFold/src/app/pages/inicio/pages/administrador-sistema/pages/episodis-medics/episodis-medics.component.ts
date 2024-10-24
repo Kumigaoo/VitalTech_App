@@ -9,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
 import { EpisodiService } from '../../../../../../services/episodis.service';
 import { DialogFormularioEpisodisModifComponent } from '../../../../../../components/Formularios/Episodis/dialog-formulario-episodis-modif/dialog-formulario-episodis-modif.component';
 import { DialogFormularioEpisodisComponent } from '../../../../../../components/Formularios/Episodis/dialog-formulario-episodis-registro/dialog-formulario-episodis.component';
-import { ConsultasDialogComponent } from './consultas-popup';
+import { ConsultasDialogComponent } from '../../../../../../components/popups/consultas-popup';
 
 @Component({
   selector: 'app-episodis-medics',
