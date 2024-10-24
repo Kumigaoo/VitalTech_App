@@ -1,0 +1,13 @@
+.table-container {
+    max-height: 400px;   /* Limitar la altura */
+    max-width: 100%;     /* O el ancho que desees */
+    overflow-y: auto;    /* Scroll vertical */
+    overflow-x: auto;    /* Scroll horizontal */
+    border: 1px solid #ddd;
+  }
+
+h1 {
+  text-align: center;
+  margin-top: 10px;
+}
+  

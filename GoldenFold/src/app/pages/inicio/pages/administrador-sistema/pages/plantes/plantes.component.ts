@@ -8,9 +8,8 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { SnackbarComponent } from '../../../../../../components/snackbar/snackbar.component';
-import { DialogFormularioComponent } from '../../../../../../components/Formularios/Paciente/dialog-formulario/dialog-formulario.component';
-//import { DialogFormulariocamaComponentPlanta } from '../../../../../../components/Formularios/Ingreso/dialog-formulario-cama-registro/dialog-formulario-cama.component';
 import { DialogFormularioConsultaPlantesModificar } from '../../../../../../components/Formularios/planta/dialog-formulario-plantes-registro-modificar/dialog-formulario-plantes.component';
+import { HabitacionesDialogComponent } from '../../../../../../components/popups/habitaciones-popup';
 
 @Component({
   selector: 'app-plantes',
@@ -42,7 +41,7 @@ export class PlantesComponent implements OnInit, AfterViewInit {
     this.nuevaPlanta = {
       piso: 0,
       capacitatHabitacions: 0,
-      habitacions: ['']
+      habitacions: []
     };
   }
 
@@ -53,6 +52,14 @@ export class PlantesComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     this.dataMostra.paginator = this.paginator;
     this.dataMostra.sort = this.sort;
+  }
+
+  verHabitaciones(planta: any): void{
+    console.log(planta.habitacions);
+    this.dialog.open(HabitacionesDialogComponent, {
+      width: '1200px',
+      data: planta.habitacions
+    })
   }
 
   toggleFormularioAgregar() {
