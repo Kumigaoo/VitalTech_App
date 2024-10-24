@@ -10,6 +10,7 @@ import { EpisodiService } from '../../../../../../services/episodis.service';
 import { DialogFormularioEpisodisModifComponent } from '../../../../../../components/Formularios/Episodis/dialog-formulario-episodis-modif/dialog-formulario-episodis-modif.component';
 import { DialogFormularioEpisodisComponent } from '../../../../../../components/Formularios/Episodis/dialog-formulario-episodis-registro/dialog-formulario-episodis.component';
 import { ConsultasDialogComponent } from '../../../../../../components/popups/consultas-popup';
+import { IngresosDialogComponent } from '../../../../../../components/popups/ingresos-popup';
 
 @Component({
   selector: 'app-episodis-medics',
@@ -21,7 +22,7 @@ export class EpisodisMedicsComponent implements OnInit, AfterViewInit {
 
   @ViewChild(SnackbarComponent) snackbar!: SnackbarComponent;
 
-  displayedColumns: string[] = ['id', 'dataObertura', 'dataTancament', 'dolencia', 'estat', 'dniPacient', 'consultes', 'acciones'];
+  displayedColumns: string[] = ['id', 'dataObertura', 'dataTancament', 'dolencia', 'estat', 'dniPacient', 'consultes', 'ingressos','acciones'];
   dataSource: MatTableDataSource<EpisodiMedic> = new MatTableDataSource<EpisodiMedic>([]);
 
   totalItems = 0;
@@ -58,6 +59,13 @@ export class EpisodisMedicsComponent implements OnInit, AfterViewInit {
     this.dialog.open(ConsultasDialogComponent, {
       width: '1200px',
       data: episodi.consultes
+    });
+  }
+
+  verIngresos(episodi: any): void {
+    this.dialog.open(IngresosDialogComponent,{
+      width: '1200px',
+      data: episodi.ingressos
     });
   }
 

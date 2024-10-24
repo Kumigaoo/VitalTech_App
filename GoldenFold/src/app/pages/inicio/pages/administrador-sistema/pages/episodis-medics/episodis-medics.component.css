@@ -2,11 +2,11 @@
 /* Estilo general de la sección de camas */
 .camas-section {
     font-family: Arial, sans-serif;
-    margin: 20px;
     margin-top: 70px;   /* Ajusta según la altura del header */
     margin-left: 170px; /* Ajusta según el ancho del sidenav */
-    padding: 20px;
+    padding: 10px;
   }
+
   .header-container {
     display: flex;
     justify-content: space-between; /* Distribuye espacio entre el botón y la caja de búsqueda */
@@ -29,6 +29,7 @@
     text-align: center;
     font-weight: bold;
   }
+
   /* Estilo de la caja de búsqueda */
   .search-container {
     margin-bottom: 20px;
@@ -94,8 +95,10 @@
     cursor: pointer;
   }
   
+
   .table tr:nth-child(even) {
     background-color: #f1f1f1;
+
   }
   
   .table tr:hover {
@@ -185,7 +188,7 @@
   /* Estilo del formulario de agregar usuario */
   .form-container button {
     width: 100%;
-    padding: 10px 20px;
+    padding: 30px 20px;
     border: none;
     border-radius: 5px;
     background-color: #28a745;
