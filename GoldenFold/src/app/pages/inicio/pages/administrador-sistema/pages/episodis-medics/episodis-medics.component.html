@@ -64,7 +64,11 @@
 
       <ng-container matColumnDef="consultes">
         <th mat-header-cell *matHeaderCellDef> Consultes </th>
-        <td mat-cell *matCellDef="let episodi"> {{episodi.consultes.length}} </td>
+        <td mat-cell *matCellDef="let episodi"> 
+          <a (click)="verConsultas(episodi)" style="cursor: pointer; color: blue;">
+            {{ episodi.consultes.length }} consultas
+          </a>  
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="acciones">

@@ -1,4 +1,6 @@
-﻿namespace HospitalApi.DTO
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace HospitalApi.DTO
 {
     public class ConsultaReferenceDTO
     {
@@ -9,6 +11,9 @@
         public string? Sintomatologia { get; set; }
 
         public string? Recepta { get; set; }
+        [NotMapped]
+        public string DNIPersonal { get; set; } = string.Empty;
+
 
     }
 }

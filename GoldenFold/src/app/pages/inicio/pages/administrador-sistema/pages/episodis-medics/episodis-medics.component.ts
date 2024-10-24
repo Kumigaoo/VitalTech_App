@@ -9,6 +9,7 @@ import { HttpClient } from '@angular/common/http';
 import { EpisodiService } from '../../../../../../services/episodis.service';
 import { DialogFormularioEpisodisModifComponent } from '../../../../../../components/Formularios/Episodis/dialog-formulario-episodis-modif/dialog-formulario-episodis-modif.component';
 import { DialogFormularioEpisodisComponent } from '../../../../../../components/Formularios/Episodis/dialog-formulario-episodis-registro/dialog-formulario-episodis.component';
+import { ConsultasDialogComponent } from './consultas-popup';
 
 @Component({
   selector: 'app-episodis-medics',
@@ -53,11 +54,17 @@ export class EpisodisMedicsComponent implements OnInit, AfterViewInit {
     this.obtenerEpisodis();
   }
 
+  verConsultas(episodi: any): void {
+    this.dialog.open(ConsultasDialogComponent, {
+      width: '1200px',
+      data: episodi.consultes
+    });
+  }
+
   obtenerEpisodis(): void {
     this.episodiService.getEpisodis().subscribe({
       next: (data: EpisodiMedic[]) => {
         this.episodis = data;
-
         this.episodis.forEach(element => {
           if(element.dataObertura) element.dataObertura = element.dataObertura.split("T")[0];
           if(element.dataTancament) element.dataTancament = element.dataTancament.split("T")[0];

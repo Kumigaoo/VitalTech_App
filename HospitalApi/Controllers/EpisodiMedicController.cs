@@ -40,10 +40,29 @@ namespace HospitalAPI.Controllers
                 var dni = await (from p in _bbdd.Pacients where p.Id == eList.ElementAt(i).PacientId select p.DNI).FirstOrDefaultAsync();
                 if (dni == null) { continue; }
                 episodis.ElementAt(i).DNIPacient = dni;
+
+                var consultas = episodis.ElementAt(i).Consultes;
+                var ingresos = episodis.ElementAt(i).Ingressos;
+
+                if(consultas == null || ingresos == null) continue;
+
+                foreach (var consulta in consultas)
+                {
+                    var consultaOriginal = eList.First(e => e.Id == episodis.ElementAt(i).Id).Consultes.First(c => c.Id == consulta.Id);      
+                    var dniPersonal = await (from p in _bbdd.Personals where p.Id == consultaOriginal.PersonalId select p.DNI).FirstOrDefaultAsync();
+                    if (dniPersonal != null) consulta.DNIPersonal = dniPersonal;
+                } 
+
+                foreach (var ingres in ingresos)
+                {
+                    var ingresOriginal = eList.First(e => e.Id == episodis.ElementAt(i).Id).Ingressos.First(c => c.Id == ingres.Id);      
+                    var codiLlit = await (from p in _bbdd.Llits where p.Id == ingresOriginal.LlitId select p.CodiLlit).FirstOrDefaultAsync();
+                    if (codiLlit != null) ingres.CodiLlit = codiLlit;
+                } 
+
             }
 
             return Ok(episodis);
-
         }
 
         [HttpGet("{id:int}", Name = "GetEpi")]
@@ -71,6 +90,23 @@ namespace HospitalAPI.Controllers
             if (dni == null) return NotFound("No existeix la Persona amb l'ID indicat.");
 
             episodi.DNIPacient = dni;
+
+            var consultas = episodi.Consultes;
+            var ingresos = episodi.Ingressos;
+
+            foreach (var consulta in consultas)
+            {
+                var consultaOriginal = e.Consultes.FirstOrDefault(c => c.Id == consulta.Id);                
+                var dniPersonal = await (from p in _bbdd.Personals where p.Id == consultaOriginal.PersonalId select p.DNI).FirstOrDefaultAsync();
+                if (dniPersonal != null) consulta.DNIPersonal = dniPersonal;
+            }
+
+            foreach (var ingres in ingresos)
+            {
+                var ingresOriginal = e.Ingressos.FirstOrDefault(c => c.Id == ingres.Id);    
+                var codiLlit = await (from p in _bbdd.Llits where p.Id == ingresOriginal.LlitId select p.CodiLlit).FirstOrDefaultAsync();
+                if (codiLlit != null) ingres.CodiLlit = codiLlit;
+            } 
 
             return Ok(episodi);
 
