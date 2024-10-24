@@ -64,11 +64,12 @@ export class DialogFormulariocamaModifComponent {
   obtenerHabitaciones(): void {
     this.habitacionService.getHabitacions().subscribe({
       next: (data: Habitacion[]) => {
-        this.habitaciones = data;
+        this.habitaciones = data.filter(habitacion => habitacion.capacitatLlits > habitacion.llits.length || habitacion.codiHabitacio === this.camaForm.get('codiHabitacio')?.value);
+        console.log('Habitaciones cargadas:', this.habitaciones);
       },
-      error: (error: any) => {
+      error: (error: any) =>{
         console.error('Error al cargar las habitaciones');
       }
-    });
+    })
   }
 }
