@@ -37,5 +37,4 @@ static noWhitespaceValidator(): ValidatorFn {
     };
   }
 
-
 }

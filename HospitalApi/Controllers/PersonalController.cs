@@ -72,10 +72,18 @@ namespace HospitalAPI.Controllers
                 return BadRequest("Format de DNI incorrecte.");
             }
 
+            //error por si el dni ya existe:
+            var perso = await _bbdd.Personals.FirstOrDefaultAsync(h => h.DNI == userPerDTO.DNI);
+
+            if (perso != null){
+                _logger.LogError("El DNI indicado ya está registrado para otro empleado.");
+                return BadRequest("El DNI indicado ya está registrado para otro empleado.");
+            }
+
             if (!Enum.TryParse(typeof(EnumProfessions), userPerDTO.Especialitat.Replace(" ",""), true, out _))
             {
-                _logger.LogError("Professio incorrecte.");
-                return BadRequest("Professio incorrecte.");
+                _logger.LogError("Profesión incorrecta.");
+                return BadRequest("Profesión incorrecta.");
             }
 
             Personal personal = _mapper.Map<Personal>(userPerDTO);
@@ -101,11 +109,20 @@ namespace HospitalAPI.Controllers
                 _logger.LogError("ID de personal no trobat.");
                 return NotFound("ID de personal no trobat.");
             }
+            
+            //para que no salga error 500 al intentar deletear empleado con consultas asociadas
+            var cons = await _bbdd.Consultes.FirstOrDefaultAsync(h => h.Personal.DNI == personal.DNI);
 
+            if (cons != null)
+            {
+                _logger.LogError("Error: no es pot esborrar un metge amb consultes associades.");
+                return BadRequest("Error: no es pot esborrar un metge amb consultes associades.");
+            }
+            
             _bbdd.Personals.Remove(personal);
             await _bbdd.SaveChangesAsync();
 
-            _logger.LogInformation("Personal esborrat amb �xit.");
+            _logger.LogInformation("Personal esborrat amb èxit.");
             return NoContent();
         }
 
@@ -117,7 +134,6 @@ namespace HospitalAPI.Controllers
             if (id == null || !CheckDNI(userPerDTO.DNI)) return BadRequest("DNI invalid");
             if (!Enum.TryParse(typeof(EnumProfessions), userPerDTO.Especialitat.Replace(" ", ""), true, out _)) return BadRequest("Professio incorrecte.");
             
-
             var pro = await (from p in _bbdd.Personals where p.DNI == id select p).FirstOrDefaultAsync();
 
             if (pro == null){
