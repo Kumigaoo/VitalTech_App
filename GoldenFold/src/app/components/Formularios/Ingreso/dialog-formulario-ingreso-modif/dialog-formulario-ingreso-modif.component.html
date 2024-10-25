@@ -4,6 +4,18 @@
     <br />
     @if (data.id) {
       <mat-form-field appearance="outline">
+        <mat-label>Fecha de entrada:</mat-label>
+        <input matInput [matDatepicker]="picker2" formControlName="dataEntrada" 
+               placeholder="DD/MM/YYYY" />
+        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+        <mat-datepicker #picker2></mat-datepicker>
+        @if(ingresoForm.hasError('viatjeEnElTemps')){
+          <mat-error>Fecha invalida</mat-error>
+        }
+      </mat-form-field>
+    
+
+      <mat-form-field appearance="outline">
         <mat-label>Fecha de salida:</mat-label>
         <input matInput [matDatepicker]="picker" formControlName="dataSortida" 
                placeholder="DD/MM/YYYY" />
