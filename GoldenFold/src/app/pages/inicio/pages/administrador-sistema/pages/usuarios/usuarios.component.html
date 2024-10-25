@@ -2,6 +2,13 @@
   <h2>Usuarios</h2>
   <app-snackbar #snackbar></app-snackbar>
 
+<!-- Botón de agregar usuario -->
+    <div>
+      <button mat-raised-button color="primary" (click)="toggleFormularioAgregar()">
+        Registrar nuevo empleado
+      </button>
+    </div><br>
+
   <!-- Caja de búsqueda -->
   <app-search-box
   [searchOptions]="[
