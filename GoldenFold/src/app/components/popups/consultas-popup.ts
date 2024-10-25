@@ -12,6 +12,7 @@ import {MatTableModule} from '@angular/material/table';
     MatTableModule
   ],
   template: `
+    <h1 mat-dialog-title>Consultas</h1>
     <div class="table-container">
       <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
