@@ -12,7 +12,10 @@ import {MatTableModule} from '@angular/material/table';
     MatTableModule
   ],
   template: `
-    <h1 mat-dialog-title>Camas</h1>
+    <h1 mat-dialog-title>
+    Camas
+    </h1>
+
 
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
@@ -38,7 +41,8 @@ import {MatTableModule} from '@angular/material/table';
 </table>
 
 
-  `
+  `,
+  styleUrls: ['./custom-table.component.css']
   
 })
 export class CamasDialogComponent {
