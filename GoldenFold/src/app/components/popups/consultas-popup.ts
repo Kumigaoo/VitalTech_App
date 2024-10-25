@@ -12,41 +12,72 @@ import {MatTableModule} from '@angular/material/table';
     MatTableModule
   ],
   template: `
-    <h1 mat-dialog-title>Consultas</h1>
+  <div>
 
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  <h1 mat-dialog-title>Consultas</h1>
 
-  <ng-container matColumnDef="id">
-    <th mat-header-cell *matHeaderCellDef> Id </th>
-    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-  </ng-container>
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
-  <!-- Name Column -->
-  <ng-container matColumnDef="urgencia">
-    <th mat-header-cell *matHeaderCellDef> Urgencia </th>
-    <td mat-cell *matCellDef="let element"> {{element.urgencia}} </td>
-  </ng-container>
+<ng-container matColumnDef="id">
+<th mat-header-cell *matHeaderCellDef> Id </th>
+<td mat-cell *matCellDef="let element"> {{element.id}} </td>
+</ng-container>
 
-  <!-- Weight Column -->
-  <ng-container matColumnDef="sintomatologia">
-    <th mat-header-cell *matHeaderCellDef> Sintomatologia </th>
-    <td mat-cell *matCellDef="let element"> {{element.sintomatologia}} </td>
-  </ng-container>
+<!-- Name Column -->
+<ng-container matColumnDef="urgencia">
+<th mat-header-cell *matHeaderCellDef> Urgencia </th>
+<td mat-cell *matCellDef="let element"> {{element.urgencia}} </td>
+</ng-container>
 
-  <!-- Symbol Column -->
-  <ng-container matColumnDef="recepta">
-    <th mat-header-cell *matHeaderCellDef> Recepta </th>
-    <td mat-cell *matCellDef="let element"> {{element.recepta}} </td>
-  </ng-container>
+<!-- Weight Column -->
+<ng-container matColumnDef="sintomatologia">
+<th mat-header-cell *matHeaderCellDef> Sintomatologia </th>
+<td mat-cell *matCellDef="let element"> {{element.sintomatologia}} </td>
+</ng-container>
 
-  <ng-container matColumnDef="dniPersonal">
-    <th mat-header-cell *matHeaderCellDef> DNI Personal </th>
-    <td mat-cell *matCellDef="let element"> {{element.dniPersonal}} </td>
-  </ng-container>
+<!-- Symbol Column -->
+<ng-container matColumnDef="recepta">
+<th mat-header-cell *matHeaderCellDef> Recepta </th>
+<td mat-cell *matCellDef="let element"> {{element.recepta}} </td>
+</ng-container>
 
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+<ng-container matColumnDef="dniPersonal">
+<th mat-header-cell *matHeaderCellDef> DNI Personal </th>
+<td mat-cell *matCellDef="let element"> {{element.dniPersonal}} </td>
+</ng-container>
+
+<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
+  </div>
+   
+
+
+  `,
+  styles: ` 
+
+  h1{
+    margin: auto;
+    text-align: center;
+    padding: 20px;
+  }
+    
+     div {
+     
+      width: 100%; 
+      height: 70%; 
+      max-width: 1000px; 
+      min-height: 500px; 
+      padding: 20px; 
+      
+      box-sizing: border-box; 
+      overflow-x: auto; 
+    }
+
+    table{
+      border-radius: 10%;
+    }
+     
 
 
   `
