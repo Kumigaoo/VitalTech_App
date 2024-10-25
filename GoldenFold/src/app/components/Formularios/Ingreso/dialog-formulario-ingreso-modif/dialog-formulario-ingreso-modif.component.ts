@@ -18,6 +18,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { CustomDateAdapter } from '../../../../custom-date-adapter';
 import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
 
+import { dataInici, dataIniciFinalValidator } from '../../../../validators/ingresos.validators';
+
+
+
 export const MY_DATE_FORMATS = {
   parse: {
     dateInput: 'DD/MM/YYYY',
@@ -81,7 +85,6 @@ export class DialogFormularioIngresoModifComponent implements OnInit {
         ...this.data,
         ...this.ingresoForm.value
       };
-      ingresoActualizado.dataSortida?.setDate(ingresoActualizado.dataSortida?.getDate() + 1); //para que ponga la fecha bien
       this.dialogRef.close(ingresoActualizado);
     } 
   }
@@ -117,6 +120,9 @@ export class DialogFormularioIngresoModifComponent implements OnInit {
       dataSortida: [this.data.dataSortida],
       episodiMedicId: [this.data.episodiMedicId, [Validators.required]],
       codiLlit: [this.data.codiLlit, [Validators.required]],
+    }, {
+      validators: [dataIniciFinalValidator(), dataInici()]
     });
   }
 }
+
