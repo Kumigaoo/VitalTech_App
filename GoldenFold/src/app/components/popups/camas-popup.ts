@@ -5,7 +5,7 @@ import { NgModule } from '@angular/core';
 import {MatTableModule} from '@angular/material/table';
 
 @Component({
-  selector: 'app-consultas-dialog',
+  selector: 'app-cama-dialog',
   standalone: true,
   imports: [
     CommonModule,
