@@ -51,7 +51,7 @@ import {MatTableModule} from '@angular/material/table';
     </table>
   </div>
 
-  `, 
+  `,
   styleUrls: ['./custom-table.component.css']
   
 })

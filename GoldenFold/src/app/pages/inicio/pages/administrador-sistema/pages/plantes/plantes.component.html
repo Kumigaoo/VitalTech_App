@@ -1,4 +1,3 @@
-<app-administratidor-sistema-dashboard></app-administratidor-sistema-dashboard>
 <div class="planta-section">
     <h2>Plantas</h2>
     <app-snackbar #snackbar></app-snackbar>
@@ -11,20 +10,20 @@
 
     <!-- Tabla de plantas con Angular Material -->
     <div class="table-container mat-elevation-z8">
-        <table mat-table [dataSource]="plantes" matSort>
+        <table mat-table [dataSource]="dataMostra" class="mat-table" matSort>
 
             <!-- Piso -->
             <ng-container matColumnDef="piso">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Piso </th>
                 <td mat-cell *matCellDef="let planta">{{ planta.piso }}</td>
             </ng-container>
-        
+
             <!-- Capacidad -->
             <ng-container matColumnDef="capacitatHabitacions">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Capacidad de habitaciones </th>
                 <td mat-cell *matCellDef="let planta">{{ planta.capacitatHabitacions }}</td>
             </ng-container>
-        
+
             <!-- Listado -->
             <ng-container matColumnDef="habitacions">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Habitaciones </th>
@@ -37,7 +36,7 @@
 
             <!-- Acciones -->
             <ng-container matColumnDef="acciones">
-                <th mat-header-cell *matHeaderCellDef  mat-sort-header> Acciones </th>
+                <th mat-header-cell *matHeaderCellDef> Acciones </th>
                 <td mat-cell *matCellDef="let planta">
                     <button mat-raised-button color="primary" (click)="modificarPlanta(planta)">
                         Actualizar
