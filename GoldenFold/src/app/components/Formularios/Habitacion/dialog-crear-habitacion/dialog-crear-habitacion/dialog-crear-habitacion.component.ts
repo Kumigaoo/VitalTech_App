@@ -31,6 +31,7 @@ export class DialogCrearHabitacionComponent {
 
   //guardar form
   guardar(): void {
-
+    const formData = this.habForm.value;
+    
   }
 }
