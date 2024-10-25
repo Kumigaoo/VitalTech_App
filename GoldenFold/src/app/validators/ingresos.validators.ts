@@ -9,6 +9,7 @@ export class IngresosValidators {
         return isValid ? null : { whitespace: true };
       };
   }
+
 }
 
 
@@ -31,3 +32,18 @@ export function dataIniciFinalValidator(): ValidatorFn {
 
   }
 }
+
+
+  export function dataInici(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const formGroup = control as FormGroup;
+      const dataEntrada = formGroup.get('dataEntrada')?.value;
+      if(dataEntrada==null) return null;
+      if (new Date(dataEntrada) > new Date()) {
+        return { dataInici: true };
+      }
+      return null;
+    }
+  }
+
+
