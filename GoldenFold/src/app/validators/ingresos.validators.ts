@@ -10,7 +10,31 @@ export class IngresosValidators {
       };
   }
 
-  static dataInici(): ValidatorFn {
+}
+
+
+export function dataIniciFinalValidator(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const formGroup = control as FormGroup;
+
+    const dataObertura = formGroup.get('dataEntrada')?.value;
+    const dataSortida = formGroup.get('dataSortida')?.value;
+
+    if(!dataObertura || !dataSortida){
+      return null;
+    }
+
+    if(new Date(dataObertura) > new Date(dataSortida)){
+      return { viatjeEnElTemps: true };
+    }else {
+      return null;
+    }
+
+  }
+}
+
+
+  export function dataInici(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const formGroup = control as FormGroup;
       const dataEntrada = formGroup.get('dataEntrada')?.value;
@@ -23,4 +47,5 @@ export class IngresosValidators {
       return null;
     }
   }
-}
+
+

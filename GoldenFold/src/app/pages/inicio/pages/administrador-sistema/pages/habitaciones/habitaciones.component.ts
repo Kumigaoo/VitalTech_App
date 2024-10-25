@@ -7,6 +7,7 @@ import { MatPaginator } from '@angular/material/paginator'; // Módulo de pagina
 import { MatSort } from '@angular/material/sort'; // Módulo de ordenación de Angular Material
 import { MatDialog } from '@angular/material/dialog';
 import { CamasDialogComponent } from '../../../../../../components/popups/camas-popup';
+import { DialogCrearHabitacionComponent } from '../../../../../../components/Formularios/Habitacion/dialog-crear-habitacion/dialog-crear-habitacion/dialog-crear-habitacion.component';
 
 @Component({
   selector: 'app-habitaciones',
@@ -144,7 +145,7 @@ export class HabitacionesComponent implements OnInit {
   // }
 
   toggleFormularioAgregar(): void {
-
+    this.dialog.open(DialogCrearHabitacionComponent);
   }
 
 }

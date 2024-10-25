@@ -21,6 +21,7 @@
                placeholder="DD/MM/YYYY" />
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="ingresoForm.hasError('viatjeEnElTemps')">La fecha de salida no puede ser anterior a la fecha de entrada</mat-error>
       </mat-form-field>    
     }
     <mat-form-field appearance="outline" class="full-width">

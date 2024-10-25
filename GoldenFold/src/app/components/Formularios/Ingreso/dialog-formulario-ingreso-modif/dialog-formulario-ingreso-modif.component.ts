@@ -17,7 +17,10 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 import { CustomDateAdapter } from '../../../../custom-date-adapter';
 import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
-import { IngresosValidators } from '../../../../validators/ingresos.validators';
+
+import { dataInici, dataIniciFinalValidator } from '../../../../validators/ingresos.validators';
+
+
 
 export const MY_DATE_FORMATS = {
   parse: {
@@ -121,7 +124,7 @@ export class DialogFormularioIngresoModifComponent implements OnInit {
       episodiMedicId: [this.data.episodiMedicId, [Validators.required]],
       codiLlit: [this.data.codiLlit, [Validators.required]],
     }, {
-      validators: [IngresosValidators.dataInici()]
+      validators: [dataIniciFinalValidator(), dataInici()]
     });
   }
 }

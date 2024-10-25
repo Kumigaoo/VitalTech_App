@@ -45,10 +45,10 @@
       <ng-container matColumnDef="Acciones">
         <th mat-header-cell *matHeaderCellDef>Acciones</th>
         <td mat-cell *matCellDef="let habitacion">
-          <button mat-raised-button color="primary" (click)="toggleActualizarHabitacion(habitacion)">
+          <button mat-button (click)="toggleActualizarHabitacion(habitacion)">
             Actualizar
           </button>
-          <button mat-raised-button color="warn" (click)="borrarHabitacion(habitacion.IdHabitacion)">
+          <button mat-button color="warn" (click)="borrarHabitacion(habitacion.IdHabitacion)">
             Borrar
           </button>
         </td>

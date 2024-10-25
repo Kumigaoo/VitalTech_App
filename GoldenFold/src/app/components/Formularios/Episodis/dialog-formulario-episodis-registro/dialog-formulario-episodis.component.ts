@@ -9,7 +9,20 @@ import { FormsModule } from '@angular/forms';
 import {provideNativeDateAdapter} from '@angular/material/core';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { formatDate } from '@angular/common';
+import { CustomDateAdapter } from '../../../../custom-date-adapter';
+import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
 
+export const MY_DATE_FORMATS = {
+  parse: {
+    dateInput: 'DD/MM/YYYY',
+  },
+  display: {
+    dateInput: 'DD/MM/YYYY',
+    monthYearLabel: 'MMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY',
+  },
+};
 @Component({
   selector: 'app-dialog-formulario-episodis',
   standalone: true,
@@ -25,7 +38,8 @@ import { formatDate } from '@angular/common';
     MatButtonModule
   ],
   providers: [  
-    provideNativeDateAdapter()  
+    { provide: DateAdapter, useClass: CustomDateAdapter },
+    { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS },
   ],
   
   templateUrl: './dialog-formulario-episodis.component.html',
