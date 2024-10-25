@@ -6,7 +6,7 @@ import { MatTableDataSource } from '@angular/material/table'; // Módulo de tabl
 import { MatPaginator } from '@angular/material/paginator'; // Módulo de paginación de Angular Material
 import { MatSort } from '@angular/material/sort'; // Módulo de ordenación de Angular Material
 import { MatDialog } from '@angular/material/dialog';
-import { DialogActualizarHabitacionComponent } from '../../../../../../components/Formularios/Habitacion/dialog-actualizar-habitacion/dialog-actualizar-habitacion.component';
+import { CamasDialogComponent } from '../../../../../../components/popups/camas-popup';
 import { DialogCrearHabitacionComponent } from '../../../../../../components/Formularios/Habitacion/dialog-crear-habitacion/dialog-crear-habitacion/dialog-crear-habitacion.component';
 
 @Component({
@@ -115,6 +115,13 @@ export class HabitacionesComponent implements OnInit {
 
   toggleActualizarHabitacion(habitacion: Habitacion): void {
     this.habitacionParaActualizar = habitacion;  // Mostrar los datos en el formulario de actualización
+  }
+
+  verCamas(habitacion: any): void{
+    this.dialog.open(CamasDialogComponent, {
+      width: '1200px',
+      data: habitacion.llits
+    });
   }
 
   aplicarFiltro(event: Event): void {

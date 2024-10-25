@@ -27,6 +27,7 @@ export class DialogFormularioConsultaComponent {
   ) {
   }
 
+
   // Método para manejar el envío del formulario
   guardar(): void {
     this.dialogRef.close(this.data);  

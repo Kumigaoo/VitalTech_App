@@ -1,0 +1,18 @@
+.table-container {
+    max-height: 400px;   /* Limitar la altura */
+    max-width: 100%;     /* O el ancho que desees */
+    overflow-y: auto;    /* Scroll vertical */
+    overflow-x: auto;    /* Scroll horizontal */
+    border: 1px solid #ddd;
+  }
+
+h1 {
+  font-size: 2rem; 
+  font-weight: bold; 
+  color: #3f51b5; 
+  text-align: center; 
+  padding: 16px 0; 
+  margin: 0; 
+  border-bottom: 2px solid #e0e0e0;
+}
+  

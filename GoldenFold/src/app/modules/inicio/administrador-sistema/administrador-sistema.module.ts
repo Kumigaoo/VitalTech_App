@@ -29,6 +29,6 @@ import { EpisodisMedicsComponent } from '../../../pages/inicio/pages/administrad
   [ AdministradorSistemaComponent, CamasComponent, HabitacionesComponent, PacientesComponent, RolesComponent, UsuariosComponent, IngresosComponent, ConsultasComponent, PlantesComponent,EpisodisMedicsComponent ],
 
   imports: 
-  [ AdministradorSistemaRoute, AdministradorSistemaDashboardComponent, SharedModule ]
+  [ AdministradorSistemaRoute, AdministradorSistemaDashboardComponent, SharedModule, CommonModule ]
 })
 export class AdministradorSistemaModule { }

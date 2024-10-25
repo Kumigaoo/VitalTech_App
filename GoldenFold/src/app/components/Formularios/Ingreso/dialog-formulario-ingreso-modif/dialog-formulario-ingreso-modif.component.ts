@@ -102,7 +102,7 @@ export class DialogFormularioIngresoModifComponent implements OnInit {
   obtenerCamas(): void {
     this.camaService.getLlits().subscribe({
       next: (data: Cama[]) => {
-        this.llits = data.filter(llit => llit.ocupat && !llit.foraDeServei);
+        this.llits = data.filter(llit => llit.ocupat && !llit.foraDeServei || llit.codiLlit === this.ingresoForm.get('codiLlit')?.value);
       },
       error: (error: any) => {
         console.error('Error al cargar las camas', error);

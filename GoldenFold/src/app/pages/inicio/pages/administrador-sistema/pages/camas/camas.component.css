@@ -77,6 +77,10 @@ h2 {
   color: white;
   cursor: pointer;
 }
+
+.table th:hover {
+  background-color: #0056b3;
+}
 .table td {
   background-color: #fafafa;
 }

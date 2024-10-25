@@ -5,14 +5,15 @@ import { NgModule } from '@angular/core';
 import {MatTableModule} from '@angular/material/table';
 
 @Component({
-  selector: 'app-consultas-dialog',
+  selector: 'app-ingresos-dialog',
   standalone: true,
   imports: [
     CommonModule,
     MatTableModule
   ],
   template: `
-    <h1 mat-dialog-title>Consultas</h1>
+
+    <h1 mat-dialog-title>Ingressos</h1>
     <div class="table-container">
       <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
@@ -22,38 +23,39 @@ import {MatTableModule} from '@angular/material/table';
         </ng-container>
 
         <!-- Name Column -->
-        <ng-container matColumnDef="urgencia">
-          <th mat-header-cell *matHeaderCellDef> Urgencia </th>
-          <td mat-cell *matCellDef="let element"> {{element.urgencia}} </td>
+        <ng-container matColumnDef="dataEntrada">
+          <th mat-header-cell *matHeaderCellDef> Data Entrada </th>
+          <td mat-cell *matCellDef="let element"> {{element.dataEntrada}} </td>
         </ng-container>
 
         <!-- Weight Column -->
-        <ng-container matColumnDef="sintomatologia">
-          <th mat-header-cell *matHeaderCellDef> Sintomatologia </th>
-          <td mat-cell *matCellDef="let element"> {{element.sintomatologia}} </td>
+        <ng-container matColumnDef="dataSortida">
+          <th mat-header-cell *matHeaderCellDef> Data Sortida </th>
+          <td mat-cell *matCellDef="let element"> {{element.dataSortida}} </td>
         </ng-container>
 
         <!-- Symbol Column -->
-        <ng-container matColumnDef="recepta">
-          <th mat-header-cell *matHeaderCellDef> Recepta </th>
-          <td mat-cell *matCellDef="let element"> {{element.recepta}} </td>
-        </ng-container>
+        <ng-container matColumnDef="episodiMedicId">
+          <th mat-header-cell *matHeaderCellDef> Episodi Medic Id </th>
+          <td mat-cell *matCellDef="let element"> {{element.episodiMedicId}} </td>
+          </ng-container>
 
-        <ng-container matColumnDef="dniPersonal">
-          <th mat-header-cell *matHeaderCellDef> DNI Personal </th>
-          <td mat-cell *matCellDef="let element"> {{element.dniPersonal}} </td>
+        <ng-container matColumnDef="codiLlit">
+          <th mat-header-cell *matHeaderCellDef> Codi Llit </th>
+          <td mat-cell *matCellDef="let element"> {{element.codiLlit}} </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-      </table>
-    </div>
 
-  `,
+    </table>
+  </div>
+
+  `, 
   styleUrls: ['./custom-table.component.css']
   
 })
-export class ConsultasDialogComponent {
+export class IngresosDialogComponent {
 
     dataSource: any;
 
@@ -61,6 +63,6 @@ export class ConsultasDialogComponent {
     this.dataSource = data;
   }
 
-  displayedColumns: string[] = ['id', 'urgencia', 'sintomatologia', 'recepta', 'dniPersonal'];
+  displayedColumns: string[] = ['id', 'dataEntrada', 'dataSortida', 'episodiMedicId', 'codiLlit'];
   
 }
