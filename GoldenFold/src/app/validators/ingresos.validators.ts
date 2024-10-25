@@ -14,7 +14,9 @@ export class IngresosValidators {
     return (control: AbstractControl): ValidationErrors | null => {
       const formGroup = control as FormGroup;
       const dataEntrada = formGroup.get('dataEntrada')?.value;
-      if(dataEntrada==null) return null;
+      if(dataEntrada==null) {
+        return null;
+      }
       if (new Date(dataEntrada) > new Date()) {
         return { dataInici: true };
       }
