@@ -18,13 +18,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
-import { DialogCrearHabitacionComponent } from './formularios/Habitacion/dialog-crear-habitacion/dialog-crear-habitacion/dialog-crear-habitacion.component';
-
+import { DialogCrearHabitacionComponent } from './components/Formularios/Habitacion/dialog-crear-habitacion/dialog-crear-habitacion/dialog-crear-habitacion.component';
 @NgModule({
   declarations: [
     //PlantesComponent
     DialogActualizarHabitacionComponent,
-    DialogCrearHabitacionComponent,
   ],
   imports: [
     BrowserModule,
