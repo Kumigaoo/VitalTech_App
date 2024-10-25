@@ -34,7 +34,6 @@
       <!--Columna camas-->
       <ng-container matColumnDef="Camas">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Camas</th>
-        <td mat-cell *matCellDef="let habitacion">{{ habitacion.llits }}</td>>
         <td mat-cell *matCellDef="let habitacion"> 
           <a (click)="verCamas(habitacion)" style="cursor: pointer; color: blue;">
             {{ habitacion.llits.length }} camas

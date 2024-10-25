@@ -54,33 +54,8 @@ import {MatTableModule} from '@angular/material/table';
 
   </div>
 
-  `, styles: ` 
-
-  h1{
-    margin: auto;
-    text-align: center;
-    padding: 20px;
-  }
-    
-     div {
-     
-      width: 100%; 
-      height: 70%; 
-      max-width: 1000px; 
-      min-height: 500px; 
-      padding: 20px; 
-      
-      box-sizing: border-box; 
-      overflow-x: auto; 
-    }
-
-    table{
-      border-radius: 10%;
-    }
-     
-
-
-  `
+  `,
+  styleUrls: ['./custom-table.component.css']
   
 })
 export class IngresosDialogComponent {
