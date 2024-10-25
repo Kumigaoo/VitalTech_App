@@ -8,7 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './modules/shared/shared.module';  // Importa el SharedModule
 import { InicioComponent } from './pages/inicio/inicio.component';
 
-import { DialogActualizarHabitacionComponent } from './components/Formularios/Habitacion/dialog-formulario-actualizar-habitacion/dialog-actualizar-habitacion.component';
+import { DialogActualizarHabitacionComponent } from './components/Formularios/Habitacion/dialog-actualizar-habitacion/dialog-actualizar-habitacion.component';
 import { EpisodisMedicsComponent } from './pages/inicio/pages/administrador-sistema/pages/episodis-medics/episodis-medics.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
@@ -18,7 +18,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
-
+import { DialogCrearHabitacionComponent } from './components/Formularios/Habitacion/dialog-crear-habitacion/dialog-crear-habitacion/dialog-crear-habitacion.component';
 @NgModule({
   declarations: [
     //PlantesComponent
