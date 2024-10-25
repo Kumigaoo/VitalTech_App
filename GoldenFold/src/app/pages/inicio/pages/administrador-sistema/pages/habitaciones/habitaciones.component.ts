@@ -5,6 +5,8 @@ import { SnackbarComponent } from '../../../../../../components/snackbar/snackba
 import { MatTableDataSource } from '@angular/material/table'; // Módulo de tabla de Angular Material
 import { MatPaginator } from '@angular/material/paginator'; // Módulo de paginación de Angular Material
 import { MatSort } from '@angular/material/sort'; // Módulo de ordenación de Angular Material
+import { MatDialog } from '@angular/material/dialog';
+import { CamasDialogComponent } from '../../../../../../components/popups/camas-popup';
 
 @Component({
   selector: 'app-habitaciones',
@@ -28,7 +30,7 @@ export class HabitacionesComponent implements OnInit {
 
   displayedColumns: string[] = ['NumeroHabitacion', 'CapCamas', 'Planta','Camas', 'Acciones'];  // Columnas de la tabla
 
-  constructor(private habitacionService: HabitacionService) { }
+  constructor(private habitacionService: HabitacionService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.obtenerHabitaciones();
@@ -112,6 +114,13 @@ export class HabitacionesComponent implements OnInit {
 
   toggleActualizarHabitacion(habitacion: Habitacion): void {
     this.habitacionParaActualizar = habitacion;  // Mostrar los datos en el formulario de actualización
+  }
+
+  verCamas(habitacion: any): void{
+    this.dialog.open(CamasDialogComponent, {
+      width: '1200px',
+      data: habitacion.llits
+    });
   }
 
   aplicarFiltro(event: Event): void {
