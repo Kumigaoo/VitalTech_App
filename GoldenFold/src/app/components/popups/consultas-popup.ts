@@ -24,7 +24,7 @@ import {MatTableModule} from '@angular/material/table';
         <!-- Name Column -->
         <ng-container matColumnDef="urgencia">
           <th mat-header-cell *matHeaderCellDef> Urgencia </th>
-          <td mat-cell *matCellDef="let element"> {{element.urgencia}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.urgencia? "Si" : "No"}} </td>
         </ng-container>
 
         <!-- Weight Column -->

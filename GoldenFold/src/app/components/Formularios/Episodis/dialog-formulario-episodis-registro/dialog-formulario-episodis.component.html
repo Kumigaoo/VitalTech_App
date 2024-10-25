@@ -4,10 +4,10 @@
 
   <form [formGroup]="episodiForm" (ngSubmit)="guardar()">
 
-    <mat-form-field class="example-full-width">
-      <mat-label>Data Obertura</mat-label>
+    <mat-form-field  appearance="outline" class="example-full-width">
+      <mat-label>Fecha apertura</mat-label>
       <input matInput [matDatepicker]="picker" [(ngModel)]="data.dataObertura" formControlName="dataObertura" required>
-      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-hint>DD/MM/YYYY</mat-hint>
       <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
@@ -18,12 +18,12 @@
     </mat-form-field>
 
     <mat-form-field appearance="outline">
-      <mat-label>Estat</mat-label>
+      <mat-label>Estado</mat-label>
       <input matInput name="estat" formControlName="estat" required />
     </mat-form-field>
 
     <mat-form-field appearance="outline">
-      <mat-label>DNI Pacient</mat-label>
+      <mat-label>DNI Paciente</mat-label>
       <input matInput name="dniPacient" formControlName="dniPacient" required />
     </mat-form-field>
 

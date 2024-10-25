@@ -7,6 +7,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogFormularioComponent } from '../../../../../../components/Formularios/Paciente/dialog-formulario/dialog-formulario.component';
 import { SnackbarComponent } from '../../../../../../components/snackbar/snackbar.component';
+import { EpisodiosDialogComponent } from '../../../../../../components/popups/episodis-popup';
 
 @Component({
   selector: 'app-pacientes',
@@ -16,7 +17,7 @@ import { SnackbarComponent } from '../../../../../../components/snackbar/snackba
 export class PacientesComponent implements OnInit, AfterViewInit {
   @ViewChild(SnackbarComponent) snackbar!: SnackbarComponent
   // Variables relacionadas con la tabla y los datos
-  displayedColumns: string[] = ['dni', 'numSS', 'nom', 'birthDay', 'sexe', 'acciones'];
+  displayedColumns: string[] = ['dni', 'numSS', 'nom', 'birthDay', 'sexe', 'episodisMedics', 'acciones'];
   dataSource: MatTableDataSource<Paciente> = new MatTableDataSource<Paciente>([]);
   totalItems = 0;
   itemsPerPage = 300;
@@ -62,6 +63,14 @@ export class PacientesComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+  }
+
+  verEpisodios(paciente: any): void {
+    console.log(paciente.episodisMedics);
+    this.dialog.open( EpisodiosDialogComponent,{
+      width: '1200px',
+      data: paciente.episodisMedics
+    })
   }
 
   obtenerPacientes(): void {
