@@ -13,45 +13,42 @@ import {MatTableModule} from '@angular/material/table';
   ],
   template: `
 
-  <div>
+    <h1 mat-dialog-title>Ingressos</h1>
+    <div class="table-container">
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
-  <h1 mat-dialog-title>Ingressos</h1>
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef> Id </th>
+          <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+        </ng-container>
 
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <!-- Name Column -->
+        <ng-container matColumnDef="dataEntrada">
+          <th mat-header-cell *matHeaderCellDef> Data Entrada </th>
+          <td mat-cell *matCellDef="let element"> {{element.dataEntrada}} </td>
+        </ng-container>
 
-<ng-container matColumnDef="id">
-<th mat-header-cell *matHeaderCellDef> Id </th>
-<td mat-cell *matCellDef="let element"> {{element.id}} </td>
-</ng-container>
+        <!-- Weight Column -->
+        <ng-container matColumnDef="dataSortida">
+          <th mat-header-cell *matHeaderCellDef> Data Sortida </th>
+          <td mat-cell *matCellDef="let element"> {{element.dataSortida}} </td>
+        </ng-container>
 
-<!-- Name Column -->
-<ng-container matColumnDef="dataEntrada">
-<th mat-header-cell *matHeaderCellDef> Data Entrada </th>
-<td mat-cell *matCellDef="let element"> {{element.dataEntrada}} </td>
-</ng-container>
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="episodiMedicId">
+          <th mat-header-cell *matHeaderCellDef> Episodi Medic Id </th>
+          <td mat-cell *matCellDef="let element"> {{element.episodiMedicId}} </td>
+          </ng-container>
 
-<!-- Weight Column -->
-<ng-container matColumnDef="dataSortida">
-<th mat-header-cell *matHeaderCellDef> Data Sortida </th>
-<td mat-cell *matCellDef="let element"> {{element.dataSortida}} </td>
-</ng-container>
+        <ng-container matColumnDef="codiLlit">
+          <th mat-header-cell *matHeaderCellDef> Codi Llit </th>
+          <td mat-cell *matCellDef="let element"> {{element.codiLlit}} </td>
+        </ng-container>
 
-<!-- Symbol Column -->
-<ng-container matColumnDef="episodiMedicId">
-<th mat-header-cell *matHeaderCellDef> Episodi Medic Id </th>
-<td mat-cell *matCellDef="let element"> {{element.episodiMedicId}} </td>
-</ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
-<ng-container matColumnDef="codiLlit">
-<th mat-header-cell *matHeaderCellDef> Codi Llit </th>
-<td mat-cell *matCellDef="let element"> {{element.codiLlit}} </td>
-</ng-container>
-
-<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>
-
-
+    </table>
   </div>
 
   `,

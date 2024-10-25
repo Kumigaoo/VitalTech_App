@@ -9,6 +9,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { SnackbarComponent } from '../../../../../../components/snackbar/snackbar.component';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogFormularioUsuarioComponent} from '../../../../../../components/Formularios/Usuario/dialog-formulario-usuario.component';
 
 @Component({
   selector: 'app-usuarios',
@@ -23,7 +25,7 @@ export class UsuariosComponent implements OnInit {
   usuarios: MatTableDataSource<Personal> = new MatTableDataSource<Personal>();
 
   //columnas que se mostraran en la tabla
-  displayedColumns: string[] = ['dni','nom', 'especialitat', 'Actions'];
+  displayedColumns: string[] = ['dni','nom', 'especialitat', 'consultes', 'Actions'];
 
   //paginador y ordenador
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -32,12 +34,13 @@ export class UsuariosComponent implements OnInit {
   //formularios reactivos
   usuarioForm!: FormGroup;
   buscarUsuario!: FormGroup;
+  nuevoPersonal!: Personal;
   usuarioParaActualizar: Personal | null = null;
 
   //propiedades utiles
   roles: Rol[] = [];
 
-  constructor(private rolService: RoleService, private usuarioService: UsuarioService) {}
+  constructor(private rolService: RoleService, private usuarioService: UsuarioService, public dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.obtenerUsuarios();
@@ -130,6 +133,42 @@ export class UsuariosComponent implements OnInit {
       this.usuarioParaActualizar = { ...usuario };
       this.usuarioForm.patchValue(this.usuarioParaActualizar); //rellenar el formulario con los datos del usuario
     }
+  }
+
+  toggleFormularioAgregar(): void {
+    this.nuevoPersonal = {
+      dni: '',
+      nom: '',
+      especialitat: '',
+      consultes:[]      
+    };
+    this.dialog.open(DialogFormularioUsuarioComponent, {
+      data: this.nuevoPersonal
+    }).afterClosed().subscribe((pacienteCreado) => {
+      if (pacienteCreado) {
+        this.nuevoPersonal = pacienteCreado;
+        this.guardarPaciente();
+      }
+    });
+  }
+
+  //AKI GUARDAR PACIENTE; VER TS DE PACIENTE
+  guardarPaciente(): void {
+    this.usuarioService.addUsuario(this.nuevoPersonal).subscribe({
+      next: () => {
+        this.obtenerUsuarios();
+        this.cerrarFormulario();
+        this.snackbar.showNotification('success', 'Nuevo empleado registrado correctamente'); // Notificación de éxito
+      },
+      error: (error: any) => {
+        console.error('Error al guardar el empleado', error);
+        this.snackbar.showNotification('error', 'Error al guardar el empleado'); // Notificación de error
+      },
+    });
+  }
+
+  cerrarFormulario(): void {
+    this.usuarioParaActualizar = null;
   }
 
   actualizarUsuario(): void {
