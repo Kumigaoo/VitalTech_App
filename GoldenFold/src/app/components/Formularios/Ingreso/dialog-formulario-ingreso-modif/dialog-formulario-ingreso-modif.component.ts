@@ -17,7 +17,6 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 import { CustomDateAdapter } from '../../../../custom-date-adapter';
 import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
-
 import { dataInici, dataIniciFinalValidator } from '../../../../validators/ingresos.validators';
 
 
