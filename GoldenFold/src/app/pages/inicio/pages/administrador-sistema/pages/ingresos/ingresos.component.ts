@@ -13,7 +13,6 @@ import { DialogFormularioIngresoModifComponent } from '../../../../../../compone
 import { MatDialog } from '@angular/material/dialog';
 import { SnackbarComponent } from '../../../../../../components/snackbar/snackbar.component';
 import { IngresosDialogComponent } from '../../../../../../components/popups/ingresos-popup';
-import { FichaIngresoComponent } from '../../../../../../components/Fichas/ficha-ingresos.component';
 
 @Component({
   selector: 'app-ingresos',
@@ -83,8 +82,6 @@ export class IngresosComponent implements OnInit {
     if(this.ingresoForm.valid) {
       // Crear un nuevo objeto de tipo Ingreso basado en los valores del formulario
       const nuevoIngreso: Ingreso = this.ingresoForm.value;
-      // Asignar la fecha de entrada al nuevo ingreso
-      nuevoIngreso.dataEntrada = new Date();
       this.ingresoService.postIngreso(nuevoIngreso).subscribe({
         next: (ingreso: Ingreso) => {
           console.log('Ingreso: ',ingreso);
@@ -177,14 +174,6 @@ export class IngresosComponent implements OnInit {
 
     });
   }
-
-  verIngresos(ingreso: any): void{
-    this.dialog.open(FichaIngresoComponent, {
-      data: ingreso,
-      width: '350px'
-    });
-  }
-
   toggleAgregarIngreso(): void {
     this.crearFormularioIngreso();
     this.dialog.open(DialogFormularioIngresoModifComponent, {
