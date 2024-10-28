@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, TemplateRef } from '@angular/core';
 import { PacienteService } from '../../../../../../services/paciente.service';
 import { Paciente } from '../../../../../../interface/paciente.interface';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
@@ -29,6 +29,7 @@ export class PacientesComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild('popupTemplate') popupTemplate!: TemplateRef<any>;
 
   pacienteSeleccionado: Paciente | null = null;
 
@@ -63,6 +64,17 @@ export class PacientesComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+  }
+
+  openPopup(paciente: any): void {
+    this.dialog.open(this.popupTemplate, {
+      data: paciente,
+      width: '300px'
+    });
+  }
+
+  closePopup(): void {
+    this.dialog.closeAll();
   }
 
   verEpisodios(paciente: any): void {
