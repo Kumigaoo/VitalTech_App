@@ -20,13 +20,35 @@ import { Consulta } from '../../../../interface/consulta.interface';
   styleUrls: ['./dialog-formulario-consulta-modif.component.css']
 })
 export class DialogFormularioConsultaModifComponent {
+  isEditing: boolean = false; // Variable para controlar el modo
+
+
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: Consulta, 
     public dialogRef: MatDialogRef<DialogFormularioConsultaModifComponent>
-  ) {}
+  ) {
+    this.showDetails();
+  }
 
   // Método para manejar el envío del formulario
   guardar(): void {
     this.dialogRef.close(this.data);  
+  }
+  get isReadOnly(): boolean {
+    return !this.isEditing;
+  }
+  // Función para habilitar el modo edición
+  enableEditing(): void {
+    this.isEditing = true;
+  }
+
+  // Función para mostrar detalles (solo lectura)
+  showDetails(): void {
+    this.isEditing = false;
+  }
+
+  // Función para cancelar
+  cancelar(): void {
+    this.dialogRef.close();
   }
 }
