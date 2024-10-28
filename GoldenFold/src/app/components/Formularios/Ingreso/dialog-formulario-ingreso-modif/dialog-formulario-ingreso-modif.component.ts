@@ -82,11 +82,14 @@ export class DialogFormularioIngresoModifComponent implements OnInit {
     if (this.ingresoForm.valid) {
       const ingresoActualizado: Ingreso = {
         ...this.data,
-        ...this.ingresoForm.value
+        ...this.ingresoForm.value,
+        dataEntrada: new Date(new Date(this.ingresoForm.value.dataEntrada).setDate(new Date(this.ingresoForm.value.dataEntrada).getDate() + 1)),
+        dataSortida: new Date(new Date(this.ingresoForm.value.dataSortida).setDate(new Date(this.ingresoForm.value.dataSortida).getDate() + 1))
       };
       this.dialogRef.close(ingresoActualizado);
-    } 
+    }
   }
+  
 
   // Obtener la lista de episodios médicos desde el servicio correspondiente
   obtenerEpisodisMedics(): void {

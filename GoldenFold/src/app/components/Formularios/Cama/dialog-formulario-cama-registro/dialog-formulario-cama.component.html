@@ -3,7 +3,7 @@
   <form [formGroup]="camaForm" (ngSubmit)="guardar()">
     <br />
     <mat-form-field appearance="outline">
-      <mat-label>Codigo cama</mat-label>
+      <mat-label>Código cama</mat-label>
       <input matInput formControlName="codiLlit" required />
       <mat-error *ngIf="camaForm.get('codiLlit')?.hasError('required')">El código de la cama es requerido</mat-error>
     </mat-form-field>
