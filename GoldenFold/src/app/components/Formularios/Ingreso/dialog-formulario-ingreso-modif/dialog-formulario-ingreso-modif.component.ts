@@ -61,7 +61,7 @@ export const MY_DATE_FORMATS = {
 export class DialogFormularioIngresoModifComponent implements OnInit {
   episodisMedics: EpisodiMedic[] = [];
   llits: Cama[] = [];
-  isEditing: boolean = false; // Variable para controlar el modo
+  isEditing: boolean = true; // Variable para controlar el modo
   ingresoForm!: FormGroup;
 
   constructor(

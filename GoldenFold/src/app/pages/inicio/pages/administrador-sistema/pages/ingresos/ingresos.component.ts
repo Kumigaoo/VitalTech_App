@@ -82,6 +82,7 @@ export class IngresosComponent implements OnInit {
     if(this.ingresoForm.valid) {
       // Crear un nuevo objeto de tipo Ingreso basado en los valores del formulario
       const nuevoIngreso: Ingreso = this.ingresoForm.value;
+      nuevoIngreso.dataEntrada = new Date(); //ponemos la fecha de hoy
       this.ingresoService.postIngreso(nuevoIngreso).subscribe({
         next: (ingreso: Ingreso) => {
           console.log('Ingreso: ',ingreso);
