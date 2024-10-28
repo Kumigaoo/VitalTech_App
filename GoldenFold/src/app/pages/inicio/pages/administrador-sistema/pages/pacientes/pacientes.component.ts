@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, TemplateRef } from '@angular/core';
 import { PacienteService } from '../../../../../../services/paciente.service';
 import { Paciente } from '../../../../../../interface/paciente.interface';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogFormularioComponent } from '../../../../../../components/Formularios/Paciente/dialog-formulario/dialog-formulario.component';
 import { SnackbarComponent } from '../../../../../../components/snackbar/snackbar.component';
 import { EpisodiosDialogComponent } from '../../../../../../components/popups/episodis-popup';
+import { FichaPacienteComponent } from '../../../../../../components/Fichas/ficha-paciente.component';
 
 @Component({
   selector: 'app-pacientes',
@@ -63,6 +64,18 @@ export class PacientesComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+  }
+
+  openPopup(paciente: any): void {
+    console.log(paciente);
+    this.dialog.open(FichaPacienteComponent, {
+      data: paciente,
+      width: '300px'
+    });
+  }
+
+  closePopup(): void {
+    this.dialog.closeAll();
   }
 
   verEpisodios(paciente: any): void {

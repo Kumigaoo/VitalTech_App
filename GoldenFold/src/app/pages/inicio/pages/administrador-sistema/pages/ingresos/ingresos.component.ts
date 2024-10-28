@@ -12,6 +12,8 @@ import { EpisodiService } from '../../../../../../services/episodis.service';
 import { DialogFormularioIngresoModifComponent } from '../../../../../../components/Formularios/Ingreso/dialog-formulario-ingreso-modif/dialog-formulario-ingreso-modif.component';
 import { MatDialog } from '@angular/material/dialog';
 import { SnackbarComponent } from '../../../../../../components/snackbar/snackbar.component';
+import { IngresosDialogComponent } from '../../../../../../components/popups/ingresos-popup';
+import { FichaIngresoComponent } from '../../../../../../components/Fichas/ficha-ingresos.component';
 
 @Component({
   selector: 'app-ingresos',
@@ -173,6 +175,13 @@ export class IngresosComponent implements OnInit {
         this.actualizarIngreso();
       }
 
+    });
+  }
+
+  verIngresos(ingreso: any): void{
+    this.dialog.open(FichaIngresoComponent, {
+      data: ingreso,
+      width: '350px'
     });
   }
 
