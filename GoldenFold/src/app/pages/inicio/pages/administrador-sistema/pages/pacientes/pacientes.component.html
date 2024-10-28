@@ -99,18 +99,6 @@
     </table>
   </div>
 
-  <ng-template #popupTemplate let-data="data">
-    <h2>Detalles del Paciente</h2>
-    <p><strong>DNI: </strong>{{data.dni}}</p>
-    <p><strong>Tarjeta Sanitaria: </strong>{{data.numSS}}</p>
-    <p><strong>Nombre Propio: </strong>{{data.nom}}</p>
-    <p><strong>Primer apellido: </strong>{{data.cognom1}}</p>
-    @if(data.cognom2 != null) {<p><strong>Segundo apellido: </strong>{{data.cognom2}}</p>}
-    <p><strong>Fecha de nacimiento: </strong>{{data.birthDay}}</p>
-    <p><strong>Sexo: </strong>{{data.sexe}}</p>
-    <button mat-button (click)="closePopup()">Cerrar</button>
-  </ng-template>
-
   <!-- Paginación -->
   <mat-paginator [pageSizeOptions]="[5, 10]" showFirstLastButtons></mat-paginator>
 

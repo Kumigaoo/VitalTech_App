@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogFormularioComponent } from '../../../../../../components/Formularios/Paciente/dialog-formulario/dialog-formulario.component';
 import { SnackbarComponent } from '../../../../../../components/snackbar/snackbar.component';
 import { EpisodiosDialogComponent } from '../../../../../../components/popups/episodis-popup';
+import { FichaPacienteComponent } from '../../../../../../components/Fichas/ficha-paciente.component';
 
 @Component({
   selector: 'app-pacientes',
@@ -29,7 +30,6 @@ export class PacientesComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  @ViewChild('popupTemplate') popupTemplate!: TemplateRef<any>;
 
   pacienteSeleccionado: Paciente | null = null;
 
@@ -67,7 +67,8 @@ export class PacientesComponent implements OnInit, AfterViewInit {
   }
 
   openPopup(paciente: any): void {
-    this.dialog.open(this.popupTemplate, {
+    console.log(paciente);
+    this.dialog.open(FichaPacienteComponent, {
       data: paciente,
       width: '300px'
     });
