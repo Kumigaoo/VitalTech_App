@@ -42,7 +42,7 @@
 
       <ng-container matColumnDef="consultes">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Consultes</th>
-        <td mat-cell *matCellDef="let usuario">{{ usuario.consultes }}</td>
+        <td mat-cell *matCellDef="let usuario">{{ usuario.consultes.length }}</td>
       </ng-container>
 
       <!--Columna nom Usuario-->
