@@ -9,11 +9,11 @@ namespace HospitalAPI.Models
         public int Id { get; set; }
 
         [Required]
-        public string nom { get; set; } = string.Empty;
+        public string Nom { get; set; } = string.Empty;
 
         public string Descripcio { get; set; } = string.Empty;
 
-         public ICollection<User>? Users { get; set; }
+         public ICollection<Usuari>? Usuarios { get; set; }
 
     }
 }

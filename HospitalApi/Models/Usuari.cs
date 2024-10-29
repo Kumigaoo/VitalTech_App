@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HospitalAPI.Models
 {
-    public class User
+    public class Usuari
     {
 
         [Key]        
@@ -13,6 +13,8 @@ namespace HospitalAPI.Models
         public string Username { get; set; } = string.Empty;
 
         public string Password { get; set; } = string.Empty;
+
+        public string Email {get; set;} = string.Empty;
 
         [ForeignKey("Rol")]
         public int RolId { get; set; }

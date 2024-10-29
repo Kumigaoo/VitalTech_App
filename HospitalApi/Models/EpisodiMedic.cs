@@ -14,13 +14,12 @@ namespace HospitalAPI.Models
 
         public DateTime? DataTancament { get; set; }
 
-        // Quitar
         [Required]
-        public string? Dolencia { get; set; }
+        public string? Motivo { get; set; }
 
-        // Urgencia
+        public string? Urgencia {get; set;}
 
-        // Motivo
+        public string? Recepta { get; set; }
 
         [Required]
         public string Estat { get; set; } = string.Empty;
@@ -34,9 +33,18 @@ namespace HospitalAPI.Models
         [IgnoreDataMember]
         public Pacient? Pacient { get; set; }
 
+        [ForeignKey("UsuariId")]
         [JsonIgnore]
         [IgnoreDataMember]
-        public ICollection<Consulta>? Consultes {get; set;}
+        public int UsuariId {get; set;}
+
+        [JsonIgnore]
+        [IgnoreDataMember]
+        public Usuari? usuari { get; set; }
+
+        [JsonIgnore]
+        [IgnoreDataMember]
+        public ICollection<PruebasDiagnosticas>? PruebasDiagnosticas {get; set;}
         
         [JsonIgnore]
         [IgnoreDataMember]

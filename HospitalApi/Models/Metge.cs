@@ -2,7 +2,7 @@
 
 namespace HospitalAPI.Models
 {
-    public class Personal
+    public class Metge : Rol
     {
         [Key]
         public int Id { get; set; }
@@ -14,6 +14,6 @@ namespace HospitalAPI.Models
 
         public string Nom { get; set; } = string.Empty;
 
-        public ICollection<Consulta>? Consultes { get; set; }
+        public ICollection<PruebasDiagnosticas>? PruebasDiagnosticas { get; set; }
     }
 }
