@@ -9,31 +9,23 @@ namespace HospitalApi.Data
         {
         }
 
-        // public bool TestConnection()
-        // {
-        //     try
-        //     {
-        //         this.Database.OpenConnection();
-        //         this.Database.CloseConnection();
-        //         return true; // La conexión fue exitosa
-        //     }
-        //     catch (Exception ex)
-        //     {
-        //         Aquí puedes registrar el error o manejarlo como desees
-        //         Console.WriteLine($"Error de conexión: {ex.Message}");
-        //         return false; // La conexión falló
-        //     }
-        // }
-
-        public DbSet<Consulta> Consultes { get; set; }
+        public DbSet<PruebasDiagnosticas> PruebasDiagnosticas { get; set; }
         public DbSet<EpisodiMedic> EpisodisMedics { get; set; }
         public DbSet<Habitacio> Habitacions { get; set; }
         public DbSet<Ingres> Ingressos { get; set; }
         public DbSet<Llit> Llits { get; set; }
-        public DbSet<Personal> Personals { get; set; }
+        public DbSet<Usuari> Usuari { get; set; }
         public DbSet<Pacient> Pacients { get; set; }
         public DbSet<Planta> Plantes { get; set; }
-        public DbSet<User> Users { get; set; }
+        public DbSet<Rol> Rol { get; set; }
+        public DbSet<Permis> Permisos { get; set; }
+        public DbSet<Entiat> Entiatas { get; set; }
+        public DbSet<RolPermisEntitat> RolPermisEntitats { get; set; }
+        public DbSet<Administratiu> Administratius { get; set; }
+        public DbSet<Enfermer> Enfermer { get; set; }
+        public DbSet<SuperUsuari> SuperUsuaris { get; set; }
+        public DbSet<Metge> Metges { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -67,16 +59,22 @@ namespace HospitalApi.Data
             .HasForeignKey(h => h.PacientId)
             .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<Consulta>()
+            modelBuilder.Entity<PruebasDiagnosticas>()
             .HasOne(c => c.EpisodiMedic)
-            .WithMany(p => p.Consultes)
+            .WithMany(p => p.PruebasDiagnosticas)
             .HasForeignKey(c => c.EpisodiMedicId)
             .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<Consulta>()
-            .HasOne(c => c.Personal)
-            .WithMany(p => p.Consultes)
-            .HasForeignKey(c => c.PersonalId)
+            modelBuilder.Entity<PruebasDiagnosticas>()
+            .HasOne(c => c.Usuari)
+            .WithMany(p => p.PruebasDiagnosticas)
+            .HasForeignKey(c => c.UsuariId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<EpisodiMedic>()
+            .HasOne(c => c.Usuari)
+            .WithMany(p => p.EpisodisMedics)
+            .HasForeignKey(c => c.UsuariId)
             .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Habitacio>()
@@ -91,7 +89,15 @@ namespace HospitalApi.Data
             .HasIndex(e => e.DNI)
             .IsUnique();
 
-            modelBuilder.Entity<Personal>()
+            modelBuilder.Entity<Metge>()
+            .HasIndex(e => e.DNI)
+            .IsUnique();
+
+            modelBuilder.Entity<Administratiu>()
+            .HasIndex(e => e.DNI)
+            .IsUnique();
+
+            modelBuilder.Entity<Enfermer>()
             .HasIndex(e => e.DNI)
             .IsUnique();
 

@@ -1,3 +1,4 @@
+/*
 using AutoMapper;
 using HospitalApi.Data;
 using HospitalApi.DTO;
@@ -10,14 +11,14 @@ namespace HospitalAPI.Controllers
 {
     [Route(("api/[Controller]"))]
     [ApiController]
-    public class ConsultaController : ControllerBase
+    public class PruebasDiagnosticasController : ControllerBase
     {
-        private readonly ILogger<ConsultaController> _logger;
+        private readonly ILogger<PruebasDiagnosticasController> _logger;
         private readonly ApplicationDbContext _bbdd;
         private readonly IMapper _mapper;
 
-        public ConsultaController(
-            ILogger<ConsultaController> logger,
+        public PruebasDiagnosticasController(
+            ILogger<PruebasDiagnosticasController> logger,
             ApplicationDbContext bbdd,
             IMapper mapper
         )
@@ -33,7 +34,7 @@ namespace HospitalAPI.Controllers
         {
             _logger.LogInformation("Obtenint les consultes");
 
-            IEnumerable<Consulta> conList = await _bbdd
+            IEnumerable<PruebasDiagnosticas> conList = await _bbdd
                 .Consultes
                 .Include("Personal")
                 .Include("EpisodiMedic")
@@ -96,11 +97,11 @@ namespace HospitalAPI.Controllers
             if (personal == null) return BadRequest("No existeix cap metge amb l'ID indicat.");
             if (episodi == null) return BadRequest("No existeix cap episodi mèdic amb l'ID indicat.");
 
-            Consulta consulta = _mapper.Map<Consulta>(userConDTO);
-            consulta.PersonalId = personal.Id;
+            PruebasDiagnosticas consulta = _mapper.Map<PruebasDiagnosticas>(userConDTO);
+            consulta.UsuariId = personal.Id;
             consulta.EpisodiMedicId = episodi.Id;
 
-            await _bbdd.Consultes.AddAsync(consulta);
+           // await _bbdd.Consultes.AddAsync(consulta);
             await _bbdd.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetConsulta), new { id = consulta.Id }, userConDTO);
@@ -149,7 +150,7 @@ namespace HospitalAPI.Controllers
                 return NotFound("No existeix consulta amb aquest ID.");
             }
 
-            Consulta consulta = _mapper.Map<Consulta>(userConDTO);
+            PruebasDiagnosticas consulta = _mapper.Map<PruebasDiagnosticas>(userConDTO);
 
             var personal = await (from p in _bbdd.Personals where p.DNI == userConDTO.DNIPersonal select p).FirstOrDefaultAsync();
             var episodi = await _bbdd.EpisodisMedics.FindAsync(userConDTO.EpisodiMedicId);
@@ -158,13 +159,14 @@ namespace HospitalAPI.Controllers
             if (episodi == null) return BadRequest("No existeix cap episodi mèdic amb l'ID indicat.");
 
 
-            consulta.PersonalId = personal.Id;
+            //consulta.PersonalId = personal.Id;
             consulta.EpisodiMedicId = episodi.Id;
 
-            _bbdd.Consultes.Update(consulta);
+            //_bbdd.Consultes.Update(consulta);
             await _bbdd.SaveChangesAsync();
             return NoContent();
         }
 
     }
 }
+*/

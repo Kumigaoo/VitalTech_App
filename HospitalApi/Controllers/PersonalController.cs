@@ -1,3 +1,4 @@
+/*
 using AutoMapper;
 using HospitalApi.Data;
 using HospitalApi.Enums;
@@ -183,3 +184,4 @@ namespace HospitalAPI.Controllers
 
     }
 }
+*/

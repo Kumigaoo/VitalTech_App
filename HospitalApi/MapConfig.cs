@@ -9,9 +9,9 @@ namespace HospitalAPI
 
         public MapConfig()
         {
-            CreateMap<Consulta, ConsultaCreateDTO>().ReverseMap();
-            CreateMap<Consulta, ConsultaReadDTO>().ReverseMap();
-            CreateMap<Consulta, ConsultaReferenceDTO>().ReverseMap();
+            CreateMap<PruebasDiagnosticas, ConsultaCreateDTO>().ReverseMap();
+            CreateMap<PruebasDiagnosticas, ConsultaReadDTO>().ReverseMap();
+            CreateMap<PruebasDiagnosticas, ConsultaReferenceDTO>().ReverseMap();
 
             CreateMap<Habitacio, HabitacioReadDTO>().ReverseMap();
             CreateMap<Habitacio, HabitacionReferenceDTO>().ReverseMap();
@@ -38,8 +38,8 @@ namespace HospitalAPI
             CreateMap<Pacient, PacientReadDTO>().ReverseMap();
             CreateMap<Pacient, PacientCreateDTO>().ReverseMap();
 
-            CreateMap<Personal, PersonalReadDTO>().ReverseMap();
-            CreateMap<Personal, PersonalCreateDTO>().ReverseMap();
+            CreateMap<Metge, PersonalReadDTO>().ReverseMap();
+            CreateMap<Metge, PersonalCreateDTO>().ReverseMap();
 
         }
 

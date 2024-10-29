@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HospitalAPI.Models
 {
-    public class RolPermisEntiat
+    public class RolPermisEntitat
     {
 
         [Key]        

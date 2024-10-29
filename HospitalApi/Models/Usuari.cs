@@ -20,5 +20,11 @@ namespace HospitalAPI.Models
         public int RolId { get; set; }
         public Rol? Rol { get; set; }
 
+        public ICollection<PruebasDiagnosticas>? PruebasDiagnosticas { get; set; }
+
+        public ICollection<EpisodiMedic>? EpisodisMedics { get; set; }
+
+
+
     }
 }

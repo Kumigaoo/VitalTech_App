@@ -40,7 +40,7 @@ namespace HospitalAPI.Models
 
         [JsonIgnore]
         [IgnoreDataMember]
-        public Usuari? usuari { get; set; }
+        public Usuari? Usuari { get; set; }
 
         [JsonIgnore]
         [IgnoreDataMember]

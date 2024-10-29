@@ -23,6 +23,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddAutoMapper(typeof(MapConfig));
 
+/*
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -37,7 +38,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             //IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
         };
     });
-
+*/
 
 var app = builder.Build();
 

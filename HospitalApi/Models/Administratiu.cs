@@ -4,8 +4,6 @@ namespace HospitalAPI.Models
 {
     public class Administratiu : Rol
     {
-        [Key]
-        public int Id { get; set; }
 
         [Required]
         public string DNI { get; set; } = string.Empty;
