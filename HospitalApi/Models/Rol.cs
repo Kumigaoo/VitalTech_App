@@ -13,7 +13,7 @@ namespace HospitalAPI.Models
 
         public string Descripcio { get; set; } = string.Empty;
 
-         public ICollection<Usuari>? Usuarios { get; set; }
+        public ICollection<Usuari>? Usuarios { get; set; }
 
     }
 }
