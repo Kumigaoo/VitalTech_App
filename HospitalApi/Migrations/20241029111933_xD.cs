@@ -12,16 +12,16 @@ namespace HospitalApi.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Entiatas",
+                name: "Entitats",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    accio = table.Column<int>(type: "int", nullable: false)
+                    Tablas = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Entiatas", x => x.Id);
+                    table.PrimaryKey("PK_Entitats", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -52,7 +52,7 @@ namespace HospitalApi.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    accio = table.Column<int>(type: "int", nullable: false)
+                    Accio = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -80,18 +80,7 @@ namespace HospitalApi.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     NomRol = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Descripcio = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Discriminator = table.Column<string>(type: "nvarchar(13)", maxLength: 13, nullable: false),
-                    Administratiu_DNI = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    Administratiu_Nom = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Correu = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Enfermer_DNI = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    Enfermer_Nom = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Enfermer_Especialitat = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DNI = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    Especialitat = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Nom = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SuperUsuari_Nom = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Descripcio = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -120,6 +109,66 @@ namespace HospitalApi.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Administratiu",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false),
+                    DNI = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Nom = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Correu = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Administratiu", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Administratiu_Rol_Id",
+                        column: x => x.Id,
+                        principalTable: "Rol",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Enfermer",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false),
+                    DNI = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Nom = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Especialitat = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Enfermer", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Enfermer_Rol_Id",
+                        column: x => x.Id,
+                        principalTable: "Rol",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Metge",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false),
+                    DNI = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Especialitat = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Nom = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Metge", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Metge_Rol_Id",
+                        column: x => x.Id,
+                        principalTable: "Rol",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "RolPermisEntitats",
                 columns: table => new
                 {
@@ -127,12 +176,17 @@ namespace HospitalApi.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     RolId = table.Column<int>(type: "int", nullable: false),
                     PermisId = table.Column<int>(type: "int", nullable: false),
-                    EnitatId = table.Column<int>(type: "int", nullable: false),
-                    Entiat = table.Column<int>(type: "int", nullable: true)
+                    EntitatId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_RolPermisEntitats", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_RolPermisEntitats_Entitats_EntitatId",
+                        column: x => x.EntitatId,
+                        principalTable: "Entitats",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_RolPermisEntitats_Permisos_PermisId",
                         column: x => x.PermisId,
@@ -142,6 +196,24 @@ namespace HospitalApi.Migrations
                     table.ForeignKey(
                         name: "FK_RolPermisEntitats_Rol_RolId",
                         column: x => x.RolId,
+                        principalTable: "Rol",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SuperUsuari",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false),
+                    Nom = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SuperUsuari", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SuperUsuari_Rol_Id",
+                        column: x => x.Id,
                         principalTable: "Rol",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -272,9 +344,9 @@ namespace HospitalApi.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_PruebasDiagnosticas_Rol_MetgeId",
+                        name: "FK_PruebasDiagnosticas_Metge_MetgeId",
                         column: x => x.MetgeId,
-                        principalTable: "Rol",
+                        principalTable: "Metge",
                         principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_PruebasDiagnosticas_Usuari_UsuariId",
@@ -283,6 +355,20 @@ namespace HospitalApi.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Administratiu_DNI",
+                table: "Administratiu",
+                column: "DNI",
+                unique: true,
+                filter: "[DNI] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Enfermer_DNI",
+                table: "Enfermer",
+                column: "DNI",
+                unique: true,
+                filter: "[DNI] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_EpisodisMedics_PacientId",
@@ -327,6 +413,13 @@ namespace HospitalApi.Migrations
                 column: "HabitacioId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Metge_DNI",
+                table: "Metge",
+                column: "DNI",
+                unique: true,
+                filter: "[DNI] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Pacients_DNI",
                 table: "Pacients",
                 column: "DNI",
@@ -360,25 +453,9 @@ namespace HospitalApi.Migrations
                 column: "UsuariId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Rol_Administratiu_DNI",
-                table: "Rol",
-                column: "Administratiu_DNI",
-                unique: true,
-                filter: "[DNI] IS NOT NULL");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Rol_DNI",
-                table: "Rol",
-                column: "DNI",
-                unique: true,
-                filter: "[DNI] IS NOT NULL");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Rol_Enfermer_DNI",
-                table: "Rol",
-                column: "Enfermer_DNI",
-                unique: true,
-                filter: "[DNI] IS NOT NULL");
+                name: "IX_RolPermisEntitats_EntitatId",
+                table: "RolPermisEntitats",
+                column: "EntitatId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RolPermisEntitats_PermisId",
@@ -400,7 +477,10 @@ namespace HospitalApi.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Entiatas");
+                name: "Administratiu");
+
+            migrationBuilder.DropTable(
+                name: "Enfermer");
 
             migrationBuilder.DropTable(
                 name: "Ingressos");
@@ -412,10 +492,19 @@ namespace HospitalApi.Migrations
                 name: "RolPermisEntitats");
 
             migrationBuilder.DropTable(
+                name: "SuperUsuari");
+
+            migrationBuilder.DropTable(
                 name: "Llits");
 
             migrationBuilder.DropTable(
                 name: "EpisodisMedics");
+
+            migrationBuilder.DropTable(
+                name: "Metge");
+
+            migrationBuilder.DropTable(
+                name: "Entitats");
 
             migrationBuilder.DropTable(
                 name: "Permisos");

@@ -19,7 +19,7 @@ namespace HospitalApi.Data
         public DbSet<Planta> Plantes { get; set; }
         public DbSet<Rol> Rol { get; set; }
         public DbSet<Permis> Permisos { get; set; }
-        public DbSet<Entiat> Entiatas { get; set; }
+        public DbSet<Entitat> Entitats { get; set; }
         public DbSet<RolPermisEntitat> RolPermisEntitats { get; set; }
         public DbSet<Administratiu> Administratius { get; set; }
         public DbSet<Enfermer> Enfermer { get; set; }
@@ -29,6 +29,13 @@ namespace HospitalApi.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+            modelBuilder.Entity<Rol>().ToTable("Rol");
+            modelBuilder.Entity<Metge>().ToTable("Metge");
+            modelBuilder.Entity<Administratiu>().ToTable("Administratiu");
+            modelBuilder.Entity<Enfermer>().ToTable("Enfermer");
+            modelBuilder.Entity<SuperUsuari>().ToTable("SuperUsuari");
+
             modelBuilder.Entity<Habitacio>()
             .HasOne(h => h.Planta)
             .WithMany(p => p.Habitacions)

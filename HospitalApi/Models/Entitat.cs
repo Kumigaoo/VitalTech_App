@@ -2,14 +2,14 @@ using System.ComponentModel.DataAnnotations;
 
 namespace HospitalAPI.Models
 {
-    public class Entiat
+    public class Entitat
     {
 
         [Key]        
         public int Id { get; set; }
 
         [Required]
-        public Accio accio { get; set; }
+        public Tablas Tablas { get; set; }
 
 
     }

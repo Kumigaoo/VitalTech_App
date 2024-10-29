@@ -9,7 +9,7 @@ namespace HospitalAPI.Models
         public int Id { get; set; }
 
         [Required]
-        public Accio accio { get; set; }
+        public Accio Accio { get; set; }
 
 
     }

@@ -1,4 +1,4 @@
-public enum Entitat
+public enum Tablas
 {
     Planta,
     Habitacio,

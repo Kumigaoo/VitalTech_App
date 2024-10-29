@@ -17,9 +17,9 @@ namespace HospitalAPI.Models
         public int PermisId { get; set; }
         public Permis? Permis { get; set; }
 
-        [ForeignKey("Enitat")]
-        public int EnitatId { get; set; }
-        public Entitat? Entiat { get; set; }
+        [ForeignKey("Entitat")]
+        public int EntitatId { get; set; }
+        public Entitat? Entitat { get; set; }
 
     }
 }
