@@ -33,8 +33,7 @@ export class UsuarioService {
       }
     
       updateUsuario(usuario: Personal): Observable<Personal> {
-        return this.http.put<Personal>(
-          `${this.apiUrl}/${usuario.dni}`,
+        return this.http.put<Personal>(`${this.apiUrl}/${usuario.dni}`,
           usuario
         );
       }
@@ -42,10 +41,4 @@ export class UsuarioService {
       deleteUsuario(dni: string): Observable<void> {
         return this.http.delete<void>(`${this.apiUrl}/${dni}`);
       }
-
-      // asi estaba antes:
-      // deleteUsuario(idUsuario: number): Observable<void> {
-      //   return this.http.delete<void>(`${this.apiUrl}/Usuarios/${idUsuario}`);
-      // }
-
 }

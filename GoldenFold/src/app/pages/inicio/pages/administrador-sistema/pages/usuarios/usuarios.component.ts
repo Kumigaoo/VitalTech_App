@@ -10,7 +10,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { SnackbarComponent } from '../../../../../../components/snackbar/snackbar.component';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogFormularioUsuarioComponent} from '../../../../../../components/Formularios/Usuario/dialog-formulario-usuario.component';
+import { DialogFormularioUsuarioComponent } from '../../../../../../components/Formularios/Usuario/dialog-formulario-usuario-registro/dialog-formulario-usuario.component';
+import { DialogFormularioUsuarioModifComponent } from '../../../../../../components/Formularios/Usuario/dialog-formulario-usuario-actualizar/dialog-formulario-usuario-modif.component';
 
 @Component({
   selector: 'app-usuarios',
@@ -122,17 +123,16 @@ export class UsuariosComponent implements OnInit {
     }
   }
 
-  toggleActualizarUsuario(usuario: Personal): void {
-    if (
-      this.usuarioParaActualizar &&
-      this.usuarioParaActualizar.dni === usuario.dni
-    ) {
-      this.usuarioParaActualizar = null;
-      this.usuarioForm.reset();
-    } else {
-      this.usuarioParaActualizar = { ...usuario };
-      this.usuarioForm.patchValue(this.usuarioParaActualizar); //rellenar el formulario con los datos del usuario
-    }
+  toggleActualizarUsuario(episodi: Personal): void {
+    this.usuarioParaActualizar = { ...episodi };
+    this.dialog.open(DialogFormularioUsuarioModifComponent, {
+      data: this.usuarioParaActualizar
+    }).afterClosed().subscribe((usuarioActualizado) => {
+      if (usuarioActualizado) {
+        this.usuarioParaActualizar = usuarioActualizado;
+        this.actualizarUsuario();
+      }
+    });
   }
 
   toggleFormularioAgregar(): void {

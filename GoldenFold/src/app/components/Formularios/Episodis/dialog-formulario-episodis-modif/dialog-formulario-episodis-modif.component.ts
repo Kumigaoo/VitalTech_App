@@ -59,14 +59,10 @@ export class DialogFormularioEpisodisModifComponent {
       dolencia: new FormControl(''),
       estat: new FormControl(''),
       dniPacient: new FormControl('')
-    });
-
-    
+    }); 
   }
 
   guardar(): void {
-
-    
    
       this.data.dataObertura = formatDate(this.episodiForm.value.dataObertura, 'yyyy-MM-dd', 'en');
       this.data.dataTancament = formatDate(this.episodiForm.value.dataTancament, 'yyyy-MM-dd', 'en');
@@ -77,5 +73,4 @@ export class DialogFormularioEpisodisModifComponent {
       this.dialogRef.close(this.data); 
       
   }
-
 }
