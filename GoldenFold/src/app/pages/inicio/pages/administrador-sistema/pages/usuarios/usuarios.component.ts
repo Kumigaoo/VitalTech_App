@@ -12,6 +12,8 @@ import { SnackbarComponent } from '../../../../../../components/snackbar/snackba
 import { MatDialog } from '@angular/material/dialog';
 import { DialogFormularioUsuarioComponent } from '../../../../../../components/Formularios/Usuario/dialog-formulario-usuario-registro/dialog-formulario-usuario.component';
 import { DialogFormularioUsuarioModifComponent } from '../../../../../../components/Formularios/Usuario/dialog-formulario-usuario-actualizar/dialog-formulario-usuario-modif.component';
+import { UsuariosDialogComponent } from '../../../../../../components/popups/usuarios-popup';
+import { ConsultasDialogComponent } from '../../../../../../components/popups/consultas-popup';
 
 @Component({
   selector: 'app-usuarios',
@@ -33,6 +35,7 @@ export class UsuariosComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
 
   //formularios reactivos
+  usuarioPrimigenio!: Personal;
   usuarioForm!: FormGroup;
   buscarUsuario!: FormGroup;
   nuevoPersonal!: Personal;
@@ -124,6 +127,7 @@ export class UsuariosComponent implements OnInit {
   }
 
   toggleActualizarUsuario(episodi: Personal): void {
+    this.usuarioPrimigenio = episodi;
     this.usuarioParaActualizar = { ...episodi };
     this.dialog.open(DialogFormularioUsuarioModifComponent, {
       data: this.usuarioParaActualizar
@@ -173,9 +177,8 @@ export class UsuariosComponent implements OnInit {
 
   actualizarUsuario(): void {
     if (this.usuarioParaActualizar) {
-      const usuarioActualizado: Personal = { ...this.usuarioParaActualizar, ...this.usuarioForm.value };
 
-      this.usuarioService.updateUsuario(usuarioActualizado).subscribe({
+    this.usuarioService.updateUsuario(this.usuarioParaActualizar, this.usuarioPrimigenio.dni).subscribe({
         next: () => {
           this.obtenerUsuarios(); // Refrescar la lista de usuarios
           this.usuarioParaActualizar = null;
@@ -219,5 +222,14 @@ export class UsuariosComponent implements OnInit {
   cancelarActualizarUsuario(): void {
     this.usuarioParaActualizar = null; // Oculta el formulario y resetea los datos
     this.usuarioForm.reset();
+  }
+
+  verConsultas(usuario: any): void{
+    console.log(usuario.consultes);
+    this.dialog.open(ConsultasDialogComponent, {
+      width: '500vw',
+      height: '90%',
+      data: usuario.consultes
+    })
   }
 }

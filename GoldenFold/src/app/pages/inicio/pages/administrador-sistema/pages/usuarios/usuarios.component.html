@@ -1,31 +1,41 @@
 <app-administratidor-sistema-dashboard></app-administratidor-sistema-dashboard>
 <div class="usuarios-section">
-  <br><br><br>
+  <br /><br /><br />
   <h2>Usuarios</h2>
   <app-snackbar #snackbar></app-snackbar>
 
   <div class="header-container">
-  <div>
-    <button mat-raised-button color="primary" (click)="toggleFormularioAgregar()">
-      Registrar nuevo empleado
-    </button>
-  </div><br>
+    <div>
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="toggleFormularioAgregar()"
+      >
+        Registrar nuevo empleado
+      </button>
+    </div>
+    <br />
 
-  <!-- Caja de búsqueda -->
-  <app-search-box
-  [searchOptions]="[
-  { label: 'DNI', value: 'DNI' },
-  { label: 'nom', value: 'nom' }
-]"
-   [defaultSearchType]="'nom'" placeholder="Escribe para buscar..." (search)="filtrarUsuarios($event)">
-  </app-search-box>
-</div>
+    <!-- Caja de búsqueda -->
+    <app-search-box
+      [searchOptions]="[
+        { label: 'DNI', value: 'DNI' },
+        { label: 'nom', value: 'nom' }
+      ]"
+      [defaultSearchType]="'nom'"
+      placeholder="Escribe para buscar..."
+      (search)="filtrarUsuarios($event)"
+    >
+    </app-search-box>
+  </div>
   <!--Tabla Angular Material-->
   <div class="table-container">
     <table mat-table [dataSource]="usuarios" matSort class="mat-elevation-z8">
       <!--Columna ID-->
       <ng-container matColumnDef="dni">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>DNI de usuario</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          DNI de usuario
+        </th>
         <td mat-cell *matCellDef="let usuario">{{ usuario.dni }}</td>
       </ng-container>
 
@@ -42,7 +52,14 @@
 
       <ng-container matColumnDef="consultes">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Consultes</th>
-        <td mat-cell *matCellDef="let usuario">{{ usuario.consultes.length }}</td>
+        <td mat-cell *matCellDef="let usuario">
+          <a
+            (click)="verConsultas(usuario)"
+            style="cursor: pointer; color: blue"
+          >
+            {{ usuario.consultes.length }} Consultes
+          </a>
+        </td>
       </ng-container>
 
       <!--Columna nom Usuario-->
@@ -61,8 +78,12 @@
       <ng-container matColumnDef="Actions">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Acciones</th>
         <td mat-cell *matCellDef="let usuario">
-          <button mat-button (click)="toggleActualizarUsuario(usuario)">Actualizar</button>
-          <button mat-button color="warn" (click)="borrarUsuario(usuario.dni)">Eliminar</button>
+          <button mat-button (click)="toggleActualizarUsuario(usuario)">
+            Actualizar
+          </button>
+          <button mat-button color="warn" (click)="borrarUsuario(usuario.dni)">
+            Eliminar
+          </button>
         </td>
       </ng-container>
 
@@ -70,11 +91,13 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
 
       <!-- Filas de la tabla -->
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
 
     <!-- Paginación -->
-    <mat-paginator [pageSizeOptions]="[8, 15, 25]" showFirstLastButtons></mat-paginator>
+    <mat-paginator
+      [pageSizeOptions]="[8, 15, 25]"
+      showFirstLastButtons
+    ></mat-paginator>
   </div>
-  
 </div>

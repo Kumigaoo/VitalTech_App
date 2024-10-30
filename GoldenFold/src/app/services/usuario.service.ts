@@ -32,8 +32,8 @@ export class UsuarioService {
         return this.http.post<Personal>(`${this.apiUrl}/`, usuario);
       }
     
-      updateUsuario(usuario: Personal): Observable<Personal> {
-        return this.http.put<Personal>(`${this.apiUrl}/${usuario.dni}`,
+      updateUsuario(usuario: Personal, dni : string): Observable<Personal> {
+        return this.http.put<Personal>(`${this.apiUrl}/${dni}`,
           usuario
         );
       }
