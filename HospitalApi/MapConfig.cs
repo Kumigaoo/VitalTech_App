@@ -43,6 +43,7 @@ namespace HospitalAPI
 
             CreateMap<Rol, RolReadDTO>().ReverseMap();
             CreateMap<Rol, RolCreateDTO>().ReverseMap();
+            CreateMap<Rol, RolUpdateDTO>().ReverseMap();
         }
 
     }
