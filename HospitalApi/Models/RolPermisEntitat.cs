@@ -6,7 +6,7 @@ namespace HospitalAPI.Models
     public class RolPermisEntitat
     {
 
-        [Key]        
+        [Key]
         public int Id { get; set; }
 
         [ForeignKey("Rol")]

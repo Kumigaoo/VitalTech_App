@@ -12,6 +12,6 @@ namespace HospitalApi.DTO
 
         public string Nom { get; set; } = string.Empty;
 
-        public ICollection<ConsultaReferenceDTO>? Consultes { get; set; }
+        // public ICollection<ConsultaReferenceDTO>? Consultes { get; set; }
     }
 }

@@ -112,6 +112,10 @@ namespace HospitalApi.Data
             .HasIndex(e => e.NumSS)
             .IsUnique();
 
+            modelBuilder.Entity<Usuari>()
+            .HasIndex(e => e.Username)
+            .IsUnique();
+
             modelBuilder.Entity<Planta>()
             .HasIndex(e => e.Piso)
             .IsUnique();
