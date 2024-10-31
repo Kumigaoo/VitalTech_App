@@ -11,9 +11,13 @@ namespace HospitalAPI.Models
         [Required]
         public string? Dolencia { get; set; }
 
-        [ForeignKey("UsuariId")]
-        public int UsuariId { get; set; }
-        public Usuari? Usuari { get; set; }
+        [ForeignKey("MetgeId")]
+        public int MetgeId { get; set; }
+        public Metge? Metge { get; set; }
+
+        [ForeignKey("EnfermerId")]
+        public int EnfermerId { get; set; }
+        public Enfermer? Enfermer { get; set; }
 
         [ForeignKey("EpisodiMedicId")]
         public int EpisodiMedicId { get; set; }

@@ -6,12 +6,11 @@ namespace HospitalAPI.Models
     {
 
         [Required]
-        public string DNI { get; set; } = string.Empty;
-
         public string Especialitat { get; set; } = string.Empty;
 
-        public string Nom { get; set; } = string.Empty;
-
         public ICollection<PruebasDiagnosticas>? PruebasDiagnosticas { get; set; }
+
+        public ICollection<EpisodiMedic>? EpisodiMedics { get; set; }
+
     }
 }

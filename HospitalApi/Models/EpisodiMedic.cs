@@ -33,14 +33,14 @@ namespace HospitalAPI.Models
         [IgnoreDataMember]
         public Pacient? Pacient { get; set; }
 
-        [ForeignKey("UsuariId")]
+        [ForeignKey("MetgeId")]
         [JsonIgnore]
         [IgnoreDataMember]
-        public int UsuariId {get; set;}
+        public int MetgeId {get; set;}
 
         [JsonIgnore]
         [IgnoreDataMember]
-        public Usuari? Usuari { get; set; }
+        public Metge? Metge { get; set; }
 
         [JsonIgnore]
         [IgnoreDataMember]

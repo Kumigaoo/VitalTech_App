@@ -9,7 +9,7 @@ namespace HospitalAPI.Models
         public int Id { get; set; }
 
         [Required]
-        public string NomRol { get; set; } = string.Empty;
+        public string Nom { get; set; } = string.Empty;
 
         public string Descripcio { get; set; } = string.Empty;
 
