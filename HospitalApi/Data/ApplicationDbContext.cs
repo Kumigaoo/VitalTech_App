@@ -34,7 +34,7 @@ namespace HospitalApi.Data
             modelBuilder.Entity<Metge>().ToTable("Metge");
             modelBuilder.Entity<Administratiu>().ToTable("Administratiu");
             modelBuilder.Entity<Enfermer>().ToTable("Enfermer");
-            modelBuilder.Entity<SuperUsuari>().ToTable("SuperUsuari");
+            modelBuilder.Entity<AdministradorSistema>().ToTable("AdministradorSistema");
 
             modelBuilder.Entity<Habitacio>()
             .HasOne(h => h.Planta)
@@ -96,15 +96,7 @@ namespace HospitalApi.Data
             .HasIndex(e => e.DNI)
             .IsUnique();
 
-            modelBuilder.Entity<Metge>()
-            .HasIndex(e => e.DNI)
-            .IsUnique();
-
-            modelBuilder.Entity<Administratiu>()
-            .HasIndex(e => e.DNI)
-            .IsUnique();
-
-            modelBuilder.Entity<Enfermer>()
+            modelBuilder.Entity<Personal>()
             .HasIndex(e => e.DNI)
             .IsUnique();
 
