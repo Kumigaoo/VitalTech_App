@@ -3,6 +3,13 @@
   <form [formGroup]="ingresoForm">
     <br />
     @if(data.id){
+
+      <mat-form-field appearance="outline">
+        <mat-label>ID de Ingreso</mat-label>
+        <input matInput [value]="data.id" disabled>
+      </mat-form-field>
+      
+
       <mat-form-field appearance="outline">
         <mat-label>Fecha de entrada:</mat-label>
         <input matInput [matDatepicker]="picker2" formControlName="dataEntrada" 
