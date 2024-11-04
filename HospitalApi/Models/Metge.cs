@@ -2,7 +2,7 @@
 
 namespace HospitalAPI.Models
 {
-    public class Metge : Rol
+    public class Metge : Personal
     {
 
         [Required]
