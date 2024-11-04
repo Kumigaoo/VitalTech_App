@@ -29,9 +29,10 @@ namespace HospitalApi.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
-            //modelBuilder.Entity<>().ToTable("Rol");
-            //modelBuilder.Entity<Metge>().ToTable("Metge");
+            modelBuilder.Entity<Enfermer>().ToTable("Enfermers");
+            modelBuilder.Entity<Metge>().ToTable("Metges");
+            modelBuilder.Entity<Administratiu>().ToTable("Administratiu");
+            modelBuilder.Entity<AdministradorSistema>().ToTable("AdministradorSistema");
 
             modelBuilder.Entity<Habitacio>()
             .HasOne(h => h.Planta)

@@ -246,11 +246,6 @@ namespace HospitalApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasMaxLength(21)
-                        .HasColumnType("nvarchar(21)");
-
                     b.Property<string>("Nom")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -270,9 +265,7 @@ namespace HospitalApi.Migrations
 
                     b.ToTable("Personal");
 
-                    b.HasDiscriminator().HasValue("Personal");
-
-                    b.UseTphMappingStrategy();
+                    b.UseTptMappingStrategy();
                 });
 
             modelBuilder.Entity("HospitalAPI.Models.Planta", b =>
@@ -416,7 +409,7 @@ namespace HospitalApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasDiscriminator().HasValue("AdministradorSistema");
+                    b.ToTable("AdministradorSistema", (string)null);
                 });
 
             modelBuilder.Entity("HospitalAPI.Models.Administratiu", b =>
@@ -427,7 +420,7 @@ namespace HospitalApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasDiscriminator().HasValue("Administratiu");
+                    b.ToTable("Administratiu", (string)null);
                 });
 
             modelBuilder.Entity("HospitalAPI.Models.Enfermer", b =>
@@ -438,13 +431,7 @@ namespace HospitalApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.ToTable("Personal", t =>
-                        {
-                            t.Property("Especialitat")
-                                .HasColumnName("Enfermer_Especialitat");
-                        });
-
-                    b.HasDiscriminator().HasValue("Enfermer");
+                    b.ToTable("Enfermers", (string)null);
                 });
 
             modelBuilder.Entity("HospitalAPI.Models.Metge", b =>
@@ -455,7 +442,7 @@ namespace HospitalApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasDiscriminator().HasValue("Metge");
+                    b.ToTable("Metges", (string)null);
                 });
 
             modelBuilder.Entity("HospitalAPI.Models.EpisodiMedic", b =>
@@ -603,6 +590,42 @@ namespace HospitalApi.Migrations
                         .IsRequired();
 
                     b.Navigation("Rol");
+                });
+
+            modelBuilder.Entity("HospitalAPI.Models.AdministradorSistema", b =>
+                {
+                    b.HasOne("HospitalAPI.Models.Personal", null)
+                        .WithOne()
+                        .HasForeignKey("HospitalAPI.Models.AdministradorSistema", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("HospitalAPI.Models.Administratiu", b =>
+                {
+                    b.HasOne("HospitalAPI.Models.Personal", null)
+                        .WithOne()
+                        .HasForeignKey("HospitalAPI.Models.Administratiu", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("HospitalAPI.Models.Enfermer", b =>
+                {
+                    b.HasOne("HospitalAPI.Models.Personal", null)
+                        .WithOne()
+                        .HasForeignKey("HospitalAPI.Models.Enfermer", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("HospitalAPI.Models.Metge", b =>
+                {
+                    b.HasOne("HospitalAPI.Models.Personal", null)
+                        .WithOne()
+                        .HasForeignKey("HospitalAPI.Models.Metge", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("HospitalAPI.Models.EpisodiMedic", b =>
