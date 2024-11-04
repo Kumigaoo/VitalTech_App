@@ -6,7 +6,7 @@ namespace HospitalAPI.Models
     {
 
         [Key]        
-        public int Id { get; set; }
+        public Accio Id { get; set; }
 
         [Required]
         public Accio Accio { get; set; }
