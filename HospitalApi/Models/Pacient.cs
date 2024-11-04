@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HospitalAPI.Models
 {
@@ -28,6 +29,10 @@ namespace HospitalAPI.Models
         public Nacionalidad Nacionalidad {get; set;}
 
         public string Email {get; set;} = string.Empty;
+
+        [ForeignKey("AdministratiuId")]
+        public int AdministratiuId {  get; set; }
+        public Administratiu? Administratiu { get; set; }
 
         [Required]
         public DateTime BirthDay { get; set; }
