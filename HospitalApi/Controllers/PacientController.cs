@@ -51,7 +51,7 @@ namespace HospitalAPI.Controllers
                 return BadRequest("Error: dades introduïdes en format incorrecte.");
             }
 
-            var pacient = await _bbdd.Pacients.Include("EpisodisMedics").FirstOrDefaultAsync(h => h.DNI == id);
+            var pacient = await _bbdd.Pacients.Include("EpisodisMedics").FirstOrDefaultAsync(p => p.DNI == id);
 
             if (pacient == null)
             {
@@ -222,7 +222,6 @@ namespace HospitalAPI.Controllers
                 }
 
             }
-
             return false;
 
         }
