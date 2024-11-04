@@ -23,7 +23,7 @@ namespace HospitalApi.Data
         public DbSet<RolPermisEntitat> RolPermisEntitats { get; set; }
         public DbSet<Administratiu> Administratius { get; set; }
         public DbSet<Enfermer> Enfermer { get; set; }
-        public DbSet<SuperUsuari> SuperUsuaris { get; set; }
+        public DbSet<AdministradorSistema> AdministradorSistema { get; set; }
         public DbSet<Metge> Metges { get; set; }
 
 
@@ -73,15 +73,21 @@ namespace HospitalApi.Data
             .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<PruebasDiagnosticas>()
-            .HasOne(c => c.Usuari)
+            .HasOne(c => c.Metge)
             .WithMany(p => p.PruebasDiagnosticas)
-            .HasForeignKey(c => c.UsuariId)
+            .HasForeignKey(c => c.MetgeId)
             .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<EpisodiMedic>()
-            .HasOne(c => c.Usuari)
-            .WithMany(p => p.EpisodisMedics)
-            .HasForeignKey(c => c.UsuariId)
+            modelBuilder.Entity<PruebasDiagnosticas>()
+            .HasOne(c => c.Enfermer)
+            .WithMany(p => p.PruebasDiagnosticas)
+            .HasForeignKey(c => c.EnfermerId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Usuari>()
+            .HasOne(c => c.Rol)
+            .WithMany(p => p.Usuarios)
+            .HasForeignKey(c => c.RolId)
             .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Habitacio>()
