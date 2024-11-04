@@ -9,9 +9,9 @@ namespace HospitalAPI
 
         public MapConfig()
         {
-            CreateMap<PruebasDiagnosticas, ConsultaCreateDTO>().ReverseMap();
-            CreateMap<PruebasDiagnosticas, ConsultaReadDTO>().ReverseMap();
-            CreateMap<PruebasDiagnosticas, ConsultaReferenceDTO>().ReverseMap();
+            CreateMap<PruebasDiagnosticas, PruebaDiagnosticaCreateDTO>().ReverseMap();
+            CreateMap<PruebasDiagnosticas, PruebaDiagnosticaReadDTO>().ReverseMap();
+            CreateMap<PruebasDiagnosticas, PruebaDiagnosticaReferenceDTO>().ReverseMap();
 
             CreateMap<Habitacio, HabitacioReadDTO>().ReverseMap();
             CreateMap<Habitacio, HabitacionReferenceDTO>().ReverseMap();

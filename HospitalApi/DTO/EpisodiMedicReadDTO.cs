@@ -20,7 +20,7 @@ namespace HospitalApi.DTO
         [NotMapped]
         public string DNIPacient { get; set; } = string.Empty;
        
-        public ICollection<ConsultaReferenceDTO>? Consultes { get; set; }
+        public ICollection<PruebaDiagnosticaReferenceDTO>? PruebasDiagnosticas { get; set; }
 
         public ICollection<IngresReadDTO>? Ingressos { get; set; }
 
