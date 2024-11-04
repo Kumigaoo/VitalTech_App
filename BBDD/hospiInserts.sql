@@ -236,7 +236,7 @@ INSERT INTO Pacients (DNI, NumSS, Nom, Cognom1, Cognom2, Sexe, Telefon, Nacional
 
 
 INSERT INTO EpisodisMedics (DataObertura, DataTancamentDolencia, PacientId, Estat) VALUES ('2024-01-01', '2024-01-10', 'Fractura de pierna',  'Paracetamol', (SELECT Id FROM Pacients WHERE DNI = '59099146W'), 'Resuelto');
-INSERT INTO EpisodisMedics (DataObertura, DataTancamentDolencia, PacientId, Estat) VALUES ('2024-11-11', '2029-01-10', 'Cardiopatía',  'Aspi', SELECT Id FROM Pacients WHERE DNI = '59099146W'), 'Resuelto');
+INSERT INTO EpisodisMedics (DataObertura, DataTancamentDolencia, PacientId, Estat) VALUES ('2024-11-11', '2029-01-10', 'Cardiopatía',  'Aspi', (SELECT Id FROM Pacients WHERE DNI = '59099146W'), 'Resuelto');
 INSERT INTO EpisodisMedics (DataObertura, DataTancamentDolencia, PacientId, Estat) VALUES ('2024-03-25', '2024-01-10', 'Inmunopatía',  'Ibuprofeno', (SELECT Id FROM Pacients WHERE DNI = '59099146W'), 'Resuelto');
 INSERT INTO EpisodisMedics (DataObertura, DataTancamentDolencia, PacientId, Estat) VALUES ('2024-02-20', NULL, 'Rotura de ligamentos',  'Diclofenaco', (SELECT Id FROM Pacients WHERE DNI = '21403359L'), 'No Resuelto');
 INSERT INTO EpisodisMedics (DataObertura, DataTancamentDolencia, PacientId, Estat) VALUES ('2024-02-01', '2024-02-02', 'Fractura de bralse', 'Analgésico', (SELECT Id FROM Pacients WHERE DNI = '21403359L'), 'Resuelto');
@@ -245,17 +245,17 @@ INSERT INTO EpisodisMedics (DataObertura, DataTancamentDolencia, PacientId, Esta
 INSERT INTO EpisodisMedics (DataObertura, DataTancamentDolencia, PacientId, Estat) VALUES ('2024-02-01', NULL, 'Fractura de brazo',  'Ibuprofeno', (SELECT Id FROM Pacients WHERE DNI = '78342394R'), 'No Resuelto');
 INSERT INTO EpisodisMedics (DataObertura, DataTancamentDolencia, PacientId, Estat) VALUES ('2024-03-01', '2024-03-15', 'Gripe', 'faltigripal', (SELECT Id FROM Pacients WHERE DNI = '78342394R'), 'Resuelto');
 INSERT INTO EpisodisMedics (DataObertura, DataTancamentDolencia, PacientId, Estat) VALUES ('2024-04-01', NULL, 'Dolor de espalda',  'Ibuprofeno', (SELECT Id FROM Pacients WHERE DNI = '96838460L'), 'No Resuelto');
-INSERT INTO EpisodisMedics (DataObertura, DataTancamentDolencia, PacientId, Estat) VALUES ('2024-05-01', '2024-05-20', 'Alergia', ''Antihistamínico', (SELECT Id FROM Pacients WHERE DNI = '96838460L'), 'Resuelto');
+INSERT INTO EpisodisMedics (DataObertura, DataTancamentDolencia, PacientId, Estat) VALUES ('2024-05-01', '2024-05-20', 'Alergia', 'Antihistamínico', (SELECT Id FROM Pacients WHERE DNI = '96838460L'), 'Resuelto');
 INSERT INTO EpisodisMedics (DataObertura, DataTancamentDolencia, PacientId, Estat) VALUES ('2024-06-01', NULL, 'Hipertensión',  'Antihipertensivo', (SELECT Id FROM Pacients WHERE DNI = '96838460L'), 'No Resuelto');
 INSERT INTO EpisodisMedics (DataObertura, DataTancamentDolencia, PacientId, Estat) VALUES ('2024-07-01', '2024-07-10', 'Infecciria', 'false', 'Antibiótico', (SELECT Id FROM Pacients WHERE DNI = '89868351Z'), 'Resuelto');
 INSERT INTO EpisodisMedics (DataObertura, DataTancamentDolencia, PacientId, Estat) VALUES ('2024-08-01', NULL, 'Asma',  'Inhalador', (SELECT Id FROM Pacients WHERE DNI = '89868351Z'), 'No Resuelto');
-INSERT INTO EpisodisMedics (DataObertura, DataTancamentDolencia, PacientId, Estat) VALUES ('2024-09-01', '2024-09-15', ivitis', 'false', 'Colirio', (SELECT Id FROM Pacients WHERE DNI = '89868351Z'), 'Resuelto');
+INSERT INTO EpisodisMedics (DataObertura, DataTancamentDolencia, PacientId, Estat) VALUES ('2024-09-01', '2024-09-15', 'Conjuntivitis', 'false', 'Colirio', (SELECT Id FROM Pacients WHERE DNI = '89868351Z'), 'Resuelto');
 INSERT INTO EpisodisMedics (DataObertura, DataTancamentDolencia, PacientId, Estat) VALUES ('2024-10-01', NULL, 'Artritis',  'Analgésico', (SELECT Id FROM Pacients WHERE DNI = '89868351Z'), 'No Resuelto');
 INSERT INTO EpisodisMedics (DataObertura, DataTancamentDolencia, PacientId, Estat) VALUES ('2024-01-05', '2024-01-15', 'Migfalse', 'Paracetamol', (SELECT Id FROM Pacients WHERE DNI = '98786670Z'), 'Resuelto');
 INSERT INTO EpisodisMedics (DataObertura, DataTancamentDolencia, PacientId, Estat) VALUES ('2024-02-10', NULL, 'Dermatitis',  'Crema', (SELECT Id FROM Pacients WHERE DNI = '98786670Z'), 'No Resuelto');
-INSERT INTO EpisodisMedics (DataObertura, DataTancamentDolencia, PacientId, Estat) VALUES ('2024-03-20', '2024-04-05', 'Bronq'false', 'Jarabe', (SELECT Id FROM Pacients WHERE DNI = '98786670Z'), 'Resuelto');
+INSERT INTO EpisodisMedics (DataObertura, DataTancamentDolencia, PacientId, Estat) VALUES ('2024-03-20', '2024-04-05', 'Bronqfalse', 'Jarabe', (SELECT Id FROM Pacients WHERE DNI = '98786670Z'), 'Resuelto');
 INSERT INTO EpisodisMedics (DataObertura, DataTancamentDolencia, PacientId, Estat) VALUES ('2024-04-10', NULL, 'Colesterol alto',  'Estatina', (SELECT Id FROM Pacients WHERE DNI = '98786670Z'), 'No Resuelto');
-INSERT INTO EpisodisMedics (DataObertura, DataTancamentDolencia, PacientId, Estat) VALUES ('2024-05-15', '2024-06-01', 'Otitis', ''Antibiótico', (SELECT Id FROM Pacients WHERE DNI = '33403288C'), 'Resuelto');
+INSERT INTO EpisodisMedics (DataObertura, DataTancamentDolencia, PacientId, Estat) VALUES ('2024-05-15', '2024-06-01', 'Otitis', 'Antibiótico', (SELECT Id FROM Pacients WHERE DNI = '33403288C'), 'Resuelto');
 INSERT INTO EpisodisMedics (DataObertura, DataTancamentDolencia, PacientId, Estat) VALUES ('2024-06-20', NULL, 'Dolor abdominal',  'Antiespasmódico', (SELECT Id FROM Pacients WHERE DNI = '33403288C'), 'No Resuelto');
 INSERT INTO EpisodisMedics (DataObertura, DataTancamentDolencia, PacientId, Estat) VALUES ('2024-07-05', '2024-07-20', 'Esguince do', 'false', 'Analgésico', (SELECT Id FROM Pacients WHERE DNI = '33403288C'), 'Resuelto');
 INSERT INTO EpisodisMedics (DataObertura, DataTancamentDolencia, PacientId, Estat) VALUES ('2024-08-10', NULL, 'Diabetes',  'Insulina', (SELECT Id FROM Pacients WHERE DNI = '63716734H'), 'No Resuelto');
