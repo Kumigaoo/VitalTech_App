@@ -6,9 +6,6 @@ namespace HospitalAPI.Models
     {
 
         [Key]        
-        public int Id { get; set; }
-
-        [Required]
         public Tablas Tablas { get; set; }
 
 

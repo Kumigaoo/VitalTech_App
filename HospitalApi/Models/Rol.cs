@@ -6,9 +6,6 @@ namespace HospitalAPI.Models
     {
 
         [Key]        
-        public int Id { get; set; }
-
-        [Required]
         public string Nom { get; set; } = string.Empty;
 
         public string Descripcio { get; set; } = string.Empty;
