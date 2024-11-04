@@ -10,7 +10,7 @@ public abstract class Personal {
     public string Nom {get; set;} = string.Empty;
     public int Telefon {get; set;}
 
-    [ForeignKey("Usuari")]
+    [ForeignKey("UsuariId")]
     public int UsuariId { get; set; }
     public Usuari? Usuari { get; set; }
 

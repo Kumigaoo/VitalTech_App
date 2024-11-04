@@ -14,11 +14,11 @@ namespace HospitalAPI.Models
         public Rol? Rol { get; set; }
 
         [ForeignKey("Permis")]
-        public required Permis PermisId { get; set; }
+        public required string PermisId { get; set; }
         public Permis? Permis { get; set; }
 
         [ForeignKey("Entitat")]
-        public required Entitat EntitatId { get; set; }
+        public required string EntitatId { get; set; }
         public Entitat? Entitat { get; set; }
 
     }
