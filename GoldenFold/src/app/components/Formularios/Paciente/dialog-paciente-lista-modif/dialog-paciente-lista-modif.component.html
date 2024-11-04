@@ -1,0 +1,67 @@
+<h2 mat-dialog-title>{{ !editar ? 'Detalles Paciente' : 'Actualizar Paciente' }}</h2>
+<mat-dialog-content>
+  <form [formGroup]="pacienteForm" (ngSubmit)="guardar()">
+    <br />
+    <mat-form-field appearance="outline">
+      <mat-label>DNI</mat-label>
+      <input matInput formControlName="dni" required [disabled]="isReadOnly"/>
+      <mat-error *ngIf="pacienteForm.get('dni')?.hasError('required')">El DNI es requerido</mat-error>
+      <mat-error *ngIf="pacienteForm.get('dni')?.hasError('minlength')">El DNI debe tener 9 caracteres</mat-error>
+      <mat-error *ngIf="pacienteForm.get('dni')?.hasError('maxlength')">El DNI no puede exceder 9 caracteres</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Tarjeta Sanitaria</mat-label>
+      <input matInput formControlName="numSS" required [disabled]="isReadOnly"/>
+      <mat-error *ngIf="pacienteForm.get('numSS')?.hasError( 'required')">El número de tarjeta sanitaria es requerido</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Nombre</mat-label>
+      <input matInput formControlName="nom" required [disabled]="isReadOnly"/>
+      <mat-error *ngIf="pacienteForm.get('nom')?.hasError( 'required')">El nombre es requerido</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Apellido 1</mat-label>
+      <input matInput formControlName="cognom1" required [disabled]="isReadOnly"/>
+      <mat-error *ngIf="pacienteForm.get('cognom1')?.hasError( 'required')">El primer apellido es requerido</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Apellido 2</mat-label>
+      <input matInput formControlName="cognom2" [disabled]="isReadOnly"/>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Sexo</mat-label>
+      <mat-select formControlName="sexe" [disabled]="isReadOnly">
+        <mat-option [value]="'M'">Masculino</mat-option>
+        <mat-option [value]="'F'">Femenino</mat-option>
+      </mat-select>
+      <mat-error *ngIf="pacienteForm.get('sexe')?.hasError('required')">El sexo es requerido</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="example-full-width">
+      <mat-label>Fecha de nacimiento</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="birthDay"[disabled]="isReadOnly" required placeholder="Seleccione una fecha" />
+      <mat-hint>DD/MM/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-error *ngIf="pacienteForm.get('birthDay')?.hasError('required')">La fecha de nacimiento es requerida.</mat-error>
+    </mat-form-field>
+
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button *ngIf="!editar" (click)="enableEditing()">
+    Editar
+  </button>
+  <button mat-raised-button color="primary" *ngIf="editar" [disabled]="pacienteForm.invalid" (click)="guardar()">
+    Guardar
+  </button>
+  <button mat-button mat-dialog-close>
+    Cancelar
+  </button>
+</mat-dialog-actions>
