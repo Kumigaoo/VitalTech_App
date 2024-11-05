@@ -8,8 +8,9 @@ namespace HospitalAPI.Models
         [Key]
         public int Id { get; set; }
 
-        [Required]
-        public string? Dolencia { get; set; }
+        [ForeignKey("PacientId")]
+        public int PacientId { get; set; }
+        public Pacient? Pacient { get; set; }
 
         [ForeignKey("MetgeId")]
         public int MetgeId { get; set; }
@@ -22,5 +23,8 @@ namespace HospitalAPI.Models
         [ForeignKey("EpisodiMedicId")]
         public int EpisodiMedicId { get; set; }
         public EpisodiMedic? EpisodiMedic { get; set; }
+
+        [Required]
+        public string? Dolencia { get; set; }
     }
 }
