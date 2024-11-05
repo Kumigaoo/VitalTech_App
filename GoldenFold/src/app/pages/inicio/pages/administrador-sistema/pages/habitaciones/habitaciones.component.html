@@ -3,7 +3,7 @@
   <h2>Habitaciones</h2>
   <!--Botón de agregar habitación -->
   <div class="filter-container">
-    <button mat-raised-button color="primary" (click)="toggleFormularioAgregar()">
+    <button mat-raised-button color="primary" (click)="agregarHabitacion()">
       Agregar Habitación
     </button>
   </div>
@@ -48,7 +48,7 @@
           <button mat-button (click)="toggleActualizarHabitacion(habitacion)">
             Actualizar
           </button>
-          <button mat-button color="warn" (click)="borrarHabitacion(habitacion.IdHabitacion)">
+          <button mat-button color="warn" (click)="borrarHabitacion(habitacion.codiHabitacio)">
             Borrar
           </button>
         </td>
