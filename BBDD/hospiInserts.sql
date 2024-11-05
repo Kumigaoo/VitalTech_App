@@ -208,9 +208,166 @@ VALUES ('209A', 0, 1, (SELECT Id FROM Habitacions WHERE CodiHabitacio = '209'));
 INSERT INTO Llits (CodiLlit, Ocupat, ForaDeServei, HabitacioId) 
 VALUES ('209B', 0, 0, (SELECT Id FROM Habitacions WHERE CodiHabitacio = '209'));
 
-INSERT INTO Administratiu (DNI, Nom, Telefon, UsuariId, Area) VALUES ('12345678A', 'Ana García', 600123456, 1, 'Recursos Humanos');
+-- Insertar Roles
+INSERT INTO Rol (Nom, Descripcio) VALUES ('Metge','Profesional responsable de la atención médica y tratamiento de pacientes.');
+INSERT INTO Rol (Nom, Descripcio) VALUES ('Administratiu','Personal encargado de tareas administrativas y de gestión en el hospital.');
+INSERT INTO Rol (Nom, Descripcio) VALUES ('Enfermer','Profesional encargado del cuidado y asistencia de pacientes.');
+INSERT INTO Rol (Nom, Descripcio) VALUES ('Administrador del Sistema','Encargado de la gestión y mantenimiento de los sistemas informáticos del hospital.');
 
-INSERT INTO Administratiu (DNI, Nom, Telefon, UsuariId, Area) VALUES ('87654321B', 'Carlos López', 600654321, 2, 'Finanzas');
+-- Insertar Usuari
+INSERT INTO Usuari (Username, Password, Email, RolId) VALUES ('juanp', 'password1', 'juanp@hospital.com', 'Administrador del Sistema');
+INSERT INTO Usuari (Username, Password, Email, RolId) VALUES ('marial', 'password2', 'marial@hospital.com','Administratiu');
+INSERT INTO Usuari (Username, Password, Email, RolId) VALUES ('cgarcia', 'password3', 'cgarcia@hospital.com', 'Metge');
+INSERT INTO Usuari (Username, Password, Email, RolId) VALUES ('lfernandez', 'password4', 'lfernandez@hospital.com','Enfermer');
 
-INSERT INTO Administratiu (DNI, Nom, Telefon, UsuariId, Area) VALUES ('11223344C', 'María Fernández', 600112233, 3, 'Logística');
+-- Insertar Personal
+INSERT INTO Personal (DNI, Nom, Telefon, UsuariId) VALUES ('12345678A', 'Juan Pérez', 600123456, (SELECT Id FROM Usuari WHERE Username = 'juanp'));
+INSERT INTO Personal (DNI, Nom, Telefon, UsuariId) VALUES ('87654321B', 'María López', 600654321, (SELECT Id FROM Usuari WHERE Username = 'marial'));
+INSERT INTO Personal (DNI, Nom, Telefon, UsuariId) VALUES ('11223344C', 'Carlos García', 600112233, (SELECT Id FROM Usuari WHERE Username = 'cgarcia'));
+INSERT INTO Personal (DNI, Nom, Telefon, UsuariId) VALUES ('44332211D', 'Laura Fernández', 600445566, (SELECT Id FROM Usuari WHERE Username = 'lfernandez'));
 
+-- Insertar Roles
+INSERT INTO Rol (Nom, Descripcio) VALUES ('Metge','Profesional responsable de la atención médica y tratamiento de pacientes.');
+INSERT INTO Rol (Nom, Descripcio) VALUES ('Administratiu','Personal encargado de tareas administrativas y de gestión en el hospital.');
+INSERT INTO Rol (Nom, Descripcio) VALUES ('Enfermer','Profesional encargado del cuidado y asistencia de pacientes.');
+INSERT INTO Rol (Nom, Descripcio) VALUES ('Administrador del Sistema','Encargado de la gestión y mantenimiento de los sistemas informáticos del hospital.');
+
+-- Insertar Usuari
+INSERT INTO Usuari (Username, Password, Email, RolId) VALUES ('juanp', 'password1', 'juanp@hospital.com', (SELECT Id FROM Rol WHERE Nom = 'Administrador del Sistema'));
+INSERT INTO Usuari (Username, Password, Email, RolId) VALUES ('marial', 'password2', 'marial@hospital.com', (SELECT Id FROM Rol WHERE Nom = 'Administratiu'));
+INSERT INTO Usuari (Username, Password, Email, RolId) VALUES ('cgarcia', 'password3', 'cgarcia@hospital.com', (SELECT Id FROM Rol WHERE Nom = 'Metge'));
+INSERT INTO Usuari (Username, Password, Email, RolId) VALUES ('lfernandez', 'password4', 'lfernandez@hospital.com', (SELECT Id FROM Rol WHERE Nom = 'Enfermer'));
+INSERT INTO Usuari (Username, Password, Email, RolId) VALUES ('mmartin', 'password5', 'mmartin@hospital.com', 'Metge');
+INSERT INTO Usuari (Username, Password, Email, RolId) VALUES ('aperez', 'password6', 'aperez@hospital.com', 'Enfermer');
+INSERT INTO Usuari (Username, Password, Email, RolId) VALUES ('glopez', 'password7', 'glopez@hospital.com', 'Administratiu');
+INSERT INTO Usuari (Username, Password, Email, RolId) VALUES ('eflores', 'password8', 'eflores@hospital.com',  'Administrador del Sistema');
+INSERT INTO Usuari (Username, Password, Email, RolId) VALUES ('jgarcia', 'password9', 'jgarcia@hospital.com',  'Metge');
+INSERT INTO Usuari (Username, Password, Email, RolId) VALUES ('slopez', 'password10', 'slopez@hospital.com', 'Enfermer');
+
+
+-- Insertar Personal
+INSERT INTO Personal (DNI, Nom, Telefon, UsuariId) VALUES ('12345678A', 'Juan Pérez', 600123456, (SELECT Id FROM Usuari WHERE Username = 'juanp'));
+INSERT INTO Personal (DNI, Nom, Telefon, UsuariId) VALUES ('87654321B', 'María López', 600654321, (SELECT Id FROM Usuari WHERE Username = 'marial'));
+INSERT INTO Personal (DNI, Nom, Telefon, UsuariId) VALUES ('11223344C', 'Carlos García', 600112233, (SELECT Id FROM Usuari WHERE Username = 'cgarcia'));
+INSERT INTO Personal (DNI, Nom, Telefon, UsuariId) VALUES ('44332211D', 'Laura Fernández', 600445566, (SELECT Id FROM Usuari WHERE Username = 'lfernandez'));
+INSERT INTO Personal (DNI, Nom, Telefon, UsuariId) VALUES ('55555555E', 'Miguel Martín', 600556677, (SELECT Id FROM Usuari WHERE Username = 'mmartin'));
+INSERT INTO Personal (DNI, Nom, Telefon, UsuariId) VALUES ('66666666F', 'Ana Pérez', 600667788, (SELECT Id FROM Usuari WHERE Username = 'aperez'));
+INSERT INTO Personal (DNI, Nom, Telefon, UsuariId) VALUES ('77777777G', 'Gonzalo López', 600778899, (SELECT Id FROM Usuari WHERE Username = 'glopez'));
+INSERT INTO Personal (DNI, Nom, Telefon, UsuariId) VALUES ('88888888H', 'Elena Flores', 600889900, (SELECT Id FROM Usuari WHERE Username = 'eflores'));
+INSERT INTO Personal (DNI, Nom, Telefon, UsuariId) VALUES ('99999999I', 'Jorge García', 600990011, (SELECT Id FROM Usuari WHERE Username = 'jgarcia'));
+INSERT INTO Personal (DNI, Nom, Telefon, UsuariId) VALUES ('10101010J', 'Sara López', 600101112, (SELECT Id FROM Usuari WHERE Username = 'slopez'));
+
+
+-- Insertar Administratiu
+INSERT INTO Administratiu (Id, Area) VALUES ((SELECT Id FROM Personal WHERE DNI = '12345678A'), 'Recursos Humanos');
+INSERT INTO Administratiu (Id, Area) VALUES ((SELECT Id FROM Personal WHERE DNI = '87654321B'), 'Finanzas');
+INSERT INTO Administratiu (Id, Area) VALUES ((SELECT Id FROM Personal WHERE DNI = '11223344C'), 'Administración General');
+INSERT INTO Administratiu (Id, Area) VALUES ((SELECT Id FROM Personal WHERE DNI = '44332211D'), 'Enfermería');
+
+
+-- Insertar Metge
+INSERT INTO Metges (Id, Especialitat) VALUES ((SELECT Id FROM Personal WHERE DNI = '55555555E'), 'Neurología');
+INSERT INTO Metges (Id, Especialitat) VALUES ((SELECT Id FROM Personal WHERE DNI = '99999999I'), 'Pediatría');
+INSERT INTO Metges (Id, Especialitat) VALUES ((SELECT Id FROM Personal WHERE DNI = '11223344C'), 'Cardiología');
+
+-- Insertar Enfermer
+INSERT INTO Enfermers (Id, Especialitat) VALUES ((SELECT Id FROM Personal WHERE DNI = '66666666F'), 'Cuidados Intensivos');
+INSERT INTO Enfermers (Id, Especialitat) VALUES ((SELECT Id FROM Personal WHERE DNI = '10101010J'), 'Urología');
+INSERT INTO Enfermers (Id, Especialitat) VALUES ((SELECT Id FROM Personal WHERE DNI = '44332211D'), 'Cuidados Intensivos');
+
+-- Insertar AdministradorSistema
+INSERT INTO AdministradorSistema (Id, Hobby) VALUES ((SELECT Id FROM Personal WHERE DNI = '77777777G'), 'Fotografía');
+INSERT INTO AdministradorSistema (Id, Hobby) VALUES ((SELECT Id FROM Personal WHERE DNI = '88888888H'), 'Cocina');
+
+
+-- Insertar pacientes
+INSERT INTO Pacients (DNI, NumSS, Nom, Cognom1, Cognom2, Sexe, Telefono, Nacionalidad, Email, AdministratiuId, BirthDay) VALUES ('B87654321', 'SS87654321', 'María', 'López', '', 'Femenino', '600654321', 1, 'maria.lopez@hospital.com', (SELECT Administratiu.Id FROM Administratiu INNER JOIN Personal ON Administratiu.Id = Personal.Id WHERE Personal.DNI = '87654321B'), '1990-03-22');
+INSERT INTO Pacients (DNI, NumSS, Nom, Cognom1, Cognom2, Sexe, Telefono, Nacionalidad, Email, AdministratiuId, BirthDay) VALUES ('C11223344', 'SS11223344', 'Carlos', 'García', 'Rodríguez', 'Masculino', '600112233', 1, 'carlos.garcia@hospital.com', (SELECT Administratiu.Id FROM Administratiu INNER JOIN Personal ON Administratiu.Id = Personal.Id WHERE Personal.DNI = '11223344C'), '1978-11-05');
+INSERT INTO Pacients (DNI, NumSS, Nom, Cognom1, Cognom2, Sexe, Telefono, Nacionalidad, Email, AdministratiuId, BirthDay) VALUES ('D44332211', 'SS44332211', 'Laura', 'Fernández', '', 'Femenino', '600445566', 1, 'laura.fernandez@hospital.com', (SELECT Administratiu.Id FROM Administratiu INNER JOIN Personal ON Administratiu.Id = Personal.Id WHERE Personal.DNI = '44332211D'), '1982-06-30');
+INSERT INTO Pacients (DNI, NumSS, Nom, Cognom1, Cognom2, Sexe, Telefono, Nacionalidad, Email, AdministratiuId, BirthDay) VALUES ('E55555555', 'SS55555555', 'Miguel', 'Martín', 'Sánchez', 'Masculino', '600556677', 1, 'miguel.martin@hospital.com', (SELECT Administratiu.Id FROM Administratiu INNER JOIN Personal ON Administratiu.Id = Personal.Id WHERE Personal.DNI = '12345678A'), '1995-09-12');
+INSERT INTO Pacients (DNI, NumSS, Nom, Cognom1, Cognom2, Sexe, Telefono, Nacionalidad, Email, AdministratiuId, BirthDay) VALUES ('F66666666', 'SS66666666', 'Ana', 'Pérez', '', 'Femenino', '600667788', 1, 'ana.perez@hospital.com', (SELECT Administratiu.Id FROM Administratiu INNER JOIN Personal ON Administratiu.Id = Personal.Id WHERE Personal.DNI = '87654321B'), '1988-02-28');
+INSERT INTO Pacients (DNI, NumSS, Nom, Cognom1, Cognom2, Sexe, Telefono, Nacionalidad, Email, AdministratiuId, BirthDay) VALUES ('G77777777', 'SS77777777', 'Gonzalo', 'López', 'Ramírez', 'Masculino', '600778899', 1, 'gonzalo.lopez@hospital.com', (SELECT Administratiu.Id FROM Administratiu INNER JOIN Personal ON Administratiu.Id = Personal.Id WHERE Personal.DNI = '11223344C'), '1975-12-19');
+INSERT INTO Pacients (DNI, NumSS, Nom, Cognom1, Cognom2, Sexe, Telefono, Nacionalidad, Email, AdministratiuId, BirthDay) VALUES ('H88888888', 'SS88888888', 'Elena', 'Flores', '', 'Femenino', '600889900', 1, 'elena.flores@hospital.com', (SELECT Administratiu.Id FROM Administratiu INNER JOIN Personal ON Administratiu.Id = Personal.Id WHERE Personal.DNI = '44332211D'), '1992-04-08');
+INSERT INTO Pacients (DNI, NumSS, Nom, Cognom1, Cognom2, Sexe, Telefono, Nacionalidad, Email, AdministratiuId, BirthDay) VALUES ('I99999999', 'SS99999999', 'Jorge', 'García', 'Torres', 'Masculino', '600990011', 1, 'jorge.garcia@hospital.com', (SELECT Administratiu.Id FROM Administratiu INNER JOIN Personal ON Administratiu.Id = Personal.Id WHERE Personal.DNI = '12345678A'), '1983-10-25');
+INSERT INTO Pacients (DNI, NumSS, Nom, Cognom1, Cognom2, Sexe, Telefono, Nacionalidad, Email, AdministratiuId, BirthDay) VALUES ('J10101010', 'SS10101010', 'Sara', 'López', 'Gómez', 'Femenino', '600101112', 1, 'sara.lopez@hospital.com', (SELECT Administratiu.Id FROM Administratiu INNER JOIN Personal ON Administratiu.Id = Personal.Id WHERE Personal.DNI = '87654321B'), '1998-01-14');
+
+
+
+-- Insertar entitats
+INSERT INTO Entitats(Tablas) VALUES ('Llit');
+INSERT INTO Entitats(Tablas) VALUES ('Habitació');
+INSERT INTO Entitats(Tablas) VALUES ('Planta');
+INSERT INTO Entitats(Tablas) VALUES ('Ingrés');
+INSERT INTO Entitats(Tablas) VALUES ('Episodi Medic');
+INSERT INTO Entitats(Tablas) VALUES ('Pruebas Diagnosticas');
+INSERT INTO Entitats(Tablas) VALUES ('Pacient');
+
+-- Episodis medics
+INSERT INTO EpisodisMedics (DataObertura, DataTancament, Motivo, Urgencia, Recepta, Estat, PacientId, MetgeId) VALUES ('2024-11-05', NULL, 'Dolor abdominal', 'Alta', 'Ibuprofeno 400mg', 'Actiu', 6, 3);
+INSERT INTO EpisodisMedics (DataObertura, DataTancament, Motivo, Urgencia, Recepta, Estat, PacientId, MetgeId) VALUES ('2024-11-01', NULL, 'Fiebre alta', 'Moderada', 'Paracetamol 500mg', 'Actiu', 2, 3);
+INSERT INTO EpisodisMedics (DataObertura, DataTancament, Motivo, Urgencia, Recepta, Estat, PacientId, MetgeId) VALUES ('2024-09-15', '2024-09-20', 'Examen de rutina', NULL, NULL, 'Tancat', 7, 9);
+
+-- Ingressos
+INSERT INTO Ingressos (DataEntrada, DataSortida, EpisodiMedicId, LlitId) VALUES ('2024-11-01', NULL, 2, 1);
+INSERT INTO Ingressos (DataEntrada, DataSortida, EpisodiMedicId, LlitId) VALUES ('2024-10-15', '2024-10-20', 13, 2);
+INSERT INTO Ingressos (DataEntrada, DataSortida, EpisodiMedicId, LlitId) VALUES ('2024-09-25', NULL, 5, 3);
+INSERT INTO Ingressos (DataEntrada, DataSortida, EpisodiMedicId, LlitId) VALUES ('2024-08-05', '2024-08-10', 12, 4);
+INSERT INTO Ingressos (DataEntrada, DataSortida, EpisodiMedicId, LlitId) VALUES ('2024-07-15', NULL, 14, 5);
+
+
+-- Pruebas diagnosticas
+INSERT INTO PruebasDiagnosticas ( MetgeId, EnfermerId, EpisodiMedicId, Dolencia) VALUES ( 3, 4, 2, 'Dolor de cabeza');
+INSERT INTO PruebasDiagnosticas ( MetgeId, EnfermerId, EpisodiMedicId, Dolencia) VALUES ( 5, 6, 13, 'Fiebre alta');
+INSERT INTO PruebasDiagnosticas ( MetgeId, EnfermerId, EpisodiMedicId, Dolencia) VALUES ( 3, 10, 5, 'Dolor abdominal');
+INSERT INTO PruebasDiagnosticas ( MetgeId, EnfermerId, EpisodiMedicId, Dolencia) VALUES ( 9, 4, 12, 'Infección de garganta');
+INSERT INTO PruebasDiagnosticas ( MetgeId, EnfermerId, EpisodiMedicId, Dolencia) VALUES ( 5, 6, 14, 'Fractura de brazo');
+
+-- Permis
+INSERT INTO Permisos (Accio) VALUES ('C');
+INSERT INTO Permisos (Accio) VALUES ('R');
+INSERT INTO Permisos (Accio) VALUES ('U');
+INSERT INTO Permisos (Accio) VALUES ('D');
+INSERT INTO Permisos (Accio) VALUES ('CR');
+INSERT INTO Permisos (Accio) VALUES ('CU');
+INSERT INTO Permisos (Accio) VALUES ('CD');
+INSERT INTO Permisos (Accio) VALUES ('RU');
+INSERT INTO Permisos (Accio) VALUES ('RD');
+INSERT INTO Permisos (Accio) VALUES ('UD');
+INSERT INTO Permisos (Accio) VALUES ('CRU');
+INSERT INTO Permisos (Accio) VALUES ('CRD');
+INSERT INTO Permisos (Accio) VALUES ('CUD');
+INSERT INTO Permisos (Accio) VALUES ('RUD');
+INSERT INTO Permisos (Accio) VALUES ('CRUD');
+
+-- Rol Permis Entitat
+-- Inserts para el rol "Metge"
+INSERT INTO RolPermisEntitats (RolId, PermisId, EntitatId) VALUES ('Metge', 'C', 'Llit');
+INSERT INTO RolPermisEntitats (RolId, PermisId, EntitatId) VALUES ('Metge', 'R', 'Habitació');
+INSERT INTO RolPermisEntitats (RolId, PermisId, EntitatId) VALUES ('Metge', 'U', 'Planta');
+INSERT INTO RolPermisEntitats (RolId, PermisId, EntitatId) VALUES ('Metge', 'D', 'Ingrés');
+INSERT INTO RolPermisEntitats (RolId, PermisId, EntitatId) VALUES ('Metge', 'CR', 'Episodi Medic');
+INSERT INTO RolPermisEntitats (RolId, PermisId, EntitatId) VALUES ('Metge', 'CRUD', 'Pacient');
+
+-- Inserts para el rol "Administratiu"
+INSERT INTO RolPermisEntitats (RolId, PermisId, EntitatId) VALUES ('Administratiu', 'C', 'Llit');
+INSERT INTO RolPermisEntitats (RolId, PermisId, EntitatId) VALUES ('Administratiu', 'R', 'Habitació');
+INSERT INTO RolPermisEntitats (RolId, PermisId, EntitatId) VALUES ('Administratiu', 'U', 'Planta');
+INSERT INTO RolPermisEntitats (RolId, PermisId, EntitatId) VALUES ('Administratiu', 'D', 'Ingrés');
+INSERT INTO RolPermisEntitats (RolId, PermisId, EntitatId) VALUES ('Administratiu', 'CR', 'Episodi Medic');
+INSERT INTO RolPermisEntitats (RolId, PermisId, EntitatId) VALUES ('Administratiu', 'CRUD', 'Pacient');
+
+-- Inserts para el rol "Enfermer"
+INSERT INTO RolPermisEntitats (RolId, PermisId, EntitatId) VALUES ('Enfermer', 'C', 'Llit');
+INSERT INTO RolPermisEntitats (RolId, PermisId, EntitatId) VALUES ('Enfermer', 'R', 'Habitació');
+INSERT INTO RolPermisEntitats (RolId, PermisId, EntitatId) VALUES ('Enfermer', 'U', 'Planta');
+INSERT INTO RolPermisEntitats (RolId, PermisId, EntitatId) VALUES ('Enfermer', 'D', 'Ingrés');
+INSERT INTO RolPermisEntitats (RolId, PermisId, EntitatId) VALUES ('Enfermer', 'CR', 'Episodi Medic');
+INSERT INTO RolPermisEntitats (RolId, PermisId, EntitatId) VALUES ('Enfermer', 'CRUD', 'Pacient');
+
+-- Inserts para el rol "Administrador del Sistema"
+INSERT INTO RolPermisEntitats (RolId, PermisId, EntitatId) VALUES ('Administrador del Sistema', 'C', 'Llit');
+INSERT INTO RolPermisEntitats (RolId, PermisId, EntitatId) VALUES ('Administrador del Sistema', 'R', 'Habitació');
+INSERT INTO RolPermisEntitats (RolId, PermisId, EntitatId) VALUES ('Administrador del Sistema', 'U', 'Planta');
+INSERT INTO RolPermisEntitats (RolId, PermisId, EntitatId) VALUES ('Administrador del Sistema', 'D', 'Ingrés');
+INSERT INTO RolPermisEntitats (RolId, PermisId, EntitatId) VALUES ('Administrador del Sistema', 'CR', 'Episodi Medic');
+INSERT INTO RolPermisEntitats (RolId, PermisId, EntitatId) VALUES ('Administrador del Sistema', 'CRUD', 'Pacient');
