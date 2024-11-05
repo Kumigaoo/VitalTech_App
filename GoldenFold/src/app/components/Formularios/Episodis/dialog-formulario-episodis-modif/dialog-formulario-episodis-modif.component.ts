@@ -1,11 +1,12 @@
 import { Component, inject, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { EpisodiMedic } from '../../../../interface/episodis-medics.interface';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 import {provideNativeDateAdapter} from '@angular/material/core';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { formatDate } from '@angular/common';
@@ -36,7 +37,8 @@ export const MY_DATE_FORMATS = {
     MatFormFieldModule,
     MatInputModule,
     MatDialogModule,
-    MatButtonModule
+    MatButtonModule,
+    CommonModule
   ],
   providers: [  
     { provide: DateAdapter, useClass: CustomDateAdapter },
@@ -48,34 +50,56 @@ export const MY_DATE_FORMATS = {
 
 export class DialogFormularioEpisodisModifComponent {
 
-  episodiForm: FormGroup;
+  episodiForm!: FormGroup;
+  editar: boolean = false;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: EpisodiMedic, 
-  public dialogRef: MatDialogRef<DialogFormularioEpisodisModifComponent>) {
+  public dialogRef: MatDialogRef<DialogFormularioEpisodisModifComponent>, 
+  private fb: FormBuilder
+) { 
+  }
 
-    this.episodiForm = new FormGroup({
-      dataObertura: new FormControl(''),
-      dataTancament: new FormControl(''),
-      dolencia: new FormControl(''),
-      estat: new FormControl(''),
-      dniPacient: new FormControl('')
-    });
+  ngOnInit(): void {
+    this.crearFormularioEpisodio();
+    this.showDetails();
+  }
 
-    
+  get isReadOnly(): boolean {
+    return !this.editar;
+  }
+
+
+  enableEditing() : void {
+    this.editar = true;
+    this.episodiForm.enable();
+  }
+
+  showDetails(): void {
+    this.editar = false;
+    this.episodiForm.disable();
   }
 
   guardar(): void {
 
-    
-   
-      this.data.dataObertura = formatDate(this.episodiForm.value.dataObertura, 'yyyy-MM-dd', 'en');
-      this.data.dataTancament = formatDate(this.episodiForm.value.dataTancament, 'yyyy-MM-dd', 'en');
-      this.data.dolencia = this.episodiForm.value.dolencia;
-      this.data.estat =this.episodiForm.value.estat;
-      this.data.dniPacient =this.episodiForm.value.dniPacient;
+    if(this.episodiForm.valid){
+      const formData = this.episodiForm.value;
 
-      this.dialogRef.close(this.data); 
+      formData.dataObertura = formatDate(formData.dataObertura, 'yyyy-MM-dd', 'en');
+      formData.dataTancament = formatDate(formData.dataTancament, 'yyyy-MM-dd', 'en');
+
+      this.dialogRef.close(formData); 
+    }
       
   }
 
+  crearFormularioEpisodio(): void {
+    this.episodiForm = this.fb.group({
+      dataObertura: [this.data.dataObertura, [Validators.required]],
+      dataTancament: [this.data.dataTancament],
+      dolencia: [this.data.dolencia, [Validators.required]],
+      estat: [this.data.estat, [Validators.required]],
+      dniPacient: [this.data.dniPacient, [Validators.required]],
+    })
+
+  }
 }

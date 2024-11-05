@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HospitalAPI.Controllers
 {
-    [Route(("api/[Controller]"))]
+    [Route("api/[Controller]")]
     [ApiController]
     public class PersonalController : ControllerBase
     {
