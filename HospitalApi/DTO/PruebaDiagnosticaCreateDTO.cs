@@ -4,11 +4,9 @@ namespace HospitalApi.DTO
 {
     public class PruebaDiagnosticaCreateDTO
     {
-        public bool? Urgencia { get; set; } = false;
-        public string? Sintomatologia { get; set; }
-        public string? Recepta { get; set; }
-        [NotMapped]
-        public string DNIPersonal { get; set; } = string.Empty;
+        public int MetgeId { get; set; }
+        public int EnfermerId { get; set; }
         public int EpisodiMedicId { get; set; }
+        public string? Dolencia { get; set; }
     }
 }
