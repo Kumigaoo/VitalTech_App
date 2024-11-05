@@ -16,7 +16,7 @@ namespace HospitalAPI.Models
 
         public string Email {get; set;} = string.Empty;
 
-        [ForeignKey("Rol")]
+        [ForeignKey("RolId")]
         public required string RolId { get; set; }
         public Rol? Rol { get; set; }
 

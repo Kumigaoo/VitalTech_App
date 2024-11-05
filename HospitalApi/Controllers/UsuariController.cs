@@ -17,11 +17,7 @@ namespace HospitalAPI.Controllers
         private readonly ApplicationDbContext _bbdd;
         private readonly IMapper _mapper;
 
-        public UsuariController(
-            ILogger<UsuariController> logger,
-            ApplicationDbContext bbdd,
-            IMapper mapper
-        )
+        public UsuariController( ILogger<UsuariController> logger, ApplicationDbContext bbdd, IMapper mapper)
         {
             _logger = logger;
             _bbdd = bbdd;
@@ -34,13 +30,12 @@ namespace HospitalAPI.Controllers
         {
             _logger.LogInformation("Obtenint els usuaris");
             IEnumerable<Usuari> usuariList = await _bbdd.Usuari
-                .Include("PruebasDiagnosticas")
-                .Include("EpisodisMedics")
+                .Include("Rol")
                 .ToListAsync();
             return Ok(_mapper.Map<IEnumerable<UsuariReadDTO>>(usuariList));
         }
-
-        [HttpGet("{username:string}", Name = "GetUsuari")]
+        
+        [HttpGet("{username}", Name = "GetUsuari")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -53,8 +48,7 @@ namespace HospitalAPI.Controllers
             }
 
             var usuari = await _bbdd.Usuari
-                .Include("PruebasDiagnosticas")
-                .Include("EpisodisMedics")
+                .Include("Rol")
                 .FirstOrDefaultAsync(u => u.Username == username);
 
             if (usuari == null) return NotFound();
@@ -62,11 +56,13 @@ namespace HospitalAPI.Controllers
             return Ok(_mapper.Map<UsuariReadDTO>(usuari));
         }
 
+        /*
+
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<PlantaCreateDTO>> PostPlanta(
+        public async Task<ActionResult<PlantaCreateDTO>> PostUsuari(
             [FromBody] PlantaCreateDTO userPlantaDTO
         )
         {
@@ -95,14 +91,9 @@ namespace HospitalAPI.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> DeletePlanta(int id)
+        public async Task<IActionResult> DeleteUsuari(int id)
         {
-            //comentado para que se pueda borrar habitaciones accidentalmente creadas con id(piso) <= 0; si no, no deja
-            // if (id <= 0)
-            // {
-            //     _logger.LogError("Error: format d'ID introduït incorrecte.");
-            //     return BadRequest("Error: format d'ID introduït incorrecte.");
-            // }
+
 
             var planta = await _bbdd.Plantes.FirstOrDefaultAsync(p => p.Piso == id);
             var habis = await _bbdd.Habitacions.Where(h => h.PlantaId == id).ToListAsync();
@@ -130,7 +121,7 @@ namespace HospitalAPI.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> UpdatePlanta(int id, [FromBody] PlantaUpdateDTO userPlantaDTO)
+        public async Task<IActionResult> UpdateUsuari(int id, [FromBody] PlantaUpdateDTO userPlantaDTO)
         {
             if (userPlantaDTO == null || id <= 0)
             {
@@ -154,8 +145,8 @@ namespace HospitalAPI.Controllers
             _logger.LogInformation("Planta modificada exitosament.");
             return NoContent();
         }
+        */
 
-        
     }
 }
 */
