@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using HospitalApi.DTO;
+using HospitalAPI.DTO;
 using HospitalAPI.Models;
 
 namespace HospitalAPI
@@ -38,12 +39,17 @@ namespace HospitalAPI
             CreateMap<Pacient, PacientReadDTO>().ReverseMap();
             CreateMap<Pacient, PacientCreateDTO>().ReverseMap();
 
-            CreateMap<Metge, PersonalReadDTO>().ReverseMap();
-            CreateMap<Metge, PersonalCreateDTO>().ReverseMap();
+            CreateMap<Metge, MetgeUpdateDTO>().ReverseMap();
+            CreateMap<Metge, MetgeCreateDTO>().ReverseMap();
 
             CreateMap<Rol, RolReadDTO>().ReverseMap();
             CreateMap<Rol, RolCreateDTO>().ReverseMap();
             CreateMap<Rol, RolUpdateDTO>().ReverseMap();
+
+            CreateMap<AdministradorSistema, AdministradorSistemaReadDTO>().ReverseMap();
+            CreateMap<AdministradorSistema, AdministradorSistemaCreateDTO>().ReverseMap();
+            CreateMap<AdministradorSistema, AdministradorSistemaUpdateDTO>().ReverseMap();
+
         }
 
     }

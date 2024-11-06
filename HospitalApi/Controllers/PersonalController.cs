@@ -112,7 +112,7 @@ namespace HospitalAPI.Controllers
             }
             
             //para que no salga error 500 al intentar deletear empleado con consultas asociadas
-            var cons = await _bbdd.Metges.FirstOrDefaultAsync(h => h.Personal.DNI == personal.DNI);
+            var cons = await _bbdd.Metges.FirstOrDefaultAsync(h => h.DNI == personal.DNI);
 
             if (cons != null)
             {
