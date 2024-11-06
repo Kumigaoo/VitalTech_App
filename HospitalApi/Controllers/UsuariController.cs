@@ -29,9 +29,7 @@ namespace HospitalAPI.Controllers
         public async Task<ActionResult<IEnumerable<UsuariReadDTO>>> GetUsuaris()
         {
             _logger.LogInformation("Obtenint els usuaris");
-            IEnumerable<Usuari> usuariList = await _bbdd.Usuari
-                .Include("Rol")
-                .ToListAsync();
+            IEnumerable<Usuari> usuariList = await _bbdd.Usuari.Include("Rol").ToListAsync();
             return Ok(_mapper.Map<IEnumerable<UsuariReadDTO>>(usuariList));
         }
         
@@ -56,14 +54,14 @@ namespace HospitalAPI.Controllers
             return Ok(_mapper.Map<UsuariReadDTO>(usuari));
         }
 
-        /*
+        
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<PlantaCreateDTO>> PostUsuari(
-            [FromBody] PlantaCreateDTO userPlantaDTO
+        public async Task<ActionResult<UsuariCreateDTO>> PostUsuari(
+            [FromBody] UsuariCreateDTO formUserDTO
         )
         {
             if (!ModelState.IsValid)
@@ -72,80 +70,75 @@ namespace HospitalAPI.Controllers
                 return BadRequest("Error: dades introduïdes incorrectes.");
             }
 
-            var plantaz = await _bbdd.Plantes.FirstOrDefaultAsync(p => p.Piso == userPlantaDTO.Piso);
+            var rol = await _bbdd.Rol.FirstOrDefaultAsync(p => p.Nom == formUserDTO.RolId);
 
-            if(plantaz!=null){
-                return BadRequest("Error: el piso introducido ya existe.");
+            if(rol == null){
+                return BadRequest("Error: el rol no existe.");
             }
 
-            Planta planta = _mapper.Map<Planta>(userPlantaDTO);
+            Usuari usuari = _mapper.Map<Usuari>(formUserDTO);
 
-            await _bbdd.Plantes.AddAsync(planta);
+            await _bbdd.Usuari.AddAsync(usuari);
             await _bbdd.SaveChangesAsync();
 
-            _logger.LogInformation("Planta creada satisfactòriament.");
-            return Ok(planta);
+            _logger.LogInformation("Usuari creat satisfactòriament.");
+            return Ok(formUserDTO);
         }
 
-        [HttpDelete("{id:int}")]
+
+        [HttpDelete("{username}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> DeleteUsuari(int id)
+        public async Task<IActionResult> DeleteUsuari(string username)
         {
 
 
-            var planta = await _bbdd.Plantes.FirstOrDefaultAsync(p => p.Piso == id);
-            var habis = await _bbdd.Habitacions.Where(h => h.PlantaId == id).ToListAsync();
+            var usuari = await _bbdd.Usuari.FirstOrDefaultAsync(u => u.Username == username);
 
-            if (planta == null)
+            if (usuari == null)
             {
-                _logger.LogError("Error: no existeix cap planta amb aquest ID.");
-                return NotFound("Error: no existeix cap planta amb aquest ID.");
+                _logger.LogError("Error: no existeix cap usuari amb aquest nom.");
+                return NotFound("Error: no existeix cap usuari amb aquest nom.");
             }
 
-            if (habis.Any())
-            {
-                _logger.LogError("Error: no es pot esborrar una planta que conté habitacions.");
-                return BadRequest("Error: no es pot esborrar una planta que conté habitacions.");
-            }
-
-            _bbdd.Plantes.Remove(planta);
+            _bbdd.Usuari.Remove(usuari);
             await _bbdd.SaveChangesAsync();
 
-            _logger.LogInformation("Planta esborrada satisfactòriament.");
-            return NoContent();
+            _logger.LogInformation("Usuari esborrat satisfactòriament.");
+            return Ok("Usuari eliminat correctament.");
         }
 
-        [HttpPut("{id:int}")]
+    
+        [HttpPut("{username}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> UpdateUsuari(int id, [FromBody] PlantaUpdateDTO userPlantaDTO)
+        public async Task<IActionResult> UpdateUsuari(string username, [FromBody] UsuariCreateDTO userCreateDTO)
         {
-            if (userPlantaDTO == null || id <= 0)
+            if (userCreateDTO == null || userCreateDTO.Username.Length <= 0)
             {
-                _logger.LogError("Error: planta no trobada o dades introduïdes incorrectes.");
-                return BadRequest("Error: planta no trobada o dades introduïdes incorrectes.");
+                _logger.LogError("Error: usuari no trobat o dades introduïdes incorrectes.");
+                return BadRequest("Error: usuari no trobat o dades introduïdes incorrectes.");
             }
 
-            var planta = await (from p in _bbdd.Plantes where p.Piso == id select p).FirstOrDefaultAsync();
+            var usuari = await (from u in _bbdd.Usuari where u.Username == username select u).FirstOrDefaultAsync();
 
-            if (planta == null){
-                _logger.LogError("No existeix una planta amb aquest ID.");
-                return NotFound("No existeix una planta amb aquest ID.");
+            if (usuari == null){
+                _logger.LogError("No existeix un usuari amb aquest ID.");
+                return NotFound("No existeix un usuari amb aquest ID.");
             }
 
 
-            _mapper.Map(userPlantaDTO, planta);
+            _mapper.Map(userCreateDTO, usuari);
 
-            _bbdd.Plantes.Update(planta);
+            _bbdd.Usuari.Update(usuari);
             await _bbdd.SaveChangesAsync();
 
-            _logger.LogInformation("Planta modificada exitosament.");
+            _logger.LogInformation("Usuari modificat exitosament.");
             return NoContent();
         }
-        */
-
+        
+        
     }
 }
