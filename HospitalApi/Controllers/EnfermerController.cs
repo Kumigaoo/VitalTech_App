@@ -7,12 +7,12 @@ using HospitalAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace EnfermerApi.Controllers
+namespace HospitalApi.Controllers
 {
 
     [Route("api/[controller]")]
     [ApiController]
-    internal class EnfermerController : ControllerBase
+    public class EnfermerController : ControllerBase
     {
         private readonly ILogger<EnfermerController> _logger;
         private readonly ApplicationDbContext _bbdd;
