@@ -5,7 +5,6 @@ namespace HospitalApi.DTO
     public class PruebaDiagnosticaReferenceDTO
     {
         public int Id { get; set; }
-        public int PacientId { get; set; }
         public int MetgeId { get; set; }
         public int EnfermerId { get; set; }
         public int EpisodiMedicId { get; set; }

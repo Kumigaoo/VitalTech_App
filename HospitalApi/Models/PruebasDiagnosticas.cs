@@ -8,10 +8,6 @@ namespace HospitalAPI.Models
         [Key]
         public int Id { get; set; }
 
-        [ForeignKey("PacientId")]
-        public int PacientId { get; set; }
-        public Pacient? Pacient { get; set; }
-
         [ForeignKey("MetgeId")]
         public int MetgeId { get; set; }
         public Metge? Metge { get; set; }

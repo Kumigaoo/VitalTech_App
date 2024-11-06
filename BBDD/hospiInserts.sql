@@ -233,10 +233,10 @@ INSERT INTO Rol (Nom, Descripcio) VALUES ('Enfermer','Profesional encargado del 
 INSERT INTO Rol (Nom, Descripcio) VALUES ('Administrador del Sistema','Encargado de la gestión y mantenimiento de los sistemas informáticos del hospital.');
 
 -- Insertar Usuari
-INSERT INTO Usuari (Username, Password, Email, RolId) VALUES ('juanp', 'password1', 'juanp@hospital.com', (SELECT Id FROM Rol WHERE Nom = 'Administrador del Sistema'));
-INSERT INTO Usuari (Username, Password, Email, RolId) VALUES ('marial', 'password2', 'marial@hospital.com', (SELECT Id FROM Rol WHERE Nom = 'Administratiu'));
-INSERT INTO Usuari (Username, Password, Email, RolId) VALUES ('cgarcia', 'password3', 'cgarcia@hospital.com', (SELECT Id FROM Rol WHERE Nom = 'Metge'));
-INSERT INTO Usuari (Username, Password, Email, RolId) VALUES ('lfernandez', 'password4', 'lfernandez@hospital.com', (SELECT Id FROM Rol WHERE Nom = 'Enfermer'));
+INSERT INTO Usuari (Username, Password, Email, RolId) VALUES ('juanp', 'password1', 'juanp@hospital.com', 'Administrador del Sistema');
+INSERT INTO Usuari (Username, Password, Email, RolId) VALUES ('marial', 'password2', 'marial@hospital.com', 'Administratiu');
+INSERT INTO Usuari (Username, Password, Email, RolId) VALUES ('cgarcia', 'password3', 'cgarcia@hospital.com', 'Metge');
+INSERT INTO Usuari (Username, Password, Email, RolId) VALUES ('lfernandez', 'password4', 'lfernandez@hospital.com', 'Enfermer');
 INSERT INTO Usuari (Username, Password, Email, RolId) VALUES ('mmartin', 'password5', 'mmartin@hospital.com', 'Metge');
 INSERT INTO Usuari (Username, Password, Email, RolId) VALUES ('aperez', 'password6', 'aperez@hospital.com', 'Enfermer');
 INSERT INTO Usuari (Username, Password, Email, RolId) VALUES ('glopez', 'password7', 'glopez@hospital.com', 'Administratiu');

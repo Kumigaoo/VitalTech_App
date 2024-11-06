@@ -13,19 +13,18 @@ namespace HospitalApi.Data
         public DbSet<EpisodiMedic> EpisodisMedics { get; set; }
         public DbSet<Habitacio> Habitacions { get; set; }
         public DbSet<Ingres> Ingressos { get; set; }
-        public DbSet<Llit> Llits { get; set; }
-        public DbSet<Usuari> Usuari { get; set; }
-        public DbSet<Pacient> Pacients { get; set; }
-        public DbSet<Planta> Plantes { get; set; }
-        public DbSet<Rol> Rol { get; set; }
-        public DbSet<Permis> Permisos { get; set; }
-        public DbSet<Entitat> Entitats { get; set; }
+        public DbSet<Llit> Llits { get; set;}
+        public DbSet<Usuari> Usuari { get; set;}
+        public DbSet<Pacient> Pacients { get; set;}
+        public DbSet<Planta> Plantes { get; set;}
+        public DbSet<Rol> Rol { get; set;}
+        public DbSet<Permis> Permisos { get; set;}
+        public DbSet<Entitat> Entitats { get; set;}
         public DbSet<RolPermisEntitat> RolPermisEntitats { get; set; }
         public DbSet<Administratiu> Administratius { get; set; }
         public DbSet<Enfermer> Enfermer { get; set; }
         public DbSet<AdministradorSistema> AdministradorSistema { get; set; }
         public DbSet<Metge> Metges { get; set; }
-
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

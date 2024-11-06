@@ -2,7 +2,7 @@ using HospitalAPI.Models;
 
 namespace HospitalApi.DTO
 {
-    public class PersonalUpdateDTO
+    public class MetgeUpdateDTO
     {
         public string DNI { get; set; } = string.Empty;
 

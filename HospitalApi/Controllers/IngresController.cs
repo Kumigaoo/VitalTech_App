@@ -160,19 +160,18 @@ namespace HospitalAPI.Controllers
         [HttpPut("{id:int}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> UpdateIngres(int id, [FromBody] IngresReadDTO userIngresDTO)
+        public async Task<IActionResult> UpdateIngres(int id, [FromBody] IngresCreateDTO userIngresDTO)
         {
+            var ingres = await _bbdd.Ingressos.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id);
+            var codiLlitOrig = ingres.LlitId;
 
-            var existeixIngres = await _bbdd.Ingressos.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id);
-            var codiLlitOrig = existeixIngres.LlitId;
-
-            if (existeixIngres == null)
+            if (ingres == null)
             {
                 _logger.LogError("No existeix ingrés amb aquest ID.");
                 return NotFound("No existeix ingrés amb aquest ID.");
             }
 
-            Ingres ingres = _mapper.Map<Ingres>(userIngresDTO);
+            _mapper.Map(userIngresDTO, ingres);
 
             var llit = await (from p in _bbdd.Llits where p.CodiLlit == userIngresDTO.CodiLlit select p).FirstOrDefaultAsync();
             if (llit == null) return NotFound("No existeix llit amb aquest ID.");

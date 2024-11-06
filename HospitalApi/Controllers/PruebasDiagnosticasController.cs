@@ -1,5 +1,4 @@
-/*
-/*
+
 using AutoMapper;
 using HospitalApi.Data;
 using HospitalApi.DTO;
@@ -10,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HospitalAPI.Controllers
 {
-    [Route(("api/[Controller]"))]
+    [Route("api/[Controller]")]
     [ApiController]
     public class PruebasDiagnosticasController : ControllerBase
     {
@@ -31,34 +30,36 @@ namespace HospitalAPI.Controllers
 
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<IEnumerable<ConsultaReadDTO>>> GetConsultes()
+        public async Task<ActionResult<IEnumerable<PruebaDiagnosticaReadDTO>>> GetConsultes()
         {
             _logger.LogInformation("Obtenint les consultes");
 
             IEnumerable<PruebasDiagnosticas> conList = await _bbdd
-                .Consultes
-                .Include("Personal")
+                .PruebasDiagnosticas
+                .Include("Metge")
+                .Include("Enfermer")
                 .Include("EpisodiMedic")
                 .ToListAsync();
 
-            IEnumerable<ConsultaReadDTO> consultes = _mapper.Map<IEnumerable<ConsultaReadDTO>>(conList);
+            IEnumerable<PruebaDiagnosticaReadDTO> consultes = _mapper.Map<IEnumerable<PruebaDiagnosticaReadDTO>>(conList);
 
             for (int i = 0; i < consultes.Count(); i++)
             {
-                var dni = await (from p in _bbdd.Personals where p.Id == conList.ElementAt(i).PersonalId select p.DNI).FirstOrDefaultAsync();
-                if (dni == null) { continue; }
-                consultes.ElementAt(i).DNIPersonal = dni;
+                var dnim = await (from p in _bbdd.Metges where p.Id == conList.ElementAt(i).MetgeId select p.DNI).FirstOrDefaultAsync();
+                var dnie = await (from p in _bbdd.Enfermer where p.Id == conList.ElementAt(i).EnfermerId select p.DNI).FirstOrDefaultAsync();
+                if (dnim == null || dnie == null) { continue; }
+                consultes.ElementAt(i).DNIMetge = dnim;
+                consultes.ElementAt(i).DNIEnfermer = dnie;
             }
 
             return Ok(consultes);
 
         }
-
         [HttpGet("{id:int}", Name = "GetCon")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<ConsultaReadDTO>> GetConsulta(int id)
+        public async Task<ActionResult<PruebaDiagnosticaReadDTO>> GetConsulta(int id)
         {
             if (id <= 0)
             {
@@ -66,7 +67,7 @@ namespace HospitalAPI.Controllers
                 return BadRequest("Format d'ID incorrecte.");
             }
 
-            var con = await _bbdd.Consultes.FirstOrDefaultAsync(h => h.Id == id);
+            var con = await _bbdd.PruebasDiagnosticas.FirstOrDefaultAsync(h => h.Id == id);
 
             if (con == null)
             {
@@ -74,41 +75,46 @@ namespace HospitalAPI.Controllers
                 return NotFound("No existeix una consulta amb l'ID indicat.");
             }
 
-            ConsultaReadDTO consulta = _mapper.Map<ConsultaReadDTO>(con);
-            var dni = await (from p in _bbdd.Personals where p.Id == con.PersonalId select p.DNI).FirstOrDefaultAsync();
+            PruebaDiagnosticaReadDTO consulta = _mapper.Map<PruebaDiagnosticaReadDTO>(con);
+            var dni = await (from p in _bbdd.Metges where p.Id == con.MetgeId select p.DNI).FirstOrDefaultAsync();
+            var dnie = await (from p in _bbdd.Enfermer where p.Id == con.EnfermerId select p.DNI).FirstOrDefaultAsync();
 
-            if (dni == null) return NotFound("No existeix la Persona amb l'ID indicat.");
+            if (dni == null|| dnie == null) return NotFound("No existeix la Persona amb l'ID indicat.");
 
-            consulta.DNIPersonal = dni;
+            consulta.DNIMetge = dni;
+            consulta.DNIEnfermer = dnie;
 
             return Ok(consulta);
         }
+        
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<ConsultaCreateDTO>> PostConsulta([FromBody] ConsultaCreateDTO userConDTO)
+        public async Task<ActionResult<PruebaDiagnosticaCreateDTO>> PostConsulta([FromBody] PruebaDiagnosticaCreateDTO userConDTO)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            var personal = await (from p in _bbdd.Personals where p.DNI == userConDTO.DNIPersonal select p).FirstOrDefaultAsync();
+            var metge = await (from p in _bbdd.Metges where p.Id == userConDTO.MetgeId select p).FirstOrDefaultAsync();
+            var enfermer = await (from p in _bbdd.Enfermer where p.Id == userConDTO.EnfermerId select p).FirstOrDefaultAsync(); 
             var episodi = await _bbdd.EpisodisMedics.FindAsync(userConDTO.EpisodiMedicId);
 
-            if (personal == null) return BadRequest("No existeix cap metge amb l'ID indicat.");
+            if (metge == null) return BadRequest("No existeix cap metge amb l'ID indicat.");
+            if (enfermer == null)return BadRequest("No existeix cap enfermer amb l'ID indicat");
             if (episodi == null) return BadRequest("No existeix cap episodi mèdic amb l'ID indicat.");
 
             PruebasDiagnosticas consulta = _mapper.Map<PruebasDiagnosticas>(userConDTO);
-            consulta.UsuariId = personal.Id;
+            consulta.EnfermerId = enfermer.Id;
+            consulta.MetgeId = metge.Id;
             consulta.EpisodiMedicId = episodi.Id;
 
-           // await _bbdd.Consultes.AddAsync(consulta);
+            await _bbdd.PruebasDiagnosticas.AddAsync(consulta);
             await _bbdd.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetConsulta), new { id = consulta.Id }, userConDTO);
 
         }
-
         [HttpDelete("{id:int}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -121,7 +127,7 @@ namespace HospitalAPI.Controllers
                 return BadRequest("Format d'ID incorrecte.");
             }
 
-            var consulta = await _bbdd.Consultes.FirstOrDefaultAsync(h => h.Id == id);
+            var consulta = await _bbdd.PruebasDiagnosticas.FirstOrDefaultAsync(h => h.Id == id);
 
             if (consulta == null)
             {
@@ -129,21 +135,20 @@ namespace HospitalAPI.Controllers
                 return NotFound("ID de consulta no trobat.");
             }
 
-            _bbdd.Consultes.Remove(consulta);
+            _bbdd.PruebasDiagnosticas.Remove(consulta);
             await _bbdd.SaveChangesAsync();
 
             _logger.LogInformation("Consulta borrada exitosament.");
             return NoContent();
         }
-
         [HttpPut("{id:int}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> UpdateCon(int id, [FromBody] ConsultaReadDTO userConDTO)
+        public async Task<IActionResult> UpdateCon(int id, [FromBody] PruebaDiagnosticaCreateDTO userConDTO)
         {
-            if (userConDTO == null || id != userConDTO.Id) return BadRequest("No existeix la ID indicada.");
+            if (userConDTO == null ) return BadRequest("No existeix la ID indicada.");
 
-            var existeixCon = await _bbdd.Consultes.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id);
+            var existeixCon = await _bbdd.PruebasDiagnosticas.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id);
 
             if (existeixCon == null)
             {
@@ -153,21 +158,22 @@ namespace HospitalAPI.Controllers
 
             PruebasDiagnosticas consulta = _mapper.Map<PruebasDiagnosticas>(userConDTO);
 
-            var personal = await (from p in _bbdd.Personals where p.DNI == userConDTO.DNIPersonal select p).FirstOrDefaultAsync();
+            var metge = await (from p in _bbdd.Metges where p.Id == userConDTO.MetgeId select p).FirstOrDefaultAsync();
+            var enfermer = await (from p in _bbdd.Enfermer where p.Id == userConDTO.EnfermerId select p).FirstOrDefaultAsync();
             var episodi = await _bbdd.EpisodisMedics.FindAsync(userConDTO.EpisodiMedicId);
 
-            if (personal == null) return BadRequest("No existeix cap metge amb l'ID indicat.");
+            if (metge == null) return BadRequest("No existeix cap metge amb l'ID indicat.");
+            if(enfermer == null) return BadRequest("No existeix cap enfermer amb l'ID indicat.");
             if (episodi == null) return BadRequest("No existeix cap episodi mèdic amb l'ID indicat.");
 
-
-            //consulta.PersonalId = personal.Id;
+            consulta.EnfermerId = enfermer.Id;
+            consulta.MetgeId = metge.Id;
             consulta.EpisodiMedicId = episodi.Id;
 
-            //_bbdd.Consultes.Update(consulta);
+            _bbdd.PruebasDiagnosticas.Update(consulta);
             await _bbdd.SaveChangesAsync();
             return NoContent();
         }
-
+        
     }
 }
-*/
