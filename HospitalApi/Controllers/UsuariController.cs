@@ -145,7 +145,7 @@ namespace HospitalAPI.Controllers
             _logger.LogInformation("Planta modificada exitosament.");
             return NoContent();
         }
-        */
+    
 
     }
 }
