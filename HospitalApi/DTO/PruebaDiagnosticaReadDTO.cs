@@ -5,6 +5,7 @@ namespace HospitalApi.DTO
     public class PruebaDiagnosticaReadDTO
     {
         public int Id { get; set; }
+        
         [NotMapped]
         public string? DNIMetge {get; set; }
 

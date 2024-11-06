@@ -1,9 +1,8 @@
-﻿/*
+﻿
 using AutoMapper;
 using HospitalApi.Data;
 using HospitalApi.DTO;
 using HospitalAPI.Models;
-//using EntityFrameworkCore.MySQL.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -33,7 +32,7 @@ namespace HospitalAPI.Controllers
         {
 
             _logger.LogInformation("Obtenint els episodis mèdics");
-            IEnumerable<EpisodiMedic> eList = await _bbdd.EpisodisMedics.Include("Pacient").Include("Consultes").Include("Ingressos").ToListAsync();
+            IEnumerable<EpisodiMedic> eList = await _bbdd.EpisodisMedics.Include("Pacient").Include("PruebasDiagnosticas").Include("Ingressos").ToListAsync();
             IEnumerable<EpisodiMedicReadDTO> episodis = _mapper.Map<IEnumerable<EpisodiMedicReadDTO>>(eList);
 
             for (int i = 0; i < episodis.Count(); i++)
@@ -42,16 +41,22 @@ namespace HospitalAPI.Controllers
                 if (dni == null) { continue; }
                 episodis.ElementAt(i).DNIPacient = dni;
 
-                var consultas = episodis.ElementAt(i).Consultes;
+                var dniMetge = await (from m in _bbdd.Metges where m.Id == eList.ElementAt(i).MetgeId select m.DNI).FirstOrDefaultAsync();
+                if (dniMetge == null) { continue; }
+                episodis.ElementAt(i).DNIMetge = dniMetge;
+            
+                var pruebas = episodis.ElementAt(i).PruebasDiagnosticas;
                 var ingresos = episodis.ElementAt(i).Ingressos;
 
-                if(consultas == null || ingresos == null) continue;
+                if (pruebas == null || ingresos == null) continue;
 
-                foreach (var consulta in consultas)
+                foreach (var prueba in pruebas)
                 {
-                    var consultaOriginal = eList.First(e => e.Id == episodis.ElementAt(i).Id).Consultes.First(c => c.Id == consulta.Id);      
-                    var dniPersonal = await (from p in _bbdd.Personals where p.Id == consultaOriginal.PersonalId select p.DNI).FirstOrDefaultAsync();
-                    if (dniPersonal != null) consulta.DNIPersonal = dniPersonal;
+                    var pruebasDiagnosticasOriginal = eList.First(e => e.Id == episodis.ElementAt(i).Id).PruebasDiagnosticas.First(c => c.Id == prueba.Id);      
+                    if(pruebasDiagnosticasOriginal.MetgeId != 0) {
+                        var dniMetgeProba = await (from m in _bbdd.Metges where m.Id == pruebasDiagnosticasOriginal.MetgeId select m.DNI).FirstOrDefaultAsync();
+                        if (dniMetgeProba != null) prueba.DNIMetge = dniMetgeProba;
+                    }
                 } 
 
                 foreach (var ingres in ingresos)
@@ -60,11 +65,14 @@ namespace HospitalAPI.Controllers
                     var codiLlit = await (from p in _bbdd.Llits where p.Id == ingresOriginal.LlitId select p.CodiLlit).FirstOrDefaultAsync();
                     if (codiLlit != null) ingres.CodiLlit = codiLlit;
                 } 
+            
 
             }
 
             return Ok(episodis);
         }
+
+        /*
 
         [HttpGet("{id:int}", Name = "GetEpi")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -92,10 +100,10 @@ namespace HospitalAPI.Controllers
 
             episodi.DNIPacient = dni;
 
-            var consultas = episodi.Consultes;
+            var pruebas = episodi.Consultes;
             var ingresos = episodi.Ingressos;
 
-            foreach (var consulta in consultas)
+            foreach (var consulta in pruebas)
             {
                 var consultaOriginal = e.Consultes.FirstOrDefault(c => c.Id == consulta.Id);                
                 var dniPersonal = await (from p in _bbdd.Personals where p.Id == consultaOriginal.PersonalId select p.DNI).FirstOrDefaultAsync();
@@ -229,8 +237,9 @@ namespace HospitalAPI.Controllers
 
         }
 
-       
+    */
+
     }
 }
-*/
+
 
