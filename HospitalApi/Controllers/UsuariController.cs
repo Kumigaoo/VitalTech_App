@@ -33,7 +33,7 @@ namespace HospitalAPI.Controllers
             return Ok(_mapper.Map<IEnumerable<UsuariReadDTO>>(usuariList));
         }
 
-        [HttpGet("{username:string}", Name = "GetUsuari")]
+        [HttpGet("{username}", Name = "GetUsuari")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
