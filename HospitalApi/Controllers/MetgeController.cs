@@ -1,4 +1,4 @@
-
+/*
 using AutoMapper;
 using HospitalApi.Data;
 using HospitalApi.Enums;
@@ -12,13 +12,13 @@ namespace HospitalAPI.Controllers
 {
     [Route("api/[Controller]")]
     [ApiController]
-    public class PersonalController : ControllerBase
+    public class MetgeController : ControllerBase
     {
-        private readonly ILogger<PersonalController> _logger;
+        private readonly ILogger<MetgeController> _logger;
         private readonly ApplicationDbContext _bbdd;
         private readonly IMapper _mapper;
 
-        public PersonalController(ILogger<PersonalController> logger, ApplicationDbContext bbdd, IMapper mapper)
+        public MetgeController(ILogger<MetgeController> logger, ApplicationDbContext bbdd, IMapper mapper)
         {
             _logger = logger;
             _bbdd = bbdd;
@@ -112,13 +112,13 @@ namespace HospitalAPI.Controllers
             }
             
             //para que no salga error 500 al intentar deletear empleado con consultas asociadas
-            var cons = await _bbdd.Metges.FirstOrDefaultAsync(h => h.DNI == personal.DNI);
+            // var cons = await _bbdd.Metges.FirstOrDefaultAsync(h => h.Personal.DNI == personal.DNI);
 
-            if (cons != null)
-            {
-                _logger.LogError("Error: no es pot esborrar un metge amb consultes associades.");
-                return BadRequest("Error: no es pot esborrar un metge amb consultes associades.");
-            }
+            // if (cons != null)
+            // {
+            //     _logger.LogError("Error: no es pot esborrar un metge amb consultes associades.");
+            //     return BadRequest("Error: no es pot esborrar un metge amb consultes associades.");
+            // }
             
             _bbdd.Metges.Remove(personal);
             await _bbdd.SaveChangesAsync();
@@ -183,3 +183,4 @@ namespace HospitalAPI.Controllers
         }
     }
 }
+*/

@@ -4,11 +4,14 @@ namespace HospitalApi.DTO
 {
     public class MetgeCreateDTO
     {
+
+        public int Telefon { get; set; }
         public string DNI { get; set; } = string.Empty;
 
         public string Especialitat { get; set; } = string.Empty;
 
         public string Nom { get; set; } = string.Empty;
 
+        public ICollection<PruebaDiagnosticaReadDTO>? Consultes { get; set; }
     }
 }

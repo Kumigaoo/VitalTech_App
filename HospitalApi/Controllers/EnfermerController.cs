@@ -7,7 +7,7 @@ using HospitalAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace HospitalAPI
+namespace HospitalApi.Controllers
 {
 
     [Route("api/[controller]")]
