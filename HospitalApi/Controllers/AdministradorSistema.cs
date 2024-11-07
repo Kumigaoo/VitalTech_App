@@ -95,7 +95,7 @@ namespace HospitalAPI
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<AdministradorSistemaReadDTO>> DeleteAdministrador(string id)
+        public async Task<ActionResult<AdministradorSistemaReadDTO>> DeleteAdministradorSistema(string id)
         {
             var adminitradorDelSistema = await _bbdd.AdministradorSistema.FirstOrDefaultAsync(p => p.DNI == id);
             if(adminitradorDelSistema==null)
@@ -113,6 +113,26 @@ namespace HospitalAPI
             _logger.LogInformation("Administrador del sistema eliminat correctament");
             return NoContent();
         }
-        
+
+        [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult> UpdateAdministradorSistema(string id, [FromBody] AdministradorSistemaUpdateDTO administradorSistemaUpdateDTO)
+        {
+            var administradorSistema = await _bbdd.AdministradorSistema.FirstOrDefaultAsync(p=> p.DNI == id);
+            if(administradorSistema == null)
+            {
+                _logger.LogError("No existeix un Administrador del Sistema amb aquest DNI");
+                return NotFound("No existeix un Administrador del Sistema amb aquest DNI");
+            }
+
+            _mapper.Map(administradorSistemaUpdateDTO,administradorSistema);
+            _bbdd.AdministradorSistema.Update(administradorSistema);
+            await _bbdd.SaveChangesAsync();
+
+            _logger.LogInformation("Administrador del Sistema modificat exitosament.");
+            return NoContent();
+        }
     }
 }
