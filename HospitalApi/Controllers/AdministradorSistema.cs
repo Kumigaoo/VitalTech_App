@@ -39,6 +39,7 @@ namespace HospitalAPI
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<AdministradorSistemaReadDTO>> GetAdministradorSistema(string id)
         {
+            //comprobamos que el administrador exista
             var administradorSistema = await _bbdd.AdministradorSistema.FirstOrDefaultAsync(e => e.DNI == id);
             if(administradorSistema==null)
             {
@@ -58,26 +59,26 @@ namespace HospitalAPI
         {
             AdministradorSistema administradorSistema = _mapper.Map<AdministradorSistema>(nouAministradorSistema);
 
-            if(!ModelState.IsValid)
+            if(!ModelState.IsValid) //comprueba que los datos sean validos
             {
                 _logger.LogError("Els camps no son valids");
                 return BadRequest("Els camps no son valids");
             }
             
             var adminDuplicado = await _bbdd.AdministradorSistema.FirstOrDefaultAsync(p => p.DNI == administradorSistema.DNI);
-            if(adminDuplicado!=null)
+            if(adminDuplicado!=null) //comprueba que no este duplicado
             {
                 _logger.LogError("Ja existeix un Administrador de sistema amb aquest DNI");
                 return BadRequest("Ja existeix un Administrador de sistema amb aquest DNI");
             }
             
-            var usuari = await _bbdd.Usuari.FirstOrDefaultAsync(p => p.Id == nouAministradorSistema.UsuariId);
-            if(usuari==null)
+            var usuari = await _bbdd.Usuari.FirstOrDefaultAsync(p => p.Id == nouAministradorSistema.UsuariId); 
+            if(usuari==null) //comprueba que exista el usuario
             {
                 _logger.LogError("No existeix un Usuari amb aques ID");
                 return BadRequest("No existeix un Usuari amb aques ID");
             }
-            if(!usuari.RolId.Equals("Administrador del Sistema"))
+            if(!usuari.RolId.Equals("Administrador del Sistema")) //comprueba que el usuario tenga como idRol administrador de sistema
             {
                 _logger.LogError("Aquest usuari no pot ser Administrador del Sistema");
                 return BadRequest("Aquest usuari no pot ser Administrador del Sistema");
@@ -102,12 +103,16 @@ namespace HospitalAPI
                 _logger.LogError("No existeix un Administrador del Sistema amb aquest DNI");
                 return NotFound("No existeix un Administrador del Sistema amb aquest DNI");
             }
-            
+
+            var usuario = await _bbdd.Usuari.FirstOrDefaultAsync(p => p.Id == adminitradorDelSistema.UsuariId);
+            usuario.RolId = null;
+
             _bbdd.AdministradorSistema.Remove(adminitradorDelSistema);
             await _bbdd.SaveChangesAsync();
 
             _logger.LogInformation("Administrador del sistema eliminat correctament");
             return NoContent();
         }
+        
     }
 }
