@@ -216,24 +216,6 @@ INSERT INTO Rol (Nom, Descripcio) VALUES ('Administrador del Sistema','Encargado
 
 -- Insertar Usuari
 INSERT INTO Usuari (Username, Password, Email, RolId) VALUES ('juanp', 'password1', 'juanp@hospital.com', 'Administrador del Sistema');
-INSERT INTO Usuari (Username, Password, Email, RolId) VALUES ('marial', 'password2', 'marial@hospital.com','Administratiu');
-INSERT INTO Usuari (Username, Password, Email, RolId) VALUES ('cgarcia', 'password3', 'cgarcia@hospital.com', 'Metge');
-INSERT INTO Usuari (Username, Password, Email, RolId) VALUES ('lfernandez', 'password4', 'lfernandez@hospital.com','Enfermer');
-
--- Insertar Personal
-INSERT INTO Personal (DNI, Nom, Telefon, UsuariId) VALUES ('12345678A', 'Juan Pérez', 600123456, (SELECT Id FROM Usuari WHERE Username = 'juanp'));
-INSERT INTO Personal (DNI, Nom, Telefon, UsuariId) VALUES ('87654321B', 'María López', 600654321, (SELECT Id FROM Usuari WHERE Username = 'marial'));
-INSERT INTO Personal (DNI, Nom, Telefon, UsuariId) VALUES ('11223344C', 'Carlos García', 600112233, (SELECT Id FROM Usuari WHERE Username = 'cgarcia'));
-INSERT INTO Personal (DNI, Nom, Telefon, UsuariId) VALUES ('44332211D', 'Laura Fernández', 600445566, (SELECT Id FROM Usuari WHERE Username = 'lfernandez'));
-
--- Insertar Roles
-INSERT INTO Rol (Nom, Descripcio) VALUES ('Metge','Profesional responsable de la atención médica y tratamiento de pacientes.');
-INSERT INTO Rol (Nom, Descripcio) VALUES ('Administratiu','Personal encargado de tareas administrativas y de gestión en el hospital.');
-INSERT INTO Rol (Nom, Descripcio) VALUES ('Enfermer','Profesional encargado del cuidado y asistencia de pacientes.');
-INSERT INTO Rol (Nom, Descripcio) VALUES ('Administrador del Sistema','Encargado de la gestión y mantenimiento de los sistemas informáticos del hospital.');
-
--- Insertar Usuari
-INSERT INTO Usuari (Username, Password, Email, RolId) VALUES ('juanp', 'password1', 'juanp@hospital.com', 'Administrador del Sistema');
 INSERT INTO Usuari (Username, Password, Email, RolId) VALUES ('marial', 'password2', 'marial@hospital.com', 'Administratiu');
 INSERT INTO Usuari (Username, Password, Email, RolId) VALUES ('cgarcia', 'password3', 'cgarcia@hospital.com', 'Metge');
 INSERT INTO Usuari (Username, Password, Email, RolId) VALUES ('lfernandez', 'password4', 'lfernandez@hospital.com', 'Enfermer');
@@ -307,20 +289,14 @@ INSERT INTO EpisodisMedics (DataObertura, DataTancament, Motivo, Urgencia, Recep
 INSERT INTO EpisodisMedics (DataObertura, DataTancament, Motivo, Urgencia, Recepta, Estat, PacientId, MetgeId) VALUES ('2024-11-01', NULL, 'Fiebre alta', 'Moderada', 'Paracetamol 500mg', 'Actiu', 2, 3);
 INSERT INTO EpisodisMedics (DataObertura, DataTancament, Motivo, Urgencia, Recepta, Estat, PacientId, MetgeId) VALUES ('2024-09-15', '2024-09-20', 'Examen de rutina', NULL, NULL, 'Tancat', 7, 9);
 
--- Ingressos
+-- Ingressos 
 INSERT INTO Ingressos (DataEntrada, DataSortida, EpisodiMedicId, LlitId) VALUES ('2024-11-01', NULL, 2, 1);
-INSERT INTO Ingressos (DataEntrada, DataSortida, EpisodiMedicId, LlitId) VALUES ('2024-10-15', '2024-10-20', 13, 2);
-INSERT INTO Ingressos (DataEntrada, DataSortida, EpisodiMedicId, LlitId) VALUES ('2024-09-25', NULL, 5, 3);
-INSERT INTO Ingressos (DataEntrada, DataSortida, EpisodiMedicId, LlitId) VALUES ('2024-08-05', '2024-08-10', 12, 4);
-INSERT INTO Ingressos (DataEntrada, DataSortida, EpisodiMedicId, LlitId) VALUES ('2024-07-15', NULL, 14, 5);
+
 
 
 -- Pruebas diagnosticas
 INSERT INTO PruebasDiagnosticas ( MetgeId, EnfermerId, EpisodiMedicId, Dolencia) VALUES ( 3, 4, 2, 'Dolor de cabeza');
-INSERT INTO PruebasDiagnosticas ( MetgeId, EnfermerId, EpisodiMedicId, Dolencia) VALUES ( 5, 6, 13, 'Fiebre alta');
-INSERT INTO PruebasDiagnosticas ( MetgeId, EnfermerId, EpisodiMedicId, Dolencia) VALUES ( 3, 10, 5, 'Dolor abdominal');
-INSERT INTO PruebasDiagnosticas ( MetgeId, EnfermerId, EpisodiMedicId, Dolencia) VALUES ( 9, 4, 12, 'Infección de garganta');
-INSERT INTO PruebasDiagnosticas ( MetgeId, EnfermerId, EpisodiMedicId, Dolencia) VALUES ( 5, 6, 14, 'Fractura de brazo');
+
 
 -- Permis
 INSERT INTO Permisos (Accio) VALUES ('C');
