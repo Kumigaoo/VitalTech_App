@@ -1,4 +1,4 @@
-/*
+
 using AutoMapper;
 using HospitalApi.Data;
 using HospitalApi.Enums;
@@ -30,7 +30,7 @@ namespace HospitalAPI.Controllers
         public async Task<ActionResult<IEnumerable<MetgeReadDTO>>> GetPersonals()
         {
             _logger.LogInformation("Obtenint el personal");
-            IEnumerable<Personal> perList = await _bbdd.Metges.Include("PruebasDiagnosticas").ToListAsync();
+            IEnumerable<Personal> perList = await _bbdd.Metges.Include("PruebasDiagnosticas").Include("EpisodiMedics").ToListAsync();
             return Ok(_mapper.Map<IEnumerable<MetgeReadDTO>>(perList));
         }
 
@@ -102,7 +102,6 @@ namespace HospitalAPI.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> DeletePersonal(string id)
         {
-        
             var personal = await _bbdd.Metges.FirstOrDefaultAsync(h => h.DNI == id);
 
             if (personal == null)
@@ -110,10 +109,9 @@ namespace HospitalAPI.Controllers
                 _logger.LogError("ID de personal no trobat.");
                 return NotFound("ID de personal no trobat.");
             }
-            
+             
             //para que no salga error 500 al intentar deletear empleado con consultas asociadas
             // var cons = await _bbdd.Metges.FirstOrDefaultAsync(h => h.Personal.DNI == personal.DNI);
-
             // if (cons != null)
             // {
             //     _logger.LogError("Error: no es pot esborrar un metge amb consultes associades.");
@@ -133,14 +131,14 @@ namespace HospitalAPI.Controllers
         public async Task<IActionResult> UpdatePer(string id, [FromBody] MetgeCreateDTO userPerDTO)
         {
             if (id == null || !CheckDNI(userPerDTO.DNI)) return BadRequest("DNI invalid");
-            if (!Enum.TryParse(typeof(EnumProfessions), userPerDTO.Especialitat.Replace(" ", ""), true, out _)) return BadRequest("Professio incorrecte.");
+            if (!Enum.TryParse(typeof(EnumProfessions), userPerDTO.Especialitat.Replace(" ", " "), true, out _)) return BadRequest("Professio incorrecte.");
             
             var pro = await (from p in _bbdd.Metges where p.DNI == id select p).FirstOrDefaultAsync();
 
             if (pro == null){
                 _logger.LogError("No existeix personal amb aquest ID.");
                 return NotFound("No existeix personal amb aquest ID.");
-            }
+            } 
 
             _mapper.Map(userPerDTO, pro);
 
@@ -183,4 +181,3 @@ namespace HospitalAPI.Controllers
         }
     }
 }
-*/

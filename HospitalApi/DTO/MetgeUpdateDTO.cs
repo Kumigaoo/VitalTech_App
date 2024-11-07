@@ -10,5 +10,8 @@ namespace HospitalApi.DTO
         public int Telefon { get; set;} 
         public string Especialitat { get; set; } = string.Empty;
 
+         public int UsuariId { get; set; }
+
+
     }
 }

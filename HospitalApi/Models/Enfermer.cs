@@ -8,7 +8,5 @@ namespace HospitalAPI.Models
         public string Especialitat { get; set; } = string.Empty;
 
         public ICollection<PruebasDiagnosticas>? PruebasDiagnosticas { get; set; }
-
-
     }
 }
