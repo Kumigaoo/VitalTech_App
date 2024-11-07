@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using HospitalApi.DTO;
+using HospitalAPI.DTO;
 using HospitalAPI.Models;
 
 namespace HospitalAPI
