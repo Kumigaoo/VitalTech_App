@@ -12,6 +12,9 @@ namespace HospitalApi.DTO
 
         public string Nom { get; set; } = string.Empty;
 
-        public ICollection<PruebaDiagnosticaReadDTO>? Consultes { get; set; }
+        public int UsuariId { get; set; }
+
+
+
     }
 }
