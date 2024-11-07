@@ -32,7 +32,7 @@ namespace HospitalAPI.Controllers
             IEnumerable<Usuari> usuariList = await _bbdd.Usuari.Include("Rol").ToListAsync();
             return Ok(_mapper.Map<IEnumerable<UsuariReadDTO>>(usuariList));
         }
-        
+
         [HttpGet("{username}", Name = "GetUsuari")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -139,6 +139,6 @@ namespace HospitalAPI.Controllers
             return NoContent();
         }
         
-        
+
     }
 }
