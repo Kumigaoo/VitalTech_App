@@ -83,6 +83,11 @@ namespace HospitalAPI
                 _logger.LogError("Aquest usuari no pot ser Administrador del Sistema");
                 return BadRequest("Aquest usuari no pot ser Administrador del Sistema");
             }
+            if(!CheckDNI(administradorSistema.DNI))
+            {
+                _logger.LogError("El DNI no es valid");
+                return BadRequest("El DNI no es valid");
+            }
 
 
             await _bbdd.AddAsync(administradorSistema);
@@ -120,19 +125,75 @@ namespace HospitalAPI
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult> UpdateAdministradorSistema(string id, [FromBody] AdministradorSistemaUpdateDTO administradorSistemaUpdateDTO)
         {
-            var administradorSistema = await _bbdd.AdministradorSistema.FirstOrDefaultAsync(p=> p.DNI == id);
-            if(administradorSistema == null)
+            if(!ModelState.IsValid) //comprueba que los datos sean validos
+            {
+                _logger.LogError("Els camps no son valids");
+                return BadRequest("Els camps no son valids");
+            }
+            
+            var admin = await _bbdd.AdministradorSistema.FirstOrDefaultAsync(p => p.DNI == administradorSistemaUpdateDTO.DNI);
+            if(admin==null)
             {
                 _logger.LogError("No existeix un Administrador del Sistema amb aquest DNI");
                 return NotFound("No existeix un Administrador del Sistema amb aquest DNI");
             }
+            
+            var usuari = await _bbdd.Usuari.FirstOrDefaultAsync(p => p.Id == administradorSistemaUpdateDTO.UsuariId); 
+            if(usuari==null) //comprueba que exista el usuario
+            {
+                _logger.LogError("No existeix un Usuari amb aques ID");
+                return BadRequest("No existeix un Usuari amb aques ID");
+            }
+            if(!usuari.RolId.Equals("Administrador del Sistema")) //comprueba que el usuario tenga como idRol administrador de sistema
+            {
+                _logger.LogError("Aquest usuari no pot ser Administrador del Sistema");
+                return BadRequest("Aquest usuari no pot ser Administrador del Sistema");
+            }
+            if(!CheckDNI(administradorSistemaUpdateDTO.DNI))
+            {
+                _logger.LogError("El DNI no es valid");
+                return BadRequest("El DNI no es valid");
+            }
 
-            _mapper.Map(administradorSistemaUpdateDTO,administradorSistema);
-            _bbdd.AdministradorSistema.Update(administradorSistema);
+            _mapper.Map(administradorSistemaUpdateDTO,admin);
+            _bbdd.AdministradorSistema.Update(admin);
             await _bbdd.SaveChangesAsync();
 
             _logger.LogInformation("Administrador del Sistema modificat exitosament.");
             return NoContent();
+        }
+
+        public static bool CheckDNI(string dni)
+        {
+
+            var lettersArray = "TRWAGMYFPDXBNJZSQVHLCKE".ToCharArray();
+
+            if (dni.Length != 9) return false;
+
+            int dniValue = 0;
+            char dniLetter = char.Parse(dni.Substring(8));
+
+            if (int.TryParse(dni.Substring(0, 8), out dniValue))
+            {
+
+                Dictionary<int, char> letterToNum = new Dictionary<int, char>(23);
+
+                for (int i = 0; i < 23; i++)
+                {
+                    letterToNum.Add(i, lettersArray[i]);
+                }
+
+                dniValue = dniValue % 23;
+
+                foreach (var item in letterToNum)
+                {
+                    if (item.Key == dniValue && item.Value == dniLetter) return true;
+                }
+
+            }
+
+            return false;
+
         }
     }
 }
