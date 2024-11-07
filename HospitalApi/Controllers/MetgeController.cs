@@ -30,7 +30,7 @@ namespace HospitalAPI.Controllers
         public async Task<ActionResult<IEnumerable<MetgeReadDTO>>> GetPersonals()
         {
             _logger.LogInformation("Obtenint el personal");
-            IEnumerable<Personal> perList = await _bbdd.Metges.Include("PruebasDiagnosticas").ToListAsync();
+            IEnumerable<Personal> perList = await _bbdd.Metges.Include("PruebasDiagnosticas").Include("EpisodiMedics").ToListAsync();
             return Ok(_mapper.Map<IEnumerable<MetgeReadDTO>>(perList));
         }
 
