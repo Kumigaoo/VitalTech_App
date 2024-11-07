@@ -72,8 +72,6 @@ namespace HospitalAPI.Controllers
             return Ok(episodis);
         }
 
-        /*
-
         [HttpGet("{id:int}", Name = "GetEpi")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -86,46 +84,52 @@ namespace HospitalAPI.Controllers
                 return BadRequest("Error, format d'ID incorrecte.");
             } 
         
-            var e = await _bbdd.EpisodisMedics.Include("Consultes").Include("Ingressos").FirstOrDefaultAsync(h => h.Id == id);
+            var episodi = await _bbdd.EpisodisMedics.Include("Pacient").Include("PruebasDiagnosticas").Include("Ingressos").FirstOrDefaultAsync(u => u.Id == id);
+            if(episodi == null) return BadRequest("Error, no existeix el episodi indicat");
+            
+            var episodiDTO = _mapper.Map<EpisodiMedicReadDTO>(episodi);
+            
+            var dni = await (from p in _bbdd.Pacients where p.Id == episodi.PacientId select p.DNI).FirstOrDefaultAsync();
+            if (dni == null) return BadRequest("Error, no existeix pacient en el episodi");
+            episodiDTO.DNIPacient = dni;
 
-            if (e == null)
+            var dniMetge = await (from m in _bbdd.Metges where m.Id == episodi.MetgeId select m.DNI).FirstOrDefaultAsync();
+            if (dniMetge == null) return BadRequest("Error, no existeix metge en el episodi indicat");
+            episodiDTO.DNIMetge = dniMetge;
+        
+            var pruebas = episodiDTO.PruebasDiagnosticas;
+            var ingresos = episodiDTO.Ingressos;
+
+            foreach (var prueba in pruebas)
             {
-                _logger.LogError("Error, no existeix l'episodi amb l'ID " + id + ".");
-                return NotFound("Error, no existeix l'episodi amb l'ID indicat.");
-            }
-
-            EpisodiMedicReadDTO episodi = _mapper.Map<EpisodiMedicReadDTO>(e);
-            var dni = await (from p in _bbdd.Pacients where p.Id == e.PacientId select p.DNI).FirstOrDefaultAsync();
-            if (dni == null) return NotFound("No existeix la Persona amb l'ID indicat.");
-
-            episodi.DNIPacient = dni;
-
-            var pruebas = episodi.Consultes;
-            var ingresos = episodi.Ingressos;
-
-            foreach (var consulta in pruebas)
-            {
-                var consultaOriginal = e.Consultes.FirstOrDefault(c => c.Id == consulta.Id);                
-                var dniPersonal = await (from p in _bbdd.Personals where p.Id == consultaOriginal.PersonalId select p.DNI).FirstOrDefaultAsync();
-                if (dniPersonal != null) consulta.DNIPersonal = dniPersonal;
-            }
+                var pruebaDiagnosticasOriginal = await (from p in _bbdd.PruebasDiagnosticas where p.Id == prueba.Id select p).FirstOrDefaultAsync();
+                if(pruebaDiagnosticasOriginal != null && pruebaDiagnosticasOriginal.MetgeId != 0) {
+                    var dniMetgeProba = await (from m in _bbdd.Metges where m.Id == pruebaDiagnosticasOriginal.MetgeId select m.DNI).FirstOrDefaultAsync();
+                    if (dniMetgeProba != null) prueba.DNIMetge = dniMetgeProba;
+                }
+                if(pruebaDiagnosticasOriginal != null && pruebaDiagnosticasOriginal.EnfermerId != 0) {
+                    var dniEnfermerProba = await (from m in _bbdd.Enfermer where m.Id == pruebaDiagnosticasOriginal.EnfermerId select m.DNI).FirstOrDefaultAsync();
+                    if (dniEnfermerProba != null) prueba.DNIEnfermer = dniEnfermerProba;
+                }
+            } 
 
             foreach (var ingres in ingresos)
             {
-                var ingresOriginal = e.Ingressos.FirstOrDefault(c => c.Id == ingres.Id);    
+                var ingresOriginal = await (from i in _bbdd.Ingressos where i.Id == ingres.Id select i).FirstOrDefaultAsync();
                 var codiLlit = await (from p in _bbdd.Llits where p.Id == ingresOriginal.LlitId select p.CodiLlit).FirstOrDefaultAsync();
                 if (codiLlit != null) ingres.CodiLlit = codiLlit;
             } 
 
-            return Ok(episodi);
+            return Ok(episodiDTO);
 
         }
+
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<EpisodiMedicCreateDTO>> PostHabitacio([FromBody] EpisodiMedicCreateDTO userEpiDTO)
+        public async Task<ActionResult<EpisodiMedicCreateDTO>> PostEpisodiMedic([FromBody] EpisodiMedicCreateDTO userEpiDTO)
         {
             if (!ModelState.IsValid)
             {
@@ -134,15 +138,23 @@ namespace HospitalAPI.Controllers
             }
 
             var pacient = await (from p in _bbdd.Pacients where p.DNI == userEpiDTO.DNIPacient select p).FirstOrDefaultAsync();
+            var metge = await (from m in _bbdd.Metges where m.DNI == userEpiDTO.DNIMetge select m).FirstOrDefaultAsync();
 
             if (pacient == null)
             {
-                _logger.LogError("Error: el ID de pacient proporcionat no existeix.");
-                return BadRequest("Error: el ID de pacient proporcionat no existeix.");
+                _logger.LogError("Error: el DNI del pacient proporcionat no existeix.");
+                return BadRequest("Error: el DNI del pacient proporcionat no existeix.");
+            }
+
+            if (metge == null)
+            {
+                _logger.LogError("Error: el DNI del metge proporcionat no existeix.");
+                return BadRequest("Error: el DNI del metge proporcionat no existeix.");
             }
 
             EpisodiMedic episodi = _mapper.Map<EpisodiMedic>(userEpiDTO);
             episodi.PacientId = pacient.Id;
+            episodi.MetgeId = metge.Id;
 
             await _bbdd.EpisodisMedics.AddAsync(episodi);
             await _bbdd.SaveChangesAsync();
@@ -183,12 +195,12 @@ namespace HospitalAPI.Controllers
                 return BadRequest("Error: no es pot esborrar un episodi mèdic que conté ingressos.");
             }
 
-            var cons = await _bbdd.Consultes.FirstOrDefaultAsync(h => h.EpisodiMedicId == id);
+            var probes = await _bbdd.PruebasDiagnosticas.FirstOrDefaultAsync(h => h.EpisodiMedicId == id);
 
-            if (cons != null)
+            if (probes != null)
             {
-                _logger.LogError("Error: no es pot esborrar un episodi mèdic que conté consultes.");
-                return BadRequest("Error: no es pot esborrar un episodi mèdic que conté consultes.");
+                _logger.LogError("Error: no es pot esborrar un episodi mèdic que conté probes.");
+                return BadRequest("Error: no es pot esborrar un episodi mèdic que conté probes.");
             }
 
             _bbdd.EpisodisMedics.Remove(epi);
@@ -220,6 +232,7 @@ namespace HospitalAPI.Controllers
             
             EpisodiMedic episodi = _mapper.Map<EpisodiMedic>(userEpiDTO);
             var pacient = await (from p in _bbdd.Pacients where p.DNI == userEpiDTO.DNIPacient select p).FirstOrDefaultAsync();
+            var metge = await (from m in _bbdd.Metges where m.DNI == userEpiDTO.DNIMetge select m).FirstOrDefaultAsync();
 
             if (pacient == null)
             {
@@ -227,7 +240,14 @@ namespace HospitalAPI.Controllers
                 return BadRequest("Error: no existeix el pacient indicat.");
             }
 
+            if (metge == null)
+            {
+                _logger.LogInformation("Error: no existeix el metge indicat.");
+                return BadRequest("Error: no existeix el metge indicat.");
+            }
+
             episodi.PacientId = pacient.Id;
+            episodi.MetgeId = metge.Id;
 
             _bbdd.EpisodisMedics.Update(episodi);
             await _bbdd.SaveChangesAsync();
@@ -236,8 +256,6 @@ namespace HospitalAPI.Controllers
             return NoContent();
 
         }
-
-    */
 
     }
 }
