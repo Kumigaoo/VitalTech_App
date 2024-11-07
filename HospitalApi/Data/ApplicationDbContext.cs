@@ -33,6 +33,12 @@ namespace HospitalApi.Data
             modelBuilder.Entity<Administratiu>().ToTable("Administratiu");
             modelBuilder.Entity<AdministradorSistema>().ToTable("AdministradorSistema");
 
+            modelBuilder.Entity<Personal>()
+            .HasOne(a => a.Usuari)
+            .WithOne()
+            .HasForeignKey<Personal>(a => a.UsuariId)
+            .OnDelete(DeleteBehavior.Restrict);
+
             modelBuilder.Entity<Habitacio>()
             .HasOne(h => h.Planta)
             .WithMany(p => p.Habitacions)

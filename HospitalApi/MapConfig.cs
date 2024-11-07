@@ -48,8 +48,15 @@ namespace HospitalAPI
             CreateMap<Rol, RolCreateDTO>().ReverseMap();
             CreateMap<Rol, RolUpdateDTO>().ReverseMap();
 
+            CreateMap<AdministradorSistema, AdministradorSistemaReadDTO>().ReverseMap();
+            CreateMap<AdministradorSistema, AdministradorSistemaCreateDTO>().ReverseMap();
+            CreateMap<AdministradorSistema, AdministradorSistemaUpdateDTO>().ReverseMap();
+
+
             CreateMap<Usuari, UsuariReadDTO>().ReverseMap();
             CreateMap<Usuari, UsuariCreateDTO>().ReverseMap();
+
+            
 
         }
 

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HospitalApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241105084510_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20241107085540_arreglatBorratAdmins")]
+    partial class arreglatBorratAdmins
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -264,7 +264,8 @@ namespace HospitalApi.Migrations
                     b.HasIndex("DNI")
                         .IsUnique();
 
-                    b.HasIndex("UsuariId");
+                    b.HasIndex("UsuariId")
+                        .IsUnique();
 
                     b.ToTable("Personal");
 
@@ -387,7 +388,6 @@ namespace HospitalApi.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RolId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Username")
@@ -522,9 +522,9 @@ namespace HospitalApi.Migrations
             modelBuilder.Entity("HospitalAPI.Models.Personal", b =>
                 {
                     b.HasOne("HospitalAPI.Models.Usuari", "Usuari")
-                        .WithMany()
-                        .HasForeignKey("UsuariId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .WithOne()
+                        .HasForeignKey("HospitalAPI.Models.Personal", "UsuariId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Usuari");
@@ -589,8 +589,7 @@ namespace HospitalApi.Migrations
                     b.HasOne("HospitalAPI.Models.Rol", "Rol")
                         .WithMany("Usuarios")
                         .HasForeignKey("RolId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Rol");
                 });

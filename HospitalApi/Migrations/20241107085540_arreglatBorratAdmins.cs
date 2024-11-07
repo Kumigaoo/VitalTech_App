@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace HospitalApi.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class arreglatBorratAdmins : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -122,7 +122,7 @@ namespace HospitalApi.Migrations
                     Username = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    RolId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    RolId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -176,7 +176,7 @@ namespace HospitalApi.Migrations
                         column: x => x.UsuariId,
                         principalTable: "Usuari",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -346,10 +346,10 @@ namespace HospitalApi.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Dolencia = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     MetgeId = table.Column<int>(type: "int", nullable: false),
                     EnfermerId = table.Column<int>(type: "int", nullable: false),
-                    EpisodiMedicId = table.Column<int>(type: "int", nullable: false)
+                    EpisodiMedicId = table.Column<int>(type: "int", nullable: false),
+                    Dolencia = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -442,7 +442,8 @@ namespace HospitalApi.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Personal_UsuariId",
                 table: "Personal",
-                column: "UsuariId");
+                column: "UsuariId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Plantes_Piso",
