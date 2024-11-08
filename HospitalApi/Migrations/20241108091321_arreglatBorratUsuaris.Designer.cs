@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HospitalApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241107085540_arreglatBorratAdmins")]
-    partial class arreglatBorratAdmins
+    [Migration("20241108091321_arreglatBorratUsuaris")]
+    partial class arreglatBorratUsuaris
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -256,15 +256,12 @@ namespace HospitalApi.Migrations
                     b.Property<int>("Telefon")
                         .HasColumnType("int");
 
-                    b.Property<int>("UsuariId")
+                    b.Property<int?>("UsuariId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("DNI")
-                        .IsUnique();
-
-                    b.HasIndex("UsuariId")
                         .IsUnique();
 
                     b.ToTable("Personal");
@@ -387,6 +384,9 @@ namespace HospitalApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("PersonalId")
+                        .HasColumnType("int");
+
                     b.Property<string>("RolId")
                         .HasColumnType("nvarchar(450)");
 
@@ -395,6 +395,10 @@ namespace HospitalApi.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("PersonalId")
+                        .IsUnique()
+                        .HasFilter("[PersonalId] IS NOT NULL");
 
                     b.HasIndex("RolId");
 
@@ -519,17 +523,6 @@ namespace HospitalApi.Migrations
                     b.Navigation("Administratiu");
                 });
 
-            modelBuilder.Entity("HospitalAPI.Models.Personal", b =>
-                {
-                    b.HasOne("HospitalAPI.Models.Usuari", "Usuari")
-                        .WithOne()
-                        .HasForeignKey("HospitalAPI.Models.Personal", "UsuariId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Usuari");
-                });
-
             modelBuilder.Entity("HospitalAPI.Models.PruebasDiagnosticas", b =>
                 {
                     b.HasOne("HospitalAPI.Models.Enfermer", "Enfermer")
@@ -586,10 +579,17 @@ namespace HospitalApi.Migrations
 
             modelBuilder.Entity("HospitalAPI.Models.Usuari", b =>
                 {
+                    b.HasOne("HospitalAPI.Models.Personal", "Personal")
+                        .WithOne("Usuari")
+                        .HasForeignKey("HospitalAPI.Models.Usuari", "PersonalId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
                     b.HasOne("HospitalAPI.Models.Rol", "Rol")
                         .WithMany("Usuarios")
                         .HasForeignKey("RolId")
                         .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("Personal");
 
                     b.Navigation("Rol");
                 });
@@ -650,6 +650,11 @@ namespace HospitalApi.Migrations
             modelBuilder.Entity("HospitalAPI.Models.Pacient", b =>
                 {
                     b.Navigation("EpisodisMedics");
+                });
+
+            modelBuilder.Entity("HospitalAPI.Models.Personal", b =>
+                {
+                    b.Navigation("Usuari");
                 });
 
             modelBuilder.Entity("HospitalAPI.Models.Planta", b =>

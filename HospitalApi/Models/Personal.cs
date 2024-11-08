@@ -11,7 +11,7 @@ public abstract class Personal {
     public int Telefon {get; set;}
 
     [ForeignKey("UsuariId")]
-    public int UsuariId { get; set; }
+    public int? UsuariId { get; set; }
     public Usuari? Usuari { get; set; }
 
 }

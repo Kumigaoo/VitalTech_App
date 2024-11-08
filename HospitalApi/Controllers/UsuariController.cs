@@ -92,14 +92,18 @@ namespace HospitalAPI.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> DeleteUsuari(string username)
         {
-
-
-            var usuari = await _bbdd.Usuari.FirstOrDefaultAsync(u => u.Username == username);
+            var usuari = await _bbdd.Usuari.Include(u => u.Personal).FirstOrDefaultAsync(u => u.Username == username);
 
             if (usuari == null)
             {
                 _logger.LogError("Error: no existeix cap usuari amb aquest nom.");
                 return NotFound("Error: no existeix cap usuari amb aquest nom.");
+            }
+
+            if (usuari.Personal != null)
+            {
+                usuari.Personal.UsuariId = null;
+                _bbdd.Update(usuari.Personal);
             }
 
             _bbdd.Usuari.Remove(usuari);
@@ -120,6 +124,12 @@ namespace HospitalAPI.Controllers
             {
                 _logger.LogError("Error: usuari no trobat o dades introduïdes incorrectes.");
                 return BadRequest("Error: usuari no trobat o dades introduïdes incorrectes.");
+            }
+
+            var rol = await _bbdd.Rol.FirstOrDefaultAsync(p => p.Nom == userCreateDTO.RolId);
+
+            if(rol == null){
+                return BadRequest("Error: el rol no existe.");
             }
 
             var usuari = await (from u in _bbdd.Usuari where u.Username == username select u).FirstOrDefaultAsync();

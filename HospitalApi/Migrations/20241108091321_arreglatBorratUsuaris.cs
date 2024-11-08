@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace HospitalApi.Migrations
 {
     /// <inheritdoc />
-    public partial class arreglatBorratAdmins : Migration
+    public partial class arreglatBorratUsuaris : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -34,6 +34,22 @@ namespace HospitalApi.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Personal",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DNI = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Nom = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Telefon = table.Column<int>(type: "int", nullable: false),
+                    UsuariId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Personal", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Plantes",
                 columns: table => new
                 {
@@ -57,126 +73,6 @@ namespace HospitalApi.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Rol", x => x.Nom);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Habitacions",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CodiHabitacio = table.Column<int>(type: "int", nullable: false),
-                    CapacitatLlits = table.Column<int>(type: "int", nullable: false),
-                    PlantaId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Habitacions", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Habitacions_Plantes_PlantaId",
-                        column: x => x.PlantaId,
-                        principalTable: "Plantes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "RolPermisEntitats",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    RolId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    PermisId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    EntitatId = table.Column<string>(type: "nvarchar(450)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_RolPermisEntitats", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_RolPermisEntitats_Entitats_EntitatId",
-                        column: x => x.EntitatId,
-                        principalTable: "Entitats",
-                        principalColumn: "Tablas",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_RolPermisEntitats_Permisos_PermisId",
-                        column: x => x.PermisId,
-                        principalTable: "Permisos",
-                        principalColumn: "Accio",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_RolPermisEntitats_Rol_RolId",
-                        column: x => x.RolId,
-                        principalTable: "Rol",
-                        principalColumn: "Nom",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Usuari",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Username = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    RolId = table.Column<string>(type: "nvarchar(450)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Usuari", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Usuari_Rol_RolId",
-                        column: x => x.RolId,
-                        principalTable: "Rol",
-                        principalColumn: "Nom",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Llits",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CodiLlit = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Ocupat = table.Column<bool>(type: "bit", nullable: false),
-                    ForaDeServei = table.Column<bool>(type: "bit", nullable: false),
-                    HabitacioId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Llits", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Llits_Habitacions_HabitacioId",
-                        column: x => x.HabitacioId,
-                        principalTable: "Habitacions",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Personal",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    DNI = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Nom = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Telefon = table.Column<int>(type: "int", nullable: false),
-                    UsuariId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Personal", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Personal_Usuari_UsuariId",
-                        column: x => x.UsuariId,
-                        principalTable: "Usuari",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -252,6 +148,89 @@ namespace HospitalApi.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Habitacions",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CodiHabitacio = table.Column<int>(type: "int", nullable: false),
+                    CapacitatLlits = table.Column<int>(type: "int", nullable: false),
+                    PlantaId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Habitacions", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Habitacions_Plantes_PlantaId",
+                        column: x => x.PlantaId,
+                        principalTable: "Plantes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RolPermisEntitats",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RolId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    PermisId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    EntitatId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RolPermisEntitats", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_RolPermisEntitats_Entitats_EntitatId",
+                        column: x => x.EntitatId,
+                        principalTable: "Entitats",
+                        principalColumn: "Tablas",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_RolPermisEntitats_Permisos_PermisId",
+                        column: x => x.PermisId,
+                        principalTable: "Permisos",
+                        principalColumn: "Accio",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_RolPermisEntitats_Rol_RolId",
+                        column: x => x.RolId,
+                        principalTable: "Rol",
+                        principalColumn: "Nom",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Usuari",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Username = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    RolId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    PersonalId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Usuari", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Usuari_Personal_PersonalId",
+                        column: x => x.PersonalId,
+                        principalTable: "Personal",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.SetNull);
+                    table.ForeignKey(
+                        name: "FK_Usuari_Rol_RolId",
+                        column: x => x.RolId,
+                        principalTable: "Rol",
+                        principalColumn: "Nom",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Pacients",
                 columns: table => new
                 {
@@ -278,6 +257,28 @@ namespace HospitalApi.Migrations
                         principalTable: "Administratiu",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Llits",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CodiLlit = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Ocupat = table.Column<bool>(type: "bit", nullable: false),
+                    ForaDeServei = table.Column<bool>(type: "bit", nullable: false),
+                    HabitacioId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Llits", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Llits_Habitacions_HabitacioId",
+                        column: x => x.HabitacioId,
+                        principalTable: "Habitacions",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -440,12 +441,6 @@ namespace HospitalApi.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Personal_UsuariId",
-                table: "Personal",
-                column: "UsuariId",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Plantes_Piso",
                 table: "Plantes",
                 column: "Piso",
@@ -482,6 +477,13 @@ namespace HospitalApi.Migrations
                 column: "RolId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Usuari_PersonalId",
+                table: "Usuari",
+                column: "PersonalId",
+                unique: true,
+                filter: "[PersonalId] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Usuari_RolId",
                 table: "Usuari",
                 column: "RolId");
@@ -509,6 +511,9 @@ namespace HospitalApi.Migrations
                 name: "RolPermisEntitats");
 
             migrationBuilder.DropTable(
+                name: "Usuari");
+
+            migrationBuilder.DropTable(
                 name: "Llits");
 
             migrationBuilder.DropTable(
@@ -522,6 +527,9 @@ namespace HospitalApi.Migrations
 
             migrationBuilder.DropTable(
                 name: "Permisos");
+
+            migrationBuilder.DropTable(
+                name: "Rol");
 
             migrationBuilder.DropTable(
                 name: "Habitacions");
@@ -540,12 +548,6 @@ namespace HospitalApi.Migrations
 
             migrationBuilder.DropTable(
                 name: "Personal");
-
-            migrationBuilder.DropTable(
-                name: "Usuari");
-
-            migrationBuilder.DropTable(
-                name: "Rol");
         }
     }
 }
