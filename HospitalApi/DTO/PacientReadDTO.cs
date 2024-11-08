@@ -15,6 +15,7 @@ namespace HospitalApi.DTO
         public Nacionalidad Nacionalidad { get; set; }
         public string Email {get; set; } = string.Empty;
         public DateTime BirthDay { get; set; }
+        public int AdministratiuId {  get; set; }
         public ICollection<EpisodiMedicReferenceDTO>? EpisodisMedics { get; set; }
         
     }
