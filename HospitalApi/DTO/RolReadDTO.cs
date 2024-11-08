@@ -4,7 +4,7 @@ namespace HospitalApi.DTO
 {
     public class RolReadDTO
     {
-        public string NomRol { get; set; }
+        public string Nom { get; set; }
 
         public string Descripcio { get; set; }
 

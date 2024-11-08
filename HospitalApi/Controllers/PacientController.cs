@@ -1,4 +1,6 @@
-﻿using AutoMapper;
+﻿using System.Globalization;
+using System.Text;
+using AutoMapper;
 using HospitalApi.Data;
 using HospitalApi.DTO;
 using HospitalAPI.Models;
@@ -95,6 +97,13 @@ namespace HospitalAPI.Controllers
                 return BadRequest("Error: Sexe Invalid.");
             }
 
+            var existeixAdministratiu = await _bbdd.Administratius.FirstOrDefaultAsync(p => p.Id == userPacientDTO.AdministratiuId);
+            if(existeixAdministratiu==null){
+                _logger.LogError("No existeix un administratiu amb aquest ID");
+                return BadRequest("No existeix un administratiu amb aquest ID");
+            }
+
+
             Pacient pacient = _mapper.Map<Pacient>(userPacientDTO);
 
             await _bbdd.Pacients.AddAsync(pacient);
@@ -153,12 +162,17 @@ namespace HospitalAPI.Controllers
                 _logger.LogError("Error: Sexe Invalid.");
                 return BadRequest("Error: Sexe Invalid.");
             }
-
             var pacient = await (from p in _bbdd.Pacients where p.DNI == id select p).FirstOrDefaultAsync();
 
             if (pacient == null){
                 _logger.LogError("No existeix un pacient amb aquest DNI.");
                 return NotFound("No existeix un pacient amb aquest DNI.");
+            }
+
+            var existeixAdministratiu = await _bbdd.Administratius.FirstOrDefaultAsync(p => p.Id == userPacientDTO.AdministratiuId);
+            if(existeixAdministratiu==null){
+                _logger.LogError("No existeix un administratiu amb aquest ID");
+                return BadRequest("No existeix un administratiu amb aquest ID");
             }
 
             _mapper.Map(userPacientDTO, pacient);
@@ -171,10 +185,13 @@ namespace HospitalAPI.Controllers
 
         }
 
-        public static bool CheckTS(String ts, String cognom1, String cognom2, DateTime naix)
+        public static bool CheckTS(String ts, String cognom11, String cognom22, DateTime naix)
         {
 
             if (ts.Length != 14) return false;
+
+            String cognom1 = RemoveAccents(cognom11);
+            String cognom2 = RemoveAccents(cognom22);
 
             String day = naix.ToString().Substring(0, 2);
             String month = naix.ToString().Substring(3, 2);
@@ -225,6 +242,20 @@ namespace HospitalAPI.Controllers
             return false;
 
         }
+        public static string RemoveAccents(string input)
+        {
+            string normalized = input.Normalize(NormalizationForm.FormD);
+            StringBuilder builder = new StringBuilder();
 
+            foreach (char c in normalized)
+            {
+                if (CharUnicodeInfo.GetUnicodeCategory(c) != UnicodeCategory.NonSpacingMark)
+                {
+                    builder.Append(c);
+                }
+            }
+
+            return builder.ToString().Normalize(NormalizationForm.FormC);
+        }
     }
 }

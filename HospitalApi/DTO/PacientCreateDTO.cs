@@ -12,6 +12,7 @@
         public string Telefono { get; set; } = string.Empty;
         public Nacionalidad Nacionalidad { get; set; }
         public string Email {get; set; } = string.Empty;
+        public int AdministratiuId {  get; set; }
         public DateTime BirthDay { get; set; }
 
     }
