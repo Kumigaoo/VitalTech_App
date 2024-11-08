@@ -7,7 +7,6 @@ namespace HospitalAPI
 {
     public class MapConfig : Profile
     {
-
         public MapConfig()
         {
 
@@ -52,13 +51,9 @@ namespace HospitalAPI
             CreateMap<AdministradorSistema, AdministradorSistemaCreateDTO>().ReverseMap();
             CreateMap<AdministradorSistema, AdministradorSistemaUpdateDTO>().ReverseMap();
 
-
             CreateMap<Usuari, UsuariReadDTO>().ReverseMap();
             CreateMap<Usuari, UsuariCreateDTO>().ReverseMap();
 
-            
-
         }
-
     }
 }

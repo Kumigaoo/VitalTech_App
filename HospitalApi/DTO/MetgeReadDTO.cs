@@ -15,7 +15,6 @@ namespace HospitalApi.DTO
 
         public int UsuariId { get; set; }
 
-
         public ICollection<EpisodiMedic>? EpisodiMedics { get; set; }
 
         public ICollection<PruebaDiagnosticaReferenceDTO>? PruebasDiagnosticas { get; set; }
