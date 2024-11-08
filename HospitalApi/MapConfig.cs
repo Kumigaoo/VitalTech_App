@@ -10,6 +10,10 @@ namespace HospitalAPI
         public MapConfig()
         {
 
+            CreateMap<Enfermer, EnfermerCreateDTO>().ReverseMap();
+            CreateMap<Enfermer, EnfermerReadDTO>().ReverseMap();
+            CreateMap<Enfermer, EnfermerUpdateDTO>().ReverseMap();
+
             CreateMap<PruebasDiagnosticas, PruebaDiagnosticaCreateDTO>().ReverseMap();
             CreateMap<PruebasDiagnosticas, PruebaDiagnosticaReadDTO>().ReverseMap();
             CreateMap<PruebasDiagnosticas, PruebaDiagnosticaReferenceDTO>().ReverseMap();

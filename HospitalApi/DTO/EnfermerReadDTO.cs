@@ -3,14 +3,15 @@ using HospitalAPI.Models;
 
 namespace HospitalAPI.DTO
 {
-    public class EnfermerReadDTO : Rol
+    public class EnfermerReadDTO
     {
-        [Required]        
-        public string EnfermerDNI { get; set; } = string.Empty;
-
-        public string EnfermerNom { get; set; } = string.Empty;
-
+        [Required]
+        public string DNI { get; set; } = string.Empty;
+        public string Nom { get; set; } = string.Empty;
+        public int Telefon { get; set; }
         public string EnfermerEspecialitat { get; set; } = string.Empty;
+        public ICollection<PruebasDiagnosticas>? PruebasDiagnosticas { get; set; }
+
 
     }
 }

@@ -3,13 +3,11 @@ using HospitalAPI.Models;
 
 namespace HospitalAPI.DTO
 {
-    public class EnfermerUpdateDTO : Rol
+    public class EnfermerUpdateDTO
     {
-        [Required]
-        public string EnfermerDNI { get; set; } = string.Empty;
-
-        public string EnfermerNom { get; set; } = string.Empty;
-
+        public string DNI { get; set; } = string.Empty;
+        public string Nom { get; set; } = string.Empty;
+        public int Telefon { get; set; }
         public string EnfermerEspecialitat { get; set; } = string.Empty;
 
     }

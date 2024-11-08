@@ -36,16 +36,16 @@ namespace HospitalApi.Controllers
 
         }
 
-        [HttpGet("{id:int}", Name = "GetEnfermer")]
+        [HttpGet("{DNI}", Name = "GetEnfermer")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<EnfermerReadDTO>> GetEnfermer(string id)
+        public async Task<ActionResult<EnfermerReadDTO>> GetEnfermer(string DNI)
         {
 
-            var enfermer = await _bbdd.Enfermer.FirstOrDefaultAsync(e => e.DNI == id);
+            var enfermer = await _bbdd.Enfermer.FirstOrDefaultAsync(e => e.DNI == DNI);
 
-            return Ok(_mapper.Map<PacientReadDTO>(enfermer));
+            return Ok(_mapper.Map<EnfermerReadDTO>(enfermer));
 
         }
 
@@ -61,18 +61,18 @@ namespace HospitalApi.Controllers
             await _bbdd.Enfermer.AddAsync(enfermer);
             await _bbdd.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetEnfermer), new { id = nouEnfermer }, nouEnfermer);
+            return CreatedAtAction(nameof(GetEnfermer), new { id = nouEnfermer.DNI }, nouEnfermer);
 
         }
 
-        [HttpDelete("{id:int}")]
+        [HttpDelete("{DNI}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> DeleteEnfermer(string id)
+        public async Task<IActionResult> DeleteEnfermer(string DNI)
         {
 
-            var enfermer = await _bbdd.Enfermer.FirstOrDefaultAsync(e => e.DNI == id);
+            var enfermer = await _bbdd.Enfermer.FirstOrDefaultAsync(e => e.DNI == DNI);
 
             if (enfermer == null)
             {
@@ -88,13 +88,13 @@ namespace HospitalApi.Controllers
 
         }
 
-        [HttpPut("{id:int}")]
+        [HttpPut("{DNI}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult> UpdateEnferemer(string id, [FromBody] EnfermerUpdateDTO enfermerUpdateDTO)
+        public async Task<ActionResult> UpdateEnferemer(string DNI, [FromBody] EnfermerUpdateDTO enfermerUpdateDTO)
         {
 
-            var enfermer = await _bbdd.Enfermer.FirstOrDefaultAsync(e => e.DNI == id);
+            var enfermer = await _bbdd.Enfermer.FirstOrDefaultAsync(e => e.DNI == DNI);
 
             if (enfermer == null)
             {
