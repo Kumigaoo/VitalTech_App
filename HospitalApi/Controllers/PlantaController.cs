@@ -51,6 +51,7 @@ namespace HospitalAPI.Controllers
                 return BadRequest("Error, no existeix la planta amb l'ID indicat.");
             }
 
+
             var planta = await _bbdd.Plantes.Include("Habitacions").FirstOrDefaultAsync(p => p.Piso == id);
             if (planta == null) return NotFound();
 
