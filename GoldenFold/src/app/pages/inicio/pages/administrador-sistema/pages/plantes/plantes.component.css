@@ -230,16 +230,14 @@ td button:hover {
   
 }
 
-
-
-/* Estilo para los contenedores de filtros y búsqueda 
-.filters-container {
+.filter-container {
   display: flex;
   justify-content: space-between;
   gap: 20px;
   margin-bottom: 20px;
 }
 
+/* Estilo para los contenedores de filtros y búsqueda 
 .search-container input[type="text"] {
   padding: 8px;
   border: 1px solid #ddd;

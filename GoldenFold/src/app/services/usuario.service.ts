@@ -32,9 +32,8 @@ export class UsuarioService {
         return this.http.post<Personal>(`${this.apiUrl}/`, usuario);
       }
     
-      updateUsuario(usuario: Personal): Observable<Personal> {
-        return this.http.put<Personal>(
-          `${this.apiUrl}/${usuario.dni}`,
+      updateUsuario(usuario: Personal, dni : string): Observable<Personal> {
+        return this.http.put<Personal>(`${this.apiUrl}/${dni}`,
           usuario
         );
       }
@@ -42,10 +41,4 @@ export class UsuarioService {
       deleteUsuario(dni: string): Observable<void> {
         return this.http.delete<void>(`${this.apiUrl}/${dni}`);
       }
-
-      // asi estaba antes:
-      // deleteUsuario(idUsuario: number): Observable<void> {
-      //   return this.http.delete<void>(`${this.apiUrl}/Usuarios/${idUsuario}`);
-      // }
-
 }

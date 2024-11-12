@@ -8,6 +8,8 @@ import { MatSort } from '@angular/material/sort'; // Módulo de ordenación de A
 import { MatDialog } from '@angular/material/dialog';
 import { CamasDialogComponent } from '../../../../../../components/popups/camas-popup';
 import { DialogCrearHabitacionComponent } from '../../../../../../components/Formularios/Habitacion/dialog-crear-habitacion/dialog-crear-habitacion/dialog-crear-habitacion.component';
+import { DialogRef } from '@angular/cdk/dialog';
+import { DialogActualizarHabitacionComponent } from '../../../../../../components/Formularios/Habitacion/dialog-actualizar-habitacion/dialog-actualizar-habitacion.component';
 
 @Component({
   selector: 'app-habitaciones',
@@ -29,7 +31,7 @@ export class HabitacionesComponent implements OnInit {
   };
   habitacionParaActualizar: Habitacion | null = null;
 
-  displayedColumns: string[] = ['NumeroHabitacion', 'CapCamas', 'Planta','Camas', 'Acciones'];  // Columnas de la tabla
+  displayedColumns: string[] = ['NumeroHabitacion', 'CapCamas', 'Planta', 'Camas', 'Acciones'];  // Columnas de la tabla
 
   constructor(private habitacionService: HabitacionService, public dialog: MatDialog) { }
 
@@ -55,69 +57,70 @@ export class HabitacionesComponent implements OnInit {
     });
   }
 
-  // agregarHabitacion(): void {
-  //   if (this.nuevaHabitacion.Edificio && this.nuevaHabitacion.Planta && this.nuevaHabitacion.NumeroHabitacion && this.nuevaHabitacion.TipoCama) {
-  //     this.habitacionService.addHabitacion(this.nuevaHabitacion).subscribe({
-  //       next: (nuevaHabitacion: Habitacion) => {
-  //         this.habitaciones.push(nuevaHabitacion);
-  //         this.habitacionesDataSource.data = this.habitaciones;  // Actualizar los datos en la tabla
-  //         this.nuevaHabitacion = { IdHabitacion: 0, Edificio: '', Planta: '', NumeroHabitacion: '', TipoCama: '' };  // Resetear el formulario
-  //         this.snackbar.showNotification('success', 'Habitación agregada exitosamente');  // Mostrar notificación de éxito
-  //       },
-  //       error: (error: any) => {
-  //         console.error('Error al agregar la habitación', error);
-  //         this.snackbar.showNotification('error', 'Error al agregar la habitación');  // Mostrar notificación de error
-  //       },
-  //     });
-  //   } else {
-  //     this.snackbar.showNotification('error', 'Por favor, completa todos los campos');  // Notificación para campos faltantes
-  //   }
-  // }
+  agregarHabitacion(): void {
+    const dialogRef = this.dialog.open(DialogCrearHabitacionComponent, {
+      width: '470px',
+    });
 
-  // actualizarHabitacion(): void {
-  //   if (this.habitacionParaActualizar) {
-  //     this.habitacionService.updateHabitacion(this.habitacionParaActualizar).subscribe({
-  //       next: (habitacionActualizada: Habitacion) => {
-  //         const index = this.habitaciones.findIndex(
-  //           (h) => h.IdHabitacion === habitacionActualizada.IdHabitacion
-  //         );
-  //         if (index !== -1) {
-  //           this.habitaciones[index] = habitacionActualizada;
-  //           this.habitacionesDataSource.data = this.habitaciones;  // Actualizar la tabla con los datos actualizados
-  //         }
-  //         this.habitacionParaActualizar = null;  // Limpiar el formulario de actualización
-  //         this.snackbar.showNotification('success', 'Habitación actualizada correctamente');  // Mostrar notificación de éxito
-  //       },
-  //       error: (error: any) => {
-  //         console.error('Error al actualizar la habitación', error);
-  //         this.snackbar.showNotification('error', 'Error al actualizar la habitación');  // Mostrar notificación de error
-  //       },
-  //     });
-  //   }
-  // }
-
-  borrarHabitacion(id: number): void {}
-  //   const confirmacion = confirm('¿Estás seguro de que deseas eliminar esta habitación?');
-  //   if (confirmacion) {
-  //     this.habitacionService.deleteHabitacion(id).subscribe({
-  //       next: () => {
-  //         this.habitaciones = this.habitaciones.filter(h => h.IdHabitacion !== id);
-  //         this.habitacionesDataSource.data = this.habitaciones;  // Actualizar la tabla sin la habitación borrada
-  //         this.snackbar.showNotification('success', 'Habitación borrada correctamente');  // Mostrar notificación de éxito
-  //       },
-  //       error: (error: any) => {
-  //         console.error('Error al borrar la habitación', error);
-  //         this.snackbar.showNotification('error', 'Error al borrar la habitación');  // Mostrar notificación de error
-  //       },
-  //     });
-  //   }
-  // }
-
-  toggleActualizarHabitacion(habitacion: Habitacion): void {
-    this.habitacionParaActualizar = habitacion;  // Mostrar los datos en el formulario de actualización
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.habitacionService.postHabitacion(result).subscribe({
+          next: (nuevaHabitacion: Habitacion) => {
+            this.habitaciones.push(nuevaHabitacion); // Añade la nueva habitación a la lista
+            this.habitacionesDataSource.data = this.habitaciones; // Actualiza la fuente de datos de la tabla
+            this.snackbar.showNotification('success', 'Habitación agregada exitosamente');
+          },
+          error: (error) => {
+            console.error('Error al agregar la habitación:', error);
+            this.snackbar.showNotification('error', 'Error al agregar la habitación');
+          },
+        });
+      }
+    });
   }
 
-  verCamas(habitacion: any): void{
+  borrarHabitacion(id : number): void {
+    this.habitacionService.deleteHabitacion(id).subscribe({
+      next: () => {
+        this.obtenerHabitaciones();
+        this.snackbar.showNotification('success', 'Habitación eliminada correctamente');
+      },
+      error: () => {
+        console.error('Error al eliminar la habitación');
+        this.snackbar.showNotification('error', 'Error al eliminar la habitación');
+      }
+    })
+  }
+
+  toggleActualizarHabitacion(habitacion: Habitacion): void {
+    this.habitacionParaActualizar = habitacion;  // Guardar habitación para actualización
+
+    const dialogRef = this.dialog.open(DialogActualizarHabitacionComponent, {
+      width: '470px',
+      data: { habitacion: habitacion }
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.habitacionService.putHabitacion(result).subscribe({
+          next: () => {
+            const index = this.habitaciones.findIndex(h => h.plantaId === result.IdHabitacion);
+            if (index !== -1) {
+              this.habitaciones[index] = result; // Actualizar la lista con los nuevos datos
+              this.habitacionesDataSource.data = this.habitaciones; // Refrescar la tabla
+              this.snackbar.showNotification('success', 'Habitación actualizada exitosamente');
+            }
+          },
+          error: (error) => {
+            console.error('Error al actualizar la habitación:', error);
+            this.snackbar.showNotification('error', 'Error al actualizar la habitación');
+          }
+        });
+      }
+    });
+  }
+
+  verCamas(habitacion: any): void {
     this.dialog.open(CamasDialogComponent, {
       width: '1200px',
       data: habitacion.llits
@@ -133,19 +136,6 @@ export class HabitacionesComponent implements OnInit {
     }
   }
 
-  // cancelarNuevoHabitacion(): void {
-  //   // Resetear el formulario de agregar habitación
-  //   this.nuevaHabitacion = {
-  //     IdHabitacion: 0,
-  //     Edificio: '',
-  //     Planta: '',
-  //     NumeroHabitacion: '',
-  //     TipoCama: '',
-  //   };
-  // }
 
-  toggleFormularioAgregar(): void {
-    this.dialog.open(DialogCrearHabitacionComponent);
-  }
 
 }

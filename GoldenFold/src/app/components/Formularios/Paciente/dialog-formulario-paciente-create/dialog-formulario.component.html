@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>{{ data.dni ? 'Actualizar Paciente' : 'Agregar Paciente' }}</h2>
+<h2 mat-dialog-title>Agregar Paciente</h2>
 <mat-dialog-content>
   <form [formGroup]="pacienteForm" (ngSubmit)="guardar()">
     <br />
@@ -57,6 +57,6 @@
 <mat-dialog-actions>
   <button mat-button mat-dialog-close>Cancelar</button>
   <button mat-raised-button color="primary" [disabled]="pacienteForm.invalid" (click)="guardar()">
-    {{ data.dni ? 'Actualizar' : 'Guardar' }}
+   Guardar
   </button>
 </mat-dialog-actions>

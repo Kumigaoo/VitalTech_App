@@ -5,10 +5,10 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogFormularioComponent } from '../../../../../../components/Formularios/Paciente/dialog-formulario/dialog-formulario.component';
+import { DialogFormularioComponent } from '../../../../../../components/Formularios/Paciente/dialog-formulario-paciente-create/dialog-formulario.component';
 import { SnackbarComponent } from '../../../../../../components/snackbar/snackbar.component';
 import { EpisodiosDialogComponent } from '../../../../../../components/popups/episodis-popup';
-import { FichaPacienteComponent } from '../../../../../../components/Fichas/ficha-paciente.component';
+import { DialogPacienteComponent } from '../../../../../../components/Formularios/Paciente/dialog-paciente-lista-modif/dialog-paciente-lista-modif.component';
 
 @Component({
   selector: 'app-pacientes',
@@ -66,17 +66,6 @@ export class PacientesComponent implements OnInit, AfterViewInit {
     this.dataSource.sort = this.sort;
   }
 
-  openPopup(paciente: any): void {
-    console.log(paciente);
-    this.dialog.open(FichaPacienteComponent, {
-      data: paciente,
-      width: '300px'
-    });
-  }
-
-  closePopup(): void {
-    this.dialog.closeAll();
-  }
 
   verEpisodios(paciente: any): void {
     console.log(paciente.episodisMedics);
@@ -122,7 +111,7 @@ export class PacientesComponent implements OnInit, AfterViewInit {
   // Mostrar el formulario para actualizar paciente
   toggleActualizarPaciente(paciente: Paciente): void {
     this.pacienteSeleccionado = { ...paciente };
-    this.dialog.open(DialogFormularioComponent, {
+    this.dialog.open(DialogPacienteComponent, {
       data: this.pacienteSeleccionado
     }).afterClosed().subscribe((pacienteActualizado) => {
       if (pacienteActualizado) {

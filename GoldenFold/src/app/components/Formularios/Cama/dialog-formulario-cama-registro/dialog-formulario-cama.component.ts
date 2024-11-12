@@ -52,7 +52,7 @@ export class DialogFormulariocamaComponent {
       formData.ocupat = false;
       formData.foraDeServei = false;
       formData.ingressos = [];
-      this.dialogRef.close(formData);  
+      this.dialogRef.close(formData);
     }
   }
 
