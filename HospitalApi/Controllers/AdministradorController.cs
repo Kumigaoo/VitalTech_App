@@ -1,3 +1,4 @@
+/*
 using AutoMapper;
 using HospitalApi.Data;
 using HospitalAPI.DTO;
@@ -73,3 +74,4 @@ namespace HospitalAPI.Controllers
         // }
     }
 }
+*/
