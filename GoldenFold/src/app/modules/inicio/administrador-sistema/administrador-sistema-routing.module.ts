@@ -11,6 +11,7 @@ import { ConsultasComponent } from '../../../pages/inicio/pages/administrador-si
 import { AdministradorSistemaComponent } from '../../../pages/inicio/pages/administrador-sistema/administrador-sistema.component';
 import { PlantesComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/plantes/plantes.component';
 import { EpisodisMedicsComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/episodis-medics/episodis-medics.component';
+import { MetgesComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/metges/metges.component';
 
 const routes: Routes = [
   {
@@ -58,6 +59,10 @@ const routes: Routes = [
   {
     path: 'plantes',
     component: PlantesComponent
+  },
+  {
+    path: 'metges',
+    component: MetgesComponent
   }
 ];
 
