@@ -32,32 +32,32 @@
       
       <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef> Id </th>
-        <td mat-cell *matCellDef="let consulta"> {{consulta.id}} </td>
+        <td mat-cell *matCellDef="let consulta" (click)="toggleActualizarConsulta(consulta)"> {{consulta.id}} </td>
       </ng-container>
 
       <ng-container matColumnDef="urgencia">
         <th mat-header-cell *matHeaderCellDef> Urgencia </th>
-        <td mat-cell *matCellDef="let consulta"> {{consulta.urgencia? "Si" : "No"}} </td>
+        <td mat-cell *matCellDef="let consulta" (click)="toggleActualizarConsulta(consulta)"> {{consulta.urgencia? "Si" : "No"}} </td>
       </ng-container>
 
       <ng-container matColumnDef="sintomatologia">
         <th mat-header-cell *matHeaderCellDef> Sintomatologia</th>
-        <td mat-cell *matCellDef="let consulta"> {{consulta.sintomatologia}} </td>
+        <td mat-cell *matCellDef="let consulta" (click)="toggleActualizarConsulta(consulta)"> {{consulta.sintomatologia}} </td>
       </ng-container>
 
       <ng-container matColumnDef="receta">
         <th mat-header-cell *matHeaderCellDef> Receta </th>
-        <td mat-cell *matCellDef="let consulta"> {{consulta.recepta}} </td>
+        <td mat-cell *matCellDef="let consulta" (click)="toggleActualizarConsulta(consulta)"> {{consulta.recepta}} </td>
       </ng-container>
 
       <ng-container matColumnDef="dniPersonal">
         <th mat-header-cell *matHeaderCellDef> Dni Personal </th>
-        <td mat-cell *matCellDef="let consulta"> {{consulta.dniPersonal}} </td>
+        <td mat-cell *matCellDef="let consulta" (click)="toggleActualizarConsulta(consulta)"> {{consulta.dniPersonal}} </td>
       </ng-container>
 
       <ng-container matColumnDef="episodiMedicId">
         <th mat-header-cell *matHeaderCellDef> Id E.M.</th>
-        <td mat-cell *matCellDef="let consulta"> {{consulta.episodiMedicId}} </td>
+        <td mat-cell *matCellDef="let consulta" (click)="toggleActualizarConsulta(consulta)"> {{consulta.episodiMedicId}} </td>
       </ng-container>
 
       <ng-container matColumnDef="acciones">
@@ -65,9 +65,6 @@
         <th mat-header-cell *matHeaderCellDef> Acciones </th>
 
         <td mat-cell *matCellDef="let consulta" id="accions">
-          <button mat-button (click)="toggleActualizarConsulta(consulta)">
-            Actualizar
-          </button>
           <button mat-button color="warn" (click)="borrarConsulta(consulta.id)">
             Eliminar
           </button>
@@ -78,7 +75,7 @@
 
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="clickable-row"></tr>
     </table>
   </div>
 

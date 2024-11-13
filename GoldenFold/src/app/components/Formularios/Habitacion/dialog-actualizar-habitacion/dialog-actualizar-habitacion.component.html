@@ -1,3 +1,23 @@
-<div>
-    
-</div>
+<h2 matDialogTitle>{{"Actualizar habitación"}}</h2>
+<mat-dialog-content>
+    <form (ngSubmit)="guardar()" [formGroup]="habForm">
+        <br>
+        <mat-form-field appearance="outline">
+            <mat-label>Número de habitación</mat-label>
+            <input matInput formControlName="codiHabitacio" required />
+        </mat-form-field>
+        <br>
+        <mat-form-field appearance="outline">
+            <mat-label>Capacidad de camas</mat-label>
+            <input matInput formControlName="capacitatLlits" required>
+        </mat-form-field>
+        <br>
+        <mat-form-field appearance="outline">
+            <mat-label>Id de planta</mat-label>
+            <input matInput formControlName="plantaId" required>
+        </mat-form-field>
+        <br>
+        <button mat-button mat-dialog-close>Cancelar</button>
+        <button mat-raised-button color="primary" [disabled]="habForm.invalid" type="submit">{{'Guardar'}}</button>
+    </form>
+</mat-dialog-content>

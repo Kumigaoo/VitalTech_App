@@ -1,7 +1,9 @@
 /* Estilo general de la sección de usuarios */
 .usuarios-section {
   font-family: Arial, sans-serif;
-  margin: 20px;
+  margin-left: 180px;
+  margin-right: 20px;
+  margin-top:10px;
 }
 
 /* Estilo para el título principal */
@@ -12,6 +14,14 @@ h2 {
   text-align: center;
   font-weight: bold;
 }
+
+  .header-container {
+    display: flex;
+    justify-content: space-between; /* Distribuye espacio entre el botón y la caja de búsqueda */
+    align-items: center; /* Alinea verticalmente los elementos */
+    gap: 10px; /* Espacio entre el botón y la caja de búsqueda */
+    margin-bottom: 15px; /* Espacio inferior si es necesario */
+  }
 
 mat-card-title {
   font-size: 1.5rem;

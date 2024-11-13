@@ -30,6 +30,7 @@ import { HabitacionService } from '../../../../services/habitacion.service';
 export class DialogFormulariocamaModifComponent {
   habitaciones: Habitacion[] = [];
   camaForm: FormGroup;
+  isEditing: boolean = true; // Variable para controlar el modo
 
   constructor(
     private fb: FormBuilder,  // Inyectamos el FormBuilder
@@ -43,6 +44,7 @@ export class DialogFormulariocamaModifComponent {
       foraDeServei: [data.foraDeServei, Validators.required],
       codiHabitacio: [data.codiHabitacio, Validators.required]
     });
+    this.showDetails();
   }
 
   // Método para manejar el envío del formulario
@@ -59,6 +61,27 @@ export class DialogFormulariocamaModifComponent {
 
   ngOnInit(): void {
     this.obtenerHabitaciones();
+  }
+
+  get isReadOnly(): boolean {
+    return !this.isEditing;
+  }
+
+  // Función para habilitar el modo edición
+  enableEditing(): void {
+    this.isEditing = true;
+    this.camaForm.enable();
+  }
+
+  // Función para mostrar detalles (solo lectura)
+  showDetails(): void {
+    this.isEditing = false;
+    this.camaForm.disable();
+  }
+
+  // Función para cancelar
+  cancelar(): void {
+    this.dialogRef.close();
   }
 
   obtenerHabitaciones(): void {

@@ -14,6 +14,13 @@
   gap: 10px; /* Espacio entre el botón y la caja de búsqueda */
   margin-bottom: 15px; /* Espacio inferior si es necesario */
 }
+.clickable-row {
+  cursor: pointer;
+}
+.clickable-row:hover {
+  background-color: #f0f0f0;
+}
+
 
 @media (max-width: 768px) {
   .header-container {

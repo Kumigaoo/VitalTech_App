@@ -7,6 +7,20 @@
         <button mat-raised-button color="primary" (click)="toggleFormularioAgregar()">
             Agregar Planta
         </button>
+
+        <!--Buscador-->
+        <div>
+            <app-search-box
+              [searchOptions]="[
+                {label: 'Planta', value: 'planta'},
+                {label: 'Capacitat habitacions', value: 'capacitat'}
+              ]"
+              [defaultSearchType]="'planta'" 
+              placeholder="Escribe para buscar..." 
+              (search)="filtrarPlantes($event)">
+            </app-search-box>
+          </div>
+
     </div>
 
     <!-- Tabla de plantas con Angular Material -->

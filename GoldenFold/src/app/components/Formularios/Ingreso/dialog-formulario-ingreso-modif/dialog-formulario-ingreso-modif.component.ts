@@ -61,6 +61,7 @@ export const MY_DATE_FORMATS = {
 export class DialogFormularioIngresoModifComponent implements OnInit {
   episodisMedics: EpisodiMedic[] = [];
   llits: Cama[] = [];
+  isEditing: boolean = true; // Variable para controlar el modo
   ingresoForm!: FormGroup;
 
   constructor(
@@ -75,6 +76,9 @@ export class DialogFormularioIngresoModifComponent implements OnInit {
     this.obtenerEpisodisMedics();
     this.obtenerCamas();
     this.crearFormularioIngreso();
+    if(this.data.id){
+      this.showDetails();
+    }
   }
 
   // Método para manejar el envío del formulario
@@ -88,6 +92,28 @@ export class DialogFormularioIngresoModifComponent implements OnInit {
       };
       this.dialogRef.close(ingresoActualizado);
     }
+  }
+
+  // Getter para simplificar el acceso al estado de solo lectura
+  get isReadOnly(): boolean {
+    return !this.isEditing;
+  }
+
+  // Función para habilitar el modo edición
+  enableEditing(): void {
+    this.isEditing = true;
+    this.ingresoForm.enable();
+  }
+
+  // Función para mostrar detalles (solo lectura)
+  showDetails(): void {
+    this.isEditing = false;
+    this.ingresoForm.disable();
+  }
+
+  // Función para cancelar
+  cancelar(): void {
+    this.dialogRef.close();
   }
   
 

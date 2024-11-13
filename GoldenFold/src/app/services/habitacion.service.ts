@@ -16,23 +16,19 @@ export class HabitacionService {
     return this.http.get<Habitacion[]>(this.apiUrl);
   }
 
-  addHabitacion(Habitacion: Habitacion): Observable<Habitacion> {
-    return this.http.post<Habitacion>(
-      `${this.apiUrl}/Habitaciones`,
-      Habitacion
-    );
+  getHabitacio(id: number): Observable<Habitacion> {
+    return this.http.get<Habitacion>(`${this.apiUrl}/${id}`);
   }
 
-  // updateHabitacion(Habitacion: Habitacion): Observable<Habitacion> {
-  //   return this.http.put<Habitacion>(
-  //     `${this.apiUrl}/Habitaciones/${Habitacion.IdHabitacion}`,
-  //     Habitacion
-  //   );
-  // }
+  postHabitacion(Habitacion: Habitacion): Observable<Habitacion> {
+    return this.http.post<Habitacion>(this.apiUrl, Habitacion);
+  }
 
-  deleteHabitacion(IdHabitacion: number): Observable<void> {
-    return this.http.delete<void>(
-      `${this.apiUrl}/Habitaciones/${IdHabitacion}`
-    );
+  putHabitacion(habitacio: Habitacion): Observable<Habitacion> {
+    return this.http.put<Habitacion>(`${this.apiUrl}/${habitacio.codiHabitacio}`, habitacio);
+  }
+
+  deleteHabitacion(id: number): Observable<void> {
+    return this.http.delete<any>(this.apiUrl + '/' + id);
   }
 }

@@ -84,7 +84,8 @@ export class PlantesComponent implements OnInit, AfterViewInit {
   verHabitaciones(planta: any): void{
     console.log(planta.habitacions);
     this.dialog.open(HabitacionesDialogComponent, {
-      width: '1200px',
+      width: '80em',
+      height: '90%',
       data: planta.habitacions
     })
   }
@@ -169,4 +170,29 @@ export class PlantesComponent implements OnInit, AfterViewInit {
     });
     
   }
+
+  filtrarPlantes(event: {type: string; term: string}): void {
+    const {type, term} = event;
+    const searchterm = term.trim().toLowerCase();
+
+    this.dataMostra.filterPredicate = (data: Planta, filter: string) => {
+      switch (type){
+        case 'planta':
+          return data.piso?.toString().includes(filter.toLowerCase()) ?? false;
+        
+        case 'capacitat':
+          return data.capacitatHabitacions?.toString().includes(filter.toLowerCase()) ?? false;
+
+        default: 
+          return false;
+      }
+    };
+    this.dataMostra.filter = searchterm;
+
+    if (this.dataMostra.paginator){
+      this.dataMostra.paginator.firstPage();
+    }
+  }
+
+
 }

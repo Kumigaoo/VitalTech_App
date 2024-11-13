@@ -2,7 +2,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Component, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import {MatTableModule} from '@angular/material/table';
+import { MatTableModule } from '@angular/material/table';
 
 @Component({
   selector: 'app-cama-dialog',
@@ -15,7 +15,6 @@ import {MatTableModule} from '@angular/material/table';
     <h1 mat-dialog-title>
     Camas
     </h1>
-
 
     <div>
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
@@ -47,11 +46,11 @@ import {MatTableModule} from '@angular/material/table';
 
   `,
   styleUrls: ['./custom-table.component.css']
-  
+
 })
 export class CamasDialogComponent {
 
-    dataSource: any;
+  dataSource: any;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any[]) {
     console.log(this.data);
@@ -59,5 +58,5 @@ export class CamasDialogComponent {
   }
 
   displayedColumns: string[] = ['codiLlit', 'ocupat', 'foraDeServei'];
-  
+
 }
