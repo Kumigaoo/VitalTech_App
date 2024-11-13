@@ -4,6 +4,7 @@ using HospitalApi.DTO;
 using HospitalAPI.Models;
 //using EntityFrameworkCore.MySQL.Data;
 using Humanizer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,6 +12,7 @@ namespace HospitalAPI.Controllers
 {
 
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
 
     public class IngresController : ControllerBase

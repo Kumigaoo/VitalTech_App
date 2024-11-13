@@ -9,6 +9,7 @@ using System.Text;
 namespace HospitalAPI.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
 
     public class AuthController : ControllerBase

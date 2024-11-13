@@ -1,3 +1,4 @@
+/*
 using AutoMapper;
 using HospitalApi.Data;
 using HospitalAPI.DTO;
@@ -8,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 namespace HospitalAPI.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
     public class AdministradorController : ControllerBase
     {
@@ -73,3 +75,4 @@ namespace HospitalAPI.Controllers
         // }
     }
 }
+*/

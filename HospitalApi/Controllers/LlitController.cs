@@ -6,11 +6,13 @@ using HospitalApi.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HospitalAPI.Controllers
 {
 
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
 
     public class LlitController : ControllerBase

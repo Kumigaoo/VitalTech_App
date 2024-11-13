@@ -2,6 +2,7 @@ using AutoMapper;
 using HospitalApi.Data;
 using HospitalApi.DTO;
 using HospitalAPI.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 namespace HospitalAPI.Controllers
 {
     [Route("api/[Controller]")]
+    [Authorize]
     [ApiController]
     public class PruebasDiagnosticasController : ControllerBase
     {

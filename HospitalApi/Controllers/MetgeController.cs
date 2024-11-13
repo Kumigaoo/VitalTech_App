@@ -7,10 +7,12 @@ using HospitalAPI.Models;
 //using EntityFrameworkCore.MySQL.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HospitalAPI.Controllers
 {
     [Route("api/[Controller]")]
+    [Authorize]
     [ApiController]
     public class MetgeController : ControllerBase
     {
