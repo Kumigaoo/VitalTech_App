@@ -1,21 +1,22 @@
 ﻿using HospitalAPI.Models;
+using Mysqlx;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HospitalApi.DTO
 {
     public class EpisodiMedicCreateDTO
     {
-
+        [Required]
+        [DataType(DataType.Date, ErrorMessage = "Error de format de la data. AAAA/MM/DD")]
         public DateTime DataObertura { get; set; }
-
-        public DateTime? DataTancament { get; set; }
-
+        [Required]
         public string Motivo { get; set; } = string.Empty;
-
+        [Required]
         public string Urgencia {get; set;} = string.Empty;
-
+        [Required]
         public string Recepta { get; set; } = string.Empty;
-
+        [Required]
         public string Estat { get; set; } = string.Empty;
 
 
