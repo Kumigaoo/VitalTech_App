@@ -26,7 +26,7 @@ export class MedicoService {
   }
 
   putMedico(medico : Medico): Observable<Medico> {
-    const url = `${this.apiUrl}/${medico.DNI}`;
+    const url = `${this.apiUrl}/${medico.dni}`;
     return this.http.put<Medico>(url, medico);
   }
 

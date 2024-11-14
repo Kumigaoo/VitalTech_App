@@ -65,4 +65,31 @@ export class MetgesComponent {
     })
   }
 
+  filtrarMedicos(event: {type: string; term: string }): void{
+    const {type, term} = event;
+    const searchterm = term.trim().toLowerCase();
+  
+    this.medicos.filterPredicate = (data: Medico,filter: string) => {
+      switch(type) {
+        case 'dni':
+          return data.dni.toString().toLowerCase().includes(filter);
+        case 'nom':
+          return data.nom.toString().toLowerCase().includes(filter);
+        case 'usuariId':
+          return data.usuariId.toString().toLowerCase().includes(filter);
+        case 'telefon':
+          return data.telefon.toString().toLowerCase().includes(filter);
+        case 'especialita':
+          return data.especialitat.toString().toLowerCase().includes(filter);
+        default:
+          return false;
+      }
+    };
+    this.medicos.filter = searchterm;
+  
+    if(this.medicos.paginator){
+      this.medicos.paginator.firstPage();
+    }
+  }  
+
 }

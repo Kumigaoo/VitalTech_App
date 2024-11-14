@@ -4,6 +4,24 @@
   <!--Para las notificaciones-->
   <app-snackbar #snackbar></app-snackbar>
 
+  <div class="header-container">
+    <!--Caja de busqueda-->
+    <div>
+      <app-search-box
+        [searchOptions]="[
+          {label: 'DNI', value: 'dni'},
+          {label: 'Nombre', value: 'nom'},
+          {label: 'Nombre de usuario', value: 'usuariId'},
+          {label: 'Teléfono', value: 'telefon'},
+          {label: 'Especialidad', value: 'especialita'}
+        ]"
+        [defaultSearchType]="'dni'" 
+        placeholder="Escribe para buscar..." 
+        (search)="filtrarMedicos($event)">
+      </app-search-box>
+    </div>
+  </div>
+
   <!--Tabla medicos-->
   <div class="table-container">
     <table mat-table [dataSource]="medicos" matSort class="mat-elevation-z8">
