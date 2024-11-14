@@ -9,7 +9,7 @@ import { Medico } from '../interface/medico.interface';
 
 export class MedicoService {
 
-  private apiUrl = 'http://localhost:5296/api/Medico';
+  private apiUrl = 'http://localhost:5296/api/Metge';
 
   constructor(private http: HttpClient) { }
 
