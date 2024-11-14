@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HabitacioService } from '../../../../../../service/habitaciones.service';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import Swal from 'sweetalert2';
 import { codiHabitacioPlantaValidator, plantaidValidator, habidValidator } from '../../../../../../validator/habitacion/habitacion-validator.validator';
@@ -16,7 +17,7 @@ export class RegistroHabitacionComponent {
 
   habitacionForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private http: HttpClient, private habService: HabitacioService, private plantaService: PlantaService) {
+  constructor(private fb: FormBuilder, private http: HttpClient, private router: Router, private habService: HabitacioService, private plantaService: PlantaService) {
     this.habitacionForm = this.fb.group({
       codiHabitacio: ['', {
         validators: [Validators.required, Validators.minLength(3), Validators.pattern(/^\d{3}$/)],
@@ -36,7 +37,7 @@ export class RegistroHabitacionComponent {
   }
 
   onAtras(){
-    window.location.href="http://localhost:4200/inicio/habitacion";
+    this.router.navigate(['/inicio/habitacion']);
   }
 
   onSubmit() {

@@ -55,27 +55,32 @@ export class HabitacionComponent implements OnInit {
 
   //buscar hab por ID:
   loadHabitacio() {
+    if (this.inputValueId === null) {
+        this.loadHabitacions();
+        return;
+    }
+
     if (!isNaN(this.inputValueId)) { 
         this.habService.getHabitacio(this.inputValueId).subscribe({
-          next: (data) => {
-            this.habitacions.splice(0, this.habitacions.length + 1, data);
-            this.currentPage = 1;
-            this.totalPages = 1;
-            this.updatePagedConsultes();
-          },
-          error: () => {
-            Swal.fire({
-              icon: 'error',
-              title: 'Error',
-              text: 'No existe la habitación con el ID ' + this.inputValueId,
-            }).then(()=>{this.loadHabitacions()});
-          }
+            next: (data) => {
+                this.habitacions.splice(0, this.habitacions.length + 1, data);
+                this.currentPage = 1;
+                this.totalPages = 1;
+                this.updatePagedConsultes();
+            },
+            error: () => {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'No existe la habitación con el ID ' + this.inputValueId,
+                }).then(() => { this.loadHabitacions() });
+            }
         });
     } else {
         Swal.fire({
-          icon: 'warning',
-          title: 'ID Inválido',
-          text: 'Por favor, introduce un número de habitación válido.',
+            icon: 'warning',
+            title: 'ID Inválido',
+            text: 'Por favor, introduce un número de habitación válido.',
         });
     }
 }

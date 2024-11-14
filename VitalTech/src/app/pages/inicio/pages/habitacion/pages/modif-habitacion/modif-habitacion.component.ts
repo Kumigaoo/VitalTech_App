@@ -44,8 +44,8 @@ export class ModifHabitacionComponent {
   }
 
   onAtras(){
-    window.location.href="http://localhost:4200/inicio/habitacion";
-  }
+    this.router.navigate(['/inicio/habitacion']);
+    }
 
   onSubmit() {
     if(this.habitacionForm.invalid){

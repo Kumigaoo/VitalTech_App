@@ -59,8 +59,9 @@ export class PlantaComponent {
 
   searchPlanta(): void {
     if (this.searchInput === null || this.searchInput === undefined || this.searchInput.toString().trim() === '') {
-      // Si el campo de búsqueda está vacío, recargar la lista completa de plantas
+      //si el campo de búsqueda está vacío, se pone la lista de plantas entera
       this.loadPlantes();
+      //si el campo consiste en un número...
     } else if (!isNaN(this.searchInput)) { 
       this.plantaService.getPlanta(this.searchInput).subscribe({
         next: (data) => {

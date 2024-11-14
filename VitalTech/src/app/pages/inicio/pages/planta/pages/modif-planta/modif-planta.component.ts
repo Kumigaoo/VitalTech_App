@@ -27,7 +27,7 @@ export class ModifPlantaComponent {
   }
 
   onAtras(){
-    window.location.href="http://localhost:4200/inicio/planta";
+    this.router.navigate(['/inicio/planta']);
   }
 
   ngOnInit(): void {

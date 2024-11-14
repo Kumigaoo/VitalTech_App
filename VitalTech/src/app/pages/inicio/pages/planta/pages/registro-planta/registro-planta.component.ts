@@ -23,7 +23,7 @@ export class RegistroPlantaComponent {
   }
 
   onAtras(){
-    window.location.href="http://localhost:4200/inicio/planta";
+    this.router.navigate(['/inicio/planta']);
   }
 
   onSubmit(){
