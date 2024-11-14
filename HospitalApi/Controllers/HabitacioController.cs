@@ -182,7 +182,7 @@ namespace HospitalAPI.Controllers
 
             _mapper.Map(userHabDTO, hab);
 
-            hab.PlantaId = piso.Piso;
+            hab.PlantaId = piso.Id;
 
             _bbdd.Habitacions.Update(hab);
             await _bbdd.SaveChangesAsync();
