@@ -24,6 +24,8 @@
       font-size: 12px;
   }
 
+  
+
 .identificador, .ubicacion, .comunicarse, .masInfo, .consulta{
     display: flex;
 }
@@ -37,6 +39,7 @@ textarea {
 .comunicarse .capzalera3 {
     width: 800px;
 }
+
 
 h2 {
     margin-bottom: 20px;

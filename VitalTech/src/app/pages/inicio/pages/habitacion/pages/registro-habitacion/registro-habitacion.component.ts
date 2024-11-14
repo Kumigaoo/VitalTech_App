@@ -35,6 +35,10 @@ export class RegistroHabitacionComponent {
     });
   }
 
+  onAtras(){
+    window.location.href="http://localhost:4200/inicio/habitacion";
+  }
+
   onSubmit() {
     if(this.habitacionForm.invalid){
       this.habitacionForm.markAllAsTouched();

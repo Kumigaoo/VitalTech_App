@@ -173,6 +173,7 @@ namespace HospitalAPI.Controllers
             }
 
             var hab = await (from h in _bbdd.Habitacions where h.CodiHabitacio == id select h).FirstOrDefaultAsync();
+            var piso =  await (from p in _bbdd.Plantes where p.Id == hab.PlantaId select p).FirstOrDefaultAsync();
 
             if (hab == null){
                 _logger.LogError("No existeix habitació amb aquest ID.");
@@ -180,6 +181,8 @@ namespace HospitalAPI.Controllers
             }
 
             _mapper.Map(userHabDTO, hab);
+
+            hab.PlantaId = piso.Piso;
 
             _bbdd.Habitacions.Update(hab);
             await _bbdd.SaveChangesAsync();

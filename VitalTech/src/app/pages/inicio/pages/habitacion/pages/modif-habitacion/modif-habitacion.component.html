@@ -45,7 +45,10 @@
         </div>
         <div *ngIf="habitacionForm.hasError('codiHabitacioPlantaMismatch')" class="error-messages">
             <small>El primer número del id ha de coincidir con la planta</small>
-        </div> 
-        <button type="submit">Actualizar</button>
+        </div>   
+        <div class="botoneh" style="display: flex; gap: 10px; justify-content: center; margin-top: 100px;">
+            <button type="submit" style="margin: 0;">Actualizar</button>
+            <button class="atras" (click)="onAtras()" style="margin: 0;">Volver a habitaciones</button>
+        </div>
     </form>
 </div>

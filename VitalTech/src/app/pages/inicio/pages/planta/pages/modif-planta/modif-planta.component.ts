@@ -26,6 +26,10 @@ export class ModifPlantaComponent {
     });
   }
 
+  onAtras(){
+    window.location.href="http://localhost:4200/inicio/planta";
+  }
+
   ngOnInit(): void {
     this.plantaId = Number(this.route.snapshot.paramMap.get('piso')); // obtiene el id de la planta desde la url 
     this.plantaService.getPlanta(this.plantaId).subscribe(planta => {
