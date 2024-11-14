@@ -58,30 +58,33 @@ export class PlantaComponent {
   }
 
   searchPlanta(): void {
-    if (!isNaN(this.searchInput)) { 
-        this.plantaService.getPlanta(this.searchInput).subscribe({
-          next: (data) => {
-            this.plantes.splice(0, this.plantes.length + 1, data);
-            this.currentPage = 1;
-            this.totalPages = 1;
-            this.updateItemsPerPage();
-          },
-          error: () => {
-            Swal.fire({
-              icon: 'error',
-              title: 'Error',
-              text: 'No existe la planta con ID. ' + this.searchInput,
-            }).then(()=>{this.loadPlantes()});
-          }
-        });
+    if (this.searchInput === null || this.searchInput === undefined || this.searchInput.toString().trim() === '') {
+      // Si el campo de búsqueda está vacío, recargar la lista completa de plantas
+      this.loadPlantes();
+    } else if (!isNaN(this.searchInput)) { 
+      this.plantaService.getPlanta(this.searchInput).subscribe({
+        next: (data) => {
+          this.plantes.splice(0, this.plantes.length + 1, data);
+          this.currentPage = 1;
+          this.totalPages = 1;
+          this.updateItemsPerPage();
+        },
+        error: () => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'No existe la planta con ID. ' + this.searchInput,
+          }).then(() => { this.loadPlantes() });
+        }
+      });
     } else {
-        Swal.fire({
-          icon: 'warning',
-          title: 'ID Inválido',
-          text: 'Por favor, introduce un ID válido.',
-        });
+      Swal.fire({
+        icon: 'warning',
+        title: 'ID Inválido',
+        text: 'Por favor, introduce un ID válido.',
+      });
     }
-}
+  }
 
 
   deletePlanta(piso: number): void {
