@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HospitalApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241112115239_InitialCreation")]
-    partial class InitialCreation
+    [Migration("20241114095659_newMigrations")]
+    partial class newMigrations
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -256,8 +256,8 @@ namespace HospitalApi.Migrations
                     b.Property<int>("Telefon")
                         .HasColumnType("int");
 
-                    b.Property<int?>("UsuariId")
-                        .HasColumnType("int");
+                    b.Property<string>("UsuariId")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

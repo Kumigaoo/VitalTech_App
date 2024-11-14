@@ -253,8 +253,8 @@ namespace HospitalApi.Migrations
                     b.Property<int>("Telefon")
                         .HasColumnType("int");
 
-                    b.Property<int?>("UsuariId")
-                        .HasColumnType("int");
+                    b.Property<string>("UsuariId")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
