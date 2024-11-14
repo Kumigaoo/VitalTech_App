@@ -53,21 +53,37 @@ export class HabitacionComponent implements OnInit {
     });
   }
 
-  // Mostra habitacio per ID
+  //buscar hab por ID:
   loadHabitacio() {
-    this.habService.getHabitacio(this.inputValueId).subscribe({
-      next: (response) => {
-        this.habitacions.splice(0, this.habitacions.length + 1, response);
-        this.totalPages = Math.ceil(
-          this.habitacions.length / this.itemsPerPage
-        ); // calcula cuantas paginas tendra dependiendo de los items que tenga cada una
-        this.updatePagedConsultes();
-      },
-      error: (error) => {
-        console.error('Error al buscar la habitació', error);
-      },
-    });
-  }
+    if (this.inputValueId === null) {
+        this.loadHabitacions();
+        return;
+    }
+
+    if (!isNaN(this.inputValueId)) { 
+        this.habService.getHabitacio(this.inputValueId).subscribe({
+            next: (data) => {
+                this.habitacions.splice(0, this.habitacions.length + 1, data);
+                this.currentPage = 1;
+                this.totalPages = 1;
+                this.updatePagedConsultes();
+            },
+            error: () => {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'No existe la habitación con el ID ' + this.inputValueId,
+                }).then(() => { this.loadHabitacions() });
+            }
+        });
+    } else {
+        Swal.fire({
+            icon: 'warning',
+            title: 'ID Inválido',
+            text: 'Por favor, introduce un número de habitación válido.',
+        });
+    }
+}
 
   // Actualizar habitacio
   updateHabitacio(habitacio: Habitacio) {

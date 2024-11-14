@@ -92,6 +92,7 @@ namespace HospitalAPI.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        
         public async Task<IActionResult> DeletePlanta(int id)
         {
             //comentado para que se pueda borrar habitaciones accidentalmente creadas con id(piso) <= 0; si no, no deja
@@ -141,7 +142,6 @@ namespace HospitalAPI.Controllers
                 _logger.LogError("No existeix una planta amb aquest ID.");
                 return NotFound("No existeix una planta amb aquest ID.");
             }
-
 
             _mapper.Map(userPlantaDTO, planta);
 
