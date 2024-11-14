@@ -16,7 +16,7 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class MetgesComponent {
   //columnas a mostrar
-  displayedColumns: string[] = ['dni', 'nombre', 'nombreUsuario', 'telefono', 'especialidad', 'episodiosMedicos', 'pruebasDiagnosticas'];
+  displayedColumns: string[] = ['dni', 'nom', 'usuariId', 'telefon', 'especialitat', 'episodiMedics', 'pruebasDiagnosticas'];
 
   
   medicos : MatTableDataSource<Medico> = new MatTableDataSource<Medico>([]);
@@ -57,10 +57,10 @@ export class MetgesComponent {
   //crear el formulario reactivo
   crearFormularioMedico(): void{
     this.medicoForm = this.fb.group({
-      DNI: ['',Validators.required],
-      Nom: ['',Validators.required],
-      Telefon:  [0],
-      UsuariId: [0,Validators.required],
+      dni: ['',Validators.required],
+      nom: ['',Validators.required],
+      telefon:  [0],
+      usuariId: [0,Validators.required],
       Especialitat: ['',Validators.required]
     })
   }
