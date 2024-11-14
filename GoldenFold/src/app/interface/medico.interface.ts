@@ -2,6 +2,6 @@ export interface Medico {
     DNI: string;
     Nom: string;
     Telefon: number;
-    UsuariId: number;
+    UsuariId: string;
     Especialitat: string;
   }

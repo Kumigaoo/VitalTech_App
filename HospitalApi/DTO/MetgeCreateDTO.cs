@@ -13,7 +13,7 @@ namespace HospitalApi.DTO
 
         public string Especialitat { get; set; } = string.Empty;
 
-        public int UsuariId { get; set; }
+        public string UsuariId { get; set; } = string.Empty;
 
 
 
