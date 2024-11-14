@@ -1,60 +1,74 @@
 <app-administratidor-sistema-dashboard></app-administratidor-sistema-dashboard>
 <div class="medicos-section">
-    <h2>Medicos</h2>
-    <!--Para las notificaciones-->
-    <app-snackbar #snackbar></app-snackbar>
+  <h2>Medicos</h2>
+  <!--Para las notificaciones-->
+  <app-snackbar #snackbar></app-snackbar>
 
-    <!--Tabla medicos-->
-    <div class="table-container">
-        <table mat-table [dataSource]="medicos" matSort class="mat-elevation-z8">
+  <!--Tabla medicos-->
+  <div class="table-container">
+    <table mat-table [dataSource]="medicos" matSort class="mat-elevation-z8">
+      <ng-container matColumnDef="dni">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>DNI</th>
+        <td mat-cell *matCellDef="let medico">{{ medico?.dni }}</td>
+      </ng-container>
 
-            <!--Columna DNI-->
-            <ng-container matColumnDef="DNI">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>DNI</th>
-                <td mat-cell *matCellDef="let medico">{{ medico?.dni }}</td>
-            </ng-container>
+      <ng-container matColumnDef="nombre">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
+        <td mat-cell *matCellDef="let medico">{{ medico?.nom }}</td>
+      </ng-container>
 
-            <!--Columna Nombre-->
-            <ng-container matColumnDef="Nombre">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
-                <td mat-cell *matCellDef="let medico">{{ medico?.nom}}</td>
-            </ng-container>
+      <ng-container matColumnDef="nombreUsuario">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          Nombre de usuario
+        </th>
+        <td mat-cell *matCellDef="let medico">{{ medico?.usuariId }}</td>
+      </ng-container>
 
-            <!--Columna Nombre usuario-->
-            <ng-container matColumnDef="Nombre de usuario">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre de usuario</th>
-                <td mat-cell *matCellDef="let medico">{{medico?.usuariId}}</td>
-            </ng-container>
+      <ng-container matColumnDef="telefono">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Teléfono</th>
+        <td mat-cell *matCellDef="let medico">{{ medico?.telefon }}</td>
+      </ng-container>
 
-            <!--Coumna télefono-->
-            <ng-container matColumnDef="Teléfono">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>Teléfono</th>
-                <td mat-cell *matCellDef="let medico">{{ medico?.telefon}} </td>
-            </ng-container>
+      <ng-container matColumnDef="especialidad">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Especialidad</th>
+        <td mat-cell *matCellDef="let medico">{{ medico?.especialitat }}</td>
+      </ng-container>
 
-            <!--Columna especialidad-->
-            <ng-container matColumnDef="Especialidad">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>Especialidad</th>
-                <td mat-cell *matCellDef="let medico">{{ medico?.especialitat}}</td>
-            </ng-container>
+      <ng-container matColumnDef="episodiosMedicos">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          Episodios médicos
+        </th>
+        <td mat-cell *matCellDef="let medico">
+          {{
+            medico?.episodiMedics?.length
+              ? medico.episodiMedics
+              : "No hay episodios médicos"
+          }}
+        </td>
+      </ng-container>
 
-            <!--Columna episodios medicos-->
-            <ng-container matColumnDef="Episodios medicos">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>Episodios medicos</th>
-                <td mat-cell *matCellDef="let medico">{{ medico?.episodiMedics?.length ? medico.episodiMedics : 'No hay episodios medicos' }}</td>
-            </ng-container>
+      <ng-container matColumnDef="pruebasDiagnosticas">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          Pruebas diagnósticas
+        </th>
+        <td mat-cell *matCellDef="let medico">
+          {{
+            medico?.pruebasDiagnosticas?.length
+              ? medico.pruebasDiagnosticas
+              : "No hay pruebas diagnósticas"
+          }}
+        </td>
+      </ng-container>
 
-            <!--Columna pruebas diagnosticas-->
-            <ng-container matColumnDef="Pruebas diagnosticas">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>Pruebas diagnosticas</th>
-                <td mat-cell *matCellDef="let medico">{{ medico?.pruebasDiagnosticas?.length ? medico?.pruebasDiagnosticas : 'No hay pruebas diagnosticas '}}</td>
-            </ng-container>
+      <!--Header de la tabla-->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
 
-            <!--Header de la tabla-->
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-
-            <!--Filas de la tabla-->
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"
-                class="clickable-row"></tr>
-        </table>
-    </div>
+      <!--Filas de la tabla-->
+      <tr
+        mat-row
+        *matRowDef="let row; columns: displayedColumns"
+        class="clickable-row"
+      ></tr>
+    </table>
+  </div>
+</div>

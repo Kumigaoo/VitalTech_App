@@ -16,7 +16,8 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class MetgesComponent {
   //columnas a mostrar
-  displayedColumns: string[] = ['DNI', 'Nombre','Nombre de usuario','Teléfono','Especialidad','Episodios medicos','Pruebas diagnosticas']
+  displayedColumns: string[] = ['dni', 'nombre', 'nombreUsuario', 'telefono', 'especialidad', 'episodiosMedicos', 'pruebasDiagnosticas'];
+
   
   medicos : MatTableDataSource<Medico> = new MatTableDataSource<Medico>([]);
 
@@ -34,14 +35,18 @@ export class MetgesComponent {
     this.crearFormularioMedico();
   }
 
+  ngAfterViewInit(): void {
+    this.medicos.paginator = this.paginator;
+    this.medicos.sort = this.sort;
+  }
+
+
   //metodo para obtener medicos
   obtenerMedicos(): void{
     this.medicoService.getMedicos().subscribe({
       next: (data:Medico[]) => {
         console.log('Medicos: ',data);
         this.medicos.data = data;
-        this.medicos.paginator = this.paginator;
-        this.medicos.sort = this.sort;
       },
       error: (error: any) => {
         console.error('Error al obtener los medicos',error);
