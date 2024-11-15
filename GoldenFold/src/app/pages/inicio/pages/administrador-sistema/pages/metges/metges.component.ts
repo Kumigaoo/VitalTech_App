@@ -8,6 +8,8 @@ import { Form, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MedicoService } from '../../../../../../services/metge.service';
 import { UsuarioService } from '../../../../../../services/usuario.service';
 import { MatDialog } from '@angular/material/dialog';
+import { MedicoDashboardComponent } from '../../../medico/medico-dashboard/medico-dashboard.component';
+import { DialogFormularioMedicoModifComponent } from '../../../../../../components/Formularios/Medico/dialog-formulario-ingreso-modif/dialog-formulario-ingreso-modif.component';
 
 @Component({
   selector: 'app-metges',
@@ -63,6 +65,13 @@ export class MetgesComponent {
       usuariId: [0,Validators.required],
       Especialitat: ['',Validators.required]
     })
+  }
+
+  tooggleAgregarMedico(): void {
+    this.crearFormularioMedico();
+    this.dialog.open(DialogFormularioMedicoModifComponent, {
+      data: this.medicoForm
+    });
   }
 
   filtrarMedicos(event: {type: string; term: string }): void{
