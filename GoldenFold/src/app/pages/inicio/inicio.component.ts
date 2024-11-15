@@ -1,5 +1,6 @@
 import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { environment } from '../../../environments/environment';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-inicio',
@@ -9,10 +10,16 @@ import { environment } from '../../../environments/environment';
 export class InicioComponent implements OnInit, AfterViewInit, OnDestroy {
   frontend2Url = environment.apiFrontVitaltech;
 
-  constructor() { }
+  constructor(private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    console.log('ngOnInit: InicioComponent initialized');
+    this.route.queryParams.subscribe(params => {
+      const token = params['token'];
+      if (token) {
+        localStorage.setItem('authToken', token);
+      }
+    });
+
   }
 
   ngAfterViewInit(): void {

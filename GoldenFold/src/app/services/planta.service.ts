@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Planta } from '../interface/planta.interface';
 
@@ -14,7 +14,15 @@ export class PlantaService {
   constructor(private http: HttpClient) { }
 
   getPlantes(): Observable<Planta[]> {
-    return this.http.get<Planta[]>(this.apiUrl);
+
+    const token = localStorage.getItem('authToken');
+
+    if (!token) {
+      console.error('No token found!');
+    }
+
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`); 
+    return this.http.get<Planta[]>(this.apiUrl, { headers });
   }
 
   getPlanta(id:number): Observable<Planta> {

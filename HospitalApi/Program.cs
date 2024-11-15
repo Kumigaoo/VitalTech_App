@@ -4,12 +4,41 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.IdentityModel.Tokens.Jwt;
+using Microsoft.AspNetCore.Authentication.Cookies;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers().AddNewtonsoftJson();
+builder.Services.AddDistributedMemoryCache();
 
-builder.Services.AddCors(opt => opt.AddDefaultPolicy(policy => policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin()));
+builder.Services.AddCors(options =>
+    {
+        options.AddPolicy("AllowSpecificOrigin", builder =>
+        {
+            builder.WithOrigins("http://localhost:4201")
+                   .AllowCredentials()
+                   .AllowAnyHeader()
+                   .AllowAnyMethod();
+        });
+    });
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Login"; 
+        options.LogoutPath = "/Logout";
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+    });
+
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
+builder.Services.AddControllers().AddNewtonsoftJson();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
@@ -17,7 +46,6 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 });
 
 builder.Services.AddEndpointsApiExplorer();
-
 builder.Services.AddAutoMapper(typeof(MapConfig));
 
 builder.Services.AddAuthentication(options =>
@@ -41,15 +69,25 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddSwaggerGen(c =>
 {
+
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Hospital API", Version = "v1" });
 
-    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    c.AddSecurityDefinition("Keycloak", new OpenApiSecurityScheme
     {
-        In = ParameterLocation.Header,
-        Description = "Por favor ingresa el token JWT con el prefijo Bearer",
-        Name = "Authorization",
-        Type = SecuritySchemeType.ApiKey,
-        Scheme = "Bearer"
+        Type = SecuritySchemeType.OAuth2,
+        Flows = new OpenApiOAuthFlows
+        {
+            AuthorizationCode  = new OpenApiOAuthFlow
+            {
+                AuthorizationUrl = new Uri("https://login.oscarrovira.com/realms/Dream%20Team/protocol/openid-connect/auth"),
+                TokenUrl = new Uri("https://login.oscarrovira.com/realms/Dream%20Team/protocol/openid-connect/token"),
+                Scopes = new Dictionary<string, string>
+                {
+                    { "openid", "openid" },
+                    { "profile", "profile" }
+                }
+            }
+        }
     });
 
     c.AddSecurityRequirement(new OpenApiSecurityRequirement
@@ -59,19 +97,21 @@ builder.Services.AddSwaggerGen(c =>
             {
                 Reference = new OpenApiReference
                 {
-                    Type = ReferenceType.SecurityScheme,
-                    Id = "Bearer"
+                    Id = "Keycloak",
+                    Type = ReferenceType.SecurityScheme
                 },
-                Scheme = "oauth2",
-                Name = "Bearer",
                 In = ParameterLocation.Header,
+                Name = "Bearer",
+                Scheme = "Bearer"
             },
-            new List<string>()
+            []
         }
     });
 });
 
 var app = builder.Build();
+
+app.UseSession();
 
 if (app.Environment.IsDevelopment())
 {
@@ -80,14 +120,20 @@ if (app.Environment.IsDevelopment())
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "Hospital API V1");
         c.RoutePrefix = "swagger";
+        c.OAuthClientId("hospital-api");
+        c.OAuthAppName("Swagger UI");
+        c.OAuthScopeSeparator(" ");
+        c.OAuthUseBasicAuthenticationWithAccessCodeGrant();
     });
 }
+
+
 
 app.UseHttpsRedirection();
 
 app.UseRouting();
 
-app.UseCors();
+app.UseCors("AllowSpecificOrigin");
 
 app.UseAuthentication();
 app.UseAuthorization();
