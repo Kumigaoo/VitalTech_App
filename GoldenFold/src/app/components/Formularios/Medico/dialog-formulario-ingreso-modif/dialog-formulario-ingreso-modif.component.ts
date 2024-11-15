@@ -44,7 +44,32 @@ import { Medico } from '../../../../interface/medico.interface';
 export class DialogFormularioMedicoModifComponent implements OnInit {
   isEditing: boolean = true; // Variable para controlar el modo
   medicoForm!: FormGroup;
-
+  especialidades = [
+    { id: 1, value: "MedicoGeneral" },
+    { id: 2, value: "Cardiologo" },
+    { id: 3, value: "Dermatologo" },
+    { id: 4, value: "Ginecologo" },
+    { id: 5, value: "Neumologo" },
+    { id: 6, value: "Neurologo" },
+    { id: 7, value: "Oncologo" },
+    { id: 8, value: "Pediatra" },
+    { id: 9, value: "Psiquiatra" },
+    { id: 10, value: "Radiologo" },
+    { id: 11, value: "Traumatologo" },
+    { id: 12, value: "Urologo" },
+    { id: 13, value: "Anestesiologo" },
+    { id: 14, value: "Oftalmologo" },
+    { id: 15, value: "Otorrinolaringologo" },
+    { id: 16, value: "Nefrologo" },
+    { id: 17, value: "Hematologo" },
+    { id: 18, value: "Gastroenterologo" },
+    { id: 19, value: "Endocrinologo" },
+    { id: 20, value: "CirujanoGeneral" },
+    { id: 21, value: "CirujanoCardiovascular" },
+    { id: 22, value: "CirujanoPlastico" },
+    { id: 23, value: "Neurocirujano" },
+    { id: 24, value: "CirujanoOrtopedico" }
+  ];
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: Medico,
     public dialogRef: MatDialogRef<DialogFormularioMedicoModifComponent>,

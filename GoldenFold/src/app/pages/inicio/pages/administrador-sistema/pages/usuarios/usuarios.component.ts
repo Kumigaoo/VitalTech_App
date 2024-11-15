@@ -21,7 +21,8 @@ import { ConsultasDialogComponent } from '../../../../../../components/popups/co
   styleUrls: ['./usuarios.component.css'],
 })
 
-export class UsuariosComponent implements OnInit {
+export class UsuariosComponent {
+  /*
   @ViewChild(SnackbarComponent) snackbar!: SnackbarComponent;  // Referencia al snackbar
 
   //tabla Angular Material
@@ -232,4 +233,5 @@ export class UsuariosComponent implements OnInit {
       data: usuario.consultes
     })
   }
+    */
 }
