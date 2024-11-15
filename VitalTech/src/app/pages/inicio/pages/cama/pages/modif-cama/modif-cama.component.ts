@@ -27,7 +27,7 @@ export class ModifCamaComponent {
     
     this.llitForm = this.fb.group({
       codiLlit: ['', {
-        validators: [Validators.required, Validators.minLength(4), Validators.pattern(/^\d{3}[AB]$/)],
+        validators: [Validators.required, Validators.minLength(4), Validators.pattern(/^\d{3}[A-B]{1}$/)],
         asyncValidators: [camaIdValidatorModif(this.llitService, this.originalCamaId)],
         updateOn: 'blur'
       }],

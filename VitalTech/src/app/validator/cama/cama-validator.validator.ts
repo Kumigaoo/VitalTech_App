@@ -18,8 +18,8 @@ export function camaidValidator(camasService: CamasService): AsyncValidatorFn{
             catchError(() => of(null)) 
         );
     };
+    
 }
-
 export function habidValidator(habitacionService: HabitacioService): AsyncValidatorFn{
     return (control: AbstractControl): Observable<ValidationErrors | null> => {
         if (!control.value) {
@@ -94,11 +94,11 @@ export function camaOcupadaPaciente(ingresoService: IngresService): AsyncValidat
         map(ingresos => {
           const ingresosRelacionados = ingresos.filter(ingreso => ingreso.codiLlit === codiLlit);
           const error = ingresosRelacionados.length > 0 ? { camaOcupadaPaciente: true } : null;
-          console.log('Resultado del validador:', error);
+          console.log('Resultado del validador: ', error);
           return error;
         }),
         catchError(err => {
-          console.error('Error en camaOcupadaPaciente:', err);
+          console.error('Error en camaOcupadaPaciente: ', err);
           return of(null);
         })
       );

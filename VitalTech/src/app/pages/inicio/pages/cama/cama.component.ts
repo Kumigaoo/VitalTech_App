@@ -52,7 +52,7 @@ export class CamaComponent {
         this.currentPage = this.currentPage - 1;
         this.loadLlits();
     }
-
+ 
   }
 
   openIngressos(episodi: any): void {
