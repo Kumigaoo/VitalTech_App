@@ -141,8 +141,10 @@ export class DialogFormularioMedicoModifComponent implements OnInit {
       next: (data:Usuari[]) => {
         console.log('Usuari: ',data);
         
+        //cojemos los usuarios con rolId medico
         this.usuaris = data.filter((usuari) => usuari.rolId === 'Metge');
 
+        //cojemos los usuarios que no esten asignados
         this.usuaris = this.usuaris.filter((usuario) => !this.usuarioIdsMedicos.has(usuario.username));
         
       },
