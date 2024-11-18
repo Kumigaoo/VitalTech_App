@@ -13,10 +13,12 @@ namespace HospitalApi.DTO
         [Required]
         public string Motivo { get; set; } = string.Empty;
         [Required]
+        [URGENCIASrestriction]
         public string Urgencia {get; set;} = string.Empty;
         [Required]
         public string Recepta { get; set; } = string.Empty;
         [Required]
+        [ESTATrestriction]
         public string Estat { get; set; } = string.Empty;
 
 
