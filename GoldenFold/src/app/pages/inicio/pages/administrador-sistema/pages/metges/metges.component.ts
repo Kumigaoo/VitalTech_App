@@ -9,7 +9,7 @@ import { MedicoService } from '../../../../../../services/metge.service';
 import { UsuarioService } from '../../../../../../services/usuario.service';
 import { MatDialog } from '@angular/material/dialog';
 import { MedicoDashboardComponent } from '../../../medico/medico-dashboard/medico-dashboard.component';
-import { DialogFormularioMedicoModifComponent } from '../../../../../../components/Formularios/Medico/dialog-formulario-ingreso-modif/dialog-formulario-ingreso-modif.component';
+import { DialogFormularioMedicoModifComponent } from '../../../../../../components/Formularios/Medico/dialog-formulario-ingreso-modif/dialog-formulario-medico-modif.component';
 
 @Component({
   selector: 'app-metges',
@@ -18,7 +18,7 @@ import { DialogFormularioMedicoModifComponent } from '../../../../../../componen
 })
 export class MetgesComponent {
   //columnas a mostrar
-  displayedColumns: string[] = ['dni', 'nom', 'usuariId', 'telefon', 'especialitat', 'episodiMedics', 'pruebasDiagnosticas'];
+  displayedColumns: string[] = ['dni', 'nom', 'usuariId', 'telefon', 'especialitat', 'episodiMedics', 'pruebasDiagnosticas','Actions'];
 
   
   medicos : MatTableDataSource<Medico> = new MatTableDataSource<Medico>([]);
@@ -86,6 +86,23 @@ export class MetgesComponent {
     } 
   }
 
+  actualizarMedico(): void{
+    if(this.medicoParaActualizar){
+      const medicoActualizado = {...this.medicoParaActualizar};
+      this.medicoService.putMedico(medicoActualizado).subscribe({
+        next:()=>{
+          this.obtenerMedicos();
+          this.medicoParaActualizar=null;
+          this.medicoForm.reset();
+          this.snackbar.showNotification('success', 'Médico actualizado correctamente'); // Notificación de éxito
+        },
+        error:(error: any) => {
+          console.error('Error al actualizar el medico', error);
+        }
+      });
+    }
+  }
+
   tooggleAgregarMedico(): void {
     this.crearFormularioMedico();
     this.dialog.open(DialogFormularioMedicoModifComponent, {
@@ -95,6 +112,18 @@ export class MetgesComponent {
         this.medicoForm.patchValue(medicoActualizado);
         console.log(this.medicoForm.value);
         this.agregarMedico();
+      } 
+    });
+  }
+
+  tooggleActualizarMedico(medico: Medico): void {
+    this.medicoParaActualizar = {...medico};
+    this.dialog.open(DialogFormularioMedicoModifComponent, {
+      data: this.medicoParaActualizar
+    }).afterClosed().subscribe((medicoActualizado) => {
+      if(medicoActualizado){
+        this.medicoParaActualizar = medicoActualizado;
+        this.actualizarMedico();
       } 
     });
   }
@@ -125,5 +154,17 @@ export class MetgesComponent {
       this.medicos.paginator.firstPage();
     }
   }  
+
+  borrarMedico(dni: string): void{
+    this.medicoService.deleteMedico(dni).subscribe({
+      next:() => {
+        this.medicos.data = this.medicos.data.filter(i => i.dni != dni);
+        this.snackbar.showNotification('success', 'Médico eliminado correctamente'); // Notificación de éxito
+      },
+      error:(error: any) => {
+        console.log('ERROR',error);
+      }
+    })
+  }
 
 }
