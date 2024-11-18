@@ -19,6 +19,7 @@ export class ModifCamaComponent {
   llitForm: FormGroup;
   llitId: string = "";
   originalCamaId: string | null= null;
+  codiLlitGigaOriginal : string = "";
 
   constructor(private fb: FormBuilder, private http: HttpClient,private router: Router, private route: ActivatedRoute,private llitService: CamasService, private habitacioService: HabitacioService, private ingresService: IngresService){
     
@@ -48,9 +49,9 @@ export class ModifCamaComponent {
     this.llitId = String(this.route.snapshot.paramMap.get('id')); // obtiene el id de la planta desde la url 
     this.llitService.getLlit(this.llitId).subscribe(llit => {
       this.llitForm.patchValue(llit);
+      this.codiLlitGigaOriginal=llit.codiLlit;
     });
   }
-
 
   onActualice(): void {
     
@@ -60,7 +61,7 @@ export class ModifCamaComponent {
     }
     if(this.llitForm.valid) {
       const updatedLlit: Llit = { ...this.llitForm.getRawValue(), id: this.llitId };
-      this.llitService.putLlit(updatedLlit).subscribe({
+      this.llitService.putLlit(updatedLlit, this.codiLlitGigaOriginal).subscribe({
         
         next: response => {
           Swal.fire({

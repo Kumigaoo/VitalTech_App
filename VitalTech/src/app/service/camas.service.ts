@@ -27,8 +27,11 @@ export class CamasService {
     return this.http.delete<Llit>(url);
   }
   
-  putLlit(llit: Llit): Observable<Llit> {
-    const url = `${this.apiUrl}/${llit.codiLlit}`;
-    return this.http.put<Llit>(url, llit);
+  putLlit(llit: Llit, codi: string): Observable<Llit> {
+    // const url = `${this.apiUrl}/${llit.codiLlit}`;
+    // return this.http.put<Llit>(url, llit);
+
+    return this.http.put<Llit>(`${this.apiUrl}/${codi}`, llit);
+
   }
 }

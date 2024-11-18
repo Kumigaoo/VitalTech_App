@@ -43,8 +43,7 @@
                         <small *ngIf="llitForm.get('codiHabitacio')?.hasError('habitacionIdNotFound')">El ID indicado no existe.</small>
                     </div>
                 </div>
-            </div>
-            
+            </div> 
         </div>
         <div *ngIf="llitForm.hasError('codiLlitHabitacioMismatch')" class="error-messages">
             <small>El Id de cama ha de coincidir con el de habitación</small>

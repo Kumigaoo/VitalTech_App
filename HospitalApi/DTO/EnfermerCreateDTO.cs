@@ -5,16 +5,14 @@ namespace HospitalAPI.DTO
 {
     public class EnfermerCreateDTO
     {
-        [Required]
-        [RegularExpression(@"^[0-9]{8}[A-Z]$", ErrorMessage = "Error format DNI.")]
+        
+        [DNIrestriction]
         public string DNI { get; set; } = string.Empty;
         [Required]
         public string Nom { get; set; } = string.Empty;
-        [Required]
-        //[PhoneAttribute(ErrorMessage = "Error format Telefon")] 
-        [RegularExpression(@"^[0-9]{9}$", ErrorMessage = "Error format Telefon")]
+        [TELEFONrestriction]
         public int Telefon { get; set; }
-        [Required]
+        [EnfermerEspecRestrict]
         public string EnfermerEspecialitat { get; set; } = string.Empty;
         public int UsuariId { get; set; }
 

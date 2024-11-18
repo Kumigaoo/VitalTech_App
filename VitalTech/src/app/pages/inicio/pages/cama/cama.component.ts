@@ -158,7 +158,6 @@ export class CamaComponent {
       this.currentPage++;
       this.updatePage();
     }
-
   }
 
   previousPage() {
@@ -166,7 +165,6 @@ export class CamaComponent {
       this.currentPage--;
       this.updatePage();
     }
-
   }
 
   firstPage(): void {
@@ -182,5 +180,4 @@ export class CamaComponent {
       this.updatePage();
     }
   }
-
 }
