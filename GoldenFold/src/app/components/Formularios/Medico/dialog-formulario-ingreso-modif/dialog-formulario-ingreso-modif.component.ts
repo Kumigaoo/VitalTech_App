@@ -139,7 +139,6 @@ export class DialogFormularioMedicoModifComponent implements OnInit {
   obtenerUsuaris(): void {
     this.usuariService.getUsuarios().subscribe({
       next: (data:Usuari[]) => {
-        console.log('Usuari: ',data);
         
         //cojemos los usuarios con rolId medico
         this.usuaris = data.filter((usuari) => usuari.rolId === 'Metge');
@@ -157,7 +156,6 @@ export class DialogFormularioMedicoModifComponent implements OnInit {
   obtenerMedicos(): void {
     this.medicoService.getMedicos().subscribe({
       next: (data: Medico[]) => {
-        console.log('Medicos: ', data);
         this.medicos = data;
         this.usuarioIdsMedicos = new Set(this.medicos.map((medico) => medico.usuariId));
       },

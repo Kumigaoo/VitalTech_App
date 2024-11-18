@@ -26,7 +26,7 @@ export class MetgesComponent {
   //paginator, ordenador y snackbar(para las notificaciones)
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  @ViewChild(SnackbarComponent) nackbar!: SnackbarComponent;
+  @ViewChild(SnackbarComponent) snackbar!: SnackbarComponent;
 
   //formularios reactivos
   medicoForm!: FormGroup;
@@ -47,7 +47,6 @@ export class MetgesComponent {
   obtenerMedicos(): void{
     this.medicoService.getMedicos().subscribe({
       next: (data:Medico[]) => {
-        console.log('Medicos: ',data);
         this.medicos.data = data;
       },
       error: (error: any) => {
@@ -63,14 +62,40 @@ export class MetgesComponent {
       nom: ['',Validators.required],
       telefon:  [0],
       usuariId: [0,Validators.required],
-      Especialitat: ['',Validators.required]
+      especialitat: ['',Validators.required]
     })
+  }
+
+  agregarMedico(): void{
+    if(this.medicoForm.valid){
+      const nuevoMedico: Medico = this.medicoForm.value;
+      this.medicoService.postMedico(nuevoMedico).subscribe({
+        next: (medico:Medico) => {
+          console.log('Medico',medico);
+          this.medicos.data = [...this.medicos.data,medico];
+          this.obtenerMedicos();
+          this.medicoForm.reset();
+          this.snackbar.showNotification('success', 'Medico creado con exito'); // Notificación de éxito
+        },
+        error: (error:any) => {
+          const mensajeError =
+              error.error || 'Error inesperado. Inténtalo de nuevo.';
+              this.snackbar.showNotification('error', mensajeError); // Notificación de éxito
+        }
+      })
+    } 
   }
 
   tooggleAgregarMedico(): void {
     this.crearFormularioMedico();
     this.dialog.open(DialogFormularioMedicoModifComponent, {
       data: this.medicoForm
+    }).afterClosed().subscribe((medicoActualizado) => {
+      if(medicoActualizado){
+        this.medicoForm.patchValue(medicoActualizado);
+        console.log(this.medicoForm.value);
+        this.agregarMedico();
+      } 
     });
   }
 
