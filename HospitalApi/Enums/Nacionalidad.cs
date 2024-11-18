@@ -1,7 +1,46 @@
-public enum Nacionalidad
+namespace HospitalApi.Enums
 {
-    Esp,
-    Frances,
-    Oreo,
-    Ingles
+    public enum Nacionalidad
+    {
+        España,
+        Francia,
+        Andorra,
+        Inglaterra,
+        Alemania,
+        Italia,
+        Portugal,
+        Bélgica,
+        Holanda,
+        Suiza,
+        Austria,
+        Dinamarca,
+        Noruega,
+        Suecia,
+        Finlandia,
+        Irlanda,
+        Escocia,
+        Grecia,
+        Rusia,
+        EstadosUnidos,
+        Canadá,
+        México,
+        Brasil,
+        Argentina,
+        Chile,
+        Colombia,
+        Perú,
+        Uruguay,
+        Paraguay,
+        Venezuela,
+        Cuba,
+        Japón,
+        China,
+        India,
+        Australia,
+        NuevaZelanda,
+        Sudáfrica,
+        Egipto,
+        Marruecos,
+        Turquía
+    }
 }
