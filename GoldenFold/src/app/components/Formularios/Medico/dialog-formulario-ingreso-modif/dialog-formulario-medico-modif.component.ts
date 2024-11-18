@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { Ingreso } from '../../../../interface/ingreso.interface';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -24,6 +24,7 @@ import { UsuarioService } from '../../../../services/usuario.service';
 import { MedicoService } from '../../../../services/metge.service';
 import { UsernameAsyncValidator } from '../../../../validators/usernameExistsValidator';
 import { dniValidator } from '../../../../validators/dniValidator';
+import { map } from 'rxjs';
 
 
 @Component({
@@ -130,13 +131,21 @@ export class DialogFormularioMedicoModifComponent implements OnInit {
 
   crearFormularioMedico(): void {
     this.medicoForm = this.fb.group({
-      dni: [this.data.dni, this.data.dni ? []: dniValidator()],
-      nom:[this.data.nom],
-      telefon:[this.data.telefon],
-      usuariId:[this.data.usuariId, [], this.data.dni ? [] : this.usernameValidator.validate.bind(this.usernameValidator)],
-      especialitat:[this.data.especialitat]
+      dni: [this.data.dni, dniValidator()],
+      nom: [this.data.nom],
+      telefon: [this.data.telefon],
+      usuariId: [this.data.usuariId, [], (control: AbstractControl) => {
+        return this.usernameValidator.validate(control).pipe(
+          map((result) => {
+            // solo actua el validador si el usuario lo toca
+            return control.touched ? result : null;
+          })
+        );
+      }],
+      especialitat: [this.data.especialitat]
     });
   }
+  
 
   obtenerUsuaris(): void {
     this.usuariService.getUsuarios().subscribe({
