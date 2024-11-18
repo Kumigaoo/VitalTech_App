@@ -130,10 +130,10 @@ export class DialogFormularioMedicoModifComponent implements OnInit {
 
   crearFormularioMedico(): void {
     this.medicoForm = this.fb.group({
-      dni: [this.data.dni, !this.isEditing ? dniValidator(): []],
+      dni: [this.data.dni, this.data.dni ? []: dniValidator()],
       nom:[this.data.nom],
       telefon:[this.data.telefon],
-      usuariId:[this.data.usuariId, [], !this.isEditing ? this.usernameValidator.validate.bind(this.usernameValidator) : []],
+      usuariId:[this.data.usuariId, [], this.data.dni ? [] : this.usernameValidator.validate.bind(this.usernameValidator)],
       especialitat:[this.data.especialitat]
     });
   }
