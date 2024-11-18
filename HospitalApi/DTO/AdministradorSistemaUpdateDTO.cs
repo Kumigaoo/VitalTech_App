@@ -11,7 +11,7 @@ namespace HospitalAPI.DTO
         public string Nom {get; set;} = string.Empty;
         [TELEFONrestriction]
         public int Telefon {get; set;}
-        public int UsuariId { get; set; }
+        public string UsuariId { get; set; } = string.Empty;
         [Required]
         public string Hobby { get; set; } = string.Empty;
     }
