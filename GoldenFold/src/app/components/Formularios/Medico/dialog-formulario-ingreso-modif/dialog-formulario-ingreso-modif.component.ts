@@ -19,6 +19,9 @@ import { CustomDateAdapter } from '../../../../custom-date-adapter';
 import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
 import { dataInici, dataIniciFinalValidator } from '../../../../validators/ingresos.validators';
 import { Medico } from '../../../../interface/medico.interface';
+import { Usuari } from '../../../../interface/usuari.interface';
+import { UsuarioService } from '../../../../services/usuario.service';
+import { MedicoService } from '../../../../services/metge.service';
 
 
 @Component({
@@ -44,6 +47,9 @@ import { Medico } from '../../../../interface/medico.interface';
 export class DialogFormularioMedicoModifComponent implements OnInit {
   isEditing: boolean = true; // Variable para controlar el modo
   medicoForm!: FormGroup;
+  usuaris! : Usuari[];
+  medicos!: Medico[];
+  usuarioIdsMedicos = new Set('');
   especialidades = [
     { id: 1, value: "MedicoGeneral" },
     { id: 2, value: "Cardiologo" },
@@ -72,12 +78,16 @@ export class DialogFormularioMedicoModifComponent implements OnInit {
   ];
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: Medico,
+    private medicoService: MedicoService,
     public dialogRef: MatDialogRef<DialogFormularioMedicoModifComponent>,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private usuariService: UsuarioService
   ) {}
 
   ngOnInit(): void {
     this.crearFormularioMedico();
+    this.obtenerMedicos();
+    this.obtenerUsuaris();
     if(this.data.dni){
       this.showDetails();
     }
@@ -125,5 +135,35 @@ export class DialogFormularioMedicoModifComponent implements OnInit {
       especialitat:[this.data.especialitat]
     });
   }
+
+  obtenerUsuaris(): void {
+    this.usuariService.getUsuarios().subscribe({
+      next: (data:Usuari[]) => {
+        console.log('Usuari: ',data);
+        
+        this.usuaris = data.filter((usuari) => usuari.rolId === 'Metge');
+
+        this.usuaris = this.usuaris.filter((usuario) => !this.usuarioIdsMedicos.has(usuario.username));
+        
+      },
+      error: (error: any) => {
+        console.log('Error al obtener los usuarios');
+      }
+    });
+  }
+
+  obtenerMedicos(): void {
+    this.medicoService.getMedicos().subscribe({
+      next: (data: Medico[]) => {
+        console.log('Medicos: ', data);
+        this.medicos = data;
+        this.usuarioIdsMedicos = new Set(this.medicos.map((medico) => medico.usuariId));
+      },
+      error: (error: any) => {
+        console.error('Error al obtener los medicos', error);
+      }
+    });
+  }
+  
 }
 

@@ -29,7 +29,11 @@
     <!--Usuari id-->
     <mat-form-field appearance="outline">
       <mat-label>Nombre de usuario:</mat-label>
-      <input matInput formControlName="usuariId" required>
+      <mat-select formControlName="usuariId" required>
+      @for (u of usuaris; track u.username) {
+        <mat-option [value]="u.username">{{u.username}}</mat-option>
+      }
+      </mat-select>
       @if (medicoForm.get('usuariId')?.hasError('required')) {
         <mat-error>El nombre de usuario es requerido</mat-error>
       }
