@@ -1,13 +1,13 @@
 import { Routes, RouterModule } from "@angular/router";
 import { NgModule } from "@angular/core";
-import { ConsultaComponent } from "../../../pages/inicio/pages/consulta/consulta.component";
-import { ModifConsultaComponent } from "../../../pages/inicio/pages/consulta/pages/modif-consulta/modif-consulta.component";
-import { RegistroConsultaComponent } from "../../../pages/inicio/pages/consulta/pages/registro-consulta/registro-consulta.component";
+import { PruebasDiagnosticasComponent } from "../../../pages/inicio/pages/consulta/pruebas-diagnosticas.component";
+import { ModifConsultaComponent } from "../../../pages/inicio/pages/consulta/pages/modif-consulta/modif-pruebas-diagnosticas.component";
+import { RegistroConsultaComponent } from "../../../pages/inicio/pages/consulta/pages/registro-consulta/registro-pruebas-diagnosticas.component";
 
 const routes: Routes = [  
   { 
     path: '',
-    component: ConsultaComponent
+    component: PruebasDiagnosticasComponent
   },
   {
     path: 'modif-consulta/:id', 
