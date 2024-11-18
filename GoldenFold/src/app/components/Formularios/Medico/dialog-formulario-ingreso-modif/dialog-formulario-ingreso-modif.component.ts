@@ -23,6 +23,7 @@ import { Usuari } from '../../../../interface/usuari.interface';
 import { UsuarioService } from '../../../../services/usuario.service';
 import { MedicoService } from '../../../../services/metge.service';
 import { UsernameAsyncValidator } from '../../../../validators/usernameExistsValidator';
+import { dniValidator } from '../../../../validators/dniValidator';
 
 
 @Component({
@@ -129,7 +130,7 @@ export class DialogFormularioMedicoModifComponent implements OnInit {
 
   crearFormularioMedico(): void {
     this.medicoForm = this.fb.group({
-      dni: [this.data.dni],
+      dni: [this.data.dni,dniValidator()],
       nom:[this.data.nom],
       telefon:[this.data.telefon],
       usuariId:[this.data.usuariId, [], this.usernameValidator.validate.bind(this.usernameValidator)],

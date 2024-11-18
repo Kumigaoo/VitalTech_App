@@ -9,6 +9,9 @@
       @if (medicoForm.get('dni')?.hasError('required')) {
         <mat-error>El DNI es requerido</mat-error>
       }
+      @if (medicoForm.get('dni')?.hasError('dniInvalid')){
+        <mat-error>El DNI es invalido</mat-error>
+      }
     </mat-form-field>
 
     <!--Nom-->
