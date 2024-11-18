@@ -28,7 +28,7 @@
 
     <!--Usuari id-->
     <mat-form-field appearance="outline">
-      <mat-label>Nombre de usuario:</mat-label>
+      <mat-label>Usuario:</mat-label>
       <mat-select formControlName="usuariId" required>
       @for (u of usuaris; track u.username) {
         <mat-option [value]="u.username">{{u.username}}</mat-option>
@@ -36,6 +36,9 @@
       </mat-select>
       @if (medicoForm.get('usuariId')?.hasError('required')) {
         <mat-error>El nombre de usuario es requerido</mat-error>
+      }
+      @if (medicoForm.get('usuariId')?.hasError('usernameTaken')){
+        <mat-error>Este usuario ya está escogido por otro médico</mat-error>
       }
     </mat-form-field>
 

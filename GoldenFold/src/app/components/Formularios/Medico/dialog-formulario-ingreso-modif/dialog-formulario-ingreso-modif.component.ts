@@ -22,6 +22,7 @@ import { Medico } from '../../../../interface/medico.interface';
 import { Usuari } from '../../../../interface/usuari.interface';
 import { UsuarioService } from '../../../../services/usuario.service';
 import { MedicoService } from '../../../../services/metge.service';
+import { UsernameAsyncValidator } from '../../../../validators/usernameExistsValidator';
 
 
 @Component({
@@ -81,12 +82,12 @@ export class DialogFormularioMedicoModifComponent implements OnInit {
     private medicoService: MedicoService,
     public dialogRef: MatDialogRef<DialogFormularioMedicoModifComponent>,
     private fb: FormBuilder,
-    private usuariService: UsuarioService
+    private usuariService: UsuarioService,
+    private usernameValidator: UsernameAsyncValidator
   ) {}
 
   ngOnInit(): void {
     this.crearFormularioMedico();
-    this.obtenerMedicos();
     this.obtenerUsuaris();
     if(this.data.dni){
       this.showDetails();
@@ -131,7 +132,7 @@ export class DialogFormularioMedicoModifComponent implements OnInit {
       dni: [this.data.dni],
       nom:[this.data.nom],
       telefon:[this.data.telefon],
-      usuariId:[this.data.usuariId],
+      usuariId:[this.data.usuariId, [], this.usernameValidator.validate.bind(this.usernameValidator)],
       especialitat:[this.data.especialitat]
     });
   }
@@ -142,9 +143,7 @@ export class DialogFormularioMedicoModifComponent implements OnInit {
         
         //cojemos los usuarios con rolId medico
         this.usuaris = data.filter((usuari) => usuari.rolId === 'Metge');
-
-        //cojemos los usuarios que no esten asignados
-        this.usuaris = this.usuaris.filter((usuario) => !this.usuarioIdsMedicos.has(usuario.username));
+        
         
       },
       error: (error: any) => {
@@ -152,18 +151,5 @@ export class DialogFormularioMedicoModifComponent implements OnInit {
       }
     });
   }
-
-  obtenerMedicos(): void {
-    this.medicoService.getMedicos().subscribe({
-      next: (data: Medico[]) => {
-        this.medicos = data;
-        this.usuarioIdsMedicos = new Set(this.medicos.map((medico) => medico.usuariId));
-      },
-      error: (error: any) => {
-        console.error('Error al obtener los medicos', error);
-      }
-    });
-  }
-  
 }
 
