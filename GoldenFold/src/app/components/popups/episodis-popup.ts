@@ -2,13 +2,16 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Component, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {MatTableModule} from '@angular/material/table';
+import { MatDialogModule } from '@angular/material/dialog';
+
 
 @Component({
   selector: 'app-episodis-dialog',
   standalone: true,
   imports: [
     CommonModule,
-    MatTableModule
+    MatTableModule,
+    MatDialogModule
   ],
   template: `
     <h1 mat-dialog-title>Episodios Medicos</h1>
@@ -31,14 +34,29 @@ import {MatTableModule} from '@angular/material/table';
           <td mat-cell *matCellDef="let element"> {{element.dataTancament | date: 'dd/MM/yyyy'}} </td>
         </ng-container>
 
-        <ng-container matColumnDef="dolencia">
-          <th mat-header-cell *matHeaderCellDef> Dolencia </th>
-          <td mat-cell *matCellDef="let element"> {{element.dolencia}} </td>
+        <ng-container matColumnDef="motivo">
+          <th mat-header-cell *matHeaderCellDef> Motivo </th>
+          <td mat-cell *matCellDef="let element"> {{element.motivo}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="urgencia">
+          <th mat-header-cell *matHeaderCellDef> Urgencia </th>
+          <td mat-cell *matCellDef="let element"> {{element.urgencia}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="recepta">
+          <th mat-header-cell *matHeaderCellDef> Receta </th>
+          <td mat-cell *matCellDef="let element"> {{element.recepta}} </td>
         </ng-container>
 
         <ng-container matColumnDef="estat">
           <th mat-header-cell *matHeaderCellDef> Estado </th>
           <td mat-cell *matCellDef="let element"> {{element.estat}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="dniPacient">
+          <th mat-header-cell *matHeaderCellDef> Paciente </th>
+          <td mat-cell *matCellDef="let element"> {{element.dniPacient}} </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -60,6 +78,6 @@ export class EpisodiosDialogComponent {
     this.dataSource = data;
   }
 
-  displayedColumns: string[] = ['id', 'dataObertura', 'dataTancament', 'dolencia', 'estat'];
+  displayedColumns: string[] = ['id', 'dataObertura', 'dataTancament', 'motivo', 'urgencia','recepta','estat','dniPacient'];
   
 }

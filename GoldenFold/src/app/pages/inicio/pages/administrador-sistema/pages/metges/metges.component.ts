@@ -10,6 +10,7 @@ import { UsuarioService } from '../../../../../../services/usuario.service';
 import { MatDialog } from '@angular/material/dialog';
 import { MedicoDashboardComponent } from '../../../medico/medico-dashboard/medico-dashboard.component';
 import { DialogFormularioMedicoModifComponent } from '../../../../../../components/Formularios/Medico/dialog-formulario-ingreso-modif/dialog-formulario-medico-modif.component';
+import { EpisodiosDialogComponent } from '../../../../../../components/popups/episodis-popup';
 
 @Component({
   selector: 'app-metges',
@@ -165,6 +166,12 @@ export class MetgesComponent {
         console.log('ERROR',error);
       }
     })
+  }
+
+  verEpisodiosMedicos(medico: Medico){
+    this.dialog.open(EpisodiosDialogComponent, {
+      data: medico.episodiMedics
+    });
   }
 
 }

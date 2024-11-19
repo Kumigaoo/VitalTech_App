@@ -186,8 +186,6 @@ export class EpisodisMedicsComponent implements OnInit, AfterViewInit {
                 return data.dataObertura?.toLowerCase().includes(filter) ?? false;
             case 'dataTancament': 
                 return data.dataTancament?.toLowerCase().includes(filter) ?? false;
-            case 'dolencia': 
-                return data.dolencia?.toLowerCase().includes(filter) ?? false;
             case 'estat': 
                 return data.estat?.toLowerCase().includes(filter) ?? false;
             case 'dniPacient': 

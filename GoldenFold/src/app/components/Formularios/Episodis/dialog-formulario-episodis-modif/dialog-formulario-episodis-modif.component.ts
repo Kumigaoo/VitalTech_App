@@ -96,7 +96,6 @@ export class DialogFormularioEpisodisModifComponent {
     this.episodiForm = this.fb.group({
       dataObertura: [this.data.dataObertura, [Validators.required]],
       dataTancament: [this.data.dataTancament],
-      dolencia: [this.data.dolencia, [Validators.required]],
       estat: [this.data.estat, [Validators.required]],
       dniPacient: [this.data.dniPacient, [Validators.required]],
     })
