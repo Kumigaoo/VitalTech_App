@@ -10,7 +10,7 @@ import { MatOptionModule, provideNativeDateAdapter } from '@angular/material/cor
 import { EpisodiService } from '../../../../services/episodis.service';
 import { Cama } from '../../../../interface/cama.interface';
 import { CamaService } from '../../../../services/cama.service';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NumberFormatStyle } from '@angular/common';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
@@ -25,6 +25,7 @@ import { MedicoService } from '../../../../services/metge.service';
 import { UsernameAsyncValidator } from '../../../../validators/usernameExistsValidator';
 import { dniValidator } from '../../../../validators/dniValidator';
 import { map } from 'rxjs';
+import { Especialidades } from '../../../../enums/especialidadesMedico';
 
 
 @Component({
@@ -53,32 +54,9 @@ export class DialogFormularioMedicoModifComponent implements OnInit {
   usuaris! : Usuari[];
   medicos!: Medico[];
   usuarioIdsMedicos = new Set('');
-  especialidades = [
-    { id: 1, value: "MedicoGeneral" },
-    { id: 2, value: "Cardiologo" },
-    { id: 3, value: "Dermatologo" },
-    { id: 4, value: "Ginecologo" },
-    { id: 5, value: "Neumologo" },
-    { id: 6, value: "Neurologo" },
-    { id: 7, value: "Oncologo" },
-    { id: 8, value: "Pediatra" },
-    { id: 9, value: "Psiquiatra" },
-    { id: 10, value: "Radiologo" },
-    { id: 11, value: "Traumatologo" },
-    { id: 12, value: "Urologo" },
-    { id: 13, value: "Anestesiologo" },
-    { id: 14, value: "Oftalmologo" },
-    { id: 15, value: "Otorrinolaringologo" },
-    { id: 16, value: "Nefrologo" },
-    { id: 17, value: "Hematologo" },
-    { id: 18, value: "Gastroenterologo" },
-    { id: 19, value: "Endocrinologo" },
-    { id: 20, value: "CirujanoGeneral" },
-    { id: 21, value: "CirujanoCardiovascular" },
-    { id: 22, value: "CirujanoPlastico" },
-    { id: 23, value: "Neurocirujano" },
-    { id: 24, value: "CirujanoOrtopedico" }
-  ];
+  especialidades = Object.entries(Especialidades)
+  .filter(([key, value]) => !isNaN(Number(value)))
+  .map(([key, value]) => ({ id: value as number, nombre: key}));
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: Medico,
     private medicoService: MedicoService,
@@ -133,7 +111,7 @@ export class DialogFormularioMedicoModifComponent implements OnInit {
     this.medicoForm = this.fb.group({
       dni: [this.data.dni, dniValidator()],
       nom: [this.data.nom],
-      telefon: [this.data.telefon],
+      telefon: [this.data.telefon,[Validators.pattern('^[^a-zA-Z]*$')]],
       usuariId: [this.data.usuariId, [], (control: AbstractControl) => {
         return this.usernameValidator.validate(control).pipe(
           map((result) => {

@@ -1,4 +1,5 @@
-﻿using HospitalAPI.Models;
+﻿using HospitalApi.Enums;
+using HospitalAPI.Models;
 
 namespace HospitalApi.DTO
 {
