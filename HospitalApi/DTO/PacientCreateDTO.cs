@@ -8,6 +8,7 @@ namespace HospitalApi.DTO
 
         [DNIrestriction]
         public string DNI { get; set; } = string.Empty;
+        [TarjetaSANITARIArestriction]
         public string NumSS { get; set; } = string.Empty;
         public string Nom { get; set; } = string.Empty;
         public string Cognom1 { get; set; } = string.Empty;
@@ -20,6 +21,7 @@ namespace HospitalApi.DTO
         [EmailAddress ]
         public string Email {get; set; } = string.Empty;
         public int AdministratiuId {  get; set; }
+        [DataType(DataType.Date)]
         public DateTime BirthDay { get; set; }
 
     }

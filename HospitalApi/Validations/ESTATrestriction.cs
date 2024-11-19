@@ -9,7 +9,10 @@ public class ESTATrestriction : ValidationAttribute
     }
     public string TELEFON { get; }
 
-    public string GetErrorMessage() => ErrorMessage;
+    public string GetErrorMessage()
+    {
+        return ErrorMessage;
+    }
 
     protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
     {
