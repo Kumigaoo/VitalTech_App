@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 public class ESTATrestriction : ValidationAttribute
 {
-    public ESTATrestriction(string errorMessage = "El DNI debe contener 8 dígitos seguidos de una letra mayúscula.")
+    public ESTATrestriction(string errorMessage = "Estat invalid.")
     {
         ErrorMessage = errorMessage;
     }

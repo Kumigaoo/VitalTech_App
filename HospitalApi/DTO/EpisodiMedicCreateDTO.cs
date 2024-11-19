@@ -20,11 +20,8 @@ namespace HospitalApi.DTO
         [Required]
         [ESTATrestriction]
         public string Estat { get; set; } = string.Empty;
-
-
         [NotMapped]
         public string DNIPacient { get; set; } = string.Empty;
-
         [NotMapped]
         public string DNIMetge { get; set; } = string.Empty;
 
