@@ -1,6 +1,8 @@
-namespace HospitalApi.DTO
 using System.ComponentModel.DataAnnotations;
 using HospitalApi.Enums;
+
+namespace HospitalApi.DTO
+
 {
     public class PacientCreateDTO
     {
