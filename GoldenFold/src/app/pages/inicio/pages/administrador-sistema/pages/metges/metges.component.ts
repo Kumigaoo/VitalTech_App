@@ -170,6 +170,8 @@ export class MetgesComponent {
 
   verEpisodiosMedicos(medico: Medico){
     this.dialog.open(EpisodiosDialogComponent, {
+      maxWidth:'none',
+      maxHeight:'none',
       data: medico.episodiMedics
     });
   }
