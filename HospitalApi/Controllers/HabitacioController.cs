@@ -173,18 +173,11 @@ namespace HospitalAPI.Controllers
             }
 
             var hab = await (from h in _bbdd.Habitacions where h.CodiHabitacio == id select h).FirstOrDefaultAsync();
-            
+            var piso =  await (from p in _bbdd.Plantes where p.Id == hab.PlantaId select p).FirstOrDefaultAsync();
 
             if (hab == null){
                 _logger.LogError("No existeix habitació amb aquest ID.");
                 return NotFound("No existeix habiatció amb aquest ID.");
-            }
-
-            var piso =  await (from p in _bbdd.Plantes where p.Piso == userHabDTO.PlantaId select p).FirstOrDefaultAsync();
-
-            if (piso == null){
-                _logger.LogError("No existeix planta amb aquest ID.");
-                return NotFound("No existeix planta amb aquest ID.");
             }
 
             _mapper.Map(userHabDTO, hab);
