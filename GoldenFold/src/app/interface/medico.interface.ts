@@ -1,4 +1,5 @@
 import { EpisodiMedic } from "./episodis-medics.interface";
+import { PruebaDiagnostica } from "./pruebas-diagnosticas.interface";
 
 export interface Medico {
     dni: string;
@@ -7,4 +8,5 @@ export interface Medico {
     usuariId: string;
     especialitat: string;
     episodiMedics: EpisodiMedic[]
+    pruebasDiagnosticas: PruebaDiagnostica[]
   }

@@ -11,6 +11,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MedicoDashboardComponent } from '../../../medico/medico-dashboard/medico-dashboard.component';
 import { DialogFormularioMedicoModifComponent } from '../../../../../../components/Formularios/Medico/dialog-formulario-ingreso-modif/dialog-formulario-medico-modif.component';
 import { EpisodiosDialogComponent } from '../../../../../../components/popups/episodis-popup';
+import { PruebasDialogComponent } from '../../../../../../components/popups/pruebas-popup';
 
 @Component({
   selector: 'app-metges',
@@ -173,6 +174,14 @@ export class MetgesComponent {
       maxWidth:'none',
       maxHeight:'none',
       data: medico.episodiMedics
+    });
+  }
+
+  verPruebasDiagnosticas(medico: Medico){
+    this.dialog.open(PruebasDialogComponent, {
+      maxWidth:'none',
+      maxHeight:'none',
+      data: medico.pruebasDiagnosticas
     });
   }
 

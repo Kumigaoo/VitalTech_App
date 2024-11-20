@@ -77,11 +77,10 @@
           Pruebas diagnósticas
         </th>
         <td mat-cell *matCellDef="let medico">
-          {{
-            medico?.pruebasDiagnosticas?.length
-              ? medico.pruebasDiagnosticas
-              : "No hay pruebas diagnósticas"
-          }}
+          <a (click)="verPruebasDiagnosticas(medico)" style="cursor: pointer; color: blue;">
+            {{ medico.pruebasDiagnosticas.length }}
+            {{ medico.pruebasDiagnosticas.length == 1 ? 'prueba diagnostica' : 'pruebas diagnosticas' }}
+          </a>    
         </td>
       </ng-container>
 
