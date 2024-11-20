@@ -87,10 +87,10 @@ export class MetgesComponent {
     } 
   }
 
-  actualizarMedico(): void{
+  actualizarMedico(dniAntiguo: string): void{
     if(this.medicoParaActualizar){
       const medicoActualizado = {...this.medicoParaActualizar};
-      this.medicoService.putMedico(medicoActualizado).subscribe({
+      this.medicoService.putMedico(medicoActualizado,dniAntiguo).subscribe({
         next:()=>{
           this.obtenerMedicos();
           this.medicoParaActualizar=null;
@@ -124,7 +124,7 @@ export class MetgesComponent {
     }).afterClosed().subscribe((medicoActualizado) => {
       if(medicoActualizado){
         this.medicoParaActualizar = medicoActualizado;
-        this.actualizarMedico();
+        this.actualizarMedico(medico.dni);
       } 
     });
   }
