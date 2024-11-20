@@ -17,7 +17,7 @@ public class ESTATrestriction : ValidationAttribute
     protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
     {
 
-        if (value is not bool)
+        if (!(value is not bool))
         {
             return new ValidationResult("El valor no es válido, solo se acepta un valor booleano.");
         }
