@@ -68,6 +68,8 @@ export class DialogPacienteComponent {
     this.crearFormularioPaciente();
     this.showDetails();
   }
+
+  
   get isReadOnly(): boolean {
     return !this.editar;
   }

@@ -17,6 +17,9 @@ import { DialogPacienteComponent } from '../../../../../../components/Formulario
 })
 export class PacientesComponent implements OnInit, AfterViewInit {
   @ViewChild(SnackbarComponent) snackbar!: SnackbarComponent
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
+  
   // Variables relacionadas con la tabla y los datos
   displayedColumns: string[] = ['dni', 'numSS', 'nom', 'birthDay', 'sexe', 'episodisMedics', 'acciones'];
   dataSource: MatTableDataSource<Paciente> = new MatTableDataSource<Paciente>([]);
@@ -28,8 +31,7 @@ export class PacientesComponent implements OnInit, AfterViewInit {
   nuevoPaciente: Paciente;
   notificacion: string | null = null;  // Variable para notificaciones
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
+
 
   pacienteSeleccionado: Paciente | null = null;
 
