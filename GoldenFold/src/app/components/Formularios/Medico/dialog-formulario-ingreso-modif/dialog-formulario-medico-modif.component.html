@@ -9,6 +9,9 @@
       @if (medicoForm.get('dni')?.hasError('required')) {
         <mat-error>El DNI es requerido</mat-error>
       }
+      @if (medicoForm.get('dni')?.hasError('dniInvalid')&&!medicoForm.get('dni')?.hasError('required')){
+        <mat-error>El DNI es invalido</mat-error>
+      }
     </mat-form-field>
 
     <!--Nom-->
@@ -24,14 +27,24 @@
     <mat-form-field appearance="outline">
       <mat-label>Teléfono:</mat-label>
       <input matInput formControlName="telefon">
+      @if (medicoForm.get('telefon')?.hasError('pattern')){
+        <mat-error>Formato incorrecto de teléfono</mat-error>
+      }
     </mat-form-field>
 
     <!--Usuari id-->
     <mat-form-field appearance="outline">
-      <mat-label>Nombre de usuario:</mat-label>
-      <input matInput formControlName="usuariId" required>
+      <mat-label>Usuario:</mat-label>
+      <mat-select formControlName="usuariId" required>
+      @for (u of usuaris; track u.username) {
+        <mat-option [value]="u.username">{{u.username}}</mat-option>
+      }
+      </mat-select>
       @if (medicoForm.get('usuariId')?.hasError('required')) {
         <mat-error>El nombre de usuario es requerido</mat-error>
+      }
+      @if (medicoForm.get('usuariId')?.hasError('usernameTaken')){
+        <mat-error>Este usuario ya está escogido por otro médico</mat-error>
       }
     </mat-form-field>
 
@@ -40,7 +53,7 @@
       <mat-label>Especialidad</mat-label>
       <mat-select formControlName="especialitat" required>
         @for (e of especialidades; track e.id) {
-          <mat-option [value]="e.value">{{e.value}}</mat-option>
+          <mat-option [value]="e.nombre">{{e.nombre}}</mat-option>
         }
       </mat-select>
       @if (medicoForm.get('especialitat')?.hasError('required')) {

@@ -5,6 +5,7 @@
     margin-top: 70px;   /* Ajusta según la altura del header */
     margin-left: 220px; /* Ajusta según el ancho del sidenav */
     padding: 20px;
+    text-align: center;
   }
   .header-container {
     display: flex;
@@ -19,6 +20,14 @@
   .clickable-row:hover {
     background-color: #f0f0f0;
   }
+
+  .mat-dialog-container {
+    width: auto !important; /* Permite que el contenido ajuste el ancho */
+    height: auto !important; /* Ajusta la altura al contenido */
+    max-width: none !important; /* Quita restricciones predeterminadas de ancho */
+    max-height: none !important; /* Quita restricciones predeterminadas de altura */
+  }
+  
   
   @media (max-width: 768px) {
     .header-container {

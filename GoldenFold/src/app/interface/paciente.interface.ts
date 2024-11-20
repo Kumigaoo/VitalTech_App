@@ -1,3 +1,5 @@
+import { EpisodiMedic } from "./episodis-medics.interface";
+
 export interface Paciente {
     dni: string;
     numSS: string;
@@ -10,5 +12,5 @@ export interface Paciente {
     email: string;
     administratiuId: number;
     birthDay : string;
-    episodisMedics: string[];
+    episodisMedics: EpisodiMedic[];
   }
