@@ -9,8 +9,8 @@ namespace HospitalApi.DTO
         public string CodiLlit { get; set; } = string.Empty;
         
         [NotMapped]
+        [RegularExpression(@"^\d{3}$", ErrorMessage = "El format no es vlaid. Tenen que ser 3 digits numerics.")]
         public int CodiHabitacio { get; set; }
-
        
     }
 }
