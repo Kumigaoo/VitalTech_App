@@ -18,7 +18,7 @@ namespace HospitalApi.DTO
         [Required]
         public string Recepta { get; set; } = string.Empty;
         [Required]
-        [ESTATrestriction]
+       // [ESTATrestriction]
         public string Estat { get; set; } = string.Empty;
 
 

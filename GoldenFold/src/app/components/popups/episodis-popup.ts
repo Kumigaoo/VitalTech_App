@@ -3,6 +3,8 @@ import { Component, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {MatTableModule} from '@angular/material/table';
 import { MatDialogModule } from '@angular/material/dialog';
+import { PacienteService } from '../../services/paciente.service';
+import { Paciente } from '../../interface/paciente.interface';
 
 
 @Component({
@@ -15,7 +17,8 @@ import { MatDialogModule } from '@angular/material/dialog';
   ],
   template: `
     <h1 mat-dialog-title>Episodios Medicos</h1>
-    <div class="table-container">
+    @if(pacientes&&dataSource){
+      <div class="table-container">
       <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
         <ng-container matColumnDef="id">
@@ -23,7 +26,7 @@ import { MatDialogModule } from '@angular/material/dialog';
           <td mat-cell *matCellDef="let element"> {{element.id}} </td>
         </ng-container>
 
- 
+
         <ng-container matColumnDef="dataObertura">
           <th mat-header-cell *matHeaderCellDef> Fecha apertura </th>
           <td mat-cell *matCellDef="let element"> {{element.dataObertura | date: 'dd/MM/yyyy'}} </td>
@@ -31,7 +34,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 
         <ng-container matColumnDef="dataTancament">
           <th mat-header-cell *matHeaderCellDef> Fecha cierre </th>
-          <td mat-cell *matCellDef="let element"> {{element.dataTancament | date: 'dd/MM/yyyy'}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.dataTancament ?  (element.dataTancament| date: 'dd/MM/yyyy')  : 'Pendiente'}} </td>
         </ng-container>
 
         <ng-container matColumnDef="motivo">
@@ -56,15 +59,14 @@ import { MatDialogModule } from '@angular/material/dialog';
 
         <ng-container matColumnDef="dniPacient">
           <th mat-header-cell *matHeaderCellDef> Paciente </th>
-          <td mat-cell *matCellDef="let element"> {{element.dniPacient}} </td>
+          <td mat-cell *matCellDef="let element"> {{ getPacienteDNI(element.id) }} </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
     </div>
-
-
+    }
   `,
   styleUrls: ['./custom-table.component.css']
 
@@ -72,12 +74,30 @@ import { MatDialogModule } from '@angular/material/dialog';
 export class EpisodiosDialogComponent {
 
     dataSource: any;
+    pacientes!: Paciente[];
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any[]) {
-    console.log(data);
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any[], private pacientServic: PacienteService) {
     this.dataSource = data;
+    this.obtenerPacientes();
   }
 
   displayedColumns: string[] = ['id', 'dataObertura', 'dataTancament', 'motivo', 'urgencia','recepta','estat','dniPacient'];
-  
+
+  obtenerPacientes(): void{
+    this.pacientServic.getPacients().subscribe({
+      next:(data: Paciente[]) => {
+        this.pacientes = data;
+        console.log('Pacientes: ',this.pacientes);
+        console.log(this.getPacienteDNI(4));
+      },
+      error:(error: any) => {
+        console.log(error);
+      }
+    })
+  }
+
+  getPacienteDNI(episodiMedicId: number): string {
+    const paciente = this.pacientes.filter(patient =>  patient.episodisMedics.some(episodi => episodi.id === episodiMedicId));
+    return paciente ? paciente[0].dni : 'afadf';
+  }  
 }
