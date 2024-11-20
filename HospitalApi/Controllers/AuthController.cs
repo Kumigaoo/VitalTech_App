@@ -14,70 +14,45 @@ namespace HospitalAPI.Controllers
     [Route("api/[controller]")]
     public class AuthController : ControllerBase
     {
+
+        // Login endpoint - Authorization Code Flow
         [HttpGet("login")]
         public IActionResult Login()
         {
             var redirectUrl = "https://login.oscarrovira.com/realms/Dream%20Team/protocol/openid-connect/auth" +
-                           "?client_id=hospital-api" +
-                           "&response_type=code" +
-                           "&scope=openid profile" +
-                           "&redirect_uri=http://localhost:5296/api/Auth/callback";
+                               "?client_id=hospital-api" +
+                               "&response_type=token" +
+                               "&scope=openid profile" +
+                               "&redirect_uri=http://localhost:5296/api/Auth/callback";
             return Redirect(redirectUrl);
         }
 
         [HttpGet("callback")]
-        public async Task<IActionResult> Callback(string code)
+        public IActionResult Callback(string access_token)
         {
-            if (string.IsNullOrEmpty(code))
+            if (string.IsNullOrEmpty(access_token))
             {
-                return BadRequest("El código de autorización no es válido.");
+                return BadRequest("El token de acceso no está presente.");
             }
 
-            var tokenUrl = "https://login.oscarrovira.com/realms/Dream%20Team/protocol/openid-connect/token";
+            // Almacenar el token de acceso en la sesión o en local storage
+            HttpContext.Session.SetString("AccessToken", access_token);
 
-            using var httpClient = new HttpClient();
-            var parameters = new Dictionary<string, string>
-    {
-        { "client_id", "hospital-api" },
-        { "client_secret", "4w7bVyGfcVEwNkzgFLchC9tWUHaSYybd" },
-        { "grant_type", "authorization_code" },
-        { "code", code },
-        { "redirect_uri", "http://localhost:5296/api/Auth/callback" }
-    };
-
-            var response = await httpClient.PostAsync(tokenUrl, new FormUrlEncodedContent(parameters));
-
-            if (!response.IsSuccessStatusCode)
-            {
-                return BadRequest("Error, no se pudo obtener el token de acceso de Keycloak.");
-            }
-
-            var tokenResponse = await response.Content.ReadAsStringAsync();
-            var tokenData = JsonSerializer.Deserialize<JsonDocument>(tokenResponse);
-            var accessToken = tokenData?.RootElement.GetProperty("access_token").GetString();
-
-            if (string.IsNullOrEmpty(accessToken))
-            {
-                return BadRequest("No se pudo obtener el token.");
-            }
-
-            HttpContext.Session.SetString("AccessToken", accessToken);
-
-            return Redirect($"http://localhost:4201/inicio?token={accessToken}");
-
+            // Redirigir al frontend con el token de acceso
+            return Redirect($"http://localhost:4201/inicio?token={access_token}");
         }
 
+        // Logout endpoint
         [HttpGet("logout")]
         public IActionResult Logout()
         {
-            HttpContext.Session.Remove("AccessToken");
-            
             var logoutUrl = "https://login.oscarrovira.com/realms/Dream%20Team/protocol/openid-connect/logout" +
                             "?client_id=hospital-api" +
                             "&redirect_uri=http://localhost:4201";
 
             return Redirect(logoutUrl);
         }
+
 
 
     }

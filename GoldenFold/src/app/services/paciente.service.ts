@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Paciente } from '../interface/paciente.interface';
 
@@ -13,7 +13,14 @@ export class PacienteService {
   constructor(private http: HttpClient) { }
 
   getPacients(): Observable<Paciente[]> {
-    return this.http.get<Paciente[]>(this.apiUrl);
+    const token = localStorage.getItem('authToken');
+
+    if (!token) {
+      console.error('No token found!');
+    }
+
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<Paciente[]>(this.apiUrl, { headers });
   }
 
   getPacientId(id : string): Observable<Paciente> {

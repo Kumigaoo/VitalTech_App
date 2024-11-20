@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Cama } from '../interface/cama.interface';
 
@@ -14,7 +14,14 @@ export class CamaService {
 
     
     getLlits(): Observable<Cama[]> {
-      return this.http.get<Cama[]>(this.apiUrl);
+      const token = localStorage.getItem('authToken');
+
+      if (!token) {
+        console.error('No token found!');
+      }
+
+      const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`); 
+      return this.http.get<Cama[]>(this.apiUrl, { headers });
     }
 
     getLlit(id:string): Observable<Cama> {

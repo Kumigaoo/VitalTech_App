@@ -14,11 +14,27 @@ export class NavbarComponent {
 
   constructor(private router: Router) {}
 
-  // Eliminar el token de localStorage y redirigir al login
   onLogout(): void {
-    localStorage.removeItem('authToken'); // Elimina el token de localStorage
-    localStorage.removeItem('accesToken'); // Elimina el token de localStorage
-    this.router.navigate(['/login']); // Redirige al login (o al inicio)
+    // Obtener el id_token almacenado en localStorage
+    const idToken = localStorage.getItem('idToken');
+    
+    if (!idToken) {
+      console.error("No ID token found. Redirecting to login.");
+      this.router.navigate(['/inicio']);
+      return;
+    }
+  
+    // Limpiar los datos de autenticación del localStorage
+    localStorage.removeItem('authToken');
+    localStorage.removeItem('idToken');
+  
+    // URL de logout de Keycloak
+    const logoutUrl = `https://login.oscarrovira.com/realms/Dream%20Team/protocol/openid-connect/logout` +
+                      `?id_token_hint=${encodeURIComponent(idToken)}` +
+                      `&post_logout_redirect_uri=http://localhost:4201/inicio`;
+  
+    // Redirigir al usuario a la página de logout de Keycloak
+    window.location.href = logoutUrl;
   }
 
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Consulta } from '../interface/consulta.interface';
 
@@ -21,21 +21,26 @@ export class ConsultaService {
     // idPaciente?: string,
     // estado?: string,
     // motivo?: string
-
   ): Observable<Consulta[]> {
     let params = new HttpParams();
     // if (idPaciente) params = params.set('idPaciente', idPaciente.toString());
     if (id) params = params.set('id', id.toString());
     if (dniPersonal) params = params.set('dniPersonal', dniPersonal.toString());
-    if (episodiMedicId) params = params.set('episodiMedicId', episodiMedicId.toString());
+    if (episodiMedicId)
+      params = params.set('episodiMedicId', episodiMedicId.toString());
     if (urgencia) params = params.set('urgencia', urgencia.toString());
-    if (sintomatologia) params = params.set('sintomatologia', sintomatologia.toString());
+    if (sintomatologia)
+      params = params.set('sintomatologia', sintomatologia.toString());
     if (recepta) params = params.set('recepta', recepta.toString());
 
-    //if (estado) params = params.set('estado', estado);
-    //if (motivo) params = params.set('motivo', motivo);
+    const token = localStorage.getItem('authToken');
 
-    return this.http.get<Consulta[]>(`${this.apiUrl}/Consulta`, { params });
+    if (!token) {
+      console.error('No token found!');
+    }
+
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<Consulta[]>(`${this.apiUrl}/Consulta`, { headers });
   }
 
   addConsulta(consulta: Consulta): Observable<Consulta> {
