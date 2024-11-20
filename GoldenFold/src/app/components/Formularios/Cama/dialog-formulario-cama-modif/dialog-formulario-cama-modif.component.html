@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>{{ 'Actualizar Cama' }}</h2>
+<h2 mat-dialog-title>{{!isEditing ? 'Detalles Cama' : 'Actualizar Cama' }}</h2>
 <mat-dialog-content>
 <form [formGroup]="camaForm">
   <br />

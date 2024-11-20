@@ -1,4 +1,6 @@
-﻿namespace HospitalApi.DTO
+﻿using HospitalApi.Enums;
+
+namespace HospitalApi.DTO
 {
     public class PacientCreateDTO
     {

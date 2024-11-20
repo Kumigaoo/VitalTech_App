@@ -23,23 +23,25 @@ export class PlantesComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  plantes: Planta[] = [];
-  searchInput: number = 1;
-  currentPage: number = 1;
-  totalPages: number = 1;
-  itemsPerPage: number = 300;
-  pageIndex: number = 0;
-
   displayedColumns: string[] = ['piso', 'capacitatHabitacions', 'habitacions', 'acciones'];
-  dataMostra: MatTableDataSource<Planta> = new MatTableDataSource<Planta>([]);
+  dataSource: MatTableDataSource<Planta> = new MatTableDataSource<Planta>([]);
+
+  totalItems = 0;
+  itemsPerPage = 300;
+  pageIndex = 0;
+ 
   nuevaPlanta: Planta;
+  plantes: Planta[] = [];
+  notificacion: string | null = null;
+
+  plantaSeleccionado: Planta | null = null;
 
   constructor(
     public dialog: MatDialog,
-    private plantaService: PlantaService,
-    private router: Router
+    private plantaService: PlantaService
   ) {
     this.nuevaPlanta = {
+
       piso: 0,
       capacitatHabitacions: 0,
       habitacions: ['']
@@ -51,8 +53,34 @@ export class PlantesComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.dataMostra.paginator = this.paginator;
-    this.dataMostra.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
+
+  loadPlantes(): void {
+    this.plantaService.getPlantes().subscribe({
+      next: (data: Planta[]) => {
+        this.plantes = data;
+        this.totalItems = data.length;
+        this.actualizarPagina(0, this.itemsPerPage);
+      },
+      error: (error: any) => {
+        console.error('Error al obtener las plantas', error);
+      }
+      
+    });
+  }
+
+  onPaginateChange(event: PageEvent) {
+    this.pageIndex = event.pageIndex;
+    this.itemsPerPage = event.pageSize;
+    this.actualizarPagina(this.pageIndex, this.itemsPerPage);
+  }
+
+  actualizarPagina(pageIndex: number, pageSize: number) {
+    const startIndex = pageIndex * pageSize;
+    const endIndex = startIndex + pageSize;
+    this.dataSource.data = this.plantes.slice(startIndex, endIndex);
   }
 
   toggleFormularioAgregar() {
@@ -64,22 +92,42 @@ export class PlantesComponent implements OnInit, AfterViewInit {
 
     this.dialog.open(DialogFormularioConsultaPlantes, {
       data: this.nuevaPlanta
-    }).afterClosed().subscribe((consultaCreada) => {
-      if (consultaCreada) {
-        this.plantaService.postPlanta(consultaCreada).subscribe(() => {
-          this.loadPlantes(); // Cargar plantas después de agregar
-        });
+    }).afterClosed().subscribe((plantaCreada) => {
+      if (plantaCreada) {
+        this.nuevaPlanta = plantaCreada;
+        this.guardarPlanta();
+        
+      }
+    });
+  }
+  
+  toggleActualizarPlanta(planta: Planta): void {
+    this.plantaSeleccionado = { ...planta };
+    this.dialog.open(DialogFormularioConsultaPlantesModificar, {
+      data: this.plantaSeleccionado
+    }).afterClosed().subscribe((plantaActualizada) => {
+      if (plantaActualizada) {
+        this.plantaSeleccionado = plantaActualizada;
+        this.modificarPlanta();
       }
     });
   }
 
-  loadPlantes(): void {
-    this.plantaService.getPlantes().subscribe(data => {
-      this.plantes = data;
-      this.totalPages = Math.ceil(this.plantes.length / this.itemsPerPage);
-      this.updateItemsPerPage();
+
+  guardarPlanta(){
+    this.plantaService.postPlanta(this.nuevaPlanta).subscribe({
+      next: () => {
+        this.loadPlantes(); // Cargar plantas después de agregar
+        this.snackbar.showNotification('success', 'Planta guardada exitosamente'); // Notificación de éxito
+      },
+      error: (error: any) => {
+        console.error('Error al guardar la planta', error);
+        this.snackbar.showNotification('error', 'Error al guardar la planta'); // Notificación de error
+      }
     });
   }
+
+
 
   verHabitaciones(planta: any): void{
     console.log(planta.habitacions);
@@ -88,40 +136,6 @@ export class PlantesComponent implements OnInit, AfterViewInit {
       height: '90%',
       data: planta.habitacions
     })
-  }
-
-  updateItemsPerPage(): void {
-    const startIndex = this.pageIndex * this.itemsPerPage;
-    const endIndex = startIndex + this.itemsPerPage;
-    this.dataMostra.data = this.plantes.slice(startIndex, endIndex);
-
-    if (this.plantes.length === 0) {
-      return;
-    }
-
-    if (this.dataMostra.data.length === 0) {
-      this.currentPage = Math.max(1, this.currentPage - 1);
-      this.loadPlantes();
-    }
-  }
-
-  searchPlanta(): void {
-    if (!isNaN(this.searchInput)) {
-      this.plantaService.getPlanta(this.searchInput).subscribe({
-        next: (data) => {
-          this.plantes = [data];
-          this.currentPage = 1;
-          this.totalPages = 1;
-          this.updateItemsPerPage();
-        },
-        error: (error) => {
-          console.error('Error al buscar la planta:', error);
-          alert('No existe la planta con id ' + this.searchInput);
-        }
-      });
-    } else {
-      alert('Por favor, ingresa un ID válido.');
-    }
   }
 
   deletePlanta(piso: number): void {
@@ -138,44 +152,41 @@ export class PlantesComponent implements OnInit, AfterViewInit {
       if (result.isConfirmed) {
         this.plantaService.deletePlanta(piso).subscribe({
           next: () => {
-            Swal.fire({
-              icon: 'success',
-              title: 'Planta eliminada',
-              text: 'La planta ha sido eliminada con éxito.'
-            });
             this.loadPlantes();
+            this.snackbar.showNotification('success', 'Planta eliminada correctamente'); // Notificación de éxito
           },
           error: () => {
-            Swal.fire({
-              icon: 'error',
-              title: 'Error',
-              text: 'No se puede eliminar esta planta porque todavía tiene habitaciones o camas asociadas.'
-            });
+            this.snackbar.showNotification('error', 'Error al eliminar la planta'); // Notificación de error
           }
         });
       }
     });
   }
 
-  modificarPlanta(planta: Planta): void {
-
-    this.dialog.open(DialogFormularioConsultaPlantesModificar, {
-      data: planta
-    }).afterClosed().subscribe((consultaCreada) => {
-      if (consultaCreada) {
-        this.plantaService.putPlanta(consultaCreada).subscribe(() => {
+  modificarPlanta(): void {
+    if(this.plantaSeleccionado){
+      this.plantaService.putPlanta(this.plantaSeleccionado).subscribe({
+        next: () => {
           this.loadPlantes();
-        });
-      }
+          this.cerrarFormulario();
+          this.snackbar.showNotification('success', 'Planta actualizada correctamente'); // Notificación de éxito
+        }, 
+        error: (error: any) => {
+          this.snackbar.showNotification('error', 'Error al actualizar la planta'); // Notificación de error
+        },
     });
-    
+    }
+  }
+
+  cerrarFormulario(): void {
+    this.plantaSeleccionado = null;
   }
 
   filtrarPlantes(event: {type: string; term: string}): void {
     const {type, term} = event;
     const searchterm = term.trim().toLowerCase();
 
-    this.dataMostra.filterPredicate = (data: Planta, filter: string) => {
+    this.dataSource.filterPredicate = (data: Planta, filter: string) => {
       switch (type){
         case 'planta':
           return data.piso?.toString().includes(filter.toLowerCase()) ?? false;
@@ -187,10 +198,10 @@ export class PlantesComponent implements OnInit, AfterViewInit {
           return false;
       }
     };
-    this.dataMostra.filter = searchterm;
+    this.dataSource.filter = searchterm;
 
-    if (this.dataMostra.paginator){
-      this.dataMostra.paginator.firstPage();
+    if (this.dataSource.paginator){
+      this.dataSource.paginator.firstPage();
     }
   }
 
