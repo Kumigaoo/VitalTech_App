@@ -10,9 +10,18 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
-builder.Logging.SetMinimumLevel(LogLevel.Debug); // Aumenta el nivel de logging
+builder.Logging.SetMinimumLevel(LogLevel.Debug);
 builder.Logging.AddConsole();
 builder.Logging.AddDebug();
+
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.AddServerHeader = false;
+    options.ConfigureHttpsDefaults(config =>
+    {
+        config.SslProtocols = System.Security.Authentication.SslProtocols.Tls12;
+    });
+});
 
 
 builder.Services.AddDistributedMemoryCache();
@@ -21,6 +30,10 @@ builder.Services.AddCors(options =>
     {
         options.AddPolicy("AllowSpecificOrigin", builder =>
         {
+             builder.WithOrigins("https://localhost:7200")
+                   .AllowCredentials()
+                   .AllowAnyHeader()
+                   .AllowAnyMethod();
             builder.WithOrigins("http://localhost:4201")
                    .AllowCredentials()
                    .AllowAnyHeader()
@@ -100,13 +113,13 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
 {
-    options.IdleTimeout = TimeSpan.FromMinutes(30); // Tiempo de expiración de la sesión
-    options.Cookie.HttpOnly = true;                // Seguridad de cookies
-    options.Cookie.IsEssential = true;             // Necesario para GDPR si aplica
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
+    options.Cookie.HttpOnly = true;            
+    options.Cookie.IsEssential = true;
 });
 
 var app = builder.Build();
-
+app.UseHttpsRedirection();
 
 // builder.Logging.AddFile("Logs/myapp-{Date}.txt");
 
@@ -123,13 +136,12 @@ if (app.Environment.IsDevelopment())
         c.OAuthScopeSeparator(" ");
     });
 }
+
 app.UseSession();
-app.UseRouting();
-
-app.UseCors("AllowSpecificOrigin");
-
-app.UseAuthentication();
-app.UseAuthorization();
+app.UseRouting(); // Debe ir antes de UseCors, UseAuthentication y UseAuthorization
+app.UseCors("AllowSpecificOrigin"); // Debe ir antes de UseAuthentication y UseAuthorization
+app.UseAuthentication(); // Debe ir antes de UseAuthorization
+app.UseAuthorization(); // Debe ir después de UseAuthentication
 
 app.MapControllers();
 

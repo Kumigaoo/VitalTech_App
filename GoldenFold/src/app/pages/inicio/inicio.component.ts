@@ -13,15 +13,6 @@ export class InicioComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    const fragment = window.location.hash.substring(1);  // elimina el '#'
-    const params = new URLSearchParams(fragment);
-    const token = params.get('access_token');
-  
-    if (token) {
-      localStorage.setItem('authToken', token);
-    } else {
-      console.error('No se encontró el token de acceso en la URL');
-    }
   }
 
   ngAfterViewInit(): void {

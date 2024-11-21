@@ -14,6 +14,20 @@ export class NavbarComponent {
 
   constructor(private router: Router) {}
 
+  onLogin(): void {
+    window.location.href = 'https://localhost:7200/api/Auth/login';
+
+    const fragment = window.location.hash.substring(1);
+    const params = new URLSearchParams(fragment);
+    const token = params.get('access_token');
+  
+    if (token) {
+      localStorage.setItem('authToken', token);
+    } else {
+      console.error('No se encontró el token de acceso en la URL');
+    }
+}
+
   onLogout(): void {
     // Obtener el id_token almacenado en localStorage
     const idToken = localStorage.getItem('idToken');

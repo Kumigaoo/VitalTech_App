@@ -1,11 +1,6 @@
 
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using HospitalAPI.Models;
-using System.Text;
-using System.Text.Json;
+using HospitalApi.Enums;
 
 namespace HospitalAPI.Controllers
 {
@@ -19,27 +14,27 @@ namespace HospitalAPI.Controllers
         [HttpGet("login")]
         public IActionResult Login()
         {
+            if(Enum.IsDefined(typeof(EnumProfessions),"MedicoGeneral")) {}
+
             var redirectUrl = "https://login.oscarrovira.com/realms/Dream%20Team/protocol/openid-connect/auth" +
                                "?client_id=hospital-api" +
                                "&response_type=token" +
-                               "&scope=openid profile" +
-                               "&redirect_uri=http://localhost:5296/api/Auth/callback";
+                               "&scope=openid%20profile" +
+                               "&redirect_uri=http://localhost:4201/inicio";
             return Redirect(redirectUrl);
         }
 
         [HttpGet("callback")]
-        public IActionResult Callback(string access_token)
+        public IActionResult Callback([FromQuery] string token)
         {
-            if (string.IsNullOrEmpty(access_token))
+            if (string.IsNullOrEmpty(token))
             {
                 return BadRequest("El token de acceso no está presente.");
             }
 
-            // Almacenar el token de acceso en la sesión o en local storage
-            HttpContext.Session.SetString("AccessToken", access_token);
+            HttpContext.Session.SetString("AccessToken", token);
 
-            // Redirigir al frontend con el token de acceso
-            return Redirect($"http://localhost:4201/inicio?token={access_token}");
+            return Redirect($"http://localhost:4201/inicio?token={token}");
         }
 
         // Logout endpoint
