@@ -22,7 +22,6 @@ import { DialogCrearHabitacionComponent } from './components/Formularios/Habitac
 @NgModule({
   declarations: [
     //PlantesComponent
-    DialogActualizarHabitacionComponent,
   ],
   imports: [
     BrowserModule,

@@ -12,6 +12,7 @@ import { AdministradorSistemaComponent } from '../../../pages/inicio/pages/admin
 import { PlantesComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/plantes/plantes.component';
 import { EpisodisMedicsComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/episodis-medics/episodis-medics.component';
 import { MetgesComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/metges/metges.component';
+import { EnfermersComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/enfermers/enfermers.component';
 
 const routes: Routes = [
   {
@@ -63,6 +64,10 @@ const routes: Routes = [
   {
     path: 'metges',
     component: MetgesComponent
+  },
+  {
+    path: 'enfermers',
+    component: EnfermersComponent
   }
 ];
 
