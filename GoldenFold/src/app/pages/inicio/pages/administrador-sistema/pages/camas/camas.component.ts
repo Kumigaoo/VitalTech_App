@@ -83,10 +83,8 @@ export class CamasComponent implements OnInit, AfterViewInit {
       next: (data: Cama[]) => {
         this.camas = data;
         this.totalItems = data.length;
-        //this.camasFiltradas = [...this.camas];
-        //this.totalPaginas = Math.ceil(this.camasFiltradas.length / this.camasPorPagina);
-        //this.verificarPaginaActual();
         this.actualizarPagina(0, this.itemsPerPage);
+        console.log(this.camas);
       },
       error: (error: any) => {
         console.error('Error al obtener las camas', error);
@@ -113,7 +111,7 @@ export class CamasComponent implements OnInit, AfterViewInit {
     }).afterClosed().subscribe((camaActualizada) => {
       if (camaActualizada) {
         this.camaSeleccionada = camaActualizada;
-        this.actualizarCama();
+        this.actualizarCama(cama.codiLlit);
       }
     });
   }
@@ -166,10 +164,10 @@ export class CamasComponent implements OnInit, AfterViewInit {
       },
     });
   }
-  actualizarCama(): void {
+  actualizarCama(codiLlit: string): void {
     console.log(this.camaSeleccionada); // Para verificar que pacienteSeleccionado no sea null o undefined
     if (this.camaSeleccionada) {
-      this.camaService.putLlit(this.camaSeleccionada).subscribe({
+      this.camaService.putLlit(codiLlit, this.camaSeleccionada).subscribe({
         next: () => {
           this.obtenerCamas();
           this.cerrarFormulario();

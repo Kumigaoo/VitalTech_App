@@ -39,7 +39,7 @@
       <!-- Disponibilidad -->
       <ng-container matColumnDef="ocupat">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Disponibilitat </th>
-        <td mat-cell *matCellDef="let cama" (click)="toggleActualizarCama(cama)"> {{ cama.ocupat  ? "Si" : "No"}} </td>
+        <td mat-cell *matCellDef="let cama" (click)="toggleActualizarCama(cama)"> {{ cama.ocupat  ? "No" : "Si"}} </td>
       </ng-container>
 
       <!-- Fuera de servicio -->
