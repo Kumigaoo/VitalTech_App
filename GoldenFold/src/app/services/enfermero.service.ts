@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Medico } from '../interface/medico.interface';
+import { Enfermero } from '../interface/enfermer.interface';
 
 @Injectable({
     providedIn: 'root'
@@ -13,24 +14,24 @@ export class EnfermeroService {
 
   constructor(private http: HttpClient) { }
 
-  getEnfermeros(): Observable<Medico[]> {
-    return this.http.get<Medico[]>(this.apiUrl);
+  getEnfermeros(): Observable<Enfermero[]> {
+    return this.http.get<Enfermero[]>(this.apiUrl);
   }
 
-  getEnfermeroId(id : string): Observable<Medico> {
-    return this.http.get<Medico>(this.apiUrl+"/"+id);
+  getEnfermeroId(id : string): Observable<Enfermero> {
+    return this.http.get<Enfermero>(this.apiUrl+"/"+id);
   }
 
-  postEnfermero(medico : Medico): Observable<Medico> {
-    return this.http.post<Medico>(this.apiUrl,medico);
+  postEnfermero(enfermero : Enfermero): Observable<Enfermero> {
+    return this.http.post<Enfermero>(this.apiUrl,enfermero);
   }
 
-  putEnfermero(medico : Medico,dni: string): Observable<Medico> {
+  putEnfermero(enfermero : Enfermero,dni: string): Observable<Enfermero> {
     const url = `${this.apiUrl}/${dni}`;
-    return this.http.put<Medico>(url, medico);
+    return this.http.put<Enfermero>(url, enfermero);
   }
 
-  deleteEnfermero(id : string): Observable<Medico> {
-    return this.http.delete<Medico>(`${this.apiUrl}/${id}`);
+  deleteEnfermero(id : string): Observable<Enfermero> {
+    return this.http.delete<Enfermero>(`${this.apiUrl}/${id}`);
   }
 }
