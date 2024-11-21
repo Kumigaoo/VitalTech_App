@@ -13,7 +13,7 @@ import { EnfermeroService } from '../../../../../../services/enfermero.service';
   styleUrl: './enfermers.component.css'
 })
 export class EnfermersComponent {
-  displayedColumns: string[] = ['dni','nom','telefon','usuariId','enfermerEspecialitat','pruebasDiagnosticas'];
+  displayedColumns: string[] = ['dni','nom','telefon','usuariId','enfermerEspecialitat','pruebasDiagnosticas','Actions'];
 
   enfermeros : MatTableDataSource<Enfermero> = new MatTableDataSource<Enfermero>();
 
