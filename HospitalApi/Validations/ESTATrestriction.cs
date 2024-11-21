@@ -7,7 +7,7 @@ public class ESTATrestriction : ValidationAttribute
     {
         ErrorMessage = errorMessage;
     }
-    public string TELEFON { get; }
+    public string ESTAT { get; }
 
     public string GetErrorMessage()
     {
