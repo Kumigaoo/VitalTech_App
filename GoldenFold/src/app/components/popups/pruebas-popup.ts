@@ -20,7 +20,7 @@ import { PruebasService } from '../../services/pruebas.service';
   template: `
     <h1 mat-dialog-title>Pruebas diagnosticas</h1>
       <div class="table-container">
-      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <table mat-table [dataSource]="purebasDiagnosticas" class="mat-elevation-z8">
 
         <ng-container matColumnDef="id">
           <th mat-header-cell *matHeaderCellDef> Id </th>
@@ -28,39 +28,24 @@ import { PruebasService } from '../../services/pruebas.service';
         </ng-container>
 
 
-        <ng-container matColumnDef="dataObertura">
-          <th mat-header-cell *matHeaderCellDef> Fecha apertura </th>
-          <td mat-cell *matCellDef="let element"> {{element.dataObertura | date: 'dd/MM/yyyy'}} </td>
+        <ng-container matColumnDef="dniMetge">
+          <th mat-header-cell *matHeaderCellDef> Medico </th>
+          <td mat-cell *matCellDef="let element"> {{element.dniMetge}} </td>
         </ng-container>
 
-        <ng-container matColumnDef="dataTancament">
-          <th mat-header-cell *matHeaderCellDef> Fecha cierre </th>
-          <td mat-cell *matCellDef="let element"> {{element.dataTancament ?  (element.dataTancament| date: 'dd/MM/yyyy')  : 'Pendiente'}} </td>
+        <ng-container matColumnDef="dniEnfermer">
+          <th mat-header-cell *matHeaderCellDef> Enfermero </th>
+          <td mat-cell *matCellDef="let element"> {{element.dniEnfermer}} </td>
         </ng-container>
 
-        <ng-container matColumnDef="motivo">
-          <th mat-header-cell *matHeaderCellDef> Motivo </th>
-          <td mat-cell *matCellDef="let element"> {{element.motivo}} </td>
+        <ng-container matColumnDef="episodiMedicId">
+          <th mat-header-cell *matHeaderCellDef> Episodio Medico </th>
+          <td mat-cell *matCellDef="let element"> {{element.episodiMedicId}} </td>
         </ng-container>
 
-        <ng-container matColumnDef="urgencia">
-          <th mat-header-cell *matHeaderCellDef> Urgencia </th>
-          <td mat-cell *matCellDef="let element"> {{element.urgencia}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="recepta">
-          <th mat-header-cell *matHeaderCellDef> Receta </th>
-          <td mat-cell *matCellDef="let element"> {{element.recepta}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="estat">
-          <th mat-header-cell *matHeaderCellDef> Estado </th>
-          <td mat-cell *matCellDef="let element"> {{element.estat}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="dniPacient">
-          <th mat-header-cell *matHeaderCellDef> Paciente </th>
-          <td mat-cell *matCellDef="let element"> {{ element.id }} </td>
+        <ng-container matColumnDef="dolencia">
+          <th mat-header-cell *matHeaderCellDef> Dolencia </th>
+          <td mat-cell *matCellDef="let element"> {{element.dolencia}} </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -98,5 +83,5 @@ export class PruebasDialogComponent {
   }
 
 
-  displayedColumns: string[] = ['id', 'dataObertura', 'dataTancament', 'motivo', 'urgencia','recepta','estat','dniPacient'];
+  displayedColumns: string[] = ['id', 'dniMetge', 'dniEnfermer', 'episodiMedicId', 'dolencia'];
 }
