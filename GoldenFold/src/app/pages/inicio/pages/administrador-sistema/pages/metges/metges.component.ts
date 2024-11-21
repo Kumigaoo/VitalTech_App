@@ -11,6 +11,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MedicoDashboardComponent } from '../../../medico/medico-dashboard/medico-dashboard.component';
 import { DialogFormularioMedicoModifComponent } from '../../../../../../components/Formularios/Medico/dialog-formulario-ingreso-modif/dialog-formulario-medico-modif.component';
 import { EpisodiosDialogComponent } from '../../../../../../components/popups/episodis-popup';
+import { PruebasDialogComponent } from '../../../../../../components/popups/pruebas-popup';
 
 @Component({
   selector: 'app-metges',
@@ -87,10 +88,10 @@ export class MetgesComponent {
     } 
   }
 
-  actualizarMedico(): void{
+  actualizarMedico(dniAntiguo: string): void{
     if(this.medicoParaActualizar){
       const medicoActualizado = {...this.medicoParaActualizar};
-      this.medicoService.putMedico(medicoActualizado).subscribe({
+      this.medicoService.putMedico(medicoActualizado,dniAntiguo).subscribe({
         next:()=>{
           this.obtenerMedicos();
           this.medicoParaActualizar=null;
@@ -124,7 +125,7 @@ export class MetgesComponent {
     }).afterClosed().subscribe((medicoActualizado) => {
       if(medicoActualizado){
         this.medicoParaActualizar = medicoActualizado;
-        this.actualizarMedico();
+        this.actualizarMedico(medico.dni);
       } 
     });
   }
@@ -170,7 +171,17 @@ export class MetgesComponent {
 
   verEpisodiosMedicos(medico: Medico){
     this.dialog.open(EpisodiosDialogComponent, {
+      maxWidth:'none',
+      maxHeight:'none',
       data: medico.episodiMedics
+    });
+  }
+
+  verPruebasDiagnosticas(medico: Medico){
+    this.dialog.open(PruebasDialogComponent, {
+      maxWidth:'none',
+      maxHeight:'none',
+      data: medico.pruebasDiagnosticas
     });
   }
 
