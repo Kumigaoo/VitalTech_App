@@ -56,4 +56,16 @@ export class EnfermersComponent {
     })
   }
 
+  deleteEnfermero(enfermero: Enfermero): void{
+    this.enfermeroService.deleteEnfermero(enfermero.dni).subscribe({
+      next:() => {
+        this.enfermeros.data = this.enfermeros.data.filter(i => i.dni != enfermero.dni);
+        this.snackbar.showNotification('success', 'Enfermero eliminado correctamente'); // Notificación de éxito
+      },
+      error:(error: any) => {
+        console.log('ERROR',error);
+      }
+    })
+  }
+
 }
