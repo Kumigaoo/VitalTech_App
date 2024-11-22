@@ -7,6 +7,8 @@ import { MatSort } from '@angular/material/sort';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EnfermeroService } from '../../../../../../services/enfermero.service';
 import { getMatIconFailedToSanitizeUrlError } from '@angular/material/icon';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogFormularioEnfermeroModifComponent } from '../../../../../../components/Formularios/Enfermero/dialog-formulario-ingreso-modif/dialog-formulario-medico-modif.component';
 
 @Component({
   selector: 'app-enfermers',
@@ -25,7 +27,7 @@ export class EnfermersComponent {
   enfermeroForm!: FormGroup;
   enfermeroParaActualizar: Enfermero | null = null;
 
-  constructor(private enfermeroService: EnfermeroService, private fb: FormBuilder){
+  constructor(private enfermeroService: EnfermeroService, private fb: FormBuilder, private dialog: MatDialog){
     this.obtenerEnfermeros();
     this.crearFormularioEnfermero();
   }
@@ -94,6 +96,13 @@ export class EnfermersComponent {
     if(this.enfermeros.paginator){
       this.enfermeros.paginator.firstPage();
     }
+  }
+
+  tooggleAgregarEnfermero(): void{
+    this.crearFormularioEnfermero();
+    this.dialog.open(DialogFormularioEnfermeroModifComponent, {
+      data: this.enfermeroForm
+    })
   }
 
 }
