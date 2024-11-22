@@ -11,16 +11,16 @@
                     <select id="searchCriteria" name="searchCriteria" [(ngModel)]="searchCriteria">
                         <option value="nom">Nombre</option>
                         <option value="dni">DNI</option>
-                        <option value="especialitat">Especialidat</option>
+                        <option value="especialitat">Especialidad</option>
+                        <option value = "usuariId">Nombre de usuario</option>
                     </select>
                     <input type="text" id="searchInput" name="searchInput" placeholder="Ingresa la búsqueda" [(ngModel)]="searchInput">
                     <button type="submit" id="Buscar" (click)="searchPersonal()">Buscar</button>
-                    
                 </div>
             </form>
         </div>
         <div class="registro">
-            <button id="registrarse"><a [routerLink]="['/inicio/personal/registro-personal']"> + Registrar personal</a></button>
+            <button id="registrarse"><a [routerLink]="['/inicio/personal/registro-personal']"> + Registrar empleado</a></button>
         </div>
     </div>
     
@@ -35,16 +35,21 @@
                 <tr>
                     <th>DNI</th>
                     <th>Nombre</th>
+                    <th>Teléfono</th>
                     <th>Especialidad</th>
-                    <th>Consultas</th>
+                    <th>Username</th>
+                    <th>Pruebas diag.</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let metge of pagedPersonals">
                     <td>{{ metge.dni }}</td>
                     <td>{{ metge.nom }}</td>
+                    <td>{{ metge.telefon }}</td>
                     <td>{{ metge.especialitat | enumTranslate }}</td>
-                    <td class = "coleccio" mat-button (click)="openConsultes(metge)">Consultas</td>
+                    <td>{{metge.usuariId}}</td>
+                    <td class = "coleccio" mat-button (click)="openConsultes(metge)">Pruebas</td>
+                    <td class = "coleccio" mat-button (click)="openEpisodis(metge)">Episodios</td>
                     <button class = "ico" (click)="updatePersonal(metge.dni)">🔄</button>
                     <button class = "ico" (click)="deletePersonal(metge.dni)">❎</button>
                   </tr>
