@@ -184,6 +184,14 @@ namespace HospitalAPI.Controllers
                 return NotFound("No pot estar fora de servei si la cama esta ocupada");
             }
 
+            if(userLlitDTO.ForaDeServei){
+                llit.Ocupat = true;
+            }
+
+            if(!userLlitDTO.ForaDeServei && (llit.Ingressos != null)){
+                llit.Ocupat = false;
+            }
+
             _mapper.Map(userLlitDTO, llit);
             llit.HabitacioId = habitacio.Id;
 
