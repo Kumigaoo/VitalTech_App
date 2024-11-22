@@ -32,9 +32,11 @@
                 <li class="nav-item">
                     <a class="nav-link" [routerLink]="['/inicio/administrador-sistema']" routerLinkActive="active">Administrador Sistema</a>
                 </li>
-                <button class="nav-item" (click)="onLogin()"> Login </button>
-
-                <button (click)="onLogout()">Logout</button>
+                <button *ngIf="!isAuthenticated; else loggedIn" (click)="onLogin()">Login</button>
+                <ng-template #loggedIn>
+                    <span>Hola {{ nom }}</span>
+                    <button class="nav-item" (click)="onLogout()"> Logout </button>
+                </ng-template>
 
             </ul>
         </div>

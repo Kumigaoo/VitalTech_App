@@ -8,38 +8,18 @@ using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Logging.ClearProviders();
-builder.Logging.AddConsole();
-builder.Logging.SetMinimumLevel(LogLevel.Debug);
-builder.Logging.AddConsole();
-builder.Logging.AddDebug();
-
-builder.WebHost.ConfigureKestrel(options =>
-{
-    options.AddServerHeader = false;
-    options.ConfigureHttpsDefaults(config =>
-    {
-        config.SslProtocols = System.Security.Authentication.SslProtocols.Tls12;
-    });
-});
-
-
 builder.Services.AddDistributedMemoryCache();
 
 builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSpecificOrigin", builder =>
     {
-        options.AddPolicy("AllowSpecificOrigin", builder =>
-        {
-             builder.WithOrigins("https://localhost:7200")
-                   .AllowCredentials()
-                   .AllowAnyHeader()
-                   .AllowAnyMethod();
-            builder.WithOrigins("http://localhost:4201")
-                   .AllowCredentials()
-                   .AllowAnyHeader()
-                   .AllowAnyMethod();
-        });
+        builder.WithOrigins("https://localhost:7200", "http://localhost:4201")
+               .AllowCredentials()
+               .AllowAnyHeader()
+               .AllowAnyMethod();
     });
+});
 
 builder.Services.AddControllers().AddNewtonsoftJson();
 
@@ -76,19 +56,8 @@ builder.Services.AddSwaggerGen(c =>
 
     c.AddSecurityDefinition("Keycloak", new OpenApiSecurityScheme
     {
-        Type = SecuritySchemeType.OAuth2,
-        Flows = new OpenApiOAuthFlows
-        {
-            Implicit = new OpenApiOAuthFlow
-            {
-                AuthorizationUrl = new Uri("https://login.oscarrovira.com/realms/Dream%20Team/protocol/openid-connect/auth"),
-                Scopes = new Dictionary<string, string>
-                {
-                    { "openid", "openid" },
-                    { "profile", "profile" }
-                }
-            }
-        }
+        Type = SecuritySchemeType.OpenIdConnect,
+        OpenIdConnectUrl = new Uri("https://login.oscarrovira.com/realms/Dream%20Team/.well-known/openid-configuration")
     });
 
     c.AddSecurityRequirement(new OpenApiSecurityRequirement
@@ -98,14 +67,11 @@ builder.Services.AddSwaggerGen(c =>
             {
                 Reference = new OpenApiReference
                 {
-                    Id = "Keycloak",
-                    Type = ReferenceType.SecurityScheme
-                },
-                In = ParameterLocation.Header,
-                Name = "Bearer",
-                Scheme = "Bearer"
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Keycloak" // Debe coincidir con el nombre usado en AddSecurityDefinition
+                }
             },
-            Array.Empty<string>()
+            new List<string> { "openid", "profile" }
         }
     });
 });
@@ -114,15 +80,12 @@ builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
 {
     options.IdleTimeout = TimeSpan.FromMinutes(30);
-    options.Cookie.HttpOnly = true;            
+    options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });
 
 var app = builder.Build();
 app.UseHttpsRedirection();
-
-// builder.Logging.AddFile("Logs/myapp-{Date}.txt");
-
 
 if (app.Environment.IsDevelopment())
 {
@@ -138,11 +101,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseSession();
-app.UseRouting(); // Debe ir antes de UseCors, UseAuthentication y UseAuthorization
-app.UseCors("AllowSpecificOrigin"); // Debe ir antes de UseAuthentication y UseAuthorization
-app.UseAuthentication(); // Debe ir antes de UseAuthorization
-app.UseAuthorization(); // Debe ir después de UseAuthentication
-
+app.UseRouting(); 
+app.UseCors("AllowSpecificOrigin"); 
+app.UseAuthentication(); 
+app.UseAuthorization(); 
 app.MapControllers();
 
 app.Run();

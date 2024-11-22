@@ -20,10 +20,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DialogCrearHabitacionComponent } from './components/Formularios/Habitacion/dialog-crear-habitacion/dialog-crear-habitacion/dialog-crear-habitacion.component';
 @NgModule({
-  declarations: [
-    //PlantesComponent
-    DialogActualizarHabitacionComponent,
-  ],
   imports: [
     BrowserModule,
     ReactiveFormsModule,

@@ -4,7 +4,9 @@ import { provideHttpClient } from '@angular/common/http';
 import { routes } from './app-routing.module';
 import { KeycloakService } from 'keycloak-angular';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { authConfig } from './auth/auth.config';
+import { provideAuth } from 'angular-auth-oidc-client';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes),provideHttpClient(), KeycloakService, provideAnimationsAsync(), provideAnimationsAsync(), provideAnimationsAsync(), provideAnimationsAsync(), provideAnimationsAsync(), provideAnimationsAsync()]
+  providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes),provideHttpClient(), KeycloakService, provideAnimationsAsync(), provideAnimationsAsync(), provideAnimationsAsync(), provideAnimationsAsync(), provideAnimationsAsync(), provideAnimationsAsync(), provideAuth(authConfig)]
 };
