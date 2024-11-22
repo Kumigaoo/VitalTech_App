@@ -4,6 +4,7 @@ namespace HospitalApi.DTO
 {
     public class PruebaDiagnosticaCreateDTO
     {
+        
         public int MetgeId { get; set; }
         public int EnfermerId { get; set; }
         public int EpisodiMedicId { get; set; }
