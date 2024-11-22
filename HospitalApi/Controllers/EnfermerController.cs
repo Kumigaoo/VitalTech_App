@@ -30,7 +30,7 @@ namespace HospitalApi.Controllers
         public async Task<ActionResult<IEnumerable<EnfermerReadDTO>>> GetEnfermers()
         {
             _logger.LogInformation("Obtenint els enfermers");
-            IEnumerable<Enfermer> enfermersList = await _bbdd.Enfermer.ToListAsync();
+            IEnumerable<Enfermer> enfermersList = await _bbdd.Enfermer.Include("PruebasDiagnosticas").ToListAsync();
 
             return Ok(_mapper.Map<IEnumerable<EnfermerReadDTO>>(enfermersList));
 
@@ -43,7 +43,7 @@ namespace HospitalApi.Controllers
         public async Task<ActionResult<EnfermerReadDTO>> GetEnfermer(string DNI)
         {
 
-            var enfermer = await _bbdd.Enfermer.FirstOrDefaultAsync(e => e.DNI == DNI);
+            var enfermer = await _bbdd.Enfermer.Include("PruebasDiagnosticas").FirstOrDefaultAsync(e => e.DNI == DNI);
 
             return Ok(_mapper.Map<EnfermerReadDTO>(enfermer));
 
@@ -91,7 +91,7 @@ namespace HospitalApi.Controllers
         public async Task<IActionResult> DeleteEnfermer(string DNI)
         {
 
-            var enfermer = await _bbdd.Enfermer.FirstOrDefaultAsync(e => e.DNI == DNI);
+            var enfermer = await _bbdd.Enfermer.Include("PruebasDiagnosticas").FirstOrDefaultAsync(e => e.DNI == DNI);
 
             if (enfermer == null)
             {
@@ -124,7 +124,7 @@ namespace HospitalApi.Controllers
             }
 
             // Buscar el enfermero por el DNI
-            var enfermer = await _bbdd.Enfermer.FirstOrDefaultAsync(e => e.DNI == DNI);
+            var enfermer = await _bbdd.Enfermer.Include("PruebasDiagnosticas").FirstOrDefaultAsync(e => e.DNI == DNI);
 
             if (enfermer == null)
             {
