@@ -4,13 +4,13 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common'; 
 
 @Component({
-  selector: 'app-consultes-popup',
+  selector: 'app-pruebas-diagnosticas-popup',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './consultes-popup.component.html',
-  styleUrl: './consultes-popup.component.css'
+  templateUrl: './pruebas-diagnosticas-popup.component.html',
+  styleUrl: './pruebas-diagnosticas-popup.component.css'
 })
-export class ConsultesPopupComponent {
+export class PruebasDiagnosticasPopupComponent {
   constructor(@Inject(MAT_DIALOG_DATA) public data: any) {}
 }
 

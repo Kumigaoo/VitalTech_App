@@ -1,40 +1,40 @@
 import { Component } from '@angular/core';
-import { ConsultaService } from '../../../../service/consulta.service';
-import { Consulta } from '../../../../interface/consulta.interface';
+import { PruebasDiagnosticasService } from '../../../../service/pruebas-diagnosticas.service';
+import { PruebasDiagnosticas } from '../../../../interface/pruebas-diagnosticas.interface';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import Fuse from 'fuse.js';
 
 @Component({
-  selector: 'app-consulta',
-  templateUrl: './consulta.component.html',
-  styleUrl: './consulta.component.css',
+  selector: 'app-pruebas-diagnosticas',
+  templateUrl: './pruebas-diagnosticas.component.html',
+  styleUrls: ['./pruebas-diagnosticas.component.css'],
 })
-export class ConsultaComponent {
+export class PruebasDiagnosticasComponent {
 
-  fuse: Fuse<Consulta> | null = null;
+  fuse: Fuse<PruebasDiagnosticas> | null = null;
 
   constructor(
-    private consultaService: ConsultaService,
+    private pruebasDiagnosticasService: PruebasDiagnosticasService,
     private router: Router
   ) {}
 
-  consultes: Consulta[] = [];
+  consultes: PruebasDiagnosticas[] = [];
   protected searchId: number = 1;
-  pagedConsultes: Consulta[] = []; // Array para consultas paginadas
+  pagedConsultes: PruebasDiagnosticas[] = []; // Array para consultas paginadas
   searchCriteria: string = 'id'; // Inicializamos con un valor por defecto
   currentPage: number = 1;
   itemsPerPage: number = 4;
   totalPages: number = 1;
   searchInput: string = '';
-  originalConsultes: Consulta[] = [];
+  originalConsultes: PruebasDiagnosticas[] = [];
 
   ngOnInit() {
     this.loadConsultes();
   }
 
   loadConsultes(): void {
-    this.consultaService.getConsultes().subscribe((data) => {
+    this.pruebasDiagnosticasService.getConsultes().subscribe((data) => {
       this.consultes = data;
       this.originalConsultes = data;
       this.totalPages = Math.ceil(this.consultes.length / this.itemsPerPage);
@@ -69,7 +69,7 @@ export class ConsultaComponent {
       cancelButtonText: 'Cancelar',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.consultaService.deleteConsulta(id).subscribe({
+        this.pruebasDiagnosticasService.deleteConsulta(id).subscribe({
           next: () => {
             Swal.fire(
               'Consulta eliminada',

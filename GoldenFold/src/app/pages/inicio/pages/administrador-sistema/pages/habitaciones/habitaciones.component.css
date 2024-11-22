@@ -2,11 +2,16 @@
 .habitaciones-section {
   font-family: Arial, sans-serif;
   margin: 20px;
-  margin-top: 70px;   /* Ajusta según la altura del header */
-  margin-left: 220px; /* Ajusta según el ancho del sidenav */
-  padding: 20px;
+  margin-top: 80px;   /* Ajusta según la altura del header */
+  margin-left: 170px; /* Ajusta según el ancho del sidenav */
 }
 
+.clickable-row {
+  cursor: pointer;
+}
+.clickable-row:hover {
+  background-color: #f0f0f0;
+}
 /* Estilo para el título principal */
 h2 {
   font-size: 1.5rem;
@@ -14,6 +19,20 @@ h2 {
   margin-bottom: 20px;
   text-align: center;
   font-weight: bold;
+}
+
+/* Estilo de la caja de búsqueda */
+.search-container {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.search-container input {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  width: 60%;
+  font-size: 14px;
 }
 
 /* Estilo del contenedor de la tabla */
@@ -28,8 +47,11 @@ h2 {
 }
 
 /* Estilo de la tabla */
-.mat-elevation-z8 {
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  table-layout: auto;
 }
 
 .table th,
@@ -41,30 +63,39 @@ h2 {
   text-overflow: ellipsis;
 }
 
-.mat-header-cell {
+.table th {
   background-color: #0078d4;
   color: white;
-  font-size: 14px;
-  font-weight: bold;
+  cursor: pointer;
 }
-
-.mat-cell {
-  background-color: white;
-  font-size: 14px;
+.table td {
+  background-color: #fafafa;
 }
-
-.mat-cell button {
+.table td button {
   font-size: 12px;
   padding: 5px 10px;
-  border-radius: 4px;
+  border-radius: 3px;
   border: none;
   cursor: pointer;
 }
+.table tr:nth-child(even) {
+  background-color: #f1f1f1;
+}
 
-.mat-cell button:hover {
-  background-color: #066fdf;
-  color: #e0e0e0;
-  transition: 0.3s;
+.table tr:hover {
+  background-color: #e9e9e9;
+}
+
+/* Estilo de los botones de mostrar contraseña */
+td .password {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.hidden-text {
+  color: #ccc;
 }
 
 /* Estilo del formulario de agregar y actualizar */
@@ -76,7 +107,7 @@ h2 {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Estilo de los grupos del formulario */
+/* Estilo de los títulos del formulario */
 .form-container h3 {
   font-size: 1.3rem;
   color: #333;
@@ -84,19 +115,61 @@ h2 {
   text-align: center;
 }
 
-.mat-form-field {
+/* Estilo de los inputs y selects del formulario */
+.form-container label {
+  display: block;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.form-container input,
+.form-container select {
   width: 100%;
-  margin-bottom: 20px;
-}
-
-.mat-form-field .mat-input-element {
-  font-size: 14px;
-}
-
-/* Botones */
-.form-container button {
-  width: auto;
   padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  box-sizing: border-box;
+  margin-bottom: 15px;
+}
+
+/* Estilo de los mensajes de error */
+small {
+  color: #d9534f;
+  font-size: 12px;
+}
+/* Estilo de los botones */
+.botones {
+  display: flex;
+  justify-content: space-between;
+}
+
+.botones button {
+  width: 48%;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.botones button[type="submit"]:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.botones button:hover {
+  background-color: #0056b3;
+}
+
+/* Estilo del formulario de agregar usuario */
+.form-container button {
+  width: 100%;
+  padding: 10px 20px;
   border: none;
   border-radius: 5px;
   background-color: #28a745;
@@ -104,25 +177,31 @@ h2 {
   cursor: pointer;
   font-size: 16px;
   transition: background-color 0.3s ease;
-  display: inline-flex;
-}
-
-.form-container button.mat-button {
-  background-color: #007bff;
-  color: white;
-  margin-right: 10px;
-}
-
-.form-container button.mat-button:hover {
-  background-color: #0a4c93;
-}
-
-.form-container button.mat-raised-button {
-  background-color: #28a745;
 }
 
 .form-container button:hover {
   background-color: #218838;
+}
+.table td button {
+  font-size: 12px;
+  padding: 5px 10px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+}
+
+td button {
+  margin: 2px;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+td button:hover {
+  background-color: #066fdf;
+  color: #e0e0e0;
+  transition: 0.3s;
 }
 
 /* Diseño responsivo */
@@ -131,48 +210,20 @@ h2 {
     padding: 15px;
   }
 
-  .mat-header-cell,
-  .mat-cell {
+  .table th,
+  .table td {
     font-size: 12px;
   }
 
   .form-container button {
     font-size: 14px;
   }
+  
 }
 
-/* Estilo de la paginación */
-.mat-paginator {
+.filter-container {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 20px 0;
-  gap: 5px;
-}
-
-.mat-paginator button {
-  padding: 5px 10px;
-  border: none;
-  border-radius: 3px;
-  background-color: #007bff;
-  color: #f0f0f0;
-  font-size: 12px;
-  cursor: pointer;
-  transition: background-color 0.2s, color 0.2s;
-}
-
-.mat-paginator button:disabled {
-  cursor: not-allowed;
-  background-color: #e0e0e0;
-  color: #999;
-}
-
-.mat-paginator button:not(:disabled):hover {
-  background-color: #0a4c93;
-  color: #fff;
-}
-
-.mat-paginator-range-label {
-  font-size: 12px;
-  color: #333;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 20px;
 }

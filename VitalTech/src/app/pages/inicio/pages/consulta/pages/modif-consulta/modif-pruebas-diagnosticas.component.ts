@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ConsultaService } from '../../../../../../service/consulta.service';
-import { Consulta } from '../../../../../../interface/consulta.interface';
+import { PruebasDiagnosticasService } from '../../../../../../service/pruebas-diagnosticas.service';
+import { PruebasDiagnosticas } from '../../../../../../interface/pruebas-diagnosticas.interface';
 import Swal from 'sweetalert2';
 import { MetgeService } from '../../../../../../service/metge.service';
 import { personalidValidator, episodiidValidator, personalDniLetraCorrect } from '../../../../../../validator/consulta/consulta-validator.validator';
@@ -12,14 +12,14 @@ import { EpisodiService } from '../../../../../../service/episodis.service';
 
 @Component({
   selector: 'app-modif-consulta',
-  templateUrl: './modif-consulta.component.html',
-  styleUrl: './modif-consulta.component.css'
+  templateUrl: './modif-pruebas-diagnosticas.component.html',
+  styleUrl: './modif-pruebas-diagnosticas.component.css'
 })
 export class ModifConsultaComponent {
   consultaForm: FormGroup;
   consultaId: number = 0;
 
-  constructor(private fb: FormBuilder, private http: HttpClient, private consultaService: ConsultaService,
+  constructor(private fb: FormBuilder, private http: HttpClient, private consultaService: PruebasDiagnosticasService,
     private router: Router, private route: ActivatedRoute, private personalService: MetgeService, private episodiService: EpisodiService){
     this.consultaForm = this.fb.group({
       id: [{value: '', disabled: true}],
@@ -54,7 +54,7 @@ export class ModifConsultaComponent {
   onActualice(): void {
 
     if(this.consultaForm.valid) {
-      const updatedConsulta: Consulta = { ...this.consultaForm.getRawValue(), id: this.consultaId }
+      const updatedConsulta: PruebasDiagnosticas = { ...this.consultaForm.getRawValue(), id: this.consultaId }
 
       this.consultaService.putConsulta(updatedConsulta).subscribe({
 

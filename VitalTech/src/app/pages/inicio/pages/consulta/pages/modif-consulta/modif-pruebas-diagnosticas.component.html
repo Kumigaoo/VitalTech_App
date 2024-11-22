@@ -40,7 +40,7 @@
                     <small *ngIf="consultaForm.get('dniPersonal')?.hasError('required')">Este campo es obligatorio</small>
                     <small *ngIf="consultaForm.get('dniPersonal')?.hasError('minlength')">Mínimo 9 carácteres</small>
                     <small *ngIf="consultaForm.get('dniPersonal')?.hasError('pattern')">Construido por 8 núm y una letra</small>
-                    <small *ngIf="consultaForm.get('dniPersonal')?.hasError('personalNotFound')">El DNI no existe</small>
+                    <!-- <small *ngIf="consultaForm.get('dniPersonal')?.hasError('personalNotFound')">El DNI no existe</small> -->
                 </div>
             </div>
 

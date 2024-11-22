@@ -34,8 +34,12 @@ export class RegistroCamaComponent {
   }
 
   onSubmit(){
-    const llitData = this.llitForm.value;
     
+    const llitData = { ...this.llitForm.value }; // Copiar los datos del formulario
+
+  // Asegurarse de que el último carácter de codiLlit sea mayúscula
+  llitData.codiLlit = llitData.codiLlit.slice(0, 3) + llitData.codiLlit[3].toUpperCase();
+
     this.http.post('http://localhost:5296/api/Llit', llitData).subscribe(
       (response) => {
         Swal.fire({

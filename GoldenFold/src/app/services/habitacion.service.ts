@@ -24,8 +24,8 @@ export class HabitacionService {
     return this.http.post<Habitacion>(this.apiUrl, Habitacion);
   }
 
-  putHabitacion(habitacio: Habitacion): Observable<Habitacion> {
-    return this.http.put<Habitacion>(`${this.apiUrl}/${habitacio.codiHabitacio}`, habitacio);
+  putHabitacion(id: number, habitacio: Habitacion): Observable<Habitacion> {
+    return this.http.put<Habitacion>(`${this.apiUrl}/${id}`, habitacio);
   }
 
   deleteHabitacion(id: number): Observable<void> {

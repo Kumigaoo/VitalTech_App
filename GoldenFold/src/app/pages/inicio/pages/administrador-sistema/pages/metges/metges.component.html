@@ -5,13 +5,21 @@
   <app-snackbar #snackbar></app-snackbar>
 
   <div class="header-container">
+
+      <!-- Botón de agregar cama -->
+    <div>
+      <button mat-raised-button color="primary" (click)="tooggleAgregarMedico()">
+        Agregar Medico
+      </button>
+    </div>
+
     <!--Caja de busqueda-->
     <div>
       <app-search-box
         [searchOptions]="[
           {label: 'DNI', value: 'dni'},
           {label: 'Nombre', value: 'nom'},
-          {label: 'Nombre de usuario', value: 'usuariId'},
+          {label: 'Usuario', value: 'usuariId'},
           {label: 'Teléfono', value: 'telefon'},
           {label: 'Especialidad', value: 'especialita'}
         ]"
@@ -27,29 +35,29 @@
     <table mat-table [dataSource]="medicos" matSort class="mat-elevation-z8">
       <ng-container matColumnDef="dni">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>DNI</th>
-        <td mat-cell *matCellDef="let medico">{{ medico?.dni }}</td>
+        <td mat-cell *matCellDef="let medico" (click)="tooggleActualizarMedico(medico)">{{ medico?.dni }}</td>
       </ng-container>
 
       <ng-container matColumnDef="nom">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
-        <td mat-cell *matCellDef="let medico">{{ medico?.nom }}</td>
+        <td mat-cell *matCellDef="let medico" (click)="tooggleActualizarMedico(medico)">{{ medico?.nom }}</td>
       </ng-container>
 
       <ng-container matColumnDef="usuariId">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>
-          Nombre de usuario
+          Usuario
         </th>
-        <td mat-cell *matCellDef="let medico">{{ medico?.usuariId }}</td>
+        <td mat-cell *matCellDef="let medico" (click)="tooggleActualizarMedico(medico)">{{ medico?.usuariId }}</td>
       </ng-container>
 
       <ng-container matColumnDef="telefon">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Teléfono</th>
-        <td mat-cell *matCellDef="let medico">{{ medico?.telefon }}</td>
+        <td mat-cell *matCellDef="let medico" (click)="tooggleActualizarMedico(medico)">{{ medico?.telefon }}</td>
       </ng-container>
 
       <ng-container matColumnDef="especialitat">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Especialidad</th>
-        <td mat-cell *matCellDef="let medico">{{ medico?.especialitat }}</td>
+        <td mat-cell *matCellDef="let medico" (click)="tooggleActualizarMedico(medico)">{{ medico?.especialitat }}</td>
       </ng-container>
 
       <ng-container matColumnDef="episodiMedics">
@@ -57,11 +65,10 @@
           Episodios médicos
         </th>
         <td mat-cell *matCellDef="let medico">
-          {{
-            medico?.episodiMedics?.length
-              ? medico.episodiMedics
-              : "No hay episodios médicos"
-          }}
+          <a (click)="verEpisodiosMedicos(medico)" style="cursor: pointer; color: blue;">
+            {{ medico.episodiMedics.length }}
+            {{ medico.episodiMedics.length == 1 ? 'episodio médico' : 'episodios médicos' }}
+          </a>          
         </td>
       </ng-container>
 
@@ -70,11 +77,18 @@
           Pruebas diagnósticas
         </th>
         <td mat-cell *matCellDef="let medico">
-          {{
-            medico?.pruebasDiagnosticas?.length
-              ? medico.pruebasDiagnosticas
-              : "No hay pruebas diagnósticas"
-          }}
+          <a (click)="verPruebasDiagnosticas(medico)" style="cursor: pointer; color: blue;">
+            {{ medico.pruebasDiagnosticas.length }}
+            {{ medico.pruebasDiagnosticas.length == 1 ? 'prueba diagnostica' : 'pruebas diagnosticas' }}
+          </a>    
+        </td>
+      </ng-container>
+
+      <!--Actions column-->
+      <ng-container matColumnDef="Actions">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Actions</th>
+        <td mat-cell *matCellDef="let medico">
+          <button mat-button color="warn" (click)="borrarMedico(medico.dni)">Eliminar</button>
         </td>
       </ng-container>
 

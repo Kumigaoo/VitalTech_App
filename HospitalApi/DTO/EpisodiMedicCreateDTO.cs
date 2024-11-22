@@ -13,17 +13,18 @@ namespace HospitalApi.DTO
         [Required]
         public string Motivo { get; set; } = string.Empty;
         [Required]
+        [URGENCIASrestriction]
         public string Urgencia {get; set;} = string.Empty;
         [Required]
         public string Recepta { get; set; } = string.Empty;
         [Required]
+       // [ESTATrestriction]
         public string Estat { get; set; } = string.Empty;
-
-
         [NotMapped]
+        [DNIrestriction]
         public string DNIPacient { get; set; } = string.Empty;
-
         [NotMapped]
+        [DNIrestriction]
         public string DNIMetge { get; set; } = string.Empty;
 
     }

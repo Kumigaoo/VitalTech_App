@@ -42,6 +42,34 @@
       <mat-error *ngIf="pacienteForm.get('sexe')?.hasError('required')">El sexo es requerido</mat-error>
     </mat-form-field>
 
+    <mat-form-field appearance="outline">
+      <mat-label>Telefono</mat-label>
+      <input matInput formControlName="telefono" required />
+      <mat-error *ngIf="pacienteForm.get('telefono')?.hasError('required')">El telefono es requerido</mat-error>
+      <mat-error *ngIf="pacienteForm.get('telefono')?.hasError('pattern')">El número de teléfono no es válido</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Nacionalidad</mat-label>
+      <mat-select formControlName="nacionalidad" required>
+        <mat-option *ngFor="let nacionalidad of nacionalidades" [value]="nacionalidad.id">
+          {{ nacionalidad.nombre }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="pacienteForm.get('nacionalidad')?.hasError('required')">La nacionalidad es requerida</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" />
+      <mat-error *ngIf="pacienteForm.get('email')?.hasError('pattern')">El correo no es válido</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Administrativo</mat-label>
+      <input matInput formControlName="administratiuId"/>
+    </mat-form-field>
+
     <mat-form-field appearance="outline" class="example-full-width">
       <mat-label>Fecha de nacimiento</mat-label>
       <input matInput [matDatepicker]="picker" formControlName="birthDay" required placeholder="Seleccione una fecha" />

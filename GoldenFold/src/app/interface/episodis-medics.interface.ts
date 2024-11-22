@@ -1,10 +1,11 @@
 export interface EpisodiMedic {
-    id: number;
-    dataObertura: string;
-    dataTancament: string;
-    dolencia: string;
-    estat: string;
-    dniPacient: string;
-    consultes: string[];
-    ingressos: string[];
-  }
+  id: number;
+  dataObertura: string;
+  dataTancament: string;
+  motivo: string;
+  urgencia: string;
+  recepta: string;
+  estat: string;
+  dniPacient: string;
+  dniMetge: string;
+}

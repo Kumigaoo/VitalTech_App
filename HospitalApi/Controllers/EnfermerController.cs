@@ -3,6 +3,8 @@ using HospitalApi.Data;
 using HospitalApi.DTO;
 using HospitalAPI.DTO;
 using HospitalAPI.Models;
+using Microsoft.AspNetCore.Http.HttpResults;
+
 //using EntityFrameworkCore.MySQL.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -30,7 +32,7 @@ namespace HospitalApi.Controllers
         public async Task<ActionResult<IEnumerable<EnfermerReadDTO>>> GetEnfermers()
         {
             _logger.LogInformation("Obtenint els enfermers");
-            IEnumerable<Enfermer> enfermersList = await _bbdd.Enfermer.ToListAsync();
+            IEnumerable<Enfermer> enfermersList = await _bbdd.Enfermer.Include("PruebasDiagnosticas").ToListAsync();
 
             return Ok(_mapper.Map<IEnumerable<EnfermerReadDTO>>(enfermersList));
 
@@ -43,7 +45,7 @@ namespace HospitalApi.Controllers
         public async Task<ActionResult<EnfermerReadDTO>> GetEnfermer(string DNI)
         {
 
-            var enfermer = await _bbdd.Enfermer.FirstOrDefaultAsync(e => e.DNI == DNI);
+            var enfermer = await _bbdd.Enfermer.Include("PruebasDiagnosticas").FirstOrDefaultAsync(e => e.DNI == DNI);
 
             return Ok(_mapper.Map<EnfermerReadDTO>(enfermer));
 
@@ -51,6 +53,7 @@ namespace HospitalApi.Controllers
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<EnfermerCreateDTO>> PostEnfermer([FromBody] EnfermerCreateDTO nouEnfermer)
@@ -80,7 +83,7 @@ namespace HospitalApi.Controllers
             await _bbdd.Enfermer.AddAsync(enfermer);
             await _bbdd.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetEnfermer), new { id = nouEnfermer.DNI }, nouEnfermer);
+            return Ok();
 
         }
 
@@ -91,7 +94,7 @@ namespace HospitalApi.Controllers
         public async Task<IActionResult> DeleteEnfermer(string DNI)
         {
 
-            var enfermer = await _bbdd.Enfermer.FirstOrDefaultAsync(e => e.DNI == DNI);
+            var enfermer = await _bbdd.Enfermer.Include("PruebasDiagnosticas").FirstOrDefaultAsync(e => e.DNI == DNI);
 
             if (enfermer == null)
             {
@@ -124,7 +127,7 @@ namespace HospitalApi.Controllers
             }
 
             // Buscar el enfermero por el DNI
-            var enfermer = await _bbdd.Enfermer.FirstOrDefaultAsync(e => e.DNI == DNI);
+            var enfermer = await _bbdd.Enfermer.Include("PruebasDiagnosticas").FirstOrDefaultAsync(e => e.DNI == DNI);
 
             if (enfermer == null)
             {

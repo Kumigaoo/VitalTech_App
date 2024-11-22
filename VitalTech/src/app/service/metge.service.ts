@@ -9,7 +9,7 @@ import { Metge } from '../interface/metge.interface'
 
 export class MetgeService {
 
-  private apiUrl = 'http://localhost:5296/api/Personal';
+  private apiUrl = 'http://localhost:5296/api/Metge';
 
   constructor(private http: HttpClient) { }
 

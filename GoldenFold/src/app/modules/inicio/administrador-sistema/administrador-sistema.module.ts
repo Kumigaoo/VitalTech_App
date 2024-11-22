@@ -24,10 +24,11 @@ import { AdministradorSistemaComponent } from '../../../pages/inicio/pages/admin
 import { PlantesComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/plantes/plantes.component'; 
 import { MetgesComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/metges/metges.component';
 import { EpisodisMedicsComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/episodis-medics/episodis-medics.component';
+import { EnfermersComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/enfermers/enfermers.component';
 
 @NgModule({
   declarations: 
-  [ AdministradorSistemaComponent,MetgesComponent, CamasComponent, HabitacionesComponent, PacientesComponent, RolesComponent, UsuariosComponent, IngresosComponent, ConsultasComponent, PlantesComponent,EpisodisMedicsComponent ],
+  [ AdministradorSistemaComponent,MetgesComponent, CamasComponent, EnfermersComponent, HabitacionesComponent, PacientesComponent, RolesComponent, UsuariosComponent, IngresosComponent, ConsultasComponent, PlantesComponent,EpisodisMedicsComponent ],
 
   imports: 
   [ AdministradorSistemaRoute, AdministradorSistemaDashboardComponent, SharedModule, CommonModule ]

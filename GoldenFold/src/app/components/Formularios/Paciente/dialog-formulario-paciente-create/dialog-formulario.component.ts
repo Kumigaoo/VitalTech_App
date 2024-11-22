@@ -13,6 +13,7 @@ import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { CustomDateAdapter } from '../../../../custom-date-adapter';
 import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
+import { Nacionalidad } from '../../../../enums/nacionalidades';
 
 export const MY_DATE_FORMATS = {
   parse: {
@@ -51,6 +52,11 @@ export const MY_DATE_FORMATS = {
 export class DialogFormularioComponent {
 
   pacienteForm: FormGroup;
+  nacionalidades = Object.entries(Nacionalidad)
+  .filter(([key, value]) => !isNaN(Number(value))) // Filtra solo las entradas numéricas
+  .map(([key, value]) => ({ id: value as number, nombre: key })); // Mapea a un objeto con id y nombre
+
+
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: Paciente, 
@@ -65,6 +71,9 @@ export class DialogFormularioComponent {
       cognom1: [this.data.cognom1, Validators.required],
       cognom2: [this.data.cognom2],
       sexe: [this.data.sexe, Validators.required],
+      telefono: [this.data.telefono, [Validators.required, Validators.pattern(/^\+?[0-9\s\-()]{9,20}$/)]],
+      nacionalidad: [this.data.nacionalidad, Validators.required],
+      email: [this.data.email, [Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)]],
       birthDay: [this.data.birthDay ? new Date(this.data.birthDay) : null, Validators.required] // Ensure date object is set
     });
   }

@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using HospitalApi.DTO;
 using HospitalAPI.Models;
 
 namespace HospitalAPI.DTO
@@ -9,8 +10,9 @@ namespace HospitalAPI.DTO
         public string DNI { get; set; } = string.Empty;
         public string Nom { get; set; } = string.Empty;
         public int Telefon { get; set; }
-        public string EnfermerEspecialitat { get; set; } = string.Empty;
-        public ICollection<PruebasDiagnosticas>? PruebasDiagnosticas { get; set; }
+        public string UsuariId { get; set; } = string.Empty;
+        public string Especialitat { get; set; } = string.Empty;
+        public ICollection<PruebaDiagnosticaReferenceDTO>? PruebasDiagnosticas { get; set; }
 
 
     }
