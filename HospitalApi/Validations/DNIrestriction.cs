@@ -24,7 +24,7 @@ public class DNIrestriction : ValidationAttribute
 
 
 
-        if (digitControl[controlCalc - 1] != control)
+        if (digitControl[controlCalc] != control)
         {
 
             return false;
