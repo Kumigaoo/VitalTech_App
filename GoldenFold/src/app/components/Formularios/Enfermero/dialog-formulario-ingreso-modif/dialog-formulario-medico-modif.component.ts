@@ -22,14 +22,15 @@ import { Medico } from '../../../../interface/medico.interface';
 import { Usuari } from '../../../../interface/usuari.interface';
 import { UsuarioService } from '../../../../services/usuario.service';
 import { MedicoService } from '../../../../services/metge.service';
-import { MedicoAsyncValidator } from '../../../../validators/medicoExistsValidator';
 import { dniValidator } from '../../../../validators/dniValidator';
 import { map } from 'rxjs';
-import {  EspecialidadesMedico } from '../../../../enums/especialidadesMedico';
+import { Enfermero } from '../../../../interface/enfermer.interface';
+import {  EspecialidadesEnfermero } from '../../../../enums/especialidadesEnfermero';
+import { EnfermeroAsyncValidator } from '../../../../validators/enfermeroExistsValidator';
 
 
 @Component({
-  selector: 'app-dialog-formulario-medico-modif',
+  selector: 'app-dialog-formulario-enfermero-modif',
   standalone: true,
   imports: [
     ReactiveFormsModule,
@@ -45,29 +46,29 @@ import {  EspecialidadesMedico } from '../../../../enums/especialidadesMedico';
     MatDialogModule,
     MatButtonModule
   ],
-  templateUrl: './dialog-formulario-medico-modif.component.html',
-  styleUrls: ['./dialog-formulario-medico-modif.component.css']
+  templateUrl: './dialog-formulario-enfermero-modif.component.html',
+  styleUrls: ['./dialog-formulario-enfermero-modif.component.css']
 })
-export class DialogFormularioMedicoModifComponent implements OnInit {
+export class DialogFormularioEnfermeroModifComponent implements OnInit {
   isEditing: boolean = true; // Variable para controlar el modo
-  medicoForm!: FormGroup;
+  enfermeroForm!: FormGroup;
   usuaris! : Usuari[];
   medicos!: Medico[];
-  usuarioIdsMedicos = new Set('');
-  especialidades = Object.entries(EspecialidadesMedico)
+  usuarioIdsEnfermeros = new Set('');
+  especialidades = Object.entries(EspecialidadesEnfermero)
   .filter(([key, value]) => !isNaN(Number(value)))
   .map(([key, value]) => ({ id: value as number, nombre: key}));
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: Medico,
     private medicoService: MedicoService,
-    public dialogRef: MatDialogRef<DialogFormularioMedicoModifComponent>,
+    public dialogRef: MatDialogRef<DialogFormularioEnfermeroModifComponent>,
     private fb: FormBuilder,
     private usuariService: UsuarioService,
-    private medicoValidator: MedicoAsyncValidator
+    private enfermeroValidator: EnfermeroAsyncValidator
   ) {}
 
   ngOnInit(): void {
-    this.crearFormularioMedico();
+    this.crearFormularioEnfermero();
     this.obtenerUsuaris();
     if(this.data.dni){
       this.showDetails();
@@ -76,12 +77,12 @@ export class DialogFormularioMedicoModifComponent implements OnInit {
 
   // Método para manejar el envío del formulario
   guardar(): void {
-    if (this.medicoForm.valid) {
-      const medicoActualizado: Medico = {
+    if (this.enfermeroForm.valid) {
+      const enfermeroActualizado: Enfermero = {
         ...this.data,
-        ...this.medicoForm.value
+        ...this.enfermeroForm.value
       };
-      this.dialogRef.close(medicoActualizado);
+      this.dialogRef.close(enfermeroActualizado);
     }
   }
 
@@ -93,13 +94,13 @@ export class DialogFormularioMedicoModifComponent implements OnInit {
   // Función para habilitar el modo edición
   enableEditing(): void {
     this.isEditing = true;
-    this.medicoForm.enable();
+    this.enfermeroForm.enable();
   }
 
   // Función para mostrar detalles (solo lectura)
   showDetails(): void {
     this.isEditing = false;
-    this.medicoForm.disable();
+    this.enfermeroForm.disable();
   }
 
   // Función para cancelar
@@ -107,13 +108,13 @@ export class DialogFormularioMedicoModifComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  crearFormularioMedico(): void {
-    this.medicoForm = this.fb.group({
+  crearFormularioEnfermero(): void {
+    this.enfermeroForm = this.fb.group({
       dni: [this.data.dni, dniValidator()],
       nom: [this.data.nom],
       telefon: [this.data.telefon,[Validators.pattern('^[^a-zA-Z]*$')]],
       usuariId: [this.data.usuariId, [], (control: AbstractControl) => {
-        return this.medicoValidator.validate(control).pipe(
+        return this.enfermeroValidator.validate(control).pipe(
           map((result) => {
             // solo actua el validador si el usuario lo toca
             return control.touched ? result : null;
@@ -128,11 +129,8 @@ export class DialogFormularioMedicoModifComponent implements OnInit {
   obtenerUsuaris(): void {
     this.usuariService.getUsuarios().subscribe({
       next: (data:Usuari[]) => {
-        
         //cojemos los usuarios con rolId medico
-        this.usuaris = data.filter((usuari) => usuari.rolId === 'Metge');
-        
-        
+        this.usuaris = data.filter((usuari) => usuari.rolId === 'Enfermer'); 
       },
       error: (error: any) => {
         console.log('Error al obtener los usuarios');

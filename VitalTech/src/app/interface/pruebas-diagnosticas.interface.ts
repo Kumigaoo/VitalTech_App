@@ -1,4 +1,4 @@
-export interface Consulta {
+export interface PruebasDiagnosticas {
     id: number;
     urgencia: string;
     sintomatologia: string;

@@ -8,8 +8,8 @@ import { EpisodiService } from '../../../../../../service/episodis.service';
 
 @Component({
   selector: 'app-registro-consulta',
-  templateUrl: './registro-consulta.component.html',
-  styleUrl: './registro-consulta.component.css'
+  templateUrl: './registro-pruebas-diagnosticas.component.html',
+  styleUrl: './registro-pruebas-diagnosticas.component.css'
 })
 export class RegistroConsultaComponent {
 

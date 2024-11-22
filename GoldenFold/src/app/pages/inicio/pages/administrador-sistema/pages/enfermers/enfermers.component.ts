@@ -6,6 +6,9 @@ import { SnackbarComponent } from '../../../../../../components/snackbar/snackba
 import { MatSort } from '@angular/material/sort';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EnfermeroService } from '../../../../../../services/enfermero.service';
+import { getMatIconFailedToSanitizeUrlError } from '@angular/material/icon';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogFormularioEnfermeroModifComponent } from '../../../../../../components/Formularios/Enfermero/dialog-formulario-ingreso-modif/dialog-formulario-medico-modif.component';
 
 @Component({
   selector: 'app-enfermers',
@@ -13,7 +16,7 @@ import { EnfermeroService } from '../../../../../../services/enfermero.service';
   styleUrl: './enfermers.component.css'
 })
 export class EnfermersComponent {
-  displayedColumns: string[] = ['dni','nom','telefon','usuariId','enfermerEspecialitat','pruebasDiagnosticas'];
+  displayedColumns: string[] = ['dni','nom','telefon','usuariId','especialitat','pruebasDiagnosticas','Actions'];
 
   enfermeros : MatTableDataSource<Enfermero> = new MatTableDataSource<Enfermero>();
 
@@ -24,7 +27,7 @@ export class EnfermersComponent {
   enfermeroForm!: FormGroup;
   enfermeroParaActualizar: Enfermero | null = null;
 
-  constructor(private enfermeroService: EnfermeroService, private fb: FormBuilder){
+  constructor(private enfermeroService: EnfermeroService, private fb: FormBuilder, private dialog: MatDialog){
     this.obtenerEnfermeros();
     this.crearFormularioEnfermero();
   }
@@ -52,7 +55,53 @@ export class EnfermersComponent {
       nom:['',Validators.required],
       telefon:[0],
       usuariId:['',Validators.required],
-      enfermerEspecialitat:['',Validators.required]
+      Especialitat:['',Validators.required]
+    })
+  }
+
+  deleteEnfermero(enfermero: Enfermero): void{
+    this.enfermeroService.deleteEnfermero(enfermero.dni).subscribe({
+      next:() => {
+        this.enfermeros.data = this.enfermeros.data.filter(i => i.dni != enfermero.dni);
+        this.snackbar.showNotification('success', 'Enfermero eliminado correctamente'); // Notificación de éxito
+      },
+      error:(error: any) => {
+        console.log('ERROR',error);
+      }
+    })
+  }
+
+  filtrarEnfermeros(event: {type: string, term: string}): void{
+    const {type,term} = event;
+    const searchTerm = term.trim().toLowerCase();
+
+    this.enfermeros.filterPredicate = (data:Enfermero,filter:string) => {
+      switch(type) {
+        case 'dni':
+          return data.dni.toString().toLowerCase().includes(filter);
+        case 'nom':
+          return data.nom.toString().toLowerCase().includes(filter);
+        case 'usuariId':
+          return data.usuariId.toString().toLowerCase().includes(filter);
+        case 'telefon':
+          return data.telefon.toString().toLowerCase().includes(filter);
+        case 'especialitat':
+          return data.especialitat.toString().toLowerCase().includes(filter);
+        default:
+          return false;
+      }
+    };
+    this.enfermeros.filter = searchTerm;
+
+    if(this.enfermeros.paginator){
+      this.enfermeros.paginator.firstPage();
+    }
+  }
+
+  tooggleAgregarEnfermero(): void{
+    this.crearFormularioEnfermero();
+    this.dialog.open(DialogFormularioEnfermeroModifComponent, {
+      data: this.enfermeroForm
     })
   }
 

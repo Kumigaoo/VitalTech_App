@@ -1,4 +1,4 @@
-export enum Especialidades
+export enum EspecialidadesMedico
 {
     MedicoGeneral = 1,
     Cardiologo = 2,
