@@ -9,7 +9,6 @@ namespace HospitalAPI
     {
         public MapConfig()
         {
-
             CreateMap<Enfermer, EnfermerCreateDTO>().ReverseMap();
             CreateMap<Enfermer, EnfermerReadDTO>().ReverseMap();
             CreateMap<Enfermer, EnfermerUpdateDTO>().ReverseMap();
@@ -58,6 +57,8 @@ namespace HospitalAPI
             CreateMap<Usuari, UsuariReadDTO>().ReverseMap();
             CreateMap<Usuari, UsuariCreateDTO>().ReverseMap();
 
+            CreateMap<Administratiu, AdministratiuReadDTO>().ReverseMap();
+            CreateMap<Administratiu, AdministratiuUpdateDTO>().ReverseMap();
         }
     }
 }
