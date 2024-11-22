@@ -8,7 +8,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EnfermeroService } from '../../../../../../services/enfermero.service';
 import { getMatIconFailedToSanitizeUrlError } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogFormularioEnfermeroModifComponent } from '../../../../../../components/Formularios/Enfermero/dialog-formulario-ingreso-modif/dialog-formulario-medico-modif.component';
+import { DialogFormularioEnfermeroModifComponent } from '../../../../../../components/Formularios/Enfermero/dialog-formulario-ingreso-modif/dialog-formulario-enfermero-modif.component';
 
 @Component({
   selector: 'app-enfermers',
@@ -55,7 +55,7 @@ export class EnfermersComponent {
       nom:['',Validators.required],
       telefon:[0],
       usuariId:['',Validators.required],
-      Especialitat:['',Validators.required]
+      especialitat:['',Validators.required]
     })
   }
 
@@ -98,10 +98,37 @@ export class EnfermersComponent {
     }
   }
 
+  agregarEnfermero(): void{
+    if(this.enfermeroForm.valid){
+      const nuevoEnfermero: Enfermero = this.enfermeroForm.value;
+      console.log(nuevoEnfermero);
+      this.enfermeroService.postEnfermero(nuevoEnfermero).subscribe({
+        next:(enfermero: Enfermero) => {
+          console.log('Enfermero:',enfermero);
+          this.enfermeros.data = [...this.enfermeros.data,enfermero];
+          this.obtenerEnfermeros();
+          this.enfermeroForm.reset();
+          this.snackbar.showNotification('succes','Enfermero creado correctamente');
+        },
+        error:(error: any) => {
+          const mensajeError =
+              error.error || 'Error inesperado. Inténtalo de nuevo.';
+              this.snackbar.showNotification('error', mensajeError); // Notificación de éxito
+        }
+      })
+
+    }
+  }
+
   tooggleAgregarEnfermero(): void{
     this.crearFormularioEnfermero();
     this.dialog.open(DialogFormularioEnfermeroModifComponent, {
       data: this.enfermeroForm
+    }).afterClosed().subscribe((enfermeroActualizado) => {
+      if(enfermeroActualizado){
+        this.enfermeroForm.patchValue(enfermeroActualizado);
+        this.agregarEnfermero();
+      }
     })
   }
 
