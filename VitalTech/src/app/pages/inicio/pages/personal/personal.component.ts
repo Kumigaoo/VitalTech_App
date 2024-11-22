@@ -3,11 +3,12 @@ import { RouterLinkActive, RouterLink, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { MetgeService } from '../../../../service/metge.service';
 import { Metge } from '../../../../interface/metge.interface';
-import { ConsultesPopupComponent } from '../../../../components/pop-ups/consultes-popup/consultes-popup.component';
+import { PruebasDiagnosticasPopupComponent } from '../../../../components/pop-ups/pruebas-diagnosticas-popup/pruebas-diagnosticas-popup.component';
 import { MatDialog } from '@angular/material/dialog';
 import Swal from 'sweetalert2';
 import { EnumTranslatePipe } from '../../../../pipes/enum-translate.pipe';
 import Fuse from 'fuse.js';
+import { EpisodisMedicsPopupComponent } from '../../../../components/pop-ups/episodis-medics-popup/episodis-medics-popup.component';
 
 @Component({
   selector: 'app-metge',
@@ -64,8 +65,18 @@ export class PersonalComponent {
   }
 
   openConsultes(metge: any): void {
-    this.dialog.open(ConsultesPopupComponent, {
+    this.dialog.open(PruebasDiagnosticasPopupComponent, {
       data: { consultes: metge.consultes },
+      width: '80vw',
+      height: '70vh',
+      maxWidth: '1000px',
+      maxHeight: '500px'
+    });
+  }
+
+  openEpisodis (metge: any): void {
+    this.dialog.open(EpisodisMedicsPopupComponent, {
+      data: { episodis: metge.episodis },
       width: '80vw',
       height: '70vh',
       maxWidth: '1000px',
