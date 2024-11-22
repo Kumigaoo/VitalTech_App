@@ -6,6 +6,6 @@ export interface Enfermero {
   nom: string;
   telefon: number;
   usuariId: string;
-  enfermerEspecialitat: string;
+  especialitat: string;
   pruebasDiagnosticas: PruebaDiagnostica[]
 }

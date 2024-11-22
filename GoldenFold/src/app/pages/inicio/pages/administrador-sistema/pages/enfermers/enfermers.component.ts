@@ -6,6 +6,7 @@ import { SnackbarComponent } from '../../../../../../components/snackbar/snackba
 import { MatSort } from '@angular/material/sort';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EnfermeroService } from '../../../../../../services/enfermero.service';
+import { getMatIconFailedToSanitizeUrlError } from '@angular/material/icon';
 
 @Component({
   selector: 'app-enfermers',
@@ -13,7 +14,7 @@ import { EnfermeroService } from '../../../../../../services/enfermero.service';
   styleUrl: './enfermers.component.css'
 })
 export class EnfermersComponent {
-  displayedColumns: string[] = ['dni','nom','telefon','usuariId','enfermerEspecialitat','pruebasDiagnosticas','Actions'];
+  displayedColumns: string[] = ['dni','nom','telefon','usuariId','especialitat','pruebasDiagnosticas','Actions'];
 
   enfermeros : MatTableDataSource<Enfermero> = new MatTableDataSource<Enfermero>();
 
@@ -52,7 +53,7 @@ export class EnfermersComponent {
       nom:['',Validators.required],
       telefon:[0],
       usuariId:['',Validators.required],
-      enfermerEspecialitat:['',Validators.required]
+      Especialitat:['',Validators.required]
     })
   }
 
@@ -66,6 +67,33 @@ export class EnfermersComponent {
         console.log('ERROR',error);
       }
     })
+  }
+
+  filtrarEnfermeros(event: {type: string, term: string}): void{
+    const {type,term} = event;
+    const searchTerm = term.trim().toLowerCase();
+
+    this.enfermeros.filterPredicate = (data:Enfermero,filter:string) => {
+      switch(type) {
+        case 'dni':
+          return data.dni.toString().toLowerCase().includes(filter);
+        case 'nom':
+          return data.nom.toString().toLowerCase().includes(filter);
+        case 'usuariId':
+          return data.usuariId.toString().toLowerCase().includes(filter);
+        case 'telefon':
+          return data.telefon.toString().toLowerCase().includes(filter);
+        case 'especialitat':
+          return data.especialitat.toString().toLowerCase().includes(filter);
+        default:
+          return false;
+      }
+    };
+    this.enfermeros.filter = searchTerm;
+
+    if(this.enfermeros.paginator){
+      this.enfermeros.paginator.firstPage();
+    }
   }
 
 }
