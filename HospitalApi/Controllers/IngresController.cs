@@ -100,6 +100,16 @@ namespace HospitalAPI.Controllers
                 return BadRequest("Error: no existeix el llit amb l'ID indicat.");
             }
 
+            if (llit.Ocupat){
+                _logger.LogError("La cama no esta disponible");
+                return BadRequest("La cama no esta disponible");
+            }
+
+            if(llit.ForaDeServei){
+                _logger.LogError("La cama esta fora de servei");
+                return BadRequest("La cama esta fora de servei");
+            }
+
             if (episodi == null)
             {
                 _logger.LogError("Error: no existeix l'episodi mèdic indicat.");
@@ -108,9 +118,12 @@ namespace HospitalAPI.Controllers
 
             Ingres ingres = _mapper.Map<Ingres>(userIngresDTO);
             ingres.LlitId = llit.Id;
+            ingres.Llit = llit;
             ingres.EpisodiMedicId = episodi.Id;
             
             ingres.DataSortida=null;
+
+            
             llit.Ocupat = true;
             _bbdd.Update(llit);
 
@@ -145,6 +158,7 @@ namespace HospitalAPI.Controllers
             if (llit == null) return NotFound("No existeix llit amb aquest ID.");
 
             llit.Ocupat=false;
+            llit.Ingressos = null;
 
             _bbdd.Update(llit);
 
@@ -162,7 +176,7 @@ namespace HospitalAPI.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> UpdateIngres(int id, [FromBody] IngresCreateDTO userIngresDTO)
         {
-            var ingres = await _bbdd.Ingressos.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id);
+            var ingres = await _bbdd.Ingressos.FirstOrDefaultAsync(h => h.Id == id);
             var codiLlitOrig = ingres.LlitId;
 
             if (ingres == null)
@@ -171,39 +185,51 @@ namespace HospitalAPI.Controllers
                 return NotFound("No existeix ingrés amb aquest ID.");
             }
 
-            _mapper.Map(userIngresDTO, ingres);
-
             var llit = await (from p in _bbdd.Llits where p.CodiLlit == userIngresDTO.CodiLlit select p).FirstOrDefaultAsync();
             if (llit == null) return NotFound("No existeix llit amb aquest ID.");
             var llitOrig = await (from p in _bbdd.Llits where p.Id == codiLlitOrig select p).FirstOrDefaultAsync();
 
-            DateTime data = DateTime.Now;
-
             if (llit.CodiLlit != llitOrig.CodiLlit){
                llitOrig.Ocupat = false;
+               llitOrig.Ingressos = null;
                _bbdd.Update(llitOrig);
             }
-
-            if(llit.Ocupat == false){
-                llit.Ocupat = true;
-                _bbdd.Update(llit);
-                
-            }
-            if (ingres.DataSortida.HasValue){
+            
+            var ingresos = llit.Ingressos;
+            if(userIngresDTO.DataSortida != null){
+                ingres.DataSortida = userIngresDTO.DataSortida.Value;
                 llit.Ocupat = false;
+                llit.Ingressos  = null;
                 _bbdd.Update(llit);
+                llit.Ingressos = ingresos;
+            } else {
+                if(!llit.Ocupat  && !llit.ForaDeServei ){
+                    llit.Ocupat = true;
+                    _bbdd.Update(llit);
+                } else {
+                    _logger.LogError("Cama no disponible.");
+                    return NotFound("Cama no disponible.");
+                }
             }
-        
+            
 
             ingres.LlitId = llit.Id;
-            _bbdd.Ingressos.Update(ingres);
+            ingres.Llit = llit;
+
+            Ingres ingresoMap = _mapper.Map(userIngresDTO, ingres);
+
+            ingresoMap.LlitId = llit.Id;
+            ingresoMap.Llit = llit;
+
+            _bbdd.Ingressos.Update(ingresoMap);
+            
             await _bbdd.SaveChangesAsync();
+            
 
             _logger.LogInformation("Modificació efectuada correctament.");
             return NoContent();
 
         }
-
-        
+ 
     }
 }

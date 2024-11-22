@@ -166,6 +166,7 @@ namespace HospitalAPI.Controllers
                 _logger.LogError("No existeix llit amb aquest ID.");
                 return NotFound("No existeix llit amb aquest ID.");
             }
+
             var habitacio = await _bbdd.Habitacions
             .Include(h => h.Llits)
             .FirstOrDefaultAsync(h => h.CodiHabitacio == userLlitDTO.CodiHabitacio);
@@ -174,9 +175,14 @@ namespace HospitalAPI.Controllers
             {
                 _logger.LogError("No existeix una habitacio amb aquest codi");
                 return NotFound("No existeix una habitacio amb aquest codi");
-            }
+            } 
 
             llit.Habitacio = habitacio;
+
+            if (llit.Ocupat && userLlitDTO.ForaDeServei){
+                _logger.LogError("No pot estar fora de servei si la cama esta ocupada");
+                return NotFound("No pot estar fora de servei si la cama esta ocupada");
+            }
 
             _mapper.Map(userLlitDTO, llit);
             llit.HabitacioId = habitacio.Id;
