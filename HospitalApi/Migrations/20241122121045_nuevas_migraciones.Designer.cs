@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HospitalApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241119091519_xD")]
-    partial class xD
+    [Migration("20241122121045_nuevas_migraciones")]
+    partial class nuevas_migraciones
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -412,7 +412,7 @@ namespace HospitalApi.Migrations
                 {
                     b.HasBaseType("HospitalAPI.Models.Personal");
 
-                    b.Property<string>("Hobby")
+                    b.Property<string>("Prioridad")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

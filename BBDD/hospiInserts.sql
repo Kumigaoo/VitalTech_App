@@ -258,8 +258,8 @@ INSERT INTO Enfermers (Id, Especialitat) VALUES ((SELECT Id FROM Personal WHERE 
 INSERT INTO Enfermers (Id, Especialitat) VALUES ((SELECT Id FROM Personal WHERE DNI = '44332211D'), 'Cuidados Intensivos');
 
 -- Insertar AdministradorSistema
-INSERT INTO AdministradorSistema (Id, Hobby) VALUES ((SELECT Id FROM Personal WHERE DNI = '77777777G'), 'Fotografía');
-INSERT INTO AdministradorSistema (Id, Hobby) VALUES ((SELECT Id FROM Personal WHERE DNI = '88888888H'), 'Cocina');
+INSERT INTO AdministradorSistema (Id, Prioridad) VALUES ((SELECT Id FROM Personal WHERE DNI = '77777777G'), 'Maxima');
+INSERT INTO AdministradorSistema (Id, Prioridad) VALUES ((SELECT Id FROM Personal WHERE DNI = '88888888H'), 'Neutral');
 
 
 -- Insertar pacientes

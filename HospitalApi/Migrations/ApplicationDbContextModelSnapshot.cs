@@ -409,7 +409,7 @@ namespace HospitalApi.Migrations
                 {
                     b.HasBaseType("HospitalAPI.Models.Personal");
 
-                    b.Property<string>("Hobby")
+                    b.Property<string>("Prioridad")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
