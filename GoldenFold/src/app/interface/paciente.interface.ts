@@ -12,5 +12,6 @@ export interface Paciente {
     email: string;
     administratiuId: number;
     birthDay : string;
+    estado: string,
     episodisMedics: EpisodiMedic[];
   }

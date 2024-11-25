@@ -1,6 +1,4 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { ConsultaService } from '../../../../../../services/consulta.service';
-import { Consulta } from '../../../../../../interface/consulta.interface';
 import { SnackbarComponent } from '../../../../../../components/snackbar/snackbar.component';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
@@ -9,42 +7,41 @@ import { MatDialog } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
 import { DialogFormularioConsultaComponent } from '../../../../../../components/Formularios/Consulta/dialog-formulario-consulta-registro/dialog-formulario-consulta.component';
 import { DialogFormularioConsultaModifComponent } from '../../../../../../components/Formularios/Consulta/dialog-formulario-consulta-modif/dialog-formulario-consulta-modif.component';
+import { PruebaDiagnostica } from '../../../../../../interface/pruebas-diagnosticas.interface';
+import { PruebasService } from '../../../../../../services/pruebas.service';
 
 @Component({
-  selector: 'app-consultas',
-  templateUrl: './consultas.component.html',
-  styleUrls: ['./consultas.component.css']
+  selector: 'app-preubas',
+  templateUrl: './pruebas.component.html',
+  styleUrls: ['./pruebas.component.css']
 })
-export class ConsultasComponent implements OnInit, AfterViewInit {
+export class PruebasComponent implements OnInit, AfterViewInit {
 
   @ViewChild(SnackbarComponent) snackbar!: SnackbarComponent
 
   displayedColumns: string[] = ['id', 'urgencia', 'sintomatologia','receta','dniPersonal','episodiMedicId','acciones'];
-  dataSource: MatTableDataSource<Consulta>  = new MatTableDataSource<Consulta>([]);
+  dataSource: MatTableDataSource<PruebaDiagnostica>  = new MatTableDataSource<PruebaDiagnostica>([]);
   
   totalItems = 0;
   itemsPerPage = 300;
   pageIndex = 0;
 
-  consultas: Consulta[] = [];
-  addingConsulta;
-  consultaSeleccionada: Consulta | null = null;
+  pruebas: PruebaDiagnostica[] = [];
+  addingPrueba;
+ pruebaSeleccionada: PruebaDiagnostica | null = null;
   
   noti: string | null = null;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private consultaService: ConsultaService,public dialog: MatDialog, private http: HttpClient) {
-    this.addingConsulta = {
-      urgencia: '',
-      sintomatologia: '',
-      recepta: '',
-      //IdPaciente: 0,
-      dniPersonal: '',
-      episodiMedicId: 0
-      //Motivo: '',
-      //Estado: ''
+  constructor(private pruebaService: PruebasService,public dialog: MatDialog, private http: HttpClient) {
+    this.addingPrueba = {
+        id: 0,
+        dniMetge: '',
+        dniEnfermer: '',
+        episodiMedicId: 0,
+        dolencia: ''
     };
   }
 
@@ -58,9 +55,9 @@ export class ConsultasComponent implements OnInit, AfterViewInit {
   }
 
   obtenerConsultas(): void {
-    this.consultaService.getConsultas().subscribe({
-      next: (data: Consulta[]) => {
-        this.consultas = data;
+    this.pruebaService.getPruebasDiagnostricas().subscribe({
+      next: (data: PruebaDiagnostica[]) => {
+        this.pruebas = data;
         this.totalItems = data.length;
         this.actualizarPagina(0, this.itemsPerPage);
       },
@@ -73,7 +70,7 @@ export class ConsultasComponent implements OnInit, AfterViewInit {
   actualizarPagina(pageIndex: number, pageSize: number) {
     const startIndex = pageIndex * pageSize;
     const endIndex = startIndex + pageSize;
-    this.dataSource.data = this.consultas.slice(startIndex, endIndex);
+    this.dataSource.data = this.pruebas.slice(startIndex, endIndex);
   }
 
   onPaginateChange(event: PageEvent) {
@@ -83,15 +80,15 @@ export class ConsultasComponent implements OnInit, AfterViewInit {
   }
 
   toggleFormularioAgregar(): void {
-    this.addingConsulta = {
-      urgencia: '',
-      sintomatologia: '',
-      recepta: '',
-      dniPersonal: '',
-      episodiMedicId: 0
+    this.addingPrueba = {
+      id: 0,
+      dniMetge: '',
+      dniEnfermer: '',
+      episodiMedicId: 0,
+      dolencia: ''
     };
     this.dialog.open(DialogFormularioConsultaComponent, {
-      data: this.addingConsulta
+      data: this.addingPrueba
     }).afterClosed().subscribe((consultaCreada) => {
       if (consultaCreada) {
         this.guardarConsulta();
@@ -99,24 +96,24 @@ export class ConsultasComponent implements OnInit, AfterViewInit {
     });
   } 
 
-  toggleActualizarConsulta(consulta: Consulta): void {
-    this.consultaSeleccionada = { ...consulta };
+  toggleActualizarConsulta(prueba: PruebaDiagnostica): void {
+    this.pruebaSeleccionada = { ...prueba };
     this.dialog.open(DialogFormularioConsultaModifComponent, {
-      data: this.consultaSeleccionada
-    }).afterClosed().subscribe((consultaActualizada) => {
-      if (consultaActualizada) {
-        this.consultaSeleccionada = consultaActualizada;
+      data: this.pruebaSeleccionada
+    }).afterClosed().subscribe((pruebaActualizada) => {
+      if (pruebaActualizada) {
+        this.pruebaSeleccionada = pruebaActualizada;
         this.actualizarConsulta();
       }
     });
   }
 
   cerrarFormulario(): void {
-    this.consultaSeleccionada = null;
+    this.pruebaSeleccionada = null;
   }
 
   guardarConsulta(): void {
-    this.http.post('http://localhost:5296/api/Consulta', this.addingConsulta).subscribe({
+    this.http.post('http://localhost:5296/api/Consulta', this.addingPrueba).subscribe({
       next: () => {
         this.obtenerConsultas();
         this.cerrarFormulario();
@@ -130,7 +127,7 @@ export class ConsultasComponent implements OnInit, AfterViewInit {
   }
 
   borrarConsulta(id: number): void {
-    this.consultaService.deleteConsulta(id).subscribe({
+    this.pruebaService.deletePruebaDiagnostica(id).subscribe({
       next: () => {
         this.obtenerConsultas(); 
         this.snackbar.showNotification('success', 'Consulta eliminada correctamente');
@@ -143,8 +140,8 @@ export class ConsultasComponent implements OnInit, AfterViewInit {
   }
 
   actualizarConsulta(): void {
-    if (this.consultaSeleccionada) {
-      this.consultaService.updateConsulta(this.consultaSeleccionada).subscribe({
+    if (this.pruebaSeleccionada) {
+      this.pruebaService.putPruebaDiagnostica(this.pruebaSeleccionada).subscribe({
         next: () => {
           this.obtenerConsultas();
           this.cerrarFormulario();
@@ -164,16 +161,16 @@ export class ConsultasComponent implements OnInit, AfterViewInit {
     const { type, term } = event;
     const searchterm = term.trim().toLowerCase();
     
-    this.dataSource.filterPredicate = (data: Consulta, filter: string) => {
+    this.dataSource.filterPredicate = (data: PruebaDiagnostica, filter: string) => {
         switch (type) {
             case 'urgencia': 
-                return data.urgencia?.toLowerCase().includes(filter) ?? false;
+                return data.dniMetge?.toLowerCase().includes(filter) ?? false;
             case 'sintomatologia': 
-                return data.sintomatologia?.toLowerCase().includes(filter) ?? false;
+                return data.dniEnfermer?.toLowerCase().includes(filter) ?? false;
             case 'receta': 
-                return data.recepta?.toLowerCase().includes(filter) ?? false;
+                return data.episodiMedicId?.toString().includes(filter) ?? false;
             case 'dniPersonal': 
-                return data.dniPersonal?.toLowerCase().includes(filter) ?? false;
+                return data.dolencia?.toLowerCase().includes(filter) ?? false;
             case 'id': 
                 return data.id?.toString().includes(filter) ?? false;
             default: 
@@ -189,12 +186,5 @@ export class ConsultasComponent implements OnInit, AfterViewInit {
     }
 
 }
-
-// HTML code remains the same
-
-
-    
-    
-  
 
 }

@@ -38,6 +38,8 @@ namespace HospitalAPI.Models
         [Required]
         public DateTime BirthDay { get; set; }
 
+        public string? Estado { get; set; }
+
         public ICollection<EpisodiMedic>? EpisodisMedics { get; set; }
 
     }

@@ -106,6 +106,8 @@ namespace HospitalAPI.Controllers
 
             Pacient pacient = _mapper.Map<Pacient>(userPacientDTO);
 
+            pacient.Estado = "baja";
+
             await _bbdd.Pacients.AddAsync(pacient);
             await _bbdd.SaveChangesAsync();
 
@@ -140,7 +142,7 @@ namespace HospitalAPI.Controllers
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> UpdatePacient(string id, [FromBody] PacientCreateDTO userPacientDTO)
+        public async Task<IActionResult> UpdatePacient(string id, [FromBody] PacientUpdateDTO userPacientDTO)
         {
 
             if (userPacientDTO == null)

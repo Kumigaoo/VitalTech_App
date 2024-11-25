@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { PacienteService } from '../../../../../../services/paciente.service';
-import { ConsultaService } from '../../../../../../services/consulta.service';
 import { Paciente } from '../../../../../../interface/paciente.interface';
-import { Consulta } from '../../../../../../interface/consulta.interface';
 import { HttpErrorResponse } from '@angular/common/http';
+import { PruebaDiagnostica } from '../../../../../../interface/pruebas-diagnosticas.interface';
+import { PruebasService } from '../../../../../../services/pruebas.service';
 
 @Component({
   selector: 'app-buscar-paciente',
@@ -20,17 +20,15 @@ export class BuscarPacienteComponent {
   mostrarFormularioEdicion: boolean = false; // Mostrar u ocultar el formulario de edición
 
   // Inicializar un objeto vacío para la nueva consulta
-  consulta: Consulta = {
-    IdConsulta: 0,
-    IdPaciente: 0,
-    IdMedico: 0,
-    Motivo: '',
-    FechaSolicitud: new Date(),
-    FechaConsulta: null,
-    Estado: 'pendiente'
+  prueba: PruebaDiagnostica = {
+    id: 0,
+    dniMetge: '',
+    dniEnfermer: '',
+    episodiMedicId: 0,
+    dolencia: ''
   };
 
-  constructor(private pacienteService: PacienteService, private consultaService: ConsultaService) { }
+  constructor(private pacienteService: PacienteService, private pruebaService: PruebasService) { }
 
   buscarPaciente(event: Event) {
     event.preventDefault();
@@ -47,14 +45,14 @@ export class BuscarPacienteComponent {
 
     // Verificar si al menos uno de los campos de búsqueda está lleno
     if (this.searchName.trim() !== '' || this.searchSS.trim() !== '') {
-      this.pacienteService.getPacientes(this.searchName, this.searchSS).subscribe({
+      this.pacienteService.getPacients().subscribe({
         next: (pacientes: Paciente[]) => {
           if (pacientes.length > 0) {
             // Si ambos campos (nombre y SS) están llenos, filtrar los resultados
             if (this.searchName.trim() !== '' && this.searchSS.trim() !== '') {
               this.pacientesEncontrados = pacientes.filter(paciente =>
-                paciente.Nombre.toLowerCase() === this.searchName.toLowerCase() &&
-                paciente.SeguridadSocial === this.searchSS
+                paciente.nom.toLowerCase() === this.searchName.toLowerCase() &&
+                paciente.numSS === this.searchSS
               );
             } else {
               // Si solo uno de los campos está lleno, mostrar todos los resultados
@@ -80,7 +78,7 @@ export class BuscarPacienteComponent {
 
   // Seleccionar un paciente para editar
   editarPaciente(paciente: Paciente) {
-    if (this.pacienteSeleccionado && this.pacienteSeleccionado.IdPaciente === paciente.IdPaciente) {
+    if (this.pacienteSeleccionado && this.pacienteSeleccionado.dni === paciente.dni) {
       // Si ya está seleccionado, ocultar el formulario
       this.pacienteSeleccionado = null;
       this.mostrarFormularioEdicion = false;
@@ -96,7 +94,7 @@ export class BuscarPacienteComponent {
   // Actualizar los datos del paciente
   actualizarPaciente() {
     if (this.pacienteSeleccionado) {
-      this.pacienteService.updatePaciente(this.pacienteSeleccionado).subscribe({
+      this.pacienteService.putPacient(this.pacienteSeleccionado, "").subscribe({
         next: () => {
           this.buscarPaciente(new Event('')); // Rehacer la búsqueda para actualizar los datos
           this.pacienteSeleccionado = null; // Limpiar el paciente seleccionado

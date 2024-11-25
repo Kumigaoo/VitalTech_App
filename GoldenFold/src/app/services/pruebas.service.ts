@@ -18,7 +18,7 @@ export class PruebasService {
     return this.http.get<PruebaDiagnostica[]>(this.apiUrl);
   }
 
-  getPruebaDiagnosticaId(id : string): Observable<PruebaDiagnostica> {
+  getPruebaDiagnosticaId(id : number): Observable<PruebaDiagnostica> {
     return this.http.get<PruebaDiagnostica>(this.apiUrl+"/"+id);
   }
 
@@ -26,12 +26,12 @@ export class PruebasService {
     return this.http.post<PruebaDiagnostica>(this.apiUrl,medico);
   }
 
-  putPruebaDiagnostica(medico : PruebaDiagnostica,dni: string): Observable<PruebaDiagnostica> {
-    const url = `${this.apiUrl}/${dni}`;
-    return this.http.put<PruebaDiagnostica>(url, medico);
+  putPruebaDiagnostica(prueba : PruebaDiagnostica): Observable<PruebaDiagnostica> {
+    const url = `${this.apiUrl}/${prueba.id}`;
+    return this.http.put<PruebaDiagnostica>(url, prueba);
   }
 
-  deletePruebaDiagnostica(id : string): Observable<PruebaDiagnostica> {
+  deletePruebaDiagnostica(id : number): Observable<PruebaDiagnostica> {
     return this.http.delete<PruebaDiagnostica>(`${this.apiUrl}/${id}`);
   }
 }
