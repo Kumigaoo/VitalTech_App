@@ -263,15 +263,24 @@ INSERT INTO AdministradorSistema (Id, Prioridad) VALUES ((SELECT Id FROM Persona
 
 
 -- Insertar pacientes
-INSERT INTO Pacients (DNI, NumSS, Nom, Cognom1, Cognom2, Sexe, Telefono, Nacionalidad, Email, AdministratiuId, BirthDay) VALUES ('B87654321', 'SS87654321', 'María', 'López', '', 'Femenino', '600654321', 1, 'maria.lopez@hospital.com', (SELECT Administratiu.Id FROM Administratiu INNER JOIN Personal ON Administratiu.Id = Personal.Id WHERE Personal.DNI = '87654321B'), '1990-03-22');
-INSERT INTO Pacients (DNI, NumSS, Nom, Cognom1, Cognom2, Sexe, Telefono, Nacionalidad, Email, AdministratiuId, BirthDay) VALUES ('C11223344', 'SS11223344', 'Carlos', 'García', 'Rodríguez', 'Masculino', '600112233', 1, 'carlos.garcia@hospital.com', (SELECT Administratiu.Id FROM Administratiu INNER JOIN Personal ON Administratiu.Id = Personal.Id WHERE Personal.DNI = '11223344C'), '1978-11-05');
-INSERT INTO Pacients (DNI, NumSS, Nom, Cognom1, Cognom2, Sexe, Telefono, Nacionalidad, Email, AdministratiuId, BirthDay) VALUES ('D44332211', 'SS44332211', 'Laura', 'Fernández', '', 'Femenino', '600445566', 1, 'laura.fernandez@hospital.com', (SELECT Administratiu.Id FROM Administratiu INNER JOIN Personal ON Administratiu.Id = Personal.Id WHERE Personal.DNI = '44332211D'), '1982-06-30');
-INSERT INTO Pacients (DNI, NumSS, Nom, Cognom1, Cognom2, Sexe, Telefono, Nacionalidad, Email, AdministratiuId, BirthDay) VALUES ('E55555555', 'SS55555555', 'Miguel', 'Martín', 'Sánchez', 'Masculino', '600556677', 1, 'miguel.martin@hospital.com', (SELECT Administratiu.Id FROM Administratiu INNER JOIN Personal ON Administratiu.Id = Personal.Id WHERE Personal.DNI = '12345678A'), '1995-09-12');
-INSERT INTO Pacients (DNI, NumSS, Nom, Cognom1, Cognom2, Sexe, Telefono, Nacionalidad, Email, AdministratiuId, BirthDay) VALUES ('F66666666', 'SS66666666', 'Ana', 'Pérez', '', 'Femenino', '600667788', 1, 'ana.perez@hospital.com', (SELECT Administratiu.Id FROM Administratiu INNER JOIN Personal ON Administratiu.Id = Personal.Id WHERE Personal.DNI = '87654321B'), '1988-02-28');
-INSERT INTO Pacients (DNI, NumSS, Nom, Cognom1, Cognom2, Sexe, Telefono, Nacionalidad, Email, AdministratiuId, BirthDay) VALUES ('G77777777', 'SS77777777', 'Gonzalo', 'López', 'Ramírez', 'Masculino', '600778899', 1, 'gonzalo.lopez@hospital.com', (SELECT Administratiu.Id FROM Administratiu INNER JOIN Personal ON Administratiu.Id = Personal.Id WHERE Personal.DNI = '11223344C'), '1975-12-19');
-INSERT INTO Pacients (DNI, NumSS, Nom, Cognom1, Cognom2, Sexe, Telefono, Nacionalidad, Email, AdministratiuId, BirthDay) VALUES ('H88888888', 'SS88888888', 'Elena', 'Flores', '', 'Femenino', '600889900', 1, 'elena.flores@hospital.com', (SELECT Administratiu.Id FROM Administratiu INNER JOIN Personal ON Administratiu.Id = Personal.Id WHERE Personal.DNI = '44332211D'), '1992-04-08');
-INSERT INTO Pacients (DNI, NumSS, Nom, Cognom1, Cognom2, Sexe, Telefono, Nacionalidad, Email, AdministratiuId, BirthDay) VALUES ('I99999999', 'SS99999999', 'Jorge', 'García', 'Torres', 'Masculino', '600990011', 1, 'jorge.garcia@hospital.com', (SELECT Administratiu.Id FROM Administratiu INNER JOIN Personal ON Administratiu.Id = Personal.Id WHERE Personal.DNI = '12345678A'), '1983-10-25');
-INSERT INTO Pacients (DNI, NumSS, Nom, Cognom1, Cognom2, Sexe, Telefono, Nacionalidad, Email, AdministratiuId, BirthDay) VALUES ('J10101010', 'SS10101010', 'Sara', 'López', 'Gómez', 'Femenino', '600101112', 1, 'sara.lopez@hospital.com', (SELECT Administratiu.Id FROM Administratiu INNER JOIN Personal ON Administratiu.Id = Personal.Id WHERE Personal.DNI = '87654321B'), '1998-01-14');
+INSERT INTO Pacients (DNI, NumSS, Nom, Cognom1, Cognom2, Sexe, Telefono, Nacionalidad, Email, AdministratiuId, BirthDay, estado) VALUES ('B87654321', 'SS87654321', 'María', 'López', '', 'Femenino', '600654321', 1, 'maria.lopez@hospital.com', (SELECT Administratiu.Id FROM Administratiu INNER JOIN Personal ON Administratiu.Id = Personal.Id WHERE Personal.DNI = '87654321B'), '1990-03-22', 'alta');
+
+INSERT INTO Pacients (DNI, NumSS, Nom, Cognom1, Cognom2, Sexe, Telefono, Nacionalidad, Email, AdministratiuId, BirthDay, estado) VALUES ('C11223344', 'SS11223344', 'Carlos', 'García', 'Rodríguez', 'Masculino', '600112233', 1, 'carlos.garcia@hospital.com', (SELECT Administratiu.Id FROM Administratiu INNER JOIN Personal ON Administratiu.Id = Personal.Id WHERE Personal.DNI = '11223344C'), '1978-11-05', 'baja');
+
+INSERT INTO Pacients (DNI, NumSS, Nom, Cognom1, Cognom2, Sexe, Telefono, Nacionalidad, Email, AdministratiuId, BirthDay, estado) VALUES ('D44332211', 'SS44332211', 'Laura', 'Fernández', '', 'Femenino', '600445566', 1, 'laura.fernandez@hospital.com', (SELECT Administratiu.Id FROM Administratiu INNER JOIN Personal ON Administratiu.Id = Personal.Id WHERE Personal.DNI = '44332211D'), '1982-06-30', 'alta');
+
+INSERT INTO Pacients (DNI, NumSS, Nom, Cognom1, Cognom2, Sexe, Telefono, Nacionalidad, Email, AdministratiuId, BirthDay, estado) VALUES ('E55555555', 'SS55555555', 'Miguel', 'Martín', 'Sánchez', 'Masculino', '600556677', 1, 'miguel.martin@hospital.com', (SELECT Administratiu.Id FROM Administratiu INNER JOIN Personal ON Administratiu.Id = Personal.Id WHERE Personal.DNI = '12345678A'), '1995-09-12', 'baja');
+
+INSERT INTO Pacients (DNI, NumSS, Nom, Cognom1, Cognom2, Sexe, Telefono, Nacionalidad, Email, AdministratiuId, BirthDay, estado) VALUES ('F66666666', 'SS66666666', 'Ana', 'Pérez', '', 'Femenino', '600667788', 1, 'ana.perez@hospital.com', (SELECT Administratiu.Id FROM Administratiu INNER JOIN Personal ON Administratiu.Id = Personal.Id WHERE Personal.DNI = '87654321B'), '1988-02-28', 'baja');
+
+INSERT INTO Pacients (DNI, NumSS, Nom, Cognom1, Cognom2, Sexe, Telefono, Nacionalidad, Email, AdministratiuId, BirthDay, estado) VALUES ('G77777777', 'SS77777777', 'Gonzalo', 'López', 'Ramírez', 'Masculino', '600778899', 1, 'gonzalo.lopez@hospital.com', (SELECT Administratiu.Id FROM Administratiu INNER JOIN Personal ON Administratiu.Id = Personal.Id WHERE Personal.DNI = '11223344C'), '1975-12-19', 'alta');
+
+INSERT INTO Pacients (DNI, NumSS, Nom, Cognom1, Cognom2, Sexe, Telefono, Nacionalidad, Email, AdministratiuId, BirthDay, estado) VALUES ('H88888888', 'SS88888888', 'Elena', 'Flores', '', 'Femenino', '600889900', 1, 'elena.flores@hospital.com', (SELECT Administratiu.Id FROM Administratiu INNER JOIN Personal ON Administratiu.Id = Personal.Id WHERE Personal.DNI = '44332211D'), '1992-04-08', 'alta');
+
+INSERT INTO Pacients (DNI, NumSS, Nom, Cognom1, Cognom2, Sexe, Telefono, Nacionalidad, Email, AdministratiuId, BirthDay, estado) VALUES ('I99999999', 'SS99999999', 'Jorge', 'García', 'Torres', 'Masculino', '600990011', 1, 'jorge.garcia@hospital.com', (SELECT Administratiu.Id FROM Administratiu INNER JOIN Personal ON Administratiu.Id = Personal.Id WHERE Personal.DNI = '12345678A'), '1983-10-25', 'baja');
+
+INSERT INTO Pacients (DNI, NumSS, Nom, Cognom1, Cognom2, Sexe, Telefono, Nacionalidad, Email, AdministratiuId, BirthDay, estado) VALUES ('J10101010', 'SS10101010', 'Sara', 'López', 'Gómez', 'Femenino', '600101112', 1, 'sara.lopez@hospital.com', (SELECT Administratiu.Id FROM Administratiu INNER JOIN Personal ON Administratiu.Id = Personal.Id WHERE Personal.DNI = '87654321B'), '1998-01-14', 'baja');
+
 
 
 
@@ -295,7 +304,7 @@ INSERT INTO Ingressos (DataEntrada, DataSortida, EpisodiMedicId, LlitId) VALUES 
 
 
 -- Pruebas diagnosticas
-INSERT INTO PruebasDiagnosticas ( MetgeId, EnfermerId, EpisodiMedicId, Dolencia) VALUES ( 3, 4, 2, 'Dolor de cabeza');
+INSERT INTO PruebasDiagnosticas ( MetgeId, EnfermerId, EpisodiMedicId, Dolencia, Pruebas,Resultados,Correcta ) VALUES ( 3, 4, 2, 'Dolor de pie','Radiografia Pie','Pie jodidisimo',1);
 
 
 -- Permis

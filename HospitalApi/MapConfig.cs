@@ -41,6 +41,7 @@ namespace HospitalAPI
 
             CreateMap<Pacient, PacientReadDTO>().ReverseMap();
             CreateMap<Pacient, PacientCreateDTO>().ReverseMap();
+            CreateMap<Pacient, PacientUpdateDTO>().ReverseMap();
 
             CreateMap<Metge, MetgeReadDTO>().ReverseMap();
             CreateMap<Metge, MetgeCreateDTO>().ReverseMap();

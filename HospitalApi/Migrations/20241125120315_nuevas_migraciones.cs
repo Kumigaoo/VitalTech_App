@@ -246,7 +246,8 @@ namespace HospitalApi.Migrations
                     Nacionalidad = table.Column<int>(type: "int", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     AdministratiuId = table.Column<int>(type: "int", nullable: false),
-                    BirthDay = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    BirthDay = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Estado = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -350,6 +351,9 @@ namespace HospitalApi.Migrations
                     MetgeId = table.Column<int>(type: "int", nullable: false),
                     EnfermerId = table.Column<int>(type: "int", nullable: false),
                     EpisodiMedicId = table.Column<int>(type: "int", nullable: false),
+                    Pruebas = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Resultados = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Correcta = table.Column<bool>(type: "bit", nullable: false),
                     Dolencia = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
