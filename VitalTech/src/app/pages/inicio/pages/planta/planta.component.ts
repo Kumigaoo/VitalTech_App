@@ -1,6 +1,8 @@
 import { RouterLinkActive, RouterLink } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common'; 
+import { NgModel } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import { Planta } from '../../../../interface/planta.interface';
 import { PlantaService } from '../../../../service/planta.service';
 import { PlantaPopupComponent } from '../../../../components/pop-ups/planta-popup/planta-popup.component';
@@ -53,26 +55,38 @@ export class PlantaComponent {
         this.currentPage = this.currentPage - 1;
         this.loadPlantes();
     }
+  }
 
-  }
   searchPlanta(): void {
-    if (!isNaN(this.searchInput)) { 
-        this.plantaService.getPlanta(this.searchInput).subscribe({
-          next: (data) => {
-            this.plantes.splice(0, this.plantes.length + 1, data);
-            this.currentPage = 1;
-            this.totalPages = 1;
-            this.updateItemsPerPage();
-          },
-          error: (error) => {
-            console.error('Error al buscar la planta:', error),
-            alert('No existe la planta con id ' + this.searchInput );
-          }
-        });
-      } else {
-        alert('Por favor, ingresa un ID válido.'); 
-      }
+    if (this.searchInput === null || this.searchInput === undefined || this.searchInput.toString().trim() === '') {
+      //si el campo de búsqueda está vacío, se pone la lista de plantas entera
+      this.loadPlantes();
+      //si el campo consiste en un número...
+    } else if (!isNaN(this.searchInput)) { 
+      this.plantaService.getPlanta(this.searchInput).subscribe({
+        next: (data) => {
+          this.plantes.splice(0, this.plantes.length + 1, data);
+          this.currentPage = 1;
+          this.totalPages = 1;
+          this.updateItemsPerPage();
+        },
+        error: () => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'No existe la planta con ID. ' + this.searchInput,
+          }).then(() => { this.loadPlantes() });
+        }
+      });
+    } else {
+      Swal.fire({
+        icon: 'warning',
+        title: 'ID Inválido',
+        text: 'Por favor, introduce un ID válido.',
+      });
+    }
   }
+
 
   deletePlanta(piso: number): void {
 

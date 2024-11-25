@@ -5,7 +5,6 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { Consulta } from '../../../../interface/consulta.interface';
 import { Planta } from '../../../../interface/planta.interface';
 
 @Component({

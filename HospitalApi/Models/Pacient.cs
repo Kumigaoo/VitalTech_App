@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using HospitalApi.Enums;
 
 namespace HospitalAPI.Models
 {
@@ -25,7 +26,7 @@ namespace HospitalAPI.Models
         public string Sexe { get; set; } = string.Empty;
 
         public string Telefono {get; set;} = string.Empty;
-
+        
         public Nacionalidad Nacionalidad {get; set;}
 
         public string Email {get; set;} = string.Empty;
@@ -36,6 +37,8 @@ namespace HospitalAPI.Models
 
         [Required]
         public DateTime BirthDay { get; set; }
+
+        public string? Estado { get; set; }
 
         public ICollection<EpisodiMedic>? EpisodisMedics { get; set; }
 

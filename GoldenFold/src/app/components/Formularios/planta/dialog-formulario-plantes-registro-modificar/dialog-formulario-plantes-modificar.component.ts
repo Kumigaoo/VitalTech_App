@@ -5,7 +5,6 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { Consulta } from '../../../../interface/consulta.interface';
 import { Planta } from '../../../../interface/planta.interface';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -28,11 +27,49 @@ import { CommonModule } from '@angular/common';
 })
 
 export class DialogFormularioConsultaPlantesModificar {
+
+  plantaForm!:FormGroup;
+  editar: boolean = false;
+
   constructor(@Inject(MAT_DIALOG_DATA) public data: Planta,
-    public dialogRef: MatDialogRef<DialogFormularioConsultaPlantesModificar>) { };
+    public dialogRef: MatDialogRef<DialogFormularioConsultaPlantesModificar>,
+    private fb: FormBuilder) 
+  { };
+
+  ngOnInit(): void {
+    this.crearFormularioPlanta();
+    this.showDetails();
+  }
+
+  get isReadOnly(): boolean {
+    return !this.editar;
+  }
+
+  enableEditing() : void {
+    this.editar = true;
+    this.plantaForm.enable();
+  }
+  showDetails(): void {
+    this.editar = false;
+    this.plantaForm.disable();
+  }
+
+  crearFormularioPlanta(): void {
+    this.plantaForm = this.fb.group({
+      piso: [this.data.piso, [Validators.required]],
+      capacitatHabitacions: [this.data.capacitatHabitacions]
+    });
+  }
 
   // Método para manejar el envío del formulario
   guardar(): void {
-    this.dialogRef.close(this.data);
+
+    if (this.plantaForm.valid){
+      const formData = this.plantaForm.value;
+
+      this.dialogRef.close(formData);
+
+    }
+    
   }
 }

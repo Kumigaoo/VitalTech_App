@@ -17,6 +17,9 @@ import { DialogPacienteComponent } from '../../../../../../components/Formulario
 })
 export class PacientesComponent implements OnInit, AfterViewInit {
   @ViewChild(SnackbarComponent) snackbar!: SnackbarComponent
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
+  
   // Variables relacionadas con la tabla y los datos
   displayedColumns: string[] = ['dni', 'numSS', 'nom', 'birthDay', 'sexe', 'episodisMedics', 'acciones'];
   dataSource: MatTableDataSource<Paciente> = new MatTableDataSource<Paciente>([]);
@@ -28,8 +31,7 @@ export class PacientesComponent implements OnInit, AfterViewInit {
   nuevoPaciente: Paciente;
   notificacion: string | null = null;  // Variable para notificaciones
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
+
 
   pacienteSeleccionado: Paciente | null = null;
 
@@ -41,19 +43,12 @@ export class PacientesComponent implements OnInit, AfterViewInit {
       cognom1: '',
       cognom2: '',
       sexe: '',
+      telefono: '',
+      nacionalidad: '',
+      email: '',
+      administratiuId: 0,
       birthDay : '',
       episodisMedics: []
-      /*IdPaciente: 0,
-      Nombre: '',
-      Dni: '',
-      FechaNacimiento: new Date(),
-      Estado: 'Registrado',
-      FechaRegistro: new Date(),
-      SeguridadSocial: '',
-      Direccion: '',
-      Telefono: '',
-      Email: '',
-      HistorialMedico: ''*/
     };
   }
 
@@ -100,14 +95,6 @@ export class PacientesComponent implements OnInit, AfterViewInit {
     this.dataSource.data = this.pacientes.slice(startIndex, endIndex);
   }
 
-  /*filtrarPacientes(event: { type: string; term: string }): void {
-    const { term } = event;
-    this.dataSource.filter = term.trim().toLowerCase();
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
-  }*/
-
   // Mostrar el formulario para actualizar paciente
   toggleActualizarPaciente(paciente: Paciente): void {
     this.pacienteSeleccionado = { ...paciente };
@@ -129,6 +116,10 @@ export class PacientesComponent implements OnInit, AfterViewInit {
       cognom1: '',
       cognom2: '',
       sexe: '',
+      telefono: '',
+      nacionalidad: '',
+      email: '',
+      administratiuId: 0,
       birthDay : '',
       episodisMedics: []
     };

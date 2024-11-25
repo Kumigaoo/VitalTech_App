@@ -65,18 +65,18 @@ namespace HospitalAPI
 
             if(!ModelState.IsValid) //comprueba que los datos sean validos
             {
-                _logger.LogError("Els camps no son valids");
-                return BadRequest("Els camps no son valids");
+                _logger.LogError("Els camps no son vàlids");
+                return BadRequest("Els camps no son vàlids");
             }
             
             var adminDuplicado = await _bbdd.AdministradorSistema.FirstOrDefaultAsync(p => p.DNI == nouAministradorSistema.DNI);
-            if(adminDuplicado!=null) //comprueba que no este duplicado
+            if(adminDuplicado != null) //comprueba que no este duplicado
             {
                 _logger.LogError("Ja existeix un Administrador de sistema amb aquest DNI");
                 return BadRequest("Ja existeix un Administrador de sistema amb aquest DNI");
             }
             
-            var usuari = await _bbdd.Usuari.FirstOrDefaultAsync(p => p.Id == nouAministradorSistema.UsuariId); 
+            var usuari = await _bbdd.Usuari.FirstOrDefaultAsync(p => p.Username == nouAministradorSistema.UsuariId); 
             if(usuari==null) //comprueba que exista el usuario
             {
                 _logger.LogError("No existeix un Usuari amb aques ID");
@@ -118,7 +118,7 @@ namespace HospitalAPI
                 return NotFound("No existeix un Administrador del Sistema amb aquest DNI");
             }
 
-            var usuario = await _bbdd.Usuari.FirstOrDefaultAsync(p => p.Id == adminitradorDelSistema.UsuariId);
+            var usuario = await _bbdd.Usuari.FirstOrDefaultAsync(p => p.Username == adminitradorDelSistema.UsuariId);
             usuario.RolId = null;
 
             _bbdd.AdministradorSistema.Remove(adminitradorDelSistema);
@@ -147,7 +147,7 @@ namespace HospitalAPI
                 return NotFound("No existeix un Administrador del Sistema amb aquest DNI");
             }
             
-            var usuari = await _bbdd.Usuari.FirstOrDefaultAsync(p => p.Id == administradorSistemaUpdateDTO.UsuariId); 
+            var usuari = await _bbdd.Usuari.FirstOrDefaultAsync(p => p.Username == administradorSistemaUpdateDTO.UsuariId); 
             if(usuari==null) //comprueba que exista el usuario
             {
                 _logger.LogError("No existeix un Usuari amb aques ID");

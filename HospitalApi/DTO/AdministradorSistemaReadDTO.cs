@@ -8,8 +8,8 @@ namespace HospitalAPI.DTO
     public string DNI {get; set;} = string.Empty;
     public string Nom {get; set;} = string.Empty;
     public int Telefon {get; set;}
-    public int UsuariId { get; set; }
+    public string UsuariId { get; set; } = string.Empty;
 
-    public string Hobby { get; set; } = string.Empty;
+    public string Prioridad { get; set; } = string.Empty;
     }
 }

@@ -84,10 +84,8 @@ export class CamasComponent implements OnInit, AfterViewInit {
       next: (data: Cama[]) => {
         this.camas = data;
         this.totalItems = data.length;
-        //this.camasFiltradas = [...this.camas];
-        //this.totalPaginas = Math.ceil(this.camasFiltradas.length / this.camasPorPagina);
-        //this.verificarPaginaActual();
         this.actualizarPagina(0, this.itemsPerPage);
+        console.log(this.camas);
       },
       error: (error: any) => {
         console.error('Error al obtener las camas', error);
@@ -114,7 +112,7 @@ export class CamasComponent implements OnInit, AfterViewInit {
     }).afterClosed().subscribe((camaActualizada) => {
       if (camaActualizada) {
         this.camaSeleccionada = camaActualizada;
-        this.actualizarCama();
+        this.actualizarCama(cama.codiLlit);
       }
     });
   }
@@ -167,10 +165,10 @@ export class CamasComponent implements OnInit, AfterViewInit {
       },
     });
   }
-  actualizarCama(): void {
+  actualizarCama(codiLlit: string): void {
     console.log(this.camaSeleccionada); // Para verificar que pacienteSeleccionado no sea null o undefined
     if (this.camaSeleccionada) {
-      this.camaService.putLlit(this.camaSeleccionada).subscribe({
+      this.camaService.putLlit(codiLlit, this.camaSeleccionada).subscribe({
         next: () => {
           this.obtenerCamas();
           this.cerrarFormulario();
@@ -234,69 +232,4 @@ export class CamasComponent implements OnInit, AfterViewInit {
       this.dataSource.paginator.firstPage();
     }
   }
-  /*aplicarFiltros(): void {
-    this.camasFiltradas = this.camas.filter(cama => {
-      const coincideUbicacion = this.filtroUbicacion
-        ? cama.Ubicacion.toLowerCase().includes(this.filtroUbicacion.toLowerCase())
-        : true;
-      const coincideEstado = this.filtroEstado ? cama.Estado === this.filtroEstado : true;
-      const coincideTipo = this.filtroTipo ? cama.Tipo === this.filtroTipo : true;
-
-      return coincideUbicacion && coincideEstado && coincideTipo;
-    });
-
-    this.totalPaginas = Math.ceil(this.camasFiltradas.length / this.camasPorPagina);
-    this.verificarPaginaActual();
-  }
-
-  verificarPaginaActual(): void {
-    if (this.paginaActual > this.totalPaginas) {
-      this.paginaActual = this.totalPaginas; // Redirige a la última página si la actual es mayor
-    }
-    if (this.paginaActual < 1) {
-      this.paginaActual = 1; // Redirige a la primera página si la actual es menor
-    }
-  }*/
-
-  /*filtrarPorUbicacion(event: Event): void {
-    const inputElement = event.target as HTMLInputElement;
-    this.filtroUbicacion = inputElement.value;
-    this.aplicarFiltros();
-  }
-
-  filtrarPorEstado(event: Event): void {
-    const selectElement = event.target as HTMLSelectElement;
-    this.filtroEstado = selectElement.value;
-    this.aplicarFiltros();
-  }
-
-  filtrarPorTipo(event: Event): void {
-    const selectElement = event.target as HTMLSelectElement;
-    this.filtroTipo = selectElement.value;
-    this.aplicarFiltros();
-  }*/
-
-  /*siguientePagina(): void {
-    this.paginaActual++;
-    this.verificarPaginaActual();
-  }
-
-  paginaAnterior(): void {
-    this.paginaActual--;
-    this.verificarPaginaActual();
-  }
-
-  primeraPagina(): void {
-    this.paginaActual = 1;
-  }
-
-  ultimaPagina(): void {
-    this.paginaActual = this.totalPaginas;
-  }
-
-  // Método para obtener las camas para la página actual
-  obtenerCamasParaPagina(): Cama[] {
-    const inicio = (this.paginaActual - 1) * this.camasPorPagina;
-    return this.camasFiltradas.slice(inicio, inicio + this.camasPorPagina);
-  }*/
 }

@@ -22,6 +22,9 @@ export class RegistroPlantaComponent {
     });
   }
 
+  onAtras(){
+    this.router.navigate(['/inicio/planta']);
+  }
 
   onSubmit(){
     

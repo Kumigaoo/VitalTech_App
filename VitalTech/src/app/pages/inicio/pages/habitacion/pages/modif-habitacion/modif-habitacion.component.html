@@ -6,7 +6,8 @@
     <form type="submit" [formGroup]="habitacionForm" (ngSubmit)="onSubmit()" >
         <div class="identificador">
 
-            <div class="capzalera4">
+            <!--da error al intentar modificar la hab-->
+            <!-- <div class="capzalera4">
                 <label for="codiHabitacio">Código habitación: <span style="color: red;">*</span></label>
                 <input type="text" id="codiHabitacio" name ="habitacioId" formControlName="codiHabitacio" required
                 [ngClass]="{'is-invalid': habitacionForm.get('codiHabitacio')?.touched && habitacionForm.get('codiHabitacio')?.invalid || 
@@ -17,7 +18,7 @@
                     <small *ngIf="habitacionForm.get('codiHabitacio')?.hasError('pattern')">Construido por 3 números</small>
                     <small *ngIf="habitacionForm.get('codiHabitacio')?.hasError('habIdExists')">El ID ya existe</small>
                 </div>
-            </div>
+            </div> -->
 
             <div class="masInfo">
                 <div class="capzalera1">
@@ -31,21 +32,14 @@
                 </div>
             </div>
 
-            <div class="capzalera1">
-                <label for="plantaId">ID de planta:<span style="color: red;">*</span></label>
-                <input type="text" id="plantaId" name="plantaId" formControlName="plantaId" required
-                [ngClass]="{'is-invalid': habitacionForm.get('plantaId')?.touched && habitacionForm.get('plantaId')?.invalid || 
-                habitacionForm.hasError('codiHabitacioPlantaMismatch') }">
-                <div class="error-messages" *ngIf="habitacionForm.get('plantaId')?.touched  && habitacionForm.get('plantaId')?.invalid">
-                    <small *ngIf="habitacionForm.get('plantaId')?.hasError('required')">Este campo es obligatorio</small>
-                    <small *ngIf="habitacionForm.get('plantaId')?.hasError('pattern')">Construido por al menos un número</small>
-                    <small *ngIf="habitacionForm.get('plantaId')?.hasError('plantaIdNotFound')">El ID no existe</small>
-                </div>
-            </div>
+    
         </div>
         <div *ngIf="habitacionForm.hasError('codiHabitacioPlantaMismatch')" class="error-messages">
             <small>El primer número del id ha de coincidir con la planta</small>
-        </div> 
-        <button type="submit">Actualizar</button>
+        </div>   
+        <div class="botoneh" style="display: flex; gap: 10px; justify-content: center; margin-top: 100px;">
+            <button type="submit" style="margin: 0;">Actualizar</button>
+            <button class="atras" (click)="onAtras()" style="margin: 0;">Volver a habitaciones</button>
+        </div>
     </form>
 </div>

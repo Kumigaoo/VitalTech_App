@@ -2,7 +2,7 @@ import { Router } from '@angular/router';
 import { Component } from '@angular/core';
 import { EpisodiService } from '../../../../service/episodis.service';
 import { EpisodiMedic } from '../../../../interface/episodis-medics.interface';
-import { ConsultesPopupComponent } from '../../../../components/pop-ups/consultes-popup/consultes-popup.component';
+import { PruebasDiagnosticasPopupComponent } from '../../../../components/pop-ups/pruebas-diagnosticas-popup/pruebas-diagnosticas-popup.component';
 import { IngressosPopupComponent } from '../../../../components/pop-ups/ingressos-popup/ingressos-popup.component';
 import { MatDialog } from '@angular/material/dialog';
 import Swal from 'sweetalert2';
@@ -159,7 +159,7 @@ export class EpisodioComponent {
   }
 
   openConsultes(episodi: any): void {
-    this.dialog.open(ConsultesPopupComponent, {
+    this.dialog.open(PruebasDiagnosticasPopupComponent, {
       data: { consultes: episodi.consultes },
       width: '80vw',
       height: '70vh',

@@ -4,6 +4,7 @@ using HospitalApi.DTO;
 using HospitalAPI.DTO;
 using HospitalAPI.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 //using EntityFrameworkCore.MySQL.Data;
 using Microsoft.AspNetCore.Mvc;
@@ -33,7 +34,7 @@ namespace HospitalApi.Controllers
         public async Task<ActionResult<IEnumerable<EnfermerReadDTO>>> GetEnfermers()
         {
             _logger.LogInformation("Obtenint els enfermers");
-            IEnumerable<Enfermer> enfermersList = await _bbdd.Enfermer.ToListAsync();
+            IEnumerable<Enfermer> enfermersList = await _bbdd.Enfermer.Include("PruebasDiagnosticas").ToListAsync();
 
             return Ok(_mapper.Map<IEnumerable<EnfermerReadDTO>>(enfermersList));
 
@@ -46,7 +47,7 @@ namespace HospitalApi.Controllers
         public async Task<ActionResult<EnfermerReadDTO>> GetEnfermer(string DNI)
         {
 
-            var enfermer = await _bbdd.Enfermer.FirstOrDefaultAsync(e => e.DNI == DNI);
+            var enfermer = await _bbdd.Enfermer.Include("PruebasDiagnosticas").FirstOrDefaultAsync(e => e.DNI == DNI);
 
             return Ok(_mapper.Map<EnfermerReadDTO>(enfermer));
 
@@ -54,17 +55,37 @@ namespace HospitalApi.Controllers
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<EnfermerCreateDTO>> PostEnfermer([FromBody] EnfermerCreateDTO nouEnfermer)
         {
 
+            if (!ModelState.IsValid)
+            {
+
+                // Si no es válido, devuelve los errores de validación
+                var errores = ModelState.Values.SelectMany(v => v.Errors)
+                                                .Select(e => e.ErrorMessage)
+                                                .ToList();
+
+                return BadRequest(new { errores });
+
+            }
+
             Enfermer enfermer = _mapper.Map<Enfermer>(nouEnfermer);
+
+            if (enfermer == null)
+            {
+                // Si no se encuentra el enfermero con el DNI indicado, devuelve NotFound
+                _logger.LogError("Error: No existeix enfermer amb el DNI indicat.");
+                return NotFound("Error: No existeix enfermer amb el DNI indicat.");
+            }
 
             await _bbdd.Enfermer.AddAsync(enfermer);
             await _bbdd.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetEnfermer), new { id = nouEnfermer.DNI }, nouEnfermer);
+            return Ok();
 
         }
 
@@ -75,7 +96,7 @@ namespace HospitalApi.Controllers
         public async Task<IActionResult> DeleteEnfermer(string DNI)
         {
 
-            var enfermer = await _bbdd.Enfermer.FirstOrDefaultAsync(e => e.DNI == DNI);
+            var enfermer = await _bbdd.Enfermer.Include("PruebasDiagnosticas").FirstOrDefaultAsync(e => e.DNI == DNI);
 
             if (enfermer == null)
             {
@@ -97,20 +118,36 @@ namespace HospitalApi.Controllers
         public async Task<ActionResult> UpdateEnferemer(string DNI, [FromBody] EnfermerUpdateDTO enfermerUpdateDTO)
         {
 
-            var enfermer = await _bbdd.Enfermer.FirstOrDefaultAsync(e => e.DNI == DNI);
+            if (!ModelState.IsValid)
+            {
+                // Si no es válido, devuelve los errores de validación
+                var errores = ModelState.Values.SelectMany(v => v.Errors)
+                                                .Select(e => e.ErrorMessage)
+                                                .ToList();
+
+                return BadRequest(new { errores });
+            }
+
+            // Buscar el enfermero por el DNI
+            var enfermer = await _bbdd.Enfermer.Include("PruebasDiagnosticas").FirstOrDefaultAsync(e => e.DNI == DNI);
 
             if (enfermer == null)
             {
-                _logger.LogError("Error: no existeix enfermer amb el DNI indicat.");
-                return NotFound("Error: no existeix enfermer amb el DNI indicat.");
+                // Si no se encuentra el enfermero con el DNI indicado, devuelve NotFound
+                _logger.LogError("Error: No existeix enfermer amb el DNI indicat.");
+                return NotFound("Error: No existeix enfermer amb el DNI indicat.");
             }
 
+            // Mapear los cambios del DTO al modelo
             _mapper.Map(enfermerUpdateDTO, enfermer);
 
+            // Actualizar el enfermero en la base de datos
             _bbdd.Enfermer.Update(enfermer);
             await _bbdd.SaveChangesAsync();
 
-            _logger.LogInformation("Pacient modificat exitosament.");
+            _logger.LogInformation("Enfermer modificat exitosament.");
+
+            // Devolver respuesta sin contenido (204 No Content)
             return NoContent();
 
         }

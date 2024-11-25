@@ -43,6 +43,10 @@ export class ModifHabitacionComponent {
    })
   }
 
+  onAtras(){
+    this.router.navigate(['/inicio/habitacion']);
+    }
+
   onSubmit() {
     if(this.habitacionForm.invalid){
       this.habitacionForm.markAllAsTouched();

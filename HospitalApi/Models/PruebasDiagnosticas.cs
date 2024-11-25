@@ -22,5 +22,11 @@ namespace HospitalAPI.Models
 
         [Required]
         public string? Dolencia { get; set; }
+
+        public string? Pruebas {get; set; }
+
+        public string? Resultados {get; set; }
+
+        public bool? Correcta {get; set; }
     }
 }

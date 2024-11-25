@@ -1,3 +1,4 @@
+
 <app-administratidor-sistema-dashboard></app-administratidor-sistema-dashboard>
 <div class="usuarios-section">
   <br /><br /><br />
@@ -9,7 +10,6 @@
       <button
         mat-raised-button
         color="primary"
-        (click)="toggleFormularioAgregar()"
       >
         Registrar nuevo empleado
       </button>
@@ -24,13 +24,12 @@
       ]"
       [defaultSearchType]="'nom'"
       placeholder="Escribe para buscar..."
-      (search)="filtrarUsuarios($event)"
     >
     </app-search-box>
   </div>
   <!--Tabla Angular Material-->
   <div class="table-container">
-    <table mat-table [dataSource]="usuarios" matSort class="mat-elevation-z8">
+    <table mat-table matSort class="mat-elevation-z8">
       <!--Columna ID-->
       <ng-container matColumnDef="dni">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>
@@ -54,7 +53,6 @@
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Consultes</th>
         <td mat-cell *matCellDef="let usuario">
           <a
-            (click)="verConsultas(usuario)"
             style="cursor: pointer; color: blue"
           >
             {{ usuario.consultes.length }} Consultes
@@ -78,20 +76,14 @@
       <ng-container matColumnDef="Actions">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Acciones</th>
         <td mat-cell *matCellDef="let usuario">
-          <button mat-button (click)="toggleActualizarUsuario(usuario)">
-            Actualizar
-          </button>
-          <button mat-button color="warn" (click)="borrarUsuario(usuario.dni)">
-            Eliminar
-          </button>
         </td>
       </ng-container>
 
-      <!-- Header de la tabla -->
+      <!-- Header de la tabla 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
 
-      <!-- Filas de la tabla -->
-      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      <!-- Filas de la tabla 
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>-->
     </table>
 
     <!-- Paginación -->

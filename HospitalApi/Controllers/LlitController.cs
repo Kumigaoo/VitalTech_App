@@ -82,7 +82,7 @@ namespace HospitalAPI.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<LlitCreateDTO>> PostLlit([FromBody] LlitCreateDTO userLlitDTO)
-        {
+        {   
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
             if (userLlitDTO.CodiLlit.Length < 4)
@@ -154,21 +154,48 @@ namespace HospitalAPI.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> UpdateLlit(string codi, [FromBody] LlitUpdateDTO userLlitDTO)
         {
-
             if (userLlitDTO == null || codi.Length != 4)
             {
                 _logger.LogError("Error: no existeix el llit amb l'ID indicat.");
                 return NotFound("Error: no existeix el llit amb l'ID indicat.");
             }
 
-            var llit = await (from l in _bbdd.Llits where l.CodiLlit == codi select l).FirstOrDefaultAsync();
+            var llit = await _bbdd.Llits
+            .Include(l => l.Habitacio)
+            .Include(l => l.Ingressos).FirstOrDefaultAsync(l => l.CodiLlit == codi);
 
             if (llit == null){
                 _logger.LogError("No existeix llit amb aquest ID.");
                 return NotFound("No existeix llit amb aquest ID.");
             }
 
+            var habitacio = await _bbdd.Habitacions
+            .Include(h => h.Llits)
+            .FirstOrDefaultAsync(h => h.CodiHabitacio == userLlitDTO.CodiHabitacio);
+
+            if(habitacio==null)
+            {
+                _logger.LogError("No existeix una habitacio amb aquest codi");
+                return NotFound("No existeix una habitacio amb aquest codi");
+            } 
+
+            llit.Habitacio = habitacio;
+
+            if (llit.Ocupat && userLlitDTO.ForaDeServei){
+                _logger.LogError("No pot estar fora de servei si la cama esta ocupada");
+                return NotFound("No pot estar fora de servei si la cama esta ocupada");
+            }
+
+            if(userLlitDTO.ForaDeServei){
+                llit.Ocupat = true;
+            }
+
+            if(!userLlitDTO.ForaDeServei && (llit.Ingressos != null)){
+                llit.Ocupat = false;
+            }
+
             _mapper.Map(userLlitDTO, llit);
+            llit.HabitacioId = habitacio.Id;
 
             _bbdd.Llits.Update(llit);
             await _bbdd.SaveChangesAsync();

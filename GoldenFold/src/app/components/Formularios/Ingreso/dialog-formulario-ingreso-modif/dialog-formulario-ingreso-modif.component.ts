@@ -88,8 +88,10 @@ export class DialogFormularioIngresoModifComponent implements OnInit {
         ...this.data,
         ...this.ingresoForm.value,
         dataEntrada: new Date(new Date(this.ingresoForm.value.dataEntrada).setDate(new Date(this.ingresoForm.value.dataEntrada).getDate() + 1)),
-        dataSortida: new Date(new Date(this.ingresoForm.value.dataSortida).setDate(new Date(this.ingresoForm.value.dataSortida).getDate() + 1))
       };
+      if(this.ingresoForm.value.dataSortida != null){
+        ingresoActualizado.dataSortida= new Date(new Date(this.ingresoForm.value.dataSortida).setDate(new Date(this.ingresoForm.value.dataSortida).getDate() + 1))
+      }
       this.dialogRef.close(ingresoActualizado);
     }
   }
@@ -133,7 +135,7 @@ export class DialogFormularioIngresoModifComponent implements OnInit {
   obtenerCamas(): void {
     this.camaService.getLlits().subscribe({
       next: (data: Cama[]) => {
-        this.llits = data.filter(llit => llit.ocupat && !llit.foraDeServei || llit.codiLlit === this.ingresoForm.get('codiLlit')?.value);
+        this.llits = data.filter(llit => !llit.ocupat && !llit.foraDeServei || llit.codiLlit === this.ingresoForm.get('codiLlit')?.value);
       },
       error: (error: any) => {
         console.error('Error al cargar las camas', error);

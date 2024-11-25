@@ -27,9 +27,9 @@ export class CamaService {
       return this.http.delete<Cama>(url);
     }
   
-    putLlit(llit: Cama): Observable<Cama> {
-      const url = `${this.apiUrl}/${llit.codiLlit}`;
-      return this.http.put<Cama>(url, llit);
+    putLlit(codiLlit: string, llit: Cama): Observable<Cama> {
+      console.log(codiLlit, llit);
+      return this.http.put<Cama>(`${this.apiUrl}/${codiLlit}`, llit);
     }
     
 }

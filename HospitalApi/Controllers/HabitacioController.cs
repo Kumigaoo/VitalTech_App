@@ -174,14 +174,28 @@ namespace HospitalAPI.Controllers
                 return BadRequest("Error: ID indicat invàlid.");
             }
 
-            var hab = await (from h in _bbdd.Habitacions where h.CodiHabitacio == id select h).FirstOrDefaultAsync();
-
+            var hab = await _bbdd.Habitacions
+                .Include(h => h.Planta)  
+                .FirstOrDefaultAsync(h => h.CodiHabitacio == id);
+           
             if (hab == null){
                 _logger.LogError("No existeix habitació amb aquest ID.");
                 return NotFound("No existeix habiatció amb aquest ID.");
             }
 
+            var piso = await _bbdd.Plantes
+                .Include(p => p.Habitacions)  
+                .FirstOrDefaultAsync(p => p.Piso == userHabDTO.PlantaId);
+            
+            if (piso == null){
+                _logger.LogError("No existeix planta amb aquest ID.");
+                return NotFound("No existeix planta amb aquest ID.");
+            }
+
+            hab.Planta = piso;
             _mapper.Map(userHabDTO, hab);
+
+            hab.PlantaId = piso.Id;
 
             _bbdd.Habitacions.Update(hab);
             await _bbdd.SaveChangesAsync();

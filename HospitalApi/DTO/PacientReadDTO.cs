@@ -1,4 +1,5 @@
-﻿using HospitalAPI.Models;
+﻿using HospitalApi.Enums;
+using HospitalAPI.Models;
 
 namespace HospitalApi.DTO
 {
@@ -15,6 +16,7 @@ namespace HospitalApi.DTO
         public Nacionalidad Nacionalidad { get; set; }
         public string Email {get; set; } = string.Empty;
         public DateTime BirthDay { get; set; }
+        public string Estado { get; set; } = string.Empty;
         public int AdministratiuId {  get; set; }
         public ICollection<EpisodiMedicReferenceDTO>? EpisodisMedics { get; set; }
         

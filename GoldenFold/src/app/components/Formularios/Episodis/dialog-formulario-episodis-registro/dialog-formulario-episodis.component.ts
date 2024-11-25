@@ -68,7 +68,6 @@ export class DialogFormularioEpisodisComponent {
     
    
       this.data.dataObertura = formatDate(this.episodiForm.value.dataObertura, 'yyyy-MM-dd', 'en');
-      this.data.dolencia = this.episodiForm.value.dolencia;
       this.data.estat =this.episodiForm.value.estat;
       this.data.dniPacient =this.episodiForm.value.dniPacient;
 

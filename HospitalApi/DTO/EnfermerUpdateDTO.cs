@@ -5,10 +5,16 @@ namespace HospitalAPI.DTO
 {
     public class EnfermerUpdateDTO
     {
+        
+        [DNIrestriction]
         public string DNI { get; set; } = string.Empty;
+        [Required]
         public string Nom { get; set; } = string.Empty;
+        [TELEFONrestriction]
         public int Telefon { get; set; }
-        public string EnfermerEspecialitat { get; set; } = string.Empty;
+
+        [EnfermerEspecRestrict]
+        public string Especialitat { get; set; } = string.Empty;
 
     }
 }
