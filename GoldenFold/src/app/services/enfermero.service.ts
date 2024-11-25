@@ -34,4 +34,8 @@ export class EnfermeroService {
   deleteEnfermero(id : string): Observable<Enfermero> {
     return this.http.delete<Enfermero>(`${this.apiUrl}/${id}`);
   }
+
+  verificarDni(id : string): Observable<Enfermero> {
+    return this.http.get<Enfermero>(this.apiUrl+"/"+id);
+  }
 }

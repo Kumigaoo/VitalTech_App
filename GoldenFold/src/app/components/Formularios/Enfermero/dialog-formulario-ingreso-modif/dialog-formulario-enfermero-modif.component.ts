@@ -27,6 +27,8 @@ import { map } from 'rxjs';
 import { Enfermero } from '../../../../interface/enfermer.interface';
 import {  EspecialidadesEnfermero } from '../../../../enums/especialidadesEnfermero';
 import { EnfermeroAsyncValidator } from '../../../../validators/enfermeroExistsValidator';
+import { dniExisteValidator } from '../../../../validators/dniExistsValidatos';
+import { EnfermeroService } from '../../../../services/enfermero.service';
 
 
 @Component({
@@ -61,6 +63,7 @@ export class DialogFormularioEnfermeroModifComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: Medico,
     private medicoService: MedicoService,
+    private enfermeroService: EnfermeroService,
     public dialogRef: MatDialogRef<DialogFormularioEnfermeroModifComponent>,
     private fb: FormBuilder,
     private usuariService: UsuarioService,
@@ -111,7 +114,11 @@ export class DialogFormularioEnfermeroModifComponent implements OnInit {
 
   crearFormularioEnfermero(): void {
     this.enfermeroForm = this.fb.group({
-      dni: [this.data.dni, dniValidator()],
+      dni: [this.data.dni, {
+        validators: [dniValidator()],
+        asyncValidators: [dniExisteValidator(this.enfermeroService,this.data.dni)],
+        updateOn: 'blur'
+      }],
       nom: [this.data.nom],
       telefon: [this.data.telefon,[Validators.pattern('^[^a-zA-Z]*$')]],
       usuariId: [this.data.usuariId, [], (control: AbstractControl) => {
