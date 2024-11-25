@@ -7,7 +7,7 @@ import { Personal } from '../interface/personal.interface';
   providedIn: 'root',
 })
 export class UsuarioService {
-  private apiUrl = 'http://localhost:5296/api/Personal';
+  private apiUrl = 'https://localhost:7200/api/Personal';
 
   constructor(private http: HttpClient) {}
 
