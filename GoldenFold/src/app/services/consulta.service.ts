@@ -33,14 +33,9 @@ export class ConsultaService {
       params = params.set('sintomatologia', sintomatologia.toString());
     if (recepta) params = params.set('recepta', recepta.toString());
 
-    const token = localStorage.getItem('authToken');
 
-    if (!token) {
-      console.error('No token found!');
-    }
-
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.get<Consulta[]>(`${this.apiUrl}/Consulta`, { headers });
+    
+    return this.http.get<Consulta[]>(this.apiUrl);
   }
 
   addConsulta(consulta: Consulta): Observable<Consulta> {

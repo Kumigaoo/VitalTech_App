@@ -9,20 +9,12 @@ import { Planta } from '../interface/planta.interface';
 })
 export class PlantaService {
 
-  private apiUrl = 'http://localhost:5296/api/Planta';
+  private apiUrl = 'https://localhost:7200/api/Planta';
 
   constructor(private http: HttpClient) { }
 
   getPlantes(): Observable<Planta[]> {
-
-    const token = localStorage.getItem('authToken');
-
-    if (!token) {
-      console.error('No token found!');
-    }
-
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`); 
-    return this.http.get<Planta[]>(this.apiUrl, { headers });
+    return this.http.get<Planta[]>(this.apiUrl);
   }
 
   getPlanta(id:number): Observable<Planta> {

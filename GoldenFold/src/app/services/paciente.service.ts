@@ -1,26 +1,21 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Paciente } from '../interface/paciente.interface';
+import { OidcSecurityService } from 'angular-auth-oidc-client';
 
 @Injectable({
     providedIn: 'root'
   })
 
 export class PacienteService {
-  private apiUrl = 'http://localhost:5296/api/Pacient';
+
+  private apiUrl = 'https://localhost:7200/api/Pacient';
 
   constructor(private http: HttpClient) { }
 
-  getPacients(): Observable<Paciente[]> {
-    const token = localStorage.getItem('authToken');
-
-    if (!token) {
-      console.error('No token found!');
-    }
-
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.get<Paciente[]>(this.apiUrl, { headers });
+  getPacients(): Observable<Paciente[]>{
+    return this.http.get<Paciente[]>(this.apiUrl);
   }
 
   getPacientId(id : string): Observable<Paciente> {

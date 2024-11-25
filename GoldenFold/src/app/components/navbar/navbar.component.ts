@@ -20,11 +20,13 @@ export class NavbarComponent {
   constructor(private router: Router) {}
 
   ngOnInit() {
-    this.oidcSecurityService.checkAuth().subscribe(({ isAuthenticated, userData}) => {
+    this.oidcSecurityService.checkAuth().subscribe(({ isAuthenticated, userData }) => {
       this.isAuthenticated = isAuthenticated;
-      console.log(isAuthenticated);
-      console.log(userData);
-      this.nom = userData.name;
+      if (isAuthenticated) {
+        this.nom = userData.name;
+      } else {
+        this.nom = '';
+      }
     });
   }
 

@@ -8,20 +8,13 @@ import { Cama } from '../interface/cama.interface';
   })
 
 export class CamaService {
-    private apiUrl = 'http://localhost:5296/api/Llit';
+    private apiUrl = 'https://localhost:7200/api/Llit';
 
     constructor(private http: HttpClient) { }
 
     
     getLlits(): Observable<Cama[]> {
-      const token = localStorage.getItem('authToken');
-
-      if (!token) {
-        console.error('No token found!');
-      }
-
-      const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`); 
-      return this.http.get<Cama[]>(this.apiUrl, { headers });
+      return this.http.get<Cama[]>(this.apiUrl);
     }
 
     getLlit(id:string): Observable<Cama> {
@@ -38,21 +31,5 @@ export class CamaService {
       const url = `${this.apiUrl}/${llit.codiLlit}`;
       return this.http.put<Cama>(url, llit);
     }
-    /*
-    getCamas(
-        Ubicacion?: string,
-        Estado?: string,
-        Tipo?: string,
-        IdHabitacion?: number,
-        IdCama?: number
-      ): Observable<Cama[]> {
-        let params = new HttpParams();
-        if (Ubicacion) params = params.set('ubicacion', Ubicacion);
-        if (Estado) params = params.set('estado', Estado);
-        if (Tipo) params = params.set('tipo', Tipo);
-        if (IdHabitacion)
-          params = params.set('idHabitacion', IdHabitacion.toString());
-        if (IdCama) params = params.set('idCama', IdCama.toString());
-        return this.http.get<Cama[]>(`${this.apiUrl}/Camas`, { params });
-      }*/
+    
 }
