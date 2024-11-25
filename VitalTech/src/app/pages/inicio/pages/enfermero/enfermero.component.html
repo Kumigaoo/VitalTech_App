@@ -1,0 +1,70 @@
+<app-nav></app-nav>
+
+<div class= "contendor">
+    <div class="search-container">
+        <div class="lala">
+            <form id="searchForm">
+                <div class="searchCriteriaContainer">
+                    <label for="searchCriteria">Buscar por:</label>
+                </div>
+                <div class="searchCriteriaItemContainer">
+                    <select id="searchCriteria" name="searchCriteria" [(ngModel)]="searchCriteria">
+                        <option value="nom">Nombre</option>
+                        <option value="dni">DNI</option>
+                        <option value="especialitat">Especialidad</option>
+                        <option value = "usuariId">Nombre de usuario</option>
+                    </select>
+                    <input type="text" id="searchInput" name="searchInput" placeholder="Ingresa la búsqueda" [(ngModel)]="searchInput">
+                    <button type="submit" id="Buscar" (click)="searchPersonal()">Buscar</button>
+                </div>
+            </form>
+        </div>
+        <div class="registro">
+            <button id="registrarse"><a [routerLink]="['/inicio/enfermero/registro-enfermero']"> + Registrar empleado</a></button>
+        </div>
+    </div>
+    
+</div>
+<div class ="texto">
+    <p>Lista de empleados</p>
+</div>
+<div class="table-container">
+    <div class="cosas">
+        <table id="resultsTable">
+            <thead>
+                <tr>
+                    <th>DNI</th>
+                    <th>Nombre</th>
+                    <th>Teléfono</th>
+                    <th>Especialidad</th>
+                    <th>Username</th>
+                    <th>Pruebas diag.</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let enfermer of pagedEnfermers">
+                    <td>{{ enfermer.dni }}</td>
+                    <td>{{ enfermer.nom }}</td>
+                    <td>{{ enfermer.telefon }}</td>
+                    <td>{{ enfermer.especialitat | enumTranslate }}</td>
+                    <td>{{enfermer.usuariId}}</td>
+                    <td class = "coleccio" mat-button (click)="openConsultes(enfermer)">Pruebas</td>
+                    <button class = "ico" (click)="updatePersonal(enfermer.dni)">🔄</button>
+                    <button class = "ico" (click)="deletePersonal(enfermer.dni)">❎</button>
+                  </tr>
+            </tbody>
+        </table>
+
+        
+    </div>
+    
+    <div class="pagination">
+        <button id="firstPage" (click)="firstPage()" [disabled]="currentPage ===1">&lt;&lt;</button>
+        <button id="prevPage" (click)="previousPage()" [disabled]="currentPage ===1">Anterior</button>
+        <span id="pageInfo">Página {{ currentPage }} de {{ totalPages }}</span>
+        <button id="nextPage" (click)="nextPage()" [disabled]="currentPage === totalPages">Siguiente</button>
+        <button id="lastPage" (click)="lastPage()" [disabled]="currentPage ===totalPages">&gt;&gt;</button>
+    </div>
+</div>
+
+
