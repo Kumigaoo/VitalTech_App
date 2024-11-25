@@ -193,7 +193,6 @@ namespace HospitalApi.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Estado")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Nacionalidad")
@@ -301,7 +300,6 @@ namespace HospitalApi.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<bool?>("Correcta")
-                        .IsRequired()
                         .HasColumnType("bit");
 
                     b.Property<string>("Dolencia")
@@ -318,11 +316,9 @@ namespace HospitalApi.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Pruebas")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Resultados")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
