@@ -33,4 +33,8 @@ export class MedicoService {
   deleteMedico(id : string): Observable<Medico> {
     return this.http.delete<Medico>(`${this.apiUrl}/${id}`);
   }
+
+  verificarDni(id : string): Observable<Medico> {
+    return this.http.get<Medico>(this.apiUrl+"/"+id);
+  }
 }

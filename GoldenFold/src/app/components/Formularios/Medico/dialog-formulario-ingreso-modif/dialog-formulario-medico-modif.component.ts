@@ -26,6 +26,7 @@ import { MedicoAsyncValidator } from '../../../../validators/medicoExistsValidat
 import { dniValidator } from '../../../../validators/dniValidator';
 import { map } from 'rxjs';
 import {  EspecialidadesMedico } from '../../../../enums/especialidadesMedico';
+import { dniExisteValidator } from '../../../../validators/dniExistsValidatos';
 
 
 @Component({
@@ -109,7 +110,11 @@ export class DialogFormularioMedicoModifComponent implements OnInit {
 
   crearFormularioMedico(): void {
     this.medicoForm = this.fb.group({
-      dni: [this.data.dni, dniValidator()],
+      dni: [this.data.dni, {
+        validators: [dniValidator()],
+        asyncValidators: [dniExisteValidator(this.medicoService,this.data.dni)],
+        updateOn: 'blur'
+      }],      
       nom: [this.data.nom],
       telefon: [this.data.telefon,[Validators.pattern('^[^a-zA-Z]*$')]],
       usuariId: [this.data.usuariId, [], (control: AbstractControl) => {
