@@ -8,36 +8,21 @@ import { JwtModule, JwtInterceptor } from '@auth0/angular-jwt';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 import { SharedModule } from './modules/shared/shared.module';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
 }
 
 @NgModule({
-  declarations: [
-    LoginComponent, 
-
-  ],
   imports: [
     BrowserModule,
     AppRoutingModule, 
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule,
     MatDialogModule,
     BrowserAnimationsModule,
-    SharedModule,
-    JwtModule.forRoot({
-      config: {
-        tokenGetter: tokenGetter,
-        allowedDomains: ["localhost:5001"],
-        disallowedRoutes: ["localhost:5001/api/auth"]
-      }
-    })
   ],
-  providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
-  ],
-  bootstrap: [LoginComponent] 
+  providers: [{provide: MAT_DATE_LOCALE, useValue: 'es-ES' }]
 })
 export class AppModule { }
