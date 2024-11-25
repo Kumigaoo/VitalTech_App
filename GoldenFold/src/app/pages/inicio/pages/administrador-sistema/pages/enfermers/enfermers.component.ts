@@ -108,7 +108,7 @@ export class EnfermersComponent {
           this.enfermeros.data = [...this.enfermeros.data,enfermero];
           this.obtenerEnfermeros();
           this.enfermeroForm.reset();
-          this.snackbar.showNotification('succes','Enfermero creado correctamente');
+          this.snackbar.showNotification('success','Enfermero creado correctamente');
         },
         error:(error: any) => {
           const mensajeError =

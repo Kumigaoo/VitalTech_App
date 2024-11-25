@@ -13,6 +13,6 @@ namespace HospitalAPI.DTO
         public int Telefon {get; set;}
         public string UsuariId { get; set; } = string.Empty;
         [Required]
-        public string Hobby { get; set; } = string.Empty;
+        public string Prioridad { get; set; } = string.Empty;
     }
 }

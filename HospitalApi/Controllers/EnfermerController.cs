@@ -3,6 +3,8 @@ using HospitalApi.Data;
 using HospitalApi.DTO;
 using HospitalAPI.DTO;
 using HospitalAPI.Models;
+using Microsoft.AspNetCore.Http.HttpResults;
+
 //using EntityFrameworkCore.MySQL.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -51,6 +53,7 @@ namespace HospitalApi.Controllers
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<EnfermerCreateDTO>> PostEnfermer([FromBody] EnfermerCreateDTO nouEnfermer)
@@ -80,7 +83,7 @@ namespace HospitalApi.Controllers
             await _bbdd.Enfermer.AddAsync(enfermer);
             await _bbdd.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetEnfermer), new { id = nouEnfermer.DNI }, nouEnfermer);
+            return Ok();
 
         }
 

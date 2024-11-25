@@ -82,6 +82,7 @@ export class DialogFormularioEnfermeroModifComponent implements OnInit {
         ...this.data,
         ...this.enfermeroForm.value
       };
+      enfermeroActualizado.dni = enfermeroActualizado.dni.toUpperCase();
       this.dialogRef.close(enfermeroActualizado);
     }
   }
