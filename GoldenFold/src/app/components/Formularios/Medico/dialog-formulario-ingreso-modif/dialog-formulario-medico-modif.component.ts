@@ -131,6 +131,7 @@ export class DialogFormularioMedicoModifComponent implements OnInit {
   
 
   obtenerUsuaris(): void {
+    /*
     
     this.usuariService.getUsuarios().subscribe({
       next: (data:Usuari[]) => {
@@ -141,7 +142,7 @@ export class DialogFormularioMedicoModifComponent implements OnInit {
         console.log('Error al obtener los usuarios');
       }
     });
-    
+    */
   }
 }
 
