@@ -128,6 +128,7 @@ export class DialogFormularioEnfermeroModifComponent implements OnInit {
   
 
   obtenerUsuaris(): void {
+    /*
     this.usuariService.getUsuarios().subscribe({
       next: (data:Usuari[]) => {
         //cojemos los usuarios con rolId medico
@@ -137,6 +138,7 @@ export class DialogFormularioEnfermeroModifComponent implements OnInit {
         console.log('Error al obtener los usuarios');
       }
     });
+    */
   }
 }
 

@@ -21,16 +21,6 @@ namespace HospitalAPI.Models
         public EpisodiMedic? EpisodiMedic { get; set; }
 
         [Required]
-        public string? Pruebas { get; set; }
-
-        [Required]
-        public string? Resultados { get; set; }
-
-        [Required]
-        public bool? Correcta { get; set; }
-
-
-        [Required]
         public string? Dolencia { get; set; }
 
         public string? Pruebas {get; set; }

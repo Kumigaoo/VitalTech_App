@@ -3,6 +3,8 @@ using AutoMapper; //para el maper
 using HospitalApi.Data; 
 using HospitalApi.DTO; //DTO's
 using HospitalAPI.Models; //Modelos
+using Microsoft.AspNetCore.Authorization;
+
 //using EntityFrameworkCore.MySQL.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
@@ -11,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 namespace HospitalAPI.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
     public class RolController : ControllerBase
     {

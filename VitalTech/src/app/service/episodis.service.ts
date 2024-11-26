@@ -10,7 +10,7 @@ import { EpisodiMedic } from '../interface/episodis-medics.interface';
 
 export class EpisodiService {
 
-  private apiUrl = 'http://localhost:5296/api/EpisodiMedic';
+  private apiUrl = 'https://localhost:7200/api/EpisodiMedic';
 
   constructor(private http: HttpClient) { }
 

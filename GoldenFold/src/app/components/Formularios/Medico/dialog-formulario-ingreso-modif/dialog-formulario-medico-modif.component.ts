@@ -131,18 +131,18 @@ export class DialogFormularioMedicoModifComponent implements OnInit {
   
 
   obtenerUsuaris(): void {
+    /*
+    
     this.usuariService.getUsuarios().subscribe({
       next: (data:Usuari[]) => {
-        
         //cojemos los usuarios con rolId medico
         this.usuaris = data.filter((usuari) => usuari.rolId === 'Metge');
-        
-        
       },
       error: (error: any) => {
         console.log('Error al obtener los usuarios');
       }
     });
+    */
   }
 }
 

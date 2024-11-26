@@ -10,7 +10,7 @@ import { PruebasDiagnosticas } from '../interface/pruebas-diagnosticas.interface
 
 export class PruebasDiagnosticasService {
 
-  private apiUrl = 'http://localhost:5296/api/PruebasDiagnosticas';
+  private apiUrl = 'https://localhost:7200/api/PruebasDiagnosticas';
   
   constructor(private http: HttpClient) { }
 

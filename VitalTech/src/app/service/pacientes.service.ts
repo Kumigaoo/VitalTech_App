@@ -9,7 +9,7 @@ import {Pacient} from '../interface/pacient.interface'
 
 export class PacientService {
 
-  private apiUrl = 'http://localhost:5296/api/Pacient';
+  private apiUrl = 'https://localhost:7200/api/Pacient';
 
   constructor(private http: HttpClient) { }
 

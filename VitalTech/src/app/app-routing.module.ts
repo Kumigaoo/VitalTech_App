@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './pages/login/login.component';
+import InicioComponent from './pages/inicio/inicio.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -8,9 +8,9 @@ export function tokenGetter() {
 
 export const routes: Routes = [
   {path: 'inicio', loadChildren: ()=> import('./modules/inicio/inicio.module').then(m => m.InicioModule)},
-  {path: '', redirectTo: 'login', pathMatch: 'full'},
-  {path: '**', redirectTo: 'login', pathMatch: 'full'},
-  {path: 'login', component: LoginComponent}
+  {path: '', redirectTo: 'inicio', pathMatch: 'full'},
+  {path: '**', redirectTo: 'inicio', pathMatch: 'full'},
+  {path: 'inicio', component: InicioComponent}
 ];
 
 @NgModule({
