@@ -25,6 +25,7 @@ namespace HospitalApi.Data
         public DbSet<Enfermer> Enfermer { get; set; }
         public DbSet<AdministradorSistema> AdministradorSistema { get; set; }
         public DbSet<Metge> Metges { get; set; }
+        public object Personal { get; internal set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -23,7 +23,7 @@ namespace HospitalApi.DTO
         public string Telefono { get; set; } = string.Empty;
         [Required]
         public Nacionalidad Nacionalidad { get; set; }
-        [EmailAddress ]
+        [EmailAddress]
         public string Email {get; set; } = string.Empty;
         [Required]
         public int AdministratiuId {  get; set; }

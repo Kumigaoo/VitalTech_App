@@ -8,13 +8,19 @@ public class DNIrestriction : ValidationAttribute
     // Taula de lletres del alfabet per validació DNI
     private static readonly char[] digitControl = { 'T', 'R', 'W', 'A', 'G', 'M', 'Y', 'F', 'P', 'D', 'X', 'B', 'N', 'J', 'Z', 'S', 'Q', 'V', 'H', 'L', 'C', 'K', 'E' };
 
+    #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
     public DNIrestriction(string errorMessage = "El DNI debe contener 8 dígitos seguidos de una letra mayúscula.")
+
+    #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
     {
         ErrorMessage = errorMessage;
     }
     public string DNI { get; }
 
-    public string GetErrorMessage() => ErrorMessage;
+    public string GetErrorMessage()
+    {
+        return ErrorMessage;
+    }
 
     // Devuelve true si el digito de control es correcto false si es incorrecto
     private bool valDigitControl(int num, char control)
