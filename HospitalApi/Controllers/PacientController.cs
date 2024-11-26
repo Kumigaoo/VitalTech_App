@@ -74,7 +74,11 @@ namespace HospitalAPI.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<PacientCreateDTO>> PostPacient([FromBody] PacientCreateDTO userPacientDTO)
         {
-            if (!ModelState.IsValid) return BadRequest(ModelState);
+            if (!ModelState.IsValid){
+
+             return BadRequest(ModelState);
+
+            }
 
             if (userPacientDTO == null)
             {

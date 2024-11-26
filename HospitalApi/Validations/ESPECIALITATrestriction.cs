@@ -6,76 +6,87 @@ using HospitalAPI.Enums.Enfermero;
 using HospitalAPI.Models;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Org.BouncyCastle.Security;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
-namespace HospitalAPI.Validations.ESPECIALITATrestriction
+
+
+public class ESPECIALITATrestriction : ValidationAttribute
 {
 
+    private string especialitat = String.Empty;
 
-    public class ESPECIALITATrestriction : ValidationAttribute
+    private Dictionary<string, Type> rangs;
+
+    public ESPECIALITATrestriction(String especialitat)
+    {
+        this.especialitat = especialitat;
+        rangs = InicializarRangs();
+    }
+
+    public ESPECIALITATrestriction()
+    {
+        rangs = InicializarRangs();
+    }
+
+    public string ESPECIALITATenfermer { get; }
+
+    readonly Dictionary<string, Type> rangsEspecialitat = new Dictionary<string, Type>();
+
+    private Dictionary<string, Type> InicializarRangs()
     {
 
-        private string especialitat = String.Empty;
-
-        public ESPECIALITATrestriction(String especialitat)
-        {
-            this.especialitat = especialitat;
-        }
-        public string ESPECIALITATenfermer { get; }
-
-        readonly Dictionary<string, Enum> rangsEspecialitat = new Dictionary<string, Enum>();
-
-        private Dictionary<string, Enum> InicializarRangs()
-        {
-
-        rangsEspecialitat.Add("Medico", MedicoGeneral.MedicoGeneral);
-        rangsEspecialitat.Add("Especialista", Especialista.Anestesiologo);
-        rangsEspecialitat.Add("Infermer", Enfermero.EnfermeroDeCuidadosIntensivos);
-        rangsEspecialitat.Add("Cirujia", Cirujano.CirujanoCardiovascular);
+        rangsEspecialitat.Add("Medico", typeof(MedicoGeneral));
+        rangsEspecialitat.Add("Especialista", typeof(Especialista));
+        rangsEspecialitat.Add("Infermer", typeof(Enfermero));
+        rangsEspecialitat.Add("Cirujia", typeof(Cirujano));
 
         return rangsEspecialitat;
 
-        }
+    }
 
-        protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
+    
+
+    private void MostrarRangs(string Key)
+    {
+        
+        foreach (var rang in rangs)
+        {
+            Console.WriteLine($"Clave: {rang.Key}");
+            var enumType = rang.Value;
+            var valors = (Type)Enum.Parse(typeof(Type), rang.ToString());
+            Console.WriteLine(valors);
+            
+        }
+        
+    }
+
+    protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
+    {
+        // if(especialitat)
+        Enum.TryParse(especialitat, out Cirujano e);
+
+
+        MostrarRangs(especialitat);
+
+
+        string[] ids = { "1", "2", "3" };
+
+        foreach (string especialitat in ids)
         {
 
-
-
-            var rangsEspecialitat = InicializarRangs();
-            // if(especialitat)
-            Enum.TryParse(especialitat, out Cirujano e);
-                        
-
-            // if (rangsEspecialitat.TryGetValue("tif", out int[] rangEspecilitat))
-            // {
-
-
-
-            //     Console.WriteLine($"Para la clave 'tif', el valor es {value}.");
-            // }
-            // else
-            // {
-            //     Console.WriteLine("La clave 'tif' no se encuentra.");
-            // }
-
-            string[] ids = { "1", "2", "3" };
-
-            foreach (string especialitat in ids)
+            if (this.especialitat == especialitat)
             {
 
-                if (this.especialitat == especialitat)
-                {
+                return ValidationResult.Success;
 
-                    return ValidationResult.Success;
-
-
-                }
 
             }
 
-            return new ValidationResult("Lespecialitat no existeix, o es d'una altre branque medica.");
-
         }
 
+        return new ValidationResult("Lespecialitat no existeix, o es d'una altre branque medica.");
+
     }
+
 }
+
