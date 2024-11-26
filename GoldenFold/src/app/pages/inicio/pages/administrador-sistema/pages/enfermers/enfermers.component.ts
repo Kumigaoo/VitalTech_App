@@ -9,6 +9,7 @@ import { EnfermeroService } from '../../../../../../services/enfermero.service';
 import { getMatIconFailedToSanitizeUrlError } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogFormularioEnfermeroModifComponent } from '../../../../../../components/Formularios/Enfermero/dialog-formulario-ingreso-modif/dialog-formulario-enfermero-modif.component';
+import { PruebasDialogComponent } from '../../../../../../components/popups/pruebas-popup';
 
 @Component({
   selector: 'app-enfermers',
@@ -159,6 +160,14 @@ export class EnfermersComponent {
         this.actualizarEnfermero(enfermero.dni);
       }
     })
+  }
+
+  verPruebasDiagnosticas(enfermero: Enfermero): void{
+    this.dialog.open(PruebasDialogComponent,{
+      maxWidth: 'none',
+      maxHeight:'none',
+      data:enfermero.pruebasDiagnosticas
+    });
   }
 
 }
