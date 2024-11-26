@@ -16,5 +16,8 @@ namespace HospitalAPI.DTO
         [EnfermerEspecRestrict]
         public string Especialitat { get; set; } = string.Empty;
 
+        public string UsuariId { get; set; } = string.Empty;
+
+
     }
 }
