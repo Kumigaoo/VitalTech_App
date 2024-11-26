@@ -25,7 +25,7 @@ import { EnfermersComponent } from '../../../pages/inicio/pages/administrador-si
 
 @NgModule({
   declarations: 
-  [ AdministradorSistemaComponent,MetgesComponent, CamasComponent, EnfermersComponent, HabitacionesComponent, PacientesComponent, UsuariosComponent, IngresosComponent, PruebasComponent, PlantesComponent,EpisodisMedicsComponent ],
+  [ AdministradorSistemaComponent,MetgesComponent, CamasComponent, AdministradorSistemaComponent, EnfermersComponent, HabitacionesComponent, PacientesComponent, UsuariosComponent, IngresosComponent, PruebasComponent, PlantesComponent,EpisodisMedicsComponent ],
 
   imports: 
   [ AdministradorSistemaRoute, AdministradorSistemaDashboardComponent, SharedModule, CommonModule ]

@@ -58,6 +58,10 @@ const routes: Routes = [
   {
     path: 'enfermers',
     component: EnfermersComponent
+  },
+  {
+    path: 'administrador-sistema',
+    component: AdministradorSistemaComponent
   }
 ];
 
