@@ -120,6 +120,23 @@ export class EnfermersComponent {
     }
   }
 
+  actualizarEnfermero(dniAntiguo: string): void{
+    if(this.enfermeroParaActualizar){
+      const enfermeroActualizado = {...this.enfermeroParaActualizar};
+      this.enfermeroService.putEnfermero(enfermeroActualizado,dniAntiguo).subscribe({
+        next:()=>{
+          this.obtenerEnfermeros();
+          this.enfermeroParaActualizar=null;
+          this.enfermeroForm.reset();
+          this.snackbar.showNotification('success','Enfermero actualizado correctamente');
+        },
+        error: (error:any) => {
+          console.log('Error al actualizar el enfermero',error);
+        }
+      });
+    }
+  }
+
   tooggleAgregarEnfermero(): void{
     this.crearFormularioEnfermero();
     this.dialog.open(DialogFormularioEnfermeroModifComponent, {
@@ -128,6 +145,18 @@ export class EnfermersComponent {
       if(enfermeroActualizado){
         this.enfermeroForm.patchValue(enfermeroActualizado);
         this.agregarEnfermero();
+      }
+    })
+  }
+
+  toogleActualizarEnfermero(enfermero: Enfermero): void{
+    this.enfermeroParaActualizar = {...enfermero};
+    this.dialog.open(DialogFormularioEnfermeroModifComponent, {
+      data: this.enfermeroParaActualizar
+    }).afterClosed().subscribe((enfermeroActualizado) => {
+      if(enfermeroActualizado){
+        this.enfermeroParaActualizar = enfermeroActualizado;
+        this.actualizarEnfermero(enfermero.dni);
       }
     })
   }
