@@ -16,9 +16,9 @@ export class RegistroEnfermeroComponent {
     this.personalForm = this.fb.group({
       dni : [''],
       nom : [''],
-      telefono:0,
+      telefon: 0,
       especialitat : [''],
-      usuario: ['']
+      usuariId: ['']
     })
   }
 
