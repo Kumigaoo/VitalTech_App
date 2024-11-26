@@ -118,6 +118,8 @@ namespace HospitalApi.Controllers
         public async Task<ActionResult> UpdateEnferemer(string DNI, [FromBody] EnfermerUpdateDTO enfermerUpdateDTO)
         {
 
+            
+
             if (!ModelState.IsValid)
             {
                 // Si no es válido, devuelve los errores de validación
@@ -129,7 +131,7 @@ namespace HospitalApi.Controllers
             }
 
             // Buscar el enfermero por el DNI
-            var enfermer = await _bbdd.Enfermer.Include("PruebasDiagnosticas").FirstOrDefaultAsync(e => e.DNI == DNI);
+            var enfermer = await (from e in _bbdd.Enfermer where e.DNI == DNI select e).FirstOrDefaultAsync();
 
             if (enfermer == null)
             {
