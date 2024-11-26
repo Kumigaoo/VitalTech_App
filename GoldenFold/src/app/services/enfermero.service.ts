@@ -10,7 +10,7 @@ import { Enfermero } from '../interface/enfermer.interface';
 
 export class EnfermeroService {
 
-  private apiUrl = 'http://localhost:5296/api/Enfermer';
+  private apiUrl = 'https://localhost:7200/api/Enfermer';
 
   constructor(private http: HttpClient) { }
 

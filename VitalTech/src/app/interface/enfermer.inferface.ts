@@ -2,9 +2,9 @@
 
 export interface Enfermer {
     dni: string;
-    especialitat: string;
-    telefon: string;
     nom: string;
+    telefon: string;
+    especialitat: string;
     usuariId: string;
     pruebasDiagnosticas: string[];
   }
