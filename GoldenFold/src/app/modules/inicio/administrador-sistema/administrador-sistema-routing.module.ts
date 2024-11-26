@@ -11,6 +11,7 @@ import { EpisodisMedicsComponent } from '../../../pages/inicio/pages/administrad
 import { MetgesComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/metges/metges.component';
 import { EnfermersComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/enfermers/enfermers.component';
 import { PruebasComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/consultas/pruebas.component';
+import { AdministradoresSistemaComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/administradores-sistema/administradores-sistema.component';
 
 const routes: Routes = [
   {
@@ -60,8 +61,8 @@ const routes: Routes = [
     component: EnfermersComponent
   },
   {
-    path: 'administrador-sistema',
-    component: AdministradorSistemaComponent
+    path: 'administradores-sistema',
+    component: AdministradoresSistemaComponent
   }
 ];
 
