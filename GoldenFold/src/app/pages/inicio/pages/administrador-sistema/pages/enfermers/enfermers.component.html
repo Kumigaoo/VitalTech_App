@@ -58,7 +58,7 @@
 
             <ng-container matColumnDef="pruebasDiagnosticas">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Pruebas Diagnosticas</th>
-                <td mat-cell *matCellDef="let enfermer">{{enfermer?.pruebasDiagnosticas}}</td>
+                <td mat-cell *matCellDef="let enfermer" style="cursor: pointer; color: blue;" (click)="verPruebasDiagnosticas(enfermer)">{{enfermer?.pruebasDiagnosticas.length}} {{enfermer?.pruebasDiagnosticas.length==1 ? "prueba diagnostica" : "pruebas diagnosticas"}}</td>
             </ng-container>
 
             <ng-container matColumnDef="Actions">
