@@ -9,7 +9,7 @@ import { Ingreso } from '../interface/ingreso.interface';
 
 export class IngresoService {
 
-  private apiUrl = 'http://localhost:5296/api/Ingres';
+  private apiUrl = 'https://localhost:7200/api/Ingres';
 
   constructor(private http: HttpClient) { }
 

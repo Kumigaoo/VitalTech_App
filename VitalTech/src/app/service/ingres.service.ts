@@ -9,7 +9,7 @@ import { Ingres } from '../interface/ingres.interface';
 
 export class IngresService {
 
-  private apiUrl = 'http://localhost:5296/api/Ingres';
+  private apiUrl = 'https://localhost:7200/api/Ingres';
 
   constructor(private http: HttpClient) { }
 

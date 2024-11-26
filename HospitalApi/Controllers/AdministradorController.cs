@@ -1,19 +1,21 @@
-// using AutoMapper;
-// using HospitalApi.Data;
-// using HospitalAPI.DTO;
-// using HospitalAPI.Models;
-// using Microsoft.AspNetCore.Mvc;
-// using Microsoft.EntityFrameworkCore;
+/*
+using AutoMapper;
+using HospitalApi.Data;
+using HospitalAPI.DTO;
+using HospitalAPI.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
-// namespace HospitalAPI.Controllers
-// {
-//     [Route("api/[controller]")]
-//     [ApiController]
-//     public class AdministradorController : ControllerBase
-//     {
-//         private readonly ILogger _logger;
-//         private readonly ApplicationDbContext _bbdd;
-//         private readonly IMapper _mapper;
+namespace HospitalAPI.Controllers
+{
+    [Route("api/[controller]")]
+    [Authorize]
+    [ApiController]
+    public class AdministradorController : ControllerBase
+    {
+        private readonly ILogger _logger;
+        private readonly ApplicationDbContext _bbdd;
+        private readonly IMapper _mapper;
 
 //         public AdministradorController(
 //             ILogger<AdministradorController> logger,
@@ -71,5 +73,6 @@
         // //     }a
             
         // }
-//     }
-// }
+    }
+}
+*/

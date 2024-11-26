@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HospitalApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241125120315_nuevas_migraciones")]
+    [Migration("20241125122540_nuevas_migraciones")]
     partial class nuevas_migraciones
     {
         /// <inheritdoc />
@@ -196,7 +196,6 @@ namespace HospitalApi.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Estado")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Nacionalidad")
@@ -304,7 +303,6 @@ namespace HospitalApi.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<bool?>("Correcta")
-                        .IsRequired()
                         .HasColumnType("bit");
 
                     b.Property<string>("Dolencia")
@@ -321,11 +319,9 @@ namespace HospitalApi.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Pruebas")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Resultados")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

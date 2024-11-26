@@ -38,8 +38,7 @@ namespace HospitalAPI.Models
         [Required]
         public DateTime BirthDay { get; set; }
 
-        [Required]
-        public string? Estado {get; set;} //alta,baja
+        public string? Estado { get; set; }
 
         public ICollection<EpisodiMedic>? EpisodisMedics { get; set; }
 

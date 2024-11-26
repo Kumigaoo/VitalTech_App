@@ -4,6 +4,8 @@ using AutoMapper;
 using HospitalApi.Data;
 using HospitalApi.DTO;
 using HospitalAPI.Models;
+using Microsoft.AspNetCore.Authorization;
+
 //using EntityFrameworkCore.MySQL.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -14,6 +16,7 @@ namespace HospitalAPI.Controllers
 {
 
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
 
     public class PacientController : ControllerBase
@@ -106,6 +109,8 @@ namespace HospitalAPI.Controllers
 
             Pacient pacient = _mapper.Map<Pacient>(userPacientDTO);
 
+            pacient.Estado = "baja";
+
             await _bbdd.Pacients.AddAsync(pacient);
             await _bbdd.SaveChangesAsync();
 
@@ -140,7 +145,7 @@ namespace HospitalAPI.Controllers
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> UpdatePacient(string id, [FromBody] PacientCreateDTO userPacientDTO)
+        public async Task<IActionResult> UpdatePacient(string id, [FromBody] PacientUpdateDTO userPacientDTO)
         {
 
             if (userPacientDTO == null)

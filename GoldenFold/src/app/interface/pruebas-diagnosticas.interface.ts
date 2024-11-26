@@ -4,4 +4,7 @@ export interface PruebaDiagnostica {
     dniEnfermer: string,
     episodiMedicId: number,
     dolencia: string
+    pruebas: string,
+    resultados: string,
+    correcta: boolean
 }

@@ -5,7 +5,7 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { Consulta } from '../../../../interface/consulta.interface';
+import { PruebaDiagnostica } from '../../../../interface/pruebas-diagnosticas.interface';
 
 @Component({
   selector: 'app-dialog-formulario-consulta',
@@ -22,7 +22,7 @@ import { Consulta } from '../../../../interface/consulta.interface';
 })
 export class DialogFormularioConsultaComponent {
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: Consulta, 
+    @Inject(MAT_DIALOG_DATA) public data: PruebaDiagnostica, 
     public dialogRef: MatDialogRef<DialogFormularioConsultaComponent>
   ) {
   }

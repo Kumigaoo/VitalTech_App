@@ -3,6 +3,7 @@ using HospitalApi.Data;
 using HospitalApi.DTO;
 using HospitalAPI.DTO;
 using HospitalAPI.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 
 //using EntityFrameworkCore.MySQL.Data;
@@ -13,6 +14,7 @@ namespace HospitalApi.Controllers
 {
 
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
     public class EnfermerController : ControllerBase
     {

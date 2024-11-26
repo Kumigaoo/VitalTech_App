@@ -9,7 +9,7 @@ import { Llit } from '../interface/llit.interface';
 
 export class CamasService {
 
-  private apiUrl = 'http://localhost:5296/api/Llit';
+  private apiUrl = 'https://localhost:7200/api/Llit';
 
   constructor(private http: HttpClient) { }
 

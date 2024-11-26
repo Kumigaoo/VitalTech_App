@@ -1,14 +1,18 @@
+
 using AutoMapper;
 using HospitalApi.Data;
 using HospitalApi.DTO;
 using HospitalAPI.DTO;
 using HospitalAPI.Models;
+using Microsoft.AspNetCore.Authorization;
+
 //using EntityFrameworkCore.MySQL.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace HospitalAPI
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class AdministradorSistemaController: ControllerBase

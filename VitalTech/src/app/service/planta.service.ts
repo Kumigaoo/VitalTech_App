@@ -9,7 +9,7 @@ import { Planta } from '../interface/planta.interface';
 })
 export class PlantaService {
 
-  private apiUrl = 'http://localhost:5296/api/Planta';
+  private apiUrl = 'https://localhost:7200/api/Planta';
 
   constructor(private http: HttpClient) { }
 

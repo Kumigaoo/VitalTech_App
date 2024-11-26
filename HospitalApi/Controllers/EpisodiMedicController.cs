@@ -3,6 +3,7 @@ using AutoMapper;
 using HospitalApi.Data;
 using HospitalApi.DTO;
 using HospitalAPI.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,6 +11,7 @@ namespace HospitalAPI.Controllers
 {
 
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
 
     public class EpisodiMedicController : ControllerBase
@@ -161,6 +163,9 @@ namespace HospitalAPI.Controllers
                 return BadRequest("Error: el DNI del metge proporcionat no existeix.");
             }
 
+            pacient.Estado = "baja";
+            _bbdd.Update(pacient);
+
             EpisodiMedic episodi = _mapper.Map<EpisodiMedic>(userEpiDTO);
             episodi.PacientId = pacient.Id;
             episodi.MetgeId = metge.Id;
@@ -190,6 +195,10 @@ namespace HospitalAPI.Controllers
 
             var epi = await _bbdd.EpisodisMedics.FirstOrDefaultAsync(h => h.Id == id);
 
+            var pacient = epi.Pacient;
+            pacient.Estado = "alta";
+            _bbdd.Update(pacient);
+
             if (epi == null)
             {
                 _logger.LogError("Error: no existeix l'episodi mèdic amb l'ID indicat.");
@@ -203,6 +212,7 @@ namespace HospitalAPI.Controllers
                 _logger.LogError("Error: no es pot esborrar un episodi mèdic que conté ingressos.");
                 return BadRequest("Error: no es pot esborrar un episodi mèdic que conté ingressos.");
             }
+
 
             var probes = await _bbdd.PruebasDiagnosticas.FirstOrDefaultAsync(h => h.EpisodiMedicId == id);
 
@@ -239,7 +249,6 @@ namespace HospitalAPI.Controllers
                 _logger.LogError("No existeix episodi mèdic amb aquest ID.");
                 return NotFound("No existeix episodi mèdic amb aquest ID.");
             }
-
             EpisodiMedic episodi = _mapper.Map<EpisodiMedic>(userEpiDTO);
             var pacient = await (from p in _bbdd.Pacients where p.DNI == userEpiDTO.DNIPacient select p).FirstOrDefaultAsync();
             var metge = await (from m in _bbdd.Metges where m.DNI == userEpiDTO.DNIMetge select m).FirstOrDefaultAsync();
@@ -254,6 +263,11 @@ namespace HospitalAPI.Controllers
             {
                 _logger.LogInformation("Error: no existeix el metge indicat.");
                 return BadRequest("Error: no existeix el metge indicat.");
+            }
+
+            if(episodi.Estat == "Resuelto"){
+                pacient.Estado = "alta";
+                _bbdd.Update(pacient);
             }
 
             episodi.PacientId = pacient.Id;

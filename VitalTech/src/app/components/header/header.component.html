@@ -1,12 +1,19 @@
-<div class= "header">
+<div class="header">
     <div class="credito">
-            <img src="assets/image.png" alt="Hospital Logo">
-            <span class = "titulo">VitalTech</span>
-            <nav class="nav-items">
-                <div class= "nav-item"><a routerLink="/inicio" routerLinkActive="active">Inicio</a></div>
-                <div class="nav-item"><a routerLink="/configuracion" routerLinkActive= "active">Configuración</a></div>
-                <div class="nav-item"><a routerLink= "/login" routerLinkActive= "active">Exit</a></div>
-            </nav>
-    </div>
-</div>
+        <img src="assets/image.png" alt="Hospital Logo">
+        <span class="titulo">VitalTech</span>
+        <nav class="nav-items">
+            <div class="nav-item"><a routerLink="/inicio" routerLinkActive="active">Inicio</a></div>
+            <div class="nav-item"><a routerLink="/configuracion" routerLinkActive="active">Configuración</a></div>
+            <div class="nav-item"><a routerLink="/login" routerLinkActive="active">Exit</a></div>
+            <div class="nav-item"><button *ngIf="!isAuthenticated; else loggedIn" (click)="onLogin()">Login</button>
+                <ng-template #loggedIn>
+                    <span>Hola {{ nom }}</span>
+                    <button class="nav-item" (click)="onLogout()"> Logout </button>
+                </ng-template>
+            </div>
 
+        </nav>
+    </div>
+
+</div>

@@ -1,44 +1,30 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Usuari } from '../interface/usuari.interface';
+import { Personal } from '../interface/personal.interface';
 
 @Injectable({
-    providedIn: 'root'
-  })
-
+  providedIn: 'root',
+})
 export class UsuarioService {
-    private apiUrl = 'http://localhost:5296/api/Usuari';
 
-    constructor(private http: HttpClient) { }
+  private apiUrl = 'https://localhost:7200/api/Personal';
 
-    getUsuarios(): Observable<Usuari[]> {
-      return this.http.get<Usuari[]>(this.apiUrl);
-    }
+  constructor(private http: HttpClient) {}
 
-    // getUsuarios(
-    //     nombre?: string,
-    //     nombreUsuario?: string,
-    //     idRol?: number
-    //   ): Observable<Usuari[]> {
-    //     let params = new HttpParams();
-    //     if (nombre) params = params.set('nombre', nombre);
-    //     if (nombreUsuario) params = params.set('usuario', nombreUsuario);
-    //     if (idRol) params = params.set('idRol', idRol.toString());
-    //     return this.http.get<Usuari[]>(`${this.apiUrl}/Usuarios`, { params });
-    //   }
-    
-      addUsuario(usuario: Usuari): Observable<Usuari> {
-        return this.http.post<Usuari>(`${this.apiUrl}/`, usuario);
-      }
-    
-      updateUsuario(usuario: Usuari, dni : string): Observable<Usuari> {
-        return this.http.put<Usuari>(`${this.apiUrl}/${dni}`,
-          usuario
-        );
-      }
-      
-      deleteUsuario(dni: string): Observable<void> {
-        return this.http.delete<void>(`${this.apiUrl}/${dni}`);
-      }
+  getUsuarios(): Observable<Personal[]> {
+    return this.http.get<Personal[]>(this.apiUrl);
+  }
+
+  addUsuario(usuario: Personal): Observable<Personal> {
+    return this.http.post<Personal>(`${this.apiUrl}/`, usuario);
+  }
+
+  updateUsuario(usuario: Personal, dni: string): Observable<Personal> {
+    return this.http.put<Personal>(`${this.apiUrl}/${dni}`, usuario);
+  }
+
+  deleteUsuario(dni: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${dni}`);
+  }
 }

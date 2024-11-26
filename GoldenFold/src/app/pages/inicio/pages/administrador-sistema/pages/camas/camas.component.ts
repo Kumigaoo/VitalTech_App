@@ -69,6 +69,7 @@ export class CamasComponent implements OnInit, AfterViewInit {
 
   //constructor(private camaService: CamaService) {}
   ngOnInit(): void {
+
     this.obtenerCamas();
   }
   ngAfterViewInit(): void {
