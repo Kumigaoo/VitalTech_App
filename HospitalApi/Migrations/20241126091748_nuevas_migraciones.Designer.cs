@@ -12,11 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HospitalApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-<<<<<<<< HEAD:HospitalApi/Migrations/20241125122540_nuevas_migraciones.Designer.cs
-    [Migration("20241125122540_nuevas_migraciones")]
-========
-    [Migration("20241125123932_nuevas_migraciones")]
->>>>>>>> 0ffc06d (enfermer wip2):HospitalApi/Migrations/20241125123932_nuevas_migraciones.Designer.cs
+    [Migration("20241126091748_nuevas_migraciones")]
     partial class nuevas_migraciones
     {
         /// <inheritdoc />
