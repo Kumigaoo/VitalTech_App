@@ -1,6 +1,4 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Rol } from '../../../../../../interface/rol.interface';
-import { RoleService } from '../../../../../../services/role.service';
 import { UsuarioService } from '../../../../../../services/usuario.service';
 import { Personal } from '../../../../../../interface/personal.interface';
 import { FormGroup, FormControl, Validators } from '@angular/forms';

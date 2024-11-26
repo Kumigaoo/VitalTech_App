@@ -12,6 +12,9 @@
       @if (enfermeroForm.get('dni')?.hasError('dniInvalid')&&!enfermeroForm.get('dni')?.hasError('required')){
         <mat-error>El DNI es invalido</mat-error>
       }
+      @if (enfermeroForm.get('dni')?.hasError('dniExiste')){
+        <mat-error>El DNI ya existe</mat-error>
+      }
     </mat-form-field>
 
     <!--Nom-->

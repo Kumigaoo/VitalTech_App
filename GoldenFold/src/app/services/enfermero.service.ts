@@ -10,7 +10,7 @@ import { Enfermero } from '../interface/enfermer.interface';
 
 export class EnfermeroService {
 
-  private apiUrl = 'http://localhost:5296/api/Enfermer';
+  private apiUrl = 'https://localhost:7200/api/Enfermer';
 
   constructor(private http: HttpClient) { }
 
@@ -33,5 +33,9 @@ export class EnfermeroService {
 
   deleteEnfermero(id : string): Observable<Enfermero> {
     return this.http.delete<Enfermero>(`${this.apiUrl}/${id}`);
+  }
+
+  verificarDni(id : string): Observable<Enfermero> {
+    return this.http.get<Enfermero>(this.apiUrl+"/"+id);
   }
 }

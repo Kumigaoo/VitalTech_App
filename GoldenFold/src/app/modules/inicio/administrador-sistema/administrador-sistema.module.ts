@@ -4,7 +4,6 @@ import { AdministradorSistemaRoute } from './administrador-sistema-routing.modul
 import { CamasComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/camas/camas.component';
 import { HabitacionesComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/habitaciones/habitaciones.component';
 import { PacientesComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/pacientes/pacientes.component';
-import { RolesComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/roles/roles.component';
 import { UsuariosComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/usuarios/usuarios.component';
 import { IngresosComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/ingresos/ingresos.component';
 import { PruebasComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/consultas/pruebas.component';
@@ -26,7 +25,7 @@ import { EnfermersComponent } from '../../../pages/inicio/pages/administrador-si
 
 @NgModule({
   declarations: 
-  [ AdministradorSistemaComponent,MetgesComponent, CamasComponent, EnfermersComponent, HabitacionesComponent, PacientesComponent, RolesComponent, UsuariosComponent, IngresosComponent, PruebasComponent, PlantesComponent,EpisodisMedicsComponent ],
+  [ AdministradorSistemaComponent,MetgesComponent, CamasComponent, EnfermersComponent, HabitacionesComponent, PacientesComponent, UsuariosComponent, IngresosComponent, PruebasComponent, PlantesComponent,EpisodisMedicsComponent ],
 
   imports: 
   [ AdministradorSistemaRoute, AdministradorSistemaDashboardComponent, SharedModule, CommonModule ]

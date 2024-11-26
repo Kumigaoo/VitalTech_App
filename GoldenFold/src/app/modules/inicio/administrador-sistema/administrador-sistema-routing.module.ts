@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { CamasComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/camas/camas.component';
 import { HabitacionesComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/habitaciones/habitaciones.component';
 import { PacientesComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/pacientes/pacientes.component';
-import { RolesComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/roles/roles.component';
 import { UsuariosComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/usuarios/usuarios.component';
 import { IngresosComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/ingresos/ingresos.component';
 import { AdministradorSistemaComponent } from '../../../pages/inicio/pages/administrador-sistema/administrador-sistema.component';
@@ -35,10 +34,6 @@ const routes: Routes = [
   {
     path: 'pacientes', 
     component: PacientesComponent
-  },
-  {
-    path: 'roles', 
-    component: RolesComponent
   },
   {
     path: 'usuarios', 

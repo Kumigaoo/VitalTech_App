@@ -8,7 +8,7 @@ import { Personal } from '../interface/personal.interface';
 })
 export class UsuarioService {
 
-  private apiUrl = 'https://localhost:7200/api/Personal';
+  private apiUrl = 'https://localhost:7200/api/Usuarios';
 
   constructor(private http: HttpClient) {}
 
