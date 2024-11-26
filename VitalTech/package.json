@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "npm install && ng serve -o --host=127.0.0.2",
+    "start": "npm install && ng serve --ssl -o --host=127.0.0.2",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
@@ -21,7 +21,7 @@
     "@angular/platform-browser-dynamic": "^18.0.0",
     "@angular/router": "^18.0.0",
     "@auth0/angular-jwt": "^5.2.0",
-    "angular-auth-oidc-client": "18.0.2",
+    "angular-auth-oidc-client": "^18.0.2",
     "fuse.js": "^7.0.0",
     "rxjs": "~7.8.0",
     "sweetalert2": "^11.6.13",
