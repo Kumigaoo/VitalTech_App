@@ -14,7 +14,7 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrl: './administradores-sistema.component.css'
 })
 export class AdministradoresSistemaComponent {
-  displayedColumns: string[]  = ['dni','nom','telefon','usuariId','prioridad'];
+  displayedColumns: string[]  = ['dni','nom','telefon','usuariId','prioridad','actions'];
   administradores : MatTableDataSource<AdministradorSistema> = new MatTableDataSource<AdministradorSistema>();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;

@@ -11,7 +11,7 @@ import { AdministradorSistema } from '../interface/administrador-sistema.interfa
 
 export class AdministradorSistemaService {
 
-  private apiUrl = 'https://localhost:7200/api/Enfermer';
+  private apiUrl = 'https://localhost:7200/api/AdministradorSistema';
 
   constructor(private http: HttpClient) { }
 
