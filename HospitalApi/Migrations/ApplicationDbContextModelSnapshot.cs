@@ -254,8 +254,9 @@ namespace HospitalApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Telefon")
-                        .HasColumnType("int");
+                    b.Property<string>("Telefon")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UsuariId")
                         .HasColumnType("nvarchar(max)");

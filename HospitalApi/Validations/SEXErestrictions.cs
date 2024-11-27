@@ -13,7 +13,7 @@ public class SEXErestriction : ValidationAttribute {
     protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
     {
 
-        if (!(value is string sexe) || !(sexe.ToUpper() == "MASCULI" || sexe.ToUpper() == "FEMENI")) {
+        if (!(value is string sexe) || !(sexe.ToUpper() == "M" || sexe.ToUpper() == "F")) {
 
             return new ValidationResult("ErrorMessage");
 

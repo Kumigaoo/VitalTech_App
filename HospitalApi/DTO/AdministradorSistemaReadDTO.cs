@@ -7,7 +7,7 @@ namespace HospitalAPI.DTO
     {
     public string DNI {get; set;} = string.Empty;
     public string Nom {get; set;} = string.Empty;
-    public int Telefon {get; set;}
+    public string Telefon { get; set; } = string.Empty;
     public string UsuariId { get; set; } = string.Empty;
 
     public string Prioridad { get; set; } = string.Empty;

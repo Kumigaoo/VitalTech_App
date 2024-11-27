@@ -1,1 +1,35 @@
 <app-administratidor-sistema-dashboard></app-administratidor-sistema-dashboard>
+<div class="administradores-section">
+    <h2>Administradores de sistema</h2>
+    <!--Notificaciones-->
+
+    <!--Mat Table-->
+    <div class="table-container">
+        <table mat-table [dataSource]="administradores" matSort class="mat-elevation-z8">
+            <ng-container matColumnDef="dni">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>DNI</th>
+                <td mat-cell *matCellDef="let administrador">{{administrador.dni}}</td>
+            </ng-container>
+            <ng-container matColumnDef="nom">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
+                <td mat-cell *matCellDef="let administrador">{{administrador.nom}}</td>
+            </ng-container>
+            <ng-container matColumnDef="telefon">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Teléfono</th>
+                <td mat-cell *matCellDef="let administrador">{{administrador.telefon}}</td>
+            </ng-container>
+            <ng-container matColumnDef="usuariId">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Usuario</th>
+                <td mat-cell *matCellDef="let administrador">{{administrador.usuariId}}</td>
+            </ng-container>
+            <ng-container matColumnDef="prioridad">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Prioridad</th>
+                <td mat-cell *matCellDef="let administrador">{{administrador.prioridad}}</td>
+            </ng-container>
+            
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+
+            <tr mat-row *matRowDef="let row;columns:displayedColumns" class="clickable-row"></tr>
+        </table>
+    </div>
+</div>
