@@ -13,7 +13,7 @@ namespace HospitalApi.DTO
         public string Cognom2 {  get; set; } = string.Empty;
         public string Sexe { get; set; } = string.Empty;
         public string Telefono { get; set; } = string.Empty;
-        public Nacionalidad Nacionalidad { get; set; }
+        public string Nacionalidad { get; set; }
         public string Email {get; set; } = string.Empty;
         public DateTime BirthDay { get; set; }
         public string Estado { get; set; } = string.Empty;
