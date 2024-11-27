@@ -58,7 +58,7 @@ export class PlantesComponent implements OnInit, AfterViewInit {
   }
 
   loadPlantes(): void {
-    this.plantaService.getPlantes().subscribe({
+    this.plantaService.getAll().subscribe({
       next: (data: Planta[]) => {
         this.plantes = data;
         this.totalItems = data.length;
@@ -115,7 +115,7 @@ export class PlantesComponent implements OnInit, AfterViewInit {
 
 
   guardarPlanta(){
-    this.plantaService.postPlanta(this.nuevaPlanta).subscribe({
+    this.plantaService.post(this.nuevaPlanta).subscribe({
       next: () => {
         this.loadPlantes(); // Cargar plantas después de agregar
         this.snackbar.showNotification('success', 'Planta guardada exitosamente'); // Notificación de éxito
@@ -138,7 +138,7 @@ export class PlantesComponent implements OnInit, AfterViewInit {
     })
   }
 
-  deletePlanta(piso: number): void {
+  delete(piso: number): void {
     Swal.fire({
       title: 'Eliminar planta',
       text: "¿Quieres borrar esta planta?",
@@ -150,7 +150,7 @@ export class PlantesComponent implements OnInit, AfterViewInit {
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.plantaService.deletePlanta(piso).subscribe({
+        this.plantaService.delete(piso).subscribe({
           next: () => {
             this.loadPlantes();
             this.snackbar.showNotification('success', 'Planta eliminada correctamente'); // Notificación de éxito
@@ -165,7 +165,7 @@ export class PlantesComponent implements OnInit, AfterViewInit {
 
   modificarPlanta(): void {
     if(this.plantaSeleccionado){
-      this.plantaService.putPlanta(this.plantaSeleccionado).subscribe({
+      this.plantaService.put(this.plantaSeleccionado.piso, this.plantaSeleccionado).subscribe({
         next: () => {
           this.loadPlantes();
           this.cerrarFormulario();

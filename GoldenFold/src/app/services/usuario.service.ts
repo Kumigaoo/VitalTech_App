@@ -3,29 +3,16 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Personal } from '../interface/personal.interface';
 import { Usuari } from '../interface/usuari.interface';
+import { BaseService } from './abstract-service.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class UsuarioService {
 
-  private apiUrl = 'https://localhost:7200/api/Usuari';
+export class UsuarioService extends BaseService<Personal, string> {
+  protected apiUrl = 'https://localhost:7200/api/Usuari';
 
-  constructor(private http: HttpClient) {}
-
-  getUsuarios(): Observable<Usuari[]> {
-    return this.http.get<Usuari[]>(this.apiUrl);
-  }
-
-  addUsuario(usuario: Usuari): Observable<Usuari> {
-    return this.http.post<Usuari>(`${this.apiUrl}/`, usuario);
-  }
-
-  updateUsuario(usuario: Usuari, dni: string): Observable<Usuari> {
-    return this.http.put<Usuari>(`${this.apiUrl}/${dni}`, usuario);
-  }
-
-  deleteUsuario(dni: string): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${dni}`);
+  constructor(http: HttpClient) {
+    super(http);
   }
 }

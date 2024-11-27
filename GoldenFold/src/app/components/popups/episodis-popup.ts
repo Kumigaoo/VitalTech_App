@@ -84,7 +84,7 @@ export class EpisodiosDialogComponent {
   displayedColumns: string[] = ['id', 'dataObertura', 'dataTancament', 'motivo', 'urgencia','recepta','estat','dniPacient'];
 
   obtenerPacientes(): void{
-    this.pacientServic.getPacients().subscribe({
+    this.pacientServic.getAll().subscribe({
       next:(data: Paciente[]) => {
         this.pacientes = data;
         console.log('Pacientes: ',this.pacientes);

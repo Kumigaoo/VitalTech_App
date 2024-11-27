@@ -55,7 +55,7 @@ export class PruebasComponent implements OnInit, AfterViewInit {
   }
 
   obtenerConsultas(): void {
-    this.pruebaService.getPruebasDiagnostricas().subscribe({
+    this.pruebaService.getAll().subscribe({
       next: (data: PruebaDiagnostica[]) => {
         this.pruebas = data;
         this.totalItems = data.length;
@@ -127,7 +127,7 @@ export class PruebasComponent implements OnInit, AfterViewInit {
   }
 
   borrarConsulta(id: number): void {
-    this.pruebaService.deletePruebaDiagnostica(id).subscribe({
+    this.pruebaService.delete(id).subscribe({
       next: () => {
         this.obtenerConsultas(); 
         this.snackbar.showNotification('success', 'Consulta eliminada correctamente');
@@ -141,7 +141,7 @@ export class PruebasComponent implements OnInit, AfterViewInit {
 
   actualizarConsulta(): void {
     if (this.pruebaSeleccionada) {
-      this.pruebaService.putPruebaDiagnostica(this.pruebaSeleccionada).subscribe({
+      this.pruebaService.put(this.pruebaSeleccionada.id, this.pruebaSeleccionada).subscribe({
         next: () => {
           this.obtenerConsultas();
           this.cerrarFormulario();

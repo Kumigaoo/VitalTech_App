@@ -16,7 +16,7 @@ export class EnfermeroAsyncValidator {
         if (!control.value) {
         return of(null); // No hay validación si no hay nada que validar
         }
-        return this.enfermeroService.getEnfermeros().pipe(
+        return this.enfermeroService.getAll().pipe(
             map((enfermeros) => {
                 const usernameExists = enfermeros.some(
                     (enfermero) => enfermero.usuariId === control.value

@@ -70,7 +70,7 @@ export class EpisodisMedicsComponent implements OnInit, AfterViewInit {
   }
 
   obtenerEpisodis(): void {
-    this.episodiService.getEpisodis().subscribe({
+    this.episodiService.getAll().subscribe({
       next: (data: EpisodiMedic[]) => {
         this.episodis = data;
         this.episodis.forEach(element => {
@@ -146,7 +146,7 @@ export class EpisodisMedicsComponent implements OnInit, AfterViewInit {
   }
 
   borrarEpisodi(id: number): void {
-    this.episodiService.deleteEpisodi(id).subscribe({
+    this.episodiService.delete(id).subscribe({
       next: () => {
         this.obtenerEpisodis();
         this.snackbar.showNotification('success', 'Episodi eliminado correctamente');
@@ -160,7 +160,7 @@ export class EpisodisMedicsComponent implements OnInit, AfterViewInit {
 
   actualizarEpisodi(): void {
     if (this.episodiSeleccionada) {
-      this.episodiService.putEpisodi(this.episodiSeleccionada).subscribe({
+      this.episodiService.put(this.episodiSeleccionada.id,this.episodiSeleccionada).subscribe({
         next: () => {
           this.obtenerEpisodis();
           this.cerrarFormulario();

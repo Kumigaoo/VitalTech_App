@@ -47,7 +47,7 @@ export class MetgesComponent {
 
   //metodo para obtener medicos
   obtenerMedicos(): void{
-    this.medicoService.getMedicos().subscribe({
+    this.medicoService.getAll().subscribe({
       next: (data:Medico[]) => {
         this.medicos.data = data;
       },
@@ -71,7 +71,7 @@ export class MetgesComponent {
   agregarMedico(): void{
     if(this.medicoForm.valid){
       const nuevoMedico: Medico = this.medicoForm.value;
-      this.medicoService.postMedico(nuevoMedico).subscribe({
+      this.medicoService.post(nuevoMedico).subscribe({
         next: (medico:Medico) => {
           console.log('Medico',medico);
           this.medicos.data = [...this.medicos.data,medico];
@@ -91,7 +91,7 @@ export class MetgesComponent {
   actualizarMedico(dniAntiguo: string): void{
     if(this.medicoParaActualizar){
       const medicoActualizado = {...this.medicoParaActualizar};
-      this.medicoService.putMedico(medicoActualizado,dniAntiguo).subscribe({
+      this.medicoService.put(dniAntiguo,medicoActualizado).subscribe({
         next:()=>{
           this.obtenerMedicos();
           this.medicoParaActualizar=null;
@@ -158,7 +158,7 @@ export class MetgesComponent {
   }  
 
   borrarMedico(dni: string): void{
-    this.medicoService.deleteMedico(dni).subscribe({
+    this.medicoService.delete(dni).subscribe({
       next:() => {
         this.medicos.data = this.medicos.data.filter(i => i.dni != dni);
         this.snackbar.showNotification('success', 'Médico eliminado correctamente'); // Notificación de éxito

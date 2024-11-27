@@ -3,35 +3,15 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Medico } from '../interface/medico.interface';
 import { PruebaDiagnostica } from '../interface/pruebas-diagnosticas.interface';
+import { BaseService } from './abstract-service.service';
 
 @Injectable({
-    providedIn: 'root'
-  })
+  providedIn: 'root',
+})
+export class PruebasService extends BaseService<PruebaDiagnostica, number> {
+  protected apiUrl = 'https://localhost:7200/api/PruebasDiagnosticas';
 
-export class PruebasService {
-
-  private apiUrl = 'https://localhost:7200/api/PruebasDiagnosticas';
-
-  constructor(private http: HttpClient) { }
-
-  getPruebasDiagnostricas(): Observable<PruebaDiagnostica[]> {
-    return this.http.get<PruebaDiagnostica[]>(this.apiUrl);
-  }
-
-  getPruebaDiagnosticaId(id : number): Observable<PruebaDiagnostica> {
-    return this.http.get<PruebaDiagnostica>(this.apiUrl+"/"+id);
-  }
-
-  postPruebaDiagnostica(medico : PruebaDiagnostica): Observable<PruebaDiagnostica> {
-    return this.http.post<PruebaDiagnostica>(this.apiUrl,medico);
-  }
-
-  putPruebaDiagnostica(prueba : PruebaDiagnostica): Observable<PruebaDiagnostica> {
-    const url = `${this.apiUrl}/${prueba.id}`;
-    return this.http.put<PruebaDiagnostica>(url, prueba);
-  }
-
-  deletePruebaDiagnostica(id : number): Observable<PruebaDiagnostica> {
-    return this.http.delete<PruebaDiagnostica>(`${this.apiUrl}/${id}`);
+  constructor(http: HttpClient) {
+    super(http);
   }
 }
