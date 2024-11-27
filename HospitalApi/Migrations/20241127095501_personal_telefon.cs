@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace HospitalApi.Migrations
 {
     /// <inheritdoc />
-    public partial class pacientes_fixed : Migration
+    public partial class personal_telefon : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -41,7 +41,7 @@ namespace HospitalApi.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     DNI = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Nom = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Telefon = table.Column<int>(type: "int", nullable: false),
+                    Telefon = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UsuariId = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
