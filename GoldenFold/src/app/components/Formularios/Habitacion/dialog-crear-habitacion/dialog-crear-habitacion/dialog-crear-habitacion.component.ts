@@ -62,7 +62,7 @@ export class DialogCrearHabitacionComponent {
   }
 
   obtenerPlantas(): void {
-    this.plantaService.getPlantes().subscribe({
+    this.plantaService.getAll().subscribe({
       next: (data: Planta[]) => {
         const codiHabitacio = this.habForm.get('codiHabitacio')?.value;
         if (!codiHabitacio  || codiHabitacio.length !== 3) {

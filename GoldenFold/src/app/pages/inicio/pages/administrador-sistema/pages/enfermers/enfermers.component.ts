@@ -39,7 +39,7 @@ export class EnfermersComponent {
   }
 
   obtenerEnfermeros(): void{
-    this.enfermeroService.getEnfermeros().subscribe({
+    this.enfermeroService.getAll().subscribe({
       next: (data:Enfermero[]) => {
         this.enfermeros.data = data;
         console.log(this.enfermeros.data);
@@ -61,7 +61,7 @@ export class EnfermersComponent {
   }
 
   deleteEnfermero(enfermero: Enfermero): void{
-    this.enfermeroService.deleteEnfermero(enfermero.dni).subscribe({
+    this.enfermeroService.delete(enfermero.dni).subscribe({
       next:() => {
         this.enfermeros.data = this.enfermeros.data.filter(i => i.dni != enfermero.dni);
         this.snackbar.showNotification('success', 'Enfermero eliminado correctamente'); // Notificación de éxito
@@ -103,7 +103,7 @@ export class EnfermersComponent {
     if(this.enfermeroForm.valid){
       const nuevoEnfermero: Enfermero = this.enfermeroForm.value;
       console.log(nuevoEnfermero);
-      this.enfermeroService.postEnfermero(nuevoEnfermero).subscribe({
+      this.enfermeroService.post(nuevoEnfermero).subscribe({
         next:(enfermero: Enfermero) => {
           console.log('Enfermero:',enfermero);
           this.enfermeros.data = [...this.enfermeros.data,enfermero];
@@ -124,7 +124,7 @@ export class EnfermersComponent {
   actualizarEnfermero(dniAntiguo: string): void{
     if(this.enfermeroParaActualizar){
       const enfermeroActualizado = {...this.enfermeroParaActualizar};
-      this.enfermeroService.putEnfermero(enfermeroActualizado,dniAntiguo).subscribe({
+      this.enfermeroService.put(dniAntiguo,enfermeroActualizado).subscribe({
         next:()=>{
           this.obtenerEnfermeros();
           this.enfermeroParaActualizar=null;

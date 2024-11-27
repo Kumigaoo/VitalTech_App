@@ -69,7 +69,7 @@ export class PruebasDialogComponent {
   }
 
   obtenerPruebasDiagnosticas(): void{
-    this.pruebasService.getPruebasDiagnostricas().subscribe({
+    this.pruebasService.getAll().subscribe({
       next:(data: PruebaDiagnostica[]) => {
         // Filter the data based on the ids present in the `data` array
         const filteredData = data.filter(prueba => this.data.some(item => item.id === prueba.id));

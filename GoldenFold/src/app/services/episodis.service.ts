@@ -2,40 +2,18 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { EpisodiMedic } from '../interface/episodis-medics.interface';
+import { BaseService } from './abstract-service.service';
 
 
 @Injectable({
   providedIn: 'root'
 })
 
-export class EpisodiService {
+export class EpisodiService extends BaseService<EpisodiMedic, number> {
+  protected apiUrl = 'https://localhost:7200/api/EpisodiMedic';
 
-  private apiUrl = 'https://localhost:7200/api/EpisodiMedic';
-
-  constructor(private http: HttpClient) { }
-
-  getEpisodis(): Observable<EpisodiMedic[]> {
-    return this.http.get<EpisodiMedic[]>(this.apiUrl);
+  constructor(http: HttpClient) {
+    super(http);
   }
-
-  getEpisodisId(id: number): Observable<EpisodiMedic> {
-    return this.http.get<EpisodiMedic>(this.apiUrl + "/" + id);
-  }
-
-  postEpisodi(episodi: EpisodiMedic): Observable<EpisodiMedic> {
-    return this.http.post<EpisodiMedic>(this.apiUrl, episodi);
-  }
-
-  putEpisodi(episodi: EpisodiMedic): Observable<EpisodiMedic> {
-    const url = `${this.apiUrl}/${episodi.id}`;
-    return this.http.put<EpisodiMedic>(url, episodi
-    );
-  }
-
-  deleteEpisodi(id: number): Observable<EpisodiMedic> {
-    return this.http.delete<EpisodiMedic>(`${this.apiUrl}/${id}`);
-  }
-
- 
-
 }
+

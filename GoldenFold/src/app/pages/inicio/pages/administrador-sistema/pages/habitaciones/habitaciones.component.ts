@@ -56,7 +56,7 @@ export class HabitacionesComponent implements OnInit {
   }
 
   obtenerHabitaciones(): void {
-    this.habitacionService.getHabitacions().subscribe({
+    this.habitacionService.getAll().subscribe({
       next: (data: Habitacion[]) => {
         this.habitaciones = data;
         this.totalItems = data.length;
@@ -99,7 +99,7 @@ export class HabitacionesComponent implements OnInit {
   }
 
   guardarHabitacion() {
-    this.habitacionService.postHabitacion(this.nuevaHabitacion).subscribe({
+    this.habitacionService.post(this.nuevaHabitacion).subscribe({
       next: () => {
         this.obtenerHabitaciones();
         this.snackbar.showNotification('success', 'Habitación guardada exitosamente'); // Notificación de éxito
@@ -130,7 +130,7 @@ export class HabitacionesComponent implements OnInit {
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.habitacionService.deleteHabitacion(id).subscribe({
+        this.habitacionService.delete(id).subscribe({
           next: () => {
             this.obtenerHabitaciones();
             this.snackbar.showNotification('success', 'Habitación eliminada correctamente');
@@ -159,7 +159,7 @@ export class HabitacionesComponent implements OnInit {
 
   modificarHabitacion(id: number): void {
     if(this.habitacionParaActualizar){
-      this.habitacionService.putHabitacion(id, this.habitacionParaActualizar).subscribe({
+      this.habitacionService.put(id, this.habitacionParaActualizar).subscribe({
         next: () => {
           this.obtenerHabitaciones();
           this.cerrarFormulario();

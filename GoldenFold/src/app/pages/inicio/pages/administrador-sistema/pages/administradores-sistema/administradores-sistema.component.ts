@@ -24,7 +24,7 @@ export class AdministradoresSistemaComponent {
   constructor(private administradorSistemaService: AdministradorSistemaService, private fb: FormBuilder, private dialog: MatDialog){}
 
   obtenerAdministradoresDeSistema(): void{
-    this.administradorSistemaService.getAdministradores().subscribe({
+    this.administradorSistemaService.getAll().subscribe({
       next:(data:AdministradorSistema[])=>{
         this.administradores.data = data;
         this.administradores.sort = this.sort;

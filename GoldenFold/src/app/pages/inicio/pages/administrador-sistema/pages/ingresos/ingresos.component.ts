@@ -65,7 +65,7 @@ export class IngresosComponent implements OnInit {
   }
   // Obtener la lista de ingresos desde el servicio correspondiente
   obtenerIngresos(): void {
-    this.ingresoService.getIngresosos().subscribe({
+    this.ingresoService.getAll().subscribe({
       next: (data: Ingreso[]) => {
         this.ingresos.data = data;
         this.ingresos.paginator = this.paginator;
@@ -83,7 +83,7 @@ export class IngresosComponent implements OnInit {
       // Crear un nuevo objeto de tipo Ingreso basado en los valores del formulario
       const nuevoIngreso: Ingreso = this.ingresoForm.value;
       nuevoIngreso.dataEntrada = new Date(); //ponemos la fecha de hoy
-      this.ingresoService.postIngreso(nuevoIngreso).subscribe({
+      this.ingresoService.post(nuevoIngreso).subscribe({
         next: (ingreso: Ingreso) => {
           console.log('Ingreso: ',ingreso);
           // Agregar el ingreso a la lista de ingresos
@@ -109,7 +109,7 @@ export class IngresosComponent implements OnInit {
     if(this.ingresoParaActualizar){
       // Crear una copia del ingreso existente con los valores actualizados
       const ingresoActualizado: Ingreso = {...this.ingresoParaActualizar};
-      this.ingresoService.putIngreso(ingresoActualizado).subscribe({
+      this.ingresoService.put(ingresoActualizado.id ,ingresoActualizado).subscribe({
         next:() => {
           // Obtener la lista de ingresos actualizada
           this.obtenerIngresos();
@@ -150,7 +150,7 @@ export class IngresosComponent implements OnInit {
   
   // Borrar un ingreso de la lista
   borrarIngreso(id: number): void {
-    this.ingresoService.deleteIngreso(id).subscribe({
+    this.ingresoService.delete(id).subscribe({
       next: () => {
         // Eliminar el ingreso de la lista de ingresos
         this.ingresos.data = this.ingresos.data.filter(i => i.id !== id);

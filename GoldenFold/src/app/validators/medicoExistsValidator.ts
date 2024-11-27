@@ -15,7 +15,7 @@ export class MedicoAsyncValidator {
         if (!control.value) {
         return of(null); // No hay validación si no hay nada que validar
         }
-        return this.medicoService.getMedicos().pipe(
+        return this.medicoService.getAll().pipe(
             map((medicos) => {
                 const usernameExists = medicos.some(
                     (medico) => medico.usuariId === control.value
