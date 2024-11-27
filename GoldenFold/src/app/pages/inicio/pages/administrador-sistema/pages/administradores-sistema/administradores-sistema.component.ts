@@ -5,7 +5,7 @@ import { SnackbarComponent } from '../../../../../../components/snackbar/snackba
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { AdministradorSistemaService } from '../../../../../../services/administrador-sistema.service';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({
@@ -21,7 +21,13 @@ export class AdministradoresSistemaComponent {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(SnackbarComponent) snackbar!: SnackbarComponent;
 
-  constructor(private administradorSistemaService: AdministradorSistemaService, private fb: FormBuilder, private dialog: MatDialog){}
+  administradorSistemaForm!: FormGroup;
+  administradorSistemaParaActualizar: AdministradorSistema | null = null;
+
+  constructor(private administradorSistemaService: AdministradorSistemaService, private fb: FormBuilder, private dialog: MatDialog){
+    this.obtenerAdministradoresDeSistema();
+    this.crearFormularioAdministradorDeSistema();
+  }
 
   obtenerAdministradoresDeSistema(): void{
     this.administradorSistemaService.getAdministradores().subscribe({
@@ -29,11 +35,22 @@ export class AdministradoresSistemaComponent {
         this.administradores.data = data;
         this.administradores.sort = this.sort;
         this.administradores.paginator = this.paginator;
+        console.log('Administradores de sistema:',this.administradores.data);
       },
       error:(error:any)=>{
         console.log('ERROR:',error);
       }
     })
+  }
+
+  crearFormularioAdministradorDeSistema(): void{
+    this.administradorSistemaForm = this.fb.group({
+      dni: ['',Validators.required],
+      nom:['',Validators.required],
+      telefon:[0],
+      usuariId:['',Validators.required],
+      especialitat:['',Validators.required]
+    });
   }
 
   

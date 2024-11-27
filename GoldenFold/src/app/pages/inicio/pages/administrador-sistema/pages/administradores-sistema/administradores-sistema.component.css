@@ -1,5 +1,5 @@
 /* Estilo general de la sección de camas */
-.enfermeros-section {
+.administradores-section {
     font-family: Arial, sans-serif;
     margin: 20px;
     margin-top: 70px;   /* Ajusta según la altura del header */
@@ -50,16 +50,6 @@
     font-size: 14px;
   }
   
-  /* Estilo del contenedor de la tabla */
-  .table-container {
-    width: 100%;
-    overflow-x: auto;
-    background-color: rgb(243, 240, 240);
-    padding: 10px;
-    margin: 5px;
-    border-radius: 7px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
   
   /* Estilo de la tabla */
   .table {
