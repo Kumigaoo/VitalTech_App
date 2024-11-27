@@ -33,32 +33,32 @@
         <table mat-table [dataSource]="enfermeros" matSort class="mat-elevation-z8">
             <ng-container matColumnDef="dni">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>DNI</th>
-                <td mat-cell *matCellDef="let enfermer">{{enfermer?.dni}}</td>
+                <td mat-cell *matCellDef="let enfermer" (click)="toogleActualizarEnfermero(enfermer)">{{enfermer?.dni}}</td>
             </ng-container>
 
             <ng-container matColumnDef="nom">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
-                <td mat-cell *matCellDef="let enfermer">{{enfermer?.nom}}</td>
+                <td mat-cell *matCellDef="let enfermer" (click)="toogleActualizarEnfermero(enfermer)">{{enfermer?.nom}}</td>
             </ng-container>
 
             <ng-container matColumnDef="telefon">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Teléfono</th>
-                <td mat-cell *matCellDef="let enfermer">{{enfermer?.telefon}}</td>
+                <td mat-cell *matCellDef="let enfermer" (click)="toogleActualizarEnfermero(enfermer)">{{enfermer?.telefon}}</td>
             </ng-container>
 
             <ng-container matColumnDef="usuariId">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Usuario</th>
-                <td mat-cell *matCellDef="let enfermer">{{enfermer?.usuariId}}</td>
+                <td mat-cell *matCellDef="let enfermer" (click)="toogleActualizarEnfermero(enfermer)">{{enfermer?.usuariId}}</td>
             </ng-container>
 
             <ng-container matColumnDef="especialitat">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Especialidad</th>
-                <td mat-cell *matCellDef="let enfermer">{{enfermer?.especialitat}}</td>
+                <td mat-cell *matCellDef="let enfermer" (click)="toogleActualizarEnfermero(enfermer)">{{enfermer?.especialitat}}</td>
             </ng-container>
 
             <ng-container matColumnDef="pruebasDiagnosticas">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Pruebas Diagnosticas</th>
-                <td mat-cell *matCellDef="let enfermer">{{enfermer?.pruebasDiagnosticas}}</td>
+                <td mat-cell *matCellDef="let enfermer" style="cursor: pointer; color: blue;" (click)="verPruebasDiagnosticas(enfermer)">{{enfermer?.pruebasDiagnosticas.length}} {{enfermer?.pruebasDiagnosticas.length==1 ? "prueba diagnostica" : "pruebas diagnosticas"}}</td>
             </ng-container>
 
             <ng-container matColumnDef="Actions">

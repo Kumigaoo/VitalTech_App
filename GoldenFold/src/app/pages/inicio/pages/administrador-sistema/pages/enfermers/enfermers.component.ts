@@ -9,6 +9,7 @@ import { EnfermeroService } from '../../../../../../services/enfermero.service';
 import { getMatIconFailedToSanitizeUrlError } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogFormularioEnfermeroModifComponent } from '../../../../../../components/Formularios/Enfermero/dialog-formulario-ingreso-modif/dialog-formulario-enfermero-modif.component';
+import { PruebasDialogComponent } from '../../../../../../components/popups/pruebas-popup';
 
 @Component({
   selector: 'app-enfermers',
@@ -120,6 +121,23 @@ export class EnfermersComponent {
     }
   }
 
+  actualizarEnfermero(dniAntiguo: string): void{
+    if(this.enfermeroParaActualizar){
+      const enfermeroActualizado = {...this.enfermeroParaActualizar};
+      this.enfermeroService.putEnfermero(enfermeroActualizado,dniAntiguo).subscribe({
+        next:()=>{
+          this.obtenerEnfermeros();
+          this.enfermeroParaActualizar=null;
+          this.enfermeroForm.reset();
+          this.snackbar.showNotification('success','Enfermero actualizado correctamente');
+        },
+        error: (error:any) => {
+          console.log('Error al actualizar el enfermero',error);
+        }
+      });
+    }
+  }
+
   tooggleAgregarEnfermero(): void{
     this.crearFormularioEnfermero();
     this.dialog.open(DialogFormularioEnfermeroModifComponent, {
@@ -130,6 +148,26 @@ export class EnfermersComponent {
         this.agregarEnfermero();
       }
     })
+  }
+
+  toogleActualizarEnfermero(enfermero: Enfermero): void{
+    this.enfermeroParaActualizar = {...enfermero};
+    this.dialog.open(DialogFormularioEnfermeroModifComponent, {
+      data: this.enfermeroParaActualizar
+    }).afterClosed().subscribe((enfermeroActualizado) => {
+      if(enfermeroActualizado){
+        this.enfermeroParaActualizar = enfermeroActualizado;
+        this.actualizarEnfermero(enfermero.dni);
+      }
+    })
+  }
+
+  verPruebasDiagnosticas(enfermero: Enfermero): void{
+    this.dialog.open(PruebasDialogComponent,{
+      maxWidth: 'none',
+      maxHeight:'none',
+      data:enfermero.pruebasDiagnosticas
+    });
   }
 
 }
