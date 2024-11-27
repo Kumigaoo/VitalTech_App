@@ -60,3 +60,17 @@ nav {
 .nav-item .active{
     color: antiquewhite;
 }
+
+div button {
+
+    background-color: transparent;
+    border-style: none;
+
+}
+
+div button img {
+
+   width: 3.5em;
+   height: auto;
+
+}
