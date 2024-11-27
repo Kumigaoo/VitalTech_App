@@ -3,6 +3,7 @@ using System.Text;
 using AutoMapper;
 using HospitalApi.Data;
 using HospitalApi.DTO;
+using HospitalApi.Enums;
 using HospitalAPI.Models;
 using Microsoft.AspNetCore.Authorization;
 
@@ -102,6 +103,12 @@ namespace HospitalAPI.Controllers
             {
                 _logger.LogError("Error: Sexe Invalid.");
                 return BadRequest("Error: Sexe Invalid.");
+            }
+
+            if (!Enum.TryParse(typeof(Nacionalidad), userPacientDTO.Nacionalidad.Replace(" ",""), true, out _))
+            {
+                _logger.LogError("Nacionalidad incorrecta.");
+                return BadRequest("Nacionalidad incorrecta.");
             }
 
             var existeixAdministratiu = await _bbdd.Administratius.FirstOrDefaultAsync(p => p.Id == userPacientDTO.AdministratiuId);
