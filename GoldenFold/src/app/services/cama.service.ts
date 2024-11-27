@@ -8,6 +8,7 @@ import { Cama } from '../interface/cama.interface';
   })
 
 export class CamaService {
+  
     private apiUrl = 'https://localhost:7200/api/Llit';
 
     constructor(private http: HttpClient) { }
