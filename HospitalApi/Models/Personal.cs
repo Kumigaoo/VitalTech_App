@@ -11,7 +11,7 @@ namespace HospitalAPI.Models
         public int Id { get; set; }
         public string DNI { get; set; } = string.Empty;
         public string Nom { get; set; } = string.Empty;
-        public int Telefon { get; set; }
+        public string Telefon { get; set; } = string.Empty;
 
         [ForeignKey("UsuariId")]
         public string? UsuariId { get; set; }

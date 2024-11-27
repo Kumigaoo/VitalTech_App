@@ -228,16 +228,16 @@ INSERT INTO Usuari (Username, Password, Email, RolId) VALUES ('slopez', 'passwor
 
 
 -- Insertar Personal
-INSERT INTO Personal (DNI, Nom, Telefon, UsuariId) VALUES ('12345678A', 'Juan Pérez', 600123456, 'juanp');
-INSERT INTO Personal (DNI, Nom, Telefon, UsuariId) VALUES ('87654321B', 'María López', 600654321, 'marial');
-INSERT INTO Personal (DNI, Nom, Telefon, UsuariId) VALUES ('11223344C', 'Carlos García', 600112233, 'cgarcia');
-INSERT INTO Personal (DNI, Nom, Telefon, UsuariId) VALUES ('44332211D', 'Laura Fernández', 600445566, 'lfernandez');
-INSERT INTO Personal (DNI, Nom, Telefon, UsuariId) VALUES ('55555555E', 'Miguel Martín', 600556677, 'mmartin');
-INSERT INTO Personal (DNI, Nom, Telefon, UsuariId) VALUES ('66666666F', 'Ana Pérez', 600667788, 'aperez');
-INSERT INTO Personal (DNI, Nom, Telefon, UsuariId) VALUES ('77777777G', 'Gonzalo López', 600778899, 'glopez');
-INSERT INTO Personal (DNI, Nom, Telefon, UsuariId) VALUES ('88888888H', 'Elena Flores', 600889900, 'eflores');
-INSERT INTO Personal (DNI, Nom, Telefon, UsuariId) VALUES ('99999999I', 'Jorge García', 600990011, 'jgarcia');
-INSERT INTO Personal (DNI, Nom, Telefon, UsuariId) VALUES ('10101010J', 'Sara López', 600101112, 'slopez');
+INSERT INTO Personal (DNI, Nom, Telefon, UsuariId) VALUES ('12345678A', 'Juan Pérez', '600123456', 'juanp');
+INSERT INTO Personal (DNI, Nom, Telefon, UsuariId) VALUES ('87654321B', 'María López', '600654321', 'marial');
+INSERT INTO Personal (DNI, Nom, Telefon, UsuariId) VALUES ('11223344C', 'Carlos García', '600112233', 'cgarcia');
+INSERT INTO Personal (DNI, Nom, Telefon, UsuariId) VALUES ('44332211D', 'Laura Fernández', '600445566', 'lfernandez');
+INSERT INTO Personal (DNI, Nom, Telefon, UsuariId) VALUES ('55555555E', 'Miguel Martín', '600556677', 'mmartin');
+INSERT INTO Personal (DNI, Nom, Telefon, UsuariId) VALUES ('66666666F', 'Ana Pérez', '600667788', 'aperez');
+INSERT INTO Personal (DNI, Nom, Telefon, UsuariId) VALUES ('77777777G', 'Gonzalo López', '600778899', 'glopez');
+INSERT INTO Personal (DNI, Nom, Telefon, UsuariId) VALUES ('88888888H', 'Elena Flores', '600889900', 'eflores');
+INSERT INTO Personal (DNI, Nom, Telefon, UsuariId) VALUES ('99999999I', 'Jorge García', '600990011', 'jgarcia');
+INSERT INTO Personal (DNI, Nom, Telefon, UsuariId) VALUES ('10101010J', 'Sara López', '600101112', 'slopez');
 
 
 -- Insertar Administratiu

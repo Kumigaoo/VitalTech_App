@@ -9,7 +9,7 @@ namespace HospitalAPI.DTO
         [Required]
         public string DNI { get; set; } = string.Empty;
         public string Nom { get; set; } = string.Empty;
-        public int Telefon { get; set; }
+        public string Telefon { get; set; } = string.Empty;
         public string Especialitat { get; set; } = string.Empty;
         public string UsuariId { get; set; } = string.Empty;
         public ICollection<PruebaDiagnosticaReferenceDTO>? PruebasDiagnosticas { get; set; }

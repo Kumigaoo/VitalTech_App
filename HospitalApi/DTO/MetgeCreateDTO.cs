@@ -11,7 +11,7 @@ namespace HospitalApi.DTO
         [Required]
         public string Nom { get; set; } = string.Empty;
         [TELEFONrestriction]
-        public int Telefon { get; set; }
+        public string Telefon { get; set; } = string.Empty;
         [Required]
         public string Especialitat { get; set; } = string.Empty;
         [Required]
