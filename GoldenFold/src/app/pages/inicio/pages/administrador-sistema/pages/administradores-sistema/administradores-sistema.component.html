@@ -29,7 +29,7 @@
             <ng-container matColumnDef="actions">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Action</th>
                 <td mat-cell *matCellDef="let administrador">
-                    <button mat-button color="warn">
+                    <button mat-button color="warn" (click)="eliminarAdministradorSistema(administrador)">
                         Eliminar
                     </button>
                 </td>

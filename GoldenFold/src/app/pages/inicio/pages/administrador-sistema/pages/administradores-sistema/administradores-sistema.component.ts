@@ -53,6 +53,16 @@ export class AdministradoresSistemaComponent {
     });
   }
 
-  
+  eliminarAdministradorSistema(administrador: AdministradorSistema): void{
+    this.administradorSistemaService.delete(administrador.dni).subscribe({
+      next:()=>{
+        this.obtenerAdministradoresDeSistema();
+        this.snackbar.showNotification('success', 'Administrador de sistema eliminado correctamente');
+      },
+      error:(error: any)=>{
+        console.log('ERR0R',error);
+      }
+    });
+  }
   
 }
