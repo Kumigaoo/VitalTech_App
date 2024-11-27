@@ -72,7 +72,7 @@ export class PacientesComponent implements OnInit, AfterViewInit {
   }
 
   obtenerPacientes(): void {
-    this.pacienteService.getPacients().subscribe({
+    this.pacienteService.getAll().subscribe({
       next: (data: Paciente[]) => {
       this.pacientes = data;
       this.totalItems = data.length;
@@ -141,7 +141,7 @@ export class PacientesComponent implements OnInit, AfterViewInit {
 
   // Eliminar paciente
 borrarPaciente(id: string): void {
-  this.pacienteService.deletePacient(id).subscribe({
+  this.pacienteService.delete(id).subscribe({
     next: () => {
       this.obtenerPacientes(); // Refrescar la tabla tras borrar
       this.snackbar.showNotification('success', 'Paciente eliminado correctamente'); // Notificación de éxito
@@ -155,7 +155,7 @@ borrarPaciente(id: string): void {
 
 // Guardar un nuevo paciente
 guardarPaciente(): void {
-  this.pacienteService.postPacient(this.nuevoPaciente).subscribe({
+  this.pacienteService.post(this.nuevoPaciente).subscribe({
     next: () => {
       this.obtenerPacientes();
       this.cerrarFormulario();
@@ -171,7 +171,7 @@ guardarPaciente(): void {
 actualizarPaciente(): void {
   console.log(this.pacienteSeleccionado); // Para verificar que pacienteSeleccionado no sea null o undefined
   if (this.pacienteSeleccionado) {
-    this.pacienteService.putPacient(this.pacienteSeleccionado, this.pacienteSeleccionado.dni).subscribe({
+    this.pacienteService.put(this.pacienteSeleccionado.dni, this.pacienteSeleccionado).subscribe({
       next: () => {
         this.obtenerPacientes();
         this.cerrarFormulario();

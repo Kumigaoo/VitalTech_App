@@ -121,7 +121,7 @@ export class DialogFormularioIngresoModifComponent implements OnInit {
 
   // Obtener la lista de episodios médicos desde el servicio correspondiente
   obtenerEpisodisMedics(): void {
-    this.episodiService.getEpisodis().subscribe({
+    this.episodiService.getAll().subscribe({
       next: (data: EpisodiMedic[]) => {
         this.episodisMedics = data;
       },
@@ -133,7 +133,7 @@ export class DialogFormularioIngresoModifComponent implements OnInit {
 
   // Obtener la lista de camas disponibles desde el servicio correspondiente
   obtenerCamas(): void {
-    this.camaService.getLlits().subscribe({
+    this.camaService.getAll().subscribe({
       next: (data: Cama[]) => {
         this.llits = data.filter(llit => !llit.ocupat && !llit.foraDeServei || llit.codiLlit === this.ingresoForm.get('codiLlit')?.value);
       },

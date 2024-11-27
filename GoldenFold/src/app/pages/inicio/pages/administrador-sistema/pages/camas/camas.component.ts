@@ -80,7 +80,7 @@ export class CamasComponent implements OnInit, AfterViewInit {
 
 
   obtenerCamas(): void {
-    this.camaService.getLlits().subscribe({
+    this.camaService.getAll().subscribe({
       next: (data: Cama[]) => {
         this.camas = data;
         this.totalItems = data.length;
@@ -139,7 +139,7 @@ export class CamasComponent implements OnInit, AfterViewInit {
   }
 
   borrarCama(codiLlit: string): void {
-    this.camaService.deleteLlit(codiLlit).subscribe({
+    this.camaService.delete(codiLlit).subscribe({
       next: () => {
         this.obtenerCamas(); // Refrescar la tabla tras borrar
         this.snackbar.showNotification('success', 'Cama eliminada correctamente'); // Notificación de éxito
@@ -168,7 +168,7 @@ export class CamasComponent implements OnInit, AfterViewInit {
   actualizarCama(codiLlit: string): void {
     console.log(this.camaSeleccionada); // Para verificar que pacienteSeleccionado no sea null o undefined
     if (this.camaSeleccionada) {
-      this.camaService.putLlit(codiLlit, this.camaSeleccionada).subscribe({
+      this.camaService.put(codiLlit, this.camaSeleccionada).subscribe({
         next: () => {
           this.obtenerCamas();
           this.cerrarFormulario();

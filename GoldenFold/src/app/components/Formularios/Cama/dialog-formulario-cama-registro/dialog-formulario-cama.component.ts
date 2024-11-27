@@ -61,7 +61,7 @@ export class DialogFormulariocamaComponent {
   }
 
   obtenerHabitaciones(): void {
-    this.habitacionService.getHabitacions().subscribe({
+    this.habitacionService.getAll().subscribe({
       next: (data: Habitacion[]) => {
         this.habitaciones = data.filter(habitacion => habitacion.capacitatLlits > habitacion.llits.length);
         console.log('Habitaciones cargadas:', this.habitaciones);
