@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace HospitalApi.Migrations
 {
     /// <inheritdoc />
-    public partial class migrtions : Migration
+    public partial class pacientes_fixed : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -243,7 +243,7 @@ namespace HospitalApi.Migrations
                     Cognom2 = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Sexe = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Telefono = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Nacionalidad = table.Column<int>(type: "int", nullable: false),
+                    Nacionalidad = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     AdministratiuId = table.Column<int>(type: "int", nullable: false),
                     BirthDay = table.Column<DateTime>(type: "datetime2", nullable: false),
