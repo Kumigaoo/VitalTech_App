@@ -3,6 +3,25 @@
     <h2>Administradores de sistema</h2>
     <!--Notificaciones-->
     <app-snackbar #snackbar></app-snackbar>
+
+    <div class="header-container">
+        
+        <!--Caja de busqueda-->
+        <div>
+            <app-search-box
+                [searchOptions]="[
+                    {label: 'DNI',value: 'dni'},
+                    {label: 'Nombre',value: 'nom'},
+                    {label: 'Telefono',value: 'telefon'},
+                    {label: 'Usuario',value: 'usuariId'},
+                    {label: 'Prioridad',value: 'prioridad'}
+                ]"
+                [defaultSearchType]="'dni'"
+                placeholder="Escribe para buscar..."
+                (search)="filtrarAdministradoresDeSistema($event)">   
+            </app-search-box>
+        </div>
+    </div>
     <!--Mat Table-->
     <div class="table-container">
         <table mat-table [dataSource]="administradores" matSort class="mat-elevation-z8">

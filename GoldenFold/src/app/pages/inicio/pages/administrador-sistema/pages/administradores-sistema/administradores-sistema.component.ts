@@ -7,6 +7,7 @@ import { MatSort } from '@angular/material/sort';
 import { AdministradorSistemaService } from '../../../../../../services/administrador-sistema.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { retry } from 'rxjs';
 
 @Component({
   selector: 'app-administradores-sistema',
@@ -63,6 +64,32 @@ export class AdministradoresSistemaComponent {
         console.log('ERR0R',error);
       }
     });
+  }
+
+  filtrarAdministradoresDeSistema(event:{type:string,term:string}): void{
+    const {type,term} = event;
+    const searchTerm = term.trim().toLowerCase();
+
+    this.administradores.filterPredicate = (data:AdministradorSistema,filter:string) => {
+      switch(type){
+        case'dni':
+          return data.dni.toString().toLowerCase().includes(filter);
+        case'nom':
+          return data.nom.toString().toLowerCase().includes(filter);
+        case'usuariId':
+          return data.usuariId.toString().toLowerCase().includes(filter);
+        case'telefon':
+          return data.telefon.toString().toLowerCase().includes(filter);
+        case'prioridad':
+          return data.prioridad.toString().toLowerCase().includes(filter);
+        default:
+          return false;
+      }
+    };
+    this.administradores.filter = searchTerm;
+    if(this.administradores.paginator){
+      this.administradores.paginator.firstPage();
+    }
   }
   
 }
