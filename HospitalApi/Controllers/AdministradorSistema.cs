@@ -92,7 +92,7 @@ namespace HospitalAPI
                 _logger.LogError("El DNI no es valid");
                 return BadRequest("El DNI no es valid");
             }
-            var usuarioEnUso = await _bbdd.AdministradorSistema.FirstOrDefaultAsync(p => p.UsuariId == nouAministradorSistema.UsuariId);
+            var usuarioEnUso = await _bbdd.AdministradorSistema.FirstOrDefaultAsync(p => p.UsuariId.ToString() == nouAministradorSistema.UsuariId);
             if(usuarioEnUso != null)
             {
                 _logger.LogError("Ja existeix un Administrador de Sistema amb aquest Usuari ID");
@@ -118,7 +118,7 @@ namespace HospitalAPI
                 return NotFound("No existeix un Administrador del Sistema amb aquest DNI");
             }
 
-            var usuario = await _bbdd.Usuari.FirstOrDefaultAsync(p => p.Username == adminitradorDelSistema.UsuariId);
+            var usuario = await _bbdd.Usuari.FirstOrDefaultAsync(p => p.Username == adminitradorDelSistema.UsuariId.ToString());
             usuario.RolId = null;
 
             _bbdd.AdministradorSistema.Remove(adminitradorDelSistema);
@@ -163,7 +163,7 @@ namespace HospitalAPI
                 _logger.LogError("El DNI no es valid");
                 return BadRequest("El DNI no es valid");
             }
-            var usuarioEnUso = await _bbdd.AdministradorSistema.FirstOrDefaultAsync(p => p.UsuariId == administradorSistemaUpdateDTO.UsuariId);
+            var usuarioEnUso = await _bbdd.AdministradorSistema.FirstOrDefaultAsync(p => p.UsuariId.ToString() == administradorSistemaUpdateDTO.UsuariId);
             if(usuarioEnUso != null)
             {
                 _logger.LogError("Ja existeix un Administrador de Sistema amb aquest Usuari ID");

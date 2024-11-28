@@ -4,6 +4,7 @@ import { RouterLinkActive, RouterLink, Router } from '@angular/router';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { PopUpLogoutComponent } from './pages/pop-up-logout/pop-up-logout.component';
 import { MatDialog } from '@angular/material/dialog';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-header',
@@ -16,16 +17,20 @@ import { MatDialog } from '@angular/material/dialog';
 export class HeaderComponent {
 
   private readonly oidcSecurityService = inject(OidcSecurityService);
+  private readonly https = inject(HttpClient);
   isAuthenticated = false;
   nom = '';
 
-  constructor(private router: Router, public dialog: MatDialog) {}
+  constructor(private router: Router, public dialog: MatDialog) { }
 
   ngOnInit() {
     this.oidcSecurityService.checkAuth().subscribe(({ isAuthenticated, userData }) => {
       this.isAuthenticated = isAuthenticated;
       if (isAuthenticated) {
         this.nom = userData.name;
+        
+        // Guardar el nombre en la sesión
+        this.https.post('/set-session', { value: this.nom }).subscribe();
       } else {
         this.nom = '';
       }
@@ -34,20 +39,15 @@ export class HeaderComponent {
 
   onLogin(): void {
     this.oidcSecurityService.authorize();
-}
+  }
 
-  openDialog(): void
-  {
-  this.dialog.open(PopUpLogoutComponent, {
+  openDialog(): void {
+    this.dialog.open(PopUpLogoutComponent, {
       data: {},
       width: "auto",
       height: "auto"
     })
 
-  }
-
-  onLogout(): void {
-    this.oidcSecurityService.logoff().subscribe((result) => console.log(result));
   }
 
 }

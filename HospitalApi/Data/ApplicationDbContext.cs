@@ -35,16 +35,12 @@ namespace HospitalApi.Data
             modelBuilder.Entity<AdministradorSistema>().ToTable("AdministradorSistema");
 
             modelBuilder.Entity<Personal>()
-            .HasOne(p => p.Usuari)
-            .WithOne(u => u.Personal)
-            .HasForeignKey<Personal>(p => p.UsuariId)
-            .OnDelete(DeleteBehavior.SetNull);
+            .HasOne(p => p.Usuari) 
+            .WithMany() 
+            .HasForeignKey(p => p.UsuariId) 
+            .OnDelete(DeleteBehavior.SetNull); 
 
-            modelBuilder.Entity<Usuari>()
-            .HasOne(p => p.Personal)
-            .WithOne(u => u.Usuari)
-            .HasForeignKey<Usuari>(p => p.PersonalId)
-            .OnDelete(DeleteBehavior.SetNull);
+
 
             modelBuilder.Entity<Habitacio>()
             .HasOne(h => h.Planta)

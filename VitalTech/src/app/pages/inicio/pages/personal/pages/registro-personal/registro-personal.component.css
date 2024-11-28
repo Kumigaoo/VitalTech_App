@@ -1,5 +1,5 @@
 .container {
-    width: 950px;
+    width: 1050px;
     height: 420px;
     background-color: white;
     padding: 20px;
@@ -39,14 +39,12 @@ h2 {
 form {
     display: flex;
     flex-direction: column;
-    
 }
 
 label {
     margin-bottom: 5px;
     color: #333;
     font-family: Arial, sans-serif;
-    
 }
 
 input {
