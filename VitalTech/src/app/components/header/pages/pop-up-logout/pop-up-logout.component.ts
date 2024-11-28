@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Inject } from '@angular/core';
 
@@ -11,9 +12,17 @@ import { Inject } from '@angular/core';
 })
 export class PopUpLogoutComponent {
 
+  private readonly oidcSecurityService = inject(OidcSecurityService);
+  isAuthenticated = false;
+  nom = '';
+
   constructor(@Inject(MAT_DIALOG_DATA) public data: any) 
   {
 
+  }
+
+  onLogout(): void {
+    this.oidcSecurityService.logoff().subscribe((result) => console.log(result));
   }
 
 }
