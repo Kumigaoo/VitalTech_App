@@ -19,7 +19,7 @@ export class HeaderComponent {
   isAuthenticated = false;
   nom = '';
 
-  constructor(private router: Router, public dialog: MatDialog) {}
+  constructor(private router: Router, public dialog: MatDialog) { }
 
   ngOnInit() {
     this.oidcSecurityService.checkAuth().subscribe(({ isAuthenticated, userData }) => {
@@ -34,20 +34,15 @@ export class HeaderComponent {
 
   onLogin(): void {
     this.oidcSecurityService.authorize();
-}
+  }
 
-  openDialog(): void
-  {
-  this.dialog.open(PopUpLogoutComponent, {
+  openDialog(): void {
+    this.dialog.open(PopUpLogoutComponent, {
       data: {},
       width: "auto",
       height: "auto"
     })
 
-  }
-
-  onLogout(): void {
-    this.oidcSecurityService.logoff().subscribe((result) => console.log(result));
   }
 
 }
