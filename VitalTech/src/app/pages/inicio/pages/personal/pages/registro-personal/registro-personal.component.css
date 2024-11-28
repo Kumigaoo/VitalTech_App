@@ -39,14 +39,12 @@ h2 {
 form {
     display: flex;
     flex-direction: column;
-    
 }
 
 label {
     margin-bottom: 5px;
     color: #333;
     font-family: Arial, sans-serif;
-    
 }
 
 input {
