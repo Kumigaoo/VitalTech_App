@@ -6,14 +6,18 @@
             <div class="nav-item"><a routerLink="/inicio" routerLinkActive="active">Inicio</a></div>
             <div class="nav-item"><a routerLink="/configuracion" routerLinkActive="active">Configuración</a></div>
             <div class="nav-item"><a routerLink="/login" routerLinkActive="active">Exit</a></div>
-            <div class="nav-item"><button *ngIf="!isAuthenticated; else loggedIn" (click)="onLogin()">Login</button>
+            <div class="nav-item">
+                <button *ngIf="!isAuthenticated; else loggedIn" (click)="onLogin()">
+                    <img src="assets/login/login.png" titile="Login icons created by srip - Flaticon" alt="Login">
+                </button>
                 <ng-template #loggedIn>
-                    <span>Hola {{ nom }}</span>
-                    <button class="nav-item" (click)="onLogout()"> Logout </button>
+
+                    <!-- (click)="onLogout()"" -->
+                    <button class="nav-item" (click)="openDialog()">
+                        <img src="assets/login/user.png" title="Individual icons created by meaicon - Flatico" alt="User">
+                    </button>
                 </ng-template>
             </div>
-
         </nav>
     </div>
-
 </div>

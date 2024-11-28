@@ -14,7 +14,7 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrl: './administradores-sistema.component.css'
 })
 export class AdministradoresSistemaComponent {
-  displayedColumns: string[]  = ['dni','nom','telefon','usuariId','prioridad'];
+  displayedColumns: string[]  = ['dni','nom','telefon','usuariId','prioridad','actions'];
   administradores : MatTableDataSource<AdministradorSistema> = new MatTableDataSource<AdministradorSistema>();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -53,6 +53,16 @@ export class AdministradoresSistemaComponent {
     });
   }
 
-  
+  eliminarAdministradorSistema(administrador: AdministradorSistema): void{
+    this.administradorSistemaService.delete(administrador.dni).subscribe({
+      next:()=>{
+        this.obtenerAdministradoresDeSistema();
+        this.snackbar.showNotification('success', 'Administrador de sistema eliminado correctamente');
+      },
+      error:(error: any)=>{
+        console.log('ERR0R',error);
+      }
+    });
+  }
   
 }
