@@ -215,16 +215,16 @@ INSERT INTO Rol (Nom, Descripcio) VALUES ('Enfermer','Profesional encargado del 
 INSERT INTO Rol (Nom, Descripcio) VALUES ('Administrador del Sistema','Encargado de la gestión y mantenimiento de los sistemas informáticos del hospital.');
 
 -- Insertar Usuari
-INSERT INTO Usuari (Username, Password, Email, RolId) VALUES ('juanp', 'password1', 'juanp@hospital.com', 'Administrador del Sistema');
-INSERT INTO Usuari (Username, Password, Email, RolId) VALUES ('marial', 'password2', 'marial@hospital.com', 'Administratiu');
-INSERT INTO Usuari (Username, Password, Email, RolId) VALUES ('cgarcia', 'password3', 'cgarcia@hospital.com', 'Metge');
-INSERT INTO Usuari (Username, Password, Email, RolId) VALUES ('lfernandez', 'password4', 'lfernandez@hospital.com', 'Enfermer');
-INSERT INTO Usuari (Username, Password, Email, RolId) VALUES ('mmartin', 'password5', 'mmartin@hospital.com', 'Metge');
-INSERT INTO Usuari (Username, Password, Email, RolId) VALUES ('aperez', 'password6', 'aperez@hospital.com', 'Enfermer');
-INSERT INTO Usuari (Username, Password, Email, RolId) VALUES ('glopez', 'password7', 'glopez@hospital.com', 'Administratiu');
-INSERT INTO Usuari (Username, Password, Email, RolId) VALUES ('eflores', 'password8', 'eflores@hospital.com',  'Administrador del Sistema');
-INSERT INTO Usuari (Username, Password, Email, RolId) VALUES ('jgarcia', 'password9', 'jgarcia@hospital.com',  'Metge');
-INSERT INTO Usuari (Username, Password, Email, RolId) VALUES ('slopez', 'password10', 'slopez@hospital.com', 'Enfermer');
+INSERT INTO Usuari (Username, Password, Email, RolId, Imagen) VALUES ('juanp', 'password1', 'juanp@hospital.com', 'Administrador del Sistema',0x1234567890ABCDEF);
+INSERT INTO Usuari (Username, Password, Email, RolId, Imagen) VALUES ('marial', 'password2', 'marial@hospital.com', 'Administratiu',0x1234567890ABCDEF);
+INSERT INTO Usuari (Username, Password, Email, RolId, Imagen) VALUES ('cgarcia', 'password3', 'cgarcia@hospital.com', 'Metge',0x1234567890ABCDEF);
+INSERT INTO Usuari (Username, Password, Email, RolId, Imagen) VALUES ('lfernandez', 'password4', 'lfernandez@hospital.com', 'Enfermer',0x1234567890ABCDEF);
+INSERT INTO Usuari (Username, Password, Email, RolId, Imagen) VALUES ('mmartin', 'password5', 'mmartin@hospital.com', 'Metge',0x1234567890ABCDEF);
+INSERT INTO Usuari (Username, Password, Email, RolId, Imagen) VALUES ('aperez', 'password6', 'aperez@hospital.com', 'Enfermer',0x1234567890ABCDEF);
+INSERT INTO Usuari (Username, Password, Email, RolId, Imagen) VALUES ('glopez', 'password7', 'glopez@hospital.com', 'Administratiu',0x1234567890ABCDEF);
+INSERT INTO Usuari (Username, Password, Email, RolId, Imagen) VALUES ('eflores', 'password8', 'eflores@hospital.com',  'Administrador del Sistema',0x1234567890ABCDEF);
+INSERT INTO Usuari (Username, Password, Email, RolId, Imagen) VALUES ('jgarcia', 'password9', 'jgarcia@hospital.com',  'Metge',0x1234567890ABCDEF);
+INSERT INTO Usuari (Username, Password, Email, RolId, Imagen) VALUES ('slopez', 'password10', 'slopez@hospital.com', 'Enfermer',0x1234567890ABCDEF);
 
 
 -- Insertar Personal
