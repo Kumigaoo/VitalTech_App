@@ -8,4 +8,6 @@ export interface EpisodiMedic {
   estat: string;
   dniPacient: string;
   dniMetge: string;
+  pruebasDiagnosticas: [];
+  ingresos: [];
 }

@@ -74,6 +74,7 @@ export class DialogFormularioComponent {
       telefono: [this.data.telefono, [Validators.required, Validators.pattern(/^\+?[0-9\s\-()]{9,20}$/)]],
       nacionalidad: [this.data.nacionalidad, Validators.required],
       email: [this.data.email, [Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)]],
+      administratiuId: [this.data.administratiuId, [Validators.required]],
       birthDay: [this.data.birthDay ? new Date(this.data.birthDay) : null, Validators.required] // Ensure date object is set
     });
   }
@@ -84,6 +85,7 @@ export class DialogFormularioComponent {
 
       // Format the birthDay before closing the dialog
       formData.birthDay = formatDate(formData.birthDay, 'yyyy-MM-dd', 'en');
+      formData.administratiuId = Number(formData.administratiuId);
 
       this.dialogRef.close(formData);  
     }

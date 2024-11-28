@@ -3,12 +3,6 @@
   <h2>Episodis Medics</h2>
   <app-snackbar #snackbar></app-snackbar>
 
-  <!-- 
-    <th>ID Paciente</th> 
-    <th>Motivo</th>
-    <th>Estado</th>
-  -->
-
   <div class="header-container">
     <div>
       <button mat-raised-button class="demo-button" (click)="toggleFormularioAgregar()">Agregar Episodio medico</button>
@@ -18,7 +12,7 @@
           {label: 'ID', value: 'id'},
           {label: 'Data Obertura', value: 'dataObertura'},
           {label: 'Data Tancament', value: 'dataTancament'},
-          {label: 'Dolencia', value: 'dolencia'},
+          {label: 'Dolencia', value: 'motivo'},
           {label: 'Estat', value: 'estat'},
           {label: 'DNI Pacient', value: 'dniPacient'}
         ]" [defaultSearchType]="'id'" placeholder="Escribe para buscar..." (search)="filtrarEpisodis($event)">
@@ -44,12 +38,25 @@
         <td mat-cell *matCellDef="let episodi" (click)="toggleActualizarEpisodi(episodi)"> {{ episodi.dataTancament ? (episodi.dataTancament) : 'Pendiente' }} </td>
         <ng-template #pte>
                     <td>Pendiente</td>
-                </ng-template>
+        </ng-template>
       </ng-container>
 
-      <ng-container matColumnDef="dolencia">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Dolencia </th>
-        <td mat-cell *matCellDef="let episodi" (click)="toggleActualizarEpisodi(episodi)"> {{episodi.dolencia}} </td>
+      <ng-container matColumnDef="motivo">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Motivo </th>
+        <td mat-cell *matCellDef="let episodi" (click)="toggleActualizarEpisodi(episodi)"> {{episodi.motivo}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="urgencia">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Urgencia </th>
+        <td mat-cell *matCellDef="let episodi" (click)="toggleActualizarEpisodi(episodi)"> {{episodi.urgencia}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="recepta">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Receta </th>
+        <td mat-cell *matCellDef="let episodi" (click)="toggleActualizarEpisodi(episodi)"> {{episodi.recepta ? (episodi.recepta) : 'Pendiente '}} </td>
+        <ng-template #pte>
+          <td>Pendiente</td>
+        </ng-template>
       </ng-container>
 
       <ng-container matColumnDef="estat">
@@ -62,20 +69,16 @@
         <td mat-cell *matCellDef="let episodi" (click)="toggleActualizarEpisodi(episodi)"> {{episodi.dniPacient}} </td>
       </ng-container>
 
-      <ng-container matColumnDef="consultes">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Consultes </th>
-        <td mat-cell *matCellDef="let episodi"> 
-          <a (click)="verConsultas(episodi)" style="cursor: pointer; color: blue;">
-            {{ episodi.consultes.length }} Consultas
-          </a>  
-        </td>
+      <ng-container matColumnDef="dniMetge">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> DNI Medico </th>
+        <td mat-cell *matCellDef="let episodi" (click)="toggleActualizarEpisodi(episodi)"> {{episodi.dniMetge}} </td>
       </ng-container>
 
-      <ng-container matColumnDef="ingressos">
-        <th mat-header-cell *matHeaderCellDef> Ingressos </th>
+      <ng-container matColumnDef="pruebasDiagnosticas">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Pruebas Diagnosticas </th>
         <td mat-cell *matCellDef="let episodi"> 
-          <a (click)="verIngresos(episodi)" style="cursor: pointer; color: blue;">
-            {{ episodi.ingressos.length }} Ingreso
+          <a (click)="verConsultas(episodi)" style="cursor: pointer; color: blue;">
+            {{ episodi.pruebasDiagnosticas.length }} Pruebas Diagnosticas
           </a>  
         </td>
       </ng-container>

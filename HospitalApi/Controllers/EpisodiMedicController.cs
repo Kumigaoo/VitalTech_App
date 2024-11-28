@@ -171,6 +171,7 @@ namespace HospitalAPI.Controllers
             episodi.MetgeId = metge.Id;
             episodi.Estat="No Resuelto";
             episodi.DataTancament= null;
+            episodi.Recepta = null;
 
             await _bbdd.EpisodisMedics.AddAsync(episodi);
             await _bbdd.SaveChangesAsync();
