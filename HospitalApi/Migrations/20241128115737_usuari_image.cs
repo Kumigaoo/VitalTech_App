@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace HospitalApi.Migrations
 {
     /// <inheritdoc />
-    public partial class usuari_fixed : Migration
+    public partial class usuari_image : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -122,6 +122,7 @@ namespace HospitalApi.Migrations
                     Username = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Imagen = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
                     RolId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>

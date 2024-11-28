@@ -13,7 +13,7 @@ namespace HospitalAPI.Models
         public string Username { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
         public string Email {get; set;} = string.Empty;
-
+        public byte[] Imagen {get; set;}
         [ForeignKey("RolId")]
         public string? RolId { get; set; }
         public Rol? Rol { get; set; }        
