@@ -91,5 +91,10 @@ export class AdministradoresSistemaComponent {
       this.administradores.paginator.firstPage();
     }
   }
+
+  toggleAgregarAdministradorSistema(): void{
+    this.crearFormularioAdministradorDeSistema();
+    
+  }
   
 }

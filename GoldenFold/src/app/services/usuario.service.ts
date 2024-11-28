@@ -9,7 +9,7 @@ import { BaseService } from './abstract-service.service';
   providedIn: 'root',
 })
 
-export class UsuarioService extends BaseService<Personal, string> {
+export class UsuarioService extends BaseService<Usuari, string> {
   protected apiUrl = 'https://localhost:7200/api/Usuari';
 
   constructor(http: HttpClient) {
