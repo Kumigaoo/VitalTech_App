@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HospitalApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241128115737_usuari_image")]
-    partial class usuari_image
+    [Migration("20241128121806_migrations")]
+    partial class migrations
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

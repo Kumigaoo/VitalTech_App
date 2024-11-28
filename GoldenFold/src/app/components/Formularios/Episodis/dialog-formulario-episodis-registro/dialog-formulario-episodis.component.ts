@@ -1,16 +1,17 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { EpisodiMedic } from '../../../../interface/episodis-medics.interface';
 import { FormsModule } from '@angular/forms';
-import {provideNativeDateAdapter} from '@angular/material/core';
+import {MatOptionModule, provideNativeDateAdapter} from '@angular/material/core';
 import {MatDatepickerModule} from '@angular/material/datepicker';
-import { formatDate } from '@angular/common';
+import { CommonModule, formatDate } from '@angular/common';
 import { CustomDateAdapter } from '../../../../custom-date-adapter';
 import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
 
 export const MY_DATE_FORMATS = {
   parse: {
@@ -27,15 +28,16 @@ export const MY_DATE_FORMATS = {
   selector: 'app-dialog-formulario-episodis',
   standalone: true,
   imports: [
-    MatFormFieldModule,
-    MatInputModule,
-    MatDatepickerModule,
     ReactiveFormsModule,
-    FormsModule,
+    FormsModule,  // Necessary for ngModel
     MatFormFieldModule,
+    MatSelectModule,
     MatInputModule,
+    MatOptionModule,
     MatDialogModule,
-    MatButtonModule
+    CommonModule,
+    MatButtonModule, // For "Cancel" and "Save" buttons
+    MatDatepickerModule
   ],
   providers: [  
     { provide: DateAdapter, useClass: CustomDateAdapter },
@@ -51,27 +53,32 @@ export class DialogFormularioEpisodisComponent {
   episodiForm: FormGroup;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: EpisodiMedic, 
-  public dialogRef: MatDialogRef<DialogFormularioEpisodisComponent>) {
+  public dialogRef: MatDialogRef<DialogFormularioEpisodisComponent>,
+  private fb: FormBuilder) {
 
-    this.episodiForm = new FormGroup({
-      dataObertura: new FormControl(''),
-      dolencia: new FormControl(''),
-      estat: new FormControl(''),
-      dniPacient: new FormControl('')
-    });
-
-    
+    this.episodiForm = this.fb.group({
+      dataObertura: [this.data.dataObertura, [Validators.required]],
+      dataTancament: [this.data.dataTancament],
+      motivo: [this.data.motivo, [Validators.required]],
+      urgencia: [this.data.urgencia, [Validators.required]],
+      recepta: [this.data.recepta],
+      estat: [this.data.estat],
+      dniPacient: [this.data.dniPacient, [Validators.required]],
+      dniMetge: [this.data.dniMetge, [Validators.required]]
+    }); 
   }
 
   guardar(): void {
+    if (this.episodiForm.valid) {
+      const formData = this.episodiForm.value;
+      
+      formData.dataObertura = formatDate(formData.dataObertura, 'yyyy-MM-dd', 'en');
+      formData.dataTancament = null;
+      formData.estat = "No Resuelto";
+      formData.recepta = null;
 
-    
-   
-      this.data.dataObertura = formatDate(this.episodiForm.value.dataObertura, 'yyyy-MM-dd', 'en');
-      this.data.estat =this.episodiForm.value.estat;
-      this.data.dniPacient =this.episodiForm.value.dniPacient;
-
-      this.dialogRef.close(this.data); 
+      this.dialogRef.close(formData); 
+    }
       
   }
 

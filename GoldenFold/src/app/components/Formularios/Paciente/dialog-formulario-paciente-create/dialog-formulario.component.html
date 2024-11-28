@@ -52,7 +52,7 @@
     <mat-form-field appearance="outline">
       <mat-label>Nacionalidad</mat-label>
       <mat-select formControlName="nacionalidad" required>
-        <mat-option *ngFor="let nacionalidad of nacionalidades" [value]="nacionalidad.id">
+        <mat-option *ngFor="let nacionalidad of nacionalidades" [value]="nacionalidad.nombre">
           {{ nacionalidad.nombre }}
         </mat-option>
       </mat-select>
