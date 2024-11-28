@@ -13,6 +13,5 @@ namespace HospitalAPI.DTO
         public string Especialitat { get; set; } = string.Empty;
         public string UsuariId { get; set; } = string.Empty;
         public ICollection<PruebaDiagnosticaReferenceDTO>? PruebasDiagnosticas { get; set; }
-
     }
 }
