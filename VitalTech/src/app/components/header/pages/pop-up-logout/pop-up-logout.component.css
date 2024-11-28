@@ -1,6 +1,7 @@
 body {
 
     display: flex;
+    text-align: left;
     flex-direction: column;
     background-color: white;
     text-align: left;
