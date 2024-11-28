@@ -14,7 +14,7 @@ export function dniExisteValidator(dniService: any, dniOriginal: string): AsyncV
     // Validar solo si el valor ha cambiado
     return of(dniActual).pipe(
       debounceTime(300),
-      switchMap(dni => dniService.verificarDni(dni)),
+      switchMap(dni => dniService.getById(dni)),
       map(existe => (existe ? { dniExiste: true } : null)),
       catchError(() => of(null)) // En caso de error, no marcar como inválido
     );

@@ -16,11 +16,6 @@ namespace HospitalAPI.Models
 
         [ForeignKey("RolId")]
         public string? RolId { get; set; }
-        public Rol? Rol { get; set; }
-
-        [ForeignKey("PersonalId")]
-        public int? PersonalId { get; set; }
-        public Personal? Personal { get; set; }
-        
+        public Rol? Rol { get; set; }        
     }
 }

@@ -94,7 +94,7 @@ namespace HospitalAPI.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> DeleteUsuari(string username)
         {
-            var usuari = await _bbdd.Usuari.Include(u => u.Personal).FirstOrDefaultAsync(u => u.Username == username);
+            var usuari = await _bbdd.Usuari.FirstOrDefaultAsync(u => u.Username == username);
 
             if (usuari == null)
             {
@@ -102,11 +102,7 @@ namespace HospitalAPI.Controllers
                 return NotFound("Error: no existeix cap usuari amb aquest nom.");
             }
 
-            if (usuari.Personal != null)
-            {
-                usuari.Personal.UsuariId = null;
-                _bbdd.Update(usuari.Personal);
-            }
+            
 
             _bbdd.Usuari.Remove(usuari);
             await _bbdd.SaveChangesAsync();
