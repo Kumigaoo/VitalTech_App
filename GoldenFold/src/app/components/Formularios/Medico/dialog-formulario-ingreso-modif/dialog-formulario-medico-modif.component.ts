@@ -22,7 +22,6 @@ import { Medico } from '../../../../interface/medico.interface';
 import { Usuari } from '../../../../interface/usuari.interface';
 import { UsuarioService } from '../../../../services/usuario.service';
 import { MedicoService } from '../../../../services/metge.service';
-import { MedicoAsyncValidator } from '../../../../validators/medicoExistsValidator';
 import { dniValidator } from '../../../../validators/dniValidator';
 import { map } from 'rxjs';
 import {  EspecialidadesMedico } from '../../../../enums/especialidadesMedico';
@@ -63,9 +62,10 @@ export class DialogFormularioMedicoModifComponent implements OnInit {
     private medicoService: MedicoService,
     public dialogRef: MatDialogRef<DialogFormularioMedicoModifComponent>,
     private fb: FormBuilder,
-    private usuariService: UsuarioService,
-    private medicoValidator: MedicoAsyncValidator
-  ) {}
+    private usuariService: UsuarioService
+  ) {
+    this.obtenerMedicos();
+  }
 
   ngOnInit(): void {
     this.crearFormularioMedico();
@@ -117,23 +117,36 @@ export class DialogFormularioMedicoModifComponent implements OnInit {
       }],      
       nom: [this.data.nom],
       telefon: [this.data.telefon,[Validators.pattern('^[^a-zA-Z]*$')]],
-      usuariId: [this.data.usuariId, [], (control: AbstractControl) => {
-        return this.medicoValidator.validate(control).pipe(
-          map((result) => {
-            // solo actua el validador si el usuario lo toca
-            return control.touched ? result : null;
-          })
-        );
+      usuariId: [this.data.usuariId,{
+        validators: [],
+        asyncValidators: [],
+        updateOn: 'blur'
       }],
       especialitat: [this.data.especialitat]
     });
+  }
+
+  obtenerMedicos():void {
+    this.medicoService.getAll().subscribe({
+      next:(data:Medico[])=>{
+        this.medicos = data;
+      },
+      error:(error:any)=>{
+        console.log(error);
+      }
+    })
   }
   
 
   obtenerUsuaris(): void {
     this.usuariService.getAll().subscribe({
       next: (data:Usuari[]) => {
-        this.usuaris = data.filter((usuari) => usuari.rolId === 'Metge');
+        //usuarios con rol metge
+        let usuaris = data.filter(usuari => usuari.rolId === 'Metge');
+
+        // usuarios disponibles
+        usuaris = usuaris.filter(usuari => !this.medicos.some(medico => medico.usuariId == usuari.id));
+        this.usuaris = usuaris;
       },
       error: (error: any) => {
         console.log('Error al obtener los usuarios',error);

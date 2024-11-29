@@ -5,7 +5,7 @@ export interface Medico {
   dni: string;
   nom: string;
   telefon: number;
-  usuariId: string;
+  usuariId: number;
   especialitat: string;
   episodiMedics: EpisodiMedic[]
   pruebasDiagnosticas: PruebaDiagnostica[]

@@ -1,88 +1,95 @@
-<h2 mat-dialog-title>{{ data.dni ? 'Detalles Ingreso' : 'Agregar Ingreso' }}</h2>
+@if(usuaris.length>0||data.dni){
+<h2 mat-dialog-title>
+  {{ data.dni ? "Detalles Ingreso" : "Agregar Ingreso" }}
+</h2>
 <mat-dialog-content>
-  <form [formGroup]="medicoForm">
-  <br />
+  <form [formGroup]="medicoForm" style="margin-top: 20px;">
     <!--DNI-->
     <mat-form-field appearance="outline">
       <mat-label>DNI:</mat-label>
-      <input matInput formControlName="dni" required>
+      <mat-hint>Ejemplo: 36902684N</mat-hint>
+      <input matInput formControlName="dni" required />
       @if (medicoForm.get('dni')?.hasError('required')) {
-        <mat-error>El DNI es requerido</mat-error>
-      }
-      @if (medicoForm.get('dni')?.hasError('dniInvalid')&&!medicoForm.get('dni')?.hasError('required')){
-        <mat-error>El DNI es invalido</mat-error>
-      }
-      @if (medicoForm.get('dni')?.hasError('dniExiste')){
-        <mat-error>El DNI ya existe</mat-error>
+      <mat-error>El DNI es requerido</mat-error>
+      } @if
+      (medicoForm.get('dni')?.hasError('dniInvalid')&&!medicoForm.get('dni')?.hasError('required')){
+      <mat-error>El DNI es invalido</mat-error>
+      } @if (medicoForm.get('dni')?.hasError('dniExiste')){
+      <mat-error>El DNI ya existe</mat-error>
       }
     </mat-form-field>
 
     <!--Nom-->
     <mat-form-field appearance="outline">
       <mat-label>Nombre:</mat-label>
-      <input matInput formControlName="nom" required>
+      <mat-hint>Ejemplo: Martin Martin</mat-hint>
+      <input matInput formControlName="nom" required />
       @if (medicoForm.get('nom')?.hasError('required')) {
-        <mat-error>El nombre es requerido</mat-error>
+      <mat-error>El nombre es requerido</mat-error>
       }
     </mat-form-field>
 
     <!--Telefono-->
     <mat-form-field appearance="outline">
       <mat-label>Teléfono:</mat-label>
-      <input matInput formControlName="telefon">
+      <mat-hint>Ejemplo: (+34) 612 345 678</mat-hint>
+      <input matInput formControlName="telefon" />
       @if (medicoForm.get('telefon')?.hasError('pattern')){
-        <mat-error>Formato incorrecto de teléfono</mat-error>
+      <mat-error>Formato incorrecto de teléfono</mat-error>
       }
     </mat-form-field>
 
     <!--Usuari id-->
     <mat-form-field appearance="outline">
       <mat-label>Usuario:</mat-label>
+      <mat-hint>Ejemplo: mmartin</mat-hint>
       <mat-select formControlName="usuariId" required>
-      @for (u of usuaris; track u.username) {
-        <mat-option [value]="u.username">{{u.username}}</mat-option>
-      }
+        @for (u of usuaris; track u.username) {
+        <mat-option [value]="u.id">{{ u.username }}</mat-option>
+        }
       </mat-select>
       @if (medicoForm.get('usuariId')?.hasError('required')) {
-        <mat-error>El nombre de usuario es requerido</mat-error>
-      }
-      @if (medicoForm.get('usuariId')?.hasError('usernameTaken')){
-        <mat-error>Este usuario ya está escogido por otro médico</mat-error>
+      <mat-error>El nombre de usuario es requerido</mat-error>
       }
     </mat-form-field>
 
     <!--Especialitat-->
     <mat-form-field appearance="outline">
       <mat-label>Especialidad</mat-label>
+      <mat-hint>Ejemplo: Cardiologo</mat-hint>
       <mat-select formControlName="especialitat" required>
         @for (e of especialidades; track e.id) {
-          <mat-option [value]="e.nombre">{{e.nombre}}</mat-option>
+        <mat-option [value]="e.nombre">{{ e.nombre }}</mat-option>
         }
       </mat-select>
       @if (medicoForm.get('especialitat')?.hasError('required')) {
-        <mat-error>La especialidad es requerida</mat-error>
+      <mat-error>La especialidad es requerida</mat-error>
       }
     </mat-form-field>
-    
-
   </form>
 </mat-dialog-content>
 
 <mat-dialog-actions>
-
   <!-- Botón Actualizar: Solo visible si se está en modo detalles -->
   <button mat-button *ngIf="data.dni && !isEditing" (click)="enableEditing()">
     Editar
   </button>
 
   <!-- Botón Guardar: Solo visible en modo edición -->
-  <button mat-raised-button color="primary" *ngIf="isEditing" [disabled]="medicoForm.invalid" (click)="guardar()">
+  <button
+    mat-raised-button
+    color="primary"
+    *ngIf="isEditing"
+    [disabled]="medicoForm.invalid"
+    (click)="guardar()"
+  >
     Guardar
   </button>
 
   <!-- Botón Cancelar: Siempre visible, cambia comportamiento según el modo -->
-  <button mat-button (click)="cancelar()">
-    Cancelar
-  </button>
+  <button mat-button (click)="cancelar()">Cancelar</button>
 </mat-dialog-actions>
 
+} @else{
+  <h1 style="font-size: 24px; font-weight: bold; color: #ff0000; text-align: center;margin-left: 20px;margin-top: 20px;margin-bottom: 20px;margin-right: 20px;">NO HAY USUARIOS DISPONIBLES</h1>
+}
