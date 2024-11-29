@@ -38,8 +38,6 @@ export class MetgesComponent {
 
   constructor(private medicoService: MedicoService, private usuarioService: UsuarioService, private fb: FormBuilder, public dialog:MatDialog) {
     this.obtenerUsuarios();
-    this.obtenerMedicos(); 
-    this.obtenerUsuarios();
     this.crearFormularioMedico();
   }
 
@@ -193,11 +191,20 @@ export class MetgesComponent {
     this.usuarioService.getAll().subscribe({
       next:(data:Usuari[])=>{
         this.usuarios.data = data;
+        this.obtenerMedicos();
       },
       error:(error:any)=>{
         console.log(error);
       }
     })
+  }
+
+  obtenerNombreUsuario(id: number): string |null {
+    const user = this.usuarios.data.find(p => p.id == id);
+    if(user==null){
+      return null;
+    }
+    return user?.username;
   }
 
 }
