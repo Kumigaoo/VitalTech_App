@@ -65,7 +65,7 @@ export class MetgesComponent {
       dni: ['',Validators.required],
       nom: ['',Validators.required],
       telefon:  [0],
-      usuariId: ['',Validators.required],
+      usuariId: [0,Validators.required],
       especialitat: ['',Validators.required]
     })
   }
