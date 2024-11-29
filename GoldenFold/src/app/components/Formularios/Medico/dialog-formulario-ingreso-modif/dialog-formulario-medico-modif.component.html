@@ -45,7 +45,7 @@
       <mat-hint>Ejemplo: mmartin</mat-hint>
       <mat-select formControlName="usuariId" required>
         @for (u of usuaris; track u.username) {
-        <mat-option [value]="u.id">{{ u.username }}</mat-option>
+          <mat-option [value]="u.id">{{ u.username }}</mat-option>
         }
       </mat-select>
       @if (medicoForm.get('usuariId')?.hasError('required')) {

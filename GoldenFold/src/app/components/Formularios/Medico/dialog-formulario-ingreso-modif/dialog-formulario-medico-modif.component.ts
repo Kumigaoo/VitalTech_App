@@ -124,6 +124,7 @@ export class DialogFormularioMedicoModifComponent implements OnInit {
       }],
       especialitat: [this.data.especialitat]
     });
+    console.log(this.medicoForm.value);
   }
 
   obtenerMedicos():void {
