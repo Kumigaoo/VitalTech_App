@@ -7,6 +7,7 @@ namespace HospitalApi.DTO
         public string Email {get; set;} = string.Empty;
         public string RolId { get; set; } = string.Empty;
 
-        public byte[] Imagen{ get; set; }
+        public byte[] Imagen { get; set; }
+
     }
 }
