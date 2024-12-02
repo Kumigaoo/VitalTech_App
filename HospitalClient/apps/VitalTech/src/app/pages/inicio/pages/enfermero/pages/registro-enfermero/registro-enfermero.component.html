@@ -1,0 +1,90 @@
+<app-nav></app-nav>
+
+<div class="container">
+  <h2>Formulario de registro de personal</h2>
+
+  <form type="submit" [formGroup]="personalForm" (ngSubmit)="onSubmit()">
+    <div class="identificador">
+      <div class="capzalera4">
+        <label for="dni">DNI:</label>
+        <input
+          type="text"
+          id="dni"
+          ngModel
+          name="dni"
+          formControlName="dni"
+          required
+        />
+      </div>
+
+      <div class="masInfo">
+        <div class="capzalera1">
+          <label for="nom">Nombre:</label>
+          <input
+            type="text"
+            id="nom"
+            ngModel
+            name="nom"
+            formControlName="nom"
+            required
+          />
+        </div>
+      </div>
+
+      <div class="masInfo">
+        <div class="capzalera1">
+          <label for="telefon">Teléfono:</label>
+          <input
+            type="text"
+            id="telefon"
+            ngModel
+            name="telefon"
+            formControlName="telefon"
+            required
+          />
+        </div>
+      </div>
+
+      <div class="capzalera1">
+        <label for="name">Especialidad:</label>
+        <select
+          name="Especialidad"
+          id="Especialidad"
+          formControlName="especialitat"
+        >
+          <optgroup label="Enfermeros">
+            <option value="EnfermeroGeneral">Enfermero general</option>
+            <option value="EnfermeroPediatrico">Enfermero pediátrico</option>
+            <option value="EnfermeroPsiquiatrico">
+              Enfermero psiquiátrico
+            </option>
+            <option value="EnfermeroQuirurgico">Enfermero quirúrgico</option>
+            <option value="EnfermeroDeEmergencias">
+              Enfermero de emergencias
+            </option>
+            <option value="EnfermeroDeCuidadosIntensivos">
+              Enfermero de cuidados intensivos
+            </option>
+            <option value="EnfermeroGeriatrico">Enfermero geriátrico</option>
+          </optgroup>
+        </select>
+      </div>
+
+      <div class="masInfo">
+        <div class="capzalera1">
+          <label for="usuariId">Usuario:</label>
+          <input
+            type="text"
+            id="usuariId"
+            ngModel
+            name="usuariId"
+            formControlName="usuariId"
+            required
+          />
+        </div>
+      </div>
+    </div>
+
+    <button type="submit">Registrar empleado</button>
+  </form>
+</div>

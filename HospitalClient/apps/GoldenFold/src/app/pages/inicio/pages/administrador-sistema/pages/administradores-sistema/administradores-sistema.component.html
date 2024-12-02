@@ -1,0 +1,100 @@
+<app-administratidor-sistema-dashboard></app-administratidor-sistema-dashboard>
+<div class="administradores-section">
+  <h2>Administradores de sistema</h2>
+  <!--Notificaciones-->
+  <app-snackbar #snackbar></app-snackbar>
+
+  <div class="header-container">
+    <!--Botón para agregar administradores de sistema-->
+    <div>
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="toggleAgregarAdministradorSistema()"
+      >
+        Agregar Administrador
+      </button>
+    </div>
+
+    <!--Caja de busqueda-->
+    <div>
+      <app-search-box
+        [searchOptions]="[
+          { label: 'DNI', value: 'dni' },
+          { label: 'Nombre', value: 'nom' },
+          { label: 'Telefono', value: 'telefon' },
+          { label: 'Usuario', value: 'usuariId' },
+          { label: 'Prioridad', value: 'prioridad' }
+        ]"
+        [defaultSearchType]="'dni'"
+        placeholder="Escribe para buscar..."
+        (search)="filtrarAdministradoresDeSistema($event)"
+      >
+      </app-search-box>
+    </div>
+  </div>
+  <!--Mat Table-->
+  <div class="table-container">
+    <table
+      mat-table
+      [dataSource]="administradores"
+      matSort
+      class="mat-elevation-z8"
+    >
+      <ng-container matColumnDef="dni">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>DNI</th>
+        <td mat-cell *matCellDef="let administrador">
+          {{ administrador.dni }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="nom">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
+        <td mat-cell *matCellDef="let administrador">
+          {{ administrador.nom }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="telefon">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Teléfono</th>
+        <td mat-cell *matCellDef="let administrador">
+          {{ administrador.telefon }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="usuariId">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Usuario</th>
+        <td mat-cell *matCellDef="let administrador">
+          {{ administrador.usuariId }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="prioridad">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Prioridad</th>
+        <td mat-cell *matCellDef="let administrador">
+          {{ administrador.prioridad }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Action</th>
+        <td mat-cell *matCellDef="let administrador">
+          <button
+            mat-button
+            color="warn"
+            (click)="eliminarAdministradorSistema(administrador)"
+          >
+            Eliminar
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+
+      <tr
+        mat-row
+        *matRowDef="let row; columns: displayedColumns"
+        class="clickable-row"
+      ></tr>
+    </table>
+  </div>
+  <mat-paginator
+    [pageSizeOptions]="[5, 10]"
+    showFirstLastButtons
+  ></mat-paginator>
+</div>

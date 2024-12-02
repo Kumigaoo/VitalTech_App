@@ -1,0 +1,170 @@
+<app-administratidor-sistema-dashboard></app-administratidor-sistema-dashboard>
+<div class="camas-section">
+  <h2>Camas</h2>
+  <app-snackbar #snackbar></app-snackbar>
+
+  <!-- Contenedor para el botón y la caja de búsqueda -->
+  <div class="header-container">
+    <!-- Botón de agregar cama -->
+    <div>
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="toggleFormularioAgregar()"
+      >
+        Agregar Cama
+      </button>
+    </div>
+    <!-- Caja de búsqueda -->
+    <div>
+      <app-search-box
+        [searchOptions]="[
+          { label: 'Codigo de cama', value: 'codiLlit' },
+          { label: 'Disponibilidad', value: 'ocupat' },
+          { label: 'Fuera de servicio', value: 'foraDeServei' },
+          { label: 'Habitación', value: 'codiHabitacio' }
+        ]"
+        [defaultSearchType]="'codiLlit'"
+        placeholder="Escribe para buscar..."
+        (search)="filtrarCamas($event)"
+      >
+      </app-search-box>
+    </div>
+  </div>
+
+  <!-- Tabla de pacientes con Angular Material -->
+  <div class="table-container mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" class="mat-table" matSort>
+      <!-- Codigo Llit -->
+      <ng-container matColumnDef="codiLlit">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Codigo cama</th>
+        <td
+          mat-cell
+          *matCellDef="let cama"
+          (click)="toggleActualizarCama(cama)"
+        >
+          {{ cama.codiLlit }}
+        </td>
+      </ng-container>
+
+      <!-- Disponibilidad -->
+      <ng-container matColumnDef="ocupat">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          Disponibilitat
+        </th>
+        <td
+          mat-cell
+          *matCellDef="let cama"
+          (click)="toggleActualizarCama(cama)"
+        >
+          {{ cama.ocupat ? 'No' : 'Si' }}
+        </td>
+      </ng-container>
+
+      <!-- Fuera de servicio -->
+      <ng-container matColumnDef="foraDeServei">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          Fuera de Servicio
+        </th>
+        <td
+          mat-cell
+          *matCellDef="let cama"
+          (click)="toggleActualizarCama(cama)"
+        >
+          {{ cama.foraDeServei ? 'Si' : 'No' }}
+        </td>
+      </ng-container>
+
+      <!-- Codigo habitación -->
+      <ng-container matColumnDef="codiHabitacio">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          Codigo habitación
+        </th>
+        <td
+          mat-cell
+          *matCellDef="let cama"
+          (click)="toggleActualizarCama(cama)"
+        >
+          {{ cama.codiHabitacio }}
+        </td>
+      </ng-container>
+
+      <!-- Acciones -->
+      <ng-container matColumnDef="acciones">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Acciones</th>
+        <td mat-cell *matCellDef="let cama">
+          <button mat-button color="warn" (click)="borrarCama(cama.codiLlit)">
+            Eliminar
+          </button>
+        </td>
+      </ng-container>
+
+      <!-- Header y Rows -->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr
+        mat-row
+        *matRowDef="let row; columns: displayedColumns"
+        class="clickable-row"
+      ></tr>
+    </table>
+  </div>
+  <!-- Paginación -->
+  <mat-paginator
+    [pageSizeOptions]="[5, 10]"
+    showFirstLastButtons
+  ></mat-paginator>
+
+  <!--Caja de busqueda
+  <div class="filters-container">
+    <div class="search-container">
+      <label for="searchUbicacion">Buscar por ubicación:</label>
+      <input placeholder="Ubicación" name="searchUbicacion" type="text" id="searchUbicacion" (input)="filtrarPorUbicacion($event)">
+    </div>
+
+    <div class="filter-container">
+      <label for="filterEstado">Filtrar por estado:</label>
+      <select id="filterEstado" (change)="filtrarPorEstado($event)">
+        <option value="">Todos</option>
+        <option value="Disponible">Disponible</option>
+        <option value="NoDisponible">Ocupada</option>
+      </select>
+
+      <label for="filterTipo">Filtrar por tipo:</label>
+      <select id="filterTipo" (change)="filtrarPorTipo($event)">
+        <option value="">Todos</option>
+        <option value="General">General</option>
+        <option value="UCI">UCI</option>
+        <option value="Postoperatorio">Postoperatorio</option>
+      </select>
+    </div>
+  </div>-->
+  <!-- Tabla de pacientes con Angular Material 
+  <div class="table-container">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Codigo cama</th>
+          <th>Disponibilidad</th>
+          <th>Fuera de servicio</th>
+          <th>Codigo Habitacion</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let cama of obtenerCamasParaPagina()">
+          <td>{{ cama.codiLlit }}</td>
+          <td>{{ cama.ocupat }}</td>
+          <td>{{ cama.foraDeServei }}</td>
+          <td>{{ cama.codiHabitacio }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="paginacion">
+    <button (click)="primeraPagina()" [disabled]="paginaActual === 1">Primera</button>
+    <button (click)="paginaAnterior()" [disabled]="paginaActual === 1">Anterior</button>
+    <span>Página {{ paginaActual }} de {{ totalPaginas }}</span>
+    <button (click)="siguientePagina()" [disabled]="paginaActual === totalPaginas">Siguiente</button>
+    <button (click)="ultimaPagina()" [disabled]="paginaActual === totalPaginas">Última</button>
+  </div>-->
+</div>
