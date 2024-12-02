@@ -57,12 +57,8 @@ export class DialogFormularioEpisodisComponent {
   private fb: FormBuilder) {
 
     this.episodiForm = this.fb.group({
-      dataObertura: [this.data.dataObertura, [Validators.required]],
-      dataTancament: [this.data.dataTancament],
       motivo: [this.data.motivo, [Validators.required]],
       urgencia: [this.data.urgencia, [Validators.required]],
-      recepta: [this.data.recepta],
-      estat: [this.data.estat],
       dniPacient: [this.data.dniPacient, [Validators.required]],
       dniMetge: [this.data.dniMetge, [Validators.required]]
     }); 
@@ -71,13 +67,11 @@ export class DialogFormularioEpisodisComponent {
   guardar(): void {
     if (this.episodiForm.valid) {
       const formData = this.episodiForm.value;
-      
-      formData.dataObertura = formatDate(formData.dataObertura, 'yyyy-MM-dd', 'en');
-      formData.dataTancament = null;
-      formData.estat = "No Resuelto";
-      formData.recepta = null;
-
-      this.dialogRef.close(formData); 
+      this.dialogRef.close(formData);
+      console.log(formData);
+    } else {
+      console.error('Errores en el formulario:', this.episodiForm.errors);
+      return;
     }
       
   }

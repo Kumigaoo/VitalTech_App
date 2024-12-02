@@ -4,14 +4,6 @@
 
   <form [formGroup]="episodiForm" (ngSubmit)="guardar()">
 
-    <mat-form-field  appearance="outline" class="example-full-width">
-      <mat-label>Fecha apertura</mat-label>
-      <input matInput [matDatepicker]="picker"  formControlName="dataObertura" required placeholder="Seleccione una fecha" required>
-      <mat-hint>DD/MM/YYYY</mat-hint>
-      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
-
     <mat-form-field appearance="outline">
       <mat-label>Motivo</mat-label>
       <input matInput name="motivo" formControlName="motivo" required />

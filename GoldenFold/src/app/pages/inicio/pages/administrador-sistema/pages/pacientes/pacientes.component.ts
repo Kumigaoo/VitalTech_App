@@ -21,7 +21,7 @@ export class PacientesComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) sort!: MatSort;
   
   // Variables relacionadas con la tabla y los datos
-  displayedColumns: string[] = ['dni', 'numSS', 'nom', 'birthDay', 'sexe', 'episodisMedics', 'acciones'];
+  displayedColumns: string[] = ['dni', 'numSS', 'nom', 'birthDay', 'sexe', 'estado', 'episodisMedics', 'acciones'];
   dataSource: MatTableDataSource<Paciente> = new MatTableDataSource<Paciente>([]);
   totalItems = 0;
   itemsPerPage = 300;
@@ -44,11 +44,11 @@ export class PacientesComponent implements OnInit, AfterViewInit {
       cognom2: '',
       sexe: '',
       telefono: '',
-      estado: '',
       nacionalidad: '',
       email: '',
       administratiuId: 0,
       birthDay : '',
+      estado: '',
       episodisMedics: []
     };
   }
@@ -118,11 +118,11 @@ export class PacientesComponent implements OnInit, AfterViewInit {
       cognom2: '',
       sexe: '',
       telefono: '',
-      estado: '',
       nacionalidad: '',
       email: '',
       administratiuId: 0,
       birthDay : '',
+      estado: '',
       episodisMedics: []
     };
     this.dialog.open(DialogFormularioComponent, {

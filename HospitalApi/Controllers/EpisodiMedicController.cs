@@ -137,16 +137,12 @@ namespace HospitalAPI.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<EpisodiMedicCreateDTO>> PostEpisodiMedic([FromBody] EpisodiMedicCreateDTO userEpiDTO)
         {
-            if (!ModelState.IsValid)
-            {
+            if (!ModelState.IsValid){
 
-                var error = ModelState.Values.SelectMany(v => v.Errors)
-                .Select(e => e.ErrorMessage)
-                .ToList();
-
-                return BadRequest(new { error });
+             return BadRequest(ModelState);
 
             }
+
 
             var pacient = await (from p in _bbdd.Pacients where p.DNI == userEpiDTO.DNIPacient select p).FirstOrDefaultAsync();
             var metge = await (from m in _bbdd.Metges where m.DNI == userEpiDTO.DNIMetge select m).FirstOrDefaultAsync();
@@ -166,12 +162,17 @@ namespace HospitalAPI.Controllers
             pacient.Estado = "baja";
             _bbdd.Update(pacient);
 
+
             EpisodiMedic episodi = _mapper.Map<EpisodiMedic>(userEpiDTO);
             episodi.PacientId = pacient.Id;
+            episodi.Pacient = pacient;
             episodi.MetgeId = metge.Id;
+            episodi.Metge = metge;
             episodi.Estat="No Resuelto";
             episodi.DataTancament= null;
             episodi.Recepta = null;
+
+            episodi.DataObertura = DateTime.Now;
 
             await _bbdd.EpisodisMedics.AddAsync(episodi);
             await _bbdd.SaveChangesAsync();
@@ -198,15 +199,20 @@ namespace HospitalAPI.Controllers
 
             var epi = await _bbdd.EpisodisMedics.FirstOrDefaultAsync(h => h.Id == id);
 
-            var pacient = epi.Pacient;
-            pacient.Estado = "alta";
-            _bbdd.Update(pacient);
-
             if (epi == null)
             {
                 _logger.LogError("Error: no existeix l'episodi mèdic amb l'ID indicat.");
                 return NotFound("Error: no existeix l'episodi mèdic amb l'ID indicat.");
             }
+
+            var pacient = await _bbdd.Pacients.FirstOrDefaultAsync(p => p.Id == epi.PacientId);
+
+            if (pacient != null)
+            {
+                pacient.Estado = "alta";
+                _bbdd.Update(pacient);
+            }
+                    
 
             var ingr = await _bbdd.Ingressos.FirstOrDefaultAsync(h => h.EpisodiMedicId == id);
 
