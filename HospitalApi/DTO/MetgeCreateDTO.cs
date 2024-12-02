@@ -15,7 +15,7 @@ namespace HospitalApi.DTO
         [Required]
         public string Especialitat { get; set; } = string.Empty;
         [Required]
-        public string UsuariId { get; set; } = string.Empty;
+        public int UsuariId { get; set; }
 
     }
 }
