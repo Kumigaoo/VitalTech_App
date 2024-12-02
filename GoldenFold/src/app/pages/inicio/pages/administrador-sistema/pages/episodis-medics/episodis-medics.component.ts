@@ -125,6 +125,7 @@ export class EpisodisMedicsComponent implements OnInit, AfterViewInit {
       data: this.addingEpisodi
     }).afterClosed().subscribe((episodiCreado) => {
       if (episodiCreado) {
+        this.addingEpisodi = episodiCreado;
         this.guardarEpisodi();
       }
     });
@@ -147,7 +148,7 @@ export class EpisodisMedicsComponent implements OnInit, AfterViewInit {
   }
 
   guardarEpisodi(): void {
-    this.http.post('http://localhost:5296/api/EpisodiMedic', this.addingEpisodi).subscribe({
+    this.episodiService.post(this.addingEpisodi).subscribe({
       next: () => {
         this.obtenerEpisodis();
         this.cerrarFormulario();

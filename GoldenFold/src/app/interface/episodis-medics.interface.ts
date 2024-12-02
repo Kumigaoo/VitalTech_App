@@ -1,3 +1,6 @@
+import { Ingreso } from "./ingreso.interface";
+import { PruebaDiagnostica } from "./pruebas-diagnosticas.interface";
+
 export interface EpisodiMedic {
   id: number;
   dataObertura: string;
@@ -8,6 +11,6 @@ export interface EpisodiMedic {
   estat: string;
   dniPacient: string;
   dniMetge: string;
-  pruebasDiagnosticas: [];
-  ingresos: [];
+  pruebasDiagnosticas: PruebaDiagnostica[];
+  ingresos: Ingreso[];
 }
