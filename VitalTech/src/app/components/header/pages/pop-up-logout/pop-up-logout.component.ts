@@ -18,7 +18,9 @@ export class PopUpLogoutComponent {
   isAuthenticated = false;
   nom = '';
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any) {}
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any) {
+    this.nom = data;
+  }
 
   onLogout(): void {
     this.oidcSecurityService.logoff().subscribe((result) => {
