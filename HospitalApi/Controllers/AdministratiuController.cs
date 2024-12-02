@@ -76,7 +76,7 @@ namespace HospitalAPI.Controllers
             }
 
             var usuari = await _bbdd.Usuari.FirstOrDefaultAsync(p =>
-                p.Username == nouAdmin.UsuariId
+                p.Id == nouAdmin.UsuariId
             );
             if (usuari == null)
             {
@@ -118,7 +118,7 @@ namespace HospitalAPI.Controllers
                 return NotFound("No existeix un Administratiu amb aquest DNI");
             }
 
-            var usuario = await _bbdd.Usuari.FirstOrDefaultAsync(p => p.Username == admin.UsuariId);
+            var usuario = await _bbdd.Usuari.FirstOrDefaultAsync(p => p.Id == admin.UsuariId);
             usuario.RolId = null;
 
             _bbdd.Administratius.Remove(admin);
@@ -153,7 +153,7 @@ namespace HospitalAPI.Controllers
             }
 
             var usuari = await _bbdd.Usuari.FirstOrDefaultAsync(p =>
-                p.Username == AdministratiuUpdateDTO.UsuariId
+                p.Id == AdministratiuUpdateDTO.UsuariId
             );
             if (usuari == null)
             {
