@@ -15,7 +15,6 @@ namespace HospitalApi.DTO
         public DateTime? DataTancament { get; set; }
         [Required]
         public string Motivo { get; set; } = string.Empty;
-        [URGENCIASrestriction]
         public string Urgencia { get; set; } = string.Empty;
         [Required]
         public string Recepta { get; set; } = string.Empty;

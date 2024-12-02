@@ -11,9 +11,8 @@ import { HttpClient } from '@angular/common/http';
   standalone: true,
   imports: [RouterLink, RouterLinkActive, CommonModule],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.css'
+  styleUrls: ['./header.component.css']
 })
-
 export class HeaderComponent {
 
   private readonly oidcSecurityService = inject(OidcSecurityService);
@@ -27,8 +26,8 @@ export class HeaderComponent {
     this.oidcSecurityService.checkAuth().subscribe(({ isAuthenticated, userData }) => {
       this.isAuthenticated = isAuthenticated;
       if (isAuthenticated) {
-        this.nom = userData.name;
-        
+        this.nom = userData?.name || '';
+
         // Guardar el nombre en la sesión
         this.https.post('/set-session', { value: this.nom }).subscribe();
       } else {
@@ -42,12 +41,12 @@ export class HeaderComponent {
   }
 
   openDialog(): void {
-    this.dialog.open(PopUpLogoutComponent, {
-      data: {},
-      width: "auto",
-      height: "auto"
-    })
-
+    this.https.get<{ value: string }>('/set-session').subscribe(response => {
+      this.dialog.open(PopUpLogoutComponent, {
+        data: { nom: response.value },
+        width: "auto",
+        height: "auto"
+      });
+    });
   }
-
 }
