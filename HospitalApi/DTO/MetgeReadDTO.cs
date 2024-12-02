@@ -14,7 +14,7 @@ namespace HospitalApi.DTO
 
         public string Nom { get; set; } = string.Empty;
 
-        public string UsuariId { get; set; } = string.Empty;
+        public int UsuariId { get; set; }
 
         public ICollection<EpisodiMedic>? EpisodiMedics { get; set; }
 

@@ -22,7 +22,7 @@ export class EpisodisMedicsComponent implements OnInit, AfterViewInit {
 
   @ViewChild(SnackbarComponent) snackbar!: SnackbarComponent;
 
-  displayedColumns: string[] = ['id', 'dataObertura', 'dataTancament', 'dolencia', 'estat', 'dniPacient', 'consultes', 'ingressos','acciones'];
+  displayedColumns: string[] = ['id', 'dataObertura', 'dataTancament', 'motivo', 'urgencia', 'recepta', 'estat', 'dniPacient', 'dniMetge', 'pruebasDiagnosticas','acciones'];
   dataSource: MatTableDataSource<EpisodiMedic> = new MatTableDataSource<EpisodiMedic>([]);
 
   totalItems = 0;
@@ -39,10 +39,18 @@ export class EpisodisMedicsComponent implements OnInit, AfterViewInit {
 
   constructor(private episodiService: EpisodiService, public dialog: MatDialog, private http: HttpClient) {
     this.addingEpisodi = {
+      id: 0,
       dataObertura: '',
-      dolencia: '',
+      dataTancament: '',
+      motivo: '',
+      urgencia: '',
+      recepta: '',
       estat: '',
       dniPacient: '',
+      dniMetge: '',
+      pruebasDiagnosticas: [],
+      ingresos: []
+      
     };
   }
 
@@ -58,16 +66,16 @@ export class EpisodisMedicsComponent implements OnInit, AfterViewInit {
   verConsultas(episodi: any): void {
     this.dialog.open(ConsultasDialogComponent, {
       width: '1200px',
-      data: episodi.consultes
+      data: episodi.pruebasDiagnosticas
     });
   }
 
-  verIngresos(episodi: any): void {
+  /*verIngresos(episodi: any): void {
     this.dialog.open(IngresosDialogComponent,{
       width: '1200px',
       data: episodi.ingressos
     });
-  }
+  }*/
 
   obtenerEpisodis(): void {
     this.episodiService.getAll().subscribe({
@@ -101,10 +109,17 @@ export class EpisodisMedicsComponent implements OnInit, AfterViewInit {
 
   toggleFormularioAgregar(): void {
     this.addingEpisodi = {
+      id: 0,
       dataObertura: '',
-      dolencia: '',
+      dataTancament: '',
+      motivo: '',
+      urgencia: '',
+      recepta: '',
       estat: '',
-      dniPacient: '',  
+      dniPacient: '',
+      dniMetge: '',
+      pruebasDiagnosticas: [],
+      ingresos: []
     };
     this.dialog.open(DialogFormularioEpisodisComponent, {
       data: this.addingEpisodi

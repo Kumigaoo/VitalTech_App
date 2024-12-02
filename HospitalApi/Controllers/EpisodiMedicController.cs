@@ -169,6 +169,9 @@ namespace HospitalAPI.Controllers
             EpisodiMedic episodi = _mapper.Map<EpisodiMedic>(userEpiDTO);
             episodi.PacientId = pacient.Id;
             episodi.MetgeId = metge.Id;
+            episodi.Estat="No Resuelto";
+            episodi.DataTancament= null;
+            episodi.Recepta = null;
 
             await _bbdd.EpisodisMedics.AddAsync(episodi);
             await _bbdd.SaveChangesAsync();
@@ -265,7 +268,12 @@ namespace HospitalAPI.Controllers
                 return BadRequest("Error: no existeix el metge indicat.");
             }
 
-            if(episodi.Estat == "Resuelto"){
+            if (episodi.DataTancament == null) {
+                episodi.Estat = "No Resuelto";
+            }
+
+            if (episodi.DataTancament != null){
+                episodi.Estat = "Resuelto";
                 pacient.Estado = "alta";
                 _bbdd.Update(pacient);
             }

@@ -215,29 +215,29 @@ INSERT INTO Rol (Nom, Descripcio) VALUES ('Enfermer','Profesional encargado del 
 INSERT INTO Rol (Nom, Descripcio) VALUES ('Administrador del Sistema','Encargado de la gestión y mantenimiento de los sistemas informáticos del hospital.');
 
 -- Insertar Usuari
-INSERT INTO Usuari (Username, Password, Email, RolId) VALUES ('juanp', 'password1', 'juanp@hospital.com', 'Administrador del Sistema');
-INSERT INTO Usuari (Username, Password, Email, RolId) VALUES ('marial', 'password2', 'marial@hospital.com', 'Administratiu');
-INSERT INTO Usuari (Username, Password, Email, RolId) VALUES ('cgarcia', 'password3', 'cgarcia@hospital.com', 'Metge');
-INSERT INTO Usuari (Username, Password, Email, RolId) VALUES ('lfernandez', 'password4', 'lfernandez@hospital.com', 'Enfermer');
-INSERT INTO Usuari (Username, Password, Email, RolId) VALUES ('mmartin', 'password5', 'mmartin@hospital.com', 'Metge');
-INSERT INTO Usuari (Username, Password, Email, RolId) VALUES ('aperez', 'password6', 'aperez@hospital.com', 'Enfermer');
-INSERT INTO Usuari (Username, Password, Email, RolId) VALUES ('glopez', 'password7', 'glopez@hospital.com', 'Administratiu');
-INSERT INTO Usuari (Username, Password, Email, RolId) VALUES ('eflores', 'password8', 'eflores@hospital.com',  'Administrador del Sistema');
-INSERT INTO Usuari (Username, Password, Email, RolId) VALUES ('jgarcia', 'password9', 'jgarcia@hospital.com',  'Metge');
-INSERT INTO Usuari (Username, Password, Email, RolId) VALUES ('slopez', 'password10', 'slopez@hospital.com', 'Enfermer');
+INSERT INTO Usuari (Username, Password, Email, RolId, Imagen) VALUES ('juanp', 'password1', 'juanp@hospital.com', 'Administrador del Sistema',0x1234567890ABCDEF);
+INSERT INTO Usuari (Username, Password, Email, RolId, Imagen) VALUES ('marial', 'password2', 'marial@hospital.com', 'Administratiu',0x1234567890ABCDEF);
+INSERT INTO Usuari (Username, Password, Email, RolId, Imagen) VALUES ('cgarcia', 'password3', 'cgarcia@hospital.com', 'Metge',0x1234567890ABCDEF);
+INSERT INTO Usuari (Username, Password, Email, RolId, Imagen) VALUES ('lfernandez', 'password4', 'lfernandez@hospital.com', 'Enfermer',0x1234567890ABCDEF);
+INSERT INTO Usuari (Username, Password, Email, RolId, Imagen) VALUES ('mmartin', 'password5', 'mmartin@hospital.com', 'Metge',0x1234567890ABCDEF);
+INSERT INTO Usuari (Username, Password, Email, RolId, Imagen) VALUES ('aperez', 'password6', 'aperez@hospital.com', 'Enfermer',0x1234567890ABCDEF);
+INSERT INTO Usuari (Username, Password, Email, RolId, Imagen) VALUES ('glopez', 'password7', 'glopez@hospital.com', 'Administratiu',0x1234567890ABCDEF);
+INSERT INTO Usuari (Username, Password, Email, RolId, Imagen) VALUES ('eflores', 'password8', 'eflores@hospital.com',  'Administrador del Sistema',0x1234567890ABCDEF);
+INSERT INTO Usuari (Username, Password, Email, RolId, Imagen) VALUES ('jgarcia', 'password9', 'jgarcia@hospital.com',  'Metge',0x1234567890ABCDEF);
+INSERT INTO Usuari (Username, Password, Email, RolId, Imagen) VALUES ('slopez', 'password10', 'slopez@hospital.com', 'Enfermer',0x1234567890ABCDEF);
 
 
 -- Insertar Personal
-INSERT INTO Personal (DNI, Nom, Telefon, UsuariId) VALUES ('12345678A', 'Juan Pérez', '600123456', 'juanp');
-INSERT INTO Personal (DNI, Nom, Telefon, UsuariId) VALUES ('87654321B', 'María López', '600654321', 'marial');
-INSERT INTO Personal (DNI, Nom, Telefon, UsuariId) VALUES ('11223344C', 'Carlos García', '600112233', 'cgarcia');
-INSERT INTO Personal (DNI, Nom, Telefon, UsuariId) VALUES ('44332211D', 'Laura Fernández', '600445566', 'lfernandez');
-INSERT INTO Personal (DNI, Nom, Telefon, UsuariId) VALUES ('55555555E', 'Miguel Martín', '600556677', 'mmartin');
-INSERT INTO Personal (DNI, Nom, Telefon, UsuariId) VALUES ('66666666F', 'Ana Pérez', '600667788', 'aperez');
-INSERT INTO Personal (DNI, Nom, Telefon, UsuariId) VALUES ('77777777G', 'Gonzalo López', '600778899', 'glopez');
-INSERT INTO Personal (DNI, Nom, Telefon, UsuariId) VALUES ('88888888H', 'Elena Flores', '600889900', 'eflores');
-INSERT INTO Personal (DNI, Nom, Telefon, UsuariId) VALUES ('99999999I', 'Jorge García', '600990011', 'jgarcia');
-INSERT INTO Personal (DNI, Nom, Telefon, UsuariId) VALUES ('10101010J', 'Sara López', '600101112', 'slopez');
+INSERT INTO Personal (DNI, Nom, Telefon, UsuariId) VALUES ('12345678A', 'Juan Pérez', '600123456', 1);
+INSERT INTO Personal (DNI, Nom, Telefon, UsuariId) VALUES ('87654321B', 'María López', '600654321', 2);
+INSERT INTO Personal (DNI, Nom, Telefon, UsuariId) VALUES ('11223344C', 'Carlos García', '600112233', 3);
+INSERT INTO Personal (DNI, Nom, Telefon, UsuariId) VALUES ('44332211D', 'Laura Fernández', '600445566', 4);
+INSERT INTO Personal (DNI, Nom, Telefon, UsuariId) VALUES ('55555555E', 'Miguel Martín', '600556677', 5);
+INSERT INTO Personal (DNI, Nom, Telefon, UsuariId) VALUES ('66666666F', 'Ana Pérez', '600667788', 6);
+INSERT INTO Personal (DNI, Nom, Telefon, UsuariId) VALUES ('77777777G', 'Gonzalo López', '600778899', 7);
+INSERT INTO Personal (DNI, Nom, Telefon, UsuariId) VALUES ('88888888H', 'Elena Flores', '600889900', 8);
+INSERT INTO Personal (DNI, Nom, Telefon, UsuariId) VALUES ('99999999I', 'Jorge García', '600990011', 9);
+INSERT INTO Personal (DNI, Nom, Telefon, UsuariId) VALUES ('10101010J', 'Sara López', '600101112', 10);
 
 
 -- Insertar Administratiu

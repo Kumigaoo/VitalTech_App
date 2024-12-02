@@ -12,6 +12,7 @@ import { MedicoDashboardComponent } from '../../../medico/medico-dashboard/medic
 import { DialogFormularioMedicoModifComponent } from '../../../../../../components/Formularios/Medico/dialog-formulario-ingreso-modif/dialog-formulario-medico-modif.component';
 import { EpisodiosDialogComponent } from '../../../../../../components/popups/episodis-popup';
 import { PruebasDialogComponent } from '../../../../../../components/popups/pruebas-popup';
+import { Usuari } from '../../../../../../interface/usuari.interface';
 
 @Component({
   selector: 'app-metges',
@@ -24,6 +25,7 @@ export class MetgesComponent {
 
   
   medicos : MatTableDataSource<Medico> = new MatTableDataSource<Medico>([]);
+  usuarios: MatTableDataSource<Usuari> = new MatTableDataSource<Usuari>([]);
 
   //paginator, ordenador y snackbar(para las notificaciones)
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -35,7 +37,7 @@ export class MetgesComponent {
   medicoParaActualizar: Medico | null = null;
 
   constructor(private medicoService: MedicoService, private usuarioService: UsuarioService, private fb: FormBuilder, public dialog:MatDialog) {
-    this.obtenerMedicos(); 
+    this.obtenerUsuarios();
     this.crearFormularioMedico();
   }
 
@@ -63,7 +65,7 @@ export class MetgesComponent {
       dni: ['',Validators.required],
       nom: ['',Validators.required],
       telefon:  [0],
-      usuariId: ['',Validators.required],
+      usuariId: [0,Validators.required],
       especialitat: ['',Validators.required]
     })
   }
@@ -183,6 +185,26 @@ export class MetgesComponent {
       maxHeight:'none',
       data: medico.pruebasDiagnosticas
     });
+  }
+
+  obtenerUsuarios():void{
+    this.usuarioService.getAll().subscribe({
+      next:(data:Usuari[])=>{
+        this.usuarios.data = data;
+        this.obtenerMedicos();
+      },
+      error:(error:any)=>{
+        console.log(error);
+      }
+    })
+  }
+
+  obtenerNombreUsuario(id: number): string |null {
+    const user = this.usuarios.data.find(p => p.id == id);
+    if(user==null){
+      return null;
+    }
+    return user?.username;
   }
 
 }

@@ -16,6 +16,8 @@ export class RegistroPersonalComponent {
     this.personalForm = this.fb.group({
       dni : [''],
       nom : [''],
+      telefon: [''],
+      usuariId: [''],
       especialitat : ['']
     })
   }
