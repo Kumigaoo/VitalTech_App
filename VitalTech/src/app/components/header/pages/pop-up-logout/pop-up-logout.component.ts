@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Inject } from '@angular/core';
@@ -16,15 +16,18 @@ export class PopUpLogoutComponent {
   private readonly oidcSecurityService = inject(OidcSecurityService);
   private readonly https = inject(HttpClient);
   isAuthenticated = false;
-  nom = '';
+  nom: string = '';
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any) {
-    this.nom = data;
+
+    this.nom = data.nom;
+
   }
 
   onLogout(): void {
     this.oidcSecurityService.logoff().subscribe((result) => {
       console.log(result);
+
       // Limpiar la sesión al cerrar sesión
       this.https.post('/set-session', { value: '' }).subscribe();
     });
