@@ -1,25 +1,25 @@
 import { HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { PacienteService } from '../services/paciente.service';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
+import { catchError, switchMap } from 'rxjs/operators';
+import { throwError, from } from 'rxjs';
+import { ErrorHandlerService } from '../services/handle-error.service';  // Asegúrate de que la ruta es correcta
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
-  
   const oidcSecurityService = inject(OidcSecurityService);
-  let token: any;
+  const errorHandlerService = inject(ErrorHandlerService);
 
-  oidcSecurityService.getAccessToken().subscribe((result) => {
-    token = result;
-  });
+  return from(oidcSecurityService.getAccessToken()).pipe(
+    switchMap((token) => {
+      const authReq = token ? req.clone({
+        setHeaders: {
+          Authorization: `Bearer ${token}`,
+        },
+      }) : req;
 
-  if (token) {
-    const authReq = req.clone({
-      setHeaders: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    return next(authReq);
-  }
-
-  return next(req);
+      return next(authReq).pipe(
+        catchError((error) => errorHandlerService.handleHttpError(error))
+      );
+    })
+  );
 };

@@ -12,6 +12,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
+import { UnauthorizedComponent } from './pages/inicio/pages/unauthorized/unauthorized.component';
 
 @NgModule({
   imports: [
@@ -29,6 +30,9 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatInputModule,
     MatFormFieldModule
   ],
-  providers: [{provide: MAT_DATE_LOCALE, useValue: 'es-ES' }]
+  providers: [{provide: MAT_DATE_LOCALE, useValue: 'es-ES' }],
+  declarations: [
+    UnauthorizedComponent
+  ]
 })
 export class AppModule { }

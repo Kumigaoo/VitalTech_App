@@ -10,14 +10,12 @@ using Microsoft.AspNetCore.Authorization;
 //using EntityFrameworkCore.MySQL.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.VisualStudio.TextTemplating;
 
 namespace HospitalAPI.Controllers
 {
 
     [Route("api/[controller]")]
-    [Authorize]
+    [Authorize(Roles = "metge")]
     [ApiController]
 
     public class PacientController : ControllerBase

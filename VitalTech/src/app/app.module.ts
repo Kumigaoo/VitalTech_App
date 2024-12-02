@@ -2,13 +2,11 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module'; 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { LoginComponent } from './pages/login/login.component'; 
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { JwtModule, JwtInterceptor } from '@auth0/angular-jwt';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
-import { SharedModule } from './modules/shared/shared.module';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { HTTP_INTERCEPTORS, provideHttpClient } from '@angular/common/http';
+import { authInterceptor } from 'angular-auth-oidc-client';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -22,7 +20,10 @@ export function tokenGetter() {
     ReactiveFormsModule,
     MatDialogModule,
     BrowserAnimationsModule,
-  ],
-  providers: [{provide: MAT_DATE_LOCALE, useValue: 'es-ES' }]
+  ],  
+  providers: [
+    provideHttpClient(),
+    { provide: HTTP_INTERCEPTORS, useValue: authInterceptor, multi: true },
+    {provide: MAT_DATE_LOCALE, useValue: 'es-ES' }]
 })
 export class AppModule { }

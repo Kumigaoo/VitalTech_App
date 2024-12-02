@@ -4,6 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Newtonsoft.Json;
+using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,7 +16,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowSpecificOrigin",
         policy =>
         {
-            policy.WithOrigins("https://localhost:4201", "https://localhost:7200", "https://localhost:4200", "https://localhost:127.0.0.2:4200")
+            policy.WithOrigins("https://localhost:4201", "https://localhost:7200", "https://localhost:4200", "https://127.0.0.2:4200")
                   .AllowAnyHeader()
                   .AllowAnyMethod();
         });
@@ -30,24 +32,73 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddAutoMapper(typeof(MapConfig));
 
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-})
-.AddJwtBearer(options =>
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
 {
     options.Authority = "https://login.oscarrovira.com/realms/Dream%20Team";
     options.Audience = "hospital-api";
     options.RequireHttpsMetadata = true;
     options.TokenValidationParameters = new TokenValidationParameters
     {
-        ValidateAudience = true,
         ValidAudience = "hospital-api",
+        ValidIssuer = "https://login.oscarrovira.com/realms/Dream%20Team",
+        ValidateAudience = true,
         ValidateIssuer = true,
-        ValidIssuer = "https://login.oscarrovira.com/realms/Dream%20Team"
+        RoleClaimType = ClaimTypes.Role
     };
+
+    options.Events = new JwtBearerEvents
+    {
+        OnTokenValidated = context =>
+        {
+            var user = context.Principal;
+
+            // Extraer el campo `realm_access` del token.
+            var realmAccess = user.FindFirst("realm_access")?.Value;
+            if (!string.IsNullOrEmpty(realmAccess))
+            {
+                // Llamar a la función para extraer roles del campo `realm_access`.
+                var roles = ExtractRolesFromRealmAccess(realmAccess);
+                if (roles.Any())
+                {
+                    var identity = user.Identity as ClaimsIdentity;
+                    foreach (var role in roles)
+                    {
+                        Console.WriteLine(role.ToString());
+                        // Agregar los roles como claims de tipo `Role`.
+                        identity?.AddClaim(new Claim(ClaimTypes.Role, role));
+                    }
+                }
+            }
+
+            return Task.CompletedTask;
+        }
+    };
+    
 });
+
+static IEnumerable<string> ExtractRolesFromRealmAccess(string realmAccessJson)
+{
+    var roles = new List<string>();
+
+    try
+    {
+        // Deserializar `realm_access` desde el token.
+        var realmAccess = JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(realmAccessJson);
+
+        // Verificar si hay roles dentro de `realm_access`.
+        if (realmAccess != null && realmAccess.ContainsKey("roles"))
+        {
+            var rolesArray = realmAccess["roles"];
+            roles.AddRange(rolesArray.ToObject<List<string>>());
+        }
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Error al extraer roles de realm_access: {ex.Message}");
+    }
+
+    return roles;
+}
 
 builder.Services.AddSwaggerGen(c =>
 {
