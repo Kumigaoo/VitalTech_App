@@ -1,7 +1,7 @@
+import { MedicoService } from './../../../../../libs/services/metge.service';
 // username-async-validator.ts
 import { AbstractControl, ValidationErrors } from '@angular/forms';
 import { Injectable } from '@angular/core';
-import { MedicoService } from '../services/metge.service';
 import { Observable, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { EnfermeroService } from '../services/enfermero.service';

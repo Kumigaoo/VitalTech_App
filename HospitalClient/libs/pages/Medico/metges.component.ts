@@ -1,23 +1,23 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
-import { Medico } from '../../../../../../interface/medico.interface';
+import { Medico } from '../../interfaces/medico.interface';
 import { MatPaginator } from '@angular/material/paginator';
-import { SnackbarComponent } from '../../../../../../components/snackbar/snackbar.component';
+import { SnackbarComponent } from '../../../apps/GoldenFold/src/app/components/snackbar/snackbar.component';
 import { MatSort } from '@angular/material/sort';
 import { Form, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MedicoService } from '../../../../../../services/metge.service';
-import { UsuarioService } from '../../../../../../services/usuario.service';
+import { MedicoService } from '../../services/metge.service';
+import { UsuarioService } from '../../../apps/GoldenFold/src/app/services/usuario.service';
 import { MatDialog } from '@angular/material/dialog';
-import { MedicoDashboardComponent } from '../../../medico/medico-dashboard/medico-dashboard.component';
-import { DialogFormularioMedicoModifComponent } from '../../../../../../components/Formularios/Medico/dialog-formulario-ingreso-modif/dialog-formulario-medico-modif.component';
-import { EpisodiosDialogComponent } from '../../../../../../components/popups/episodis-popup';
-import { PruebasDialogComponent } from '../../../../../../components/popups/pruebas-popup';
-import { Usuari } from '../../../../../../interface/usuari.interface';
+import { MedicoDashboardComponent } from '../../../apps/GoldenFold/src/app/pages/inicio/pages/medico/medico-dashboard/medico-dashboard.component';
+import { DialogFormularioMedicoModifComponent } from '../../forms/dialog-formulario-medico-modif.component';
+import { EpisodiosDialogComponent } from '../../../apps/GoldenFold/src/app/components/popups/episodis-popup';
+import { PruebasDialogComponent } from '../../../apps/GoldenFold/src/app/components/popups/pruebas-popup';
+import { Usuari } from '../../../apps/GoldenFold/src/app/interface/usuari.interface';
 
 @Component({
   selector: 'app-metges',
-  templateUrl: './metges.component.html',
-  styleUrl: './metges.component.css',
+  templateUrl: '../../../apps/GoldenFold/src/app/pages/inicio/pages/administrador-sistema/pages/metges/metges.component.html',
+  styleUrl: '../../../apps/GoldenFold/src/app/pages/inicio/pages/administrador-sistema/pages/metges/metges.component.css',
 })
 export class MetgesComponent {
   //columnas a mostrar
@@ -44,12 +44,26 @@ export class MetgesComponent {
   medicoForm!: FormGroup;
   medicoParaActualizar: Medico | null = null;
 
+  templateUrl!: string
+  styleUrls!: string[]
+
   constructor(
     private medicoService: MedicoService,
     private usuarioService: UsuarioService,
     private fb: FormBuilder,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private cdRef: ChangeDetectorRef
   ) {
+
+    //para cambiar la vista dependiendo del puerto en que se llame
+    //mostrara una visa con otra
+    if(window.location.port == "4200"){
+      this.templateUrl = "rutaAlHtml"
+      this.styleUrls = ["rutaAlCSS"]
+      this.cdRef.detectChanges();
+    }
+   
+
     this.obtenerUsuarios();
     this.crearFormularioMedico();
   }

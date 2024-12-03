@@ -1,7 +1,7 @@
+import { Medico } from './../../../../../libs/interfaces/medico.interface';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Medico } from '../interface/medico.interface';
 import { PruebaDiagnostica } from '../interface/pruebas-diagnosticas.interface';
 import { BaseService } from './abstract-service.service';
 
