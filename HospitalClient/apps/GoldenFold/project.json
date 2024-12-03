@@ -21,7 +21,7 @@
       "options": {
         "outputPath": "dist/apps/GoldenFold",
         "index": "apps/GoldenFold/src/index.html",
-        "main": "apps/GoldenFold/src/main.ts", 
+        "browser": "apps/GoldenFold/src/main.ts",
         "polyfills": ["zone.js"],
         "tsConfig": "apps/GoldenFold/tsconfig.app.json",
         "assets": [

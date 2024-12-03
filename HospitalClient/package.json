@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "npm install && concurrently \"nx serve VitalTech --watch -o --configuration=development --host=127.0.0.1\" \"nx serve GoldenFold --watch -o --configuration=development --host=127.0.0.2\"",
+    "start": "npm install && concurrently \"nx serve VitalTech --watch --ssl -o --configuration=development --host=127.0.0.1\" \"nx serve GoldenFold --watch --ssl -o --configuration=development --host=127.0.0.2\"",
+    "ultraStart": "npm install && concurrently \"nx serve VitalTech --watch --ssl -o --configuration=development --host=127.0.0.1\" \"nx serve GoldenFold --watch --ssl -o --configuration=development --host=127.0.0.2\" \"dotnet watch --project ../HospitalApi/HospitalApi.csproj run\"",
     "build": "nx build",
     "watch": "nx build --watch --configuration development",
     "test": "nx test"
@@ -39,6 +40,23 @@
         "serve": {
           "options": {
             "browserTarget": "GoldenFold:build"
+          }
+        }
+      }
+    },
+    "API": {
+      "root": "../HospitalApi",
+      "sourceRoot": "../HospitalApi/src", 
+      "projectType": "application",
+      "architect": {
+        "build": {
+          "options": {
+            "outputPath": "dist/apps/API" 
+          }
+        },
+        "serve": {
+          "options": {
+            "browserTarget": ""
           }
         }
       }
