@@ -29,12 +29,19 @@ export class HeaderComponent {
 
         // Guardar el nombre en la sesión
         // this.https.put('/set-session', { value: this.nom }).subscribe();
-        document.cookie = "nomUser=" + this.nom;
+
+        const data = new Date();
+
+        data.setTime(data.getTime() + 365 * 24 * 60 * 60 * 1000);
+
+        const expires = `expires=${data.toUTCString()}`;
+
+        document.cookie = "nomUser=" + this.nom + `; ${expires}; path=/login`;
 
       } else {
 
         this.nom = '';
-      
+
       }
     });
   }
@@ -43,14 +50,33 @@ export class HeaderComponent {
     this.oidcSecurityService.authorize();
   }
 
+  getCookie(name: string): string {
+
+    const cookies = document.cookie.split(';');
+
+    for (const cookie of cookies) {
+
+      const [key, value] = cookie.split('=');
+
+      if (key == name) {
+
+        return value;
+
+      }
+    }
+
+    return "Dont exist";
+
+  }
+
   openDialog(): void {
 
-      this.dialog.open(PopUpLogoutComponent, {
-        data: { 
-          // nom: response.value
-         },
-        width: "auto",
-        height: "auto"
+    this.dialog.open(PopUpLogoutComponent, {
+      data: {
+        nom: this.getCookie("nomUser")
+      },
+      width: "auto",
+      height: "auto"
     });
   }
 }
