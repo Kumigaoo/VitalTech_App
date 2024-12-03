@@ -21,9 +21,7 @@
           },
           "apps/VitalTech/src/silent-renew.html"
         ],
-        "styles": [
-          "apps/VitalTech/src/styles.css"
-        ],
+        "styles": ["apps/VitalTech/src/styles.css"],
         "scripts": []
       },
       "configurations": {
@@ -61,6 +59,12 @@
         }
       },
       "defaultConfiguration": "development"
+    },
+    "start": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "nodemon server.js"
+      }
     },
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n"

@@ -3,10 +3,46 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "npm install && nx serve -o --host=127.0.0.1",
+    "start": "npm install && concurrently \"nx serve VitalTech --watch -o --configuration=development --host=127.0.0.1\" \"nx serve GoldenFold --watch -o --configuration=development --host=127.0.0.2\"",
     "build": "nx build",
     "watch": "nx build --watch --configuration development",
     "test": "nx test"
+  },
+  "projects": {
+    "VitalTech": {
+      "root": "apps/VitalTech",
+      "sourceRoot": "apps/VitalTech/src",
+      "projectType": "application",
+      "architect": {
+        "build": {
+          "options": {
+            "outputPath": "dist/apps/VitalTech"
+          }
+        },
+        "serve": {
+          "options": {
+            "browserTarget": "VitalTech:build"
+          }
+        }
+      }
+    },
+    "GoldenFold": {
+      "root": "apps/GoldenFold",
+      "sourceRoot": "apps/GoldenFold/src",
+      "projectType": "application",
+      "architect": {
+        "build": {
+          "options": {
+            "outputPath": "dist/apps/GoldenFold"
+          }
+        },
+        "serve": {
+          "options": {
+            "browserTarget": "GoldenFold:build"
+          }
+        }
+      }
+    }
   },
   "private": true,
   "dependencies": {
@@ -23,7 +59,6 @@
     "angular-auth-oidc-client": "^18.0.2",
     "chart.js": "^4.4.3",
     "fuse.js": "^7.0.0",
-    "fuze": "^0.0.1",
     "jest-editor-support": "*",
     "keycloak-angular": "^16.0.1",
     "keycloak-js": "^25.0.5",
@@ -47,6 +82,7 @@
     "@swc/core": "~1.5.7",
     "@swc/helpers": "~0.5.11",
     "@types/jasmine": "~5.1.0",
+    "concurrently": "^9.1.0",
     "eslint": "^9.8.0",
     "jasmine-core": "~5.1.0",
     "karma": "~6.4.0",
