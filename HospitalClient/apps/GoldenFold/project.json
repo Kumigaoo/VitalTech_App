@@ -21,7 +21,7 @@
       "options": {
         "outputPath": "dist/apps/GoldenFold",
         "index": "apps/GoldenFold/src/index.html",
-        "browser": "apps/GoldenFold/src/main.ts",
+        "main": "apps/GoldenFold/src/main.ts", 
         "polyfills": ["zone.js"],
         "tsConfig": "apps/GoldenFold/tsconfig.app.json",
         "assets": [
@@ -60,21 +60,20 @@
           "sourceMap": true
         }
       },
-      "defaultConfiguration": "production"
+      "defaultConfiguration": "development"
     },
     "serve": {
       "executor": "@angular-devkit/build-angular:dev-server",
       "configurations": {
         "production": {
           "buildTarget": "GoldenFold:build:production",
-          "port": 4200
+          "port": 4201
         },
         "development": {
           "buildTarget": "GoldenFold:build:development",
-          "port": 4201
+          "port": 4200
         }
-      },
-      "defaultConfiguration": "development"
+      }
     },
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n"
