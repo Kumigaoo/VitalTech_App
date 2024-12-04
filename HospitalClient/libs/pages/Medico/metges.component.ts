@@ -61,8 +61,9 @@ export class MetgesComponent {
     this.currentPort = window.location.port;
     this.isPortGolden = this.currentPort==="4201";
 
+    //cambiar css
     if (this.isPortGolden) {
-      this.cssPaths = ['/assets/styles/styles.css','/assets/styles/metges.component.css'];
+      this.cssPaths = ['/assets/styles/styles.css','/assets/styles/medico/4001.component.css'];
     } else {
       this.cssPaths = ['../../../apps/VitalTech/src/styles.css','../../../apps/VitalTech/src/app/pages/inicio/pages/personal/personal.component.css'];
     }
