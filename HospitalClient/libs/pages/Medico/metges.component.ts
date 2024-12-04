@@ -65,7 +65,7 @@ export class MetgesComponent {
     if (this.isPortGolden) {
       this.cssPaths = ['/assets/styles/styles.css','/assets/styles/medico/4001.component.css'];
     } else {
-      this.cssPaths = ['../../../apps/VitalTech/src/styles.css','../../../apps/VitalTech/src/app/pages/inicio/pages/personal/personal.component.css'];
+      this.cssPaths = ['/assets/styles/styles.css','/assets/styles/medico/4000.component.css'];
     }
  
     this.cssPaths.forEach(css => {
