@@ -71,7 +71,7 @@
         },
         "development": {
           "buildTarget": "GoldenFold:build:development",
-          "port": 4200
+          "port": 4201
         }
       }
     },
