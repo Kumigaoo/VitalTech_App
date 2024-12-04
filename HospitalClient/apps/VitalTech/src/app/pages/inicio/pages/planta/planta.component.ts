@@ -1,9 +1,9 @@
+import { Planta } from './../../../../../../../../libs/interfaces/planta.interface';
 import { RouterLinkActive, RouterLink } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgModel } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { Planta } from '../../../../interface/planta.interface';
 import { PlantaService } from '../../../../service/planta.service';
 import { PlantaPopupComponent } from '../../../../components/pop-ups/planta-popup/planta-popup.component';
 import { MatDialog } from '@angular/material/dialog';

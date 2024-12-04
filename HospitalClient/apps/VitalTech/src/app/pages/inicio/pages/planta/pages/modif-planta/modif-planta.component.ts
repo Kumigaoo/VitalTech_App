@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Planta } from '../../../../../../interface/planta.interface';
+import { Planta } from '../../../../../../../../../../libs/interfaces/planta.interface';
 import { PlantaService } from '../../../../../../service/planta.service';
 import Swal from 'sweetalert2';
 
