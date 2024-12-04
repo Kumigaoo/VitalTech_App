@@ -63,8 +63,10 @@ export class MetgesComponent {
 
     //cambiar css
     if (this.isPortGolden) {
+      //css golden
       this.cssPaths = ['/assets/styles/styles.css','/assets/styles/medico/4001.component.css'];
     } else {
+      //css vital
       this.cssPaths = ['/assets/styles/styles.css','/assets/styles/medico/4000.component.css'];
     }
  
