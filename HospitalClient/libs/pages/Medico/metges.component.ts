@@ -16,8 +16,8 @@ import { Usuari } from '../../../apps/GoldenFold/src/app/interface/usuari.interf
 
 @Component({
   selector: 'app-metges',
-  templateUrl: '../../../apps/GoldenFold/src/app/pages/inicio/pages/administrador-sistema/pages/metges/metges.component.html',
-  styleUrl: '../../../apps/GoldenFold/src/app/pages/inicio/pages/administrador-sistema/pages/metges/metges.component.css',
+  templateUrl: './metges.component.html',
+  styleUrls: [],
 })
 export class MetgesComponent {
   //columnas a mostrar
@@ -31,9 +31,11 @@ export class MetgesComponent {
     'pruebasDiagnosticas',
     'Actions',
   ];
-
   medicos: MatTableDataSource<Medico> = new MatTableDataSource<Medico>([]);
   usuarios: MatTableDataSource<Usuari> = new MatTableDataSource<Usuari>([]);
+
+  currentPort: string;
+  isPortGolden: boolean;
 
   //paginator, ordenador y snackbar(para las notificaciones)
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -46,6 +48,7 @@ export class MetgesComponent {
 
   templateUrl!: string
   styleUrls!: string[]
+  cssPaths!: string[];
 
   constructor(
     private medicoService: MedicoService,
@@ -54,15 +57,23 @@ export class MetgesComponent {
     public dialog: MatDialog,
     private cdRef: ChangeDetectorRef
   ) {
+    //cambiar html
+    this.currentPort = window.location.port;
+    this.isPortGolden = this.currentPort==="4201";
 
-    //para cambiar la vista dependiendo del puerto en que se llame
-    //mostrara una visa con otra
-    if(window.location.port == "4200"){
-      this.templateUrl = "rutaAlHtml"
-      this.styleUrls = ["rutaAlCSS"]
-      this.cdRef.detectChanges();
+    if (this.isPortGolden) {
+      this.cssPaths = ['/assets/styles/styles.css','/assets/styles/metges.component.css'];
+    } else {
+      this.cssPaths = ['../../../apps/VitalTech/src/styles.css','../../../apps/VitalTech/src/app/pages/inicio/pages/personal/personal.component.css'];
     }
-   
+ 
+    this.cssPaths.forEach(css => {
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = css;
+      document.head.appendChild(link);
+    });
 
     this.obtenerUsuarios();
     this.crearFormularioMedico();
