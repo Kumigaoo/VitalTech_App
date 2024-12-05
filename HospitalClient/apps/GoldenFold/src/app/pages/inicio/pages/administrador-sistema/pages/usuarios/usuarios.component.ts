@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { UsuarioService } from '../../../../../../services/usuario.service';
-import { Personal } from '../../../../../../interface/personal.interface';
+import { UsuarioService } from '../../../../../../../../../../libs/services/usuario.service';
+import { Personal } from '../../../../../../../../../../libs/interfaces/personal.interface';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { UserValidators } from '../../../../../../validators/usuarios.validators';
 import { MatTableDataSource } from '@angular/material/table';

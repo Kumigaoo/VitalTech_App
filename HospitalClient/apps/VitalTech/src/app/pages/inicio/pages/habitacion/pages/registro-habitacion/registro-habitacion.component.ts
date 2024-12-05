@@ -1,6 +1,6 @@
+import { HabitacionService } from './../../../../../../../../../../libs/services/habitacion.service';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { HabitacioService } from '../../../../../../service/habitaciones.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import Swal from 'sweetalert2';
@@ -9,7 +9,7 @@ import {
   plantaidValidator,
   habidValidator,
 } from '../../../../../../validator/habitacion/habitacion-validator.validator';
-import { PlantaService } from '../../../../../../service/planta.service';
+import { PlantaService } from '../../../../../../../../../../libs/services/planta.service';
 
 @Component({
   selector: 'app-registro-habitacion',
@@ -23,7 +23,7 @@ export class RegistroHabitacionComponent {
     private fb: FormBuilder,
     private http: HttpClient,
     private router: Router,
-    private habService: HabitacioService,
+    private habService: HabitacionService,
     private plantaService: PlantaService
   ) {
     this.habitacionForm = this.fb.group(

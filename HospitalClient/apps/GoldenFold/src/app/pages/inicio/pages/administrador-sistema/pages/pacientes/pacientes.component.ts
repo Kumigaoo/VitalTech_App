@@ -5,8 +5,8 @@ import {
   AfterViewInit,
   TemplateRef,
 } from '@angular/core';
-import { PacienteService } from '../../../../../../services/paciente.service';
-import { Paciente } from '../../../../../../interface/paciente.interface';
+import { PacienteService } from './../../../../../../../../../../libs/services/paciente.service';
+import { Paciente } from './../../../../../../../../../../libs/interfaces/paciente.interface';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';

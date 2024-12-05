@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { PacientService } from '../../../../service/pacientes.service';
-import { Pacient } from '../../../../interface/pacient.interface';
+import { PacienteService } from '../../../../../../../../libs/services/paciente.service';
+import { Paciente } from '../../../../../../../../libs/interfaces/paciente.interface';
 import { MatDialog } from '@angular/material/dialog';
 import { EpisodisMedicsPopupComponent } from '../../../../components/pop-ups/episodis-medics-popup/episodis-medics-popup.component';
 import { Router } from '@angular/router';
@@ -13,9 +13,9 @@ import Fuse from 'fuse.js';
   styleUrl: './pacientes.component.css',
 })
 export class PacientesComponent {
-  pacients: Pacient[] = [];
-  originalPacient: Pacient[] = [];
-  pagedPacient: Pacient[] = [];
+  pacients: Paciente[] = [];
+  originalPacient: Paciente[] = [];
+  pagedPacient: Paciente[] = [];
 
   searchCriteria: string = 'dni';
   searchInput: string = '';
@@ -24,11 +24,11 @@ export class PacientesComponent {
   itemsPerPage: number = 4;
   totalPages: number = 1;
 
-  fuse: Fuse<Pacient> | null = null;
+  fuse: Fuse<Paciente> | null = null;
 
   constructor(
     public dialog: MatDialog,
-    private pacienteService: PacientService,
+    private pacienteService: PacienteService,
     private router: Router
   ) {}
 
@@ -37,7 +37,7 @@ export class PacientesComponent {
   }
 
   loadPacients(): void {
-    this.pacienteService.getPacients().subscribe((data) => {
+    this.pacienteService.getAll().subscribe((data) => {
       this.pacients = data;
       this.originalPacient = data;
       this.totalPages = Math.ceil(this.pacients.length / this.itemsPerPage);
@@ -67,7 +67,7 @@ export class PacientesComponent {
       cancelButtonText: 'Cancelar',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.pacienteService.deletePacient(String(id)).subscribe({
+        this.pacienteService.delete(String(id)).subscribe({
           next: (response) => {
             Swal.fire({
               icon: 'success',

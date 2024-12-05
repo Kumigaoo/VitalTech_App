@@ -1,11 +1,10 @@
 import { RouterLinkActive, RouterLink, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { MetgeService } from '../../../../service/metge.service';
-import { Metge } from '../../../../interface/metge.interface';
+import { MedicoService } from '../../../../../../../../libs/services/metge.service';
+import { Medico } from '../../../../../../../../libs/interfaces/medico.interface';
 import { PruebasDiagnosticasPopupComponent } from '../../../../components/pop-ups/pruebas-diagnosticas-popup/pruebas-diagnosticas-popup.component';
 import { MatDialog } from '@angular/material/dialog';
 import Swal from 'sweetalert2';
-import { EnumTranslatePipe } from '../../../../pipes/enum-translate.pipe';
 import Fuse from 'fuse.js';
 import { EpisodisMedicsPopupComponent } from '../../../../components/pop-ups/episodis-medics-popup/episodis-medics-popup.component';
 
@@ -15,32 +14,32 @@ import { EpisodisMedicsPopupComponent } from '../../../../components/pop-ups/epi
   styleUrl: './personal.component.css',
 })
 export class PersonalComponent {
-  metges: Metge[] = [];
-  originalMetge: Metge[] = [];
+  metges: Medico[] = [];
+  originalMetge: Medico[] = [];
   searchInput: string = '';
   searchCriteria: string = 'dni';
 
   constructor(
     public dialog: MatDialog,
-    private metgeService: MetgeService,
+    private metgeService: MedicoService,
     private router: Router
   ) {}
 
-  pagedPersonals: Metge[] = []; // creo otra array de consultas que mostrara solamente aquellas por pagina
+  pagedPersonals: Medico[] = []; // creo otra array de consultas que mostrara solamente aquellas por pagina
 
   // Estas son las variables de paginación
   currentPage: number = 1;
   itemsPerPage: number = 4;
   totalPages: number = 1;
 
-  fuse: Fuse<Metge> | null = null;
+  fuse: Fuse<Medico> | null = null;
 
   ngOnInit() {
     this.loadPersonal();
   }
 
   loadPersonal(): void {
-    this.metgeService.getPersonals().subscribe((data) => {
+    this.metgeService.getAll().subscribe((data) => {
       this.metges = data;
       this.originalMetge = data;
       this.totalPages = Math.ceil(this.metges.length / this.itemsPerPage); // calcula cuantas paginas tendra dependiendo de los items que tenga cada una
@@ -153,7 +152,7 @@ export class PersonalComponent {
       cancelButtonText: 'Cancelar',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.metgeService.deletePacient(idPersonal).subscribe({
+        this.metgeService.delete(idPersonal).subscribe({
           next: (response) => {
             Swal.fire({
               icon: 'success',

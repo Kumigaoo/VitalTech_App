@@ -4,7 +4,6 @@ import {
   MatDialogModule,
   MatDialogRef,
 } from '@angular/material/dialog';
-import { Ingreso } from '../../../../interface/ingreso.interface';
 import {
   AbstractControl,
   FormBuilder,
@@ -16,14 +15,10 @@ import {
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { EpisodiMedic } from '../../../../interface/episodis-medics.interface';
 import {
   MatOptionModule,
   provideNativeDateAdapter,
 } from '@angular/material/core';
-import { EpisodiService } from '../../../../services/episodis.service';
-import { Cama } from '../../../../interface/cama.interface';
-import { CamaService } from '../../../../services/cama.service';
 import { CommonModule, NumberFormatStyle } from '@angular/common';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -35,10 +30,10 @@ import {
   dataInici,
   dataIniciFinalValidator,
 } from '../../../../validators/ingresos.validators';
-import { Medico } from '../../../../interface/medico.interface';
-import { Usuari } from '../../../../interface/usuari.interface';
-import { UsuarioService } from '../../../../services/usuario.service';
-import { MedicoService } from '../../../../services/metge.service';
+import { Medico } from '../../../../../../../../libs/interfaces/medico.interface';
+import { Usuari } from '../../../../../../../../libs/interfaces/usuari.interface';
+import { UsuarioService } from '../../../../../../../../libs/services/usuario.service';
+import { MedicoService } from '../../../../../../../../libs/services/metge.service';
 import { dniValidator } from '../../../../validators/dniValidator';
 import { map } from 'rxjs';
 import { EspecialidadesMedico } from '../../../../enums/especialidadesMedico';

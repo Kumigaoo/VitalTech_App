@@ -1,6 +1,6 @@
+import { HabitacionService } from './../../../../../../../../../../libs/services/habitacion.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { HabitacionService } from '../../../../../../services/habitacion.service';
-import { Habitacion } from '../../../../../../interface/habitacion.interface';
+import { Habitacion } from '../../../../../../../../../../libs/interfaces/habitacion.interface';
 import { SnackbarComponent } from '../../../../../../components/snackbar/snackbar.component'; // Importar el componente standalone
 import { MatTableDataSource } from '@angular/material/table'; // Módulo de tabla de Angular Material
 import { MatPaginator, PageEvent } from '@angular/material/paginator'; // Módulo de paginación de Angular Material
