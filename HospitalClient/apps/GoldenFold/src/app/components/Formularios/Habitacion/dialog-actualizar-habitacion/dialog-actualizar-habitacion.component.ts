@@ -1,3 +1,4 @@
+import { PlantaService } from './../../../../../../../../libs/services/planta.service';
 import { Component, inject } from '@angular/core';
 import {
   FormBuilder,
@@ -27,8 +28,7 @@ import { Inject } from '@angular/core';
 import { Habitacion } from '../../../../interface/habitacion.interface';
 import { CommonModule } from '@angular/common';
 import { CamaService } from '../../../../services/cama.service';
-import { PlantaService } from '../../../../services/planta.service';
-import { Planta } from '../../../../interface/planta.interface';
+import { Planta } from '../../../../../../../../libs/interfaces/planta.interface';
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
 import { pisoCodigoValidator } from '../../../../validators/habitacion.validator';

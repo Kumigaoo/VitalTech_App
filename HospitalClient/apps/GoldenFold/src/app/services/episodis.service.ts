@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { EpisodiMedic } from '../interface/episodis-medics.interface';
-import { BaseService } from './abstract-service.service';
+import { BaseService } from '../../../../../libs/services/abstract-service.service';
 
 @Injectable({
   providedIn: 'root',

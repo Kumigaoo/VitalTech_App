@@ -9,7 +9,7 @@ import {
   plantaidValidator,
   habidValidator,
 } from '../../../../../../validator/habitacion/habitacion-validator.validator';
-import { PlantaService } from '../../../../../../service/planta.service';
+import { PlantaService } from '../../../../../../../../../../libs/services/planta.service';
 
 @Component({
   selector: 'app-registro-habitacion',

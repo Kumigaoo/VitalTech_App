@@ -3,7 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Medico } from '../interface/medico.interface';
 import { Enfermero } from '../interface/enfermer.interface';
-import { BaseService } from './abstract-service.service';
+import { BaseService } from '../../../../../libs/services/abstract-service.service';
 
 @Injectable({
   providedIn: 'root',

@@ -15,7 +15,7 @@ import {
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { Planta } from '../../../../interface/planta.interface';
+import { Planta } from '../../../../../../../../libs/interfaces/planta.interface';
 
 @Component({
   selector: 'app-dialog-formulario-plantas',

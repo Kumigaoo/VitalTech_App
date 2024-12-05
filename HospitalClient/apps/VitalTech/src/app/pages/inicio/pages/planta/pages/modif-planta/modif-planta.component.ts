@@ -39,7 +39,7 @@ export class ModifPlantaComponent {
 
   ngOnInit(): void {
     this.plantaId = Number(this.route.snapshot.paramMap.get('piso')); // obtiene el id de la planta desde la url
-    this.plantaService.getPlanta(this.plantaId).subscribe((planta) => {
+    this.plantaService.getById(this.plantaId).subscribe((planta) => {
       this.plantaForm.patchValue(planta);
     });
   }
@@ -63,7 +63,7 @@ export class ModifPlantaComponent {
       ) {
         updatedLlit.capacitatHabitacions = 0;
       }
-      this.plantaService.putPlanta(updatedLlit).subscribe({
+      this.plantaService.put(updatedLlit.piso, updatedLlit).subscribe({
         next: (response) => {
           Swal.fire({
             icon: 'success',

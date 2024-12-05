@@ -37,7 +37,7 @@ export class PlantaComponent {
   }
 
   loadPlantes(): void {
-    this.plantaService.getPlantes().subscribe((data) => {
+    this.plantaService.getAll().subscribe((data) => {
       this.plantes = data;
       this.totalPages = Math.ceil(this.plantes.length / this.itemsPerPage);
       this.updateItemsPerPage();
@@ -69,7 +69,7 @@ export class PlantaComponent {
       this.loadPlantes();
       //si el campo consiste en un número...
     } else if (!isNaN(this.searchInput)) {
-      this.plantaService.getPlanta(this.searchInput).subscribe({
+      this.plantaService.getById(this.searchInput).subscribe({
         next: (data) => {
           this.plantes.splice(0, this.plantes.length + 1, data);
           this.currentPage = 1;
@@ -107,7 +107,7 @@ export class PlantaComponent {
       cancelButtonText: 'Cancelar',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.plantaService.deletePlanta(piso).subscribe({
+        this.plantaService.delete(piso).subscribe({
           next: (response) => {
             Swal.fire({
               icon: 'success',

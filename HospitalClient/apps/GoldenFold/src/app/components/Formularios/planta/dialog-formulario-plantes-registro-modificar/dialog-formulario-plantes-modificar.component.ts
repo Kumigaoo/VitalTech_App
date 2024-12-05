@@ -1,3 +1,4 @@
+import { Planta } from './../../../../../../../../libs/interfaces/planta.interface';
 import { ChangeDetectorRef, Component, Inject } from '@angular/core';
 import {
   MAT_DIALOG_DATA,
@@ -15,7 +16,6 @@ import {
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { Planta } from '../../../../interface/planta.interface';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';

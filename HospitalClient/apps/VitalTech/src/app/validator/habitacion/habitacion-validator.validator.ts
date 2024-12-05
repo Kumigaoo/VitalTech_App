@@ -1,3 +1,4 @@
+import { PlantaService } from './../../../../../../libs/services/planta.service';
 import {
   AbstractControl,
   ValidatorFn,
@@ -8,7 +9,6 @@ import {
 } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { PlantaService } from '../../service/planta.service';
 import { HabitacioService } from '../../service/habitaciones.service';
 
 export function habidValidator(
@@ -54,7 +54,7 @@ export function plantaidValidator(
 
     const id = +control.value;
 
-    return plantaService.getPlanta(id).pipe(
+    return plantaService.getById(id).pipe(
       map((planta) => (planta ? null : { plantaIdNotFound: true })),
       catchError((error) => {
         return of({ plantaIdNotFound: true });

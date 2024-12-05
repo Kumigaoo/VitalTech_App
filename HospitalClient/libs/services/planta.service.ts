@@ -1,7 +1,7 @@
+import { Planta } from '../interfaces/planta.interface';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Planta } from '../interface/planta.interface';
 import { BaseService } from './abstract-service.service';
 
 @Injectable({
