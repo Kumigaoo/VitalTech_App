@@ -58,15 +58,15 @@ export class PlantaComponent implements OnInit, AfterViewInit {
 
         //cambiar html
         this.currentPort = window.location.port;
-        this.isPortGolden = this.currentPort==="4200"; //4201
+        this.isPortGolden = this.currentPort==="4201"; //4201
      
         //cambiar css
         if (this.isPortGolden) {
           //css golden
-          this.cssPaths = ['/assets/styles/styles.css','/assets/styles/medico/4001.component.css'];
+          this.cssPaths = ['/assets/styles/styles.css','/assets/styles/planta/4001.component.css'];
         } else {
           //css vital
-          this.cssPaths = ['/assets/styles/styles.css','/assets/styles/medico/4000.component.css'];
+          this.cssPaths = ['/assets/styles/styles.css','/assets/styles/planta/4000.component.css'];
         }
      
         this.cssPaths.forEach(css => {
