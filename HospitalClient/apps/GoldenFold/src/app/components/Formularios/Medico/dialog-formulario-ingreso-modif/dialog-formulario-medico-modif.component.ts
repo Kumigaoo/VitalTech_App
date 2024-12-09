@@ -21,8 +21,6 @@ import {
   provideNativeDateAdapter,
 } from '@angular/material/core';
 import { EpisodiService } from '../../../../../../../../libs/services/episodis.service';
-import { Cama } from '../../../../interface/cama.interface';
-import { CamaService } from '../../../../services/cama.service';
 import { CommonModule, NumberFormatStyle } from '@angular/common';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';

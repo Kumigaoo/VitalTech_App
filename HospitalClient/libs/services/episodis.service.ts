@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { EpisodiMedic } from '../interfaces/episodis-medics.interface';
-import { BaseService } from '../../apps/GoldenFold/src/app/services/abstract-service.service';
+import { BaseService } from './abstract-service.service';
 
 
 @Injectable({
