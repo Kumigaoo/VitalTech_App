@@ -1,11 +1,10 @@
-import { MetgesComponent } from './../../../../../../../libs/pages/Medico/metges.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AdministradorSistemaRoute } from './administrador-sistema-routing.module';
 import { CamasComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/camas/camas.component';
 import { HabitacionesComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/habitaciones/habitaciones.component';
-import { PacientesComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/pacientes/pacientes.component';
-import { UsuariosComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/usuarios/usuarios.component';
+import { PacientesComponent } from '../../../../../../../libs/pages/pacientes/pacientes.component';
+// import { UsuariosComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/usuarios/usuarios.component';
 import { IngresosComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/ingresos/ingresos.component';
 import { PruebasComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/consultas/pruebas.component';
 import { AdministradorSistemaDashboardComponent } from '../../../pages/inicio/pages/administrador-sistema/administrador-sistema-dashboard/administrador-sistema-dashboard.component';
@@ -23,6 +22,7 @@ import { PlantesComponent } from '../../../pages/inicio/pages/administrador-sist
 import { EpisodisMedicsComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/episodis-medics/episodis-medics.component';
 import { EnfermersComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/enfermers/enfermers.component';
 import { AdministradoresSistemaComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/administradores-sistema/administradores-sistema.component';
+import { MetgesComponent } from '../../../../../../../libs/pages/Medico/metges.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +33,7 @@ import { AdministradoresSistemaComponent } from '../../../pages/inicio/pages/adm
     EnfermersComponent,
     HabitacionesComponent,
     PacientesComponent,
-    UsuariosComponent,
+  //  UsuariosComponent,
     IngresosComponent,
     PruebasComponent,
     PlantesComponent,

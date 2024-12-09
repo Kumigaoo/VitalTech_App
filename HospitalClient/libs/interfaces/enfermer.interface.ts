@@ -1,4 +1,3 @@
-import { EpisodiMedic } from './episodis-medics.interface';
 import { PruebaDiagnostica } from './pruebas-diagnosticas.interface';
 
 export interface Enfermero {

@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CamasComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/camas/camas.component';
 import { HabitacionesComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/habitaciones/habitaciones.component';
-import { PacientesComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/pacientes/pacientes.component';
-import { UsuariosComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/usuarios/usuarios.component';
+import { PacientesComponent } from '../../../../../../../libs/pages/pacientes/pacientes.component';
+// import { UsuariosComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/usuarios/usuarios.component';
 import { IngresosComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/ingresos/ingresos.component';
 import { AdministradorSistemaComponent } from '../../../pages/inicio/pages/administrador-sistema/administrador-sistema.component';
 import { PlantesComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/plantes/plantes.component';
@@ -36,10 +36,10 @@ const routes: Routes = [
     path: 'pacientes',
     component: PacientesComponent,
   },
-  {
-    path: 'usuarios',
-    component: UsuariosComponent,
-  },
+  // {
+   // path: 'usuarios',
+   // component: UsuariosComponent,
+  // },
   {
     path: 'ingresos',
     component: IngresosComponent,

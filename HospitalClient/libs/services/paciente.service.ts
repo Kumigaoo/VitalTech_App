@@ -6,7 +6,7 @@ import {
   HttpParams,
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Paciente } from '../interface/paciente.interface';
+import { Paciente } from '../interfaces/paciente.interface';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { BaseService } from './abstract-service.service';
 

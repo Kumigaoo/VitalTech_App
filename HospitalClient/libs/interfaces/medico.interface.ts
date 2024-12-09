@@ -1,5 +1,5 @@
-import { EpisodiMedic } from '../../apps/GoldenFold/src/app/interface/episodis-medics.interface';
-import { PruebaDiagnostica } from '../../apps/GoldenFold/src/app/interface/pruebas-diagnosticas.interface';
+import { EpisodiMedic } from './episodis-medics.interface';
+import { PruebaDiagnostica } from './pruebas-diagnosticas.interface';
 
 export interface Medico {
   dni: string;

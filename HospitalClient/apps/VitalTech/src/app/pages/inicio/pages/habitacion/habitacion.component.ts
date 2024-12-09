@@ -1,7 +1,7 @@
+import { HabitacionService } from './../../../../../../../../libs/services/habitacion.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormsModule } from '@angular/forms';
-import { Habitacio } from '../../../../interface/habitacio.interface';
-import { HabitacioService } from '../../../../service/habitaciones.service';
+import { Habitacion } from '../../../../../../../../libs/interfaces/habitacion.interface';
 import { LlitsPopupComponent } from '../../../../components/pop-ups/llits-popup/llits-popup.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -15,7 +15,7 @@ import Swal from 'sweetalert2';
 export class HabitacionComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
-    private habService: HabitacioService,
+    private habService: HabitacionService,
     private sb: FormBuilder,
     private router: Router
   ) {}
@@ -27,10 +27,10 @@ export class HabitacionComponent implements OnInit {
   currentPage: number = 1;
   itemsPerPage: number = 5;
   totalPages: number = 1;
-  pagedConsultes: Habitacio[] = []; // creo otra array de consultas que mostrara solamente aquellas por pagina
+  pagedConsultes: Habitacion[] = []; // creo otra array de consultas que mostrara solamente aquellas por pagina
 
   // Arays
-  habitacions: Habitacio[] = [];
+  habitacions: Habitacion[] = [];
 
   async ngOnInit() {
     // Inicialització graella
@@ -39,7 +39,7 @@ export class HabitacionComponent implements OnInit {
 
   // Mostra tota les habitacions
   loadHabitacions() {
-    this.habService.getHabitacions().subscribe({
+    this.habService.getAll().subscribe({
       next: (Response) => {
         this.habitacions = Response;
         this.totalPages = Math.ceil(
@@ -61,7 +61,7 @@ export class HabitacionComponent implements OnInit {
     }
 
     if (!isNaN(this.inputValueId)) {
-      this.habService.getHabitacio(this.inputValueId).subscribe({
+      this.habService.getById(this.inputValueId).subscribe({
         next: (data) => {
           this.habitacions.splice(0, this.habitacions.length + 1, data);
           this.currentPage = 1;
@@ -88,7 +88,7 @@ export class HabitacionComponent implements OnInit {
   }
 
   // Actualizar habitacio
-  updateHabitacio(habitacio: Habitacio) {
+  updateHabitacio(habitacio: Habitacion) {
     this.router.navigate([
       '/inicio/habitacion/modif-habitacion',
       habitacio.codiHabitacio,
@@ -108,7 +108,7 @@ export class HabitacionComponent implements OnInit {
       cancelButtonText: 'Cancelar',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.habService.deleteHabitacio(id).subscribe({
+        this.habService.delete(id).subscribe({
           next: (response) => {
             Swal.fire({
               icon: 'success',

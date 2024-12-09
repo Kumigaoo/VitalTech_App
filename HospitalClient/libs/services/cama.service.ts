@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Cama } from '../interface/cama.interface';
+import { Cama } from '../interfaces/cama.interface';
 import { BaseService } from './abstract-service.service';
 
 @Injectable({

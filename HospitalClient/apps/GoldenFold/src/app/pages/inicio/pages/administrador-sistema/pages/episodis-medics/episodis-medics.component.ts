@@ -1,12 +1,12 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { EpisodiMedic } from '../../../../../../interface/episodis-medics.interface';
+import { EpisodiMedic } from '../../../../../../../../../../libs/interfaces/episodis-medics.interface';
 import { SnackbarComponent } from '../../../../../../components/snackbar/snackbar.component';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
-import { EpisodiService } from '../../../../../../services/episodis.service';
+import { EpisodiService } from '../../../../../../../../../../libs/services/episodis.service';
 import { DialogFormularioEpisodisModifComponent } from '../../../../../../components/Formularios/Episodis/dialog-formulario-episodis-modif/dialog-formulario-episodis-modif.component';
 import { DialogFormularioEpisodisComponent } from '../../../../../../components/Formularios/Episodis/dialog-formulario-episodis-registro/dialog-formulario-episodis.component';
 import { ConsultasDialogComponent } from '../../../../../../components/popups/consultas-popup';

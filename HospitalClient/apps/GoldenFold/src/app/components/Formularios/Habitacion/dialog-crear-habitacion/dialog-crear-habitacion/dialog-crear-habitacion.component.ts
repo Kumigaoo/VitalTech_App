@@ -21,8 +21,8 @@ import {
 import { MatButton, MatButtonModule } from '@angular/material/button';
 import { MatDialogRef } from '@angular/material/dialog';
 import { pisoCodigoValidator } from '../../../../../validators/habitacion.validator';
-import { PlantaService } from '../../../../../services/planta.service';
-import { Planta } from '../../../../../interface/planta.interface';
+import { PlantaService } from '../../../../../../../../../libs/services/planta.service';
+import { Planta } from '../../../../../../../../../libs/interfaces/planta.interface';
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
 import { CommonModule } from '@angular/common';

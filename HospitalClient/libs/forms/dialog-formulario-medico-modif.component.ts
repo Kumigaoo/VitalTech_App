@@ -1,10 +1,14 @@
+import { UsuarioService } from './../services/usuario.service';
+import { Usuari } from './../interfaces/usuari.interface';
+import { CamaService } from './../services/cama.service';
+import { EpisodiService } from './../services/episodis.service';
 import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import {
   MAT_DIALOG_DATA,
   MatDialogModule,
   MatDialogRef,
 } from '@angular/material/dialog';
-import { Ingreso } from '../../apps/GoldenFold/src/app/interface/ingreso.interface';
+import { Ingreso } from '../interfaces/ingreso.interface';
 import {
   AbstractControl,
   FormBuilder,
@@ -16,14 +20,12 @@ import {
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { EpisodiMedic } from '../../apps/GoldenFold/src/app/interface/episodis-medics.interface';
+import { EpisodiMedic } from '../interfaces/episodis-medics.interface';
 import {
   MatOptionModule,
   provideNativeDateAdapter,
 } from '@angular/material/core';
-import { EpisodiService } from '../../apps/GoldenFold/src/app/services/episodis.service';
-import { Cama } from '../../apps/GoldenFold/src/app/interface/cama.interface';
-import { CamaService } from '../../apps/GoldenFold/src/app/services/cama.service';
+import { Cama } from '../interfaces/cama.interface';
 import { CommonModule, NumberFormatStyle } from '@angular/common';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -36,8 +38,6 @@ import {
   dataIniciFinalValidator,
 } from '../../apps/GoldenFold/src/app/validators/ingresos.validators';
 import { Medico } from '../interfaces/medico.interface';
-import { Usuari } from '../../apps/GoldenFold/src/app/interface/usuari.interface';
-import { UsuarioService } from '../../apps/GoldenFold/src/app/services/usuario.service';
 import { MedicoService } from '../services/metge.service';
 import { dniValidator } from '../../apps/GoldenFold/src/app/validators/dniValidator';
 import { map } from 'rxjs';

@@ -1,3 +1,4 @@
+import { UsuarioService } from './../../services/usuario.service';
 import { Component, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { Medico } from '../../interfaces/medico.interface';
@@ -6,13 +7,12 @@ import { SnackbarComponent } from '../../../apps/GoldenFold/src/app/components/s
 import { MatSort } from '@angular/material/sort';
 import { Form, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MedicoService } from '../../services/metge.service';
-import { UsuarioService } from '../../../apps/GoldenFold/src/app/services/usuario.service';
 import { MatDialog } from '@angular/material/dialog';
 import { MedicoDashboardComponent } from '../../../apps/GoldenFold/src/app/pages/inicio/pages/medico/medico-dashboard/medico-dashboard.component';
 import { DialogFormularioMedicoModifComponent } from '../../forms/dialog-formulario-medico-modif.component';
 import { EpisodiosDialogComponent } from '../../../apps/GoldenFold/src/app/components/popups/episodis-popup';
 import { PruebasDialogComponent } from '../../../apps/GoldenFold/src/app/components/popups/pruebas-popup';
-import { Usuari } from '../../../apps/GoldenFold/src/app/interface/usuari.interface';
+import { Usuari } from '../../interfaces/usuari.interface';
 
 @Component({
   selector: 'app-metges',
