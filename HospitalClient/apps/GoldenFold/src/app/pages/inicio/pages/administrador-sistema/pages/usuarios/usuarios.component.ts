@@ -1,3 +1,4 @@
+/*
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { UsuarioService } from '../../../../../../../../../../libs/services/usuario.service';
 import { Personal } from '../../../../../../../../../../libs/interfaces/personal.interface';
@@ -19,7 +20,7 @@ import { ConsultasDialogComponent } from '../../../../../../components/popups/co
   styleUrls: ['./usuarios.component.css'],
 })
 export class UsuariosComponent {
-  /*
+  
   @ViewChild(SnackbarComponent) snackbar!: SnackbarComponent;  // Referencia al snackbar
 
   //tabla Angular Material
@@ -230,5 +231,6 @@ export class UsuariosComponent {
       data: usuario.consultes
     })
   }
-    */
+   
 }
+   */

@@ -5,23 +5,24 @@ import {
   AfterViewInit,
   TemplateRef,
 } from '@angular/core';
-import { PacienteService } from './../../../../../../../../../../libs/services/paciente.service';
-import { Paciente } from './../../../../../../../../../../libs/interfaces/paciente.interface';
+import { PacienteService } from '../../services/paciente.service';
+import { Paciente } from '../../interfaces/paciente.interface';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogFormularioComponent } from '../../../../../../components/Formularios/Paciente/dialog-formulario-paciente-create/dialog-formulario.component';
-import { SnackbarComponent } from '../../../../../../components/snackbar/snackbar.component';
-import { EpisodiosDialogComponent } from '../../../../../../components/popups/episodis-popup';
-import { DialogPacienteComponent } from '../../../../../../components/Formularios/Paciente/dialog-paciente-lista-modif/dialog-paciente-lista-modif.component';
+import { DialogFormularioComponent } from '../../../apps/GoldenFold/src/app/components/Formularios/Paciente/dialog-formulario-paciente-create/dialog-formulario.component';
+import { SnackbarComponent } from '../../../apps/GoldenFold/src/app/components/snackbar/snackbar.component';
+import { EpisodiosDialogComponent } from '../../../apps/GoldenFold/src/app/components/popups/episodis-popup';
+import { DialogPacienteComponent } from '../../../apps/GoldenFold/src/app/components/Formularios/Paciente/dialog-paciente-lista-modif/dialog-paciente-lista-modif.component';
 
 @Component({
   selector: 'app-pacientes',
   templateUrl: './pacientes.component.html',
-  styleUrls: ['./pacientes.component.css'],
+  styleUrls: [],
 })
 export class PacientesComponent implements OnInit, AfterViewInit {
+
   @ViewChild(SnackbarComponent) snackbar!: SnackbarComponent;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -72,7 +73,27 @@ export class PacientesComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+
+    let port = window.location.port;
+
+    let cssPath: string[];
+   
+    if (port == '4201') {
+      cssPath = ['/assets/styles/styles.css','/assets/styles/pacientes/pacientes-4201.component.css'];
+    } else {
+      cssPath = ['/assets/styles/styles.css','/assets/styles/pacientes/pacientes-4200.component.css'];
+    }
+
+    cssPath.forEach(css => {
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = css;
+      document.head.appendChild(link);
+    });
+
     this.obtenerPacientes();
+
   }
 
   ngAfterViewInit() {

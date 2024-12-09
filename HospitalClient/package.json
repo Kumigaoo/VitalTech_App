@@ -92,9 +92,9 @@
     "@angular-devkit/schematics": "^18.2.3",
     "@angular/cli": "^18.2.3",
     "@angular/compiler-cli": "^18.0.0",
-    "@nx/angular": "20.1.4",
-    "@nx/js": "20.1.4",
-    "@nx/workspace": "20.1.4",
+    "@nx/angular": "20.2.1",
+    "@nx/js": "20.2.1",
+    "@nx/workspace": "20.2.1",
     "@schematics/angular": "^18.2.3",
     "@swc-node/register": "~1.9.1",
     "@swc/core": "~1.5.7",
@@ -108,7 +108,7 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
-    "nx": "20.1.4",
+    "nx": "20.2.1",
     "prettier": "^2.6.2",
     "typescript": "~5.4.2"
   }
