@@ -59,7 +59,7 @@ export class MetgesComponent {
   ) {
     //cambiar html
     this.currentPort = window.location.port;
-    this.isPortGolden = this.currentPort==="4200"; //4201
+    this.isPortGolden = this.currentPort==="4201"; //4201
 
     //cambiar css
     if (this.isPortGolden) { 
