@@ -16,12 +16,12 @@ import {
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { EpisodiMedic } from '../../../../interface/episodis-medics.interface';
+import { EpisodiMedic } from '../../../../../../../../libs/interfaces/episodis-medics.interface';
 import {
   MatOptionModule,
   provideNativeDateAdapter,
 } from '@angular/material/core';
-import { EpisodiService } from '../../../../services/episodis.service';
+import { EpisodiService } from '../../../../../../../../libs/services/episodis.service';
 import { Cama } from '../../../../interface/cama.interface';
 import { CamaService } from '../../../../services/cama.service';
 import { CommonModule, NumberFormatStyle } from '@angular/common';

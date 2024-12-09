@@ -16,7 +16,7 @@ import {
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { EpisodiMedic } from '../../../../interface/episodis-medics.interface';
+import { EpisodiMedic } from '../../../../../../../../libs/interfaces/episodis-medics.interface';
 import {
   MatOptionModule,
   provideNativeDateAdapter,

@@ -1,44 +1,36 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { EpisodiMedic } from '../../../../../../interface/episodis-medics.interface';
-import { SnackbarComponent } from '../../../../../../components/snackbar/snackbar.component';
+import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { EpisodiMedic } from '../../interfaces/episodis-medics.interface';
+import { SnackbarComponent } from '../../../apps/GoldenFold/src/app/components/snackbar/snackbar.component';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
-import { EpisodiService } from '../../../../../../services/episodis.service';
-import { DialogFormularioEpisodisModifComponent } from '../../../../../../components/Formularios/Episodis/dialog-formulario-episodis-modif/dialog-formulario-episodis-modif.component';
-import { DialogFormularioEpisodisComponent } from '../../../../../../components/Formularios/Episodis/dialog-formulario-episodis-registro/dialog-formulario-episodis.component';
-import { ConsultasDialogComponent } from '../../../../../../components/popups/consultas-popup';
-import { IngresosDialogComponent } from '../../../../../../components/popups/ingresos-popup';
+import { EpisodiService } from '../../services/episodis.service';
+import { DialogFormularioEpisodisModifComponent } from '../../forms/Episodio/Modif/dialog-formulario-episodis-modif.component';
+import { DialogFormularioEpisodisComponent } from '../../forms/Episodio/Create/dialog-formulario-episodis.component';
+import { ConsultasDialogComponent } from '../../popups/consultas-popup';
+import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-episodis-medics',
   templateUrl: './episodis-medics.component.html',
-  styleUrls: ['./episodis-medics.component.css'],
+  styleUrls: [],
 })
+
 export class EpisodisMedicsComponent implements OnInit, AfterViewInit {
   @ViewChild(SnackbarComponent) snackbar!: SnackbarComponent;
 
-  displayedColumns: string[] = [
-    'id',
-    'dataObertura',
-    'dataTancament',
-    'motivo',
-    'urgencia',
-    'recepta',
-    'estat',
-    'dniPacient',
-    'dniMetge',
-    'pruebasDiagnosticas',
-    'acciones',
-  ];
+  displayedColumns: string[] = [];
   dataSource: MatTableDataSource<EpisodiMedic> =
     new MatTableDataSource<EpisodiMedic>([]);
 
   totalItems = 0;
   itemsPerPage = 300;
   pageIndex = 0;
+
+  isPortVitalTech = false;
 
   episodis: EpisodiMedic[] = [];
   addingEpisodi;
@@ -51,8 +43,9 @@ export class EpisodisMedicsComponent implements OnInit, AfterViewInit {
   constructor(
     private episodiService: EpisodiService,
     public dialog: MatDialog,
-    private http: HttpClient
+    private router: Router
   ) {
+    
     this.addingEpisodi = {
       id: 0,
       dataObertura: '',
@@ -75,6 +68,48 @@ export class EpisodisMedicsComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.obtenerEpisodis();
+    const currentPort = window.location.port;
+    let cssPath: string[];
+
+    this.isPortVitalTech = currentPort === '4200';
+
+    if (currentPort == '4201'){
+      cssPath = ['/assets/styles/styles.css', '/assets/styles/Episodio/episodis-medics.component.css'];
+      this.displayedColumns = [
+        'id',
+        'dataObertura',
+        'dataTancament',
+        'motivo',
+        'urgencia',
+        'recepta',
+        'estat',
+        'dniPacient',
+        'dniMetge',
+        'pruebasDiagnosticas',
+        'acciones',
+      ];
+      
+    } else {
+      cssPath = ['/assets/styles/styles.css', '/assets/styles/Episodio/episodio.component.css'];
+      this.displayedColumns = [
+        'id',
+        'dataObertura',
+        'dataTancament',
+        'motivo',
+        'urgencia',
+        'estat',
+        'pruebasDiagnosticas',
+        'acciones',
+      ];
+    }
+
+    cssPath.forEach(css => {
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = css;
+      document.head.appendChild(link);
+    });
   }
 
   verConsultas(episodi: any): void {
@@ -151,18 +186,27 @@ export class EpisodisMedicsComponent implements OnInit, AfterViewInit {
   }
 
   toggleActualizarEpisodi(episodi: EpisodiMedic): void {
-    this.episodiSeleccionada = { ...episodi };
-    this.dialog
-      .open(DialogFormularioEpisodisModifComponent, {
-        data: this.episodiSeleccionada,
-      })
-      .afterClosed()
-      .subscribe((episodiActualizado) => {
-        if (episodiActualizado) {
-          this.episodiSeleccionada = episodiActualizado;
-          this.actualizarEpisodi();
-        }
-      });
+    if(this.isPortVitalTech){
+      // esta ruta creo que no funcionara
+      window.location.href = `https://localhost:4200/inicio/episodio/modif-episodio/${episodi.id}`;
+    }else {
+      this.episodiSeleccionada = { ...episodi };
+      this.dialog
+        .open(DialogFormularioEpisodisModifComponent, {
+          data: this.episodiSeleccionada,
+        })
+        .afterClosed()
+        .subscribe((episodiActualizado) => {
+          if (episodiActualizado) {
+            this.episodiSeleccionada = episodiActualizado;
+            this.actualizarEpisodi();
+          }
+        });
+    }
+  }
+
+  navigateToRegistroEpisodio(): void {
+    window.location.href = 'https://localhost:4200/inicio/episodio/registro-episodio';
   }
 
   cerrarFormulario(): void {
@@ -187,19 +231,52 @@ export class EpisodisMedicsComponent implements OnInit, AfterViewInit {
   }
 
   borrarEpisodi(id: number): void {
-    this.episodiService.delete(id).subscribe({
-      next: () => {
-        this.obtenerEpisodis();
-        this.snackbar.showNotification(
-          'success',
-          'Episodi eliminado correctamente'
-        );
-      },
-      error: (error: any) => {
-        console.error('Error al eliminar el episodi', error);
-        this.snackbar.showNotification('error', 'Error al eliminar el episodi');
-      },
-    });
+    if (this.isPortVitalTech){
+      Swal.fire({
+        title: 'Eliminar episodio médico',
+        text: '¿Quieres borrar este episodio médico?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí',
+        cancelButtonText: 'Cancelar',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.episodiService.delete(id).subscribe({
+            next: (response) => {
+              Swal.fire({
+                icon: 'success',
+                title: 'Episodio médico eliminado',
+                text: 'El episodio médico ha sido eliminado con éxito.',
+              });
+              this.obtenerEpisodis();
+            },
+            error: (error) => {
+              Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Error, no se puede eliminar este episodio médico: todavía existen consultas o ingresos.',
+              });
+            },
+          });
+        }
+      });
+    } else {
+      this.episodiService.delete(id).subscribe({
+        next: () => {
+          this.obtenerEpisodis();
+          this.snackbar.showNotification(
+            'success',
+            'Episodi eliminado correctamente'
+          );
+        },
+        error: (error: any) => {
+          console.error('Error al eliminar el episodi', error);
+          this.snackbar.showNotification('error', 'Error al eliminar el episodi');
+        },
+      });
+    }
   }
 
   actualizarEpisodi(): void {

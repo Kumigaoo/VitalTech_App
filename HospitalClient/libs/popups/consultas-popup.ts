@@ -1,13 +1,13 @@
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { Component, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
-
 @Component({
   selector: 'app-consultas-dialog',
   standalone: true,
-  imports: [CommonModule, MatTableModule],
+  imports: [CommonModule, MatTableModule,MatTableModule,
+    MatDialogModule],
   template: `
     <h1>Consultas</h1>
 

@@ -1,3 +1,4 @@
+import { NavComponent } from './../../../../../VitalTech/src/app/components/nav/nav.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -56,6 +57,7 @@ import { MatOptionModule } from '@angular/material/core';
     SnackbarComponent,
     DialogFormulariocamaComponent,
     MatCheckboxModule,
+    NavComponent,
   ],
   exports: [
     CommonModule,
@@ -80,6 +82,7 @@ import { MatOptionModule } from '@angular/material/core';
     SnackbarComponent,
     DialogFormulariocamaComponent,
     MatCheckboxModule,
+    NavComponent
   ],
   providers: [
     { provide: MAT_DIALOG_DATA, useValue: {} },

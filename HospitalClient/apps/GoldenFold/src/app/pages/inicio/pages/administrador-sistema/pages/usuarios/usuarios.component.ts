@@ -11,7 +11,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogFormularioUsuarioComponent } from '../../../../../../components/Formularios/Usuario/dialog-formulario-usuario-registro/dialog-formulario-usuario.component';
 import { DialogFormularioUsuarioModifComponent } from '../../../../../../components/Formularios/Usuario/dialog-formulario-usuario-actualizar/dialog-formulario-usuario-modif.component';
 import { UsuariosDialogComponent } from '../../../../../../components/popups/usuarios-popup';
-import { ConsultasDialogComponent } from '../../../../../../components/popups/consultas-popup';
+import { ConsultasDialogComponent } from '../../../../../../../../../../libs/popups/consultas-popup';
 
 @Component({
   selector: 'app-usuarios',
