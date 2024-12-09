@@ -32,7 +32,6 @@ import { MatCardTitle } from '@angular/material/card';
 import { MatSelect } from '@angular/material/select';
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
-import { NavComponent } from '../../../../../VitalTech/src/app/components/nav/nav.component';
 
 @NgModule({
   imports: [
