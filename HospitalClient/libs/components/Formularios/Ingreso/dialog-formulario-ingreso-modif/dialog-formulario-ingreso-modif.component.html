@@ -1,0 +1,101 @@
+<h2 mat-dialog-title>{{ data.id ? 'Detalles Ingreso' : 'Agregar Ingreso' }}</h2>
+<mat-dialog-content>
+  <form [formGroup]="ingresoForm">
+    <br />
+    @if(data.id){
+
+    <mat-form-field appearance="outline">
+      <mat-label>ID de Ingreso</mat-label>
+      <input matInput [value]="data.id" disabled />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Fecha de entrada:</mat-label>
+      <input
+        matInput
+        [matDatepicker]="picker2"
+        formControlName="dataEntrada"
+        placeholder="DD/MM/YYYY"
+        [disabled]="isReadOnly"
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+      <mat-datepicker #picker2></mat-datepicker>
+      <mat-error *ngIf="ingresoForm.get('dataEntrada')?.hasError('dataInici')">
+        Fecha inválida
+      </mat-error>
+    </mat-form-field>
+    }
+    <mat-form-field appearance="outline">
+      <mat-label>Fecha de salida:</mat-label>
+      <input
+        matInput
+        [matDatepicker]="picker"
+        formControlName="dataSortida"
+        placeholder="DD/MM/YYYY"
+        [disabled]="isReadOnly"
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-error
+        *ngIf="ingresoForm.get('dataSortida')?.hasError('viatjeEnElTemps')"
+      >
+        La fecha de salida no puede ser anterior a la fecha de entrada
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Seleccione un Episodio Médico</mat-label>
+      <mat-select
+        formControlName="episodiMedicId"
+        required
+        [disabled]="isReadOnly"
+      >
+        <mat-option
+          *ngFor="let episodio of episodisMedics"
+          [value]="episodio.id"
+        >
+          {{ episodio.id }}
+        </mat-option>
+      </mat-select>
+      <mat-error
+        *ngIf="ingresoForm.get('episodiMedicId')?.hasError('required')"
+      >
+        Selecciona un episodio médico
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Cama:</mat-label>
+      <mat-select formControlName="codiLlit" [disabled]="isReadOnly">
+        <mat-option *ngFor="let cama of llits" [value]="cama.codiLlit">
+          {{ cama.codiLlit }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="ingresoForm.get('codiLlit')?.hasError('required')">
+        Selecciona una cama
+      </mat-error>
+      <br />
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <!-- Botón Actualizar: Solo visible si se está en modo detalles -->
+  <button mat-button *ngIf="data.id && !isEditing" (click)="enableEditing()">
+    Editar
+  </button>
+
+  <!-- Botón Guardar: Solo visible en modo edición -->
+  <button
+    mat-raised-button
+    color="primary"
+    *ngIf="isEditing"
+    [disabled]="ingresoForm.invalid"
+    (click)="guardar()"
+  >
+    Guardar
+  </button>
+
+  <!-- Botón Cancelar: Siempre visible, cambia comportamiento según el modo -->
+  <button mat-button (click)="cancelar()">Cancelar</button>
+</mat-dialog-actions>
