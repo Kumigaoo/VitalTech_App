@@ -29,6 +29,10 @@
             "glob": "**/*",
             "input": "apps/GoldenFold/src/assets",
             "output": "/assets"
+          },{
+            "glob": "**/*",
+            "input": "public/assets",
+            "output": "/assets"
           },
 
           {

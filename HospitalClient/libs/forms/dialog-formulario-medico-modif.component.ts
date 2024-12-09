@@ -1,9 +1,14 @@
+import { UsuarioService } from './../services/usuario.service';
+import { Usuari } from './../interfaces/usuari.interface';
+import { CamaService } from './../services/cama.service';
+import { EpisodiService } from './../services/episodis.service';
 import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import {
   MAT_DIALOG_DATA,
   MatDialogModule,
   MatDialogRef,
 } from '@angular/material/dialog';
+import { Ingreso } from '../interfaces/ingreso.interface';
 import {
   AbstractControl,
   FormBuilder,
@@ -15,31 +20,29 @@ import {
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { EpisodiMedic } from '../../../../../../../../libs/interfaces/episodis-medics.interface';
+import { EpisodiMedic } from '../interfaces/episodis-medics.interface';
 import {
   MatOptionModule,
   provideNativeDateAdapter,
 } from '@angular/material/core';
-import { EpisodiService } from '../../../../../../../../libs/services/episodis.service';
+import { Cama } from '../interfaces/cama.interface';
 import { CommonModule, NumberFormatStyle } from '@angular/common';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
-import { CustomDateAdapter } from '../../../../custom-date-adapter';
+import { CustomDateAdapter } from '../../apps/GoldenFold/src/app/custom-date-adapter';
 import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
 import {
   dataInici,
   dataIniciFinalValidator,
-} from '../../../../validators/ingresos.validators';
-import { Medico } from '../../../../../../../../libs/interfaces/medico.interface';
-import { Usuari } from '../../../../../../../../libs/interfaces/usuari.interface';
-import { UsuarioService } from '../../../../../../../../libs/services/usuario.service';
-import { MedicoService } from '../../../../../../../../libs/services/metge.service';
-import { dniValidator } from '../../../../validators/dniValidator';
+} from '../../apps/GoldenFold/src/app/validators/ingresos.validators';
+import { Medico } from '../interfaces/medico.interface';
+import { MedicoService } from '../services/metge.service';
+import { dniValidator } from '../../apps/GoldenFold/src/app/validators/dniValidator';
 import { map } from 'rxjs';
-import { EspecialidadesMedico } from '../../../../enums/especialidadesMedico';
-import { dniExisteValidator } from '../../../../validators/dniExistsValidatos';
+import { EspecialidadesMedico } from '../../apps/GoldenFold/src/app/enums/especialidadesMedico';
+import { dniExisteValidator } from '../../apps/GoldenFold/src/app/validators/dniExistsValidatos';
 
 @Component({
   selector: 'app-dialog-formulario-medico-modif',
@@ -58,8 +61,8 @@ import { dniExisteValidator } from '../../../../validators/dniExistsValidatos';
     MatDialogModule,
     MatButtonModule,
   ],
-  templateUrl: './dialog-formulario-medico-modif.component.html',
-  styleUrls: ['./dialog-formulario-medico-modif.component.css'],
+  templateUrl: '../../apps/GoldenFold/src/app/components/Formularios/Medico/dialog-formulario-ingreso-modif/dialog-formulario-medico-modif.component.html',
+  styleUrls: ['../../apps/GoldenFold/src/app/components/Formularios/Medico/dialog-formulario-ingreso-modif/dialog-formulario-medico-modif.component.css'],
 })
 export class DialogFormularioMedicoModifComponent implements OnInit {
   isEditing: boolean = true; // Variable para controlar el modo
