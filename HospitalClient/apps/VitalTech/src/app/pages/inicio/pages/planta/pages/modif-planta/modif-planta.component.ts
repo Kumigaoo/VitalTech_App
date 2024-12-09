@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Planta } from '../../../../../../../../../../libs/interfaces/planta.interface';
-import { PlantaService } from '../../../../../../service/planta.service';
+import { PlantaService } from '../../../../../../../../../../libs/services/planta.service';
 import Swal from 'sweetalert2';
 
 @Component({

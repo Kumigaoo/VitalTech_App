@@ -1,5 +1,5 @@
-import { PlantaService } from './../../../../../../../../../../libs/services/planta.service';
-import { Planta } from './../../../../../../../../../../libs/interfaces/planta.interface';
+import { PlantaService } from '../../services/planta.service';
+import { Planta } from '../../interfaces/planta.interface';
 import { Component, ViewChild, OnInit, AfterViewInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -7,17 +7,18 @@ import Swal from 'sweetalert2';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { SnackbarComponent } from '../../../../../../components/snackbar/snackbar.component';
-import { DialogFormularioConsultaPlantes } from '../../../../../../components/Formularios/planta/dialog-formulario-plantes-registro/dialog-formulario-plantes.component';
-import { DialogFormularioConsultaPlantesModificar } from '../../../../../../components/Formularios/planta/dialog-formulario-plantes-registro-modificar/dialog-formulario-plantes-modificar.component';
-import { HabitacionesDialogComponent } from '../../../../../../components/popups/habitaciones-popup';
+import { SnackbarComponent } from '../../../apps/GoldenFold/src/app/components/snackbar/snackbar.component';
+import { DialogFormularioConsultaPlantes } from '../../../apps/GoldenFold/src/app/components/Formularios/planta/dialog-formulario-plantes-registro/dialog-formulario-plantes.component';
+import { DialogFormularioConsultaPlantesModificar } from '../../../apps/GoldenFold/src/app/components/Formularios/planta/dialog-formulario-plantes-registro-modificar/dialog-formulario-plantes-modificar.component';
+import { HabitacionesDialogComponent } from '../../../apps/GoldenFold/src/app/components/popups/habitaciones-popup';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
-  selector: 'app-plantes',
-  templateUrl: './plantes.component.html',
-  styleUrls: ['./plantes.component.css'], // Corregido 'styleUrl' a 'styleUrls'
+  selector: 'app-planta',
+  templateUrl: './planta.component.html',
+  styleUrls: [],
 })
-export class PlantesComponent implements OnInit, AfterViewInit {
+export class PlantaComponent implements OnInit, AfterViewInit {
   @ViewChild(SnackbarComponent) snackbar!: SnackbarComponent;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -28,8 +29,12 @@ export class PlantesComponent implements OnInit, AfterViewInit {
     'habitacions',
     'acciones',
   ];
-  dataSource: MatTableDataSource<Planta> = new MatTableDataSource<Planta>([]);
 
+  plantas: MatTableDataSource<Planta> = new MatTableDataSource<Planta>([]);
+
+  currentPort: string;
+  isPortGolden: boolean;
+   
   totalItems = 0;
   itemsPerPage = 300;
   pageIndex = 0;
@@ -40,21 +45,47 @@ export class PlantesComponent implements OnInit, AfterViewInit {
 
   plantaSeleccionado: Planta | null = null;
 
+  templateUrl!: string
+  styleUrls!: string[]
+  cssPaths!: string[];
+
   constructor(public dialog: MatDialog, private plantaService: PlantaService) {
     this.nuevaPlanta = {
       piso: 0,
       capacitatHabitacions: 0,
       habitacions: [''],
     };
-  }
+
+        //cambiar html
+        this.currentPort = window.location.port;
+        this.isPortGolden = this.currentPort==="4200"; //4201
+     
+        //cambiar css
+        if (this.isPortGolden) {
+          //css golden
+          this.cssPaths = ['/assets/styles/styles.css','/assets/styles/medico/4001.component.css'];
+        } else {
+          //css vital
+          this.cssPaths = ['/assets/styles/styles.css','/assets/styles/medico/4000.component.css'];
+        }
+     
+        this.cssPaths.forEach(css => {
+          const link = document.createElement('link');
+          link.rel = 'stylesheet';
+          link.type = 'text/css';
+          link.href = css;
+          document.head.appendChild(link);
+        });
+     
+      }
 
   ngOnInit() {
     this.loadPlantes();
   }
 
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    this.plantas.paginator = this.paginator;
+    this.plantas.sort = this.sort;
   }
 
   loadPlantes(): void {
@@ -79,7 +110,7 @@ export class PlantesComponent implements OnInit, AfterViewInit {
   actualizarPagina(pageIndex: number, pageSize: number) {
     const startIndex = pageIndex * pageSize;
     const endIndex = startIndex + pageSize;
-    this.dataSource.data = this.plantes.slice(startIndex, endIndex);
+    this.plantas.data = this.plantes.slice(startIndex, endIndex);
   }
 
   toggleFormularioAgregar() {
@@ -204,7 +235,7 @@ export class PlantesComponent implements OnInit, AfterViewInit {
     const { type, term } = event;
     const searchterm = term.trim().toLowerCase();
 
-    this.dataSource.filterPredicate = (data: Planta, filter: string) => {
+    this.plantas.filterPredicate = (data: Planta, filter: string) => {
       switch (type) {
         case 'planta':
           return data.piso?.toString().includes(filter.toLowerCase()) ?? false;
@@ -220,10 +251,10 @@ export class PlantesComponent implements OnInit, AfterViewInit {
           return false;
       }
     };
-    this.dataSource.filter = searchterm;
+    this.plantas.filter = searchterm;
 
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
+    if (this.plantas.paginator) {
+      this.plantas.paginator.firstPage();
     }
   }
 }

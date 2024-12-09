@@ -5,7 +5,7 @@ import {
   MatDialogModule,
   MatDialogRef,
 } from '@angular/material/dialog';
-import { PlantesComponent } from '../../../../pages/inicio/pages/administrador-sistema/pages/plantes/plantes.component';
+import { PlantaComponent } from '../../../../../../../../libs/pages/Planta/planta.component';
 import {
   FormBuilder,
   FormGroup,

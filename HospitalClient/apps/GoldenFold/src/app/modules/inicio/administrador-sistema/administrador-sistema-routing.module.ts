@@ -6,7 +6,7 @@ import { PacientesComponent } from '../../../pages/inicio/pages/administrador-si
 import { UsuariosComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/usuarios/usuarios.component';
 import { IngresosComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/ingresos/ingresos.component';
 import { AdministradorSistemaComponent } from '../../../pages/inicio/pages/administrador-sistema/administrador-sistema.component';
-import { PlantesComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/plantes/plantes.component';
+import { PlantaComponent } from '../../../../../../../libs/pages/Planta/planta.component';
 import { EpisodisMedicsComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/episodis-medics/episodis-medics.component';
 import { MetgesComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/metges/metges.component';
 import { EnfermersComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/enfermers/enfermers.component';
@@ -49,8 +49,8 @@ const routes: Routes = [
     component: PruebasComponent,
   },
   {
-    path: 'plantes',
-    component: PlantesComponent,
+    path: 'planta',
+    component: PlantaComponent,
   },
   {
     path: 'metges',
