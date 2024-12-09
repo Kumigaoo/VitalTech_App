@@ -1,3 +1,4 @@
+import { UsuarioService } from './../../../../../../../../libs/services/usuario.service';
 import { EnfermeroService } from './../../../../../../../../libs/services/enfermero.service';
 import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import {
@@ -27,7 +28,6 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 import { Medico } from '../../../../../../../../libs/interfaces/medico.interface';
 import { Usuari } from '../../../../../../../../libs/interfaces/usuari.interface';
-import { UsuarioService } from '../../../../../../../../libs/services/usuario.service';
 import { MedicoService } from '../../../../../../../../libs/services/metge.service';
 import { dniValidator } from '../../../../validators/dniValidator';
 import { map } from 'rxjs';

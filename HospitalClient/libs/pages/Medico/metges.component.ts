@@ -1,23 +1,23 @@
-import { Component, ViewChild } from '@angular/core';
+import { UsuarioService } from './../../services/usuario.service';
+import { Component, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
-import { Medico } from '../../../../../../../../../../libs/interfaces/medico.interface';
-import { MedicoService } from '../../../../../../../../../../libs/services/metge.service';
-import { UsuarioService } from '../../../../../../../../../../libs/services/usuario.service';
-import { Usuari } from '../../../../../../../../../../libs/interfaces/usuari.interface';
+import { Medico } from '../../interfaces/medico.interface';
 import { MatPaginator } from '@angular/material/paginator';
-import { SnackbarComponent } from '../../../../../../components/snackbar/snackbar.component';
+import { SnackbarComponent } from '../../../apps/GoldenFold/src/app/components/snackbar/snackbar.component';
 import { MatSort } from '@angular/material/sort';
 import { Form, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MedicoService } from '../../services/metge.service';
 import { MatDialog } from '@angular/material/dialog';
-import { MedicoDashboardComponent } from '../../../medico/medico-dashboard/medico-dashboard.component';
-import { DialogFormularioMedicoModifComponent } from '../../../../../../components/Formularios/Medico/dialog-formulario-ingreso-modif/dialog-formulario-medico-modif.component';
-import { EpisodiosDialogComponent } from '../../../../../../components/popups/episodis-popup';
-import { PruebasDialogComponent } from '../../../../../../components/popups/pruebas-popup';
+import { MedicoDashboardComponent } from '../../../apps/GoldenFold/src/app/pages/inicio/pages/medico/medico-dashboard/medico-dashboard.component';
+import { DialogFormularioMedicoModifComponent } from '../../forms/dialog-formulario-medico-modif.component';
+import { EpisodiosDialogComponent } from '../../../apps/GoldenFold/src/app/components/popups/episodis-popup';
+import { PruebasDialogComponent } from '../../../apps/GoldenFold/src/app/components/popups/pruebas-popup';
+import { Usuari } from '../../interfaces/usuari.interface';
 
 @Component({
   selector: 'app-metges',
   templateUrl: './metges.component.html',
-  styleUrl: './metges.component.css',
+  styleUrls: [],
 })
 export class MetgesComponent {
   //columnas a mostrar
@@ -31,9 +31,11 @@ export class MetgesComponent {
     'pruebasDiagnosticas',
     'Actions',
   ];
-
   medicos: MatTableDataSource<Medico> = new MatTableDataSource<Medico>([]);
   usuarios: MatTableDataSource<Usuari> = new MatTableDataSource<Usuari>([]);
+
+  currentPort: string;
+  isPortGolden: boolean;
 
   //paginator, ordenador y snackbar(para las notificaciones)
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -44,12 +46,38 @@ export class MetgesComponent {
   medicoForm!: FormGroup;
   medicoParaActualizar: Medico | null = null;
 
+  templateUrl!: string
+  styleUrls!: string[]
+  cssPaths!: string[];
+
   constructor(
     private medicoService: MedicoService,
     private usuarioService: UsuarioService,
     private fb: FormBuilder,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private cdRef: ChangeDetectorRef
   ) {
+    //cambiar html
+    this.currentPort = window.location.port;
+    this.isPortGolden = this.currentPort==="4201"; //4201
+
+    //cambiar css
+    if (this.isPortGolden) { 
+      //css golden
+      this.cssPaths = ['/assets/styles/styles.css','/assets/styles/medico/4001.component.css'];
+    } else {
+      //css vital
+      this.cssPaths = ['/assets/styles/styles.css','/assets/styles/medico/4000.component.css'];
+    }
+ 
+    this.cssPaths.forEach(css => {
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = css;
+      document.head.appendChild(link);
+    });
+
     this.obtenerUsuarios();
     this.crearFormularioMedico();
   }
