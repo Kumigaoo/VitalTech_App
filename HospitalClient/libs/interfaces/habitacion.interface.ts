@@ -1,4 +1,4 @@
-export interface Habitacio {
+export interface Habitacion {
   codiHabitacio: number;
   capacitatLlits: number;
   plantaId: number;

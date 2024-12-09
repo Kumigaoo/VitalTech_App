@@ -1,7 +1,8 @@
+import { EpisodiService } from './../../../../../../../../libs/services/episodis.service';
 import { Router } from '@angular/router';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { EpisodiService } from '../../../../service/episodis.service';
-import { EpisodiMedic } from '../../../../interface/episodis-medics.interface';
+
+import { EpisodiMedic } from '../../../../../../../../libs/interfaces/episodis-medics.interface';
 import { PruebasDiagnosticasPopupComponent } from '../../../../components/pop-ups/pruebas-diagnosticas-popup/pruebas-diagnosticas-popup.component';
 import { IngressosPopupComponent } from '../../../../components/pop-ups/ingressos-popup/ingressos-popup.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -44,7 +45,7 @@ export class EpisodioComponent {
   }
 
   loadEpisodis(): void {
-    this.episodiService.getEpisodis().subscribe((data) => {
+    this.episodiService.getAll().subscribe((data) => {
       this.episodis = data;
       this.originalEpisodis = data;
       this.totalPages = Math.ceil(this.episodis.length / this.itemsPerPage);
@@ -113,7 +114,7 @@ export class EpisodioComponent {
       cancelButtonText: 'Cancelar',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.episodiService.deleteEpisodi(String(id)).subscribe({
+        this.episodiService.delete(id).subscribe({
           next: (response) => {
             Swal.fire({
               icon: 'success',

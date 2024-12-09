@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Medico } from '../interface/medico.interface';
+import { Medico } from '../interfaces/medico.interface';
 import { BaseService } from './abstract-service.service';
 
 @Injectable({

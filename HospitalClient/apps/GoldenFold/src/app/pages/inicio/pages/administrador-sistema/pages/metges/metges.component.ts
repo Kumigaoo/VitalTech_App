@@ -1,18 +1,18 @@
 import { Component, ViewChild } from '@angular/core';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
-import { Medico } from '../../../../../../interface/medico.interface';
+import { Medico } from '../../../../../../../../../../libs/interfaces/medico.interface';
+import { MedicoService } from '../../../../../../../../../../libs/services/metge.service';
+import { UsuarioService } from '../../../../../../../../../../libs/services/usuario.service';
+import { Usuari } from '../../../../../../../../../../libs/interfaces/usuari.interface';
 import { MatPaginator } from '@angular/material/paginator';
 import { SnackbarComponent } from '../../../../../../components/snackbar/snackbar.component';
 import { MatSort } from '@angular/material/sort';
 import { Form, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MedicoService } from '../../../../../../services/metge.service';
-import { UsuarioService } from '../../../../../../services/usuario.service';
 import { MatDialog } from '@angular/material/dialog';
 import { MedicoDashboardComponent } from '../../../medico/medico-dashboard/medico-dashboard.component';
 import { DialogFormularioMedicoModifComponent } from '../../../../../../components/Formularios/Medico/dialog-formulario-ingreso-modif/dialog-formulario-medico-modif.component';
 import { EpisodiosDialogComponent } from '../../../../../../components/popups/episodis-popup';
 import { PruebasDialogComponent } from '../../../../../../components/popups/pruebas-popup';
-import { Usuari } from '../../../../../../interface/usuari.interface';
 
 @Component({
   selector: 'app-metges',

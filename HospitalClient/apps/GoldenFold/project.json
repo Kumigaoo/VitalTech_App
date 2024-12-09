@@ -66,22 +66,25 @@
           "sourceMap": true
         }
       },
-      "defaultConfiguration": "production"
-    },
-    "serve": {
-      "executor": "@angular-devkit/build-angular:dev-server",
-      "configurations": {
-        "production": {
-          "buildTarget": "GoldenFold:build:production",
-          "port": 4200
-        },
-        "development": {
-          "buildTarget": "GoldenFold:build:development",
-          "port": 4201
-        }
-      },
       "defaultConfiguration": "development"
     },
+   "serve": {
+  "executor": "@angular-devkit/build-angular:dev-server",
+  "options": {
+    "buildTarget": "GoldenFold:build:development",
+    "port": 4201
+  },
+  "configurations": {
+    "production": {
+      "buildTarget": "GoldenFold:build:production",
+      "port": 4201
+    },
+    "development": {
+      "buildTarget": "GoldenFold:build:development",
+      "port": 4201
+    }
+  }
+},
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n"
     },

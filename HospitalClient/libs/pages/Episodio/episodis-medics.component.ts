@@ -1,12 +1,12 @@
-import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
-import { EpisodiMedic } from '../../interfaces/episodis-medics.interface';
+import { AfterViewInit, Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { EpisodiMedic } from '../../../libs/interfaces/episodis-medics.interface';
 import { SnackbarComponent } from '../../../apps/GoldenFold/src/app/components/snackbar/snackbar.component';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
-import { EpisodiService } from '../../services/episodis.service';
+import { EpisodiService } from '../../../libs/services/episodis.service';
 import { DialogFormularioEpisodisModifComponent } from '../../forms/Episodio/Modif/dialog-formulario-episodis-modif.component';
 import { DialogFormularioEpisodisComponent } from '../../forms/Episodio/Create/dialog-formulario-episodis.component';
 import { ConsultasDialogComponent } from '../../popups/consultas-popup';

@@ -4,7 +4,6 @@ import {
   MatDialogModule,
   MatDialogRef,
 } from '@angular/material/dialog';
-import { Ingreso } from '../../../../interface/ingreso.interface';
 import {
   AbstractControl,
   FormBuilder,
@@ -35,10 +34,10 @@ import {
   dataInici,
   dataIniciFinalValidator,
 } from '../../../../validators/ingresos.validators';
-import { Medico } from '../../../../interface/medico.interface';
-import { Usuari } from '../../../../interface/usuari.interface';
-import { UsuarioService } from '../../../../services/usuario.service';
-import { MedicoService } from '../../../../services/metge.service';
+import { Medico } from '../../../../../../../../libs/interfaces/medico.interface';
+import { Usuari } from '../../../../../../../../libs/interfaces/usuari.interface';
+import { UsuarioService } from '../../../../../../../../libs/services/usuario.service';
+import { MedicoService } from '../../../../../../../../libs/services/metge.service';
 import { dniValidator } from '../../../../validators/dniValidator';
 import { map } from 'rxjs';
 import { EspecialidadesMedico } from '../../../../enums/especialidadesMedico';

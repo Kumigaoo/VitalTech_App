@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { CamaService } from '../../../../../../services/cama.service';
-import { Cama } from '../../../../../../interface/cama.interface';
+import { CamaService } from '../../../../../../../../../../libs/services/cama.service';
+import { Cama } from '../../../../../../../../../../libs/interfaces/cama.interface';
 import { SnackbarComponent } from '../../../../../../components/snackbar/snackbar.component';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
@@ -9,9 +9,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
 import { DialogFormulariocamaComponent } from '../../../../../../components/Formularios/Cama/dialog-formulario-cama-registro/dialog-formulario-cama.component';
 import { DialogFormulariocamaModifComponent } from '../../../../../../components/Formularios/Cama/dialog-formulario-cama-modif/dialog-formulario-cama-modif.component';
-import { HabitacionService } from '../../../../../../services/habitacion.service';
-import { Habitacion } from '../../../../../../interface/habitacion.interface';
-
+import { HabitacionService } from '../../../../../../../../../../libs/services/habitacion.service';
+import { Habitacion } from '../../../../../../../../../../libs/interfaces/habitacion.interface';
 @Component({
   selector: 'app-camas',
   templateUrl: './camas.component.html',

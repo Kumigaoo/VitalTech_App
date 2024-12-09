@@ -4,7 +4,7 @@ import {
   MatDialogModule,
   MatDialogRef,
 } from '@angular/material/dialog';
-import { Ingreso } from '../../../../interface/ingreso.interface';
+import { Ingreso } from '../../../../../../../../libs/interfaces/ingreso.interface';
 import {
   FormBuilder,
   FormGroup,
@@ -21,8 +21,8 @@ import {
   provideNativeDateAdapter,
 } from '@angular/material/core';
 import { EpisodiService } from '../../../../../../../../libs/services/episodis.service';
-import { Cama } from '../../../../interface/cama.interface';
-import { CamaService } from '../../../../services/cama.service';
+import { Cama } from '../../../../../../../../libs/interfaces/cama.interface';
+import { CamaService } from '../../../../../../../../libs/services/cama.service';
 import { CommonModule } from '@angular/common';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';

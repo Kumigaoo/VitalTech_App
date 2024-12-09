@@ -1,6 +1,4 @@
 import { Component, ViewChild, OnInit, AfterViewInit } from '@angular/core';
-import { Planta } from '../../../../../../interface/planta.interface';
-import { PlantaService } from '../../../../../../services/planta.service';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
@@ -11,6 +9,8 @@ import { SnackbarComponent } from '../../../../../../components/snackbar/snackba
 import { DialogFormularioConsultaPlantes } from '../../../../../../components/Formularios/planta/dialog-formulario-plantes-registro/dialog-formulario-plantes.component';
 import { DialogFormularioConsultaPlantesModificar } from '../../../../../../components/Formularios/planta/dialog-formulario-plantes-registro-modificar/dialog-formulario-plantes-modificar.component';
 import { HabitacionesDialogComponent } from '../../../../../../components/popups/habitaciones-popup';
+import { Planta } from '../../../../../../../../../../libs/interfaces/planta.interface';
+import {PlantaService} from '../../../../../../../../../../libs/services/planta.service';
 
 @Component({
   selector: 'app-plantes',

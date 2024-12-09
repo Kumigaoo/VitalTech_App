@@ -1,10 +1,10 @@
+import { EnfermeroService } from './../../../../../../../../libs/services/enfermero.service';
 import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import {
   MAT_DIALOG_DATA,
   MatDialogModule,
   MatDialogRef,
 } from '@angular/material/dialog';
-import { Ingreso } from '../../../../interface/ingreso.interface';
 import {
   AbstractControl,
   FormBuilder,
@@ -26,18 +26,16 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
-import { Medico } from '../../../../interface/medico.interface';
-import { Usuari } from '../../../../interface/usuari.interface';
-import { UsuarioService } from '../../../../services/usuario.service';
-import { MedicoService } from '../../../../services/metge.service';
+import { Medico } from '../../../../../../../../libs/interfaces/medico.interface';
+import { Usuari } from '../../../../../../../../libs/interfaces/usuari.interface';
+import { UsuarioService } from '../../../../../../../../libs/services/usuario.service';
+import { MedicoService } from '../../../../../../../../libs/services/metge.service';
 import { dniValidator } from '../../../../validators/dniValidator';
 import { map } from 'rxjs';
-import { Enfermero } from '../../../../interface/enfermer.interface';
+import { Enfermero } from '../../../../../../../../libs/interfaces/enfermer.interface';
 import { EspecialidadesEnfermero } from '../../../../enums/especialidadesEnfermero';
 import { EnfermeroAsyncValidator } from '../../../../validators/enfermeroExistsValidator';
 import { dniExisteValidator } from '../../../../validators/dniExistsValidatos';
-import { EnfermeroService } from '../../../../services/enfermero.service';
-
 @Component({
   selector: 'app-dialog-formulario-enfermero-modif',
   standalone: true,
