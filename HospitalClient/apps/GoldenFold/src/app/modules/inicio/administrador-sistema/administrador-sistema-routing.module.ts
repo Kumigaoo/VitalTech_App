@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CamasComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/camas/camas.component';
-import { HabitacionesComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/habitaciones/habitaciones.component';
+import { HabitacionesComponent } from '../../../../../../../libs/pages/Habitacion/habitaciones.component';
 import { PacientesComponent } from '../../../../../../../libs/pages/pacientes/pacientes.component';
 // import { UsuariosComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/usuarios/usuarios.component';
 import { IngresosComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/ingresos/ingresos.component';

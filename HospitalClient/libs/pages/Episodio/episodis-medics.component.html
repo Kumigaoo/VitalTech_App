@@ -33,6 +33,7 @@
   </div>
 
   <div class="table-container mat-elevation-z8">
+    <app-snackbar></app-snackbar>
     <table mat-table [dataSource]="dataSource" class="mat-table" matSort>
       <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
@@ -210,7 +211,9 @@
       <p>Lista de episodios médicos</p>
     </div>
     <div class="table-container">
+      <app-snackbar></app-snackbar>
       <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+        
         <!-- Columnas definidas -->
         <ng-container matColumnDef="id">
           <th mat-header-cell *matHeaderCellDef mat-sort-header class="cell"> Id episodio </th>
@@ -264,7 +267,7 @@
     
         <ng-container matColumnDef="acciones">
           <th mat-header-cell *matHeaderCellDef class="cell"> Acciones </th>
-          <td mat-cell *matCellDef="let episodi" class="botones">
+          <td mat-cell *matCellDef="let episodi" class ="botones">
             <button class = "actualizar" mat-icon-button (click)="toggleActualizarEpisodi(episodi)">
               🔄
             </button>
@@ -279,11 +282,13 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
     
-      <mat-paginator
-      [pageSizeOptions]="[5, 10, 25, 100]"
-      showFirstLastButtons
-    ></mat-paginator>
+
     </div>
+
+    <mat-paginator
+    [pageSizeOptions]="[5, 10, 25, 100]"
+    showFirstLastButtons
+  ></mat-paginator>
   </div>
 
 }
