@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AdministradorSistemaRoute } from './administrador-sistema-routing.module';
-import { CamasComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/camas/camas.component';
-import { PacientesComponent } from '../../../../../../../libs/pages/pacientes/pacientes.component';
+import { CamasComponent } from '../../../../../../../libs/pages/Cama/camas.component';
+import { HabitacionesComponent } from '../../../../../../../libs/pages/Habitacion/habitaciones.component';
+import { PacientesComponent } from '../../../../../../../libs/pages/Paciente/pacientes.component';
 // import { UsuariosComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/usuarios/usuarios.component';
 import { IngresosComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/ingresos/ingresos.component';
 import { PruebasComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/consultas/pruebas.component';
@@ -14,7 +15,6 @@ import { EpisodisMedicsComponent } from '../../../../../../../libs/pages/Episodi
 import { EnfermersComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/enfermers/enfermers.component';
 import { AdministradoresSistemaComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/administradores-sistema/administradores-sistema.component';
 import { MetgesComponent } from '../../../../../../../libs/pages/Medico/metges.component';
-import { HabitacionesComponent } from '../../../../../../../libs/pages/Habitacion/habitaciones.component';
 
 @NgModule({
   declarations: [

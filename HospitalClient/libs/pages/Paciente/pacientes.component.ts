@@ -44,7 +44,7 @@ export class PacientesComponent implements OnInit, AfterViewInit {
   totalItems = 0;
   itemsPerPage = 300;
   pageIndex = 0;
-
+  isPortGolden = true;
   pacientes: Paciente[] = [];
   nuevoPaciente: Paciente;
   notificacion: string | null = null; // Variable para notificaciones
@@ -79,8 +79,10 @@ export class PacientesComponent implements OnInit, AfterViewInit {
     let cssPath: string[];
    
     if (port == '4201') {
+      this.isPortGolden = true;
       cssPath = ['/assets/styles/styles.css','/assets/styles/pacientes/pacientes-4201.component.css'];
     } else {
+      this.isPortGolden = false;
       cssPath = ['/assets/styles/styles.css','/assets/styles/pacientes/pacientes-4200.component.css'];
     }
 

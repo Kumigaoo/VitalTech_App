@@ -1,20 +1,20 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { CamaService } from '../../../../../../../../../../libs/services/cama.service';
-import { Cama } from '../../../../../../../../../../libs/interfaces/cama.interface';
-import { SnackbarComponent } from '../../../../../../components/snackbar/snackbar.component';
+import { CamaService } from '../../services/cama.service';
+import { Cama } from '../../interfaces/cama.interface';
+import { SnackbarComponent } from '../../../apps/GoldenFold/src/app/components/snackbar/snackbar.component';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
-import { DialogFormulariocamaComponent } from '../../../../../../components/Formularios/Cama/dialog-formulario-cama-registro/dialog-formulario-cama.component';
-import { DialogFormulariocamaModifComponent } from '../../../../../../components/Formularios/Cama/dialog-formulario-cama-modif/dialog-formulario-cama-modif.component';
-import { HabitacionService } from '../../../../../../../../../../libs/services/habitacion.service';
-import { Habitacion } from '../../../../../../../../../../libs/interfaces/habitacion.interface';
+import { DialogFormulariocamaComponent } from '../../../apps/GoldenFold/src/app/components/Formularios/Cama/dialog-formulario-cama-registro/dialog-formulario-cama.component';
+import { DialogFormulariocamaModifComponent } from '../../../apps/GoldenFold/src/app/components/Formularios/Cama/dialog-formulario-cama-modif/dialog-formulario-cama-modif.component';
+import { HabitacionService } from '../../services/habitacion.service';
+import { Habitacion } from '../../interfaces/habitacion.interface';
 @Component({
   selector: 'app-camas',
   templateUrl: './camas.component.html',
-  styleUrls: ['./camas.component.css'],
+  styleUrls: [],
 })
 export class CamasComponent implements OnInit, AfterViewInit {
   @ViewChild(SnackbarComponent) snackbar!: SnackbarComponent;
@@ -40,12 +40,23 @@ export class CamasComponent implements OnInit, AfterViewInit {
 
   camaSeleccionada: Cama | null = null;
 
+  //puerto actual
+  currentPort!: string;
+  //booleano para facilitar legibilidad
+  isPortGolden!: boolean;
+
   constructor(
     private camaService: CamaService,
     public dialog: MatDialog,
     private http: HttpClient,
     private habitacionService: HabitacionService
   ) {
+    //cambiar html
+    this.currentPort = window.location.port;
+    this.isPortGolden = this.currentPort==="4201";
+    
+    
+
     this.nuevaCama = {
       codiLlit: '',
       ocupat: false,
