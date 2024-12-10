@@ -23,8 +23,12 @@ import { DialogFormulariocamaComponent } from '../../../../../GoldenFold/src/app
 import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
+  declarations: [EnumTranslatePipe],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
+    NavComponent,
+    RouterLinkActive,
     FormsModule,
     RouterLink,
     RouterModule,
