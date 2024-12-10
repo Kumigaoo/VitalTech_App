@@ -1,5 +1,5 @@
+import { PacientesComponent } from './../../../../../../../libs/pages/Paciente/pacientes.component';
 import { NgModule } from '@angular/core'
-import { PacientesComponent } from '../../../../../../../libs/pages/pacientes/pacientes.component';
 import { PacienteRoutes } from './paciente-routing.module';
 import { NavComponent } from '../../../components/nav/nav.component';
 import { ReactiveFormsModule } from '@angular/forms';
