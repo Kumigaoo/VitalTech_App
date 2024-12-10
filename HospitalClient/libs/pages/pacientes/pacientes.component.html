@@ -1,5 +1,8 @@
-<app-administratidor-sistema-dashboard></app-administratidor-sistema-dashboard>
-
+@if(isPortGolden){
+  <app-administratidor-sistema-dashboard></app-administratidor-sistema-dashboard>
+} @else {
+  <app-nav></app-nav>
+}
 <div class="pacientes-section">
   <h2>Pacientes</h2>
   <app-snackbar #snackbar></app-snackbar>
