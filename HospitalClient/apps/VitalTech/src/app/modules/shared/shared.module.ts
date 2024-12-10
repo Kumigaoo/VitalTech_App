@@ -26,6 +26,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
   declarations: [EnumTranslatePipe],
   imports: [
     CommonModule,
+    AdministradorSistemaDashboardComponent,
     ReactiveFormsModule,
     NavComponent,
     RouterLinkActive,

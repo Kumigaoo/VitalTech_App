@@ -1,4 +1,4 @@
-import { EpisodiMedic } from './episodis-medics.interface';
+import { EpisodiMedic } from "./episodis-medics.interface";
 
 export interface Paciente {
   dni: string;

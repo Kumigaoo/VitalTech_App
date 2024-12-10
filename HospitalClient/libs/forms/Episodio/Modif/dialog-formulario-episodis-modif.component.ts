@@ -14,13 +14,13 @@ import {
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { EpisodiMedic } from '../../../../../../../../libs/interfaces/episodis-medics.interface';
+import { EpisodiMedic } from '../../../../libs/interfaces/episodis-medics.interface';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { formatDate } from '@angular/common';
-import { CustomDateAdapter } from '../../../../custom-date-adapter';
+import { CustomDateAdapter } from '../../../../apps/GoldenFold/src/app/custom-date-adapter';
 import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
 
 export const MY_DATE_FORMATS = {
@@ -54,8 +54,8 @@ export const MY_DATE_FORMATS = {
     { provide: DateAdapter, useClass: CustomDateAdapter },
     { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS },
   ],
-  templateUrl: './dialog-formulario-episodis-modif.component.html',
-  styleUrls: ['./dialog-formulario-episodis-modif.component.css'],
+  templateUrl: '../../../../apps/GoldenFold/src/app/components/Formularios/Episodis/dialog-formulario-episodis-modif/dialog-formulario-episodis-modif.component.html',
+  styleUrls: ['../../../../apps/GoldenFold/src/app/components/Formularios/Episodis/dialog-formulario-episodis-modif/dialog-formulario-episodis-modif.component.css'],
 })
 export class DialogFormularioEpisodisModifComponent {
   episodiForm!: FormGroup;

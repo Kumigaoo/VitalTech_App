@@ -1,5 +1,5 @@
-import { Ingreso } from './ingreso.interface';
 import { PruebaDiagnostica } from './pruebas-diagnosticas.interface';
+import { Ingreso } from './ingreso.interface';
 
 export interface EpisodiMedic {
   id: number;

@@ -1,4 +1,4 @@
-import { EpisodiService } from './../../../../../../../../../../libs/services/episodis.service';
+
 import { CamaService } from './../../../../../../../../../../libs/services/cama.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {
@@ -14,6 +14,7 @@ import { EpisodiMedic } from '../../../../../../../../../../libs/interfaces/epis
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { EpisodiService } from '../../../../../../../../../../libs/services/episodis.service';
 import { DialogFormularioIngresoModifComponent } from '../../../../../../components/Formularios/Ingreso/dialog-formulario-ingreso-modif/dialog-formulario-ingreso-modif.component';
 import { MatDialog } from '@angular/material/dialog';
 import { SnackbarComponent } from '../../../../../../components/snackbar/snackbar.component';

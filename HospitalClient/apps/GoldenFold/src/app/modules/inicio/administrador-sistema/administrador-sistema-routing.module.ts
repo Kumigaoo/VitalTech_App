@@ -7,7 +7,7 @@ import { PacientesComponent } from '../../../../../../../libs/pages/pacientes/pa
 import { IngresosComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/ingresos/ingresos.component';
 import { AdministradorSistemaComponent } from '../../../pages/inicio/pages/administrador-sistema/administrador-sistema.component';
 import { PlantesComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/plantes/plantes.component';
-import { EpisodisMedicsComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/episodis-medics/episodis-medics.component';
+import { EpisodisMedicsComponent } from '../../../../../../../libs/pages/Episodio/episodis-medics.component';
 import { MetgesComponent } from '../../../../../../../libs/pages/Medico/metges.component';
 import { EnfermersComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/enfermers/enfermers.component';
 import { PruebasComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/consultas/pruebas.component';

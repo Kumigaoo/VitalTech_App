@@ -1,12 +1,17 @@
 import { EpisodiService } from './../../../../../../../../libs/services/episodis.service';
 import { Router } from '@angular/router';
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+
 import { EpisodiMedic } from '../../../../../../../../libs/interfaces/episodis-medics.interface';
 import { PruebasDiagnosticasPopupComponent } from '../../../../components/pop-ups/pruebas-diagnosticas-popup/pruebas-diagnosticas-popup.component';
 import { IngressosPopupComponent } from '../../../../components/pop-ups/ingressos-popup/ingressos-popup.component';
 import { MatDialog } from '@angular/material/dialog';
 import Swal from 'sweetalert2';
 import Fuse from 'fuse.js';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
+import { SnackbarComponent } from '../../../../../../../GoldenFold/src/app/components/snackbar/snackbar.component';
 
 @Component({
   selector: 'app-episodio',
@@ -14,6 +19,7 @@ import Fuse from 'fuse.js';
   styleUrl: './episodio.component.css',
 })
 export class EpisodioComponent {
+
   episodis: EpisodiMedic[] = [];
   originalEpisodis: EpisodiMedic[] = [];
   selectedEpisodi: any;

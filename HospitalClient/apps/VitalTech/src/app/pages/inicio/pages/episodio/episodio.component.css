@@ -1,3 +1,36 @@
+table.mat-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 5px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.mat-header-cell {
+  background-color: darkcyan;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+}
+
+.mat-cell, .mat-header-cell {
+  border: 1px solid darkcyan;
+  text-align: center;
+  padding: 10px;
+  font-family: Arial, sans-serif;
+}
+
+.mat-paginator {
+  margin-top: 20px;
+  background: #fff;
+  color: darkcyan;
+  font-family: Arial, sans-serif;
+}
+
+
+
+
 .search-container {
   margin-top: 100px;
   display: flex;
