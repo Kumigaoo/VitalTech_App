@@ -188,7 +188,7 @@
     <div class="table-container">
       <table mat-table [dataSource]="medicos" matSort class="mat-elevation-z8">
         <ng-container matColumnDef="dni">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header style="background-color: darkcyan;color: white; text-align: center; font-weight: bold;">DNI</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header style="background-color: darkcyan;color: white; text-align: center; ">DNI</th>
           <td
             mat-cell
             *matCellDef="let medico"
@@ -198,7 +198,7 @@
         </ng-container>
   
         <ng-container matColumnDef="nom">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header style="background-color: darkcyan;color: white; text-align: center; font-weight: bold;">Nombre</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header style="background-color: darkcyan;color: white; text-align: center; ">Nombre</th>
           <td
             mat-cell
             *matCellDef="let medico"
@@ -208,7 +208,7 @@
         </ng-container>
   
         <ng-container matColumnDef="usuariId">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header style="background-color: darkcyan;color: white; text-align: center; font-weight: bold;">Usuario</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header style="background-color: darkcyan;color: white; text-align: center; ">Usuario</th>
           <td
             mat-cell
             *matCellDef="let medico"
@@ -218,7 +218,7 @@
         </ng-container>
   
         <ng-container matColumnDef="telefon"> 
-          <th mat-header-cell *matHeaderCellDef mat-sort-header style="background-color: darkcyan;color: white; text-align: center; font-weight: bold;">Teléfono</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header style="background-color: darkcyan;color: white; text-align: center; ">Teléfono</th>
           <td
             mat-cell
             *matCellDef="let medico"
@@ -228,7 +228,7 @@
         </ng-container>
   
         <ng-container matColumnDef="especialitat">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header style="background-color: darkcyan;color: white; text-align: center; font-weight: bold;">Especialidad</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header style="background-color: darkcyan;color: white; text-align: center; ">Especialidad</th>
           <td
             mat-cell
             *matCellDef="let medico"
@@ -238,7 +238,7 @@
         </ng-container>
   
         <ng-container matColumnDef="episodiMedics">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header style="background-color: darkcyan;color: white; text-align: center; font-weight: bold;">Episodios Medicos</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header style="background-color: darkcyan;color: white; text-align: center; ">Episodios Medicos</th>
           <td mat-cell *matCellDef="let medico">
             <a
               (click)="verEpisodiosMedicos(medico)"
@@ -255,7 +255,7 @@
         </ng-container>
   
         <ng-container matColumnDef="pruebasDiagnosticas">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header style="background-color: darkcyan;color: white; text-align: center; font-weight: bold;">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header style="background-color: darkcyan;color: white; text-align: center;">
             Pruebas diagnósticas
           </th>
           <td mat-cell *matCellDef="let medico">
@@ -275,7 +275,7 @@
   
         <!--Acciones-->
         <ng-container matColumnDef="Actions">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header style="background-color: darkcyan;color: white; text-align: center; font-weight: bold;">Actions</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header style="background-color: darkcyan;color: white; text-align: center;">Actions</th>
           <td mat-cell *matCellDef="let medico" style="display: flex; justify-content: space-around; align-items: center;">
             <button mat-icon-button color="warn" class="actualizar" (click)="tooggleActualizarMedico(medico)">
               <span style="font-size: 24px;">🔄</span>
