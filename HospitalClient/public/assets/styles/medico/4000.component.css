@@ -115,7 +115,20 @@ button a {
 }
 
 
+.actualizar {
+  font-size: 24px !important;
+}
 
+.eliminar {
+  font-size: 24px !important;
+}
+
+
+.actualizar:hover,
+.eliminar:hover {
+  pointer-events: none; /* Deshabilitar completamente el hover */
+  cursor: default; /* Opcional: cursor estándar */
+}
 
 .botones {
   display: flex;
