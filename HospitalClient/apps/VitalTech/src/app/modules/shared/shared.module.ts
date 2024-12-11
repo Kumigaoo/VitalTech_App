@@ -21,11 +21,12 @@ import { SearchBoxComponent } from '../../../../../GoldenFold/src/app/components
 import { SnackbarComponent } from '../../../../../GoldenFold/src/app/components/snackbar/snackbar.component';
 import { DialogFormulariocamaComponent } from '../../../../../GoldenFold/src/app/components/Formularios/Cama/dialog-formulario-cama-registro/dialog-formulario-cama.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
- 
+
 @NgModule({
   declarations: [EnumTranslatePipe],
   imports: [
     CommonModule,
+    AdministradorSistemaDashboardComponent,
     ReactiveFormsModule,
     NavComponent,
     RouterLinkActive,
