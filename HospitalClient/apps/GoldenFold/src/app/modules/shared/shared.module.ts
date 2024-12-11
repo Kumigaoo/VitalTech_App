@@ -1,3 +1,4 @@
+import { NavComponent } from './../../../../../VitalTech/src/app/components/nav/nav.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -49,6 +50,7 @@ import { MatOptionModule } from '@angular/material/core';
     MatSortModule,
     MatButtonModule,
     MatDialogModule,
+    NavComponent,
     MatFormFieldModule,
     MatInputModule,
     MatSnackBarModule,
@@ -62,6 +64,7 @@ import { MatOptionModule } from '@angular/material/core';
     FormsModule,
     ReactiveFormsModule,
     MatCardModule,
+    NavComponent,
     MatOption,
     MatCardTitle,
     MatSelect,
