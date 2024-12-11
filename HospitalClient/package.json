@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "npm install && concurrently \"nx serve VitalTech  --ssl -o --host=127.0.0.1\" \"nx serve GoldenFold --ssl -o --host=127.0.0.2\"",
-    "ultraStart": "npm install && concurrently \"nx serve VitalTech  --ssl -o --host=127.0.0.1\" \"nx serve GoldenFold --ssl -o --host=127.0.0.2\" \"dotnet watch --project ../HospitalApi/HospitalApi.csproj run\"",
+    "ultraStart": "npm install && concurrently \"nx serve VitalTech --ssl -o --host=127.0.0.1\" \"nx serve GoldenFold --ssl -o --host=127.0.0.2\" \"dotnet watch --project ../HospitalApi/HospitalApi.csproj run\"",
     "build": "nx build",
     "watch": "nx build --watch --configuration development",
     "test": "nx test"
