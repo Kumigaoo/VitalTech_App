@@ -1,3 +1,4 @@
+import { DialogFormularioConsultaPlantesModificar } from './../../../apps/GoldenFold/src/app/components/Formularios/planta/dialog-formulario-plantes-registro-modificar/dialog-formulario-plantes-modificar.component';
 import { PlantaService } from '../../services/planta.service';
 import { Planta } from '../../interfaces/planta.interface';
 import { Component, ViewChild, OnInit, AfterViewInit } from '@angular/core';
@@ -9,7 +10,6 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { SnackbarComponent } from '../../../apps/GoldenFold/src/app/components/snackbar/snackbar.component';
 import { DialogFormularioConsultaPlantes } from '../../../apps/GoldenFold/src/app/components/Formularios/planta/dialog-formulario-plantes-registro/dialog-formulario-plantes.component';
-import { DialogFormularioConsultaPlantesModificar } from '../../../apps/GoldenFold/src/app/components/Formularios/planta/dialog-formulario-plantes-registro-modificar/dialog-formulario-plantes-modificar.component';
 import { HabitacionesDialogComponent } from '../../../apps/GoldenFold/src/app/components/popups/habitaciones-popup';
 import { FormGroup, FormBuilder } from '@angular/forms';
 
@@ -185,7 +185,7 @@ export class PlantaComponent implements OnInit, AfterViewInit {
       cancelButtonText: 'Cancelar',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.plantaService.delete(piso).subscribe({
+        this.plantaService.delete(piso.toString()).subscribe({
           next: () => {
             this.loadPlantes();
             this.snackbar.showNotification(
@@ -207,7 +207,7 @@ export class PlantaComponent implements OnInit, AfterViewInit {
   modificarPlanta(): void {
     if (this.plantaSeleccionado) {
       this.plantaService
-        .put(this.plantaSeleccionado.piso, this.plantaSeleccionado)
+        .put(this.plantaSeleccionado.piso.toString(), this.plantaSeleccionado)
         .subscribe({
           next: () => {
             this.loadPlantes();
