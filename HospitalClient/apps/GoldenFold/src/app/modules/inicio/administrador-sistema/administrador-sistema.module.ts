@@ -1,3 +1,4 @@
+import { PlantaComponent } from './../../../../../../../libs/pages/Planta/planta.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AdministradorSistemaRoute } from './administrador-sistema-routing.module';
@@ -10,11 +11,10 @@ import { PruebasComponent } from '../../../pages/inicio/pages/administrador-sist
 import { AdministradorSistemaDashboardComponent } from '../../../pages/inicio/pages/administrador-sistema/administrador-sistema-dashboard/administrador-sistema-dashboard.component';
 import { SharedModule } from '../../shared/shared.module';
 import { AdministradorSistemaComponent } from '../../../pages/inicio/pages/administrador-sistema/administrador-sistema.component';
-import { PlantesComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/plantes/plantes.component';
+import { MetgesComponent } from '../../../../../../../libs/pages/Medico/metges.component';
 import { EpisodisMedicsComponent } from '../../../../../../../libs/pages/Episodio/episodis-medics.component';
 import { EnfermersComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/enfermers/enfermers.component';
 import { AdministradoresSistemaComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/administradores-sistema/administradores-sistema.component';
-import { MetgesComponent } from '../../../../../../../libs/pages/Medico/metges.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +28,7 @@ import { MetgesComponent } from '../../../../../../../libs/pages/Medico/metges.c
   //  UsuariosComponent,
     IngresosComponent,
     PruebasComponent,
-    PlantesComponent,
+    PlantaComponent,
     EpisodisMedicsComponent,
   ],
 

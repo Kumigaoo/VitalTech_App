@@ -54,7 +54,7 @@ export function plantaidValidator(
 
     const id = +control.value;
 
-    return plantaService.getById(id).pipe(
+    return plantaService.getById(id.toString()).pipe(
       map((planta) => (planta ? null : { plantaIdNotFound: true })),
       catchError((error) => {
         return of({ plantaIdNotFound: true });
