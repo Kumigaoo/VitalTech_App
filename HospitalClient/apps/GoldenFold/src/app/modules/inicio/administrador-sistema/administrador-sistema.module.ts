@@ -13,7 +13,7 @@ import { SharedModule } from '../../shared/shared.module';
 import { AdministradorSistemaComponent } from '../../../pages/inicio/pages/administrador-sistema/administrador-sistema.component';
 import { MetgesComponent } from '../../../../../../../libs/pages/Medico/metges.component';
 import { EpisodisMedicsComponent } from '../../../../../../../libs/pages/Episodio/episodis-medics.component';
-import { EnfermersComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/enfermers/enfermers.component';
+import { EnfermersComponent } from '../../../../../../../libs/pages/Enfermero/enfermers.component';
 import { AdministradoresSistemaComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/administradores-sistema/administradores-sistema.component';
 
 @NgModule({
