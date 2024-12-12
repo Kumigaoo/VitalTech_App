@@ -1,7 +1,7 @@
 .fondo {
   background-color: antiquewhite;
   height: 550px;
-  position: fixed; /* Fija el elemento en la pantalla */
+ 
   z-index: 0;
 
 }
@@ -37,14 +37,15 @@
   padding: 10px;
   border: 1px solid darkcyan;
   text-align: center;
-  background: #fff;
+  background: white !important;
   font-family: Arial, sans-serif;
-  font-weight: normal;
+  font-weight: normal
+  ;
 }
 
 thead tr th {
   background-color: darkcyan;
-  border: 1px solid #fff;
+  border: 1px solid white;
   font-weight: bold;
   color: #fff;
 }
@@ -114,7 +115,6 @@ button a {
   color: white;
 }
 
-
 .actualizar {
   font-size: 24px !important;
 }
@@ -129,6 +129,7 @@ button a {
   pointer-events: none; /* Deshabilitar completamente el hover */
   cursor: default; /* Opcional: cursor estándar */
 }
+
 
 .botones {
   display: flex;

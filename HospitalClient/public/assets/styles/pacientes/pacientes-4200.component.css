@@ -1,78 +1,137 @@
-/* Estilos para la sección de pacientes */
-.pacientes-section h2 {
-  text-align: center;
-  margin-bottom: 20px;
+.fondo {
+  background-color: antiquewhite !important;
+  height: 550px !important;
+  z-index: 0 !important;
+
+}
+.cell {
+  background-color: darkcyan !important;
+  color: white !important; 
+  text-align: center !important; 
 }
 
-/* Contenedor del botón y la barra de búsqueda */
-.header-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-  margin-bottom: 20px;
+.header-container{
+  display: flex !important;
+  align-items: end;
+  justify-content: space-evenly;
 }
 
-/* Centrar el botón de agregar paciente */
-.header-container > div:first-child {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-/* Estilos de la tabla */
 .table-container {
-  margin: auto;
-  width: 90%; /* Ajusta el ancho según sea necesario */
-  overflow: auto;
-  border-radius: 8px;
+  width: 70% !important;
+  margin-top: 30px !important;
+  margin-left: 250px !important;
 }
 
-table.mat-table {
-  width: 100%;
-  border-collapse: collapse;
+.table {
+  width: 100% !important;
+  margin-bottom: 50px !important;
+  border-collapse: separate !important;
+  background: #fff !important;
+  border-radius: 8px !important;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1) !important;
 }
 
-.mat-header-cell {
-  background-color: #1976d2; /* Azul */
-  color: white;
-  font-weight: bold;
-  text-align: center; /* Centra el texto horizontalmente */
-  vertical-align: middle; /* Centra el texto verticalmente */
-  padding: 16px 8px; /* Espaciado para mantener el diseño limpio */
+.table th {
+  background-color: darkcyan !important;
+  color: white !important; 
+  text-align: center !important; 
+  font-weight: bold !important;
 }
 
-.mat-cell {
-  background-color: white; /* Blanco */
-  color: black;
-  text-align: center; /* Centra el texto horizontalmente */
-  vertical-align: middle; /* Centra el texto verticalmente */
-  padding: 12px 8px; /* Espaciado para mantener el diseño limpio */
+.table td {
+  border: 1px solid darkcyan !important;
+  text-align: center !important;
+  background: #fff !important;
+  font-family: Arial, sans-serif !important;
+  font-weight: normal !important;
 }
 
-/* Hover en las filas */
-.mat-row:hover {
-  background-color: #f5f5f5; /* Color de resaltado al pasar el cursor */
-  cursor: pointer;
+thead tr th {
+  background-color: darkcyan !important;
+  border: 1px solid #fff !important;
+  font-weight: bold !important;
+  color: #fff !important;
 }
 
-/* Estilos para las filas clicables */
-.clickable-row {
-  transition: background-color 0.2s ease-in-out;
+td:first-child,
+th:first-child {
+  border-top-left-radius: 8px !important;
+  border-bottom-left-radius: 8px !important;
 }
 
-/* Botones */
+td:last-child,
+th:last-child {
+  border-top-right-radius: 8px !important;
+  border-bottom-right-radius: 8px !important;
+}
+
+.mat-paginator {
+  color: darkcyan !important;
+  font-family: Arial, sans-serif !important;
+}
+
+.mat-mdc-paginator {
+  background-color: transparent !important; /* O el color deseado */
+}
+
+.search-container {
+  margin-top: 50px !important;
+  margin-left: 80px !important;
+}
+
+.registro {
+  margin-left: 115px !important;
+  
+}
+
+.texto {
+  margin-top: 27px !important;
+  margin-left: 250px !important;
+  font-family: Arial, sans-serif !important;
+  font-weight: bold !important;
+  color: darkcyan !important;
+  font-size: 25px !important;
+}
+
 button {
-  margin-right: 8px; /* Respeto la regla del padre */
+  background-color: darkcyan !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 4px !important;
+  cursor: pointer !important;
+  font-size: 16px !important;
+  margin-right: 20px !important;
+  
 }
 
-.mat-button {
-  min-width: unset;
+button:hover {
+  background-color: #02789b !important;
+  
 }
 
-/* Paginación */
-mat-paginator {
-  margin-top: 20px;
-  display: flex;
-  justify-content: center;
+button a {
+  text-decoration: none !important;
+  display: block !important;
+  color: white !important;
 }
+
+.actualizar {
+  font-size: 24px !important;
+}
+
+.eliminar {
+  font-size: 16px !important;
+}
+
+/* Quitar el efecto hover para .actualizar y .eliminar */
+.actualizar:hover,
+.eliminar:hover {
+  pointer-events: none !important; /* Deshabilitar completamente el hover */
+  cursor: default !important; /* Opcional: cursor estándar */
+}
+
+
+.botones {
+  display: flex !important;
+}
+

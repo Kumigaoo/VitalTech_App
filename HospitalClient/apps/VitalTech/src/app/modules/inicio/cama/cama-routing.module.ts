@@ -1,13 +1,13 @@
 import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
-import { CamaComponent } from '../../../pages/inicio/pages/cama/cama.component';
+import { CamasComponent } from '../../../../../../../libs/pages/Cama/camas.component';
 import { ModifCamaComponent } from '../../../pages/inicio/pages/cama/pages/modif-cama/modif-cama.component';
 import { RegistroCamaComponent } from '../../../pages/inicio/pages/cama/pages/registro-cama/registro-cama.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: CamaComponent,
+    component: CamasComponent,
   },
   {
     path: 'modif-cama/:id',

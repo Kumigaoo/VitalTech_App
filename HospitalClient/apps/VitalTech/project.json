@@ -26,7 +26,8 @@
           },
           "apps/VitalTech/src/silent-renew.html"
         ],
-        "styles": ["apps/VitalTech/src/styles.css"],
+        "styles": ["apps/VitalTech/src/styles.css",
+        "node_modules/@angular/material/prebuilt-themes/indigo-pink.css"],
         "scripts": []
       },
       "configurations": {
@@ -86,6 +87,7 @@
           }
         ],
         "styles": [
+            "node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
           "apps/VitalTech/@angular/material/prebuilt-themes/magenta-violet.css",
           "apps/VitalTech/src/styles.css"
         ],

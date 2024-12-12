@@ -1,7 +1,6 @@
 .fondo {
   background-color: antiquewhite;
   height: 550px;
-  position: fixed; /* Fija el elemento en la pantalla */
   z-index: 0;
 
 }
@@ -114,7 +113,20 @@ button a {
   color: white;
 }
 
+.actualizar {
+  font-size: 24px !important;
+}
 
+.eliminar {
+  font-size: 24px !important;
+}
+
+/* Quitar el efecto hover para .actualizar y .eliminar */
+.actualizar:hover,
+.eliminar:hover {
+  pointer-events: none; /* Deshabilitar completamente el hover */
+  cursor: default; /* Opcional: cursor estándar */
+}
 
 
 .botones {

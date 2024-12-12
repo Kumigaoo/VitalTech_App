@@ -1,21 +1,20 @@
-import { HabitacionService } from './../../../../../../../../../../libs/services/habitacion.service';
+import { DialogActualizarHabitacionComponent } from './../../../apps/GoldenFold/src/app/components/Formularios/Habitacion/dialog-actualizar-habitacion/dialog-actualizar-habitacion.component';
+import { DialogCrearHabitacionComponent } from '../../../apps/GoldenFold/src/app/components/Formularios/Habitacion/dialog-crear-habitacion/dialog-crear-habitacion/dialog-crear-habitacion.component';
+import { CamasDialogComponent } from './../../../apps/GoldenFold/src/app/components/popups/camas-popup';
+import { SnackbarComponent } from './../../../apps/GoldenFold/src/app/components/snackbar/snackbar.component';
+import { HabitacionService } from './../../services/habitacion.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Habitacion } from '../../../../../../../../../../libs/interfaces/habitacion.interface';
-import { SnackbarComponent } from '../../../../../../components/snackbar/snackbar.component'; // Importar el componente standalone
+import { Habitacion } from '../../interfaces/habitacion.interface';
 import { MatTableDataSource } from '@angular/material/table'; // Módulo de tabla de Angular Material
 import { MatPaginator, PageEvent } from '@angular/material/paginator'; // Módulo de paginación de Angular Material
 import { MatSort } from '@angular/material/sort'; // Módulo de ordenación de Angular Material
 import { MatDialog } from '@angular/material/dialog';
-import { CamasDialogComponent } from '../../../../../../components/popups/camas-popup';
-import { DialogCrearHabitacionComponent } from '../../../../../../components/Formularios/Habitacion/dialog-crear-habitacion/dialog-crear-habitacion/dialog-crear-habitacion.component';
-import { DialogRef } from '@angular/cdk/dialog';
-import { DialogActualizarHabitacionComponent } from '../../../../../../components/Formularios/Habitacion/dialog-actualizar-habitacion/dialog-actualizar-habitacion.component';
 import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-habitaciones',
   templateUrl: './habitaciones.component.html',
-  styleUrls: ['./habitaciones.component.css'],
+  styleUrls: [],
 })
 export class HabitacionesComponent implements OnInit {
   @ViewChild(SnackbarComponent) snackbar!: SnackbarComponent; // Referencia al snackbar
@@ -34,6 +33,8 @@ export class HabitacionesComponent implements OnInit {
   totalItems = 0;
   itemsPerPage = 300;
   pageIndex = 0;
+
+  isPortVitalTech = false;
 
   nuevaHabitacion: Habitacion;
   habitaciones: Habitacion[] = [];
@@ -55,6 +56,24 @@ export class HabitacionesComponent implements OnInit {
 
   ngOnInit(): void {
     this.obtenerHabitaciones();
+    const currentPort = window.location.port;
+    let cssPath: string[];
+
+    this.isPortVitalTech = currentPort === '4200';
+    if (currentPort == '4201'){
+      cssPath = ['/assets/styles/styles.css', '/assets/styles/habitacion/habitaciones.component.css'];
+      
+    } else {
+      cssPath = ['/assets/styles/styles.css', '/assets/styles/habitacion/habitacion.component.css'];
+    }
+
+    cssPath.forEach(css => {
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = css;
+      document.head.appendChild(link);
+    });
   }
 
   ngAfterViewInit() {
@@ -169,6 +188,9 @@ export class HabitacionesComponent implements OnInit {
   }
 
   toggleActualizarHabitacion(habitacion: Habitacion): void {
+    if (this.isPortVitalTech){
+      window.location.href = `https://localhost:4200/inicio/habitacion/modif-habitacion/${habitacion.codiHabitacio}`;
+    } else {
     this.habitacionParaActualizar = { ...habitacion }; // Guardar habitación para actualización
     this.dialog
       .open(DialogActualizarHabitacionComponent, {
@@ -181,6 +203,11 @@ export class HabitacionesComponent implements OnInit {
           this.modificarHabitacion(habitacion.codiHabitacio);
         }
       });
+    }
+  }
+
+  navigateToRegistroHabitacion(): void {
+    window.location.href = 'https://localhost:4200/inicio/habitacion/registro-habitacion';
   }
 
   modificarHabitacion(id: number): void {

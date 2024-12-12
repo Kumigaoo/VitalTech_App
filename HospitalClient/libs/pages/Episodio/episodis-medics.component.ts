@@ -43,7 +43,6 @@ export class EpisodisMedicsComponent implements OnInit, AfterViewInit {
   constructor(
     private episodiService: EpisodiService,
     public dialog: MatDialog,
-    private router: Router
   ) {
     
     this.addingEpisodi = {
