@@ -16,6 +16,7 @@
   justify-content: space-evenly !important;
   margin-top: 30px !important;
   flex-direction: row-reverse !important;
+  margin-left: 130px;
 
 }
 
@@ -77,12 +78,10 @@ th:last-child {
 
 .search-container {
   margin-top: 50px !important;
-  margin-left: 80px !important;
 }
 
 .registro {
-  margin-left: 145px !important;
-  
+  margin-left: 140px !important;
 }
 
 .texto {
@@ -116,27 +115,13 @@ button a {
   color: white !important;
 }
 
-.actualizar, .eliminar {
-  background-color: transparent !important; /* Sin fondo */
-  color: inherit !important; /* Usa el color heredado, o define uno si necesario */
-  border: none !important; /* Sin borde */
-  font-size: 26px !important; /* Mantén el tamaño de fuente heredado */
-  margin: 0 !important; /* Ajusta los márgenes si es necesario */
-  cursor: pointer !important;
-}
-
-.actualizar:hover, .eliminar:hover {
-  pointer-events: none !important; /* Deshabilitar hover */
-  background-color: transparent !important; /* Asegurar que no hay fondo */
-  cursor: default !important; /* Evitar cambiar el cursor */
-}
-
 
 .botones {
   display: flex !important;
   flex-direction: row !important; /* Asegura que los elementos estén en fila */
   align-items: center !important; /* Centra los botones verticalmente */
-  justify-content: space-between !important; /* Ajusta la distribución según sea necesario */
-  gap: 10px; /* Espacio entre botones */
+  background-color: transparent !important;
+  size: 40px;
+  font-size: 20px !important;
 }
 
