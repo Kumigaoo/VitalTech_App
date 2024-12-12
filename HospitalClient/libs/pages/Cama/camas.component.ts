@@ -44,6 +44,8 @@ export class CamasComponent implements OnInit, AfterViewInit {
   currentPort!: string;
   //booleano para facilitar legibilidad
   isPortGolden!: boolean;
+  //csspaths
+  cssPaths!: string[];
 
   constructor(
     private camaService: CamaService,
@@ -53,7 +55,24 @@ export class CamasComponent implements OnInit, AfterViewInit {
   ) {
     //cambiar html
     this.currentPort = window.location.port;
-    this.isPortGolden = this.currentPort==="4201";
+    this.isPortGolden = this.currentPort==="4201"; //4201
+
+    //cambiar css
+    if (this.isPortGolden) {
+      //css golden
+      this.cssPaths = ['/assets/styles/styles.css','/assets/styles/Cama/4001.component.css'];
+    } else {
+      //css vital
+      this.cssPaths = ['/assets/styles/styles.css','/assets/styles/Cama/4000.component.css'];
+    }
+
+    this.cssPaths.forEach(css => {
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = css;
+      document.head.appendChild(link);
+    });
     
     
 
