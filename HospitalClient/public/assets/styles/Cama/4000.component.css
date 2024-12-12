@@ -144,5 +144,6 @@ button a {
   justify-content: center;
   background-color: transparent !important;
   size: 40px;
+  font-size: 20px !important;
 }
 
