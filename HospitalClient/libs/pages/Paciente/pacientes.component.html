@@ -1,9 +1,11 @@
 <div class="fondo">
+
   @if(isPortGolden) {
     <app-administratidor-sistema-dashboard></app-administratidor-sistema-dashboard>
   } @else {
     <app-nav></app-nav>
   }
+  
   <div class="pacientes-section">
     <h2 class="texto">Pacientes</h2>
     <app-snackbar #snackbar></app-snackbar>

@@ -53,16 +53,8 @@ thead tr th {
   color: #fff !important;
 }
 
-td:first-child,
-th:first-child {
-  border-top-left-radius: 8px !important;
-  border-bottom-left-radius: 8px !important;
-}
-
-td:last-child,
-th:last-child {
-  border-top-right-radius: 8px !important;
-  border-bottom-right-radius: 8px !important;
+.row {
+  background-color: gray !important;
 }
 
 .mat-paginator {

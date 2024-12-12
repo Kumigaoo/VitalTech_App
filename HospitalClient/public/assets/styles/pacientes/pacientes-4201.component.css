@@ -222,6 +222,3 @@ small {
     font-size: 14px !important;
   }
 }
-table tr:hover {
-  background-color: rgb(176, 35, 35) !important;
-}
