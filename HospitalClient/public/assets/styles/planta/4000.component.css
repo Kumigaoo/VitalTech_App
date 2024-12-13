@@ -1,431 +1,176 @@
 /* vitaltech */
 
 .fondo {
-  background-color: antiquewhite;
-  height: 550px;
-  position: fixed; /* Fija el elemento en la pantalla */
-  z-index: 0;
+  background-color: antiquewhite !important;
+  height: 550px !important;
+  z-index: 0 !important;
+ 
+}
+
+.filter-container {
+  display: flex;
+  justify-content: left;
+  align-items: center; /* Mantiene la alineación vertical */
+  margin-top: 60px;
+  margin-left: 170px;
+}
+
+.filter-container button {
+  margin-left: 20px; /* Ajusta el botón hacia la derecha */
+  margin-top: 50px;   /* Baja el botón ligeramente */
+}
+
+.cell {
+  background-color: darkcyan !important;
+  color: white !important; 
+  text-align: center !important; 
+}
+ 
+.header-container{
+  display: flex !important;
+  align-items: end;
+  justify-content: space-between;
+  padding-left: 170px;
+  padding-right: 60px;
+  flex-direction: row-reverse;
+}
+ 
+.table-container {
+  width: 70% !important;
+  margin-top: 30px !important;
+  margin-left: 250px !important;
 }
 
 .centrado {
-  display: grid;
   place-items: center;
   position: fixed;
-  margin-top:300px;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
 }
-
-.cell {
-  background-color: darkcyan !important;
-  color: white !important;
-  text-align: center !important;
-}
- 
-.table-container {
-  width: 70%;
-  margin-top: 30px;
-  margin-left: 250px;
-}
  
 .table {
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0 5px;
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 100% !important;
+  margin-bottom: 50px !important;
+  border-collapse: separate !important;
+  background: #fff !important;
+  border-radius: 8px !important;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1) !important;
 }
  
 .table th {
-  background-color: darkcyan;
-  color: white;
-  text-align: center;
-  font-weight: bold;
+  background-color: darkcyan !important;
+  color: white !important; 
+  text-align: center !important; 
+  font-weight: bold !important;
 }
  
 .table td {
-  padding: 10px;
-  border: 1px solid darkcyan;
-  text-align: center;
-  background: #fff;
-  font-family: Arial, sans-serif;
-  font-weight: normal;
+  border: 1px solid darkcyan !important;
+  text-align: center !important;
+  background: #fff !important;
+  font-family: Arial, sans-serif !important;
+  font-weight: normal !important;
 }
  
 thead tr th {
-  background-color: darkcyan;
-  border: 1px solid #fff;
-  font-weight: bold;
-  color: #fff;
+  background-color: darkcyan !important;
+  border: 1px solid #fff !important;
+  font-weight: bold !important;
+  color: #fff !important;
 }
  
 td:first-child,
 th:first-child {
-  border-top-left-radius: 8px;
-  border-bottom-left-radius: 8px;
+  border-top-left-radius: 8px !important;
+  border-bottom-left-radius: 8px !important;
 }
  
 td:last-child,
 th:last-child {
-  border-top-right-radius: 8px;
-  border-bottom-right-radius: 8px;
+  border-top-right-radius: 8px !important;
+  border-bottom-right-radius: 8px !important;
 }
- 
-.mat-paginator {
-  color: darkcyan;
-  font-family: Arial, sans-serif;
+
+.pagination-container {
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  margin-top: 20px;
+  width: 100%; /* Asegúrate de que ocupe todo el ancho */
 }
- 
-.mat-mdc-paginator {
-  background-color: transparent !important; /* O el color deseado */
+
+mat-paginator {
+  width: auto;
+  background-color: antiquewhite !important;
+
 }
  
 .search-container {
-  margin-top: 80px;
-  display: flex;
-  align-items: end;
-  margin-left: 125px;
+  margin-top: 50px !important;
+  margin-left: 80px !important;
 }
  
 .registro {
-  margin-left: 30px;
- 
+  margin-left: 115px !important;
 }
  
 .texto {
-  margin-top: 27px;
-  margin-left: 250px;
-  font-family: Arial, sans-serif;
-  font-weight: bold;
-  color: darkcyan;
-  font-size: 25px;
+  margin-top: 27px !important;
+  margin-left: 250px !important;
+  font-family: Arial, sans-serif !important;
+  font-weight: bold !important;
+  color: darkcyan !important;
+  font-size: 25px !important;
 }
  
 button {
-  padding: 10px;
-  background-color: darkcyan;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
-  margin-right: 20px;
- 
+  background-color: darkcyan !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 4px !important;
+  cursor: pointer !important;
+  font-size: 16px !important;
+  margin-right: 20px !important;
 }
  
 button:hover {
-  background-color: #02789b;
+  background-color: #02789b !important;
 }
  
 button a {
-  text-decoration: none;
-  display: block;
-  color: white;
-}
-
-.botones {
-  display: flex;
-}
-
-
-.filter-container {
-  display: flex;
-  justify-content: flex-start; 
-  align-items: end; 
-  margin: 20px 50px; 
-}
-
-.search-container {
-  margin-top: 100px;
-  margin-left: 50px;
-  display: flex;
-  align-items: center;
-}
-
-.registro {
-  margin-left: 30px;
-  margin-top: 10px;
-}
-
-.ico {
-  padding: 0%;
-  font-size: 5vh;
-  margin: 0%;
-  margin-left: 9px;
-  background: none;
-  border: none;
-}
-
-.pagination {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 20px;
-  margin-bottom: 40px;
-  font-family: Arial, sans-serif;
-}
-
-.pagination button {
-  display:flex;
-  padding: 10px;
-  margin: 0 10px;
-  background-color: darkcyan;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-.pagination button:hover {
-  background-color: #02789b;
-}
-
-.pagination span {
-  font-size: 16px;
-}
-
-
-/* 
-.mat-paginator {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 20px;
-}
-
-.mat-paginator-navigation button {
-  background-color: darkcyan !important;
+  text-decoration: none !important;
+  display: block !important;
   color: white !important;
-  border-radius: 4px !important;
 }
-
-.mat-paginator-navigation button:hover {
-  background-color: #02789b !important;
+ 
+.actualizar {
+  font-size: 24px !important;
 }
-
-.mat-paginator-page-size {
-  font-size: 16px;
-  color: darkcyan;
-}
-
-.coleccio {
-  cursor: pointer;
-  color: #02789b;
-}
-
-#eliminarse {
-  margin-top: 4px;
-  margin-left: 20px;
-}
-
-.lala {
-  background: #fff;
-  padding: 30px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  margin-left: 250px;
-  margin-top: 30px;
-  display: flex;
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-}
-
-label {
-  margin-bottom: 10px;
-  font-weight: bold;
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-select,
-input {
-  margin-bottom: 20px;
-  padding: 3px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 16px;
-}
-
-button {
-  padding: 10px;
-  background-color: darkcyan;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
-  margin-right: 20px;
-}
-
-button:hover {
-  background-color: #02789b;
-}
-
-#searchForm {
-  display: flex;
-}
-
-.searchCriteriaItemContainer {
-  display: flex;
-  justify-content: flex-start;
-}
-
-#searchCriteria {
-  margin: 0px;
-  margin-right: 20px;
-}
-
-#searchInput {
-  margin: 0px;
-}
-.searchCriteriaContainer {
-  display: flex;
-}
-#searchInput {
-  margin-right: 20px;
-}
-
-a {
-  text-decoration: none;
-  display: block;
-  color: white;
-}
-
-.contenedor {
-  display: flex;
-  width: 100%;
-}
-
-.texto {
-  margin-top: 27px;
-  margin-left: 250px;
-  font-family: Arial, sans-serif;
-  font-weight: bold;
-  color: darkcyan;
-  font-size: 25px;
-}
-
-.table-container {
-  width: 70%;
-  margin-top: 30px;
-  margin-left: 250px;
-}
-
-.cosas {
-  display: flex;
-  justify-content: flex-start;
-}
-
+ 
 .eliminar {
-  margin-left: 20px;
-  margin-top: 50px;
-  display: flex;
-  justify-content: flex-start;
-  flex-direction: column;
-  justify-content: space-around;
+  font-size: 16px !important;
 }
-table {
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0 5px;
-  margin-top: 1px;
-  border-radius: 8px;
-  overflow: hidden;
+ 
+/* Quitar el efecto hover para .actualizar y .eliminar */
+.actualizar:hover,
+.eliminar:hover {
+  pointer-events: none !important; /* Deshabilitar completamente el hover */
+  cursor: default !important; /* Opcional: cursor estándar */
 }
-
-th,
-td {
-  padding: 10px;
-  border: 1px solid darkcyan;
-  text-align: center;
-  background: #fff;
-  font-family: Arial, sans-serif;
-  font-weight: normal;
-}
-
-thead tr th {
-  background-color: darkcyan;
-  border: 1px solid #fff;
-  font-weight: bold;
-  color: #fff;
-}
-
-th {
-  background-color: #fff;
-  border-spacing: 0 5px;
-}
-
-td:first-child,
-th:first-child {
-  border-top-left-radius: 8px;
-  border-bottom-left-radius: 8px;
-}
-
-td:last-child,
-th:last-child {
-  border-top-right-radius: 8px;
-  border-bottom-right-radius: 8px;
-}
-
-.pagination {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 20px;
-  margin-bottom: 40px;
-  font-family: Arial, sans-serif;
-}
-
-.pagination button {
-  padding: 10px;
-  margin: 0 10px;
-  background-color: darkcyan;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-.pagination button:hover {
-  background-color: #02789b;
-}
-
-.pagination span {
-  font-size: 16px;
-}
-
-.footer {
-  margin-top: 12px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-th a {
-  display: block;
-  color: inherit;
-  text-decoration: none;
-}
-
-
-#modificar {
-  margin-left: 10px;
-}
-
+ 
+ 
 .botones {
-  display: flex;
+  display: flex !important;
 }
-
-
-
-
-
-
+ 
+.botonesbobos {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  background-color: transparent !important;
+  size: 40px;
+}
+ 
 
