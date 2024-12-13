@@ -15,8 +15,9 @@ import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'app-enfermers',
   templateUrl: './enfermers.component.html',
-  styleUrl: '../../../public/assets/styles/Enfermero/4001.component.css',
+  styleUrls: [],
 })
+
 export class EnfermersComponent {
   displayedColumns: string[] = [
     'dni',
@@ -38,6 +39,13 @@ export class EnfermersComponent {
   enfermeroForm!: FormGroup;
   enfermeroParaActualizar: Enfermero | null = null;
 
+  currentPort: string;
+  isPortGolden: boolean;
+
+  templateUrl!: string;
+  styleUrls!: string[];
+  cssPaths!: string[];
+
   constructor(
     private enfermeroService: EnfermeroService,
     private fb: FormBuilder,
@@ -45,6 +53,28 @@ export class EnfermersComponent {
   ) {
     this.obtenerEnfermeros();
     this.crearFormularioEnfermero();
+
+    //cambiar html
+    this.currentPort = window.location.port;
+    this.isPortGolden = this.currentPort === "4201"; //4201
+
+    //cambiar css
+    if (this.isPortGolden) {
+      //css golden
+      this.cssPaths = ['/assets/styles/styles.css', '../../../public/assets/styles/Enfermero/4001.component.css'];
+    } else {
+      //css vital
+      this.cssPaths = ['/assets/styles/styles.css', '../../../public/assets/styles/Enfermero/4000.component.css'];
+    };
+
+    this.cssPaths.forEach(css => {
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = css;
+      document.head.appendChild(link);
+    });
+
   }
 
   ngAfterViewInit(): void {
@@ -160,7 +190,7 @@ export class EnfermersComponent {
         },
       });
     }
-  }
+  };
 
   tooggleAgregarEnfermero(): void {
     this.crearFormularioEnfermero();

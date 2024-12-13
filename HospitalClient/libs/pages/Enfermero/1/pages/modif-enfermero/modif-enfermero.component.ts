@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { EnfermeroService } from '../../../../../../../../../../libs/services/enfermero.service';
+import { EnfermeroService } from '../../../../../services/enfermero.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Enfermero } from '../../../../../../../../../../libs/interfaces/enfermer.interface';
+import { Enfermero } from '../../../../../interfaces/enfermer.interface';
 import Swal from 'sweetalert2';
 
 @Component({

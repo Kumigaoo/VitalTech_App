@@ -1,11 +1,11 @@
 import { RouterLinkActive, RouterLink, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { EnfermeroService } from '../../../../../../../../libs/services/enfermero.service';
-import { Enfermero } from '../../../../../../../../libs/interfaces/enfermer.interface';
-import { PruebasDiagnosticasPopupComponent } from '../../../../components/pop-ups/pruebas-diagnosticas-popup/pruebas-diagnosticas-popup.component';
+import { EnfermeroService } from '../../../services/enfermero.service';
+import { Enfermero } from '../../../interfaces/enfermer.interface';
+import { PruebasDiagnosticasPopupComponent } from '../../../../apps/VitalTech/src/app/components/pop-ups/pruebas-diagnosticas-popup/pruebas-diagnosticas-popup.component';
 import { MatDialog } from '@angular/material/dialog';
 import Swal from 'sweetalert2';
-import { EnumTranslatePipe } from '../../../../pipes/enum-translate.pipe';
+import { EnumTranslatePipe } from '../../../../apps/VitalTech/src/app/pipes/enum-translate.pipe';
 import Fuse from 'fuse.js';
 
 @Component({
