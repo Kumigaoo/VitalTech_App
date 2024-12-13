@@ -118,12 +118,6 @@ export class EpisodisMedicsComponent implements OnInit, AfterViewInit {
     });
   }
 
-  /*verIngresos(episodi: any): void {
-    this.dialog.open(IngresosDialogComponent,{
-      width: '1200px',
-      data: episodi.ingressos
-    });
-  }*/
 
   obtenerEpisodis(): void {
     this.episodiService.getAll().subscribe({

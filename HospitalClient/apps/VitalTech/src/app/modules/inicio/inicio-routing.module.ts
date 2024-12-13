@@ -64,6 +64,11 @@ const routes: Routes = [
     loadChildren: () =>
       import('./enfermero/enfermero.module').then((m) => m.EnfermeroModule),
   },
+  {
+    path: 'administradorSistema',
+    loadChildren: () =>
+      import('./AdministradorSistema/administrador-sistema.module').then((m) => m.AdministradorSistemaModule),
+  },
 ];
 
 @NgModule({
