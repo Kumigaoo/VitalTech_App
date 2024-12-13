@@ -1,3 +1,4 @@
+import { AdministradoresSistemaComponent } from './../../../../../../../libs/pages/AdministradorSistema/administradores-sistema.component';
 import { PlantaComponent } from './../../../../../../../libs/pages/Planta/planta.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -14,7 +15,6 @@ import { AdministradorSistemaComponent } from '../../../pages/inicio/pages/admin
 import { MetgesComponent } from '../../../../../../../libs/pages/Medico/metges.component';
 import { EpisodisMedicsComponent } from '../../../../../../../libs/pages/Episodio/episodis-medics.component';
 import { EnfermersComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/enfermers/enfermers.component';
-import { AdministradoresSistemaComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/administradores-sistema/administradores-sistema.component';
 
 @NgModule({
   declarations: [
