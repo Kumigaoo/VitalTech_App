@@ -4,33 +4,24 @@
 <app-nav></app-nav>
 }
 <div class="centrado">
-<div class="planta-section">
-  <h2>Plantas</h2>
-  <app-snackbar #snackbar></app-snackbar>
+  <div class="planta-section">
+    <h2>Plantas</h2>
+    <app-snackbar #snackbar></app-snackbar>
 
-  <div class="filter-container">
-        <!--Buscador-->
-    <div>
-      <app-search-box
-        [searchOptions]="[
+    <div class="filter-container">
+      <!--Buscador-->
+      <div>
+        <app-search-box [searchOptions]="[
           { label: 'Planta', value: 'planta' },
           { label: 'Capacitat habitacions', value: 'capacitat' }
-        ]"
-        [defaultSearchType]="'planta'"
-        placeholder="Escribe para buscar..."
-        (search)="filtrarPlantes($event)"
-      >
-      </app-search-box>
+        ]" [defaultSearchType]="'planta'" placeholder="Escribe para buscar..." (search)="filtrarPlantes($event)">
+        </app-search-box>
+      </div>
+      <button mat-raised-button color="primary" (click)="toggleFormularioAgregar()">
+        + Registrar planta
+      </button>
     </div>
-    <button
-      mat-raised-button
-      color="primary"
-      (click)="toggleFormularioAgregar()"
-    >
-      + Registrar planta
-    </button>
   </div>
-</div>
 
   @if(!isPortGolden){
   <div class="texto">
@@ -43,11 +34,7 @@
       <!-- Piso -->
       <ng-container matColumnDef="piso">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Piso</th>
-        <td
-          mat-cell
-          *matCellDef="let planta"
-          (click)="toggleActualizarPlanta(planta)"
-        >
+        <td mat-cell *matCellDef="let planta" (click)="toggleActualizarPlanta(planta)">
           {{ planta.piso }}
         </td>
       </ng-container>
@@ -57,11 +44,7 @@
         <th mat-header-cell *matHeaderCellDef mat-sort-header>
           Capacidad de habitaciones
         </th>
-        <td
-          mat-cell
-          *matCellDef="let planta"
-          (click)="toggleActualizarPlanta(planta)"
-        >
+        <td mat-cell *matCellDef="let planta" (click)="toggleActualizarPlanta(planta)">
           {{ planta.capacitatHabitacions }}
         </td>
       </ng-container>
@@ -70,10 +53,7 @@
       <ng-container matColumnDef="habitacions">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Habitaciones</th>
         <td mat-cell *matCellDef="let planta">
-          <a
-            (click)="verHabitaciones(planta)"
-            style="cursor: pointer; color: blue"
-          >
+          <a (click)="verHabitaciones(planta)" style="cursor: pointer; color: blue">
             {{ planta.habitacions.length }} habitaciones
           </a>
         </td>
@@ -86,18 +66,10 @@
 
           @if(!isPortGolden){
           <div class="botonesbobos">
-            <button
-              class="botonesbobos"
-              mat-icon-button
-              (click)="toggleActualizarPlanta(planta)"
-            >
+            <button class="botonesbobos" mat-icon-button (click)="toggleActualizarPlanta(planta)">
               🔄
             </button>
-            <button
-              class="botonesbobos"
-              mat-icon-button
-              (click)="delete(planta.piso)"
-            >
+            <button class="botonesbobos" mat-icon-button (click)="delete(planta.piso)">
               ❎
             </button>
           </div>
@@ -111,20 +83,11 @@
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr
-        mat-row
-        *matRowDef="let row; columns: displayedColumns"
-        class="clickable-row"
-      ></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns" class="clickable-row"></tr>
     </table>
   </div>
 
   <!-- Paginación -->
   <div class="pagination-container">
-  <mat-paginator
-    [pageSizeOptions]="[5, 10]"
-    showFirstLastButtons
-  ></mat-paginator>
+    <mat-paginator [pageSizeOptions]="[5, 10]" showFirstLastButtons></mat-paginator>
   </div>
-
-  

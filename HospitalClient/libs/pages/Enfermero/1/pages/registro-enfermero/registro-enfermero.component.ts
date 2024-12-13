@@ -1,4 +1,4 @@
-import { EnfermeroService } from './../../../../../../../../../../libs/services/enfermero.service';
+import { EnfermeroService } from '../../../../../services/enfermero.service';
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
