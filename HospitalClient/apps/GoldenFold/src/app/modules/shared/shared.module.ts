@@ -25,7 +25,7 @@ import { DialogFormularioComponent } from '../../components/Formularios/Paciente
 import { SnackbarComponent } from '../../components/snackbar/snackbar.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatOption } from '@angular/material/core';
-import { DialogFormulariocamaComponent } from '../../components/Formularios/Cama/dialog-formulario-cama-registro/dialog-formulario-cama.component';
+import { DialogFormulariocamaComponent } from '../../../../../../libs/forms/Cama/Create/dialog-formulario-cama.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { MatCardTitle } from '@angular/material/card';

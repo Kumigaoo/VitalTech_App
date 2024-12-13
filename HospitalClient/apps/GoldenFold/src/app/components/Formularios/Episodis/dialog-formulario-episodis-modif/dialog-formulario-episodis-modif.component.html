@@ -4,6 +4,7 @@
 
 <mat-dialog-content>
   <form [formGroup]="episodiForm" (ngSubmit)="guardar()">
+    <br />
     <mat-form-field appearance="outline" class="example-full-width">
       <mat-label>Data Obertura</mat-label>
       <input
@@ -20,7 +21,7 @@
       ></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
-
+    <br />
     <mat-form-field appearance="outline" class="example-full-width">
       <mat-label>Data Tancament</mat-label>
       <input
@@ -36,7 +37,7 @@
       ></mat-datepicker-toggle>
       <mat-datepicker #picker2></mat-datepicker>
     </mat-form-field>
-
+    <br />
     <mat-form-field appearance="outline">
       <mat-label>Dolencia</mat-label>
       <input
@@ -46,7 +47,7 @@
         required
       />
     </mat-form-field>
-
+    <br />
     <mat-form-field appearance="outline">
       <mat-label>Estat</mat-label>
       <input
@@ -56,7 +57,7 @@
         required
       />
     </mat-form-field>
-
+    <br />
     <mat-form-field appearance="outline">
       <mat-label>DNI Pacient</mat-label>
       <input
@@ -66,19 +67,21 @@
         required
       />
     </mat-form-field>
+    <br />
+    <mat-dialog-actions>
+      <button mat-button *ngIf="!editar" (click)="enableEditing()">Editar</button>
+      <button
+        mat-raised-button
+        color="primary"
+        *ngIf="editar"
+        [disabled]="episodiForm.invalid"
+        (click)="guardar()"
+      >
+        Guardar
+      </button>
+      <button mat-button mat-dialog-close>Cancelar</button>
+    </mat-dialog-actions>
+    
   </form>
 </mat-dialog-content>
 
-<mat-dialog-actions>
-  <button mat-button *ngIf="!editar" (click)="enableEditing()">Editar</button>
-  <button
-    mat-raised-button
-    color="primary"
-    *ngIf="editar"
-    [disabled]="episodiForm.invalid"
-    (click)="guardar()"
-  >
-    Guardar
-  </button>
-  <button mat-button mat-dialog-close>Cancelar</button>
-</mat-dialog-actions>

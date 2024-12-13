@@ -8,14 +8,8 @@ mat-card {
   margin: 16px 0;
 }
 
-button {
-  margin-right: 8px;
-}
-
-body {
-  height: auto;
-}
 body {
   margin: 0;
+  height: auto;
   font-family: Roboto, 'Helvetica Neue', sans-serif;
 }
