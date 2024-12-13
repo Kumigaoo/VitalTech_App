@@ -61,10 +61,10 @@ export class EnfermersComponent {
     //cambiar css
     if (this.isPortGolden) {
       //css golden
-      this.cssPaths = ['/assets/styles/styles.css', '../../../public/assets/styles/Enfermero/4001.component.css'];
+      this.cssPaths = ['/assets/styles/styles.css', '/assets/styles/enfermero/4001.component.css'];
     } else {
       //css vital
-      this.cssPaths = ['/assets/styles/styles.css', '../../../public/assets/styles/Enfermero/4000.component.css'];
+      this.cssPaths = ['/assets/styles/styles.css', '/assets/styles/enfermero/4000.component.css'];
     };
 
     this.cssPaths.forEach(css => {
