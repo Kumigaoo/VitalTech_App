@@ -7,7 +7,7 @@ import { HabitacionesComponent } from '../../../../../../../libs/pages/Habitacio
 import { PacientesComponent } from '../../../../../../../libs/pages/pacientes/pacientes.component';
 // import { UsuariosComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/usuarios/usuarios.component';
 import { IngresosComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/ingresos/ingresos.component';
-import { PruebasComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/consultas/pruebas.component';
+import { PruebasComponent } from '../../../../../../../libs/pages/Pruebas-diagnosticas/pruebas.component';
 import { AdministradorSistemaDashboardComponent } from '../../../pages/inicio/pages/administrador-sistema/administrador-sistema-dashboard/administrador-sistema-dashboard.component';
 import { SharedModule } from '../../shared/shared.module';
 import { AdministradorSistemaComponent } from '../../../pages/inicio/pages/administrador-sistema/administrador-sistema.component';
