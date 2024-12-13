@@ -73,7 +73,7 @@ export class EpisodisMedicsComponent implements OnInit, AfterViewInit {
     this.isPortVitalTech = currentPort === '4200';
 
     if (currentPort == '4201'){
-      cssPath = ['/assets/styles/styles.css', '/assets/styles/Episodio/episodis-medics.component.css'];
+      cssPath = ['/assets/styles/styles.css', '/assets/styles/Episodio/4001.component.css'];
       this.displayedColumns = [
         'id',
         'dataObertura',
@@ -89,7 +89,7 @@ export class EpisodisMedicsComponent implements OnInit, AfterViewInit {
       ];
       
     } else {
-      cssPath = ['/assets/styles/styles.css', '/assets/styles/Episodio/episodio.component.css'];
+      cssPath = ['/assets/styles/styles.css', '/assets/styles/Episodio/4000.component.css'];
       this.displayedColumns = [
         'id',
         'dataObertura',
