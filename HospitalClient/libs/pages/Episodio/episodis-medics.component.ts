@@ -96,7 +96,10 @@ export class EpisodisMedicsComponent implements OnInit, AfterViewInit {
         'dataTancament',
         'motivo',
         'urgencia',
+        'recepta',
         'estat',
+        'dniPacient',
+        'dniMetge',
         'pruebasDiagnosticas',
         'acciones',
       ];
