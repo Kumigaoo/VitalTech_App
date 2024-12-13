@@ -1,4 +1,4 @@
-import { PacientesComponent } from './../../../../../../../libs/pages/Paciente/pacientes.component';
+import { PacientesComponent } from '../../../../../../../libs/pages/pacientes/pacientes.component';
 import { NgModule } from '@angular/core'
 import { PacienteRoutes } from './paciente-routing.module';
 import { NavComponent } from '../../../components/nav/nav.component';

@@ -7,8 +7,8 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
-import { DialogFormulariocamaComponent } from '../../../apps/GoldenFold/src/app/components/Formularios/Cama/dialog-formulario-cama-registro/dialog-formulario-cama.component';
-import { DialogFormulariocamaModifComponent } from '../../../apps/GoldenFold/src/app/components/Formularios/Cama/dialog-formulario-cama-modif/dialog-formulario-cama-modif.component';
+import { DialogFormulariocamaComponent } from '../../forms/Cama/Create/dialog-formulario-cama.component';
+import { DialogFormulariocamaModifComponent } from '../../forms/Cama/Modif/dialog-formulario-cama-modif.component';
 import { HabitacionService } from '../../services/habitacion.service';
 import { Habitacion } from '../../interfaces/habitacion.interface';
 @Component({
@@ -44,6 +44,8 @@ export class CamasComponent implements OnInit, AfterViewInit {
   currentPort!: string;
   //booleano para facilitar legibilidad
   isPortGolden!: boolean;
+  //csspaths
+  cssPaths!: string[];
 
   constructor(
     private camaService: CamaService,
@@ -53,7 +55,24 @@ export class CamasComponent implements OnInit, AfterViewInit {
   ) {
     //cambiar html
     this.currentPort = window.location.port;
-    this.isPortGolden = this.currentPort==="4201";
+    this.isPortGolden = this.currentPort==="4201"; //4201
+
+    //cambiar css
+    if (this.isPortGolden) {
+      //css golden
+      this.cssPaths = ['/assets/styles/styles.css','/assets/styles/Cama/4001.component.css'];
+    } else {
+      //css vital
+      this.cssPaths = ['/assets/styles/styles.css','/assets/styles/Cama/4000.component.css'];
+    }
+
+    this.cssPaths.forEach(css => {
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = css;
+      document.head.appendChild(link);
+    });
     
     
 

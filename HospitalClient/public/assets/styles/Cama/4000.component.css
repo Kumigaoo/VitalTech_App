@@ -4,7 +4,6 @@
   z-index: 0 !important;
 
 }
-
 .cell {
   background-color: darkcyan !important;
   color: white !important; 
@@ -13,19 +12,17 @@
 
 .header-container{
   display: flex !important;
-  flex-direction: row-reverse;
   align-items: end;
-  justify-content: space-around;
-}
-
-.mdc-button {
-  min-width: 0px;
+  justify-content: space-between;
+  padding-left: 170px;
+  padding-right: 60px;
+  flex-direction: row-reverse;
 }
 
 .table-container {
   width: 70% !important;
   margin-top: 30px !important;
-  margin-left: 265px !important;
+  margin-left: 250px !important;
 }
 
 .table {
@@ -50,7 +47,6 @@
   background: #fff !important;
   font-family: Arial, sans-serif !important;
   font-weight: normal !important;
-  cursor: pointer;
 }
 
 thead tr th {
@@ -60,8 +56,16 @@ thead tr th {
   color: #fff !important;
 }
 
-.row {
-  background-color: gray !important;
+td:first-child,
+th:first-child {
+  border-top-left-radius: 8px !important;
+  border-bottom-left-radius: 8px !important;
+}
+
+td:last-child,
+th:last-child {
+  border-top-right-radius: 8px !important;
+  border-bottom-right-radius: 8px !important;
 }
 
 .mat-paginator {
@@ -74,7 +78,7 @@ thead tr th {
 }
 
 .search-container {
-  margin-top: 35px !important;
+  margin-top: 50px !important;
   margin-left: 80px !important;
 }
 
@@ -84,6 +88,7 @@ thead tr th {
 }
 
 .texto {
+  margin-top: 27px !important;
   margin-left: 250px !important;
   font-family: Arial, sans-serif !important;
   font-weight: bold !important;
@@ -91,24 +96,19 @@ thead tr th {
   font-size: 25px !important;
 }
 
-.registro button {
-  background-color: darkcyan !important;
-}
-
 button {
+  background-color: darkcyan !important;
   color: white !important;
   border: none !important;
   border-radius: 4px !important;
   cursor: pointer !important;
-  font-size: 20px !important;
-}
-
-.accions {
-  display: inline-block;
+  font-size: 16px !important;
+  margin-right: 20px !important;
+  
 }
 
 button:hover {
-  background-color: darkcyan !important;
+  background-color: #02789b !important;
   
 }
 
@@ -133,24 +133,17 @@ button a {
   cursor: default !important; /* Opcional: cursor estándar */
 }
 
-#accions {
-  display: flex;
-}
 
 .botones {
   display: flex !important;
 }
 
-h2 {
-  margin-top: 120px !important;
-  margin-right: 150px !important;
-  font-size: 2.5rem;
-  color: #333;
-  margin-bottom: 10px;
-  text-align: center;
-  font-weight: bold;
+.botonesbobos {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  background-color: transparent !important;
+  size: 40px;
+  font-size: 20px !important;
 }
 
-.mat-typography h2 {
-  margin: 0;
-}
