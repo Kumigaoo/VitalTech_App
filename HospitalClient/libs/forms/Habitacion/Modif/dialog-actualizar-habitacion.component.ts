@@ -1,6 +1,6 @@
-
-import { CamaService } from '../../../../../../../../libs/services/cama.service';
-import { PlantaService } from '../../../../../../../../libs/services/planta.service';
+import { Habitacion } from './../../../interfaces/habitacion.interface';
+import { PlantaService } from './../../../services/planta.service';
+import { CamaService } from '../../../services/cama.service';
 import { Component, inject } from '@angular/core';
 import {
   FormBuilder,
@@ -26,12 +26,11 @@ import {
 } from '@angular/material/form-field';
 import { MatInput, MatInputModule } from '@angular/material/input';
 import { Inject } from '@angular/core';
-import { Habitacion } from '../../../../../../../../libs/interfaces/habitacion.interface';
 import { CommonModule } from '@angular/common';
-import { Planta } from '../../../../../../../../libs/interfaces/planta.interface';
+import { Planta } from '../../../interfaces/planta.interface';
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
-import { pisoCodigoValidator } from '../../../../validators/habitacion.validator';
+import { pisoCodigoValidator } from '../../../../apps/GoldenFold/src/app/validators/habitacion.validator';
 
 @Component({
   selector: 'app-dialog-actualizar-habitacion',
@@ -47,8 +46,8 @@ import { pisoCodigoValidator } from '../../../../validators/habitacion.validator
     MatButtonModule,
     CommonModule,
   ],
-  templateUrl: './dialog-actualizar-habitacion.component.html',
-  styleUrl: './dialog-actualizar-habitacion.component.css',
+  templateUrl: '../../../../apps/GoldenFold/src/app/components/Formularios/Habitacion/dialog-actualizar-habitacion/dialog-actualizar-habitacion.component.html',
+  styleUrl: '../../../../apps/GoldenFold/src/app/components/Formularios/Habitacion/dialog-actualizar-habitacion/dialog-actualizar-habitacion.component.css'
 })
 export class DialogActualizarHabitacionComponent {
   habForm!: FormGroup;
