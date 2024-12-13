@@ -38,6 +38,7 @@
   background-color: darkcyan !important;
   color: white !important; 
   text-align: center !important; 
+  font-weight: bold !important;
 }
 
 .table td {
@@ -51,6 +52,7 @@
 thead tr th {
   background-color: darkcyan !important;
   border: 1px solid #fff !important;
+  font-weight: bold !important;
   color: #fff !important;
 }
 

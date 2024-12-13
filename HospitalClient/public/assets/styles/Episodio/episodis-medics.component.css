@@ -1,29 +1,42 @@
 /* Estilo general de la sección de camas */
-.camas-section {
+.episodi-section {
   font-family: Arial, sans-serif;
-  margin-top: 70px; /* Ajusta según la altura del header */
-  margin-left: 170px; /* Ajusta según el ancho del sidenav */
-  padding: 10px;
+  margin: 20px;
+  margin-top: 70px;
+  /* Ajusta según la altura del header */
+  margin-left: 220px;
+  /* Ajusta según el ancho del sidenav */
+  padding: 20px;
+  text-align: center;
 }
 
 .clickable-row {
   cursor: pointer;
 }
+
 .clickable-row:hover {
-  background-color: #f0f0f0;
+  background-color: #f0f0f0 ;
 }
+
 .header-container {
   display: flex;
-  justify-content: space-between; /* Distribuye espacio entre el botón y la caja de búsqueda */
-  align-items: center; /* Alinea verticalmente los elementos */
-  gap: 10px; /* Espacio entre el botón y la caja de búsqueda */
-  margin-bottom: 15px; /* Espacio inferior si es necesario */
+  justify-content: space-between;
+  /* Distribuye espacio entre el botón y la caja de búsqueda */
+  align-items: center;
+  /* Alinea verticalmente los elementos */
+  gap: 10px;
+  /* Espacio entre el botón y la caja de búsqueda */
+  margin-bottom: 20px;
+  /* Espacio inferior si es necesario */
 }
+
+
+
 
 @media (max-width: 768px) {
   .header-container {
-    flex-direction: column; /* Para pantallas más pequeñas, apilar verticalmente */
-    align-items: stretch; /* Alinea los elementos para que ocupen el ancho completo */
+    flex-direction: column ; /* Para pantallas más pequeñas, apilar verticalmente */
+    align-items: stretch ; /* Alinea los elementos para que ocupen el ancho completo */
   }
 }
 
@@ -37,7 +50,6 @@ h2 {
 
 /* Estilo de la caja de búsqueda */
 .search-container {
-  margin-bottom: 20px;
   text-align: center;
 }
 
@@ -92,10 +104,11 @@ h2 {
   background-color: #fafafa;
 }
 
+
 .table td button {
   font-size: 12px;
   padding: 5px 10px;
-  border-radius: 4px;
+  border-radius: 3px;
   border: none;
   cursor: pointer;
 }
@@ -117,7 +130,7 @@ td .password {
 }
 
 .hidden-text {
-  color: #ccc;
+  color: #ccc !important;
 }
 
 /* Estilo del formulario de agregar y actualizar */
@@ -161,6 +174,7 @@ small {
   color: #d9534f;
   font-size: 12px;
 }
+
 /* Estilo de los botones */
 .botones {
   display: flex;
@@ -191,7 +205,7 @@ small {
 /* Estilo del formulario de agregar usuario */
 .form-container button {
   width: 100%;
-  padding: 30px 20px;
+  padding: 10px 20px;
   border: none;
   border-radius: 5px;
   background-color: #28a745;
@@ -203,6 +217,28 @@ small {
 
 .form-container button:hover {
   background-color: #218838;
+}
+
+.table td button {
+  font-size: 12px;
+  padding: 5px 10px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+}
+
+td button {
+  margin: 2px;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+td button:hover {
+  background-color: #066fdf;
+  color: #e0e0e0;
+  transition: 0.3s;
 }
 
 /* Diseño responsivo */

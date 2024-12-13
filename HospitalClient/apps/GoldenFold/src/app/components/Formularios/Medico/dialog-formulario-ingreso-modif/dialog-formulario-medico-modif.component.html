@@ -4,6 +4,7 @@
 </h2>
 <mat-dialog-content>
   <form [formGroup]="medicoForm" style="margin-top: 20px">
+    <br />
     <!--DNI-->
     <mat-form-field appearance="outline">
       <mat-label>DNI:</mat-label>
@@ -18,7 +19,7 @@
       <mat-error>El DNI ya existe</mat-error>
       }
     </mat-form-field>
-
+    <br />
     <!--Nom-->
     <mat-form-field appearance="outline">
       <mat-label>Nombre:</mat-label>
@@ -28,7 +29,7 @@
       <mat-error>El nombre es requerido</mat-error>
       }
     </mat-form-field>
-
+    <br />
     <!--Telefono-->
     <mat-form-field appearance="outline">
       <mat-label>Teléfono:</mat-label>
@@ -38,7 +39,7 @@
       <mat-error>Formato incorrecto de teléfono</mat-error>
       }
     </mat-form-field>
-
+    <br />
     <!--Usuari id-->
     <mat-form-field appearance="outline">
       <mat-label>Usuario:</mat-label>
@@ -52,7 +53,7 @@
       <mat-error>El nombre de usuario es requerido</mat-error>
       }
     </mat-form-field>
-
+    <br />
     <!--Especialitat-->
     <mat-form-field appearance="outline">
       <mat-label>Especialidad</mat-label>
@@ -66,29 +67,31 @@
       <mat-error>La especialidad es requerida</mat-error>
       }
     </mat-form-field>
+    <br />
+    <mat-dialog-actions>
+      <!-- Botón Actualizar: Solo visible si se está en modo detalles -->
+      <button mat-button *ngIf="data.dni && !isEditing" (click)="enableEditing()">
+        Editar
+      </button>
+    
+      <!-- Botón Guardar: Solo visible en modo edición -->
+      <button
+        mat-raised-button
+        color="primary"
+        *ngIf="isEditing"
+        [disabled]="medicoForm.invalid"
+        (click)="guardar()"
+      >
+        Guardar
+      </button>
+    
+      <!-- Botón Cancelar: Siempre visible, cambia comportamiento según el modo -->
+      <button mat-button (click)="cancelar()">Cancelar</button>
+    </mat-dialog-actions>
   </form>
 </mat-dialog-content>
 
-<mat-dialog-actions>
-  <!-- Botón Actualizar: Solo visible si se está en modo detalles -->
-  <button mat-button *ngIf="data.dni && !isEditing" (click)="enableEditing()">
-    Editar
-  </button>
 
-  <!-- Botón Guardar: Solo visible en modo edición -->
-  <button
-    mat-raised-button
-    color="primary"
-    *ngIf="isEditing"
-    [disabled]="medicoForm.invalid"
-    (click)="guardar()"
-  >
-    Guardar
-  </button>
-
-  <!-- Botón Cancelar: Siempre visible, cambia comportamiento según el modo -->
-  <button mat-button (click)="cancelar()">Cancelar</button>
-</mat-dialog-actions>
 
 } @else{
 <h1
