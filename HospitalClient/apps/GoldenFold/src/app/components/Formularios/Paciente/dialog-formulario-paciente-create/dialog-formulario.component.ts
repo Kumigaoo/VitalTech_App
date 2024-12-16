@@ -94,7 +94,6 @@ export class DialogFormularioComponent {
           ),
         ],
       ],
-      administratiuId: [this.data.administratiuId, [Validators.required]],
       birthDay: [
         this.data.birthDay ? new Date(this.data.birthDay) : null,
         Validators.required,
