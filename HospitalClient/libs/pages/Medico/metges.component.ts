@@ -34,6 +34,7 @@ export class MetgesComponent {
   ];
   medicos: MatTableDataSource<Medico> = new MatTableDataSource<Medico>([]);
   usuarios: MatTableDataSource<Usuari> = new MatTableDataSource<Usuari>([]);
+  usuariosDisponibles: MatTableDataSource<Usuari> = new MatTableDataSource<Usuari>([]);
 
   currentPort: string;
   isPortGolden: boolean;
@@ -93,6 +94,7 @@ export class MetgesComponent {
     this.medicoService.getAll().subscribe({
       next: (data: Medico[]) => {
         this.medicos.data = data;
+        this.obtenerUsuariosDisponibles();
       },
       error: (error: any) => {
         console.error('Error al obtener los medicos', error);
@@ -153,6 +155,10 @@ export class MetgesComponent {
 
   tooggleAgregarMedico(): void {
     this.crearFormularioMedico();
+    if(this.checkNoUsuarios()){
+      this.snackbar.showNotification('error','No hay usuarios disponibles');
+      return;
+    } 
     this.dialog
       .open(DialogFormularioMedicoModifComponent, {
         data: this.medicoForm,
@@ -217,6 +223,7 @@ export class MetgesComponent {
           'success',
           'Médico eliminado correctamente'
         ); // Notificación de éxito
+        this.obtenerUsuariosDisponibles();
       },
       error: (error: any) => {
         console.log('ERROR', error);
@@ -252,11 +259,37 @@ export class MetgesComponent {
     });
   }
 
+  obtenerUsuariosDisponibles(): void {
+    this.usuarioService.getAll().subscribe({
+      next: (data: Usuari[]) => {
+        //usuarios con rol metge
+        let usuaris = data.filter((usuari) => usuari.rolId === 'Metge');
+
+        // usuarios disponibles
+        usuaris = usuaris.filter(
+          (usuari) =>
+            !this.medicos.data.some((medico) => medico.usuariId == usuari.id)
+        );
+        this.usuariosDisponibles.data = usuaris;
+      },
+      error: (error: any) => {
+        console.log('Error al obtener los usuarios', error);
+      },
+    });
+  }
+
   obtenerNombreUsuario(id: number): string | null {
     const user = this.usuarios.data.find((p) => p.id == id);
     if (user == null) {
       return null;
     }
     return user?.username;
+  }
+
+  checkNoUsuarios(): boolean{
+    if(this.usuariosDisponibles.data.length<=0){
+      return true;
+    }
+    return false;
   }
 }
