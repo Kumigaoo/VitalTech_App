@@ -1,7 +1,11 @@
 @if(isPortGolden){
+
 <app-administratidor-sistema-dashboard></app-administratidor-sistema-dashboard>
+
 } @else {
+
 <app-nav></app-nav>
+
 }
 
 <div class="centrado">
@@ -11,11 +15,14 @@
     <app-snackbar #snackbar></app-snackbar>
 
     <div class="header-container">
+
       <!-- Botón de agregar enfermero-->
       <div>
+        
         <button mat-raised-button color="primary" (click)="tooggleAgregarEnfermero()">
           Agregar Enfermero
         </button>
+
       </div>
 
       <!--Caja de busqueda-->
@@ -73,8 +80,9 @@
           <th mat-header-cell *matHeaderCellDef mat-sort-header>
             Pruebas Diagnosticas
           </th>
-          <td mat-cell *matCellDef="let enfermer" style="cursor: pointer; color: blue"
-            (click)="verPruebasDiagnosticas(enfermer)">
+          <td mat-cell *matCellDef="let enfermer" 
+          style="cursor: pointer; color: blue"
+          (click)="verPruebasDiagnosticas(enfermer)">
             {{ enfermer?.pruebasDiagnosticas.length }}
             {{
             enfermer?.pruebasDiagnosticas.length == 1
@@ -89,19 +97,22 @@
           <td mat-cell *matCellDef="let enfermero">
 
             @if(!isPortGolden){
+
             <div class="botonesbobos">
-              <button class="botonesbobos" mat-icon-button (click)="actualizarEnfermero(enfermero)">
+              <button class="botonesbobos" mat-icon-button (click)="toogleActualizarEnfermero(enfermero)">
                 🔄
               </button>
-              <button class="botonesbobos" mat-icon-button (click)="deleteEnfermero(enfermero.dni)">
+              <button class="botonesbobos" mat-icon-button (click)="deleteEnfermero(enfermero)">
                 ❎
               </button>
             </div>
 
             }@else {
-            <button mat-button color="warn" (click)="deleteEnfermero(enfermero.dni)">
+
+            <button mat-button color="warn" (click)="deleteEnfermero(enfermero)">
               Eliminar
             </button>
+
             }
 
         </ng-container>

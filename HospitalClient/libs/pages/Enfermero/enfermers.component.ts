@@ -1,5 +1,5 @@
+import { DialogFormularioEnfermeroModifComponent } from './pages/popaps/dialog-formulario-ingreso-modif/dialog-formulario-enfermero-modif.component';
 import { PruebasDialogComponent } from './../../../apps/GoldenFold/src/app/components/popups/pruebas-popup';
-import { DialogFormularioEnfermeroModifComponent } from './../../../apps/GoldenFold/src/app/components/Formularios/Enfermero/dialog-formulario-ingreso-modif/dialog-formulario-enfermero-modif.component';
 import { EnfermeroService } from './../../services/enfermero.service';
 import { SnackbarComponent } from './../../../apps/GoldenFold/src/app/components/snackbar/snackbar.component';
 import { Enfermero } from './../../interfaces/enfermer.interface';
@@ -141,6 +141,7 @@ export class EnfermersComponent {
           return false;
       }
     };
+
     this.enfermeros.filter = searchTerm;
 
     if (this.enfermeros.paginator) {
