@@ -98,6 +98,7 @@ export class DialogFormularioMedicoModifComponent implements OnInit {
         ...this.data,
         ...this.medicoForm.value,
       };
+      medicoActualizado.telefon = medicoActualizado.telefon.toString().trim();
       this.dialogRef.close(medicoActualizado);
     }
   }
