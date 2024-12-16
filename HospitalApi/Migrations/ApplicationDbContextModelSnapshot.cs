@@ -63,8 +63,8 @@ namespace HospitalApi.Migrations
                     b.Property<string>("Recepta")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Urgencia")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Urgencia")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -170,9 +170,6 @@ namespace HospitalApi.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("AdministratiuId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("BirthDay")
                         .HasColumnType("datetime2");
 
@@ -217,8 +214,6 @@ namespace HospitalApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AdministratiuId");
-
                     b.HasIndex("DNI")
                         .IsUnique();
 
@@ -245,6 +240,9 @@ namespace HospitalApi.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("Actiu")
+                        .HasColumnType("bit");
 
                     b.Property<string>("DNI")
                         .IsRequired()
@@ -520,17 +518,6 @@ namespace HospitalApi.Migrations
                         .IsRequired();
 
                     b.Navigation("Habitacio");
-                });
-
-            modelBuilder.Entity("HospitalAPI.Models.Pacient", b =>
-                {
-                    b.HasOne("HospitalAPI.Models.Administratiu", "Administratiu")
-                        .WithMany()
-                        .HasForeignKey("AdministratiuId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Administratiu");
                 });
 
             modelBuilder.Entity("HospitalAPI.Models.Personal", b =>

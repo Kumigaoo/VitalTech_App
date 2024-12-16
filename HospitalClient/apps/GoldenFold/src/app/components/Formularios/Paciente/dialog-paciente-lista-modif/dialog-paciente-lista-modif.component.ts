@@ -115,7 +115,6 @@ export class DialogPacienteComponent {
           ),
         ],
       ],
-      administratiuId: [this.data.administratiuId],
       birthDay: [
         this.data.birthDay ? new Date(this.data.birthDay) : null,
         Validators.required,

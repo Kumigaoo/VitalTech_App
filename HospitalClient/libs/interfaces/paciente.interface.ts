@@ -10,7 +10,6 @@ export interface Paciente {
   telefono: string;
   nacionalidad: string;
   email: string;
-  administratiuId: number;
   birthDay: string;
   estado: string;
   episodisMedics: EpisodiMedic[];
