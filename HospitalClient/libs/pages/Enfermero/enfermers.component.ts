@@ -1,21 +1,23 @@
+import { PruebasDialogComponent } from './../../../apps/GoldenFold/src/app/components/popups/pruebas-popup';
+import { DialogFormularioEnfermeroModifComponent } from './../../../apps/GoldenFold/src/app/components/Formularios/Enfermero/dialog-formulario-ingreso-modif/dialog-formulario-enfermero-modif.component';
+import { EnfermeroService } from './../../services/enfermero.service';
+import { SnackbarComponent } from './../../../apps/GoldenFold/src/app/components/snackbar/snackbar.component';
+import { Enfermero } from './../../interfaces/enfermer.interface';
 import { Component, ViewChild } from '@angular/core';
-import { Enfermero } from '../../../../../../../../../../libs/interfaces/enfermer.interface';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
-import { SnackbarComponent } from '../../../../../../components/snackbar/snackbar.component';
 import { MatSort } from '@angular/material/sort';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { EnfermeroService } from '../../../../../../../../../../libs/services/enfermero.service';
 import { getMatIconFailedToSanitizeUrlError } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogFormularioEnfermeroModifComponent } from '../../../../../../components/Formularios/Enfermero/dialog-formulario-ingreso-modif/dialog-formulario-enfermero-modif.component';
-import { PruebasDialogComponent } from '../../../../../../components/popups/pruebas-popup';
+
 
 @Component({
   selector: 'app-enfermers',
   templateUrl: './enfermers.component.html',
-  styleUrl: './enfermers.component.css',
+  styleUrls: [],
 })
+
 export class EnfermersComponent {
   displayedColumns: string[] = [
     'dni',
@@ -37,6 +39,13 @@ export class EnfermersComponent {
   enfermeroForm!: FormGroup;
   enfermeroParaActualizar: Enfermero | null = null;
 
+  currentPort: string;
+  isPortGolden: boolean;
+
+  templateUrl!: string;
+  styleUrls!: string[];
+  cssPaths!: string[];
+
   constructor(
     private enfermeroService: EnfermeroService,
     private fb: FormBuilder,
@@ -44,6 +53,28 @@ export class EnfermersComponent {
   ) {
     this.obtenerEnfermeros();
     this.crearFormularioEnfermero();
+
+    //cambiar html
+    this.currentPort = window.location.port;
+    this.isPortGolden = this.currentPort === "4201"; //4201
+
+    //cambiar css
+    if (this.isPortGolden) {
+      //css golden
+      this.cssPaths = ['/assets/styles/styles.css', '/assets/styles/enfermero/4001.component.css'];
+    } else {
+      //css vital
+      this.cssPaths = ['/assets/styles/styles.css', '/assets/styles/enfermero/4000.component.css'];
+    };
+
+    this.cssPaths.forEach(css => {
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = css;
+      document.head.appendChild(link);
+    });
+
   }
 
   ngAfterViewInit(): void {
@@ -159,7 +190,7 @@ export class EnfermersComponent {
         },
       });
     }
-  }
+  };
 
   tooggleAgregarEnfermero(): void {
     this.crearFormularioEnfermero();
