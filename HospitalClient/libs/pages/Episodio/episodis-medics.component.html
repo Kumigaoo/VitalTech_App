@@ -11,7 +11,7 @@
   
     <div class="header-container">
       <div class="registro">
-        <button mat-raised-button class="primary" (click)="toggleFormularioAgregar()" > Agregar Episodio medico </button>
+        <button mat-raised-button color="primary" (click)="toggleFormularioAgregar()" > Agregar Episodio medico </button>
       </div>
       <div class="search-container">
         <app-search-box
@@ -37,7 +37,7 @@
     }
     <div class="table-container">
       <app-snackbar></app-snackbar>
-      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 responsive-table" matSort>
         <ng-container matColumnDef="id">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
           <td
@@ -124,7 +124,7 @@
         </ng-container>
   
         <ng-container matColumnDef="dniPacient">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>DNI Pacient</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Pacient</th>
           <td
             mat-cell
             *matCellDef="let episodi"
@@ -135,7 +135,7 @@
         </ng-container>
   
         <ng-container matColumnDef="dniMetge">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>DNI Medico</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Medico</th>
           <td
             mat-cell
             *matCellDef="let episodi"

@@ -1,3 +1,5 @@
+import { EnfermersComponent } from './../../../../../../../libs/pages/Enfermero/enfermers.component';
+import { AdministradoresSistemaComponent } from './../../../../../../../libs/pages/AdministradorSistema/administradores-sistema.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CamasComponent } from '../../../../../../../libs/pages/Cama/camas.component';
@@ -9,9 +11,7 @@ import { AdministradorSistemaComponent } from '../../../pages/inicio/pages/admin
 import { PlantaComponent } from '../../../../../../../libs/pages/Planta/planta.component';
 import { EpisodisMedicsComponent } from '../../../../../../../libs/pages/Episodio/episodis-medics.component';
 import { MetgesComponent } from '../../../../../../../libs/pages/Medico/metges.component';
-import { EnfermersComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/enfermers/enfermers.component';
-import { PruebasComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/consultas/pruebas.component';
-import { AdministradoresSistemaComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/administradores-sistema/administradores-sistema.component';
+import { PruebasComponent } from '../../../../../../../libs/pages/Pruebas-diagnosticas/pruebas.component';
 
 const routes: Routes = [
   {

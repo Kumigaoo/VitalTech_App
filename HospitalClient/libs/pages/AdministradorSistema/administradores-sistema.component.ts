@@ -1,17 +1,18 @@
-import { AdministradorSistemaService } from './../../../../../../../../../../libs/services/administrador-sistema.service';
+import { AdministradorSistemaService } from '../../services/administrador-sistema.service';
 import { Component, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { SnackbarComponent } from '../../../../../../components/snackbar/snackbar.component';
+import { SnackbarComponent } from '../../../apps/GoldenFold/src/app/components/snackbar/snackbar.component';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { HttpClient } from '@angular/common/http';
 import { retry } from 'rxjs';
-import { AdministradorSistema } from '../../../../../../../../../../libs/interfaces/administrador-sistema.interface';
+import { AdministradorSistema } from '../../interfaces/administrador-sistema.interface';
 @Component({
   selector: 'app-administradores-sistema',
   templateUrl: './administradores-sistema.component.html',
-  styleUrl: './administradores-sistema.component.css',
+  styleUrls: [],
 })
 export class AdministradoresSistemaComponent {
   displayedColumns: string[] = [
@@ -32,11 +33,38 @@ export class AdministradoresSistemaComponent {
   administradorSistemaForm!: FormGroup;
   administradorSistemaParaActualizar: AdministradorSistema | null = null;
 
+  //puerto actual
+  currentPort!: string;
+  //booleano para facilitar legibilidad
+  isPortGolden!: boolean;
+  //csspaths
+  cssPaths!: string[];
+
   constructor(
     private administradorSistemaService: AdministradorSistemaService,
     private fb: FormBuilder,
     private dialog: MatDialog
   ) {
+    //cambiar html
+    this.currentPort = window.location.port;
+    this.isPortGolden = this.currentPort==="4201";
+
+    //cambiar css
+    if (this.isPortGolden) {
+      //css golden
+      this.cssPaths = ['/assets/styles/styles.css','/assets/styles/AdministradorSistema/4001.component.css'];
+    } else {
+      //css vital
+      this.cssPaths = ['/assets/styles/styles.css','/assets/styles/AdministradorSistema/4000.component.css'];
+    }
+
+    this.cssPaths.forEach(css => {
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = css;
+      document.head.appendChild(link);
+    });
     this.obtenerAdministradoresDeSistema();
     this.crearFormularioAdministradorDeSistema();
   }

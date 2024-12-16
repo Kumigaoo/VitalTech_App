@@ -27,14 +27,8 @@
         "assets": [
           {
             "glob": "**/*",
-            "input": "apps/GoldenFold/src/assets",
-            "output": "/assets"
-          },{
-            "glob": "**/*",
-            "input": "public/assets",
-            "output": "/assets"
+            "input": "apps/GoldenFold/public"
           },
-
           {
             "glob": "**/*",
             "input": "public/assets",
