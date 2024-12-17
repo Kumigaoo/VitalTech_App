@@ -9,6 +9,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
 import { retry } from 'rxjs';
 import { AdministradorSistema } from '../../interfaces/administrador-sistema.interface';
+import { obtenerNombreUsuario } from '../../utils/utilFunctions';
+import { Usuari } from '../../interfaces/usuari.interface';
+import { UsuarioService } from '../../services/usuario.service';
 @Component({
   selector: 'app-administradores-sistema',
   templateUrl: './administradores-sistema.component.html',
@@ -23,8 +26,8 @@ export class AdministradoresSistemaComponent {
     'prioridad',
     'actions',
   ];
-  administradores: MatTableDataSource<AdministradorSistema> =
-    new MatTableDataSource<AdministradorSistema>();
+  administradores: MatTableDataSource<AdministradorSistema> = new MatTableDataSource<AdministradorSistema>();
+  usuarios: MatTableDataSource<Usuari> = new MatTableDataSource<Usuari>([]);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -42,6 +45,7 @@ export class AdministradoresSistemaComponent {
 
   constructor(
     private administradorSistemaService: AdministradorSistemaService,
+     private usuarioService: UsuarioService,
     private fb: FormBuilder,
     private dialog: MatDialog
   ) {
@@ -66,6 +70,7 @@ export class AdministradoresSistemaComponent {
       document.head.appendChild(link);
     });
     this.obtenerAdministradoresDeSistema();
+    this.obtenerUsuarios();
     this.crearFormularioAdministradorDeSistema();
   }
 
@@ -79,6 +84,17 @@ export class AdministradoresSistemaComponent {
       },
       error: (error: any) => {
         console.log('ERROR:', error);
+      },
+    });
+  }
+
+  obtenerUsuarios(): void {
+    this.usuarioService.getAll().subscribe({
+      next: (data: Usuari[]) => {
+        this.usuarios.data = data;
+      },
+      error: (error: any) => {
+        console.log(error);
       },
     });
   }
@@ -135,6 +151,10 @@ export class AdministradoresSistemaComponent {
     if (this.administradores.paginator) {
       this.administradores.paginator.firstPage();
     }
+  }
+
+  getUserName(id: number,users: MatTableDataSource<Usuari>): string | null {
+    return obtenerNombreUsuario(id,users);
   }
 
   toggleAgregarAdministradorSistema(): void {
