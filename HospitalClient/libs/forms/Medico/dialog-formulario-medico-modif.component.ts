@@ -61,8 +61,8 @@ import { dniExisteValidator } from '../../../apps/GoldenFold/src/app/validators/
     MatDialogModule,
     MatButtonModule,
   ],
-  templateUrl: '../../../apps/GoldenFold/src/app/components/Formularios/Medico/dialog-formulario-ingreso-modif/dialog-formulario-medico-modif.component.html',
-  styleUrls: ['../../../apps/GoldenFold/src/app/components/Formularios/Medico/dialog-formulario-ingreso-modif/dialog-formulario-medico-modif.component.css'],
+  templateUrl: './dialog-formulario-medico-modif.component.html',
+  styleUrls: [],
 })
 export class DialogFormularioMedicoModifComponent implements OnInit {
   isEditing: boolean = true; // Variable para controlar el modo
@@ -70,6 +70,7 @@ export class DialogFormularioMedicoModifComponent implements OnInit {
   usuaris!: Usuari[];
   medicos!: Medico[];
   usuarioIdsMedicos = new Set('');
+  cssPaths!: string[];
   especialidades = Object.entries(EspecialidadesMedico)
     .filter(([key, value]) => !isNaN(Number(value)))
     .map(([key, value]) => ({ id: value as number, nombre: key }));
@@ -84,6 +85,14 @@ export class DialogFormularioMedicoModifComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.cssPaths =  ['/assets/styles/styles.css','/assets/styles/medico/Popups/dialog-formulario-medico-modif.component.css'];
+    this.cssPaths.forEach(css => {
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = css;
+      document.head.appendChild(link);
+    });
     this.crearFormularioMedico();
     this.obtenerUsuaris();
     if (this.data.dni) {
