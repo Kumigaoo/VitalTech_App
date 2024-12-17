@@ -14,6 +14,7 @@ import { MedicoDashboardComponent } from '../../../apps/GoldenFold/src/app/pages
 import { EpisodiosDialogComponent } from '../../../apps/GoldenFold/src/app/components/popups/episodis-popup';
 import { PruebasDialogComponent } from '../../../apps/GoldenFold/src/app/components/popups/pruebas-popup';
 import { Usuari } from '../../interfaces/usuari.interface';
+import { obtenerNombreUsuario } from '../../utils/utilFunctions';
 
 @Component({
   selector: 'app-metges',
@@ -276,14 +277,6 @@ export class MetgesComponent {
         console.log('Error al obtener los usuarios', error);
       },
     });
-  }
-
-  obtenerNombreUsuario(id: number): string | null {
-    const user = this.usuarios.data.find((p) => p.id == id);
-    if (user == null) {
-      return null;
-    }
-    return user?.username;
   }
 
   checkNoUsuarios(): boolean{
