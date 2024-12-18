@@ -197,6 +197,38 @@ export class AdministradoresSistemaComponent {
     })
   }
 
+  toggleActualizarAdministradorSistema(administrador: AdministradorSistema): void {
+    this.administradorSistemaParaActualizar = {...administrador}
+    this.dialog.open(DialogFormularioAdministradorSistemaModifComponent,{
+      data: this.administradorSistemaParaActualizar
+    }).afterClosed().subscribe((administradorActualizado)=>{
+      if(administradorActualizado){
+        this.administradorSistemaParaActualizar = administradorActualizado;
+        this.actualizarAdministradorSistema(administrador.dni);
+      }
+    })
+  }
+
+  actualizarAdministradorSistema(dniAntiguo: string): void {
+    if (this.administradorSistemaParaActualizar) {
+      const administradorActualizado = { ...this.administradorSistemaParaActualizar };
+      this.administradorSistemaService.put(dniAntiguo, administradorActualizado).subscribe({
+        next: () => {
+          this.obtenerAdministradoresDeSistema();
+          this.administradorSistemaParaActualizar = null;
+          this.administradorSistemaForm.reset();
+          this.snackbar.showNotification(
+            'success',
+            'Administrador de Sistema actualizado correctamente'
+          ); // Notificación de éxito
+        },
+        error: (error: any) => {
+          console.error('Error al actualizar el Administrador de Sistema', error);
+        },
+      });
+    }
+  }
+
   aregarAdministradorSistema(): void {
     if (this.administradorSistemaForm.valid) {
       const nuevoAdministrador: AdministradorSistema = this.administradorSistemaForm.value;
