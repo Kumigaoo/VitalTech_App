@@ -9,7 +9,6 @@ import { PacientesComponent } from '../../../../../../../libs/pages/pacientes/pa
 import { IngresosComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/ingresos/ingresos.component';
 import { AdministradorSistemaComponent } from '../../../pages/inicio/pages/administrador-sistema/administrador-sistema.component';
 import { PlantaComponent } from '../../../../../../../libs/pages/Planta/planta.component';
-import { EpisodisMedicsComponent } from '../../../../../../../libs/pages/Episodio/episodis-medics.component';
 import { MetgesComponent } from '../../../../../../../libs/pages/Medico/metges.component';
 import { PruebasComponent } from '../../../../../../../libs/pages/Pruebas-diagnosticas/pruebas.component';
 import { EpisodiComponent } from '../../../../../../../libs/pages/Episodio/episodioPrueba.component';
@@ -22,11 +21,6 @@ const routes: Routes = [
   {
     path: 'camas',
     component: CamasComponent,
-  },
-
-  {
-    path: 'episodis-medics',
-    component: EpisodisMedicsComponent,
   },
   {
     path: 'episodis-medics-prueba',

@@ -13,7 +13,6 @@ import { AdministradorSistemaDashboardComponent } from '../../../pages/inicio/pa
 import { SharedModule } from '../../shared/shared.module';
 import { AdministradorSistemaComponent } from '../../../pages/inicio/pages/administrador-sistema/administrador-sistema.component';
 import { MetgesComponent } from '../../../../../../../libs/pages/Medico/metges.component';
-import { EpisodisMedicsComponent } from '../../../../../../../libs/pages/Episodio/episodis-medics.component';
 import { EnfermersComponent } from '../../../../../../../libs/pages/Enfermero/enfermers.component';
 import { EpisodiComponent } from '../../../../../../../libs/pages/Episodio/episodioPrueba.component';
 
@@ -30,7 +29,6 @@ import { EpisodiComponent } from '../../../../../../../libs/pages/Episodio/episo
     IngresosComponent,
     PruebasComponent,
     PlantaComponent,
-    EpisodisMedicsComponent,
     EpisodiComponent
   ],
 
