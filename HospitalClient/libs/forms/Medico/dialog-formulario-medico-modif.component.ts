@@ -42,7 +42,12 @@ import { MedicoService } from '../../services/metge.service';
 import { dniValidator } from '../../validators/dniValidator';
 import { map } from 'rxjs';
 import { EspecialidadesMedico } from '../../../apps/GoldenFold/src/app/enums/especialidadesMedico';
+<<<<<<< HEAD
 import { dniExisteValidator } from '../../validators/dniExistsValidatos';
+=======
+import { dniExisteValidator } from '../../../apps/GoldenFold/src/app/validators/dniExistsValidatos';
+import { obtenerUsuariosDisponibles } from '../../utils/utilFunctions';
+>>>>>>> c5ee36f0a0cb7eb4a94e37957c6ecc48018cac56
 
 @Component({
   selector: 'app-dialog-formulario-medico-modif',
@@ -61,8 +66,8 @@ import { dniExisteValidator } from '../../validators/dniExistsValidatos';
     MatDialogModule,
     MatButtonModule,
   ],
-  templateUrl: '../../../apps/GoldenFold/src/app/components/Formularios/Medico/dialog-formulario-ingreso-modif/dialog-formulario-medico-modif.component.html',
-  styleUrls: ['../../../apps/GoldenFold/src/app/components/Formularios/Medico/dialog-formulario-ingreso-modif/dialog-formulario-medico-modif.component.css'],
+  templateUrl: './dialog-formulario-medico-modif.component.html',
+  styleUrls: [],
 })
 export class DialogFormularioMedicoModifComponent implements OnInit {
   isEditing: boolean = true; // Variable para controlar el modo
@@ -70,6 +75,7 @@ export class DialogFormularioMedicoModifComponent implements OnInit {
   usuaris!: Usuari[];
   medicos!: Medico[];
   usuarioIdsMedicos = new Set('');
+  cssPaths!: string[];
   especialidades = Object.entries(EspecialidadesMedico)
     .filter(([key, value]) => !isNaN(Number(value)))
     .map(([key, value]) => ({ id: value as number, nombre: key }));
@@ -78,14 +84,21 @@ export class DialogFormularioMedicoModifComponent implements OnInit {
     private medicoService: MedicoService,
     public dialogRef: MatDialogRef<DialogFormularioMedicoModifComponent>,
     private fb: FormBuilder,
-    private usuariService: UsuarioService
+    private usuarioService: UsuarioService
   ) {
     this.obtenerMedicos();
   }
 
   ngOnInit(): void {
+    this.cssPaths =  ['/assets/styles/styles.css','/assets/styles/medico/Popups/dialog-formulario-medico-modif.component.css'];
+    this.cssPaths.forEach(css => {
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = css;
+      document.head.appendChild(link);
+    });
     this.crearFormularioMedico();
-    this.obtenerUsuaris();
     if (this.data.dni) {
       this.showDetails();
     }
@@ -98,6 +111,10 @@ export class DialogFormularioMedicoModifComponent implements OnInit {
         ...this.data,
         ...this.medicoForm.value,
       };
+      medicoActualizado.telefon = medicoActualizado.telefon.toString().trim();
+      medicoActualizado.dni = medicoActualizado.dni.toString().trim();
+      medicoActualizado.especialitat = medicoActualizado.especialitat.toString().trim();
+      medicoActualizado.nom = medicoActualizado.nom.toString().trim();
       this.dialogRef.close(medicoActualizado);
     }
   }
@@ -155,6 +172,7 @@ export class DialogFormularioMedicoModifComponent implements OnInit {
     this.medicoService.getAll().subscribe({
       next: (data: Medico[]) => {
         this.medicos = data;
+        this.getUsuariosDisponibles();
       },
       error: (error: any) => {
         console.log(error);
@@ -162,22 +180,14 @@ export class DialogFormularioMedicoModifComponent implements OnInit {
     });
   }
 
-  obtenerUsuaris(): void {
-    this.usuariService.getAll().subscribe({
-      next: (data: Usuari[]) => {
-        //usuarios con rol metge
-        let usuaris = data.filter((usuari) => usuari.rolId === 'Metge');
-
-        // usuarios disponibles
-        usuaris = usuaris.filter(
-          (usuari) =>
-            !this.medicos.some((medico) => medico.usuariId == usuari.id)
-        );
-        this.usuaris = usuaris;
-      },
-      error: (error: any) => {
-        console.log('Error al obtener los usuarios', error);
-      },
-    });
-  }
+    getUsuariosDisponibles(): void {
+      obtenerUsuariosDisponibles("Metge",this.medicos,this.usuarioService).subscribe({
+        next:(usuariosDisponibles: Usuari[]) => {
+          this.usuaris = usuariosDisponibles;
+        },
+        error:(error:any)=>{
+          console.log('Error al obtener los usuarios disponibles:',error);
+        }
+      })
+    }
 }

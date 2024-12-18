@@ -10,10 +10,11 @@ import { Form, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MedicoService } from '../../services/metge.service';
 import { MatDialog } from '@angular/material/dialog';
 import { MedicoDashboardComponent } from '../../../apps/GoldenFold/src/app/pages/inicio/pages/medico/medico-dashboard/medico-dashboard.component';
-
+import { obtenerUsuariosDisponibles } from '../../utils/utilFunctions';
 import { EpisodiosDialogComponent } from '../../../apps/GoldenFold/src/app/components/popups/episodis-popup';
 import { PruebasDialogComponent } from '../../../apps/GoldenFold/src/app/components/popups/pruebas-popup';
 import { Usuari } from '../../interfaces/usuari.interface';
+import { obtenerNombreUsuario } from '../../utils/utilFunctions';
 
 @Component({
   selector: 'app-metges',
@@ -34,6 +35,7 @@ export class MetgesComponent {
   ];
   medicos: MatTableDataSource<Medico> = new MatTableDataSource<Medico>([]);
   usuarios: MatTableDataSource<Usuari> = new MatTableDataSource<Usuari>([]);
+  usuariosDisponibles: MatTableDataSource<Usuari> = new MatTableDataSource<Usuari>([]);
 
   currentPort: string;
   isPortGolden: boolean;
@@ -93,6 +95,7 @@ export class MetgesComponent {
     this.medicoService.getAll().subscribe({
       next: (data: Medico[]) => {
         this.medicos.data = data;
+        this.getUsuariosDisponibles();
       },
       error: (error: any) => {
         console.error('Error al obtener los medicos', error);
@@ -116,7 +119,6 @@ export class MetgesComponent {
       const nuevoMedico: Medico = this.medicoForm.value;
       this.medicoService.post(nuevoMedico).subscribe({
         next: (medico: Medico) => {
-          console.log('Medico', medico);
           this.medicos.data = [...this.medicos.data, medico];
           this.obtenerMedicos();
           this.medicoForm.reset();
@@ -153,6 +155,10 @@ export class MetgesComponent {
 
   tooggleAgregarMedico(): void {
     this.crearFormularioMedico();
+    if(this.checkNoUsuarios()){
+      this.snackbar.showNotification('error','No hay usuarios disponibles');
+      return;
+    } 
     this.dialog
       .open(DialogFormularioMedicoModifComponent, {
         data: this.medicoForm,
@@ -217,6 +223,7 @@ export class MetgesComponent {
           'success',
           'Médico eliminado correctamente'
         ); // Notificación de éxito
+        this.getUsuariosDisponibles();
       },
       error: (error: any) => {
         console.log('ERROR', error);
@@ -252,11 +259,25 @@ export class MetgesComponent {
     });
   }
 
-  obtenerNombreUsuario(id: number): string | null {
-    const user = this.usuarios.data.find((p) => p.id == id);
-    if (user == null) {
-      return null;
+  getUsuariosDisponibles(): void {
+    obtenerUsuariosDisponibles("Metge",this.medicos.data,this.usuarioService).subscribe({
+      next:(usuariosDisponibles: Usuari[]) => {
+        this.usuariosDisponibles.data = usuariosDisponibles;
+      },
+      error:(error:any)=>{
+        console.log('Error al obtener los usuarios disponibles:',error);
+      }
+    })
+  }
+
+  checkNoUsuarios(): boolean{
+    if(this.usuariosDisponibles.data.length<=0){
+      return true;
     }
-    return user?.username;
+    return false;
+  }
+
+  getUserName(id: number,users: MatTableDataSource<Usuari>): string | null {
+    return obtenerNombreUsuario(id,users);
   }
 }
