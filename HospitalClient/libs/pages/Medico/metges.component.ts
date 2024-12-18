@@ -10,7 +10,7 @@ import { Form, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MedicoService } from '../../services/metge.service';
 import { MatDialog } from '@angular/material/dialog';
 import { MedicoDashboardComponent } from '../../../apps/GoldenFold/src/app/pages/inicio/pages/medico/medico-dashboard/medico-dashboard.component';
-
+import { obtenerUsuariosDisponibles } from '../../utils/utilFunctions';
 import { EpisodiosDialogComponent } from '../../../apps/GoldenFold/src/app/components/popups/episodis-popup';
 import { PruebasDialogComponent } from '../../../apps/GoldenFold/src/app/components/popups/pruebas-popup';
 import { Usuari } from '../../interfaces/usuari.interface';
@@ -95,7 +95,7 @@ export class MetgesComponent {
     this.medicoService.getAll().subscribe({
       next: (data: Medico[]) => {
         this.medicos.data = data;
-        this.obtenerUsuariosDisponibles();
+        this.getUsuariosDisponibles();
       },
       error: (error: any) => {
         console.error('Error al obtener los medicos', error);
@@ -224,7 +224,7 @@ export class MetgesComponent {
           'success',
           'Médico eliminado correctamente'
         ); // Notificación de éxito
-        this.obtenerUsuariosDisponibles();
+        this.getUsuariosDisponibles();
       },
       error: (error: any) => {
         console.log('ERROR', error);
@@ -260,23 +260,15 @@ export class MetgesComponent {
     });
   }
 
-  obtenerUsuariosDisponibles(): void {
-    this.usuarioService.getAll().subscribe({
-      next: (data: Usuari[]) => {
-        //usuarios con rol metge
-        let usuaris = data.filter((usuari) => usuari.rolId === 'Metge');
-
-        // usuarios disponibles
-        usuaris = usuaris.filter(
-          (usuari) =>
-            !this.medicos.data.some((medico) => medico.usuariId == usuari.id)
-        );
-        this.usuariosDisponibles.data = usuaris;
+  getUsuariosDisponibles(): void {
+    obtenerUsuariosDisponibles("Metge",this.medicos.data,this.usuarioService).subscribe({
+      next:(usuariosDisponibles: Usuari[]) => {
+        this.usuariosDisponibles.data = usuariosDisponibles;
       },
-      error: (error: any) => {
-        console.log('Error al obtener los usuarios', error);
-      },
-    });
+      error:(error:any)=>{
+        console.log('Error al obtener los usuarios disponibles:',error);
+      }
+    })
   }
 
   checkNoUsuarios(): boolean{

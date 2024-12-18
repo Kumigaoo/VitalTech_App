@@ -119,7 +119,6 @@ namespace HospitalAPI
             }
 
             var usuario = await _bbdd.Usuari.FirstOrDefaultAsync(p => p.Id == adminitradorDelSistema.UsuariId);
-            usuario.RolId = null;
 
             _bbdd.AdministradorSistema.Remove(adminitradorDelSistema);
             await _bbdd.SaveChangesAsync();
