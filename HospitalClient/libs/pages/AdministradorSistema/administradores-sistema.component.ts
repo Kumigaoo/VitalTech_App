@@ -13,7 +13,7 @@ import { obtenerNombreUsuario, obtenerUsuariosDisponibles } from '../../utils/ut
 import { Usuari } from '../../interfaces/usuari.interface';
 import { UsuarioService } from '../../services/usuario.service';
 import { DialogFormularioAdministradorSistemaModifComponent } from '../../forms/AdministradorSistema/dialog-formulario-administradorSistema-modif.component';
-import { dniValidator } from '../../../apps/GoldenFold/src/app/validators/dniValidator';
+import { dniValidator } from '../../validators/dniValidator';
 @Component({
   selector: 'app-administradores-sistema',
   templateUrl: './administradores-sistema.component.html',
@@ -195,6 +195,38 @@ export class AdministradoresSistemaComponent {
         this.aregarAdministradorSistema();
       }
     })
+  }
+
+  toggleActualizarAdministradorSistema(administrador: AdministradorSistema): void {
+    this.administradorSistemaParaActualizar = {...administrador}
+    this.dialog.open(DialogFormularioAdministradorSistemaModifComponent,{
+      data: this.administradorSistemaParaActualizar
+    }).afterClosed().subscribe((administradorActualizado)=>{
+      if(administradorActualizado){
+        this.administradorSistemaParaActualizar = administradorActualizado;
+        this.actualizarAdministradorSistema(administrador.dni);
+      }
+    })
+  }
+
+  actualizarAdministradorSistema(dniAntiguo: string): void {
+    if (this.administradorSistemaParaActualizar) {
+      const administradorActualizado = { ...this.administradorSistemaParaActualizar };
+      this.administradorSistemaService.put(dniAntiguo, administradorActualizado).subscribe({
+        next: () => {
+          this.obtenerAdministradoresDeSistema();
+          this.administradorSistemaParaActualizar = null;
+          this.administradorSistemaForm.reset();
+          this.snackbar.showNotification(
+            'success',
+            'Administrador de Sistema actualizado correctamente'
+          ); // Notificación de éxito
+        },
+        error: (error: any) => {
+          console.error('Error al actualizar el Administrador de Sistema', error);
+        },
+      });
+    }
   }
 
   aregarAdministradorSistema(): void {

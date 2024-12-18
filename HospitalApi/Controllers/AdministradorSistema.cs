@@ -133,47 +133,19 @@ namespace HospitalAPI
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult> UpdateAdministradorSistema(string id, [FromBody] AdministradorSistemaUpdateDTO administradorSistemaUpdateDTO)
         {
-            if(!ModelState.IsValid) //comprueba que los datos sean validos
-            {
-                _logger.LogError("Els camps no son valids");
-                return BadRequest("Els camps no son valids");
-            }
+            if (id == null || !CheckDNI(administradorSistemaUpdateDTO.DNI)) return BadRequest("DNI invalid");
             
-            var admin = await _bbdd.AdministradorSistema.FirstOrDefaultAsync(p => p.DNI == administradorSistemaUpdateDTO.DNI);
-            if(admin==null)
-            {
-                _logger.LogError("No existeix un Administrador del Sistema amb aquest DNI");
-                return NotFound("No existeix un Administrador del Sistema amb aquest DNI");
-            }
-            
-            var usuari = await _bbdd.Usuari.FirstOrDefaultAsync(p => p.Id == administradorSistemaUpdateDTO.UsuariId); 
-            if(usuari==null) //comprueba que exista el usuario
-            {
-                _logger.LogError("No existeix un Usuari amb aques ID");
-                return BadRequest("No existeix un Usuari amb aques ID");
-            }
-            if(!usuari.RolId.Equals("Administrador del Sistema")) //comprueba que el usuario tenga como idRol administrador de sistema
-            {
-                _logger.LogError("Aquest usuari no pot ser Administrador del Sistema");
-                return BadRequest("Aquest usuari no pot ser Administrador del Sistema");
-            }
-            if(!CheckDNI(administradorSistemaUpdateDTO.DNI))
-            {
-                _logger.LogError("El DNI no es valid");
-                return BadRequest("El DNI no es valid");
-            }
-            var usuarioEnUso = await _bbdd.AdministradorSistema.FirstOrDefaultAsync(p => p.UsuariId == administradorSistemaUpdateDTO.UsuariId);
-            if(usuarioEnUso != null)
-            {
-                _logger.LogError("Ja existeix un Administrador de Sistema amb aquest Usuari ID");
-                return BadRequest("Ja existeix un Administrador de Sistema amb aquest Usuari ID");
-            }
+            var pro = await (from p in _bbdd.AdministradorSistema where p.DNI == id select p).FirstOrDefaultAsync();
 
-            _mapper.Map(administradorSistemaUpdateDTO,admin);
-            _bbdd.AdministradorSistema.Update(admin);
+            if (pro == null){
+                _logger.LogError("No existeix personal amb aquest ID.");
+                return NotFound("No existeix personal amb aquest ID.");
+            } 
+
+            _mapper.Map(administradorSistemaUpdateDTO, pro);
+
+            _bbdd.AdministradorSistema.Update(pro);
             await _bbdd.SaveChangesAsync();
-
-            _logger.LogInformation("Administrador del Sistema modificat exitosament.");
             return NoContent();
         }
 

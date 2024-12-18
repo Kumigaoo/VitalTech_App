@@ -1,5 +1,6 @@
+// enfermers.component.ts
+import { DialogFormularioEnfermeroModifComponent } from './pages/popaps/dialog-formulario-ingreso-modif/dialog-formulario-enfermero-modif.component';
 import { PruebasDialogComponent } from './../../../apps/GoldenFold/src/app/components/popups/pruebas-popup';
-import { DialogFormularioEnfermeroModifComponent } from './../../../apps/GoldenFold/src/app/components/Formularios/Enfermero/dialog-formulario-ingreso-modif/dialog-formulario-enfermero-modif.component';
 import { EnfermeroService } from './../../services/enfermero.service';
 import { SnackbarComponent } from './../../../apps/GoldenFold/src/app/components/snackbar/snackbar.component';
 import { Enfermero } from './../../interfaces/enfermer.interface';
@@ -8,16 +9,13 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { getMatIconFailedToSanitizeUrlError } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
-
 
 @Component({
   selector: 'app-enfermers',
   templateUrl: './enfermers.component.html',
   styleUrls: [],
 })
-
 export class EnfermersComponent {
   displayedColumns: string[] = [
     'dni',
@@ -29,8 +27,7 @@ export class EnfermersComponent {
     'Actions',
   ];
 
-  enfermeros: MatTableDataSource<Enfermero> =
-    new MatTableDataSource<Enfermero>();
+  enfermeros: MatTableDataSource<Enfermero> = new MatTableDataSource<Enfermero>();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -41,9 +38,6 @@ export class EnfermersComponent {
 
   currentPort: string;
   isPortGolden: boolean;
-
-  templateUrl!: string;
-  styleUrls!: string[];
   cssPaths!: string[];
 
   constructor(
@@ -54,27 +48,14 @@ export class EnfermersComponent {
     this.obtenerEnfermeros();
     this.crearFormularioEnfermero();
 
-    //cambiar html
     this.currentPort = window.location.port;
-    this.isPortGolden = this.currentPort === "4201"; //4201
+    this.isPortGolden = this.currentPort === '4201';
 
-    //cambiar css
-    if (this.isPortGolden) {
-      //css golden
-      this.cssPaths = ['/assets/styles/styles.css', '/assets/styles/enfermero/4001.component.css'];
-    } else {
-      //css vital
-      this.cssPaths = ['/assets/styles/styles.css', '/assets/styles/enfermero/4000.component.css'];
-    };
+    this.cssPaths = this.isPortGolden
+      ? ['/assets/styles/styles.css', '/assets/styles/enfermero/4001.component.css']
+      : ['/assets/styles/styles.css', '/assets/styles/enfermero/4000.component.css'];
 
-    this.cssPaths.forEach(css => {
-      const link = document.createElement('link');
-      link.rel = 'stylesheet';
-      link.type = 'text/css';
-      link.href = css;
-      document.head.appendChild(link);
-    });
-
+    this.cargarEstilosDinamicos();
   }
 
   ngAfterViewInit(): void {
@@ -82,14 +63,23 @@ export class EnfermersComponent {
     this.enfermeros.sort = this.sort;
   }
 
+  private cargarEstilosDinamicos(): void {
+    this.cssPaths.forEach((css) => {
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = css;
+      document.head.appendChild(link);
+    });
+  }
+
   obtenerEnfermeros(): void {
     this.enfermeroService.getAll().subscribe({
       next: (data: Enfermero[]) => {
         this.enfermeros.data = data;
-        console.log(this.enfermeros.data);
       },
       error: (error: any) => {
-        console.log(error);
+        console.error(error);
       },
     });
   }
@@ -107,16 +97,11 @@ export class EnfermersComponent {
   deleteEnfermero(enfermero: Enfermero): void {
     this.enfermeroService.delete(enfermero.dni).subscribe({
       next: () => {
-        this.enfermeros.data = this.enfermeros.data.filter(
-          (i) => i.dni != enfermero.dni
-        );
-        this.snackbar.showNotification(
-          'success',
-          'Enfermero eliminado correctamente'
-        ); // Notificación de éxito
+        this.enfermeros.data = this.enfermeros.data.filter((i) => i.dni !== enfermero.dni);
+        this.snackbar.showNotification('success', 'Enfermero eliminado correctamente');
       },
       error: (error: any) => {
-        console.log('ERROR', error);
+        console.error('Error eliminando enfermero:', error);
       },
     });
   }
@@ -130,67 +115,24 @@ export class EnfermersComponent {
         case 'dni':
           return data.dni.toString().toLowerCase().includes(filter);
         case 'nom':
-          return data.nom.toString().toLowerCase().includes(filter);
+          return data.nom.toLowerCase().includes(filter);
         case 'usuariId':
-          return data.usuariId.toString().toLowerCase().includes(filter);
+          return data.usuariId.toLowerCase().includes(filter);
         case 'telefon':
           return data.telefon.toString().toLowerCase().includes(filter);
         case 'especialitat':
-          return data.especialitat.toString().toLowerCase().includes(filter);
+          return data.especialitat.toLowerCase().includes(filter);
         default:
           return false;
       }
     };
+
     this.enfermeros.filter = searchTerm;
 
     if (this.enfermeros.paginator) {
       this.enfermeros.paginator.firstPage();
     }
   }
-
-  agregarEnfermero(): void {
-    if (this.enfermeroForm.valid) {
-      const nuevoEnfermero: Enfermero = this.enfermeroForm.value;
-      console.log(nuevoEnfermero);
-      this.enfermeroService.post(nuevoEnfermero).subscribe({
-        next: (enfermero: Enfermero) => {
-          console.log('Enfermero:', enfermero);
-          this.enfermeros.data = [...this.enfermeros.data, enfermero];
-          this.obtenerEnfermeros();
-          this.enfermeroForm.reset();
-          this.snackbar.showNotification(
-            'success',
-            'Enfermero creado correctamente'
-          );
-        },
-        error: (error: any) => {
-          const mensajeError =
-            error.error || 'Error inesperado. Inténtalo de nuevo.';
-          this.snackbar.showNotification('error', mensajeError); // Notificación de éxito
-        },
-      });
-    }
-  }
-
-  actualizarEnfermero(dniAntiguo: string): void {
-    if (this.enfermeroParaActualizar) {
-      const enfermeroActualizado = { ...this.enfermeroParaActualizar };
-      this.enfermeroService.put(dniAntiguo, enfermeroActualizado).subscribe({
-        next: () => {
-          this.obtenerEnfermeros();
-          this.enfermeroParaActualizar = null;
-          this.enfermeroForm.reset();
-          this.snackbar.showNotification(
-            'success',
-            'Enfermero actualizado correctamente'
-          );
-        },
-        error: (error: any) => {
-          console.log('Error al actualizar el enfermero', error);
-        },
-      });
-    }
-  };
 
   tooggleAgregarEnfermero(): void {
     this.crearFormularioEnfermero();
@@ -207,12 +149,44 @@ export class EnfermersComponent {
       });
   }
 
+  agregarEnfermero(): void {
+    if (this.enfermeroForm.valid) {
+      const nuevoEnfermero: Enfermero = this.enfermeroForm.value;
+      this.enfermeroService.post(nuevoEnfermero).subscribe({
+        next: (enfermero: Enfermero) => {
+          this.enfermeros.data = [...this.enfermeros.data, enfermero];
+          this.enfermeroForm.reset();
+          this.snackbar.showNotification('success', 'Enfermero creado correctamente');
+        },
+        error: (error: any) => {
+          const mensajeError = error.error || 'Error inesperado. Inténtalo de nuevo.';
+          this.snackbar.showNotification('error', mensajeError);
+        },
+      });
+    }
+  }
+
+  actualizarEnfermero(dniAntiguo: string): void {
+    if (this.enfermeroParaActualizar) {
+      const enfermeroActualizado = { ...this.enfermeroParaActualizar };
+      this.enfermeroService.put(dniAntiguo, enfermeroActualizado).subscribe({
+        next: () => {
+          this.obtenerEnfermeros();
+          this.enfermeroParaActualizar = null;
+          this.enfermeroForm.reset();
+          this.snackbar.showNotification('success', 'Enfermero actualizado correctamente');
+        },
+        error: (error: any) => {
+          console.error('Error al actualizar el enfermero:', error);
+        },
+      });
+    }
+  }
+
   toogleActualizarEnfermero(enfermero: Enfermero): void {
     this.enfermeroParaActualizar = { ...enfermero };
     this.dialog
-      .open(DialogFormularioEnfermeroModifComponent, {
-        data: this.enfermeroParaActualizar,
-      })
+      .open(DialogFormularioEnfermeroModifComponent, { data: this.enfermeroParaActualizar })
       .afterClosed()
       .subscribe((enfermeroActualizado) => {
         if (enfermeroActualizado) {
