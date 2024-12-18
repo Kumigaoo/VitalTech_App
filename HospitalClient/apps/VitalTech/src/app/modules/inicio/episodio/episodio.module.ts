@@ -3,7 +3,7 @@ import { ModifEpisodiComponent } from '../../../pages/inicio/pages/episodio/page
 import { RegistroEpisodiComponent } from '../../../pages/inicio/pages/episodio/pages/registro-episodio/registro-episodio.component';
 import { EpisodioRout } from './episodio-routing.module';
 import { SharedModule } from '../../shared/shared.module';
-import { EpisodiComponent } from '../../../../../../../libs/pages/Episodio/episodioPrueba.component';
+import { EpisodiComponent } from '../../../../../../../libs/pages/Episodio/episodio-medico.component';
 
 @NgModule({
   declarations: [

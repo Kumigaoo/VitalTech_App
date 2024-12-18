@@ -41,9 +41,9 @@ export class HabitacionesComponent extends AbstractTableComponent<Habitacion> im
     this.isPortVitalTech = currentPort === '4200';
 
     if (currentPort === '4201') {
-      cssPath = ['/assets/styles/styles.css', '/assets/styles/habitacion/habitaciones.component.css'];
+      cssPath = ['/assets/styles/styles.css', '/assets/styles/habitacion/4201.component.css'];
     } else {
-      cssPath = ['/assets/styles/styles.css', '/assets/styles/habitacion/habitacion.component.css'];
+      cssPath = ['/assets/styles/styles.css', '/assets/styles/habitacion/4200.component.css'];
     }
     
     // Cargar los estilos específicos del componente

@@ -11,7 +11,7 @@ import { AdministradorSistemaComponent } from '../../../pages/inicio/pages/admin
 import { PlantaComponent } from '../../../../../../../libs/pages/Planta/planta.component';
 import { MetgesComponent } from '../../../../../../../libs/pages/Medico/metges.component';
 import { PruebasComponent } from '../../../../../../../libs/pages/Pruebas-diagnosticas/pruebas.component';
-import { EpisodiComponent } from '../../../../../../../libs/pages/Episodio/episodioPrueba.component';
+import { EpisodiComponent } from '../../../../../../../libs/pages/Episodio/episodio-medico.component';
 
 const routes: Routes = [
   {
@@ -23,7 +23,7 @@ const routes: Routes = [
     component: CamasComponent,
   },
   {
-    path: 'episodis-medics-prueba',
+    path: 'episodio-medico',
     component: EpisodiComponent,
   },
 

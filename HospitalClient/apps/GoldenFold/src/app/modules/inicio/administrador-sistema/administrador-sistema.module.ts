@@ -14,7 +14,7 @@ import { SharedModule } from '../../shared/shared.module';
 import { AdministradorSistemaComponent } from '../../../pages/inicio/pages/administrador-sistema/administrador-sistema.component';
 import { MetgesComponent } from '../../../../../../../libs/pages/Medico/metges.component';
 import { EnfermersComponent } from '../../../../../../../libs/pages/Enfermero/enfermers.component';
-import { EpisodiComponent } from '../../../../../../../libs/pages/Episodio/episodioPrueba.component';
+import { EpisodiComponent } from '../../../../../../../libs/pages/Episodio/episodio-medico.component';
 
 @NgModule({
   declarations: [

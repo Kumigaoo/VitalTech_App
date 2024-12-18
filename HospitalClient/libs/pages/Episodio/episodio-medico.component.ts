@@ -16,8 +16,8 @@ import { AbstractTableComponent } from '../abstract-logic';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-episodis-medics-prueba',
-  templateUrl: './episodisPrueba.component.html',
+  selector: 'app-episodio-medico',
+  templateUrl: './episodio-medico.component.html',
   styleUrls: [],
 })
 

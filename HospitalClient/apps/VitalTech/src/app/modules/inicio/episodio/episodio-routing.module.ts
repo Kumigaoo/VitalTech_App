@@ -2,7 +2,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { ModifEpisodiComponent } from '../../../pages/inicio/pages/episodio/pages/modif-episodio/modif-episodio.component';
 import { RegistroEpisodiComponent } from '../../../pages/inicio/pages/episodio/pages/registro-episodio/registro-episodio.component';
-import { EpisodiComponent } from '../../../../../../../libs/pages/Episodio/episodioPrueba.component';
+import { EpisodiComponent } from '../../../../../../../libs/pages/Episodio/episodio-medico.component';
 
 const routes: Routes = [
   {
