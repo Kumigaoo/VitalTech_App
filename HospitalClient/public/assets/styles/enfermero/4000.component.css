@@ -30,8 +30,8 @@
   display: flex !important;
   align-items: end;
   justify-content: space-between;
-  padding-left: 170px;
-  padding-right: 60px;
+  padding-left: 0px;
+  padding-right: 10em;
   flex-direction: row-reverse;
 }
  
@@ -141,7 +141,7 @@ button:hover {
  
 button a {
   text-decoration: none !important;
-  display: block !important;
+  /* display: block !important; */
   color: white !important;
 }
  
@@ -162,10 +162,15 @@ button a {
  
  
 .botones {
-  display: flex !important;
+  display: inline-flex !important;
 }
  
+.paco {
+ width: 5em;
+}
+
 .botonesbobos {
+  margin-top: 2em;
   display: flex;
   flex-direction: row;
   justify-content: center;
