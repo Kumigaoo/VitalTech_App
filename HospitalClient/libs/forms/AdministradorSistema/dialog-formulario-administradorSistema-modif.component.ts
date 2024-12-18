@@ -82,7 +82,7 @@ export class DialogFormularioAdministradorSistemaModifComponent{
     private usuarioService: UsuarioService //servicio de usuarios
   ) {
     //rutas CSS
-    this.cssPaths =  ['/assets/styles/styles.css','/assets/styles/AdministradorSistema/Popups/dialog-formulario-medico-administradorSistema.component.css'];
+    this.cssPaths =  ['/assets/styles/styles.css','/assets/styles/AdministradorSistema/Popups/dialog-formulario-administradorSistema-modif.component.css'];
 
     //poner el CSS en el HTML
     this.cssPaths.forEach(css => {
@@ -95,7 +95,6 @@ export class DialogFormularioAdministradorSistemaModifComponent{
 
     this.obtenerAdministradores(); //obtener administradores de sistema
     this.crearFormularioAdministrador(); //crear formulario reactivo
-    this.getUsuariosDisponibles(); //obtener usuarios
     if(this.data.dni){ //comprueba si se le han pasado datos
       this.disableEditing(); //se pone en modo solo lectura
     }
@@ -184,6 +183,7 @@ export class DialogFormularioAdministradorSistemaModifComponent{
     this.administradorSistemaService.getAll().subscribe({
       next:(data: AdministradorSistema[]) =>{
         this.administradores = data;
+        this.getUsuariosDisponibles(); //obtener usuarios
       },
       error:(error:any)=>{
         console.log('ERROR',error);

@@ -119,7 +119,6 @@ export class MetgesComponent {
       const nuevoMedico: Medico = this.medicoForm.value;
       this.medicoService.post(nuevoMedico).subscribe({
         next: (medico: Medico) => {
-          console.log('Medico', medico);
           this.medicos.data = [...this.medicos.data, medico];
           this.obtenerMedicos();
           this.medicoForm.reset();

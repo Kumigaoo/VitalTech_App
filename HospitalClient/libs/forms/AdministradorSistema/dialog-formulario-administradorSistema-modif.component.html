@@ -9,12 +9,12 @@
       <mat-label>DNI:</mat-label>
       <mat-hint>Ejemplo: 36902684N</mat-hint>
       <input matInput formControlName="dni" required />
-      @if (medicoForm.get('dni')?.hasError('required')) {
+      @if (administradorForm.get('dni')?.hasError('required')) {
       <mat-error>El DNI es requerido</mat-error>
       } @if
-      (medicoForm.get('dni')?.hasError('dniInvalid')&&!medicoForm.get('dni')?.hasError('required')){
+      (administradorForm.get('dni')?.hasError('dniInvalid')&&!administradorForm.get('dni')?.hasError('required')){
       <mat-error>El DNI es invalido</mat-error>
-      } @if (medicoForm.get('dni')?.hasError('dniExiste')){
+      } @if (administradorForm.get('dni')?.hasError('dniExiste')){
       <mat-error>El DNI ya existe</mat-error>
       }
     </mat-form-field>
@@ -24,7 +24,7 @@
       <mat-label>Nombre:</mat-label>
       <mat-hint>Ejemplo: Martin Martin</mat-hint>
       <input matInput formControlName="nom" required />
-      @if (medicoForm.get('nom')?.hasError('required')) {
+      @if (administradorForm.get('nom')?.hasError('required')) {
       <mat-error>El nombre es requerido</mat-error>
       }
     </mat-form-field>
@@ -34,7 +34,7 @@
       <mat-label>Teléfono:</mat-label>
       <mat-hint>Ejemplo: (+34) 612 345 678</mat-hint>
       <input matInput formControlName="telefon" />
-      @if (medicoForm.get('telefon')?.hasError('pattern')){
+      @if (administradorForm.get('telefon')?.hasError('pattern')){
       <mat-error>Formato incorrecto de teléfono</mat-error>
       }
     </mat-form-field>
@@ -44,11 +44,11 @@
       <mat-label>Usuario:</mat-label>
       <mat-hint>Ejemplo: mmartin</mat-hint>
       <mat-select formControlName="usuariId" required>
-        @for (u of usuaris; track u.username) {
+        @for (u of usuarios; track u.username) {
         <mat-option [value]="u.id">{{ u.username }}</mat-option>
         }
       </mat-select>
-      @if (medicoForm.get('usuariId')?.hasError('required')) {
+      @if (administradorForm.get('usuariId')?.hasError('required')) {
       <mat-error>El nombre de usuario es requerido</mat-error>
       }
     </mat-form-field>
@@ -58,10 +58,10 @@
       <mat-label>Prioridad:</mat-label>
       <mat-hint>Ejemplo: Maxima</mat-hint>
       <mat-select formControlName="prioridad" required>
-        <mat-option [value]="Maxima">Maxima</mat-option>
-        <mat-option [value]="Neutral">Neutral</mat-option>
+        <mat-option value="Maxima">Maxima</mat-option>
+        <mat-option value="Neutral">Neutral</mat-option>
       </mat-select>
-      @if (medicoForm.get('prioridad')?.hasError('required')) {
+      @if (administradorForm.get('prioridad')?.hasError('required')) {
       <mat-error>La prioridad es requerida</mat-error>
       }
     </mat-form-field>
@@ -78,7 +78,7 @@
         <button
         mat-raised-button
         color="primary"
-        [disabled]="medicoForm.invalid"
+        [disabled]="administradorForm.invalid"
         (click)="guardar()"
         >
           Guardar
