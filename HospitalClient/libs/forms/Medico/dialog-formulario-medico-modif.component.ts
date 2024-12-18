@@ -42,12 +42,8 @@ import { MedicoService } from '../../services/metge.service';
 import { dniValidator } from '../../validators/dniValidator';
 import { map } from 'rxjs';
 import { EspecialidadesMedico } from '../../../apps/GoldenFold/src/app/enums/especialidadesMedico';
-<<<<<<< HEAD
 import { dniExisteValidator } from '../../validators/dniExistsValidatos';
-=======
-import { dniExisteValidator } from '../../../apps/GoldenFold/src/app/validators/dniExistsValidatos';
 import { obtenerUsuariosDisponibles } from '../../utils/utilFunctions';
->>>>>>> c5ee36f0a0cb7eb4a94e37957c6ecc48018cac56
 
 @Component({
   selector: 'app-dialog-formulario-medico-modif',

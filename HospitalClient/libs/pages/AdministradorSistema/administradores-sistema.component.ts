@@ -13,7 +13,7 @@ import { obtenerNombreUsuario, obtenerUsuariosDisponibles } from '../../utils/ut
 import { Usuari } from '../../interfaces/usuari.interface';
 import { UsuarioService } from '../../services/usuario.service';
 import { DialogFormularioAdministradorSistemaModifComponent } from '../../forms/AdministradorSistema/dialog-formulario-administradorSistema-modif.component';
-import { dniValidator } from '../../../apps/GoldenFold/src/app/validators/dniValidator';
+import { dniValidator } from '../../validators/dniValidator';
 @Component({
   selector: 'app-administradores-sistema',
   templateUrl: './administradores-sistema.component.html',
