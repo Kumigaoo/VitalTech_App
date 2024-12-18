@@ -12,6 +12,7 @@ import { PlantaComponent } from '../../../../../../../libs/pages/Planta/planta.c
 import { EpisodisMedicsComponent } from '../../../../../../../libs/pages/Episodio/episodis-medics.component';
 import { MetgesComponent } from '../../../../../../../libs/pages/Medico/metges.component';
 import { PruebasComponent } from '../../../../../../../libs/pages/Pruebas-diagnosticas/pruebas.component';
+import { EpisodiComponent } from '../../../../../../../libs/pages/Episodio/episodioPrueba.component';
 
 const routes: Routes = [
   {
@@ -26,6 +27,10 @@ const routes: Routes = [
   {
     path: 'episodis-medics',
     component: EpisodisMedicsComponent,
+  },
+  {
+    path: 'episodis-medics-prueba',
+    component: EpisodiComponent,
   },
 
   {

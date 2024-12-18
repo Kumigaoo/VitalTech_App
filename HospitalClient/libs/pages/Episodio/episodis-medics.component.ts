@@ -74,35 +74,9 @@ export class EpisodisMedicsComponent implements OnInit, AfterViewInit {
 
     if (currentPort == '4201'){
       cssPath = ['/assets/styles/styles.css', '/assets/styles/Episodio/4001.component.css'];
-      this.displayedColumns = [
-        'id',
-        'dataObertura',
-        'dataTancament',
-        'motivo',
-        'urgencia',
-        'recepta',
-        'estat',
-        'dniPacient',
-        'dniMetge',
-        'pruebasDiagnosticas',
-        'acciones',
-      ];
       
     } else {
       cssPath = ['/assets/styles/styles.css', '/assets/styles/Episodio/4000.component.css'];
-      this.displayedColumns = [
-        'id',
-        'dataObertura',
-        'dataTancament',
-        'motivo',
-        'urgencia',
-        'recepta',
-        'estat',
-        'dniPacient',
-        'dniMetge',
-        'pruebasDiagnosticas',
-        'acciones',
-      ];
     }
 
     cssPath.forEach(css => {
@@ -112,6 +86,20 @@ export class EpisodisMedicsComponent implements OnInit, AfterViewInit {
       link.href = css;
       document.head.appendChild(link);
     });
+
+    this.displayedColumns = [
+      'id',
+      'dataObertura',
+      'dataTancament',
+      'motivo',
+      'urgencia',
+      'recepta',
+      'estat',
+      'dniPacient',
+      'dniMetge',
+      'pruebasDiagnosticas',
+      'acciones',
+    ];
   }
 
   verConsultas(episodi: any): void {
@@ -182,10 +170,6 @@ export class EpisodisMedicsComponent implements OnInit, AfterViewInit {
   }
 
   toggleActualizarEpisodi(episodi: EpisodiMedic): void {
-    if(this.isPortVitalTech){
-      // esta ruta creo que no funcionara
-      window.location.href = `https://localhost:4200/inicio/episodio/modif-episodio/${episodi.id}`;
-    }else {
       this.episodiSeleccionada = { ...episodi };
       this.dialog
         .open(DialogFormularioEpisodisModifComponent, {
@@ -198,7 +182,6 @@ export class EpisodisMedicsComponent implements OnInit, AfterViewInit {
             this.actualizarEpisodi();
           }
         });
-    }
   }
 
   navigateToRegistroEpisodio(): void {

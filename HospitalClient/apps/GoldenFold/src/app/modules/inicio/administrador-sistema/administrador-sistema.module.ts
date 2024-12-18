@@ -15,6 +15,7 @@ import { AdministradorSistemaComponent } from '../../../pages/inicio/pages/admin
 import { MetgesComponent } from '../../../../../../../libs/pages/Medico/metges.component';
 import { EpisodisMedicsComponent } from '../../../../../../../libs/pages/Episodio/episodis-medics.component';
 import { EnfermersComponent } from '../../../../../../../libs/pages/Enfermero/enfermers.component';
+import { EpisodiComponent } from '../../../../../../../libs/pages/Episodio/episodioPrueba.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { EnfermersComponent } from '../../../../../../../libs/pages/Enfermero/en
     PruebasComponent,
     PlantaComponent,
     EpisodisMedicsComponent,
+    EpisodiComponent
   ],
 
   imports: [

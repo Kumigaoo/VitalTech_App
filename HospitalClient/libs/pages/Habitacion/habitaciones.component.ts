@@ -36,7 +36,7 @@ export class HabitacionesComponent implements OnInit {
 
   isPortVitalTech = false;
 
-  nuevaHabitacion: Habitacion;
+  addingHabitacion: Habitacion;
   habitaciones: Habitacion[] = [];
   notificacion: string | null = null;
 
@@ -46,7 +46,7 @@ export class HabitacionesComponent implements OnInit {
     private habitacionService: HabitacionService,
     public dialog: MatDialog
   ) {
-    this.nuevaHabitacion = {
+    this.addingHabitacion = {
       codiHabitacio: 0,
       capacitatLlits: 0,
       plantaId: 0,
@@ -97,6 +97,7 @@ export class HabitacionesComponent implements OnInit {
       },
     });
   }
+
   onPaginateChange(event: PageEvent) {
     this.pageIndex = event.pageIndex;
     this.itemsPerPage = event.pageSize;
@@ -110,7 +111,7 @@ export class HabitacionesComponent implements OnInit {
   }
 
   toggleFormularioAgregar() {
-    this.nuevaHabitacion = {
+    this.addingHabitacion = {
       codiHabitacio: 0,
       capacitatLlits: 0,
       plantaId: 0,
@@ -119,21 +120,22 @@ export class HabitacionesComponent implements OnInit {
 
     this.dialog
       .open(DialogCrearHabitacionComponent, {
-        data: this.nuevaHabitacion,
+        data: this.addingHabitacion,
       })
       .afterClosed()
       .subscribe((habitacionCreada) => {
         if (habitacionCreada) {
-          this.nuevaHabitacion = habitacionCreada;
+          this.addingHabitacion = habitacionCreada;
           this.guardarHabitacion();
         }
       });
   }
 
   guardarHabitacion() {
-    this.habitacionService.post(this.nuevaHabitacion).subscribe({
+    this.habitacionService.post(this.addingHabitacion).subscribe({
       next: () => {
         this.obtenerHabitaciones();
+        this.cerrarFormulario();
         this.snackbar.showNotification(
           'success',
           'Habitación guardada exitosamente'
@@ -200,7 +202,7 @@ export class HabitacionesComponent implements OnInit {
       .subscribe((habitacionActualizada) => {
         if (habitacionActualizada) {
           this.habitacionParaActualizar = habitacionActualizada;
-          this.modificarHabitacion(habitacion.codiHabitacio);
+          this.actualizarhabitacion(habitacion.codiHabitacio);
         }
       });
     }
@@ -210,7 +212,7 @@ export class HabitacionesComponent implements OnInit {
     window.location.href = 'https://localhost:4200/inicio/habitacion/registro-habitacion';
   }
 
-  modificarHabitacion(id: number): void {
+  actualizarhabitacion(id: number): void {
     if (this.habitacionParaActualizar) {
       this.habitacionService.put(id, this.habitacionParaActualizar).subscribe({
         next: () => {
