@@ -4,7 +4,7 @@ import { PruebaDiagnostica } from './pruebas-diagnosticas.interface';
 export interface Medico {
   dni: string;
   nom: string;
-  telefon: number;
+  telefon: string;
   usuariId: number;
   especialitat: string;
   episodiMedics: EpisodiMedic[];

@@ -6,7 +6,7 @@ export interface EpisodiMedic {
   dataObertura: string;
   dataTancament: string;
   motivo: string;
-  urgencia: string;
+  urgencia: number;
   recepta: string;
   estat: string;
   dniPacient: string;

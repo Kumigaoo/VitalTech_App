@@ -77,7 +77,7 @@
           *matCellDef="let medico"
           (click)="tooggleActualizarMedico(medico)"
         >
-          {{ obtenerNombreUsuario(medico?.usuariId) }}
+          {{ getUserName(medico?.usuariId,usuarios) }}
         </td>
       </ng-container>
 

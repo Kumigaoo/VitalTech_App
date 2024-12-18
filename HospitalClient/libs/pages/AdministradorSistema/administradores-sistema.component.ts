@@ -9,6 +9,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
 import { retry } from 'rxjs';
 import { AdministradorSistema } from '../../interfaces/administrador-sistema.interface';
+import { obtenerNombreUsuario, obtenerUsuariosDisponibles } from '../../utils/utilFunctions';
+import { Usuari } from '../../interfaces/usuari.interface';
+import { UsuarioService } from '../../services/usuario.service';
+import { DialogFormularioAdministradorSistemaModifComponent } from '../../forms/AdministradorSistema/dialog-formulario-administradorSistema-modif.component';
+import { dniValidator } from '../../../apps/GoldenFold/src/app/validators/dniValidator';
 @Component({
   selector: 'app-administradores-sistema',
   templateUrl: './administradores-sistema.component.html',
@@ -23,8 +28,9 @@ export class AdministradoresSistemaComponent {
     'prioridad',
     'actions',
   ];
-  administradores: MatTableDataSource<AdministradorSistema> =
-    new MatTableDataSource<AdministradorSistema>();
+  administradores: MatTableDataSource<AdministradorSistema> = new MatTableDataSource<AdministradorSistema>();
+  usuarios: MatTableDataSource<Usuari> = new MatTableDataSource<Usuari>([]);
+  usuariosDisponibles: MatTableDataSource<Usuari> = new MatTableDataSource<Usuari>([]);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -42,6 +48,7 @@ export class AdministradoresSistemaComponent {
 
   constructor(
     private administradorSistemaService: AdministradorSistemaService,
+     private usuarioService: UsuarioService,
     private fb: FormBuilder,
     private dialog: MatDialog
   ) {
@@ -66,6 +73,7 @@ export class AdministradoresSistemaComponent {
       document.head.appendChild(link);
     });
     this.obtenerAdministradoresDeSistema();
+    this.obtenerUsuarios();
     this.crearFormularioAdministradorDeSistema();
   }
 
@@ -75,7 +83,7 @@ export class AdministradoresSistemaComponent {
         this.administradores.data = data;
         this.administradores.sort = this.sort;
         this.administradores.paginator = this.paginator;
-        console.log('Administradores de sistema:', this.administradores.data);
+        this.getUsuariosDisponibles();
       },
       error: (error: any) => {
         console.log('ERROR:', error);
@@ -83,13 +91,45 @@ export class AdministradoresSistemaComponent {
     });
   }
 
+  obtenerUsuarios(): void {
+    this.usuarioService.getAll().subscribe({
+      next: (data: Usuari[]) => {
+        this.usuarios.data = data;
+      },
+      error: (error: any) => {
+        console.log(error);
+      },
+    });
+  }
+
   crearFormularioAdministradorDeSistema(): void {
-    this.administradorSistemaForm = this.fb.group({
-      dni: ['', Validators.required],
-      nom: ['', Validators.required],
-      telefon: [0],
-      usuariId: ['', Validators.required],
-      especialitat: ['', Validators.required],
+    this.administradorSistemaForm = this.fb.group({ //lo crear con el form builder
+      dni: [ //campo dni
+        {
+          validators: [Validators.required,dniValidator()], //comprueba que el dni sea valido
+          asyncValidators: [], //comprueba que no exista un administrador de sistema con ese dni
+        }
+      ],
+      nom: [
+        {
+          validators:[Validators.required],
+        }
+      ],
+      telefon: [
+        {
+          validators:[Validators.pattern('^[^a-zA-Z]*$')], //comprueba que no hayan letras 
+        }
+      ],
+      usuariId: [
+        {
+          validators:[Validators.required]
+        }
+      ],
+      prioridad: [
+        {
+          validators:[Validators.required] 
+        }
+      ],
     });
   }
 
@@ -137,7 +177,65 @@ export class AdministradoresSistemaComponent {
     }
   }
 
+  getUserName(id: number,users: MatTableDataSource<Usuari>): string | null {
+    return obtenerNombreUsuario(id,users);
+  }
+
   toggleAgregarAdministradorSistema(): void {
     this.crearFormularioAdministradorDeSistema();
+    if(this.checkNoUsuarios()){
+      this.snackbar.showNotification('error','No hay usuarios disponibles');
+      return;
+    } 
+    this.dialog.open(DialogFormularioAdministradorSistemaModifComponent,{
+      data: this.administradorSistemaForm
+    }).afterClosed().subscribe((administradorActualizado)=>{
+      if(administradorActualizado){
+        this.administradorSistemaForm.patchValue(administradorActualizado);
+        this.aregarAdministradorSistema();
+      }
+    })
+  }
+
+  aregarAdministradorSistema(): void {
+    if (this.administradorSistemaForm.valid) {
+      const nuevoAdministrador: AdministradorSistema = this.administradorSistemaForm.value;
+      console.log('B');
+      this.administradorSistemaService.post(nuevoAdministrador).subscribe({
+        next: (administrador: AdministradorSistema) => {
+          console.log(2);
+          this.administradores.data = [...this.administradores.data, administrador];
+          this.obtenerAdministradoresDeSistema();
+          this.administradorSistemaForm.reset();
+          this.snackbar.showNotification('success', 'Administrador de sistema creado con exito'); // Notificación de éxito
+        },
+        error: (error: any) => {
+          console.log(3);
+          const mensajeError =
+            error.error || 'Error inesperado. Inténtalo de nuevo.';
+          this.snackbar.showNotification('error', mensajeError); // Notificación de éxito
+        },
+      });
+    }
+  }
+
+  //metodo para obtener los usuariosDisponibles
+  getUsuariosDisponibles(): void {
+    obtenerUsuariosDisponibles("Administrador del Sistema",this.administradores.data,this.usuarioService).subscribe({
+      next:(usuariosDisponibles: Usuari[]) => {
+        this.usuariosDisponibles.data = usuariosDisponibles;
+      },
+      error:(error:any)=>{
+        console.log('Error al obtener los usuarios disponibles:',error);
+      }
+    })
+  }
+
+  //verificar disponibilidad de usuarios
+  checkNoUsuarios(): boolean{
+    if(this.usuariosDisponibles.data.length<=0){
+      return true;
+    }
+    return false;
   }
 }

@@ -40,8 +40,6 @@ namespace HospitalApi.Data
             .HasForeignKey(p => p.UsuariId) 
             .OnDelete(DeleteBehavior.SetNull); 
 
-
-
             modelBuilder.Entity<Habitacio>()
             .HasOne(h => h.Planta)
             .WithMany(p => p.Habitacions)

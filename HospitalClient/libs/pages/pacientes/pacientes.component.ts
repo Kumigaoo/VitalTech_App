@@ -205,7 +205,6 @@ export class PacientesComponent implements OnInit, AfterViewInit {
 
   // Guardar un nuevo paciente
   guardarPaciente(): void {
-    this.nuevoPaciente.estado = "alta";
     this.pacienteService.post(this.nuevoPaciente).subscribe({
       next: () => {
         this.obtenerPacientes();
