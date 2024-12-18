@@ -148,22 +148,32 @@ export class DialogFormularioAdministradorSistemaModifComponent{
       dni: [ //campo dni
         this.data.dni, //valor puesto en el campo dni 
         {
-          validators: [dniValidator()], //comprueba que el dni sea valido
+          validators: [Validators.required,dniValidator()], //comprueba que el dni sea valido
           asyncValidators: [dniExisteValidator(this.administradorSistemaService,this.data.dni)], //comprueba que no exista un administrador de sistema con ese dni
         }
       ],
-      nom: [this.data.nom],
+      nom: [
+        this.data.nom,
+        {
+          validators:[Validators.required],
+        }
+      ],
       telefon: [
         this.data.telefon,
         {
           validators:[Validators.pattern('^[^a-zA-Z]*$')], //comprueba que no hayan letras 
         }
       ],
-      usuariId: [this.data.usuariId],
+      usuariId: [
+        this.data.usuariId,
+        {
+          validators:[Validators.required]
+        }
+      ],
       prioridad: [
         this.data.prioridad,
         {
-          validators:[Validators.pattern('^(Maxima|Neutral)$')] //comprueba que sea o Maxima o Neutral
+          validators:[Validators.required] 
         }
       ],
     });

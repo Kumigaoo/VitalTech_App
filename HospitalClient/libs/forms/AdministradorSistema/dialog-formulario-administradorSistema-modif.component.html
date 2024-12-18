@@ -1,9 +1,8 @@
-
 <h2 mat-dialog-title>
-  {{ data.dni ? 'Detalles Médico' : 'Agregar Medico' }}
+  {{ data.dni ? 'Detalles Administrador de Sistema' : 'Agregar Administrador de Sistema'}}
 </h2>
 <mat-dialog-content>
-  <form [formGroup]="medicoForm" style="margin-top: 20px">
+  <form [formGroup]="administradorForm" style="margin-top: 20px;">
     <br />
     <!--DNI-->
     <mat-form-field appearance="outline">
@@ -54,40 +53,42 @@
       }
     </mat-form-field>
     <br />
-    <!--Especialitat-->
+    <!-- Prioridad -->
     <mat-form-field appearance="outline">
-      <mat-label>Especialidad</mat-label>
-      <mat-hint>Ejemplo: Cardiologo</mat-hint>
-      <mat-select formControlName="especialitat" required>
-        @for (e of especialidades; track e.id) {
-        <mat-option [value]="e.nombre">{{ e.nombre }}</mat-option>
-        }
+      <mat-label>Prioridad:</mat-label>
+      <mat-hint>Ejemplo: Maxima</mat-hint>
+      <mat-select formControlName="prioridad" required>
+        <mat-option [value]="Maxima">Maxima</mat-option>
+        <mat-option [value]="Neutral">Neutral</mat-option>
       </mat-select>
-      @if (medicoForm.get('especialitat')?.hasError('required')) {
-      <mat-error>La especialidad es requerida</mat-error>
+      @if (medicoForm.get('prioridad')?.hasError('required')) {
+      <mat-error>La prioridad es requerida</mat-error>
       }
     </mat-form-field>
     <br />
     <mat-dialog-actions>
       <!-- Botón Actualizar: Solo visible si se está en modo detalles -->
-      <button mat-button *ngIf="data.dni && !isEditing" (click)="enableEditing()">
-        Editar
-      </button>
-    
-      <!-- Botón Guardar: Solo visible en modo edición -->
-      <button
+       @if(data.dni && !isEditing){
+        <button mat-button (click)="enableEditing()">
+          Editar
+        </button>
+       }
+      
+       @if (isEditing){
+        <button
         mat-raised-button
         color="primary"
-        *ngIf="isEditing"
         [disabled]="medicoForm.invalid"
         (click)="guardar()"
-      >
-        Guardar
-      </button>
+        >
+          Guardar
+        </button>
+       }
+      <!-- Botón Guardar: Solo visible en modo edición -->
+      
     
       <!-- Botón Cancelar: Siempre visible, cambia comportamiento según el modo -->
       <button mat-button (click)="cancelar()">Cancelar</button>
     </mat-dialog-actions>
   </form>
 </mat-dialog-content>
-
