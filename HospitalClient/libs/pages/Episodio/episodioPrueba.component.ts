@@ -88,7 +88,7 @@ export class EpisodiComponent extends AbstractTableComponent<EpisodiMedic> imple
           dataObertura: '',
           dataTancament: '',
           motivo: '',
-          urgencia: '',
+          urgencia: 0,
           recepta: '',
           estat: '',
           dniPacient: '',
