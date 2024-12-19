@@ -36,6 +36,7 @@ import { dniValidator } from '../../../../../validators/dniValidator';
 import { map } from 'rxjs';
 import { Enfermero } from '../../../../../interfaces/enfermer.interface';
 import { dniExisteValidator } from '../../../../../validators/dniExistsValidatos';
+import { obtenerUsuariosDisponibles } from '../../../../../utils/utilFunctions';
 
 @Component({
   selector: 'app-dialog-formulario-enfermero-modif',
@@ -61,11 +62,12 @@ export class DialogFormularioEnfermeroModifComponent implements OnInit {
   isEditing: boolean = true; // Variable para controlar el modo
   enfermeroForm!: FormGroup;
   usuaris!: Usuari[];
-  medicos!: Medico[];
+  enfermeros!: Enfermero[];
   usuarioIdsEnfermeros = new Set('');
   especialidades = Object.entries(EspecialidadesEnfermero)
     .filter(([key, value]) => !isNaN(Number(value)))
     .map(([key, value]) => ({ id: value as number, nombre: key }));
+
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: Medico,
     private medicoService: MedicoService,
@@ -74,7 +76,9 @@ export class DialogFormularioEnfermeroModifComponent implements OnInit {
     private fb: FormBuilder,
     private usuariService: UsuarioService,
     private enfermeroValidator: EnfermeroAsyncValidator
-  ) {}
+  ) {
+    this.obtenerEnfemeros();
+  }
 
   ngOnInit(): void {
     this.crearFormularioEnfermero();
@@ -82,6 +86,18 @@ export class DialogFormularioEnfermeroModifComponent implements OnInit {
     if (this.data.dni) {
       this.showDetails();
     }
+  }
+
+  obtenerEnfemeros():void{
+    this.enfermeroService.getAll().subscribe({
+      next:(data:Enfermero[])=>{
+        this.enfermeros = data;
+        this.obtenerUsuaris();
+      },
+      error:(error:any[]) => {
+        console.log(error);
+      }
+    })
   }
 
   // Método para manejar el envío del formulario
@@ -92,7 +108,15 @@ export class DialogFormularioEnfermeroModifComponent implements OnInit {
         ...this.enfermeroForm.value,
       };
       enfermeroActualizado.dni = enfermeroActualizado.dni.toUpperCase();
+
+      enfermeroActualizado.dni.trim();
+
+      enfermeroActualizado.nom.trim();
+
+      enfermeroActualizado.telefon.trim();
+
       this.dialogRef.close(enfermeroActualizado);
+      
     }
   }
 
@@ -149,14 +173,13 @@ export class DialogFormularioEnfermeroModifComponent implements OnInit {
   }
 
   obtenerUsuaris(): void {
-    this.usuariService.getAll().subscribe({
-      next: (data: Usuari[]) => {
-        //cojemos los usuarios con rolId medico
-        this.usuaris = data.filter((usuari) => usuari.rolId === 'Enfermer');
-      },
-      error: (error: any) => {
-        console.log('Error al obtener los usuarios');
-      },
-    });
-  }
+  obtenerUsuariosDisponibles("Enfermer",this.enfermeros,this.usuariService).subscribe({
+    next:(usuariosDisponibles: Usuari[]) => {
+      this.usuaris = usuariosDisponibles;
+    },
+    error:(error:any)=>{
+      console.log('Error al obtener los usuarios disponibles:',error);
+    }
+  })
+}
 }
