@@ -10,6 +10,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { Usuari } from '../../interfaces/usuari.interface';
 
 @Component({
   selector: 'app-enfermers',
@@ -35,6 +36,7 @@ export class EnfermersComponent {
 
   enfermeroForm!: FormGroup;
   enfermeroParaActualizar: Enfermero | null = null;
+  usuariosDisponibles!: Usuari[]; 
 
   currentPort: string;
   isPortGolden: boolean;
@@ -77,11 +79,20 @@ export class EnfermersComponent {
     this.enfermeroService.getAll().subscribe({
       next: (data: Enfermero[]) => {
         this.enfermeros.data = data;
+        this.getUsuariosDisponibles();
       },
       error: (error: any) => {
         console.error(error);
       },
     });
+  }
+
+  //verificar disponibilidad de usuarios
+  checkNoUsuarios(): boolean{
+    if(this.usuariosDisponibles.length<=0){
+      return true;
+    }
+    return false;
   }
 
   crearFormularioEnfermero(): void {
@@ -181,6 +192,17 @@ export class EnfermersComponent {
         },
       });
     }
+  }
+
+  getUsuariosDisponibles(): void {
+    obtenerUsuariosDisponibles("Administrador del Sistema",this.administradores.data,this.usuarioService).subscribe({
+      next:(usuariosDisponibles: Usuari[]) => {
+        this.usuariosDisponibles.data = usuariosDisponibles;
+      },
+      error:(error:any)=>{
+        console.log('Error al obtener los usuarios disponibles:',error);
+      }
+    })
   }
 
   toogleActualizarEnfermero(enfermero: Enfermero): void {
