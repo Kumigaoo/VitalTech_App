@@ -76,7 +76,7 @@ export class PlantaComponent implements OnInit, AfterViewInit {
           link.href = css;
           document.head.appendChild(link);
         });
-     
+        this.crearFormularioPlanta();
       }
 
   ngOnInit() {
@@ -133,20 +133,7 @@ export class PlantaComponent implements OnInit, AfterViewInit {
       });
   }
 
-  toggleActualizarPlanta(planta: Planta): void {
-    this.plantaSeleccionado = { ...planta };
-    this.dialog
-      .open(DialogFormularioConsultaPlantesModificar, {
-        data: this.plantaSeleccionado,
-      })
-      .afterClosed()
-      .subscribe((plantaActualizada) => {
-        if (plantaActualizada) {
-          this.plantaSeleccionado = plantaActualizada;
-          this.modificarPlanta();
-        }
-      });
-  }
+  
 
   guardarPlanta() {
     this.plantaService.post(this.nuevaPlanta).subscribe({
@@ -230,6 +217,46 @@ export class PlantaComponent implements OnInit, AfterViewInit {
   cerrarFormulario(): void {
     this.plantaSeleccionado = null;
   }
+
+  toggleActualizarPlanta(planta: Planta): void {
+    this.plantaSeleccionado = { ...planta };
+    this.dialog
+      .open(DialogFormularioConsultaPlantesModificar, {
+        data: this.plantaSeleccionado,
+      })
+      .afterClosed()
+      .subscribe((plantaActualizada) => {
+        if (plantaActualizada) {
+          this.plantaSeleccionado = plantaActualizada;
+          this.modificarPlanta();
+        }
+      });
+  }
+
+  tooggleAgregarPlanta(): void {
+    this.crearFormularioPlanta();
+    if(this.checkNoUsuarios()){
+      this.snackbar.showNotification('error','No hay usuarios disponibles');
+      return;
+    } 
+    this.dialog
+      .open(DialogFormularioMedicoModifComponent, {
+        data: this.medicoForm,
+      })
+      .afterClosed()
+      .subscribe((medicoActualizado) => {
+        if (medicoActualizado) {
+          this.medicoForm.patchValue(medicoActualizado);
+          console.log(this.medicoForm.value);
+          this.agregarMedico();
+        }
+      });
+  }
+
+  agregarPlanta
+
+  actualizarPlanta
+
 
   filtrarPlantes(event: { type: string; term: string }): void {
     const { type, term } = event;
