@@ -57,7 +57,7 @@
         <ng-container matColumnDef="nom">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
           <td mat-cell *matCellDef="let paciente" (click)="toggleActualizarPaciente(paciente)">
-            {{ paciente.nom }} {{ paciente.cognom1 }}
+            {{ paciente.nom }} <div class="apellidos">{{ paciente.cognom1}} {{paciente.cognom2}}</div>
           </td>
         </ng-container>
 
