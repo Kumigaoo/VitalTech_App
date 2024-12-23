@@ -232,24 +232,11 @@ export class PlantaComponent implements OnInit, AfterViewInit {
   }
 
   crearFormularioPlanta(): void{
-      this.plantaForm = this.fb.group({ //lo crear con el form builder
-        piso: [ //campo dni
-          this.data.piso, //valor puesto en el campo dni 
-          {
-            validators: [Validators.required], //comprueba que el dni sea valido
-            asyncValidators: [plantaExistsValidator(this.plantaService)], //comprueba que no exista un administrador de sistema con ese dni
-          }
-        ],
-        capacitatHabitacions: [
-          this.data.capacitatHabitacions,
-          {
-            validators:[Validators.required, Validators.pattern(/^(?:[1-9]|[1-9][0-9])$/)
-  
-            ],
-          }
-        ],
-      });
-    }
+    this.plantaForm = this.fb.group({
+      piso: [0],
+      capacitatHabitacions: [0]
+    });
+  }
 
   agregarPlanta(): void {
       if (this.plantaForm.valid) {
