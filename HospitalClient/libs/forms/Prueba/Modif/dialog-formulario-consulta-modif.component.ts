@@ -1,3 +1,5 @@
+import { EpisodiMedic } from './../../../interfaces/episodis-medics.interface';
+import { EpisodiService } from './../../../services/episodis.service';
 import { ChangeDetectorRef, Component, Inject } from '@angular/core';
 import {
   MAT_DIALOG_DATA,
@@ -32,13 +34,16 @@ import { PruebaDiagnostica } from '../../../interfaces/pruebas-diagnosticas.inte
 })
 export class DialogFormularioConsultaModifComponent {
   isEditing: boolean = false; // Variable para controlar el modo
+  pruebaForm!: FormGroup;
+  episodis!: EpisodiMedic[];
   cssPaths!: string[];
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: PruebaDiagnostica,
-    public dialogRef: MatDialogRef<DialogFormularioConsultaModifComponent>
+    public dialogRef: MatDialogRef<DialogFormularioConsultaModifComponent>,
+    private fb: FormBuilder,
+    private episodiService: EpisodiService
   ) {
-    this.showDetails();
     this.cssPaths =  ['/assets/styles/Pruebas-Diagnosticas/popup/dialog-formulario-consulta.component.css'];
     this.cssPaths.forEach(css => {
       const link = document.createElement('link');
@@ -47,27 +52,96 @@ export class DialogFormularioConsultaModifComponent {
       link.href = css;
       document.head.appendChild(link);
     });
+    this.obtenerEpisodios();
+    this.crearFormularioPrueba();
+    if(this.data.id){
+      this.disableEditing();
+    }
+
   }
 
-  // Método para manejar el envío del formulario
-  guardar(): void {
-    this.dialogRef.close(this.data);
-  }
+  // metodo para saber si esta en modo lectura o no
   get isReadOnly(): boolean {
     return !this.isEditing;
   }
-  // Función para habilitar el modo edición
+
+  // habilitar modo edición
   enableEditing(): void {
-    this.isEditing = true;
+    this.isEditing = true; //modo edición
+    this.pruebaForm.enable(); //formuario editable
   }
 
-  // Función para mostrar detalles (solo lectura)
-  showDetails(): void {
-    this.isEditing = false;
+  // deshabilitar modo edición
+  disableEditing(): void {
+    this.isEditing = false; //modo lectura
+    this.pruebaForm.disable(); //formulario no editable
   }
 
-  // Función para cancelar
+  //cerrar dialogo
   cancelar(): void {
     this.dialogRef.close();
+  }
+
+  crearFormularioPrueba(): void{
+    this.pruebaForm = this.fb.group({
+      dniMetge: [this.data.dniMetge],
+      dniEnfermer: [this.data.dniEnfermer],
+      episodiMedicId: [this.data.episodiMedicId],
+      dolencia: [this.data.dolencia, [Validators.required]],
+      pruebas: [this.data.pruebas, [Validators.required]],
+      resultados: [this.data.resultados],
+      correcta: [this.data.correcta]
+    })
+  }
+
+  guardar(): void {
+      if (this.pruebaForm.valid) {
+        //si los datos son validos
+        const prueba: PruebaDiagnostica = {
+          //creamos un nuevo administrador
+          ...this.data,
+          ...this.pruebaForm.value,
+        };
+        //quitamos el espacio de los lados a todos los atributos
+        if(prueba.dniMetge != null){
+          prueba.dniMetge.toString().trim();
+        }
+        if(prueba.dniEnfermer != null) {
+          prueba.dniEnfermer.toString().trim();
+        }
+        prueba.dolencia.toString().trim();
+        if(prueba.pruebas != null){
+          prueba.pruebas.toString().trim();
+        }
+        if(prueba.resultados != null){
+          prueba.resultados.toString().trim();
+        }
+
+        if(prueba.correcta != null){
+          prueba.correcta.toString().trim();
+        }
+        
+        //cerramos el dialog y enviamos los datos
+        this.dialogRef.close(prueba);
+      }
+    }
+    
+  obtenerEpisodios(): void {
+    this.episodiService.getAll().subscribe({
+      next:(data: EpisodiMedic[]) => {
+        this.episodis = data;
+      },
+      error: (error:any) => {
+        console.log('ERROR', error);
+      }
+    })
+  }
+
+  obtenerMedicos(): void {
+
+  }
+
+  obtenerEnfermeros(): void {
+
   }
 }
