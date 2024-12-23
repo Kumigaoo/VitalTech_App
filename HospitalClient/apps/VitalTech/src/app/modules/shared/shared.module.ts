@@ -9,7 +9,7 @@ import { EnumTranslatePipe } from '../../pipes/enum-translate.pipe';
 import { MatCardModule, MatCardTitle } from '@angular/material/card';
 import { MatOption, MatSelect, MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
-import { DialogFormularioComponent } from '../../../../../GoldenFold/src/app/components/Formularios/Paciente/dialog-formulario-paciente-create/dialog-formulario.component';
+import { DialogPacienteComponent } from '../../../../../../libs/forms/Paciente/dialog-paciente-lista-modif.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
@@ -40,7 +40,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatSelect,
     MatSelectModule,
     MatOptionModule,
-    DialogFormularioComponent,
+    DialogPacienteComponent,
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
@@ -70,7 +70,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatSelect,
     MatSelectModule,
     MatOptionModule,
-    DialogFormularioComponent,
+    DialogPacienteComponent,
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,

@@ -1,6 +1,7 @@
 <h2 mat-dialog-title>
   {{ !editar ? 'Detalles Paciente' : 'Actualizar Paciente' }}
 </h2>
+
 <mat-dialog-content>
   <form [formGroup]="pacienteForm" (ngSubmit)="guardar()">
     <br />
@@ -31,12 +32,11 @@
       >
     </mat-form-field>
 
+    
     <mat-form-field appearance="outline">
       <mat-label>Nombre</mat-label>
       <input matInput formControlName="nom" required [disabled]="isReadOnly" />
-      <mat-error *ngIf="pacienteForm.get('nom')?.hasError('required')"
-        >El nombre es requerido</mat-error
-      >
+      <mat-error *ngIf="pacienteForm.get('nom')?.hasError('required')">El nombre es requerido</mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="outline">
@@ -128,9 +128,9 @@
         [for]="picker"
       ></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
-      <mat-error *ngIf="pacienteForm.get('birthDay')?.hasError('required')"
-        >La fecha de nacimiento es requerida.</mat-error
-      >
+      <mat-error *ngIf="pacienteForm.get('birthDay')?.hasError('required')">
+        La fecha de nacimiento es requerida.
+      </mat-error>
     </mat-form-field>
   </form>
 </mat-dialog-content>

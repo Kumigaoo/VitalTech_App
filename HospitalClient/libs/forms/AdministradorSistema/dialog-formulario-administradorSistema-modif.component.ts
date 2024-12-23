@@ -74,6 +74,7 @@ export class DialogFormularioAdministradorSistemaModifComponent{
   administradores!: AdministradorSistema[]; //lista de administradores
   cssPaths!: string[]; //para poner el css
 
+  
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: AdministradorSistema, //los datos que le pasamos al dialog
     private administradorSistemaService: AdministradorSistemaService, //servicio administrador de sistema
