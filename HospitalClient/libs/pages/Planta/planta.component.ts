@@ -10,7 +10,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { SnackbarComponent } from '../../../apps/GoldenFold/src/app/components/snackbar/snackbar.component';
 import { DialogPlantaComponent } from '../../forms/Planta/dialog-planta-component';
 import { HabitacionesDialogComponent } from '../../../apps/GoldenFold/src/app/components/popups/habitaciones-popup';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { plantaExistsValidator } from '../../validators/plantaExistsValidator';
 
 @Component({
   selector: 'app-planta',
@@ -48,6 +49,7 @@ export class PlantaComponent implements OnInit, AfterViewInit {
   templateUrl!: string
   styleUrls!: string[]
   cssPaths!: string[];
+  data: any;
 
   constructor(public dialog: MatDialog, private plantaService: PlantaService, private fb: FormBuilder) {
     this.nuevaPlanta = {
@@ -87,6 +89,11 @@ export class PlantaComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     this.plantas.paginator = this.paginator;
     this.plantas.sort = this.sort;
+  }
+
+  // LA MOVIDITA A IMPLENATR XD 
+  tooggleActualizarPlanta(planta: any): void {
+
   }
 
   loadPlantes(): void {
@@ -222,13 +229,6 @@ export class PlantaComponent implements OnInit, AfterViewInit {
         data: this.plantaForm,
       })
       .afterClosed()
-      .subscribe((medicoActualizado) => {
-        if (medicoActualizado) {
-          this.medicoForm.patchValue(medicoActualizado);
-          console.log(this.medicoForm.value);
-          this.agregarMedico();
-        }
-      });
   }
 
   crearFormularioPlanta(): void{
@@ -269,9 +269,6 @@ export class PlantaComponent implements OnInit, AfterViewInit {
         });
       }
     }
-
-  actualizarPlanta
-
 
   filtrarPlantes(event: { type: string; term: string }): void {
     const { type, term } = event;

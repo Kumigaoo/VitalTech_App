@@ -1,8 +1,5 @@
 import { Planta } from './../../interfaces/planta.interface';
-import { UsuarioService } from '../../services/usuario.service';
 import { Usuari } from '../../interfaces/usuari.interface';
-import { CamaService } from '../../services/cama.service';
-import { EpisodiService } from '../../services/episodis.service';
 import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import {
   MAT_DIALOG_DATA,
@@ -21,30 +18,14 @@ import {
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { EpisodiMedic } from '../../interfaces/episodis-medics.interface';
 import {
-  MatOptionModule,
-  provideNativeDateAdapter,
+  MatOptionModule
 } from '@angular/material/core';
-import { Cama } from '../../interfaces/cama.interface';
-import { CommonModule, NumberFormatStyle } from '@angular/common';
+import { CommonModule} from '@angular/common';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
-import { CustomDateAdapter } from '../../../apps/GoldenFold/src/app/custom-date-adapter';
-import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
-import {
-  dataInici,
-  dataIniciFinalValidator,
-} from '../../../apps/GoldenFold/src/app/validators/ingresos.validators';
-import { Medico } from '../../interfaces/medico.interface';
-import { MedicoService } from '../../services/metge.service';
-import { dniValidator } from '../../validators/dniValidator';
-import { map } from 'rxjs';
-import { EspecialidadesMedico } from '../../../apps/GoldenFold/src/app/enums/especialidadesMedico';
-import { dniExisteValidator } from '../../validators/dniExistsValidatos';
-import { obtenerUsuariosDisponibles } from '../../utils/utilFunctions';
 import { PlantaService } from '../../services/planta.service';
 import { plantaExistsValidator } from '../../validators/plantaExistsValidator';
 

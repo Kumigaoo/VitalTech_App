@@ -17,7 +17,7 @@
         ]" [defaultSearchType]="'planta'" placeholder="Escribe para buscar..." (search)="filtrarPlantes($event)">
         </app-search-box>
       </div>
-      <button mat-raised-button color="primary" (click)="toggleAgregarPlanta()">
+      <button mat-raised-button color="primary" (click)="toggleFormularioAgregar()">
         + Registrar planta
       </button>
     </div>
@@ -67,7 +67,7 @@
 
           @if(!isPortGolden){
           <div class="botonesbobos">
-            <button class="botonesbobos" mat-icon-button (click)="toggleActualizarPlanta(planta)">
+            <button class="botonesbobos" mat-icon-button (click)="tooggleActualizarPlanta(planta)">
               🔄
             </button>
             <button class="botonesbobos" mat-icon-button (click)="delete(planta.piso)">
