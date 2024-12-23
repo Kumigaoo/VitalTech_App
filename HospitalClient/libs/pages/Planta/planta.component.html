@@ -17,7 +17,7 @@
         ]" [defaultSearchType]="'planta'" placeholder="Escribe para buscar..." (search)="filtrarPlantes($event)">
         </app-search-box>
       </div>
-      <button mat-raised-button color="primary" (click)="toggleFormularioAgregar()">
+      <button mat-raised-button color="primary" (click)="toggleAgregarPlanta()">
         + Registrar planta
       </button>
     </div>
@@ -34,7 +34,8 @@
       <!-- Piso -->
       <ng-container matColumnDef="piso">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Piso</th>
-        <td mat-cell *matCellDef="let planta" (click)="toggleActualizarPlanta(planta)">
+        <td mat-cell *matCellDef="let planta" (click)="isPortGolden ? tooggleActualizarPlanta(planta) : null"
+        >
           {{ planta.piso }}
         </td>
       </ng-container>
@@ -44,7 +45,7 @@
         <th mat-header-cell *matHeaderCellDef mat-sort-header>
           Capacidad de habitaciones
         </th>
-        <td mat-cell *matCellDef="let planta" (click)="toggleActualizarPlanta(planta)">
+        <td mat-cell *matCellDef="let planta" (click)="isPortGolden ? tooggleActualizarPlanta(planta) : null">
           {{ planta.capacitatHabitacions }}
         </td>
       </ng-container>
