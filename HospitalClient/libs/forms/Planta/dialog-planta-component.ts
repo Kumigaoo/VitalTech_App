@@ -46,6 +46,7 @@ import { EspecialidadesMedico } from '../../../apps/GoldenFold/src/app/enums/esp
 import { dniExisteValidator } from '../../validators/dniExistsValidatos';
 import { obtenerUsuariosDisponibles } from '../../utils/utilFunctions';
 import { PlantaService } from '../../services/planta.service';
+import { plantaExistsValidator } from '../../validators/plantaExistsValidator';
 
 @Component({
   selector: 'app-dialog-planta',
@@ -150,7 +151,7 @@ export class DialogPlantaComponent {
         this.data.piso, //valor puesto en el campo dni 
         {
           validators: [Validators.required], //comprueba que el dni sea valido
-          asyncValidators: [], //comprueba que no exista un administrador de sistema con ese dni
+          asyncValidators: [plantaExistsValidator(this.plantaService)], //comprueba que no exista un administrador de sistema con ese dni
         }
       ],
       capacitatHabitacions: [
