@@ -12,7 +12,7 @@ import { DialogFormularioEpisodisComponent } from '../../forms/Episodio/Create/d
 import { ConsultasDialogComponent } from '../../popups/consultas-popup';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
-import { AbstractTableComponent } from '../abstract-logic';
+import { AbstractTableComponent } from '../../utils/abstract-logic';
 import { Observable } from 'rxjs';
 
 @Component({
