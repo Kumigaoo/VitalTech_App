@@ -5,7 +5,7 @@
 }
 
 <div class="medicos-section">
-  <h2>Medicos</h2>
+  <h2>Médicos</h2>
   <!--Para las notificaciones-->
   <app-snackbar #snackbar></app-snackbar>
 
@@ -17,7 +17,7 @@
         color="primary"
         (click)="tooggleAgregarMedico()"
       >
-        Agregar Medico
+        Agregar Médicos
       </button>
     </div>
 
@@ -50,55 +50,35 @@
     <table mat-table [dataSource]="medicos" matSort class="mat-elevation-z8">
       <ng-container matColumnDef="dni">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>DNI</th>
-        <td
-          mat-cell
-          *matCellDef="let medico"
-          (click)="tooggleActualizarMedico(medico)"
-        >
+        <td mat-cell *matCellDef="let medico" (click)="isPortGolden ? tooggleActualizarMedico(medico) : null" >
           {{ medico?.dni }}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="nom">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
-        <td
-          mat-cell
-          *matCellDef="let medico"
-          (click)="tooggleActualizarMedico(medico)"
-        >
+        <td mat-cell *matCellDef="let medico" (click)="isPortGolden ? tooggleActualizarMedico(medico) : null" >
           {{ medico?.nom }}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="usuariId">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Usuario</th>
-        <td
-          mat-cell
-          *matCellDef="let medico"
-          (click)="tooggleActualizarMedico(medico)"
-        >
+        <td mat-cell *matCellDef="let medico" (click)="isPortGolden ? tooggleActualizarMedico(medico) : null" >
           {{ getUserName(medico?.usuariId,usuarios) }}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="telefon">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Teléfono</th>
-        <td
-          mat-cell
-          *matCellDef="let medico"
-          (click)="tooggleActualizarMedico(medico)"
-        >
+        <td mat-cell *matCellDef="let medico" (click)="isPortGolden ? tooggleActualizarMedico(medico) : null" >
           {{ medico?.telefon }}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="especialitat">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Especialidad</th>
-        <td
-          mat-cell
-          *matCellDef="let medico"
-          (click)="tooggleActualizarMedico(medico)"
-        >
+        <td mat-cell *matCellDef="let medico" (click)="isPortGolden ? tooggleActualizarMedico(medico) : null" >
           {{ medico?.especialitat }}
         </td>
       </ng-container>
