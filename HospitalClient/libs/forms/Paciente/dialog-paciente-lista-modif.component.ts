@@ -24,7 +24,7 @@ import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { CustomDateAdapter } from '../../../apps/GoldenFold/src/app/custom-date-adapter';
 import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
-import { Nacionalidad } from '../../../apps/GoldenFold/src/app/enums/nacionalidades';
+import { Nacionalidad } from '../../enums/nacionalidades';
 import { obtenerUsuariosDisponibles } from '../../utils/utilFunctions';
 import { Usuari } from '../../interfaces/usuari.interface';
 import { UsuarioService } from '../../services/usuario.service';
@@ -71,19 +71,16 @@ export class DialogPacienteComponent {
   cssPaths!: string[];
   pacientes!:Paciente[];
 
-  nacionalidades = Object.entries(Nacionalidad)
-    .filter(([key, value]) => !isNaN(Number(value))) // Filtra solo las entradas numéricas
-    .map(([key, value]) => ({ id: value as number, nombre: key })); // Mapea a un objeto con id y nombre
-
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: Paciente,
     private pacienteService: PacienteService,
     public dialogRef: MatDialogRef<DialogPacienteComponent>,
     private fb: FormBuilder,
     private usuarioService: UsuarioService
+
   ) {
 
-    this.cssPaths =  ['/assets/styles/styles.css','/assets/styles/AdministradorSistema/Popups/dialog-formulario-administradorSistema-modif.component.css'];
+    this.cssPaths =  ['/assets/styles/styles.css','/assets/styles/pacientes/popups/dialog-formulario-paciente.component.css'];
     this.cssPaths.forEach(css => {
       const link = document.createElement('link');
       link.rel = 'stylesheet';
@@ -99,6 +96,7 @@ export class DialogPacienteComponent {
     }
 
   }
+
 
   disableEditing(): void{
     this.editar = false; //modo lectura
@@ -154,23 +152,9 @@ export class DialogPacienteComponent {
       this.pacienteService.getAll().subscribe({
         next:(data: Paciente[]) =>{
           this.pacientes = data;
-          this.getUsuariosDisponibles(); //obtener usuarios
         },
         error:(error:any)=>{
           console.log('ERROR',error);
-        }
-      })
-    }
-  
-    //metodo para obtener los usuariosDisponibles
-    getUsuariosDisponibles(): void {
-      obtenerUsuariosDisponibles("Paciente",
-        this.pacientes,this.usuarioService).subscribe({
-        next:(usuariosDisponibles: Usuari[]) => {
-          this.usuarios = usuariosDisponibles;
-        },
-        error:(error:any)=>{
-          console.log('Error al obtener los usuarios disponibles:',error);
         }
       })
     }
@@ -186,3 +170,5 @@ export class DialogPacienteComponent {
     }
   }
 }
+
+

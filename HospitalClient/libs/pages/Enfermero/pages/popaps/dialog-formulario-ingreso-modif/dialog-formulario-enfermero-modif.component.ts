@@ -1,5 +1,5 @@
-import { EspecialidadesEnfermero } from './../../../../../../apps/GoldenFold/src/app/enums/especialidadesEnfermero';
-import { EnfermeroAsyncValidator } from './../../../../../../apps/GoldenFold/src/app/validators/enfermeroExistsValidator';
+import { EspecialidadesEnfermero } from '../../../../../enums/especialidadesEnfermero';
+import { EnfermeroAsyncValidator } from '../../../../../validators/enfermeroExistsValidator';
 import { MedicoService } from './../../../../../services/metge.service';
 import { UsuarioService } from './../../../../../services/usuario.service';
 import { EnfermeroService } from '../../../../../services/enfermero.service';

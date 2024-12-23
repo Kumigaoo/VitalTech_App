@@ -36,12 +36,12 @@ import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
 import {
   dataInici,
   dataIniciFinalValidator,
-} from '../../../apps/GoldenFold/src/app/validators/ingresos.validators';
+} from '../../validators/ingresos.validators';
 import { Medico } from '../../interfaces/medico.interface';
 import { MedicoService } from '../../services/metge.service';
 import { dniValidator } from '../../validators/dniValidator';
 import { map } from 'rxjs';
-import { EspecialidadesMedico } from '../../../apps/GoldenFold/src/app/enums/especialidadesMedico';
+import { EspecialidadesMedico } from '../../enums/especialidadesMedico';
 import { dniExisteValidator } from '../../validators/dniExistsValidatos';
 import { obtenerUsuariosDisponibles } from '../../utils/utilFunctions';
 
