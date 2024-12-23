@@ -50,7 +50,6 @@
   background: #fff !important;
   font-family: Arial, sans-serif !important;
   font-weight: normal !important;
-  cursor: pointer;
 }
 
 thead tr th {
@@ -139,6 +138,10 @@ button a {
 
 .botones {
   display: flex !important;
+}
+
+.apellidos {
+  display: inline !important;
 }
 
 .texto {
