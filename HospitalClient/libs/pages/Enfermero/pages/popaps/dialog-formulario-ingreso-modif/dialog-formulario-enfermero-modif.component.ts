@@ -1,6 +1,5 @@
 import { EspecialidadesEnfermero } from '../../../../../enums/especialidadesEnfermero';
 import { EnfermeroAsyncValidator } from '../../../../../validators/enfermeroExistsValidator';
-import { MedicoService } from './../../../../../services/metge.service';
 import { UsuarioService } from './../../../../../services/usuario.service';
 import { EnfermeroService } from '../../../../../services/enfermero.service';
 import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
@@ -30,7 +29,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
-import { Medico } from '../../../../../interfaces/medico.interface';
 import { Usuari } from '../../../../../interfaces/usuari.interface';
 import { dniValidator } from '../../../../../validators/dniValidator';
 import { map } from 'rxjs';
@@ -69,8 +67,7 @@ export class DialogFormularioEnfermeroModifComponent implements OnInit {
     .map(([key, value]) => ({ id: value as number, nombre: key }));
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: Medico,
-    private medicoService: MedicoService,
+    @Inject(MAT_DIALOG_DATA) public data: Enfermero,
     private enfermeroService: EnfermeroService,
     public dialogRef: MatDialogRef<DialogFormularioEnfermeroModifComponent>,
     private fb: FormBuilder,

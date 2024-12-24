@@ -229,10 +229,15 @@ export class EnfermersComponent {
   }
 
   verPruebasDiagnosticas(enfermero: Enfermero): void {
-    this.dialog.open(PruebasDialogComponent, {
-      maxWidth: 'auto',
-      height: '70vh',
-      data: enfermero.pruebasDiagnosticas
-    });
+    if (enfermero.pruebasDiagnosticas.length <= 0) {
+      this.snackbar.showNotification('error', 'No hay pruebas diagnosticas');
+      return;
+    } else {
+      this.dialog.open(PruebasDialogComponent, {
+        maxWidth: 'auto',
+        height: '70vh',
+        data: enfermero.pruebasDiagnosticas
+      });
+    }
   }
 }
