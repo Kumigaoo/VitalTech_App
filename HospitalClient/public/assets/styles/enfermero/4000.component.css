@@ -154,3 +154,21 @@ button a {
   background-color: transparent;
   font-size: 1.6em;
 }
+
+filter-container {
+  margin-top: 5em !important;
+  margin-left: 50em !important;
+}
+
+.title {
+  display: flex !important;
+  margin-top: 1em;
+  margin-left: 50vw;
+  margin-right: 50em;
+
+  font-family: Arial, sans-serif !important;
+  font-size: 3em !important;
+  font-weight: bold !important;
+  color: darkcyan !important;
+  font-size: 25px !important;
+}
