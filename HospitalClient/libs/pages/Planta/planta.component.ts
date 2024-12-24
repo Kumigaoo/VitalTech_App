@@ -49,7 +49,6 @@ export class PlantaComponent implements OnInit, AfterViewInit {
   templateUrl!: string
   styleUrls!: string[]
   cssPaths!: string[];
-  data: any;
 
   constructor(public dialog: MatDialog, private plantaService: PlantaService, private fb: FormBuilder) {
     this.nuevaPlanta = {
