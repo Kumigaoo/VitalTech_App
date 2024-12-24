@@ -10,6 +10,9 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { Usuari } from '../../interfaces/usuari.interface';
+import { obtenerUsuariosDisponibles } from '../../utils/utilFunctions';
+import { UsuarioService } from '../../services/usuario.service';
 
 @Component({
   selector: 'app-enfermers',
@@ -35,6 +38,7 @@ export class EnfermersComponent {
 
   enfermeroForm!: FormGroup;
   enfermeroParaActualizar: Enfermero | null = null;
+  usuariosDisponibles!: Usuari[]; 
 
   currentPort: string;
   isPortGolden: boolean;
@@ -43,7 +47,8 @@ export class EnfermersComponent {
   constructor(
     private enfermeroService: EnfermeroService,
     private fb: FormBuilder,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private usuarioService: UsuarioService
   ) {
     this.obtenerEnfermeros();
     this.crearFormularioEnfermero();
@@ -77,11 +82,20 @@ export class EnfermersComponent {
     this.enfermeroService.getAll().subscribe({
       next: (data: Enfermero[]) => {
         this.enfermeros.data = data;
+        this.getUsuariosDisponibles();
       },
       error: (error: any) => {
         console.error(error);
       },
     });
+  }
+
+  //verificar disponibilidad de usuarios
+  checkNoUsuarios(): boolean{
+    if(this.usuariosDisponibles.length<=0){
+      return true;
+    }
+    return false;
   }
 
   crearFormularioEnfermero(): void {
@@ -98,6 +112,7 @@ export class EnfermersComponent {
     this.enfermeroService.delete(enfermero.dni).subscribe({
       next: () => {
         this.enfermeros.data = this.enfermeros.data.filter((i) => i.dni !== enfermero.dni);
+        this.getUsuariosDisponibles();
         this.snackbar.showNotification('success', 'Enfermero eliminado correctamente');
       },
       error: (error: any) => {
@@ -135,6 +150,10 @@ export class EnfermersComponent {
   }
 
   tooggleAgregarEnfermero(): void {
+    if(this.checkNoUsuarios()){
+       this.snackbar.showNotification('error','No hay usuarios disponibles');
+       return;
+    }
     this.crearFormularioEnfermero();
     this.dialog
       .open(DialogFormularioEnfermeroModifComponent, {
@@ -156,6 +175,7 @@ export class EnfermersComponent {
         next: (enfermero: Enfermero) => {
           this.enfermeros.data = [...this.enfermeros.data, enfermero];
           this.enfermeroForm.reset();
+          this.obtenerEnfermeros();
           this.snackbar.showNotification('success', 'Enfermero creado correctamente');
         },
         error: (error: any) => {
@@ -181,6 +201,18 @@ export class EnfermersComponent {
         },
       });
     }
+  }
+
+  getUsuariosDisponibles(): void {
+    obtenerUsuariosDisponibles("Enfermer",this.enfermeros.data,this.usuarioService).subscribe({
+      next:(usuariosDisponibles: Usuari[]) => {
+        this.usuariosDisponibles = usuariosDisponibles;
+        console.log('USUARIOSS',this.usuariosDisponibles);
+      },
+      error:(error:any)=>{
+        console.log('Error al obtener los usuarios disponibles:',error);
+      }
+    })
   }
 
   toogleActualizarEnfermero(enfermero: Enfermero): void {

@@ -18,8 +18,7 @@ export function obtenerNombreUsuario(
 export function obtenerUsuariosDisponibles(
   rolId: string,
   personal: any[],
-  usuarioService: UsuarioService
-): Observable<Usuari[]> {
+  usuarioService: UsuarioService): Observable<Usuari[]> {
   return usuarioService.getAll().pipe(
     map((data: Usuari[]) => {
       let usuaris = data.filter((usuari) => usuari.rolId === rolId);
