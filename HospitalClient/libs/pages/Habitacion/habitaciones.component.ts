@@ -10,7 +10,7 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator'; // Módul
 import { MatSort } from '@angular/material/sort'; // Módulo de ordenación de Angular Material
 import { MatDialog } from '@angular/material/dialog';
 import Swal from 'sweetalert2';
-import { AbstractTableComponent } from '../abstract-logic';
+import { AbstractTableComponent } from '../../utils/abstract-logic';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -118,7 +118,7 @@ export class HabitacionesComponent extends AbstractTableComponent<Habitacion> im
       confirmButtonText: 'Sí',
       cancelButtonText: 'Cancelar',
       });
-    }
+  }
 
   definirFiltro(data: Habitacion, type: string, filter: string): boolean {
     switch (type) {

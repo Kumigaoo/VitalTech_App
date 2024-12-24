@@ -3,8 +3,8 @@ import { provideRouter } from '@angular/router';
 import { routes } from './app-routing.module';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { authInterceptor } from './auth/auth.interceptor';
-import { authConfig } from './auth/auth.config';
+import { authInterceptor } from '../../../../libs/auth/auth.interceptor';
+import { authConfig } from '../../../../libs/auth/auth.config';
 import { provideAuth } from 'angular-auth-oidc-client';
 
 export const appConfig: ApplicationConfig = {

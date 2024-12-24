@@ -34,7 +34,8 @@
       <!-- Piso -->
       <ng-container matColumnDef="piso">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Piso</th>
-        <td mat-cell *matCellDef="let planta" (click)="toggleActualizarPlanta(planta)">
+        <td mat-cell *matCellDef="let planta" (click)="isPortGolden ? tooggleActualizarPlanta(planta) : null"
+        >
           {{ planta.piso }}
         </td>
       </ng-container>
@@ -44,7 +45,7 @@
         <th mat-header-cell *matHeaderCellDef mat-sort-header>
           Capacidad de habitaciones
         </th>
-        <td mat-cell *matCellDef="let planta" (click)="toggleActualizarPlanta(planta)">
+        <td mat-cell *matCellDef="let planta" (click)="isPortGolden ? tooggleActualizarPlanta(planta) : null">
           {{ planta.capacitatHabitacions }}
         </td>
       </ng-container>
@@ -66,7 +67,7 @@
 
           @if(!isPortGolden){
           <div class="botonesbobos">
-            <button class="botonesbobos" mat-icon-button (click)="toggleActualizarPlanta(planta)">
+            <button class="botonesbobos" mat-icon-button (click)="tooggleActualizarPlanta(planta)">
               🔄
             </button>
             <button class="botonesbobos" mat-icon-button (click)="delete(planta.piso)">

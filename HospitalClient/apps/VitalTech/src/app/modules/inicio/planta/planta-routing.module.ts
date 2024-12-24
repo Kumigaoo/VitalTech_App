@@ -7,16 +7,11 @@ import { RegistroPlantaComponent } from '../../../pages/inicio/pages/planta/page
 const routes: Routes = [
   {
     path: '',
-    component: PlantaComponent,
-  },/*
-  {
-    path: 'modif-planta/:piso',
-    component: ModifPlantaComponent,
-  },*/
-  {
-    path: 'registro-planta',
-    component: RegistroPlantaComponent,
-  },
+    component: PlantaComponent
+  },{
+      path: 'registro-planta',
+      component: RegistroPlantaComponent,
+    }
 ];
 
 @NgModule({

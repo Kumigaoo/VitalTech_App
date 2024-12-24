@@ -1,4 +1,4 @@
-import { ErrorHandlerService } from './../../../../../libs/services/handle-error.service';
+import { ErrorHandlerService } from '../services/handle-error.service';
 import { HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { OidcSecurityService } from 'angular-auth-oidc-client';

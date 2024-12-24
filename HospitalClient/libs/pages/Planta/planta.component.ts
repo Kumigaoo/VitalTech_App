@@ -1,4 +1,3 @@
-import { DialogFormularioConsultaPlantesModificar } from './../../../apps/GoldenFold/src/app/components/Formularios/planta/dialog-formulario-plantes-registro-modificar/dialog-formulario-plantes-modificar.component';
 import { PlantaService } from '../../services/planta.service';
 import { Planta } from '../../interfaces/planta.interface';
 import { Component, ViewChild, OnInit, AfterViewInit } from '@angular/core';
@@ -9,9 +8,10 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { SnackbarComponent } from '../../../apps/GoldenFold/src/app/components/snackbar/snackbar.component';
-import { DialogFormularioConsultaPlantes } from '../../../apps/GoldenFold/src/app/components/Formularios/planta/dialog-formulario-plantes-registro/dialog-formulario-plantes.component';
+import { DialogPlantaComponent } from '../../forms/Planta/dialog-planta-component';
 import { HabitacionesDialogComponent } from '../../../apps/GoldenFold/src/app/components/popups/habitaciones-popup';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { plantaExistsValidator } from '../../validators/plantaExistsValidator';
 
 @Component({
   selector: 'app-planta',
@@ -22,6 +22,7 @@ export class PlantaComponent implements OnInit, AfterViewInit {
   @ViewChild(SnackbarComponent) snackbar!: SnackbarComponent;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+  plantaForm!: FormGroup; 
 
   displayedColumns: string[] = [
     'piso',
@@ -48,12 +49,14 @@ export class PlantaComponent implements OnInit, AfterViewInit {
   templateUrl!: string
   styleUrls!: string[]
   cssPaths!: string[];
+  data: any;
 
-  constructor(public dialog: MatDialog, private plantaService: PlantaService) {
+  constructor(public dialog: MatDialog, private plantaService: PlantaService, private fb: FormBuilder) {
     this.nuevaPlanta = {
       piso: 0,
       capacitatHabitacions: 0,
       habitacions: [''],
+      
     };
 
         //cambiar html
@@ -76,7 +79,7 @@ export class PlantaComponent implements OnInit, AfterViewInit {
           link.href = css;
           document.head.appendChild(link);
         });
-     
+        this.crearFormularioPlanta();
       }
 
   ngOnInit() {
@@ -86,6 +89,11 @@ export class PlantaComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     this.plantas.paginator = this.paginator;
     this.plantas.sort = this.sort;
+  }
+
+  // LA MOVIDITA A IMPLENATR XD 
+  tooggleActualizarPlanta(planta: any): void {
+
   }
 
   loadPlantes(): void {
@@ -114,14 +122,10 @@ export class PlantaComponent implements OnInit, AfterViewInit {
   }
 
   toggleFormularioAgregar() {
-    this.nuevaPlanta = {
-      piso: 0,
-      capacitatHabitacions: 0,
-      habitacions: [''],
-    };
+    this.crearFormularioPlanta();
 
     this.dialog
-      .open(DialogFormularioConsultaPlantes, {
+      .open(DialogPlantaComponent, {
         data: this.nuevaPlanta,
       })
       .afterClosed()
@@ -133,20 +137,7 @@ export class PlantaComponent implements OnInit, AfterViewInit {
       });
   }
 
-  toggleActualizarPlanta(planta: Planta): void {
-    this.plantaSeleccionado = { ...planta };
-    this.dialog
-      .open(DialogFormularioConsultaPlantesModificar, {
-        data: this.plantaSeleccionado,
-      })
-      .afterClosed()
-      .subscribe((plantaActualizada) => {
-        if (plantaActualizada) {
-          this.plantaSeleccionado = plantaActualizada;
-          this.modificarPlanta();
-        }
-      });
-  }
+  
 
   guardarPlanta() {
     this.plantaService.post(this.nuevaPlanta).subscribe({
@@ -230,6 +221,41 @@ export class PlantaComponent implements OnInit, AfterViewInit {
   cerrarFormulario(): void {
     this.plantaSeleccionado = null;
   }
+  
+  tooggleAgregarPlanta(): void {
+    this.crearFormularioPlanta();
+    this.dialog
+      .open(DialogPlantaComponent, {
+        data: this.plantaForm,
+      })
+      .afterClosed()
+  }
+
+  crearFormularioPlanta(): void{
+    this.plantaForm = this.fb.group({
+      piso: [0],
+      capacitatHabitacions: [0]
+    });
+  }
+
+  agregarPlanta(): void {
+      if (this.plantaForm.valid) {
+        const nuevoMedico: Planta = this.plantaForm.value;
+        this.plantaService.post(nuevoMedico).subscribe({
+          next: (planta: Planta) => {
+            this.plantas.data = [...this.plantas.data, planta];
+            this.loadPlantes();
+            this.plantaForm.reset();
+            this.snackbar.showNotification('success', 'Planta creado con exito'); // Notificación de éxito
+          },
+          error: (error: any) => {
+            const mensajeError =
+              error.error || 'Error inesperado. Inténtalo de nuevo.';
+            this.snackbar.showNotification('error', mensajeError); // Notificación de éxito
+          },
+        });
+      }
+    }
 
   filtrarPlantes(event: { type: string; term: string }): void {
     const { type, term } = event;

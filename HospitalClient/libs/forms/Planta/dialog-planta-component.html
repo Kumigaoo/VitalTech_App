@@ -1,0 +1,55 @@
+<h2 mat-dialog-title>
+    <!-- si se envía un piso (es decir, se clica en "actualizar") se cargará en el dialog el texto  "Detalles..."
+     si no, el de añadir nueva planta:
+    -->
+  {{ data.piso ? 'Detalles de Planta' : 'Agregar Administrador deSistema'}}
+</h2>
+<mat-dialog-content>
+  <form [formGroup]="plantaForm" style="margin-top: 20px">
+    <br />
+    <!--piso-->
+    <mat-form-field appearance="outline">
+      <mat-label>Piso:</mat-label>
+      <mat-hint>Ejemplo: 7</mat-hint>
+      <input matInput formControlName="piso" required />
+      @if (plantaForm.get('piso')?.hasError('required')) {
+      <mat-error>El piso es obligatorio</mat-error>
+      } 
+    </mat-form-field>
+    <br />
+    <!--Nom-->
+    <mat-form-field appearance="outline">
+      <mat-label>Capacidad de habitaciones:</mat-label>
+      <mat-hint>Ejemplo: 6</mat-hint>
+      <input matInput formControlName="capacitatHabitacions" required />
+      @if (plantaForm.get('capacitatHabitacions')?.hasError('required')) {
+      <mat-error>La capacidad de habitaciones es obligatoria</mat-error>
+      }
+      @if (plantaForm.get('capacitatHabitacions')?.hasError('pattern')) {
+        <mat-error>El número de habitaciones debe estar entre 1 y 99</mat-error>
+        }
+    </mat-form-field>
+    <br />
+    <br />
+    <mat-dialog-actions>
+      <!-- Botón Actualizar: Solo visible si se está en modo detalles -->
+      @if(data.piso && !isEditing){
+      <button mat-button (click)="enableEditing()">Editar</button>
+      }
+      <!-- Botón Guardar: Solo visible en modo edición -->
+      @if (isEditing){
+      <button
+        mat-raised-button
+        color="primary"
+        [disabled]="plantaForm.invalid"
+        (click)="guardar()"
+      >
+        Guardar
+      </button>
+      }
+
+      <!-- Botón Cancelar: Siempre visible, cambia comportamiento según el modo -->
+      <button mat-button (click)="cancelar()">Cancelar</button>
+    </mat-dialog-actions>
+  </form>
+</mat-dialog-content>

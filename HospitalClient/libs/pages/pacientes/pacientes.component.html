@@ -37,6 +37,7 @@
     <div class="table-container mat-elevation-z8">
       <table mat-table [dataSource]="dataSource" class="table mat-table" matSort>
         <!-- ID Paciente -->
+
         <ng-container matColumnDef="dni">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>DNI</th>
           <td mat-cell *matCellDef="let paciente" (click)="toggleActualizarPaciente(paciente)">
@@ -56,7 +57,7 @@
         <ng-container matColumnDef="nom">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
           <td mat-cell *matCellDef="let paciente" (click)="toggleActualizarPaciente(paciente)">
-            {{ paciente.nom }} {{ paciente.cognom1 }}
+            {{ paciente.nom }} <div class="apellidos">{{ paciente.cognom1}} {{paciente.cognom2}}</div>
           </td>
         </ng-container>
 
@@ -107,11 +108,11 @@
               </button>
             } @else {
               <div id = "accions">
-              <button mat-button color="warn" (click)="borrarPaciente(paciente.dni)">
+                <button mat-button (click)="toggleActualizarPaciente(paciente)">
+                  🔄
+                </button>
+                <button mat-button color="warn" (click)="borrarPaciente(paciente.dni)">
                 ❎
-              </button>
-              <button mat-button (click)="toggleActualizarPaciente(paciente)">
-                🔄
               </button>
             </div>
             }

@@ -30,7 +30,7 @@ import { CommonModule } from '@angular/common';
 import { Planta } from '../../../interfaces/planta.interface';
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
-import { pisoCodigoValidator } from '../../../../apps/GoldenFold/src/app/validators/habitacion.validator';
+import { pisoCodigoValidator } from '../../../validators/habitacion.validator';
 
 @Component({
   selector: 'app-dialog-actualizar-habitacion',

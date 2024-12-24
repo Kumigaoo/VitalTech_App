@@ -11,10 +11,9 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogFormularioComponent } from '../../../apps/GoldenFold/src/app/components/Formularios/Paciente/dialog-formulario-paciente-create/dialog-formulario.component';
 import { SnackbarComponent } from '../../../apps/GoldenFold/src/app/components/snackbar/snackbar.component';
 import { EpisodiosDialogComponent } from '../../../apps/GoldenFold/src/app/components/popups/episodis-popup';
-import { DialogPacienteComponent } from '../../../apps/GoldenFold/src/app/components/Formularios/Paciente/dialog-paciente-lista-modif/dialog-paciente-lista-modif.component';
+import { DialogPacienteComponent } from '../../forms/Paciente/dialog-paciente-lista-modif.component';
 
 @Component({
   selector: 'app-pacientes',
@@ -167,7 +166,7 @@ export class PacientesComponent implements OnInit, AfterViewInit {
       episodisMedics: [],
     };
     this.dialog
-      .open(DialogFormularioComponent, {
+      .open(DialogPacienteComponent, {
         data: this.nuevoPaciente,
       })
       .afterClosed()

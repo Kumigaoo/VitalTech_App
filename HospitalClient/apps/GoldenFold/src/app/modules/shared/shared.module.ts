@@ -21,7 +21,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 // Componentes personalizados
-import { DialogFormularioComponent } from '../../components/Formularios/Paciente/dialog-formulario-paciente-create/dialog-formulario.component';
 import { SnackbarComponent } from '../../components/snackbar/snackbar.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatOption } from '@angular/material/core';
@@ -44,7 +43,6 @@ import { MatOptionModule } from '@angular/material/core';
     MatSelect,
     MatSelectModule,
     MatOptionModule,
-    DialogFormularioComponent,
     MatTableModule,
     MatPaginatorModule,
     NavComponent,
@@ -73,7 +71,6 @@ import { MatOptionModule } from '@angular/material/core';
     MatSelect,
     MatSelectModule,
     MatOptionModule,
-    DialogFormularioComponent,
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,

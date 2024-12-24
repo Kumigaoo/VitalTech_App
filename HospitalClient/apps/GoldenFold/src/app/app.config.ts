@@ -4,9 +4,9 @@ import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { routes } from './app-routing.module';
 import { KeycloakService } from 'keycloak-angular';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { authConfig } from './auth/auth.config';
+import { authConfig } from '../../../../libs/auth/auth.config';
+import { authInterceptor } from '../../../../libs/auth/auth.interceptor';
 import { provideAuth } from 'angular-auth-oidc-client';
-import { authInterceptor } from './auth/auth.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [

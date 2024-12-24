@@ -1,5 +1,5 @@
-import { EnfermeroService } from './../../../../../libs/services/enfermero.service';
-import { MedicoService } from './../../../../../libs/services/metge.service';
+import { EnfermeroService } from '../services/enfermero.service';
+import { MedicoService } from '../services/metge.service';
 // username-async-validator.ts
 import { AbstractControl, ValidationErrors } from '@angular/forms';
 import { Injectable } from '@angular/core';

@@ -33,7 +33,7 @@ import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
 import {
   dataInici,
   dataIniciFinalValidator,
-} from '../../../../validators/ingresos.validators';
+} from '../../../../../../../../libs/validators/ingresos.validators';
 
 export const MY_DATE_FORMATS = {
   parse: {
