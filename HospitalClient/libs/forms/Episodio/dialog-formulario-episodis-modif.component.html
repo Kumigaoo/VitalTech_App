@@ -99,20 +99,25 @@
       />
     </mat-form-field>
     <br/>
-    <mat-dialog-actions>
-      <button mat-button *ngIf="!editar" (click)="enableEditing()">Editar</button>
-      <button
-        mat-raised-button
-        color="primary"
-        *ngIf="editar"
-        [disabled]="episodiForm.invalid"
-        (click)="guardar()"
-      >
-        Guardar
-      </button>
-      <button mat-button mat-dialog-close>Cancelar</button>
-    </mat-dialog-actions>
-    
   </form>
 </mat-dialog-content>
+
+<mat-dialog-actions>
+  <!-- Botón "Editar" aparece solo si no estamos en modo de edición -->
+  <button mat-button *ngIf="!editar" (click)="enableEditing()">Editar</button>
+
+  <!-- Botón "Guardar" aparece solo si estamos en modo de edición -->
+  <button
+    mat-raised-button
+    color="primary"
+    *ngIf="editar"
+    [disabled]="episodiForm.invalid"
+    (click)="guardar()"
+  >
+    Guardar
+  </button>
+
+  <!-- Botón "Cancelar" siempre disponible -->
+  <button mat-button mat-dialog-close>Cancelar</button>
+</mat-dialog-actions>
 

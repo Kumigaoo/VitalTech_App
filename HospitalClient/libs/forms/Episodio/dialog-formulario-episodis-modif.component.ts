@@ -58,31 +58,36 @@ export const MY_DATE_FORMATS = {
   styleUrls: [],
 })
 export class DialogFormularioEpisodisModifComponent {
-
   episodiForm!: FormGroup;
   editar: boolean = false;
   cssPaths!: string[];
-  episodis!:EpisodiMedic[];
+  episodis!: EpisodiMedic[];
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: EpisodiMedic,
     public dialogRef: MatDialogRef<DialogFormularioEpisodisModifComponent>,
     private fb: FormBuilder
   ) {
-
-    this.cssPaths =  ['/assets/styles/styles.css','/assets/styles/medico/Popups/dialog-formulario-medico-modif.component.css'];
-    this.cssPaths.forEach(css => {
+    this.cssPaths = [
+      '/assets/styles/styles.css',
+      '/assets/styles/medico/Popups/dialog-formulario-medico-modif.component.css',
+    ];
+    this.cssPaths.forEach((css) => {
       const link = document.createElement('link');
       link.rel = 'stylesheet';
       link.type = 'text/css';
       link.href = css;
       document.head.appendChild(link);
     });
-
   }
 
   ngOnInit(): void {
     this.crearFormularioEpisodio();
+    if (this.data.dataObertura === '' || !this.data.dataObertura) {
+      this.enableEditing();
+    } else {
+      this.disableEditing();
+    }
   }
 
   get isReadOnly(): boolean {
@@ -108,6 +113,7 @@ export class DialogFormularioEpisodisModifComponent {
         'yyyy-MM-dd',
         'en'
       );
+
       formData.dataTancament = formatDate(
         formData.dataTancament,
         'yyyy-MM-dd',
@@ -115,7 +121,9 @@ export class DialogFormularioEpisodisModifComponent {
       );
 
       this.episodiForm.value.id = this.data.id;
-      if (this.episodiForm.value.dataTancament  == "") this.episodiForm.value.dataTancament = null;
+      if (this.episodiForm.value.dataTancament == '') {
+        this.episodiForm.value.dataTancament = null;
+      }
 
       this.dialogRef.close(formData);
     }
@@ -126,13 +134,14 @@ export class DialogFormularioEpisodisModifComponent {
       dataObertura: [this.data.dataObertura, [Validators.required]],
       dataTancament: [this.data.dataTancament],
       estat: [this.data.estat, [Validators.required]],
-      dniMetge: [this.data.dniPacient, [Validators.required]],
+      dniMetge: [this.data.dniMetge, [Validators.required]],
       recepta: [this.data.recepta, [Validators.required]],
       dniPacient: [this.data.dniPacient, [Validators.required]],
       motivo: [this.data.motivo, [Validators.required]],
-      urgencia: [this.data.urgencia, [Validators.required]]
+      urgencia: [this.data.urgencia, [Validators.required]],
     });
-    if(this.data.dataObertura == "") this.enableEditing();
-    else this.disableEditing();
+    if (!this.editar) {
+      this.episodiForm.disable();
+    }
   }
 }
