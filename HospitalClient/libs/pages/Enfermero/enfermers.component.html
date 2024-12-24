@@ -50,7 +50,7 @@
       </div>
 
       <!-- Tabla de enfermeros -->
-      <div class="table-container mat-elevation-z8">
+      <div class="table-container-vista mat-elevation-z8">
         <table mat-table [dataSource]="enfermeros" matSort>
           <!-- Columnas de la tabla -->
           <ng-container matColumnDef="dni">
@@ -96,7 +96,7 @@
           <ng-container matColumnDef="pruebasDiagnosticas">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Pruebas Diagnósticas</th>
             <td mat-cell *matCellDef="let enfermero" class="link"
-              (click)="isPortGolden ? verPruebasDiagnosticas(enfermero) : null">
+              (click)="verPruebasDiagnosticas(enfermero)">
               {{ enfermero?.pruebasDiagnosticas.length }}
               {{ enfermero?.pruebasDiagnosticas.length === 1 ? 'prueba diagnóstica' : 'pruebas diagnósticas' }}
             </td>

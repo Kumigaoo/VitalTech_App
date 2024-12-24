@@ -20,6 +20,12 @@
 }
  
 .table-container {
+  width: auto !important;
+  height: fit-content !important;
+  margin-top: 30px !important;
+}
+
+.table-container-vista {
   width: 70% !important;
   margin-top: 30px !important;
   margin-left: 250px !important;

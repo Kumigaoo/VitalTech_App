@@ -38,7 +38,7 @@ export class EnfermersComponent {
 
   enfermeroForm!: FormGroup;
   enfermeroParaActualizar: Enfermero | null = null;
-  usuariosDisponibles!: Usuari[]; 
+  usuariosDisponibles!: Usuari[];
 
   currentPort: string;
   isPortGolden: boolean;
@@ -91,8 +91,8 @@ export class EnfermersComponent {
   }
 
   //verificar disponibilidad de usuarios
-  checkNoUsuarios(): boolean{
-    if(this.usuariosDisponibles.length<=0){
+  checkNoUsuarios(): boolean {
+    if (this.usuariosDisponibles.length <= 0) {
       return true;
     }
     return false;
@@ -150,9 +150,9 @@ export class EnfermersComponent {
   }
 
   tooggleAgregarEnfermero(): void {
-    if(this.checkNoUsuarios()){
-       this.snackbar.showNotification('error','No hay usuarios disponibles');
-       return;
+    if (this.checkNoUsuarios()) {
+      this.snackbar.showNotification('error', 'No hay usuarios disponibles');
+      return;
     }
     this.crearFormularioEnfermero();
     this.dialog
@@ -204,13 +204,13 @@ export class EnfermersComponent {
   }
 
   getUsuariosDisponibles(): void {
-    obtenerUsuariosDisponibles("Enfermer",this.enfermeros.data,this.usuarioService).subscribe({
-      next:(usuariosDisponibles: Usuari[]) => {
+    obtenerUsuariosDisponibles("Enfermer", this.enfermeros.data, this.usuarioService).subscribe({
+      next: (usuariosDisponibles: Usuari[]) => {
         this.usuariosDisponibles = usuariosDisponibles;
-        console.log('USUARIOSS',this.usuariosDisponibles);
+        console.log('USUARIOSS', this.usuariosDisponibles);
       },
-      error:(error:any)=>{
-        console.log('Error al obtener los usuarios disponibles:',error);
+      error: (error: any) => {
+        console.log('Error al obtener los usuarios disponibles:', error);
       }
     })
   }
@@ -230,9 +230,9 @@ export class EnfermersComponent {
 
   verPruebasDiagnosticas(enfermero: Enfermero): void {
     this.dialog.open(PruebasDialogComponent, {
-      maxWidth: 'none',
-      maxHeight: 'none',
-      data: enfermero.pruebasDiagnosticas,
+      maxWidth: 'auto',
+      height: '70vh',
+      data: enfermero.pruebasDiagnosticas
     });
   }
 }
