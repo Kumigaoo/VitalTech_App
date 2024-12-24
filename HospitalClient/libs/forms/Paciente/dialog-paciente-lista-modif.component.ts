@@ -75,9 +75,7 @@ export class DialogPacienteComponent {
     @Inject(MAT_DIALOG_DATA) public data: Paciente,
     private pacienteService: PacienteService,
     public dialogRef: MatDialogRef<DialogPacienteComponent>,
-    private fb: FormBuilder,
-    private usuarioService: UsuarioService
-
+    private fb: FormBuilder
   ) {
 
     this.cssPaths =  ['/assets/styles/styles.css','/assets/styles/pacientes/popups/dialog-formulario-paciente.component.css'];
@@ -165,6 +163,9 @@ export class DialogPacienteComponent {
       
       // Format the birthDay before closing the dialog
       formData.birthDay = formatDate(formData.birthDay, 'yyyy-MM-dd', 'en');
+      if (formData.sexe = "Femenino") formData.sexe = "F";
+      if (formData.sexe = "Masculino") formData.sexe = "M";
+
 
       this.dialogRef.close(formData);
     }
