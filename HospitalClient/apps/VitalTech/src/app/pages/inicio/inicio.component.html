@@ -1,0 +1,32 @@
+<header>
+  <h1>Bienvenidos a Hospital Maricarmen</h1>
+</header>
+
+<main>
+  <p>Seleccione una opción para continuar:</p>
+  <div class="button-container">
+    <div  class="lala">
+      <a [routerLink]="['/inicio/consulta']" routerLinkActive="active" class="button">Pruebas diagnosticas</a>
+      <a [routerLink]="['/inicio/paciente']" routerLinkActive="active" class="button">Pacientes</a>
+      <a [routerLink]="['/inicio/personal']" routerLinkActive="active" class="button">Personal</a>
+      <a [routerLink]="['/inicio/episodio']" routerLinkActive="active" class="button">Episodios médicos</a>
+      <a [routerLink]="['/inicio/cama']" routerLinkActive="active" class="button">Camas</a>
+      <a [routerLink]="['/inicio/habitacion']" routerLinkActive="active" class="button">Habitaciones</a>
+      <a [routerLink]="['/inicio/planta']" routerLinkActive="active" class="button">Plantas</a>
+      <a [routerLink]="['/inicio/ingreso']" routerLinkActive="active" class="button">Ingresos</a>
+      <a [routerLink]="['/inicio/enfermero']" routerLinkActive="active" class="button">Enfermero</a>
+      <a [routerLink]="['/inicio/administradorSistema']" routerLinkActive="active" class="button">Administrador de Sistema</a>
+    </div>
+  </div>
+  <div class="navigation">
+    <a [href]="frontend1Url" target="_blank">
+      <button class="button">GoldenFold</button>
+    </a>
+  </div>
+</main>
+
+<footer>
+  <p>© 2024 Hospital Maricarmen. Todos los derechos reservados.</p>
+</footer>
+
+<router-outlet></router-outlet>

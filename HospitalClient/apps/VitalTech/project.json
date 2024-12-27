@@ -1,0 +1,99 @@
+{
+  "name": "VitalTech",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "generators": {},
+  "sourceRoot": "apps/VitalTech/src",
+  "prefix": "app",
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:application",
+      "options": {
+        "outputPath": "dist/apps/VitalTech",
+        "index": "apps/VitalTech/src/index.html",
+        "browser": "apps/VitalTech/src/main.ts",
+        "polyfills": ["zone.js"],
+        "tsConfig": "apps/VitalTech/tsconfig.app.json",
+        "assets": [
+          {
+            "glob": "**/*",
+            "input": "apps/VitalTech/public"
+          },
+          {
+            "glob": "**/*",
+            "input": "public/assets",
+            "output": "/assets"
+          },
+          "apps/VitalTech/src/silent-renew.html"
+        ],
+        "styles": ["apps/VitalTech/src/styles.css",
+        "node_modules/@angular/material/prebuilt-themes/indigo-pink.css"],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kB",
+              "maximumError": "1MB"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kB",
+              "maximumError": "4kB"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "buildTarget": "VitalTech:build:production"
+        },
+        "development": {
+          "buildTarget": "VitalTech:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "start": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "nodemon server.js"
+      }
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n"
+    },
+    "test": {
+      "executor": "@angular-devkit/build-angular:karma",
+      "options": {
+        "polyfills": ["zone.js", "zone.js/testing"],
+        "tsConfig": "apps/VitalTech/tsconfig.spec.json",
+        "assets": [
+          {
+            "glob": "**/*",
+            "input": "apps/VitalTech/public"
+          }
+        ],
+        "styles": [
+            "node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+          "apps/VitalTech/@angular/material/prebuilt-themes/magenta-violet.css",
+          "apps/VitalTech/src/styles.css"
+        ],
+        "scripts": []
+      }
+    }
+  }
+}
+ 
