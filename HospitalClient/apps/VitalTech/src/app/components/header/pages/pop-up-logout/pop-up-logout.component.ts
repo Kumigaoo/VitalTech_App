@@ -1,9 +1,8 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, inject } from '@angular/core';
+import { Component, inject, Inject } from '@angular/core';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Inject } from '@angular/core';
- 
+
 @Component({
   selector: 'app-pop-up-logout',
   standalone: true,

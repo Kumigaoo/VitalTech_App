@@ -13,6 +13,7 @@ import { PruebasService } from '../../../../../../libs/services/pruebas.service'
   standalone: true,
   imports: [CommonModule, MatTableModule, MatDialogModule],
   template: `
+    <div>
     <h1 mat-dialog-title>Pruebas diagnosticas</h1>
     <div class="table-container">
       <table
@@ -50,6 +51,7 @@ import { PruebasService } from '../../../../../../libs/services/pruebas.service'
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
       </table>
+    </div>
     </div>
   `,
   styleUrls: ['./custom-table.component.css'],
