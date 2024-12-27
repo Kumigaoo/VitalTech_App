@@ -1,0 +1,102 @@
+<app-nav></app-nav>
+<div class="contendor">
+  <div class="search-container">
+    <div class="lala">
+      <form id="searchForm">
+        <div class="searchCriteriaContainer">
+          <label for="searchCriteria">Buscar por:</label>
+        </div>
+        <div class="searchCriteriaItemContainer">
+          <select
+            id="searchCriteria"
+            name="searchCriteria"
+            [(ngModel)]="searchCriteria"
+          >
+            <option value="id">ID</option>
+            <option value="entrada">Fecha ingreso</option>
+            <option value="sortida">Fecha salida</option>
+            <option value="episodi">ID episodio médico</option>
+            <option value="llit">ID cama</option>
+          </select>
+          <input
+            type="text"
+            id="searchInput"
+            name="searchInput"
+            placeholder="Ingresa la búsqueda"
+            [(ngModel)]="searchInput"
+          />
+          <button type="button" (click)="search()">Buscar</button>
+        </div>
+      </form>
+    </div>
+    <div class="registro">
+      <button id="registrarse">
+        <a [routerLink]="['/inicio/ingreso/registro-ingreso']">
+          + Registrar ingreso</a
+        >
+      </button>
+    </div>
+  </div>
+</div>
+<div class="texto">
+  <p>Lista de ingresos</p>
+</div>
+<div class="table-container">
+  <div class="cosas">
+    <table id="resultsTable">
+      <thead>
+        <tr>
+          <th>ID ingreso</th>
+          <th>Fecha entrada</th>
+          <th>Fecha salida</th>
+          <th>ID episodio médico</th>
+          <th>ID cama</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let ingres of pagedIngress">
+          <td>{{ ingres.id }}</td>
+          <td>{{ ingres.dataEntrada }}</td>
+          <td *ngIf="ingres.dataSortida != null; else pte">
+            {{ ingres.dataSortida}}
+          </td>
+          <ng-template #pte>
+            <td>Pendiente</td>
+          </ng-template>
+          <td>{{ ingres.episodiMedicId }}</td>
+          <td>{{ ingres.codiLlit }}</td>
+          <button class="ico" (click)="updateIngres(ingres.id)">🔄</button>
+          <button class="ico" (click)="deleteIngres(ingres.id)">❎</button>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="pagination">
+    <button id="firstPage" (click)="firstPage()" [disabled]="currentPage === 1">
+      &lt;&lt;
+    </button>
+    <button
+      id="prevPage"
+      (click)="previousPage()"
+      [disabled]="currentPage === 1"
+    >
+      Anterior
+    </button>
+    <span id="pageInfo">Página {{ currentPage }} de {{ totalPages }}</span>
+    <button
+      id="nextPage"
+      (click)="nextPage()"
+      [disabled]="currentPage === totalPages"
+    >
+      Siguiente
+    </button>
+    <button
+      id="lastPage"
+      (click)="lastPage()"
+      [disabled]="currentPage === totalPages"
+    >
+      &gt;&gt;
+    </button>
+  </div>
+</div>

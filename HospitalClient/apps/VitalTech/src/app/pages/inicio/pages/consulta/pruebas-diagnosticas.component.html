@@ -1,0 +1,117 @@
+<app-nav></app-nav>
+
+<div class="contendor">
+  <div class="search-container">
+    <div class="lala">
+      <form id="searchForm">
+        <div class="searchCriteriaContainer">
+          <label for="searchCriteria">Buscar por:</label>
+        </div>
+        <div class="searchCriteriaItemContainer">
+          <select
+            id="searchCriteria"
+            name="searchCriteria"
+            [(ngModel)]="searchCriteria"
+          >
+            <option value="urgencia">Urgencia</option>
+            <option value="id">Consulta</option>
+            <option value="sintomatologia">Sintomatología</option>
+            <option value="recepta">Receta</option>
+            <option value="dniPersonal">DNI personal</option>
+            <option value="episodiMedicId">Episodio médico</option>
+          </select>
+          <input
+            type="text"
+            id="searchId"
+            [(ngModel)]="searchInput"
+            name="searchId"
+            placeholder="Ingresa la búsqueda"
+            required
+          />
+          <button type="button" id="buscar" (click)="searchConsulta()">
+            Buscar
+          </button>
+        </div>
+      </form>
+    </div>
+    <div class="registro">
+      <button id="registrarse">
+        <a [routerLink]="['/inicio/consulta/registro-consulta']">
+          + Registrar consulta</a
+        >
+      </button>
+    </div>
+  </div>
+</div>
+<div class="texto">
+  <p>Lista de consultas</p>
+</div>
+<div class="table-container">
+  <div class="cosas">
+    <table id="resultsTable">
+      <thead>
+        <tr>
+          <th>Id consulta</th>
+          <th>Urgencia</th>
+          <th>Sintomatología</th>
+          <th>Receta</th>
+          <th>DNI personal</th>
+          <th>ID episodio médico</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let consulta of pagedConsultes">
+          <td>{{ consulta.id }}</td>
+          <ng-template #pte>
+            <td>Pendiente</td>
+          </ng-template>
+          <td>{{ consulta.episodiMedicId }}</td>
+          <div class="botones">
+            <button
+              class="ico"
+              (click)="modificarConsulta(consulta.id)"
+              id="modificar"
+            >
+              🔄
+            </button>
+            <button
+              class="ico"
+              (click)="deleteConsulta(consulta.id)"
+              id="eliminar"
+            >
+              ❎
+            </button>
+          </div>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="pagination">
+    <button id="firstPage" (click)="firstPage()" [disabled]="currentPage === 1">
+      &lt;&lt;
+    </button>
+    <button
+      id="prevPage"
+      (click)="previousPage()"
+      [disabled]="currentPage === 1"
+    >
+      Anterior
+    </button>
+    <span id="pageInfo">Página {{ currentPage }} de {{ totalPages }}</span>
+    <button
+      id="nextPage"
+      (click)="nextPage()"
+      [disabled]="currentPage === totalPages"
+    >
+      Siguiente
+    </button>
+    <button
+      id="lastPage"
+      (click)="lastPage()"
+      [disabled]="currentPage === totalPages"
+    >
+      &gt;&gt;
+    </button>
+  </div>
+</div>

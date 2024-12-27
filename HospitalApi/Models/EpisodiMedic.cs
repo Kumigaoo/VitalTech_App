@@ -17,7 +17,7 @@ namespace HospitalAPI.Models
         [Required]
         public string? Motivo { get; set; }
 
-        public string? Urgencia {get; set;}
+        public int Urgencia {get; set;}
 
         public string? Recepta { get; set; }
 

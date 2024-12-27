@@ -1,0 +1,124 @@
+<app-nav></app-nav>
+
+<div class="container">
+  <h2>Formulario de modificación de cama</h2>
+  <form type="submit" [formGroup]="llitForm" (ngSubmit)="onActualice()">
+    <div class="identificador">
+      <!-- comentado porque no deja cambiar el id de la hab, por ej, de 401a a 401b. da error por algún validador-->
+      <div class="capzalera4">
+        <label for="codiLlit"
+          >Código de cama:<span style="color: red">*</span></label
+        >
+        <input
+          type="text"
+          id="codiLlit"
+          name="codiLlit"
+          formControlName="codiLlit"
+          required
+          [ngClass]="{
+            'is-invalid':
+              (llitForm.get('codiLlit')?.touched &&
+                llitForm.get('codiLlit')?.invalid) ||
+              llitForm.hasError('codiLlitHabitacioMismatch')
+          }"
+        />
+        <div
+          class="error-messages"
+          *ngIf="
+            (llitForm.get('codiLlit')?.touched &&
+              llitForm.get('codiLlit')?.invalid) ||
+            llitForm.hasError('codiLlitHabitacioMismatch')
+          "
+        >
+          <small *ngIf="llitForm.get('codiLlit')?.hasError('required')"
+            >Este campo es obligatorio</small
+          >
+          <small *ngIf="llitForm.get('codiLlit')?.hasError('minlength')"
+            >Mínimo 4 carácteres</small
+          >
+          <small *ngIf="llitForm.get('codiLlit')?.hasError('pattern')"
+            >Construido por 3 núm y A o B</small
+          >
+          <small *ngIf="llitForm.get('codiLlit')?.hasError('camaIdExists')"
+            >El ID ya existe</small
+          >
+        </div>
+      </div>
+
+      <div class="capzalera2">
+        <label for="foraDeServei">Fuera de servicio:</label>
+        <select
+          id="foraDeServei"
+          ngModel
+          name="ForaDeServei"
+          formControlName="foraDeServei"
+          [ngClass]="{
+            'is-invalid':
+              llitForm.get('foraDeServei')?.touched &&
+              llitForm.hasError('camaOcupadaPaciente')
+          }"
+        >
+          <option [ngValue]="true">Sí</option>
+          <option [ngValue]="false">No</option>
+        </select>
+        <div
+          class="error-messages"
+          *ngIf="llitForm.hasError('camaOcupadaPaciente')"
+        >
+          <small
+            >No se puede poner la cama fuera de servicio porque tiene ingresos
+            asociados.</small
+          >
+        </div>
+      </div>
+      <div class="masInfo">
+        <div class="capzalera1">
+          <label for="codiHabitacio"
+            >Código habitación:<span style="color: red">*</span></label
+          >
+          <input
+            type="number"
+            id="codiHabitacio"
+            ngModel
+            name="codiHabitacio"
+            formControlName="codiHabitacio"
+            required
+            [ngClass]="{
+              'is-invalid':
+                (llitForm.get('codiHabitacio')?.touched &&
+                  llitForm.get('codiHabitacio')?.invalid) ||
+                llitForm.hasError('codiLlitHabitacioMismatch')
+            }"
+          />
+          <div
+            class="error-messages"
+            *ngIf="
+              llitForm.get('codiHabitacio')?.touched &&
+              llitForm.get('codiHabitacio')?.invalid
+            "
+          >
+            <small *ngIf="llitForm.get('codiHabitacio')?.hasError('required')"
+              >Este campo es obligatorio.</small
+            >
+            <small *ngIf="llitForm.get('codiHabitacio')?.hasError('pattern')"
+              >Compuesto por 3 números.</small
+            >
+            <small
+              *ngIf="
+                llitForm.get('codiHabitacio')?.hasError('habitacionIdNotFound')
+              "
+              >El ID indicado no existe.</small
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      *ngIf="llitForm.hasError('codiLlitHabitacioMismatch')"
+      class="error-messages"
+    >
+      <small>El Id de cama ha de coincidir con el de habitación</small>
+    </div>
+    <button type="submit">Modificar cama</button>
+  </form>
+</div>
