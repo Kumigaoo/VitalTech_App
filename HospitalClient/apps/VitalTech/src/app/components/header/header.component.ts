@@ -20,15 +20,11 @@ export class HeaderComponent {
   constructor(private router: Router, public dialog: MatDialog) {}
 
   ngOnInit() {
-<<<<<<< HEAD:VitalTech/src/app/components/header/header.component.ts
     this.oidcSecurityService.checkAuth().subscribe(({ isAuthenticated, userData }) => {
       this.isAuthenticated = isAuthenticated;
 
       if (isAuthenticated) {
         this.nom = userData?.name || '';
-
-        // Guardar el nombre en la sesión
-        // this.https.put('/set-session', { value: this.nom }).subscribe();
 
         const data = new Date();
 
@@ -44,21 +40,6 @@ export class HeaderComponent {
 
       }
     });
-=======
-    this.oidcSecurityService
-      .checkAuth()
-      .subscribe(({ isAuthenticated, userData }) => {
-        this.isAuthenticated = isAuthenticated;
-        if (isAuthenticated) {
-          this.nom = userData?.name || '';
-
-          // Guardar el nombre en la sesión
-          this.https.post('/set-session', { value: this.nom }).subscribe();
-        } else {
-          this.nom = '';
-        }
-      });
->>>>>>> 603c325456e4078226ae091d6e572a416dcf4ae8:HospitalClient/apps/VitalTech/src/app/components/header/header.component.ts
   }
 
   onLogin(): void {
@@ -85,7 +66,6 @@ export class HeaderComponent {
   }
 
   openDialog(): void {
-<<<<<<< HEAD:VitalTech/src/app/components/header/header.component.ts
 
     this.dialog.open(PopUpLogoutComponent, {
       data: {
@@ -93,14 +73,6 @@ export class HeaderComponent {
       },
       width: "auto",
       height: "auto"
-=======
-    this.https.get<{ value: string }>('/set-session').subscribe((response) => {
-      this.dialog.open(PopUpLogoutComponent, {
-        data: { nom: response.value },
-        width: 'auto',
-        height: 'auto',
-      });
->>>>>>> 603c325456e4078226ae091d6e572a416dcf4ae8:HospitalClient/apps/VitalTech/src/app/components/header/header.component.ts
     });
   }
 }
