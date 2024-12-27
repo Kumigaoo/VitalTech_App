@@ -8,6 +8,7 @@ import { MatTableModule } from '@angular/material/table';
   standalone: true,
   imports: [CommonModule, MatTableModule],
   template: `
+  <div> 
     <div>
       <h1 mat-dialog-title>Consultas</h1>
     </div>
@@ -58,6 +59,7 @@ import { MatTableModule } from '@angular/material/table';
           class="clickable-row"
         ></tr>
       </table>
+    </div>
     </div>
   `,
   styleUrls: ['./custom-table.component.css'],

@@ -11,6 +11,7 @@ import { MatDialogModule } from '@angular/material/dialog';
   standalone: true,
   imports: [CommonModule, MatTableModule, MatDialogModule],
   template: `
+  <div>
     <h1 mat-dialog-title>Episodios Medicos</h1>
     @if(pacientes&&dataSource){
     <div class="table-container">
@@ -70,6 +71,7 @@ import { MatDialogModule } from '@angular/material/dialog';
       </table>
     </div>
     }
+    </div>
   `,
   styleUrls: ['./custom-table.component.css'],
 })
