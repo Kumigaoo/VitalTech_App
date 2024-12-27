@@ -5,22 +5,38 @@
 {{ data.id ? 'Detalles de Prueba Diagnostica' : 'Agregar Prueba Diagnostica'}}
 </h2>
 <mat-dialog-content>
-<form [formGroup]="plantaForm" style="margin-top: 20px">
+<form [formGroup]="pruebaForm" style="margin-top: 20px">
   <br />
+
   <mat-form-field appearance="outline">
-    <mat-label>Medico:</mat-label>
-    <input matInput formControlName="dolencia" required />
+    <mat-label>Médico:</mat-label>
+    <mat-select formControlName="dniMetge">
+      <mat-option *ngFor="let medico of medicos" [value]="medico.dni">
+        {{ medico.dni }}
+      </mat-option>
+    </mat-select>
   </mat-form-field>
+
   <br />
   <mat-form-field appearance="outline">
     <mat-label>Enfermero:</mat-label>
-    <input matInput formControlName="pruebas" required />
+    <mat-select formControlName="dniEnfermer">
+      <mat-option *ngFor="let enfermero of enfermeros" [value]="enfermero.dni">
+        {{ enfermero.dni }}
+      </mat-option>
+    </mat-select>
   </mat-form-field>
+
   <br />
   <mat-form-field appearance="outline">
     <mat-label>Episodio Médico:</mat-label>
-    <input matInput formControlName="resultados" required />
+    <mat-select formControlName="episodiMedicId" required>
+      <mat-option *ngFor="let episodio of episodis" [value]="episodio.id">
+        {{ episodio.id }}
+      </mat-option>
+    </mat-select>
   </mat-form-field>
+  
   <br />
   <mat-form-field appearance="outline">
     <mat-label>Dolencia:</mat-label>
@@ -32,22 +48,18 @@
     <input matInput formControlName="pruebas" required />
   </mat-form-field>
   <br />
-  <mat-form-field appearance="outline">
-    <mat-label>Resultados:</mat-label>
-    <input matInput formControlName="resultados" required />
-  </mat-form-field>
-
-  <br />
-
-  <mat-form-field appearance="outline">
-    <mat-label>Correcta:</mat-label>
-    <input matInput formControlName="correcta" required />
-  </mat-form-field>
-
-  <br />
+    <mat-form-field appearance="outline">
+      <mat-label>Resultados:</mat-label>
+      <input matInput formControlName="resultados" />
+    </mat-form-field>
+    <br />
+    <mat-form-field appearance="outline">
+      <mat-label>Correcta:</mat-label>
+      <input matInput formControlName="correcta" />
+    </mat-form-field>
   <mat-dialog-actions>
     <!-- Botón Actualizar: Solo visible si se está en modo detalles -->
-    @if(data.piso && !isEditing){
+    @if(data.id && !isEditing){
     <button mat-button (click)="enableEditing()">Editar</button>
     }
     <!-- Botón Guardar: Solo visible en modo edición -->
@@ -55,7 +67,7 @@
     <button
       mat-raised-button
       color="primary"
-      [disabled]="plantaForm.invalid"
+      [disabled]="pruebaForm.invalid"
       (click)="guardar()"
     >
       Guardar

@@ -6,11 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace HospitalApi.Migrations
 {
     /// <inheritdoc />
-<<<<<<<< HEAD:HospitalApi/Migrations/20241202085527_nuevas_migraciones.cs
-    public partial class nuevas_migraciones : Migration
-========
     public partial class Actiu : Migration
->>>>>>>> nx_feature:HospitalApi/Migrations/20241216094542_Actiu.cs
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

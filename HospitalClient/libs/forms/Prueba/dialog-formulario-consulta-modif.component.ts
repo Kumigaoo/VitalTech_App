@@ -1,9 +1,11 @@
-import { EnfermeroService } from './../../../services/enfermero.service';
-import { MedicoService } from './../../../services/metge.service';
-import { Enfermero } from './../../../interfaces/enfermer.interface';
-import { Medico } from './../../../interfaces/medico.interface';
-import { EpisodiMedic } from './../../../interfaces/episodis-medics.interface';
-import { EpisodiService } from './../../../services/episodis.service';
+import { MatSelectModule } from '@angular/material/select';
+import { PruebaDiagnostica } from './../../interfaces/pruebas-diagnosticas.interface';
+import { EpisodiService } from './../../services/episodis.service';
+import { MedicoService } from './../../services/metge.service';
+import { EnfermeroService } from './../../services/enfermero.service';
+import { Enfermero } from '../../interfaces/enfermer.interface';
+import { Medico } from '../../interfaces/medico.interface';
+import { EpisodiMedic } from '../../interfaces/episodis-medics.interface';
 import { ChangeDetectorRef, Component, Inject } from '@angular/core';
 import {
   MAT_DIALOG_DATA,
@@ -20,7 +22,7 @@ import {
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { PruebaDiagnostica } from '../../../interfaces/pruebas-diagnosticas.interface';
+import { MatOptgroup, MatOption } from '@angular/material/core';
 
 @Component({
   selector: 'app-dialog-formulario-consulta-modif',
@@ -32,6 +34,9 @@ import { PruebaDiagnostica } from '../../../interfaces/pruebas-diagnosticas.inte
     MatInputModule,
     MatDialogModule,
     MatButtonModule, // Para el botón "Cancelar" y "Guardar"
+    MatOptgroup,
+    MatOption,
+    MatSelectModule
   ],
   templateUrl: './dialog-formulario-consulta-modif.component.html',
   styleUrls: [],
@@ -90,17 +95,18 @@ export class DialogFormularioConsultaModifComponent {
     this.dialogRef.close();
   }
 
-  crearFormularioPrueba(): void{
+  crearFormularioPrueba(): void {
+    // Crear el formulario con los campos obligatorios
     this.pruebaForm = this.fb.group({
       dniMetge: [this.data.dniMetge],
       dniEnfermer: [this.data.dniEnfermer],
-      episodiMedicId: [this.data.episodiMedicId],
+      episodiMedicId: [this.data.episodiMedicId, [Validators.required]],
       dolencia: [this.data.dolencia, [Validators.required]],
       pruebas: [this.data.pruebas, [Validators.required]],
-      resultados: [this.data.resultados],
+      resultados : [this.data.resultados],
       correcta: [this.data.correcta]
-    })
-  }
+    });
+  } 
 
   guardar(): void {
       if (this.pruebaForm.valid) {
@@ -123,10 +129,6 @@ export class DialogFormularioConsultaModifComponent {
         }
         if(prueba.resultados != null){
           prueba.resultados.toString().trim();
-        }
-
-        if(prueba.correcta != null){
-          prueba.correcta.toString().trim();
         }
         
         //cerramos el dialog y enviamos los datos
