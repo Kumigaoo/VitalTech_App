@@ -15,7 +15,7 @@ namespace HospitalAPI.Controllers
 {
 
     [Route("api/[controller]")]
-    [Authorize(Roles = "metge")]
+    [Authorize(Roles = "metge, admin")]
     [ApiController]
 
     public class PacientController : ControllerBase
@@ -109,13 +109,6 @@ namespace HospitalAPI.Controllers
                 return BadRequest("Nacionalidad incorrecta.");
             }
 
-            var existeixAdministratiu = await _bbdd.Administratius.FirstOrDefaultAsync(p => p.Id == userPacientDTO.AdministratiuId);
-            if(existeixAdministratiu==null){
-                _logger.LogError("No existeix un administratiu amb aquest ID");
-                return BadRequest("No existeix un administratiu amb aquest ID");
-            }
-
-
             Pacient pacient = _mapper.Map<Pacient>(userPacientDTO);
 
             pacient.Estado = "baja";
@@ -181,12 +174,6 @@ namespace HospitalAPI.Controllers
             if (pacient == null){
                 _logger.LogError("No existeix un pacient amb aquest DNI.");
                 return NotFound("No existeix un pacient amb aquest DNI.");
-            }
-
-            var existeixAdministratiu = await _bbdd.Administratius.FirstOrDefaultAsync(p => p.Id == userPacientDTO.AdministratiuId);
-            if(existeixAdministratiu==null){
-                _logger.LogError("No existeix un administratiu amb aquest ID");
-                return BadRequest("No existeix un administratiu amb aquest ID");
             }
 
             _mapper.Map(userPacientDTO, pacient);

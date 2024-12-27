@@ -16,7 +16,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowSpecificOrigin",
         policy =>
         {
-            policy.WithOrigins("https://localhost:4201", "https://localhost:7200", "https://localhost:4200", "https://127.0.0.2:4200")
+            policy.WithOrigins("https://localhost:4201", "https://localhost:7200", "https://localhost:4200", "https://127.0.0.1:4200", "https://127.0.0.2:4201")
                   .AllowAnyHeader()
                   .AllowAnyMethod();
         });
@@ -130,7 +130,7 @@ builder.Services.AddDistributedMemoryCache();
 
 builder.Services.AddSession(options =>
 {
-    options.IdleTimeout = TimeSpan.FromMinutes(3000);
+    options.IdleTimeout = TimeSpan.FromMinutes(10000);
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });

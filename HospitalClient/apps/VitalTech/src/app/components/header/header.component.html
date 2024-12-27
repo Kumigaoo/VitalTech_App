@@ -1,0 +1,37 @@
+<div class="header">
+  <div class="credito">
+    <img src="../../../../../public/assets/image.png" alt="Hospital Logo" />
+    <span class="titulo">VitalTech</span>
+    <nav class="nav-items">
+      <div class="nav-item">
+        <a routerLink="/inicio" routerLinkActive="active">Inicio</a>
+      </div>
+      <div class="nav-item">
+        <a routerLink="/configuracion" routerLinkActive="active"
+          >Configuración</a
+        >
+      </div>
+      <div class="nav-item">
+        <a routerLink="/login" routerLinkActive="active">Exit</a>
+      </div>
+      <div class="nav-item">
+        <button *ngIf="!isAuthenticated; else loggedIn" (click)="onLogin()">
+          <img
+            src="../../../../../public/assets/login/user.png"
+            title="Individual icons created by meaicon - Flatico"
+            alt="Login"
+          />
+        </button>
+        <ng-template #loggedIn>
+          <button class="nav-item" (click)="openDialog()">
+            <img
+              src="../../../../../public/assets/login/user.png"
+              title="Individual icons created by meaicon - Flatico"
+              alt="User"
+            />
+          </button>
+        </ng-template>
+      </div>
+    </nav>
+  </div>
+</div>

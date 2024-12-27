@@ -30,11 +30,7 @@ namespace HospitalAPI.Models
         public string Nacionalidad {get; set;} = string.Empty;
 
         public string Email {get; set;} = string.Empty;
-
-        [ForeignKey("AdministratiuId")]
-        public int AdministratiuId {  get; set; }
-        public Administratiu? Administratiu { get; set; }
-
+        
         [Required]
         public DateTime BirthDay { get; set; }
 

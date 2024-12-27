@@ -1,0 +1,39 @@
+<h2 mat-dialog-title>{{ 'Agregar Cama' }}</h2>
+<mat-dialog-content>
+  <form [formGroup]="camaForm" (ngSubmit)="guardar()">
+    <br />
+    <mat-form-field appearance="outline">
+      <mat-label>Código cama</mat-label>
+      <input matInput formControlName="codiLlit" required />
+      <mat-error *ngIf="camaForm.get('codiLlit')?.hasError('required')"
+        >El código de la cama es requerido</mat-error
+      >
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Seleccionar Habitación</mat-label>
+      <mat-select formControlName="codiHabitacio" required>
+        <mat-option
+          *ngFor="let habitacion of habitaciones"
+          [value]="habitacion.codiHabitacio"
+        >
+          {{ habitacion.codiHabitacio }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="camaForm.get('codiHabitacio')?.hasError('required')"
+        >Selecciona una habitación</mat-error
+      >
+    </mat-form-field>
+    <mat-dialog-actions>
+      <button mat-button mat-dialog-close>Cancelar</button>
+      <button
+        mat-raised-button
+        color="primary"
+        [disabled]="camaForm.invalid"
+        type="submit"
+      >
+        {{ 'Guardar' }}
+      </button>
+    </mat-dialog-actions>
+  </form>
+</mat-dialog-content>
