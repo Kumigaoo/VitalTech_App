@@ -1,54 +1,70 @@
-<!--<h2 mat-dialog-title>{{ 'Actualizar Consulta' }}</h2>
+<h2 mat-dialog-title>
+  <!-- si se envía un piso (es decir, se clica en "actualizar") se cargará en el dialog el texto  "Detalles..."
+   si no, el de añadir nueva planta:
+  -->
+{{ data.id ? 'Detalles de Prueba Diagnostica' : 'Agregar Prueba Diagnostica'}}
+</h2>
 <mat-dialog-content>
-  <form>
-    <mat-form-field appearance="outline">
-      <mat-label>ID:</mat-label>
-      <input matInput [value]="data.id" disabled>
-    </mat-form-field>
+<form [formGroup]="plantaForm" style="margin-top: 20px">
+  <br />
+  <mat-form-field appearance="outline">
+    <mat-label>Medico:</mat-label>
+    <input matInput formControlName="dolencia" required />
+  </mat-form-field>
+  <br />
+  <mat-form-field appearance="outline">
+    <mat-label>Enfermero:</mat-label>
+    <input matInput formControlName="pruebas" required />
+  </mat-form-field>
+  <br />
+  <mat-form-field appearance="outline">
+    <mat-label>Episodio Médico:</mat-label>
+    <input matInput formControlName="resultados" required />
+  </mat-form-field>
+  <br />
+  <mat-form-field appearance="outline">
+    <mat-label>Dolencia:</mat-label>
+    <input matInput formControlName="dolencia" required />
+  </mat-form-field>
+  <br />
+  <mat-form-field appearance="outline">
+    <mat-label>Pruebas:</mat-label>
+    <input matInput formControlName="pruebas" required />
+  </mat-form-field>
+  <br />
+  <mat-form-field appearance="outline">
+    <mat-label>Resultados:</mat-label>
+    <input matInput formControlName="resultados" required />
+  </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Urgencia</mat-label>
-      <input matInput [(ngModel)]="data.urgencia" name="urgencia" [disabled]="isReadOnly" required />
-    </mat-form-field>
+  <br />
 
-    <mat-form-field appearance="outline">
-      <mat-label>Sintomatologia</mat-label>
-      <input matInput [(ngModel)]="data.sintomatologia" name="sintomatologia" [disabled]="isReadOnly" required />
-    </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Correcta:</mat-label>
+    <input matInput formControlName="correcta" required />
+  </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Recepta</mat-label>
-      <input matInput [(ngModel)]="data.recepta" name="recepta" [disabled]="isReadOnly" required />
-    </mat-form-field>
-
-    <mat-form-field appearance="outline">
-      <mat-label>DNI del Personal</mat-label>
-      <input matInput [(ngModel)]="data.dniPersonal" name="dniPersonal" [disabled]="isReadOnly" required />
-    </mat-form-field>
-
-    <mat-form-field appearance="outline">
-      <mat-label>Id del Episodi Medic</mat-label>
-      <input matInput [(ngModel)]="data.episodiMedicId" name="episodiMedicId" [disabled]="isReadOnly" required />
-    </mat-form-field>
-  </form>
-</mat-dialog-content>
-<mat-dialog-actions>
-   <!-- Botón Actualizar: Solo visible si se está en modo detalles 
-  @if (!isEditing){
-    <button mat-button (click)="enableEditing()">
-      Editar
-    </button>
-   }
-
-   <!-- Botón Guardar: Solo visible en modo edición 
-   @if (isEditing) {
-      <button
+  <br />
+  <mat-dialog-actions>
+    <!-- Botón Actualizar: Solo visible si se está en modo detalles -->
+    @if(data.piso && !isEditing){
+    <button mat-button (click)="enableEditing()">Editar</button>
+    }
+    <!-- Botón Guardar: Solo visible en modo edición -->
+    @if (isEditing){
+    <button
       mat-raised-button
       color="primary"
-      (click)="guardar()">
+      [disabled]="plantaForm.invalid"
+      (click)="guardar()"
+    >
       Guardar
     </button>
-   }
-  <!-- Botón Cancelar: Siempre visible, cambia comportamiento según el modo 
-  <button mat-button (click)="cancelar()">Cancelar</button>
-</mat-dialog-actions>-->
+    }
+
+    <!-- Botón Cancelar: Siempre visible, cambia comportamiento según el modo -->
+    <button mat-button (click)="cancelar()">Cancelar</button>
+  </mat-dialog-actions>
+</form>
+</mat-dialog-content>
+

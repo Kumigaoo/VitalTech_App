@@ -1,3 +1,7 @@
+import { EnfermeroService } from './../../../services/enfermero.service';
+import { MedicoService } from './../../../services/metge.service';
+import { Enfermero } from './../../../interfaces/enfermer.interface';
+import { Medico } from './../../../interfaces/medico.interface';
 import { EpisodiMedic } from './../../../interfaces/episodis-medics.interface';
 import { EpisodiService } from './../../../services/episodis.service';
 import { ChangeDetectorRef, Component, Inject } from '@angular/core';
@@ -36,13 +40,17 @@ export class DialogFormularioConsultaModifComponent {
   isEditing: boolean = false; // Variable para controlar el modo
   pruebaForm!: FormGroup;
   episodis!: EpisodiMedic[];
+  medicos!: Medico[];
+  enfermeros! : Enfermero[];
   cssPaths!: string[];
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: PruebaDiagnostica,
     public dialogRef: MatDialogRef<DialogFormularioConsultaModifComponent>,
     private fb: FormBuilder,
-    private episodiService: EpisodiService
+    private episodiService: EpisodiService,
+    private medicoService: MedicoService,
+    private enfermeroService: EnfermeroService
   ) {
     this.cssPaths =  ['/assets/styles/Pruebas-Diagnosticas/popup/dialog-formulario-consulta.component.css'];
     this.cssPaths.forEach(css => {
@@ -125,7 +133,7 @@ export class DialogFormularioConsultaModifComponent {
         this.dialogRef.close(prueba);
       }
     }
-    
+
   obtenerEpisodios(): void {
     this.episodiService.getAll().subscribe({
       next:(data: EpisodiMedic[]) => {
@@ -138,10 +146,24 @@ export class DialogFormularioConsultaModifComponent {
   }
 
   obtenerMedicos(): void {
-
+    this.medicoService.getAll().subscribe({
+      next:(data: Medico[]) => {
+        this.medicos = data;
+      },
+      error: (error:any) => {
+        console.log('ERROR', error);
+      }
+    })
   }
 
   obtenerEnfermeros(): void {
-
+    this.enfermeroService.getAll().subscribe({
+      next:(data: Enfermero[]) => {
+        this.enfermeros = data;
+      },
+      error: (error:any) => {
+        console.log('ERROR', error);
+      }
+    })
   }
 }
