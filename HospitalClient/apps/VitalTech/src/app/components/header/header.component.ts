@@ -22,19 +22,26 @@ export class HeaderComponent {
   constructor(private router: Router, public dialog: MatDialog) {}
 
   ngOnInit() {
-    this.oidcSecurityService
-      .checkAuth()
-      .subscribe(({ isAuthenticated, userData }) => {
-        this.isAuthenticated = isAuthenticated;
-        if (isAuthenticated) {
-          this.nom = userData?.name || '';
+    this.oidcSecurityService.checkAuth().subscribe(({ isAuthenticated, userData }) => {
+      this.isAuthenticated = isAuthenticated;
 
-          // Guardar el nombre en la sesión
-          this.https.post('/set-session', { value: this.nom }).subscribe();
-        } else {
-          this.nom = '';
-        }
-      });
+      if (isAuthenticated) {
+        this.nom = userData?.name || '';
+
+        const data = new Date();
+
+        data.setTime(data.getTime() + 365 * 24 * 60 * 60 * 1000);
+
+        const expires = `expires=${data.toUTCString()}`;
+
+        document.cookie = "nomUser=" + this.nom + `; ${expires}; path=/login`;
+
+      } else {
+
+        this.nom = '';
+
+      }
+    });
   }
 
   onLogin(): void {
@@ -42,12 +49,13 @@ export class HeaderComponent {
   }
 
   openDialog(): void {
-    this.https.get<{ value: string }>('/set-session').subscribe((response) => {
-      this.dialog.open(PopUpLogoutComponent, {
-        data: { nom: response.value },
-        width: 'auto',
-        height: 'auto',
-      });
+
+    this.dialog.open(PopUpLogoutComponent, {
+      data: {
+        nom: this.getCookie("nomUser")
+      },
+      width: "auto",
+      height: "auto"
     });
   }
 }
