@@ -1,116 +1,136 @@
 <!-- nurse-management.component.html -->
-<ng-container *ngIf="isPortGolden; else defaultView">
-  <!-- Vista para port Golden -->
-  <app-administratidor-sistema-dashboard></app-administratidor-sistema-dashboard>
-</ng-container>
+@if(isPortGolden){
+<app-administratidor-sistema-dashboard></app-administratidor-sistema-dashboard>
+} @else{
+<app-nav></app-nav>
+}
 
-<ng-template #defaultView>
-  <!-- Vista por defecto -->
-  <app-nav></app-nav>
-</ng-template>
-
-<div class="centrado">
+<div class="centrado" style="display: block;">
   <div class="enfermeros-section">
-    <h2>Enfermeros</h2>
+    @if(isPortGolden) {
 
-    <!-- Notificaciones -->
-    <app-snackbar #snackbar></app-snackbar>
+      <h2>Enfermeros</h2>
 
-    <div class="header-container">
-      <!-- Botón de agregar enfermero -->
-      <button mat-raised-button color="primary" (click)="tooggleAgregarEnfermero()">
-        Agregar Enfermero
-      </button>
+      } @else {
+        
+        <br>
+        <br>
 
-      <!-- Caja de búsqueda -->
-      <div class="filter-container">
-        <app-search-box
-          [searchOptions]="[
+      }
+
+      <!-- Notificaciones -->
+      <app-snackbar #snackbar></app-snackbar>
+
+      <div class="header-container">
+        <!-- Botón de agregar enfermero -->
+        <button mat-raised-button color="primary" (click)="tooggleAgregarEnfermero()">
+          Agregar Enfermero
+        </button>
+
+        <!-- Caja de búsqueda -->
+        <div class="filter-container">
+          <app-search-box [searchOptions]="[
             { label: 'DNI', value: 'dni' },
             { label: 'Nombre', value: 'nom' },
             { label: 'Teléfono', value: 'telefon' },
             { label: 'Usuario', value: 'usuariId' },
             { label: 'Especialidad', value: 'especialitat' }
-          ]"
-          [defaultSearchType]="'dni'"
-          placeholder="Escribe para buscar..."
-          (search)="filtrarEnfermeros($event)">
-        </app-search-box>
+          ]" [defaultSearchType]="'dni'" placeholder="Escribe para buscar..." (search)="filtrarEnfermeros($event)">
+          </app-search-box>
+        </div>
+      </div>
+
+      <!-- Titul vista VitalTech -->
+      <div class="title">
+      @if(!isPortGolden) {
+
+          <p>Enfermeros</p>
+
+        }
+      </div>
+
+      <!-- Tabla de enfermeros -->
+      <div class="table-container-vista mat-elevation-z8">
+        <table mat-table [dataSource]="enfermeros" matSort>
+          <!-- Columnas de la tabla -->
+          <ng-container matColumnDef="dni">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>DNI</th>
+            <td mat-cell *matCellDef="let enfermero"
+              (click)="isPortGolden ? toogleActualizarEnfermero(enfermero) : null ">
+              {{ enfermero?.dni }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="nom">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
+            <td mat-cell *matCellDef="let enfermero"
+              (click)="isPortGolden ? toogleActualizarEnfermero(enfermero) : null">
+              {{ enfermero?.nom }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="telefon">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Teléfono</th>
+            <td mat-cell *matCellDef="let enfermero"
+              (click)="isPortGolden ? toogleActualizarEnfermero(enfermero) : null">
+              {{ enfermero?.telefon }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="usuariId">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Usuario</th>
+            <td mat-cell *matCellDef="let enfermero"
+              (click)="isPortGolden ? toogleActualizarEnfermero(enfermero) : null">
+              {{ enfermero?.usuariId }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="especialitat">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Especialidad</th>
+            <td mat-cell *matCellDef="let enfermero"
+              (click)="isPortGolden ? toogleActualizarEnfermero(enfermero) : null">
+              {{ enfermero?.especialitat }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="pruebasDiagnosticas">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Pruebas Diagnósticas</th>
+            <td mat-cell *matCellDef="let enfermero" class="link"
+              (click)="verPruebasDiagnosticas(enfermero)">
+              {{ enfermero?.pruebasDiagnosticas.length }}
+              {{ enfermero?.pruebasDiagnosticas.length === 1 ? 'prueba diagnóstica' : 'pruebas diagnósticas' }}
+            </td>
+          </ng-container>
+
+          <!-- Acciones -->
+          <ng-container matColumnDef="Actions">
+            <th mat-header-cell *matHeaderCellDef>Acciones</th>
+            <td mat-cell *matCellDef="let enfermero">
+              <ng-container *ngIf="isPortGolden; else defaultActions">
+                <button mat-button color="warn"
+                  (click)="isPortGolden ? deleteEnfermero(enfermero) : null">Eliminar</button>
+              </ng-container>
+              <ng-template #defaultActions>
+                <div class="botonesbobos">
+                  <button class="botonesbobos" mat-icon-button (click)="toogleActualizarEnfermero(enfermero)"><span
+                      class="paco">🔄</span></button>
+                  <button class="botonesbobos" mat-icon-button (click)="deleteEnfermero(enfermero)"><span
+                      class="paco">❎</span></button>
+                </div>
+
+              </ng-template>
+            </td>
+          </ng-container>
+
+          <!-- Filas -->
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+      </div>
+      <div class="botonesbobos">
+
+        <!-- Paginación -->
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
       </div>
     </div>
-
-    <!-- Tabla de enfermeros -->
-    <div class="table-container mat-elevation-z8">
-      <table mat-table [dataSource]="enfermeros" matSort>
-        <!-- Columnas de la tabla -->
-        <ng-container matColumnDef="dni">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>DNI</th>
-          <td mat-cell *matCellDef="let enfermero" (click)="toogleActualizarEnfermero(enfermero)">
-            {{ enfermero?.dni }}
-          </td>
-        </ng-container>
-
-        <ng-container matColumnDef="nom">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
-          <td mat-cell *matCellDef="let enfermero" (click)="toogleActualizarEnfermero(enfermero)">
-            {{ enfermero?.nom }}
-          </td>
-        </ng-container>
-
-        <ng-container matColumnDef="telefon">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Teléfono</th>
-          <td mat-cell *matCellDef="let enfermero" (click)="toogleActualizarEnfermero(enfermero)">
-            {{ enfermero?.telefon }}
-          </td>
-        </ng-container>
-
-        <ng-container matColumnDef="usuariId">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Usuario</th>
-          <td mat-cell *matCellDef="let enfermero" (click)="toogleActualizarEnfermero(enfermero)">
-            {{ enfermero?.usuariId }}
-          </td>
-        </ng-container>
-
-        <ng-container matColumnDef="especialitat">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Especialidad</th>
-          <td mat-cell *matCellDef="let enfermero" (click)="toogleActualizarEnfermero(enfermero)">
-            {{ enfermero?.especialitat }}
-          </td>
-        </ng-container>
-
-        <ng-container matColumnDef="pruebasDiagnosticas">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Pruebas Diagnósticas</th>
-          <td mat-cell *matCellDef="let enfermero" class="link" (click)="verPruebasDiagnosticas(enfermero)">
-            {{ enfermero?.pruebasDiagnosticas.length }}
-            {{ enfermero?.pruebasDiagnosticas.length === 1 ? 'prueba diagnóstica' : 'pruebas diagnósticas' }}
-          </td>
-        </ng-container>
-
-        <!-- Acciones -->
-        <ng-container matColumnDef="Actions">
-          <th mat-header-cell *matHeaderCellDef>Acciones</th>
-          <td mat-cell *matCellDef="let enfermero">
-            <ng-container *ngIf="isPortGolden; else defaultActions">
-              <button mat-button color="warn" (click)="deleteEnfermero(enfermero)">Eliminar</button>
-            </ng-container>
-            <div class="botones">
-            <ng-template #defaultActions>
-              <button mat-icon-button (click)="toogleActualizarEnfermero(enfermero)"><span>🔄</span></button>
-              <button mat-icon-button (click)="deleteEnfermero(enfermero)"><span class="paco">❎</span></button>
-            </ng-template>
-          </div>
-          </td>
-        </ng-container>
-
-        <!-- Filas -->
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-      </table>
-    </div>
-    <div class="botonesbobos">
-
-    <!-- Paginación -->
-    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
   </div>
-</div>
-</div>

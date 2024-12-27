@@ -7,8 +7,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
 import { EpisodiService } from '../../services/episodis.service';
-import { DialogFormularioEpisodisModifComponent } from '../../forms/Episodio/Modif/dialog-formulario-episodis-modif.component';
-import { DialogFormularioEpisodisComponent } from '../../forms/Episodio/Create/dialog-formulario-episodis.component';
+import { DialogFormularioEpisodisModifComponent } from '../../forms/Episodio/dialog-formulario-episodis-modif.component';
 import { ConsultasDialogComponent } from '../../popups/consultas-popup';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
@@ -100,7 +99,7 @@ export class EpisodiComponent extends AbstractTableComponent<EpisodiMedic> imple
 
     // Implementación del método para obtener el componente del formulario
     obtenerDialogoFormularioRegistro(): any {
-        return DialogFormularioEpisodisComponent;
+        return DialogFormularioEpisodisModifComponent;
     }
 
     obtenerDialogoFormularioModificacion(): any {

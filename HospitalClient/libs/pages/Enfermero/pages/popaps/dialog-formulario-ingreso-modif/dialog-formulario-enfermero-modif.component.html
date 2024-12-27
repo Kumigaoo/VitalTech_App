@@ -41,7 +41,7 @@
       <mat-label>Usuario:</mat-label>
       <mat-select formControlName="usuariId" required>
         @for (u of usuaris; track u.username) {
-        <mat-option [value]="u.username">{{ u.username }}</mat-option>
+        <mat-option [value]="u.id">{{ u.username }}</mat-option>
         }
       </mat-select>
       @if (enfermeroForm.get('usuariId')?.hasError('required')) {

@@ -42,7 +42,7 @@
       <mat-label>Dolencia</mat-label>
       <input
         matInput
-        formControlName="dolencia"
+        formControlName="motivo"
         [disabled]="isReadOnly"
         required
       />
@@ -59,6 +59,27 @@
     </mat-form-field>
     <br />
     <mat-form-field appearance="outline">
+      <mat-label>Urgencia</mat-label>
+      <input
+        matInput
+        formControlName="urgencia"
+        [disabled]="isReadOnly"
+        required
+      />
+    </mat-form-field>
+    <br/>
+    <mat-form-field appearance="outline">
+      <mat-label>Recepta</mat-label>
+      <input
+        matInput
+        formControlName="recepta"
+        [disabled]="isReadOnly"
+        required
+      />
+    </mat-form-field>
+    <br/>
+
+    <mat-form-field appearance="outline">
       <mat-label>DNI Pacient</mat-label>
       <input
         matInput
@@ -68,20 +89,35 @@
       />
     </mat-form-field>
     <br />
-    <mat-dialog-actions>
-      <button mat-button *ngIf="!editar" (click)="enableEditing()">Editar</button>
-      <button
-        mat-raised-button
-        color="primary"
-        *ngIf="editar"
-        [disabled]="episodiForm.invalid"
-        (click)="guardar()"
-      >
-        Guardar
-      </button>
-      <button mat-button mat-dialog-close>Cancelar</button>
-    </mat-dialog-actions>
-    
+    <mat-form-field appearance="outline">
+      <mat-label>DNI Metge</mat-label>
+      <input
+        matInput
+        formControlName="dniMetge"
+        [disabled]="isReadOnly"
+        required
+      />
+    </mat-form-field>
+    <br/>
   </form>
 </mat-dialog-content>
+
+<mat-dialog-actions>
+  <!-- Botón "Editar" aparece solo si no estamos en modo de edición -->
+  <button mat-button *ngIf="!editar" (click)="enableEditing()">Editar</button>
+
+  <!-- Botón "Guardar" aparece solo si estamos en modo de edición -->
+  <button
+    mat-raised-button
+    color="primary"
+    *ngIf="editar"
+    [disabled]="episodiForm.invalid"
+    (click)="guardar()"
+  >
+    Guardar
+  </button>
+
+  <!-- Botón "Cancelar" siempre disponible -->
+  <button mat-button mat-dialog-close>Cancelar</button>
+</mat-dialog-actions>
 
