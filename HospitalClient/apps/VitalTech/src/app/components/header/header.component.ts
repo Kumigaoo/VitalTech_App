@@ -4,6 +4,7 @@ import { RouterLinkActive, RouterLink, Router } from '@angular/router';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { PopUpLogoutComponent } from './pages/pop-up-logout/pop-up-logout.component';
 import { MatDialog } from '@angular/material/dialog';
+import { HttpClient } from '@angular/common/http';
  
 @Component({
   selector: 'app-header',
