@@ -23,6 +23,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatOptgroup, MatOption } from '@angular/material/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-dialog-formulario-consulta-modif',
@@ -36,7 +37,8 @@ import { MatOptgroup, MatOption } from '@angular/material/core';
     MatButtonModule, // Para el botón "Cancelar" y "Guardar"
     MatOptgroup,
     MatOption,
-    MatSelectModule
+    MatSelectModule,
+    CommonModule
   ],
   templateUrl: './dialog-formulario-consulta-modif.component.html',
   styleUrls: [],
@@ -44,9 +46,9 @@ import { MatOptgroup, MatOption } from '@angular/material/core';
 export class DialogFormularioConsultaModifComponent {
   isEditing: boolean = false; // Variable para controlar el modo
   pruebaForm!: FormGroup;
-  episodis!: EpisodiMedic[];
-  medicos!: Medico[];
-  enfermeros! : Enfermero[];
+  episodis: EpisodiMedic[] = [];
+  medicos: Medico[]  = [];
+  enfermeros : Enfermero[] = [];
   cssPaths!: string[];
 
   constructor(
@@ -65,7 +67,6 @@ export class DialogFormularioConsultaModifComponent {
       link.href = css;
       document.head.appendChild(link);
     });
-    this.obtenerEpisodios();
     this.crearFormularioPrueba();
     if(this.data.id){
       this.disableEditing();
@@ -73,6 +74,12 @@ export class DialogFormularioConsultaModifComponent {
 
   }
 
+  ngOnInit(): void {
+    this.obtenerEpisodios();
+    this.obtenerMedicos();
+    this.obtenerEnfermeros();
+  }
+  
   // metodo para saber si esta en modo lectura o no
   get isReadOnly(): boolean {
     return !this.isEditing;
@@ -140,6 +147,7 @@ export class DialogFormularioConsultaModifComponent {
     this.episodiService.getAll().subscribe({
       next:(data: EpisodiMedic[]) => {
         this.episodis = data;
+        console.log(this.episodis);
       },
       error: (error:any) => {
         console.log('ERROR', error);
@@ -151,6 +159,7 @@ export class DialogFormularioConsultaModifComponent {
     this.medicoService.getAll().subscribe({
       next:(data: Medico[]) => {
         this.medicos = data;
+        console.log(this.episodis);
       },
       error: (error:any) => {
         console.log('ERROR', error);
@@ -162,6 +171,7 @@ export class DialogFormularioConsultaModifComponent {
     this.enfermeroService.getAll().subscribe({
       next:(data: Enfermero[]) => {
         this.enfermeros = data;
+        console.log(this.episodis);
       },
       error: (error:any) => {
         console.log('ERROR', error);

@@ -12,7 +12,7 @@
     <mat-label>Médico:</mat-label>
     <mat-select formControlName="dniMetge">
       <mat-option *ngFor="let medico of medicos" [value]="medico.dni">
-        {{ medico.dni }}
+        {{ medico.nom }}
       </mat-option>
     </mat-select>
   </mat-form-field>
@@ -22,7 +22,7 @@
     <mat-label>Enfermero:</mat-label>
     <mat-select formControlName="dniEnfermer">
       <mat-option *ngFor="let enfermero of enfermeros" [value]="enfermero.dni">
-        {{ enfermero.dni }}
+        {{ enfermero.nom }}
       </mat-option>
     </mat-select>
   </mat-form-field>
@@ -55,7 +55,10 @@
     <br />
     <mat-form-field appearance="outline">
       <mat-label>Correcta:</mat-label>
-      <input matInput formControlName="correcta" />
+      <mat-select formControlName="correcta">
+        <mat-option [value]="true">Sí</mat-option>
+        <mat-option [value]="false">No</mat-option>
+      </mat-select>
     </mat-form-field>
   <mat-dialog-actions>
     <!-- Botón Actualizar: Solo visible si se está en modo detalles -->
