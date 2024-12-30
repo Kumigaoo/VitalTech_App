@@ -8,7 +8,18 @@
     <h2>Plantas</h2>
     <app-snackbar #snackbar></app-snackbar>
 
+    @if(!isPortGolden){
+      <div class="texto">
+        <p>Lista de plantas</p>
+      </div>
+      }
+
     <div class="filter-container">
+      
+      <button mat-raised-button color="primary" (click)="toggleFormularioAgregar()">
+        + Registrar planta
+      </button>
+
       <!--Buscador-->
       <div>
         <app-search-box [searchOptions]="[
@@ -17,19 +28,11 @@
         ]" [defaultSearchType]="'planta'" placeholder="Escribe para buscar..." (search)="filtrarPlantes($event)">
         </app-search-box>
       </div>
-      <button mat-raised-button color="primary" (click)="toggleFormularioAgregar()">
-        + Registrar planta
-      </button>
     </div>
   </div>
 
-  @if(!isPortGolden){
-  <div class="texto">
-    <p>Lista de plantas</p>
-  </div>
-  }
   <!-- Tabla de plantas con Angular Material -->
-  <div class="table-container mat-elevation-z8">
+  <div class="table-container2 mat-elevation-z8">
     <table mat-table [dataSource]="plantas" class="mat-table" matSort>
       <!-- Piso -->
       <ng-container matColumnDef="piso">

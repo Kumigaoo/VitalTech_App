@@ -1,5 +1,5 @@
 <h2 mat-dialog-title>
-  {{ !editar ? 'Detalles Paciente' : 'Actualizar Paciente' }}
+  {{ !isEditing ? 'Detalles Paciente' : 'Guardar Paciente' }}
 </h2>
 
 <mat-dialog-content>
@@ -130,15 +130,22 @@
 </mat-dialog-content>
 
 <mat-dialog-actions>
-  <button mat-button *ngIf="!editar" (click)="enableEditing()">Editar</button>
+  <!-- Botón Actualizar: Solo visible si se está en modo detalles -->
+  <button mat-button *ngIf="data.dni && !isEditing" (click)="enableEditing()">
+    Editar
+  </button>
+
+  <!-- Botón Guardar: Solo visible en modo edición -->
   <button
     mat-raised-button
     color="primary"
-    *ngIf="editar"
+    *ngIf="isEditing"
     [disabled]="pacienteForm.invalid"
     (click)="guardar()"
   >
     Guardar
   </button>
-  <button mat-button mat-dialog-close>Cancelar</button>
+
+  <!-- Botón Cancelar: Siempre visible, cambia comportamiento según el modo -->
+  <button mat-button (click)="cancelar()">Cancelar</button>
 </mat-dialog-actions>

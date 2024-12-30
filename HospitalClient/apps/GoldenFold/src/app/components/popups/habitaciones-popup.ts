@@ -8,6 +8,7 @@ import { MatTableModule } from '@angular/material/table';
   standalone: true,
   imports: [CommonModule, MatTableModule],
   template: `
+  <div>
     <h1 mat-dialog-title>Habitaciones</h1>
 
     <div class="table-container">
@@ -29,6 +30,7 @@ import { MatTableModule } from '@angular/material/table';
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
       </table>
+    </div>
     </div>
   `,
   styleUrls: ['./custom-table.component.css'],

@@ -231,7 +231,6 @@ export class EnfermersComponent {
   verPruebasDiagnosticas(enfermero: Enfermero): void {
     if (enfermero.pruebasDiagnosticas.length <= 0) {
       this.snackbar.showNotification('error', 'No hay pruebas diagnosticas');
-      return;
     } else {
       this.dialog.open(PruebasDialogComponent, {
         maxWidth: 'auto',

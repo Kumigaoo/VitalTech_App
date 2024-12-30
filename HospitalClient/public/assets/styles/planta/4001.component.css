@@ -3,7 +3,7 @@
   font-family: Arial, sans-serif;
   margin: 20px;
   margin-top: 80px;
-  margin-left: 170px;
+  margin-left: 200px;
 }
  
 .clickable-row {
@@ -35,11 +35,12 @@ h2 {
 }
  
 /* Estilo del contenedor de la tabla */
-.table-container {
+.table-container2 {
   width: 100%;
   overflow-x: auto;
   background-color: rgb(243, 240, 240);
   padding: 10px;
+  margin-left: 200px !important;
   margin: 5px;
   border-radius: 7px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -223,7 +224,7 @@ td button:hover {
 .filter-container {
   display: flex;
   justify-content: space-between;
-  gap: 20px;
+  gap: 5px;
   margin-bottom: 20px;
 }
  
