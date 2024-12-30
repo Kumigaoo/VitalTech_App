@@ -46,7 +46,7 @@ import { obtenerUsuariosDisponibles } from '../../../../../utils/utilFunctions';
     MatOptionModule,
     MatInputModule,
     MatDialogModule,
-    MatButtonModule,
+    MatButtonModule
   ],
   templateUrl: './dialog-formulario-enfermero-modif.component.html',
   styleUrls: ['./dialog-formulario-enfermero-modif.component.css'],
@@ -57,6 +57,7 @@ export class DialogFormularioEnfermeroModifComponent implements OnInit {
   usuaris!: Usuari[];
   enfermeros!: Enfermero[];
   usuarioIdsEnfermeros = new Set('');
+  seleccionat = "15";
   especialidades = Object.entries(EspecialidadesEnfermero)
     .filter(([key, value]) => !isNaN(Number(value)))
     .map(([key, value]) => ({ id: value as number, nombre: key }));
