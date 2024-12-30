@@ -66,7 +66,7 @@ export const MY_DATE_FORMATS = {
 export class DialogPacienteComponent {
 
   pacienteForm!: FormGroup;
-  editar: boolean = false;
+  isEditing: boolean = true;
   usuarios!: Usuari[];
   cssPaths!: string[];
   pacientes!:Paciente[];
@@ -89,30 +89,31 @@ export class DialogPacienteComponent {
 
     this.obtenerPacietes(); //obtener administradores de sistema
     this.crearFormularioPaciente(); //crear formulario reactivo
-    if(this.data.dni){ //comprueba si se le han pasado datos
-      this.disableEditing(); //se pone en modo solo lectura
+    if (this.data.dni) {
+      this.showDetails();
     }
 
   }
 
-
-  disableEditing(): void{
-    this.editar = false; //modo lectura
-    this.pacienteForm.disable(); //formulario no editable
-  }
-
   get isReadOnly(): boolean {
-    return !this.editar;
+    return !this.isEditing;
   }
 
+  // Función para habilitar el modo edición
   enableEditing(): void {
-    this.editar = true;
+    this.isEditing = true;
     this.pacienteForm.enable();
   }
 
+  // Función para mostrar detalles (solo lectura)
   showDetails(): void {
-    this.editar = false;
+    this.isEditing = false;
     this.pacienteForm.disable();
+  }
+
+  // Función para cancelar
+  cancelar(): void {
+    this.dialogRef.close();
   }
 
   crearFormularioPaciente(): void {

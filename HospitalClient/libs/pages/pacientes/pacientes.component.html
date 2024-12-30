@@ -73,7 +73,7 @@
         <ng-container matColumnDef="sexe">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Sexo</th>
           <td mat-cell *matCellDef="let paciente" (click)="toggleActualizarPaciente(paciente)">
-            <ng-container *ngIf="paciente.sexe === 'F'; else masculino">
+            <ng-container *ngIf="paciente.sexe === 'F' || paciente.sexe === 'Femenino'; else masculino">
               Femenino
             </ng-container>
             <ng-template #masculino>Masculino</ng-template>

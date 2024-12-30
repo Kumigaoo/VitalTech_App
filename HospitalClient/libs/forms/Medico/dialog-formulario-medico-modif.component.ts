@@ -70,6 +70,7 @@ export class DialogFormularioMedicoModifComponent implements OnInit {
   medicoForm!: FormGroup;
   usuaris!: Usuari[];
   medicos!: Medico[];
+  
   usuarioIdsMedicos = new Set('');
   cssPaths!: string[];
   especialidades = Object.entries(EspecialidadesMedico)

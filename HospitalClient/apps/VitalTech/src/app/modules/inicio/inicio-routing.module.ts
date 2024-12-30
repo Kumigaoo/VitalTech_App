@@ -1,3 +1,4 @@
+import { UsuarioModule } from './usuario/usuario.module';
 import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import InicioComponent from '../../pages/inicio/inicio.component';
@@ -12,7 +13,10 @@ const routes: Routes = [
     path: 'cama',
     loadChildren: () => import('./cama/cama.module').then((m) => m.CamaModule),
   },
-
+  {
+    path: 'usuario',
+    loadChildren: () => import('./usuario/usuario.module').then((m) => m.UsuarioModule)
+  },
   {
     path: 'consulta',
     loadChildren: () =>
