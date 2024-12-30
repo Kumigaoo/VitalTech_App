@@ -56,8 +56,8 @@ export class EnfermersComponent {
     this.isPortGolden = this.currentPort === '4201';
 
     this.cssPaths = this.isPortGolden
-      ? ['/assets/styles/styles.css', '/assets/styles/enfermero/4001.component.css']
-      : ['/assets/styles/styles.css', '/assets/styles/enfermero/4000.component.css'];
+      ? ['/assets/styles/styles.css', '/assets/styles/Enfermero/4001.component.css']
+      : ['/assets/styles/styles.css', '/assets/styles/Enfermero/4000.component.css'];
 
     this.cargarEstilosDinamicos();
   }
