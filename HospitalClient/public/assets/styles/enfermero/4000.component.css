@@ -14,8 +14,8 @@
   display: flex !important;
   align-items: end;
   justify-content: space-between;
-  padding-left: 170px;
-  padding-right: 60px;
+  padding-left: 13.2vw;
+  padding-right: 8vw;
   flex-direction: row-reverse;
 }
  
@@ -26,9 +26,9 @@
 }
 
 .table-container-vista {
-  width: 70% !important;
-  margin-top: 30px !important;
-  margin-left: 250px !important;
+  width: 70vw !important;
+  margin-top: 5vh !important;
+  margin-left: 19.2vw !important;
 }
  
 .table {

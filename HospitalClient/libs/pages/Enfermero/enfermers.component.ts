@@ -1,5 +1,4 @@
-// enfermers.component.ts
-import { DialogFormularioEnfermeroModifComponent } from './pages/popaps/dialog-formulario-ingreso-modif/dialog-formulario-enfermero-modif.component';
+import { DialogFormularioEnfermeroModifComponent } from '../../forms/Enfermero/dialog-formulario-enfermero-modif.component';
 import { PruebasDialogComponent } from './../../../apps/GoldenFold/src/app/components/popups/pruebas-popup';
 import { EnfermeroService } from './../../services/enfermero.service';
 import { SnackbarComponent } from './../../../apps/GoldenFold/src/app/components/snackbar/snackbar.component';

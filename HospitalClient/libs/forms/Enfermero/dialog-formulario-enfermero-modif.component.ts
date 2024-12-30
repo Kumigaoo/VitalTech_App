@@ -1,7 +1,7 @@
-import { EspecialidadesEnfermero } from '../../../../../enums/especialidadesEnfermero';
-import { EnfermeroAsyncValidator } from '../../../../../validators/enfermeroExistsValidator';
-import { UsuarioService } from './../../../../../services/usuario.service';
-import { EnfermeroService } from '../../../../../services/enfermero.service';
+import { EspecialidadesEnfermero } from '../../enums/especialidadesEnfermero';
+import { EnfermeroAsyncValidator } from '../../validators/enfermeroExistsValidator';
+import { UsuarioService } from '../../services/usuario.service';
+import { EnfermeroService } from '../../services/enfermero.service';
 import { Component, Inject, OnInit } from '@angular/core';
 import {
   MAT_DIALOG_DATA,
@@ -24,12 +24,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { Usuari } from '../../../../../interfaces/usuari.interface';
-import { dniValidator } from '../../../../../validators/dniValidator';
+import { Usuari } from '../../interfaces/usuari.interface';
+import { dniValidator } from '../../validators/dniValidator';
 import { map } from 'rxjs';
-import { Enfermero } from '../../../../../interfaces/enfermer.interface';
-import { dniExisteValidator } from '../../../../../validators/dniExistsValidatos';
-import { obtenerUsuariosDisponibles } from '../../../../../utils/utilFunctions';
+import { Enfermero } from '../../interfaces/enfermer.interface';
+import { dniExisteValidator } from '../../validators/dniExistsValidatos';
+import { obtenerUsuariosDisponibles } from '../../utils/utilFunctions';
 
 @Component({
   selector: 'app-dialog-formulario-enfermero-modif',
