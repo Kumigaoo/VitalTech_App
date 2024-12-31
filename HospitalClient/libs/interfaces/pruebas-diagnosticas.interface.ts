@@ -5,6 +5,6 @@ export interface PruebaDiagnostica {
   episodiMedicId: number;
   dolencia: string;
   pruebas: string;
-  resultados: string;
-  correcta: boolean;
+  resultados?: string;
+  correcta?: boolean;
 }
