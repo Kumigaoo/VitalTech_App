@@ -125,9 +125,36 @@ export class UsuarioComponent implements OnInit, AfterViewInit {
       .subscribe((usuarioActualizado) => {
         if (usuarioActualizado) {
           this.usuarioSeleccionado = usuarioActualizado;
-          this.actualizarUsuario();
+          this.actualizarUsuario(usuario);
         }
       });
+  }
+
+  actualizarUsuario(usuario: Usuari): void {
+
+    if (this.usuarioSeleccionado) {
+      this.usuarioService
+        .put( usuario.username , this.usuarioSeleccionado)
+        .subscribe({
+          next: () => {
+            this.obtenerUsuarios();
+            this.cerrarFormulario();
+            this.snackbar.showNotification(
+              'success',
+              'Usuario actualizado correctamente'
+            ); // Notificación de éxito
+          },
+          error: (error: any) => {
+            console.error('Error al actualizar el usuario', error);
+            this.snackbar.showNotification(
+              'error',
+              'Error al actualizar el usuario'
+            ); // Notificación de error
+          },
+        });
+    } else {
+      console.error('usuarioSeleccionado no es válido');
+    }
   }
 
   toggleFormularioAgregar(): void {
@@ -157,8 +184,9 @@ export class UsuarioComponent implements OnInit, AfterViewInit {
   }
 
   // Eliminar usuario
-  borrarUsuario(id: string): void {
-    this.usuarioService.delete(id).subscribe({
+  borrarUsuario(username: string): void {
+    console.log(username)
+    this.usuarioService.delete(username).subscribe({
       next: () => {
         this.obtenerUsuarios(); // Refrescar la tabla tras borrar
         this.snackbar.showNotification(
@@ -194,32 +222,7 @@ export class UsuarioComponent implements OnInit, AfterViewInit {
     });
   }
 
-  actualizarUsuario(): void {
-    console.log(this.usuarioSeleccionado); // Para verificar que usuarioSeleccionado no sea null o undefined
-    if (this.usuarioSeleccionado) {
-      this.usuarioService
-        .put( String(this.usuarioSeleccionado.id) , this.usuarioSeleccionado)
-        .subscribe({
-          next: () => {
-            this.obtenerUsuarios();
-            this.cerrarFormulario();
-            this.snackbar.showNotification(
-              'success',
-              'Usuario actualizado correctamente'
-            ); // Notificación de éxito
-          },
-          error: (error: any) => {
-            console.error('Error al actualizar el usuario', error);
-            this.snackbar.showNotification(
-              'error',
-              'Error al actualizar el usuario'
-            ); // Notificación de error
-          },
-        });
-    } else {
-      console.error('usuarioSeleccionado no es válido');
-    }
-  }
+  
 
   filtrarUsuarios(event: { type: string; term: string }): void {
     const { type, term } = event;

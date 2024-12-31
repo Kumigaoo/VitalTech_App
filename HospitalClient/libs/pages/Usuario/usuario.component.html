@@ -80,7 +80,7 @@
           <th mat-header-cell *matHeaderCellDef>Acciones</th>
           <td mat-cell *matCellDef="let usuario">
             @if (isPortGolden) {
-              <button mat-button class="eliminar" color="warn" (click)="borrarUsuario(usuario.id)">
+              <button mat-button class="eliminar" color="warn" (click)="borrarUsuario(usuario.username)">
                 Borrar
               </button>
             } @else {
@@ -88,7 +88,7 @@
                 <button mat-button (click)="toggleActualizarUsuario(usuario)">
                   🔄
                 </button>
-                <button mat-button color="warn" (click)="borrarUsuario(usuario.id)">
+                <button mat-button color="warn" (click)="borrarUsuario(usuario.username)">
                   ❎
                 </button>
               </div>
