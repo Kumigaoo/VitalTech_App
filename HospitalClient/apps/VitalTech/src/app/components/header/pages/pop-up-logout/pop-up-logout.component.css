@@ -15,6 +15,17 @@ body {
 
 }
 
+img {
+
+  width: auto;
+  height: 8cqh;
+
+  text-align: center;
+
+  margin-bottom: 3cqh;
+
+}
+
 .info {
 
   text-align: left;
@@ -26,16 +37,20 @@ body {
 div:has(button) {
 
   text-align: center;
+  margin-top: 25cqh;
 
 }
 
-div button {
+button {
 
   width: 28cqw;
   height: 8cqh;
 
   border-radius: 0.5em;
   border: none;
+
+  font-size: 2em;
+  font-weight: bold;
 
   background-color: darkcyan;
   color: antiquewhite;

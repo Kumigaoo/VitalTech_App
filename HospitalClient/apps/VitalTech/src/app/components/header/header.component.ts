@@ -74,7 +74,7 @@ export class HeaderComponent {
         nom: this.getCookie("nomUser")
       },
       width: "30vw",
-      height: "80vh"
+      height: "65vh"
     });
   }
 }
