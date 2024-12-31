@@ -39,7 +39,7 @@ html {
   display: block;
   padding: 10px;
   background-color: darkcyan;
-  border-radius: 5px;
+  border-radius: 0.5em;
   margin: 10px 10px 0 10px;
   font-family: Arial, sans-serif;
 }
