@@ -2,5 +2,41 @@ body {
   display: flex;
   flex-direction: column;
   background-color: white;
+
+}
+
+.encapselat {
+
+  margin-top: 4cqw;
+
+  font-size: 3rem;
+  font-weight: bold;
+  text-align: center;
+
+}
+
+.info {
+
   text-align: left;
+  margin-top: 4cqh;
+  margin-left: 1.3cqw;
+
+}
+
+div:has(button) {
+
+  text-align: center;
+
+}
+
+div button {
+
+  width: 28cqw;
+  height: 8cqh;
+
+  border-radius: 0.5em;
+  border: none;
+
+  background-color: darkcyan;
+  color: antiquewhite;
 }
