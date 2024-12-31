@@ -81,7 +81,7 @@
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Usuario</th>
             <td mat-cell *matCellDef="let enfermero"
               (click)="isPortGolden ? toogleActualizarEnfermero(enfermero) : null">
-              {{ enfermero?.usuariId }}
+              {{ getUserName(enfermero?.usuariId,usuarios) }}
             </td>
           </ng-container>
 
