@@ -15,10 +15,17 @@ body {
 
 }
 
+.imatgue {
+
+  text-align: center;
+  margin-top: 2cqh;
+
+}
+
 img {
 
   width: auto;
-  height: 8cqh;
+  height: 16cqh;
 
   text-align: center;
 
@@ -37,7 +44,8 @@ img {
 div:has(button) {
 
   text-align: center;
-  margin-top: 25cqh;
+  margin-top: 3cqh;
+  margin-bottom: 2cqh;
 
 }
 
@@ -54,4 +62,5 @@ button {
 
   background-color: darkcyan;
   color: antiquewhite;
+
 }
