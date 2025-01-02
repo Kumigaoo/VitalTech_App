@@ -11,7 +11,7 @@ export class AdministrativoService extends BaseService<
   Administrativo,
   string
 > {
-  protected apiUrl = 'https://localhost:7200/api/Administrativo';
+  protected apiUrl = 'https://localhost:7200/api/Administratiu';
 
   constructor(http: HttpClient) {
     super(http);

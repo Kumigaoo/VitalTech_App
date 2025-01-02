@@ -10,7 +10,6 @@ import { Administrativo } from '../../interfaces/administrativo.interface';
 import { AdministrativoService } from '../../services/administrativo.service';
 import { MatDialog } from '@angular/material/dialog';
 //habrá que hacer un administrativoDashboard...etc?
-import { MedicoDashboardComponent } from '../../../apps/GoldenFold/src/app/pages/inicio/pages/medico/medico-dashboard/medico-dashboard.component';
 import { obtenerUsuariosDisponibles } from '../../utils/utilFunctions';
 import { Usuari } from '../../interfaces/usuari.interface';
 import { obtenerNombreUsuario } from '../../utils/utilFunctions';
