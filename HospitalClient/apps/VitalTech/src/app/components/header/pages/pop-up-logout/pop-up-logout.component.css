@@ -9,9 +9,27 @@ body {
 
   margin-top: 4cqw;
 
-  font-size: 3rem;
+  font-size: 9cqh;
   font-weight: bold;
   text-align: center;
+
+}
+
+.imatgue {
+
+  text-align: center;
+  margin-top: 2cqh;
+
+}
+
+img {
+
+  width: auto;
+  height: 16cqh;
+
+  text-align: center;
+
+  margin-bottom: 3cqh;
 
 }
 
@@ -26,10 +44,12 @@ body {
 div:has(button) {
 
   text-align: center;
+  margin-top: 3cqh;
+  margin-bottom: 2cqh;
 
 }
 
-div button {
+button {
 
   width: 28cqw;
   height: 8cqh;
@@ -37,6 +57,10 @@ div button {
   border-radius: 0.5em;
   border: none;
 
+  font-size: 5cqh;
+  font-weight: bold;
+
   background-color: darkcyan;
   color: antiquewhite;
+
 }
