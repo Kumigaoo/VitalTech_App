@@ -43,7 +43,7 @@ import { dniExisteValidator } from '../../validators/dniExistsValidatos';
 import { obtenerUsuariosDisponibles } from '../../utils/utilFunctions';
 
 @Component({
-  selector: 'app-dialog-formulario-medico-modif',
+  selector: 'app-dialog-formulario-administrativo-modif',
   standalone: true,
   imports: [
     ReactiveFormsModule,
@@ -173,7 +173,7 @@ export class DialogFormularioAdministrativoModifComponent implements OnInit {
   }
 
     getUsuariosDisponibles(): void {
-      obtenerUsuariosDisponibles("Administrativo",this.administrativos,this.usuarioService).subscribe({
+      obtenerUsuariosDisponibles("Administratiu",this.administrativos,this.usuarioService).subscribe({
         next:(usuariosDisponibles: Usuari[]) => {
           this.usuaris = usuariosDisponibles;
         },

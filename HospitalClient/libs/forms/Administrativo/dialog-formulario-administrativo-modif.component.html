@@ -66,11 +66,16 @@
         Editar
       </button>
 
-      <!-- Botón Guardar: Solo visible en modo edición -->
-      <button mat-raised-button color="primary" *ngIf="isEditing" [disabled]="administrativoForm.invalid"
-        (click)="guardar()">
-        Guardar
-      </button>
+    <!-- Botón Guardar: Solo visible en modo edición -->
+    <button
+    mat-raised-button
+    color="primary"
+    *ngIf="isEditing"
+    [disabled]="administrativoForm.invalid"
+    (click)="guardar()"
+  >
+    Guardar
+  </button>
 
       <!-- Botón Cancelar: Siempre visible, cambia comportamiento según el modo -->
       <button mat-button (click)="cancelar()">Cancelar</button>

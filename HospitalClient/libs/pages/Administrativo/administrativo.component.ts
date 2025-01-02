@@ -81,9 +81,6 @@ export class AdministrativoComponent {
     this.crearFormularioAdministrativo();
   }
 
-  ngOnInit() {
-    this.obtenerAdministrativos();
-  }
 
   ngAfterViewInit(): void {
     this.administrativos.paginator = this.paginator;
@@ -202,7 +199,7 @@ export class AdministrativoComponent {
           return data.usuariId.toString().toLowerCase().includes(filter);
         case 'telefon':
           return data.telefon.toString().toLowerCase().includes(filter);
-        case 'especialita':
+        case 'hobby':
           return data.hobby.toString().toLowerCase().includes(filter);
         default:
           return false;
@@ -244,7 +241,7 @@ export class AdministrativoComponent {
   }
 
   getUsuariosDisponibles(): void {
-    obtenerUsuariosDisponibles("Administrativo",this.administrativos.data,this.usuarioService).subscribe({
+    obtenerUsuariosDisponibles("Administratiu",this.administrativos.data,this.usuarioService).subscribe({
       next:(usuariosDisponibles: Usuari[]) => {
         this.usuariosDisponibles.data = usuariosDisponibles;
       },
