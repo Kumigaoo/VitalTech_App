@@ -4,4 +4,5 @@ export interface Administrativo {
   nom: string;
   telefon: string;
   usuariId: number;
+  hobby:string;
 }

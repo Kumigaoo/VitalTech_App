@@ -95,8 +95,8 @@ export class DialogPlantaComponent {
         ...this.plantaForm.value,
       };
       //quitamos el espacio de los lados a todos los atributos
-      plantaActualizada.piso.toString().trim();
-      plantaActualizada.capacitatHabitacions.toString().trim();
+      plantaActualizada.piso = parseInt(plantaActualizada.piso.toString().trim());
+      plantaActualizada.capacitatHabitacions = parseInt(plantaActualizada.capacitatHabitacions.toString().trim());
 
       //cerramos el dialog y enviamos los datos
       this.dialogRef.close(plantaActualizada);
@@ -132,7 +132,7 @@ export class DialogPlantaComponent {
         this.data.piso, //valor puesto en el campo dni 
         {
           validators: [Validators.required], //comprueba que el dni sea valido
-          asyncValidators: [plantaExistsValidator(this.plantaService)], //comprueba que no exista un administrador de sistema con ese dni
+          //asyncValidators: [plantaExistsValidator(this.plantaService)], //comprueba que no exista un administrador de sistema con ese dni
         }
       ],
       capacitatHabitacions: [

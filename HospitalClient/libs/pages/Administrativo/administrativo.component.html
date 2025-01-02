@@ -5,7 +5,7 @@
 }
 
 <div class="medicos-section">
-  <h2>Médicos</h2>
+  <h2>Administrativos</h2>
   <!--Para las notificaciones-->
   <app-snackbar #snackbar></app-snackbar>
 
@@ -15,7 +15,7 @@
       <button
         mat-raised-button
         color="primary"
-        (click)="tooggleAgregarMedico()"
+        (click)="tooggleAgregarAdministrativo()"
       >
         Agregar Médicos
       </button>
@@ -29,11 +29,11 @@
           { label: 'Nombre', value: 'nom' },
           { label: 'Usuario', value: 'usuariId' },
           { label: 'Teléfono', value: 'telefon' },
-          { label: 'Especialidad', value: 'especialita' }
+          { label: 'Hobby', value: 'hobby' }
         ]"
         [defaultSearchType]="'dni'"
         placeholder="Escribe para buscar..."
-        (search)="filtrarMedicos($event)"
+        (search)="filtrarAdministrativos($event)"
       >
       </app-search-box>
     </div>
@@ -41,102 +41,64 @@
 
   @if(!isPortGolden){
     <div class="texto">
-      <p>Lista de médicos</p>
+      <p>Lista de administrativos</p>
     </div>
   }
 
-  <!--Tabla medicos-->
+  <!--Tabla administrativos-->
   <div class="table-container">
-    <table mat-table [dataSource]="medicos" matSort class="mat-elevation-z8">
+    <table mat-table [dataSource]="administrativos" matSort class="mat-elevation-z8">
       <ng-container matColumnDef="dni">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>DNI</th>
-        <td mat-cell *matCellDef="let medico" (click)="isPortGolden ? tooggleActualizarMedico(medico) : null" >
-          {{ medico?.dni }}
+        <td mat-cell *matCellDef="let administrativo" (click)="isPortGolden ? tooggleActualizarAdministrativo(administrativo) : null" >
+          {{ administrativo?.dni }}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="nom">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
-        <td mat-cell *matCellDef="let medico" (click)="isPortGolden ? tooggleActualizarMedico(medico) : null" >
-          {{ medico?.nom }}
+        <td mat-cell *matCellDef="let administrativo" (click)="isPortGolden ? tooggleActualizarAdministrativo(administrativo) : null" >
+          {{ administrativo?.nom }}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="usuariId">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Usuario</th>
-        <td mat-cell *matCellDef="let medico" (click)="isPortGolden ? tooggleActualizarMedico(medico) : null" >
-          {{ getUserName(medico?.usuariId,usuarios) }}
+        <td mat-cell *matCellDef="let administrativo" (click)="isPortGolden ? tooggleActualizarAdministrativo(administrativo) : null" >
+          {{ getUserName(administrativo?.usuariId,usuarios) }}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="telefon">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Teléfono</th>
-        <td mat-cell *matCellDef="let medico" (click)="isPortGolden ? tooggleActualizarMedico(medico) : null" >
-          {{ medico?.telefon }}
+        <td mat-cell *matCellDef="let administrativo" (click)="isPortGolden ? tooggleActualizarAdministrativo(administrativo) : null" >
+          {{ administrativo?.telefon }}
         </td>
       </ng-container>
 
-      <ng-container matColumnDef="especialitat">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Especialidad</th>
-        <td mat-cell *matCellDef="let medico" (click)="isPortGolden ? tooggleActualizarMedico(medico) : null" >
-          {{ medico?.especialitat }}
-        </td>
-      </ng-container>
-
-      <ng-container matColumnDef="episodiMedics">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>
-          Episodios médicos
-        </th>
-        <td mat-cell *matCellDef="let medico">
-          <a
-            (click)="verEpisodiosMedicos(medico)"
-            style="cursor: pointer; color: blue"
-          >
-            {{ medico.episodiMedics.length }}
-            {{
-              medico.episodiMedics.length == 1
-                ? 'episodio médico'
-                : 'episodios médicos'
-            }}
-          </a>
-        </td>
-      </ng-container>
-
-      <ng-container matColumnDef="pruebasDiagnosticas">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>
-          Pruebas diagnósticas
-        </th>
-        <td mat-cell *matCellDef="let medico">
-          <a
-            (click)="verPruebasDiagnosticas(medico)"
-            style="cursor: pointer; color: blue"
-          >
-            {{ medico.pruebasDiagnosticas.length }}
-            {{
-              medico.pruebasDiagnosticas.length == 1
-                ? 'prueba diagnostica'
-                : 'pruebas diagnosticas'
-            }}
-          </a>
+      <ng-container matColumnDef="hobby">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Hobby</th>
+        <td mat-cell *matCellDef="let administrativo" (click)="isPortGolden ? tooggleActualizarAdministrativo(administrativo) : null" >
+          {{ administrativo?.especialitat }}
         </td>
       </ng-container>
 
       <!--Actions column-->
       <ng-container matColumnDef="Actions">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Actions</th>
-        <td mat-cell *matCellDef="let medico">
+        <td mat-cell *matCellDef="let administrativo">
           @if(!isPortGolden){
             <div class="botonesbobos">
-              <button class = "botonesbobos" mat-icon-button (click)="tooggleActualizarMedico(medico)">
+              <button class = "botonesbobos" mat-icon-button (click)="tooggleActualizarAdministrativo(administrativo)">
                 🔄
               </button>
-              <button class = "botonesbobos" mat-icon-button (click)="borrarMedico(medico.dni)">
+              <button class = "botonesbobos" mat-icon-button (click)="borrarAdministrativo(administrativo.dni)">
                 ❎
               </button>
             </div>
             
           }@else {
-            <button mat-button color="warn" (click)="borrarMedico(medico.dni)">
+            <button mat-button color="warn" (click)="borrarAdministrativo(administrativo.dni)">
               Eliminar
             </button>
           }
