@@ -1,8 +1,5 @@
 <h2 mat-dialog-title>
-    <!-- si se envía un piso (es decir, se clica en "actualizar") se cargará en el dialog el texto  "Detalles..."
-     si no, el de añadir nueva planta:
-    -->
-  {{ data.piso ? 'Detalles de Planta' : 'Agregar Administrador deSistema'}}
+  {{ !isEditing ? 'Detalles planta' : 'Crear nueva planta' }}
 </h2>
 <mat-dialog-content>
   <form [formGroup]="plantaForm" style="margin-top: 20px">
@@ -14,7 +11,9 @@
       <input matInput formControlName="piso" required />
       @if (plantaForm.get('piso')?.hasError('required')) {
       <mat-error>El piso es obligatorio</mat-error>
-      } 
+      } @if (plantaForm.get('piso')?.hasError('plantaExiste')){
+        <mat-error>La planta ya existe</mat-error>
+        }
     </mat-form-field>
     <br />
     <!--Nom-->
@@ -41,6 +40,7 @@
       <button
         mat-raised-button
         color="primary"
+        *ngIf="isEditing"
         [disabled]="plantaForm.invalid"
         (click)="guardar()"
       >

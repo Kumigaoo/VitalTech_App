@@ -1,39 +1,36 @@
-import { DialogFormularioMedicoModifComponent } from '../../forms/Medico/dialog-formulario-medico-modif.component';
+import { DialogFormularioAdministrativoModifComponent } from '../../forms/Administrativo/dialog-formulario-administrativo-modif.component';
 import { UsuarioService } from '../../services/usuario.service';
 import { Component, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
-import { Medico } from '../../interfaces/medico.interface';
 import { MatPaginator } from '@angular/material/paginator';
 import { SnackbarComponent } from '../../../apps/GoldenFold/src/app/components/snackbar/snackbar.component';
 import { MatSort } from '@angular/material/sort';
 import { Form, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MedicoService } from '../../services/metge.service';
+import { Administrativo } from '../../interfaces/administrativo.interface';
+import { AdministrativoService } from '../../services/administrativo.service';
 import { MatDialog } from '@angular/material/dialog';
+//habrá que hacer un administrativoDashboard...etc?
 import { MedicoDashboardComponent } from '../../../apps/GoldenFold/src/app/pages/inicio/pages/medico/medico-dashboard/medico-dashboard.component';
 import { obtenerUsuariosDisponibles } from '../../utils/utilFunctions';
-import { EpisodiosDialogComponent } from '../../../apps/GoldenFold/src/app/components/popups/episodis-popup';
-import { PruebasDialogComponent } from '../../../apps/GoldenFold/src/app/components/popups/pruebas-popup';
 import { Usuari } from '../../interfaces/usuari.interface';
 import { obtenerNombreUsuario } from '../../utils/utilFunctions';
 
 @Component({
-  selector: 'app-metges',
-  templateUrl: './metges.component.html',
+  selector: 'app-administrativo',
+  templateUrl: './administrativo.component.html',
   styleUrls: [],
 })
-export class MetgesComponent {
+export class AdministrativoComponent {
   //columnas a mostrar
   displayedColumns: string[] = [
     'dni',
     'nom',
     'usuariId',
     'telefon',
-    'especialitat',
-    'episodiMedics',
-    'pruebasDiagnosticas',
+    'hobby',
     'Actions',
   ];
-  medicos: MatTableDataSource<Medico> = new MatTableDataSource<Medico>([]);
+  administrativos: MatTableDataSource<Administrativo> = new MatTableDataSource<Administrativo>([]);
   usuarios: MatTableDataSource<Usuari> = new MatTableDataSource<Usuari>([]);
   usuariosDisponibles: MatTableDataSource<Usuari> = new MatTableDataSource<Usuari>([]);
 
@@ -46,15 +43,15 @@ export class MetgesComponent {
   @ViewChild(SnackbarComponent) snackbar!: SnackbarComponent;
 
   //formularios reactivos
-  medicoForm!: FormGroup;
-  medicoParaActualizar: Medico | null = null;
+  administrativoForm!: FormGroup;
+  administrativoParaActualizar: Administrativo | null = null;
 
   templateUrl!: string
   styleUrls!: string[]
   cssPaths!: string[];
 
   constructor(
-    private medicoService: MedicoService,
+    private administrativoService: AdministrativoService,
     private usuarioService: UsuarioService,
     private fb: FormBuilder,
     public dialog: MatDialog,
@@ -67,10 +64,10 @@ export class MetgesComponent {
     //cambiar css
     if (this.isPortGolden) { 
       //css golden
-      this.cssPaths = ['/assets/styles/styles.css','/assets/styles/medico/4001.component.css'];
+      this.cssPaths = ['/assets/styles/styles.css','/assets/styles/Administrativo/4001.component.css'];
     } else {
       //css vital
-      this.cssPaths = ['/assets/styles/styles.css','/assets/styles/medico/4000.component.css'];
+      this.cssPaths = ['/assets/styles/styles.css','/assets/styles/Administrativo/4000.component.css'];
     }
  
     this.cssPaths.forEach(css => {
@@ -82,47 +79,51 @@ export class MetgesComponent {
     });
 
     this.obtenerUsuarios();
-    this.crearFormularioMedico();
+    this.crearFormularioAdministrativo();
+  }
+
+  ngOnInit() {
+    this.obtenerAdministrativos();
   }
 
   ngAfterViewInit(): void {
-    this.medicos.paginator = this.paginator;
-    this.medicos.sort = this.sort;
+    this.administrativos.paginator = this.paginator;
+    this.administrativos.sort = this.sort;
   }
 
-  //metodo para obtener medicos
-  obtenerMedicos(): void {
-    this.medicoService.getAll().subscribe({
-      next: (data: Medico[]) => {
-        this.medicos.data = data;
+  //metodo para obtener administrativos:
+  obtenerAdministrativos(): void {
+    this.administrativoService.getAll().subscribe({
+      next: (data: Administrativo[]) => {
+        this.administrativos.data = data;
         this.getUsuariosDisponibles();
       },
       error: (error: any) => {
-        console.error('Error al obtener los medicos', error);
+        console.error('Error al obtener los administrativos', error);
       },
     });
   }
 
   //crear el formulario reactivo
-  crearFormularioMedico(): void {
-    this.medicoForm = this.fb.group({
+  crearFormularioAdministrativo(): void {
+    this.administrativoForm = this.fb.group({
       dni: ['', Validators.required],
       nom: ['', Validators.required],
       telefon: [0],
       usuariId: [0, Validators.required],
-      especialitat: ['', Validators.required],
+      hobby: [''],
     });
   }
 
-  agregarMedico(): void {
-    if (this.medicoForm.valid) {
-      const nuevoMedico: Medico = this.medicoForm.value;
-      this.medicoService.post(nuevoMedico).subscribe({
-        next: (medico: Medico) => {
-          this.medicos.data = [...this.medicos.data, medico];
-          this.obtenerMedicos();
-          this.medicoForm.reset();
-          this.snackbar.showNotification('success', 'Medico creado con exito'); // Notificación de éxito
+  agregarAdministrativo(): void {
+    if (this.administrativoForm.valid) {
+      const nuevoAdministrativo: Administrativo = this.administrativoForm.value;
+      this.administrativoService.post(nuevoAdministrativo).subscribe({
+        next: (administrativo: Administrativo) => {
+          this.administrativos.data = [...this.administrativos.data, administrativo];
+          this.obtenerAdministrativos();
+          this.administrativoForm.reset();
+          this.snackbar.showNotification('success', 'Administrativo creado con éxito'); // Notificación de éxito
         },
         error: (error: any) => {
           const mensajeError =
@@ -133,66 +134,66 @@ export class MetgesComponent {
     }
   }
 
-  actualizarMedico(dniAntiguo: string): void {
-    if (this.medicoParaActualizar) {
-      const medicoActualizado = { ...this.medicoParaActualizar };
-      this.medicoService.put(dniAntiguo, medicoActualizado).subscribe({
+  actualizarAdministrativo(dniAntiguo: string): void {
+    if (this.administrativoParaActualizar) {
+      const administrativoActualizado = { ...this.administrativoParaActualizar };
+      this.administrativoService.put(dniAntiguo, administrativoActualizado).subscribe({
         next: () => {
-          this.obtenerMedicos();
-          this.medicoParaActualizar = null;
-          this.medicoForm.reset();
+          this.obtenerAdministrativos();
+          this.administrativoParaActualizar = null;
+          this.administrativoForm.reset();
           this.snackbar.showNotification(
             'success',
-            'Médico actualizado correctamente'
+            'Administrativo actualizado correctamente'
           ); // Notificación de éxito
         },
         error: (error: any) => {
-          console.error('Error al actualizar el medico', error);
+          console.error('Error al actualizar el administrativo', error);
         },
       });
     }
   }
 
-  tooggleAgregarMedico(): void {
-    this.crearFormularioMedico();
+  tooggleAgregarAdministrativo(): void {
+    this.crearFormularioAdministrativo();
     if(this.checkNoUsuarios()){
       this.snackbar.showNotification('error','No hay usuarios disponibles');
       return;
     } 
     this.dialog
-      .open(DialogFormularioMedicoModifComponent, {
-        data: this.medicoForm,
+      .open(DialogFormularioAdministrativoModifComponent, {
+        data: this.administrativoForm,
       })
       .afterClosed()
-      .subscribe((medicoActualizado) => {
-        if (medicoActualizado) {
-          this.medicoForm.patchValue(medicoActualizado);
-          console.log(this.medicoForm.value);
-          this.agregarMedico();
+      .subscribe((administrativoActualizado) => {
+        if (administrativoActualizado) {
+          this.administrativoForm.patchValue(administrativoActualizado);
+          console.log(this.administrativoForm.value);
+          this.agregarAdministrativo();
         }
       });
   }
 
-  tooggleActualizarMedico(medico: Medico): void {
-    this.medicoParaActualizar = { ...medico };
+  tooggleActualizarAdministrativo(administrativo: Administrativo): void {
+    this.administrativoParaActualizar = { ...administrativo };
     this.dialog
-      .open(DialogFormularioMedicoModifComponent, {
-        data: this.medicoParaActualizar,
+      .open(DialogFormularioAdministrativoModifComponent, {
+        data: this.administrativoParaActualizar,
       })
       .afterClosed()
-      .subscribe((medicoActualizado) => {
-        if (medicoActualizado) {
-          this.medicoParaActualizar = medicoActualizado;
-          this.actualizarMedico(medico.dni);
+      .subscribe((administrativoActualizado) => {
+        if (administrativoActualizado) {
+          this.administrativoParaActualizar = administrativoActualizado;
+          this.actualizarAdministrativo(administrativo.dni);
         }
       });
   }
 
-  filtrarMedicos(event: { type: string; term: string }): void {
+  filtrarAdministrativos(event: { type: string; term: string }): void {
     const { type, term } = event;
     const searchterm = term.trim().toLowerCase();
 
-    this.medicos.filterPredicate = (data: Medico, filter: string) => {
+    this.administrativos.filterPredicate = (data: Administrativo, filter: string) => {
       switch (type) {
         case 'dni':
           return data.dni.toString().toLowerCase().includes(filter);
@@ -203,25 +204,25 @@ export class MetgesComponent {
         case 'telefon':
           return data.telefon.toString().toLowerCase().includes(filter);
         case 'especialita':
-          return data.especialitat.toString().toLowerCase().includes(filter);
+          return data.hobby.toString().toLowerCase().includes(filter);
         default:
           return false;
       }
     };
-    this.medicos.filter = searchterm;
+    this.administrativos.filter = searchterm;
 
-    if (this.medicos.paginator) {
-      this.medicos.paginator.firstPage();
+    if (this.administrativos.paginator) {
+      this.administrativos.paginator.firstPage();
     }
   }
 
-  borrarMedico(dni: string): void {
-    this.medicoService.delete(dni).subscribe({
+  borrarAdministrativo(dni: string): void {
+    this.administrativoService.delete(dni).subscribe({
       next: () => {
-        this.medicos.data = this.medicos.data.filter((i) => i.dni != dni);
+        this.administrativos.data = this.administrativos.data.filter((i) => i.dni != dni);
         this.snackbar.showNotification(
           'success',
-          'Médico eliminado correctamente'
+          'Administrativo eliminado correctamente'
         ); // Notificación de éxito
         this.getUsuariosDisponibles();
       },
@@ -231,27 +232,11 @@ export class MetgesComponent {
     });
   }
 
-  verEpisodiosMedicos(medico: Medico) {
-    this.dialog.open(EpisodiosDialogComponent, {
-      maxWidth: 'none',
-      maxHeight: 'none',
-      data: medico.episodiMedics,
-    });
-  }
-
-  verPruebasDiagnosticas(medico: Medico) {
-    this.dialog.open(PruebasDialogComponent, {
-      maxWidth: 'none',
-      maxHeight: 'none',
-      data: medico.pruebasDiagnosticas,
-    });
-  }
-
   obtenerUsuarios(): void {
     this.usuarioService.getAll().subscribe({
       next: (data: Usuari[]) => {
         this.usuarios.data = data;
-        this.obtenerMedicos();
+        this.obtenerAdministrativos();
       },
       error: (error: any) => {
         console.log(error);
@@ -260,7 +245,7 @@ export class MetgesComponent {
   }
 
   getUsuariosDisponibles(): void {
-    obtenerUsuariosDisponibles("Metge",this.medicos.data,this.usuarioService).subscribe({
+    obtenerUsuariosDisponibles("Administrativo",this.administrativos.data,this.usuarioService).subscribe({
       next:(usuariosDisponibles: Usuari[]) => {
         this.usuariosDisponibles.data = usuariosDisponibles;
       },

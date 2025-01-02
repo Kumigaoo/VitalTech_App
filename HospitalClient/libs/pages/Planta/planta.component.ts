@@ -91,9 +91,20 @@ export class PlantaComponent implements OnInit, AfterViewInit {
   }
 
   // LA MOVIDITA A IMPLENATR XD 
-  tooggleActualizarPlanta(planta: any): void {
-
-  }
+  tooggleActualizarPlanta(planta: Planta): void {
+      this.plantaSeleccionado = { ...planta };
+      this.dialog
+        .open(DialogPlantaComponent , {
+          data: this.plantaSeleccionado,
+        })
+        .afterClosed()
+        .subscribe((plantaActualizada) => {
+          if (plantaActualizada) {
+            this.plantaSeleccionado = plantaActualizada;
+            this.modificarPlanta(planta.piso);
+          }
+        });
+    }
 
   loadPlantes(): void {
     this.plantaService.getAll().subscribe({
@@ -194,14 +205,15 @@ export class PlantaComponent implements OnInit, AfterViewInit {
     });
   }
 
-  modificarPlanta(): void {
+  modificarPlanta(pisoAntiguo: number): void {
     if (this.plantaSeleccionado) {
-      this.plantaService
-        .put(this.plantaSeleccionado.piso.toString(), this.plantaSeleccionado)
+      const plantaActualizada = { ...this.plantaSeleccionado };
+      this.plantaService.put(pisoAntiguo.toString(), plantaActualizada)
         .subscribe({
           next: () => {
             this.loadPlantes();
-            this.cerrarFormulario();
+            this.plantaSeleccionado = null;
+            this.plantaForm.reset();
             this.snackbar.showNotification(
               'success',
               'Planta actualizada correctamente'
