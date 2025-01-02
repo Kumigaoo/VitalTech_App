@@ -34,7 +34,7 @@ export class HeaderComponent {
  
         const expires = `expires=${data.toUTCString()}`;
  
-        document.cookie = "nomUser=" + this.nom + `; ${expires}; path=/login`;
+        document.cookie = "nomUser=" + this.nom + `; ${expires};`;
  
       } else {
  
@@ -56,7 +56,7 @@ export class HeaderComponent {
  
       const [key, value] = cookie.split('=');
  
-      if (key == name) {
+      if (key.trim() == name) {
  
         return value;
  

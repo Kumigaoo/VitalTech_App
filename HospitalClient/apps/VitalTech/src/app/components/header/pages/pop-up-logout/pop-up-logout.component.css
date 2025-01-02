@@ -7,7 +7,7 @@ body {
 
 .encapselat {
 
-  margin-top: 4cqw;
+  margin-top: 4cqh;
 
   font-size: 9cqh;
   font-weight: bold;
@@ -35,9 +35,8 @@ img {
 
 .info {
 
-  text-align: left;
-  margin-top: 4cqh;
-  margin-left: 1.3cqw;
+  text-align: center;
+  margin-top: 2cqh;
 
 }
 
@@ -54,13 +53,13 @@ button {
   width: 28cqw;
   height: 8cqh;
 
-  border-radius: 0.5em;
+  border-radius: 0.2em;
   border: none;
 
   font-size: 5cqh;
   font-weight: bold;
 
   background-color: darkcyan;
-  color: antiquewhite;
+  color: white;
 
 }
