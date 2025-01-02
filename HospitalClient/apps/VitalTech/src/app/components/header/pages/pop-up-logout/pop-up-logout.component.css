@@ -53,13 +53,13 @@ button {
   width: 28cqw;
   height: 8cqh;
 
-  border-radius: 0.5em;
+  border-radius: 0.2em;
   border: none;
 
   font-size: 5cqh;
   font-weight: bold;
 
   background-color: darkcyan;
-  color: antiquewhite;
+  color: white;
 
 }
