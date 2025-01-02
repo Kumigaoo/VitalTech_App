@@ -27,7 +27,7 @@ export class PopUpLogoutComponent {
       console.log(result);
  
       // Limpiar la sesión al cerrar sesión
-      document.cookie = `nomUser=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/login;`;
+      document.cookie = `nomUser=; expires=Thu, 01 Jan 1970 00:00:00 UTC;`;
     });
   }
 }
