@@ -1,5 +1,4 @@
-// enfermers.component.ts
-import { DialogFormularioEnfermeroModifComponent } from './pages/popaps/dialog-formulario-ingreso-modif/dialog-formulario-enfermero-modif.component';
+import { DialogFormularioEnfermeroModifComponent } from '../../forms/Enfermero/dialog-formulario-enfermero-modif.component';
 import { PruebasDialogComponent } from './../../../apps/GoldenFold/src/app/components/popups/pruebas-popup';
 import { EnfermeroService } from './../../services/enfermero.service';
 import { SnackbarComponent } from './../../../apps/GoldenFold/src/app/components/snackbar/snackbar.component';
@@ -11,7 +10,7 @@ import { MatSort } from '@angular/material/sort';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Usuari } from '../../interfaces/usuari.interface';
-import { obtenerUsuariosDisponibles } from '../../utils/utilFunctions';
+import { obtenerUsuariosDisponibles, obtenerNombreUsuario } from '../../utils/utilFunctions';
 import { UsuarioService } from '../../services/usuario.service';
 
 @Component({
@@ -19,6 +18,7 @@ import { UsuarioService } from '../../services/usuario.service';
   templateUrl: './enfermers.component.html',
   styleUrls: [],
 })
+
 export class EnfermersComponent {
   displayedColumns: string[] = [
     'dni',
@@ -31,6 +31,7 @@ export class EnfermersComponent {
   ];
 
   enfermeros: MatTableDataSource<Enfermero> = new MatTableDataSource<Enfermero>();
+  usuarios: MatTableDataSource<Usuari> = new MatTableDataSource<Usuari>([]);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -53,12 +54,14 @@ export class EnfermersComponent {
     this.obtenerEnfermeros();
     this.crearFormularioEnfermero();
 
+    this.obtenerUsuarios();
+
     this.currentPort = window.location.port;
     this.isPortGolden = this.currentPort === '4201';
 
     this.cssPaths = this.isPortGolden
-      ? ['/assets/styles/styles.css', '/assets/styles/enfermero/4001.component.css']
-      : ['/assets/styles/styles.css', '/assets/styles/enfermero/4000.component.css'];
+      ? ['/assets/styles/styles.css', '/assets/styles/Enfermero/4001.component.css']
+      : ['/assets/styles/styles.css', '/assets/styles/Enfermero/4000.component.css'];
 
     this.cargarEstilosDinamicos();
   }
@@ -88,6 +91,10 @@ export class EnfermersComponent {
         console.error(error);
       },
     });
+  }
+
+  getUserName(id: number,users: MatTableDataSource<Usuari>): string | null {
+    return obtenerNombreUsuario(id,users);
   }
 
   //verificar disponibilidad de usuarios
@@ -201,6 +208,18 @@ export class EnfermersComponent {
         },
       });
     }
+  }
+
+  obtenerUsuarios(): void {
+    this.usuarioService.getAll().subscribe({
+      next: (data: Usuari[]) => {
+        this.usuarios.data = data;
+        this.obtenerEnfermeros();
+      },
+      error: (error: any) => {
+        console.log(error);
+      },
+    });
   }
 
   getUsuariosDisponibles(): void {

@@ -1,5 +1,4 @@
-import { DialogFormularioConsultaModifComponent } from '../../forms/Prueba/Modif/dialog-formulario-consulta-modif.component';
-import { DialogFormularioConsultaComponent } from '../../forms/Prueba/Create/dialog-formulario-consulta.component';
+import { DialogFormularioConsultaModifComponent } from '../../forms/Prueba/dialog-formulario-consulta-modif.component';
 import { SnackbarComponent } from './../../../apps/GoldenFold/src/app/components/snackbar/snackbar.component';
 import { PruebasService } from './../../services/pruebas.service';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
@@ -78,7 +77,7 @@ export class PruebasComponent extends AbstractTableComponent<PruebaDiagnostica> 
   verRelaciones(prueba: PruebaDiagnostica): void {}
 
   obtenerDialogoFormularioRegistro(): any {
-    return DialogFormularioConsultaComponent;
+    return DialogFormularioConsultaModifComponent;
   }
     
   obtenerDialogoFormularioModificacion(): any {

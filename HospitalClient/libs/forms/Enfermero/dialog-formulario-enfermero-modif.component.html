@@ -36,13 +36,31 @@
       }
     </mat-form-field>
 
+<!-- Codi de exemple per posar valor per defecte 
+    
+<mat-form-field>
+  <mat-label>Select an option</mat-label>
+  <mat-select [(value)]="selected">
+    <mat-option>None</mat-option>
+    <mat-option value="option1">Option 1</mat-option>
+    <mat-option value="option2">Option 2</mat-option>
+    <mat-option value="option3">Option 3</mat-option>
+  </mat-select>
+</mat-form-field>
+
+<p>You selected: {{selected}}</p>
+
+Link info: https://material.angular.io/components/select/overview
+-->
+
     <!--Usuari id-->
     <mat-form-field appearance="outline">
       <mat-label>Usuario:</mat-label>
-      <mat-select formControlName="usuariId" required>
+      <mat-select [(value)]="seleccionat" formControlName="usuariId" required>
         @for (u of usuaris; track u.username) {
         <mat-option [value]="u.id">{{ u.username }}</mat-option>
         }
+        <mat-option value="15">{{"Test"}}</mat-option>
       </mat-select>
       @if (enfermeroForm.get('usuariId')?.hasError('required')) {
       <mat-error>El nombre de usuario es requerido</mat-error>
