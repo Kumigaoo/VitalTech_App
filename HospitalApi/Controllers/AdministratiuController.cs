@@ -118,8 +118,9 @@ namespace HospitalAPI.Controllers
                 return NotFound("No existeix un Administratiu amb aquest DNI");
             }
 
-            var usuario = await _bbdd.Usuari.FirstOrDefaultAsync(p => p.Id == admin.UsuariId);
-            usuario.RolId = null;
+            //el usuario debería borrarse completamente, no quedar el rolId null
+            //var usuario = await _bbdd.Usuari.FirstOrDefaultAsync(p => p.Id == admin.UsuariId);
+            //usuario.RolId = null;
 
             _bbdd.Administratius.Remove(admin);
             await _bbdd.SaveChangesAsync();
