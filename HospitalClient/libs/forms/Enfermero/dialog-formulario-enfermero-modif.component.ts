@@ -70,6 +70,7 @@ export class DialogFormularioEnfermeroModifComponent implements OnInit {
     private usuariService: UsuarioService,
     private enfermeroValidator: EnfermeroAsyncValidator
   ) {
+    console.log('Enfermeros:',data);
     this.obtenerEnfemeros();
   }
 

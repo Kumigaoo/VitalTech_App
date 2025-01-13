@@ -11,11 +11,17 @@ body {
 
 header {
   width: 100%;
-  padding: 20px;
   text-align: center;
   color: darkcyan;
   font-weight: bold;
-  margin-top: 20px;
+  margin-top: 20vh;
+}
+
+header p {
+
+  font-size: xx-large;
+  font-weight: bold;
+
 }
 
 main {
@@ -27,7 +33,7 @@ main {
 main p {
   color: darkcyan;
   font-weight: bold;
-  margin-bottom: 20px;
+  margin-bottom: 4vh;
 }
 
 .button-container {
