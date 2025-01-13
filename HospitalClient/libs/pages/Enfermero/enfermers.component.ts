@@ -67,6 +67,7 @@ export class EnfermersComponent {
   }
 
   ngAfterViewInit(): void {
+    console.log("ENFERMEROS");
     this.enfermeros.paginator = this.paginator;
     this.enfermeros.sort = this.sort;
   }
