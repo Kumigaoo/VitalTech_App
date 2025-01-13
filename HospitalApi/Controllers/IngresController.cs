@@ -12,7 +12,7 @@ namespace HospitalAPI.Controllers
 {
 
     [Route("api/[controller]")]
-    // [Authorize]
+    [Authorize]
     [ApiController]
 
     public class IngresController : ControllerBase

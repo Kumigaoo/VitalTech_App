@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "yarn upgrade && concurrently \"nx serve VitalTech  --ssl -o --host=127.0.0.1\" \"nx serve GoldenFold --ssl -o --host=127.0.0.2\"",
-    "ultraStart": "yarn upgrade && concurrently \"nx serve VitalTech --ssl -o --host=127.0.0.1\" \"nx serve GoldenFold --ssl -o --host=127.0.0.2\" \"dotnet watch --project ../HospitalApi/HospitalApi.csproj run\"",
+    "start": "npm update && concurrently \"nx serve VitalTech  --ssl -o --host=127.0.0.1\" \"nx serve GoldenFold --ssl -o --host=127.0.0.2\"",
+    "ultraStart": "npm update && concurrently \"nx serve VitalTech --ssl -o --host=127.0.0.1\" \"nx serve GoldenFold --ssl -o --host=127.0.0.2\" \"dotnet watch --project ../HospitalApi/HospitalApi.csproj run\"",
     "build": "nx build",
     "watch": "nx build --watch --configuration development",
     "test": "nx test",

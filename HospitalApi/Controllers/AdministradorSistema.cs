@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HospitalAPI
 {
-    // [Authorize]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class AdministradorSistemaController: ControllerBase
