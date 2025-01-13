@@ -28,17 +28,18 @@
     height: 50vh;
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Centra verticalmente */
-    align-items: center; /* Centra horizontalmente */
-    text-align: center; /* Centra el texto dentro de los elementos hijos */
+    justify-content: center; 
+    align-items: center; 
+    text-align: center; 
     border-radius: 5%;
-    padding: 2vh; /* Simplificado el padding */
+    padding: 2vh; 
     transition: transform 0.3s ease; 
 }
 
 
 .main-element:hover {
     transform: scale(1.05); 
+    cursor:pointer;
 }
 
 
