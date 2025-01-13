@@ -4,7 +4,7 @@
 
 
 .main-presentation{
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Monserrat', sans-serif;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -12,7 +12,7 @@
 
 .main-elements {
     width: 100%;
-    margin-top: 5vh;
+    margin-top: 8vh;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -25,16 +25,17 @@
     font-family: 'Roboto', sans-serif;
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
     width: 20vw;
-    height: fit-content;
+    height: 50vh;
     display: flex;
     flex-direction: column;
-    align-items: start;
+    justify-content: center; /* Centra verticalmente */
+    align-items: center; /* Centra horizontalmente */
+    text-align: center; /* Centra el texto dentro de los elementos hijos */
     border-radius: 5%;
-    padding-right: 2vh;
-    padding-left: 2vh;
-    padding-bottom: 2vh;
+    padding: 2vh; /* Simplificado el padding */
     transition: transform 0.3s ease; 
 }
+
 
 .main-element:hover {
     transform: scale(1.05); 
@@ -47,7 +48,7 @@
     margin-bottom: 0;
 }
 
-.main-element-p{
+.main-p{
     font-size: 0.9em;
     font-family: 'Montserrat', sans-serif;
 }
