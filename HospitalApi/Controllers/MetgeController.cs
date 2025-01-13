@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace HospitalAPI.Controllers
 {
     [Route("api/[Controller]")]
-    // [Authorize]
+    [Authorize]
     [ApiController]
     public class MetgeController : ControllerBase
     {
