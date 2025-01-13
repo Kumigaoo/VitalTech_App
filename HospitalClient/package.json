@@ -3,8 +3,18 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
+<<<<<<< HEAD
     "start": "npm update && concurrently \"nx serve VitalTech  --ssl -o --host=127.0.0.1\" \"nx serve GoldenFold --ssl -o --host=127.0.0.2\"",
     "ultraStart": "npm update && concurrently \"nx serve VitalTech --ssl -o --host=127.0.0.1\" \"nx serve GoldenFold --ssl -o --host=127.0.0.2\" \"dotnet watch --project ../HospitalApi/HospitalApi.csproj run\"",
+=======
+<<<<<<< HEAD
+    "start": "npm install && concurrently \"nx serve VitalTech  --ssl -o --host=127.0.0.1\" \"nx serve GoldenFold --ssl -o --host=127.0.0.2\"",
+    "ultraStart": "yarn upgrade && concurrently --raw \"nx serve VitalTech --ssl -o --host=127.0.0.1\" \"nx serve GoldenFold --ssl -o --host=127.0.0.2c\" \"dotnet watch --project ../HospitalApi/HospitalApi.csproj run\"",
+=======
+    "start": "yarn upgrade && concurrently \"nx serve VitalTech  --ssl -o --host=127.0.0.1\" \"nx serve GoldenFold --ssl -o --host=127.0.0.2\"",
+    "ultraStart": "yarn upgrade && concurrently \"nx serve VitalTech --ssl -o --host=127.0.0.1\" \"nx serve GoldenFold --ssl -o --host=127.0.0.2\" \"dotnet watch --project ../HospitalApi/HospitalApi.csproj run\"",
+>>>>>>> 51fab2b17c6ecc5191a3a0711099c21560e7fd53
+>>>>>>> 0a564d292ab7ab6d0d7516aae327084e270d9054
     "build": "nx build",
     "watch": "nx build --watch --configuration development",
     "test": "nx test",
@@ -85,6 +95,7 @@
     "rxjs": "~7.8.0",
     "sweetalert2": "^11.14.3",
     "tslib": "^2.3.0",
+    "yarn": "^1.22.22",
     "zone.js": "~0.14.3"
   },
   "devDependencies": {
