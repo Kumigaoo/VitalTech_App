@@ -18,7 +18,7 @@ export default function Footer() {
         </div>
       </div>
       <div className="footer-bottom">
-        <p>© 2025 GoldenTech. Todos los derechos reservados</p>
+        <p>© 2025 GoldenTech by JotaJohnSons Team. Todos los derechos reservados</p>
       </div>
     </footer>
   );
