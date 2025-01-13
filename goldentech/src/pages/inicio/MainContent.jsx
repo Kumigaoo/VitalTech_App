@@ -1,6 +1,6 @@
 export default function MainContent() {
   return (
-    <>
+    <main>
       <Presentation />
       <div className="main-elements">
         <Element
@@ -23,7 +23,7 @@ sin problemas."
           alt="imagen de citas"
         />
       </div>
-    </>
+    </main>
   );
 }
 
