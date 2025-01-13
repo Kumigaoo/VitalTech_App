@@ -21,7 +21,7 @@
 }
 
 
-.main-element{
+.main-element {
     font-family: 'Roboto', sans-serif;
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
     width: 20vw;
@@ -33,7 +33,13 @@
     padding-right: 2vh;
     padding-left: 2vh;
     padding-bottom: 2vh;
+    transition: transform 0.3s ease; 
 }
+
+.main-element:hover {
+    transform: scale(1.05); 
+}
+
 
 .main-element-negrita{
     font-size: 1.2em;
