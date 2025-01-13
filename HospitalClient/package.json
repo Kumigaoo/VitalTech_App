@@ -4,11 +4,11 @@
   "scripts": {
     "ng": "ng",
     "start": "npm install && concurrently \"nx serve VitalTech  --ssl -o --host=127.0.0.1\" \"nx serve GoldenFold --ssl -o --host=127.0.0.2\"",
-    "ultraStart": "npm install && concurrently \"nx serve VitalTech --ssl -o --host=127.0.0.1\" \"nx serve GoldenFold --ssl -o --host=127.0.0.2\" \"dotnet watch --project ../HospitalApi/HospitalApi.csproj run\"",
+    "ultraStart": "yarn upgrade && concurrently --raw \"nx serve VitalTech --ssl -o --host=127.0.0.1\" \"nx serve GoldenFold --ssl -o --host=127.0.0.2c\" \"dotnet watch --project ../HospitalApi/HospitalApi.csproj run\"",
     "build": "nx build",
     "watch": "nx build --watch --configuration development",
     "test": "nx test",
-    "serve:trace": "powershell -Command \"$env:NODE_OPTIONS='--trace-warnings'; nx serve VitalTech --ssl\""  
+    "serve:trace": "powershell -Command \"$env:NODE_OPTIONS='--trace-warnings'; nx serve VitalTech --ssl\""
   },
   "projects": {
     "VitalTech": {
@@ -85,6 +85,7 @@
     "rxjs": "~7.8.0",
     "sweetalert2": "^11.14.3",
     "tslib": "^2.3.0",
+    "yarn": "^1.22.22",
     "zone.js": "~0.14.3"
   },
   "devDependencies": {
