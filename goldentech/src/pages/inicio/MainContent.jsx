@@ -1,8 +1,6 @@
-import { Fragment } from "react";
-
 export default function MainContent() {
   return (
-    <>
+    <main>
       <Presentation />
       <div className="main-elements">
         <Element
@@ -14,7 +12,7 @@ sin problemas."
         />
         <Element
           title="Medicación"
-          parraf="Consulta tu medicación"
+          parraf="Consulta tu medicación recetada"
           image="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.diariodevalderrueda.es%2Fimages%2Fshowid2%2F3110427%3Fw%3D1200%26zc%3D4&f=1&nofb=1&ipt=6b2a3778f3a1e9c9907a94b575d814c0a1079fab8fab84256ab02b0d42db7b6b&ipo=images"
           alt="imagen de medicación"
         />
@@ -25,7 +23,7 @@ sin problemas."
           alt="imagen de citas"
         />
       </div>
-    </>
+    </main>
   );
 }
 
@@ -33,7 +31,7 @@ export function Presentation() {
   return (
     <div className="main-presentation">
       <h1>Bienvenido a Goldentech</h1>
-      <p>
+      <p className="main-p">
         Tu salud es nuestra prioridad. Descubra nuestra amplia gama de servicios
         diseñados para mantenerlo informado y saludable.
       </p>
@@ -45,7 +43,7 @@ export function Element(props) {
   return (
     <div className="main-element">
       <p className="main-element-negrita">{props.title}</p>
-      <p className="main-element-p">{props.parraf}</p>
+      <p className="main-p">{props.parraf}</p>
       <img className="main-element-img" src={props.image} alt={props.alt} />
     </div>
   );
