@@ -1,0 +1,272 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+.footer {
+    bottom: 0;
+    width: 100%;
+    background-color: #f9f9f9;
+    padding: 10px 0;
+    margin-top: 7vh; 
+    font-family: 'Montserrat', sans-serif;
+     color: #333;
+    text-align: center;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+  }
+  
+  .footer-logo img {
+    max-width: 120px;
+    height: auto;
+  }
+  
+  .footer-contact h4 {
+    margin-bottom: 10px;
+  }
+  
+  .footer-bottom {
+    margin-top: 10px;
+    font-size: 0.9em;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5vh; 
+    background-color: #fff;
+    padding: 10px 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    font-family: 'Montserrat', sans-serif;
+}
+  
+  .header-logo {
+    display: flex;
+    align-items: center;
+  }
+  
+  .header-logo img {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+  }
+  
+  .header-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .header-nav {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .header-link {
+    text-decoration: none;
+    color: #333;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+  }
+  
+  .header-link:hover {
+    color: #007bff; /* Cambia al color que prefieras */
+  }
+
+  .diagnostico-title{
+    color: black;
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    margin-left: 20px;
+
+}
+
+.diagnostico-page {
+    display: flex;
+    flex-direction: row;
+}
+.diagnostico-table {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 10px; 
+    margin-left: 20px;
+    
+}
+
+.diagnostico-row {
+    display: flex;
+    flex-direction: row;  /* Alinea los elementos en fila */
+    justify-content: space-between;  /* Alinea los elementos a la izquierda */
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    transition: transform 0.3s ease; 
+    font-family: 'Roboto', sans-serif;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+    width: 500px;
+}
+
+.diagnostico-info {
+    display: flex;
+    flex-direction: column;  /* Los tres primeros elementos se alinearán en columna */
+    justify-content: flex-start;
+    flex: 1;  /* Esto asegura que ocupe el espacio restante */
+}
+
+.diagnostico-row:hover {
+    background-color: #f9f9f9;
+}
+
+.diagnostico-cell {
+    padding: 2px 10px;
+    flex: 1;
+}
+
+.diagnostico-button-cell {
+    display: flex;
+    justify-content: flex-end;  /* Alinea el botón a la derecha */
+    width: 200px;  /* Asegura que el botón no ocupe más espacio del necesario */
+    align-items: center;  /* Centra el botón verticalmente */
+}
+
+.diagnostico-button-cell button {
+    margin-left: auto; /* Alinea el botón a la derecha */
+    background-color: #3b83bd;
+    color: white;
+    border: none;
+    border-radius: 25px; /* Hace que el botón sea redondo */
+    width: 100px; /* Ajusta el ancho */
+    height: 30px; /* Ajusta la altura para que sea un círculo perfecto */
+    font-size: 0.8em; /* Ajusta el tamaño del texto dentro del botón */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+}
+
+.diagnostico-button-cell button:hover {
+    background-color: #0b5ea1;
+}
+
+.diagnostico-button{
+    background-color: #3b83bd;
+    color: white;
+    border: none;
+    border-radius: 25px; /* Hace que el botón sea redondo */
+    width: 195%; /* Ajusta el ancho */
+    height: 30px; /* Ajusta la altura para que sea un círculo perfecto */
+    font-size: 0.9em; /* Ajusta el tamaño del texto dentro del botón */
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+
+.diagnostico-searchbox {
+    font-family: 'Roboto', sans-serif;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+    width: 50vw;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    border-radius: 5%;
+    padding-right: 2vh;
+    padding-left: 2vh;
+    padding-bottom: 2vh;
+    transition: transform 0.3s ease;
+    margin-right: 30px;
+}
+
+.diagnostico-filterbox{
+    margin-top: 30px;
+    margin-left: 10px;
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+.diagnostico-input {
+    width: 175%; /* Asegura que el input ocupe todo el ancho del contenedor */
+    padding: 10px 15px; /* Añade espacio interno */
+    margin: 10px 0; /* Añade espacio entre los inputs */
+    border: 2px solid #3b83bd; /* Cambia el color y grosor del borde */
+    border-radius: 10px; /* Redondea las esquinas */
+    font-size: 16px; /* Ajusta el tamaño del texto */
+    background-color: #f9f9f9; /* Cambia el fondo */
+    color: #333; /* Cambia el color del texto */
+    outline: none; /* Quita el borde azul de enfoque */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Añade una sombra sutil */
+    transition: border-color 0.3s, box-shadow 0.3s; /* Suaviza las transiciones */
+    font-size: 0.8em;
+}
+
+.diagnostico-input:focus {
+    border-color: #0056b3; /* Cambia el color del borde al hacer foco */
+    box-shadow: 0 0 8px rgba(59, 131, 189, 0.5); /* Añade un efecto al hacer foco */
+}
+
+.diagnostico-input:disabled {
+    background-color: #eaeaea; /* Cambia el fondo cuando está deshabilitado */
+    color: #aaa; /* Cambia el color del texto */
+    cursor: not-allowed; /* Cambia el cursor */
+}
+
+.main-presentation{
+    font-family: 'Monserrat', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+ 
+.main-elements {
+    width: 100%;
+    margin-top: 8vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 3vw;
+}
+ 
+ 
+.main-element {
+    font-family: 'Roboto', sans-serif;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+    width: 20vw;
+    height: 50vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border-radius: 5%;
+    padding: 2vh;
+    transition: transform 0.3s ease;
+}
+ 
+ 
+.main-element:hover {
+    transform: scale(1.05);
+    cursor:pointer;
+}
+ 
+ 
+.main-element-negrita{
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 0;
+}
+ 
+.main-p{
+    font-size: 0.9em;
+    font-family: 'Montserrat', sans-serif;
+}
+ 
+.main-element-img{
+    max-width: 20vw;
+    border-radius: 5%;
+}
