@@ -1,10 +1,11 @@
-import Diagnosticos from '../src/pages/diagnosticos/Diagnosticos';
+import MainContent from "./pages/inicio/MainContent";
+import Diagnosticos from "./pages/diagnosticos/Diagnosticos"
 
-export default function App() {
-    return(
+export default function App(){
+    return (
         <>
+            <MainContent />
             <Diagnosticos />
         </>
     )
-    
 }
