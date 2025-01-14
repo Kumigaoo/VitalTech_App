@@ -37,14 +37,12 @@
 
 .title {
   display: flex !important;
-  width: 20em;
-  
   margin-top: 1em;
   margin-left: 35.8vw;
   margin-right: 50em;
+  width: 30em;
 
   font-family: Arial, sans-serif !important;
-  /* font-size: 3em !important; */
   font-weight: bold !important;
   color: darkcyan !important;
   font-size: 25px !important;
@@ -64,9 +62,11 @@ app-search-box {
 }
 
 .table-container {
-  width: auto !important;
+  margin-left: 13.5vw;
   height: fit-content !important;
   margin-top: 5vh !important;
+  width: 70% !important;
+
 }
 
 .table-container-vista {
@@ -76,7 +76,7 @@ app-search-box {
 }
  
 .table {
-  width: 100% !important;
+  /* width: 100% !important; */
   margin-bottom: 50px !important;
 }
  
