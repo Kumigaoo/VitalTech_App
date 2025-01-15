@@ -224,7 +224,7 @@ button a {
 
 }
 
--button-eliminar {
+.button-eliminar {
   position: absolute;
   left: auto;
   margin-left: 3cqw;
