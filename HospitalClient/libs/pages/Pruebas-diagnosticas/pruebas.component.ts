@@ -39,9 +39,9 @@ export class PruebasComponent extends AbstractTableComponent<PruebaDiagnostica> 
     this.isPortVitalTech = currentPort === '4200';
 
     if (currentPort == '4201'){
-      cssPath = ['/assets/styles/styles.css', '/assets/styles/Pruebas-Diagnosticas/pruebas.component.css'];
+      cssPath = ['/assets/styles/styles.css', '/assets/styles/4001.component.css'];
     } else {
-      cssPath = ['/assets/styles/styles.css', '/assets/styles/Pruebas-Diagnosticas/pruebas-diagnosticas.component.css'];
+      cssPath = ['/assets/styles/styles.css', '/assets/styles/4000.component.css'];
     }
 
     this.cargarEstilos(cssPath);

@@ -6,7 +6,7 @@
 }
 
 <div class="centrado">
-  <div class="enfermeros-section">
+  <div class="component-section">
     @if(isPortGolden) {
 
       <h2>Enfermeros</h2>
@@ -51,7 +51,7 @@
 
       <!-- Tabla de enfermeros -->
       <div class="table-container-vista mat-elevation-z8">
-        <table mat-table [dataSource]="enfermeros" matSort>
+        <table mat-table [dataSource]="enfermeros" class="mat-elevation-z8 responsive-table" matSort>
           <!-- Columnas de la tabla -->
           <ng-container matColumnDef="dni">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>DNI</th>
@@ -111,11 +111,15 @@
                   (click)="isPortGolden ? deleteEnfermero(enfermero) : null">Eliminar</button>
               </ng-container>
               <ng-template #defaultActions>
-                <div class="botonesbobos">
-                  <button class="botonesbobos" mat-icon-button (click)="toogleActualizarEnfermero(enfermero)"><span
+                <div class="botonesbobos ">
+                  <button style="position: relative; left: 20px;" class="botonesbobos button-actualizar" (click)="toogleActualizarEnfermero(enfermero)">
+                    <span
                       class="paco">🔄</span></button>
-                  <button class="botonesbobos" mat-icon-button (click)="deleteEnfermero(enfermero)"><span
-                      class="paco">❎</span></button>
+                  <button style="position: relative;" class="botonesbobos button-eliminar" (click)="deleteEnfermero(enfermero)">
+                    <span
+                      class="paco">❎
+                    </span>
+                  </button>
                 </div>
 
               </ng-template>
