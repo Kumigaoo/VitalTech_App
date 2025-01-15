@@ -66,19 +66,20 @@
     display: flex;
     gap: 20px;
   }
-  
-  .header-link {
+
+  .header-nav span {
     text-decoration: none;
-    color: #333;
+    color: inherit;
+    cursor: pointer;
     font-size: 1rem;
     transition: color 0.3s ease;
   }
-  
-  .header-link:hover {
-    color: #007bff; /* Cambia al color que prefieras */
+
+  .header-nav .active {
+    color: #3b83bd; /* Change this to the color you want for the active state */
   }
 
-  .diagnostico-title{
+.diagnostico-title{
     color: black;
     font-family: 'Roboto', sans-serif;
     display: flex;

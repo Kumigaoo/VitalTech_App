@@ -1,15 +1,20 @@
+import Link from 'next/link';
+
 export default function MainContent() {
+
   return (
     <main>
       <Presentation />
       <div className="main-elements">
-        <Element
-          title="Diagnosticos"
-          parraf="Acceda a sus informes médicos y resultados de pruebas 
-sin problemas."
-          image="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Ffmdiabetes.org%2Fwp-content%2Fuploads%2F2015%2F09%2Fmedico-paciente.jpg&f=1&nofb=1&ipt=4ec1d87329c1b98f70813db40d77cf506e1ca0ff49b5a16e479737dc0474800c&ipo=images"
-          alt="imagen de diagnosticos"
-        />
+        <Link href="/diagnosticos" style={{ textDecoration: 'none', color: 'inherit' }}>
+          <Element 
+            title="Diagnosticos"
+            parraf="Acceda a sus informes médicos y resultados de pruebas 
+  sin problemas."
+            image="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Ffmdiabetes.org%2Fwp-content%2Fuploads%2F2015%2F09%2Fmedico-paciente.jpg&f=1&nofb=1&ipt=4ec1d87329c1b98f70813db40d77cf506e1ca0ff49b5a16e479737dc0474800c&ipo=images"
+            alt="imagen de diagnosticos"
+          />
+        </Link>
         <Element
           title="Medicación"
           parraf="Consulta tu medicación recetada"
@@ -22,6 +27,7 @@ sin problemas."
           image="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fmejorconsalud.as.com%2Fwp-content%2Fuploads%2F2021%2F10%2Fescritorio-consulta-medica.jpg&f=1&nofb=1&ipt=a47091239bfae9e08a871ba8d9c8c4e331eae9dcb407b5b24cee81b28d525871&ipo=images"
           alt="imagen de citas"
         />
+        
       </div>
     </main>
   );
