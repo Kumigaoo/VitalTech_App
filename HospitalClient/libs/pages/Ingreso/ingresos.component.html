@@ -9,7 +9,7 @@
     <div style="display: flex; justify-content: space-between; align-items: center">
       <!--Botono agregar ingreso-->
       <div>
-        <button mat-raised-button color="primary" (click)="toggleAgregarIngreso()">
+        <button mat-raised-button color="primary" (click)="agregarIngreso()">
           Agregar Ingreso
         </button>
       </div>
@@ -28,7 +28,7 @@
         <!-- Columna ID -->
         <ng-container matColumnDef="id">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>ID Ingreso</th>
-          <td mat-cell *matCellDef="let ingreso" (click)="toggleActualizarIngreso(ingreso)">
+          <td mat-cell *matCellDef="let ingreso" (click)="actualizarIngreso()">
             {{ ingreso.id }}
           </td>
         </ng-container>
@@ -38,7 +38,7 @@
           <th mat-header-cell *matHeaderCellDef mat-sort-header>
             Fecha de entrada
           </th>
-          <td mat-cell *matCellDef="let ingreso" (click)="toggleActualizarIngreso(ingreso)">
+          <td mat-cell *matCellDef="let ingreso" (click)="actualizarIngreso()">
             {{ ingreso.dataEntrada | date : 'dd/MM/yyyy' }}
           </td>
         </ng-container>
@@ -48,7 +48,7 @@
           <th mat-header-cell *matHeaderCellDef mat-sort-header>
             Fecha de salida
           </th>
-          <td mat-cell *matCellDef="let ingreso" (click)="toggleActualizarIngreso(ingreso)">
+          <td mat-cell *matCellDef="let ingreso" (click)="actualizarIngreso()">
             {{
             ingreso.dataSortida
             ? (ingreso.dataSortida | date : 'dd/MM/yyyy')
@@ -62,7 +62,7 @@
           <th mat-header-cell *matHeaderCellDef mat-sort-header>
             Episodio Médico
           </th>
-          <td mat-cell *matCellDef="let ingreso" (click)="toggleActualizarIngreso(ingreso)">
+          <td mat-cell *matCellDef="let ingreso" (click)="actualizarIngreso()">
             {{ ingreso.episodiMedicId }}
           </td>
         </ng-container>
