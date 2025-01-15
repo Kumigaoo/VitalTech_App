@@ -1,12 +1,12 @@
-import MainContent from "./MainContent";
-import Footer from '../src/pages/shared/footer/Footer'
-import Header from '../src/pages/shared/header/header';
+import Footer from '../src/components/footer/Footer'
+import Header from '../src/components/header/header'
+import Main from './main'
 
 export default function App() {
     return (
         <>
             <Header/>
-            <MainContent />
+            <Main />
             <Footer/>
         </>        
     );

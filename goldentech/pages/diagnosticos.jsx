@@ -1,4 +1,6 @@
 import { useState } from "react";
+import Header from "../src/components/header/header";
+import Footer from "../src/components/footer/Footer";
 
 const DIAGNOSTICOS = [
     {nombre: "Rinitis alergica", fecha: "2023-10-10", centro: "Goldenfold", doctor: "Helena Garcia"},
@@ -90,6 +92,7 @@ export default function Page(){
 
     return (
         <>
+            <Header />
             <h1 className="diagnostico-title">Diagnosticos</h1>
             <div className="diagnostico-page">
                 <DiagnosisList diagnosticos={DIAGNOSTICOS} filterName={filterName} 
@@ -100,6 +103,7 @@ export default function Page(){
                 filterCentre={filterCentre} setFilterCentre={setFilterCentre}
                 />
             </div>
+            <Footer />
         </>
         
     )
