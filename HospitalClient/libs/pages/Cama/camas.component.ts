@@ -57,14 +57,10 @@ export class CamasComponent implements OnInit, AfterViewInit {
     this.currentPort = window.location.port;
     this.isPortGolden = this.currentPort==="4201"; //4201
 
-    //cambiar css
-    if (this.isPortGolden) {
-      //css golden
-      this.cssPaths = ['/assets/styles/styles.css','/assets/styles/Cama/4001.component.css'];
-    } else {
-      //css vital
-      this.cssPaths = ['/assets/styles/styles.css','/assets/styles/Cama/4000.component.css'];
-    }
+    // CSS
+    this.cssPaths = this.isPortGolden
+      ? ['/assets/styles/styles.css', '/assets/styles/4001.component.css']
+      : ['/assets/styles/styles.css', '/assets/styles/4000.component.css'];
 
     this.cssPaths.forEach(css => {
       const link = document.createElement('link');

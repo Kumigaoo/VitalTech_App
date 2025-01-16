@@ -1,83 +1,141 @@
 
-import { CamaService } from './../../../../../../../../../../libs/services/cama.service';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { CamaService } from '../../../libs/services/cama.service';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import {
   FormGroup,
   FormControl,
   Validators,
   FormBuilder,
 } from '@angular/forms';
-import { Ingreso } from '../../../../../../../../../../libs/interfaces/ingreso.interface';
-import { IngresoService } from './../../../../../../../../../../libs/services/ingreso.service';
-import { Cama } from '../../../../../../../../../../libs/interfaces/cama.interface';
-import { EpisodiMedic } from '../../../../../../../../../../libs/interfaces/episodis-medics.interface';
+import { Ingreso } from '../../../libs/interfaces/ingreso.interface';
+import { IngresoService } from '../../../libs/services/ingreso.service';
+import { EpisodiMedic } from '../../../libs/interfaces/episodis-medics.interface';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { EpisodiService } from '../../../../../../../../../../libs/services/episodis.service';
-import { DialogFormularioIngresoModifComponent } from '../../../../../../components/Formularios/Ingreso/dialog-formulario-ingreso-modif/dialog-formulario-ingreso-modif.component';
-import { MatDialog } from '@angular/material/dialog';
-import { SnackbarComponent } from '../../../../../../components/snackbar/snackbar.component';
-import { IngresosDialogComponent } from '../../../../../../components/popups/ingresos-popup';
+import { EpisodiService } from '../../../libs/services/episodis.service';
+//import { DialogFormularioIngresoModifComponent } from '../../../../../../components/Formularios/Ingreso/dialog-formulario-ingreso-modif/dialog-formulario-ingreso-modif.component';
+import { AbstractTableComponent } from '../../utils/abstract-logic';
+import { EpisodiosDialogComponent } from '../../../apps/GoldenFold/src/app/components/popups/episodis-popup';
+import { Observable } from 'rxjs';
+//import { IngresosDialogComponent } from '../../../../HospitalClient/apps/VitalTech/src/app/components/'
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-ingresos',
   templateUrl: './ingresos.component.html',
-  styleUrls: ['./ingresos.component.css'],
+  styleUrls: [],
 })
-export class IngresosComponent implements OnInit {
+export class IngresosComponent extends AbstractTableComponent<Ingreso> implements OnInit, AfterViewInit {
+  
   //angular material
-  displayedColumns: string[] = [
-    'id',
-    'dataEntrada',
-    'dataSortida',
-    'episodiMedicId',
-    'codiLlit',
-    'Actions',
-  ];
   ingresos: MatTableDataSource<Ingreso> = new MatTableDataSource<Ingreso>([]);
-
-  //paginador,ordenador y snackbar
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
-  @ViewChild(SnackbarComponent) snackbar!: SnackbarComponent;
 
   // Formularios reactivos
   ingresoForm!: FormGroup;
   ingresoParaActualizar: Ingreso | null = null;
+  isPortGolden: boolean = true;
 
   constructor(
     private ingresoService: IngresoService,
     private camaService: CamaService,
     private episodiService: EpisodiService,
     private fb: FormBuilder,
-    public dialog: MatDialog
   ) {
+    super();
     // Obtener los ingresos y camas disponibles al iniciar el componente
     this.obtenerIngresos();
     // Crear el formulario para manejar los ingresos
-    this.crearFormularioIngreso();
+    //this.crearFormularioIngreso();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    const currentPort = window.location.port;
+    let cssPath: string[] = [];
 
-  // Crear formulario de ingreso con validaciones necesarias
-  crearFormularioIngreso(): void {
-    this.ingresoForm = this.fb.group({
-      id: [0],
-      dataEntrada: [null],
-      // Definir campos adicionales si es necesario, comentados para este ejemplo
-      // IdMedico: ['', [Validators.required]],
-      // Motivo: ['', [IngresosValidators.noWhitespaceValidator()]],
-      // FechaSolicitud: [new Date()],
-      // FechaIngreso: [null],
-      dataSortida: [null],
-      episodiMedicId: ['', [Validators.required]],
-      codiLlit: ['', [Validators.required]],
-      // TipoCama: ['', [Validators.required]],
-      // IdAsignacion: [null]
+    this.isPortGolden = currentPort === '4201';
+
+    if (this.isPortGolden) {
+      cssPath = ['/assets/styles/styles.css', '/assets/styles/habitacion/4201.component.css'];
+    } else {
+      cssPath = ['/assets/styles/styles.css', '/assets/styles/habitacion/4200.component.css'];
+    }
+
+    this.cargarEstilos(cssPath);
+
+  }
+
+  crearItemInicial(): Ingreso {
+    return {
+      id: 0,
+      dataEntrada: new Date(),
+      dataSortida: null,
+      episodiMedicId: 0,
+      codiLlit: 0,
+    };
+  }
+
+  verRelaciones(ingreso: Ingreso): void {
+    this.dialog.open(EpisodiosDialogComponent, {
+      width: '1200px',
+      data: ingreso.episodiMedicId,
     });
   }
+
+  obtenerDialogoFormularioRegistro() {
+    return;
+  }
+
+  obtenerDialogoFormularioModificacion() {
+    return;
+  }
+
+  obtenerItemsService(): Observable<Ingreso[]> {
+    return this.ingresoService.getAll();
+  }
+
+  guardarService(item: Ingreso): Observable<any> {
+    return this.ingresoService.post(item);
+  }
+
+  obtenerIdOriginal(item: Ingreso): number | string | null {
+    return item.id;
+  }
+
+  actualizarService(id: number, item: Ingreso): Observable<any> {
+    return this.ingresoService.put(id, item);
+  }
+
+  eliminarService(id: number): Observable<any> {
+    return this.ingresoService.delete(id);
+  }
+
+  necesitaConfirmacion(): boolean {
+    return this.isPortGolden;
+  }
+
+  mostrarConfirmacion(): Promise<any> {
+      return Swal.fire({
+        title: 'Eliminar ingreso',
+        text: '¿Quieres borrar este ingreso?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí',
+        cancelButtonText: 'Cancelar',
+        });
+    }
+
+    definirFiltro(data: Ingreso, type: string, filter: string): boolean {
+      // switch (type) {
+      //   default:
+      //     return false;
+      // }
+      return true;
+    }
+
+
+
+
   // Obtener la lista de ingresos desde el servicio correspondiente
   obtenerIngresos(): void {
     this.ingresoService.getAll().subscribe({
@@ -159,7 +217,7 @@ export class IngresosComponent implements OnInit {
       } else if (type === 'episodiMedicId') {
         return (
           data.episodiMedicId.toString().toLowerCase() ===
-            lowerCaseFilter.toString() || false
+          lowerCaseFilter.toString() || false
         );
       } else if (type === 'codiLlit') {
         return (
@@ -195,32 +253,32 @@ export class IngresosComponent implements OnInit {
   }
 
   // Cambiar entre agregar o actualizar un ingreso existente
-  toggleActualizarIngreso(ingreso: Ingreso): void {
-    this.ingresoParaActualizar = { ...ingreso };
-    this.dialog
-      .open(DialogFormularioIngresoModifComponent, {
-        data: this.ingresoParaActualizar,
-      })
-      .afterClosed()
-      .subscribe((ingresoActualizado) => {
-        if (ingresoActualizado) {
-          this.ingresoParaActualizar = ingresoActualizado;
-          this.actualizarIngreso();
-        }
-      });
-  }
-  toggleAgregarIngreso(): void {
-    this.crearFormularioIngreso();
-    this.dialog
-      .open(DialogFormularioIngresoModifComponent, {
-        data: this.ingresoForm,
-      })
-      .afterClosed()
-      .subscribe((ingresoCreado) => {
-        if (ingresoCreado) {
-          this.ingresoForm.patchValue(ingresoCreado);
-          this.agregarIngreso();
-        }
-      });
-  }
+  // toggleActualizarIngreso(ingreso: Ingreso): void {
+  //   this.ingresoParaActualizar = { ...ingreso };
+  //   this.dialog
+  //     .open(DialogFormularioIngresoModifComponent, {
+  //       data: this.ingresoParaActualizar,
+  //     })
+  //     .afterClosed()
+  //     .subscribe((ingresoActualizado) => {
+  //       if (ingresoActualizado) {
+  //         this.ingresoParaActualizar = ingresoActualizado;
+  //         this.actualizarIngreso();
+  //       }
+  //     });
+  // }
+  // toggleAgregarIngreso(): void {
+  //   this.crearFormularioIngreso();
+  //   this.dialog
+  //     .open(DialogFormularioIngresoModifComponent, {
+  //       data: this.ingresoForm,
+  //     })
+  //     .afterClosed()
+  //     .subscribe((ingresoCreado) => {
+  //       if (ingresoCreado) {
+  //         this.ingresoForm.patchValue(ingresoCreado);
+  //         this.agregarIngreso();
+  //       }
+  //     });
+  // }
 }

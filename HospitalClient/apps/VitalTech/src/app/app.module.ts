@@ -21,6 +21,7 @@ export function tokenGetter() {
 @NgModule({
   imports: [
     BrowserModule,
+    FormsModule,
     ReactiveFormsModule,
     MatCardModule,
     AppRoutingModule,

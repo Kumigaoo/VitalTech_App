@@ -22,7 +22,9 @@ import { Observable } from 'rxjs';
 
 export class EpisodiComponent extends AbstractTableComponent<EpisodiMedic> implements OnInit, AfterViewInit {
     
-    isPortVitalTech = false;
+    currentPort: string = "";
+    isPortGolden: boolean = true;
+    cssPaths!: string[];
 
     constructor(
       private episodiService: EpisodiService,
@@ -31,25 +33,23 @@ export class EpisodiComponent extends AbstractTableComponent<EpisodiMedic> imple
       super(); // Llamada al constructor del abstracto
       this.dialog = dialog;
       this.addingItem = this.crearItemInicial();
+
+      this.currentPort = window.location.port;
+      console.log(this.currentPort);
+      this.isPortGolden = this.currentPort === '4201';
+  
+  
+      this.cssPaths = this.isPortGolden
+      ? ['/assets/styles/styles.css', '/assets/styles/4001.component.css']
+      : ['/assets/styles/styles.css', '/assets/styles/4000.component.css'];
     }
 
     ngOnInit(): void {
         this.obtenerItems(this.episodiService.getAll(), this.procesarFechas.bind(this));
-    
-        // Lógica para definir los estilos (CSS)
-        const currentPort = window.location.port;
-        let cssPath: string[] = [];
-
-        this.isPortVitalTech = currentPort === '4200';
-    
-        if (currentPort === '4201') {
-          cssPath = ['/assets/styles/styles.css', '/assets/styles/Episodio/4001.component.css'];
-        } else {
-          cssPath = ['/assets/styles/styles.css', '/assets/styles/Episodio/4000.component.css'];
-        }
+  
         
         // Cargar los estilos específicos del componente
-        this.cargarEstilos(cssPath);
+        this.cargarEstilos(this.cssPaths);
     
         // Configuración de las columnas para la tabla
         this.displayedColumns = [
@@ -127,7 +127,7 @@ export class EpisodiComponent extends AbstractTableComponent<EpisodiMedic> imple
     }
 
     necesitaConfirmacion(): boolean {
-        return this.isPortVitalTech;
+        return this.isPortGolden;
     }
 
     mostrarConfirmacion(): Promise<any> {

@@ -1,24 +1,32 @@
+:root {
+
+  --long-title: 100px;
+
+}
+
 .fondo {
-  background-color: antiquewhite !important;
-  height: 550px !important;
-  z-index: 0 !important;
+  background-color: antiquewhite;
+  height: 550px;
+  z-index: 0;
  
 }
 
-.enfermeros-section {
+.component-section {
 
   margin-top: 8vh;
+  overflow-x: hidden;
+  background-color: transparent;
 
 }
 
 .cell {
-  background-color: darkcyan !important;
-  color: white !important; 
-  text-align: center !important; 
+  background-color: darkcyan ;
+  color: white; 
+  text-align: center; 
 }
  
 .header-container{
-  display: flex !important;
+  display: flex;
   align-items: end;
   width: 70vw;
   margin-left: 6.2vw;
@@ -36,37 +44,37 @@
 }
 
 .title {
-  display: flex !important;
-  width: 20em;
-  
+  display: flex;
   margin-top: 1em;
-  margin-left: 35.8vw;
+  margin-left: calc(35.8vw - var(--long-title)/2);
   margin-right: 50em;
+  width: 30em;
 
-  font-family: Arial, sans-serif !important;
-  /* font-size: 3em !important; */
-  font-weight: bold !important;
-  color: darkcyan !important;
-  font-size: 25px !important;
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  color: darkcyan;
+  font-size: 25px;
 }
 
 filter-container {
-  margin-top: 2vh !important;
-  margin-left: 0vw !important;
+  margin-top: 2vh;
+  margin-left: 0vw;
   width: 20vw;
 }
 
 app-search-box {
-
   display: flex;
-  align-self: flex-start !important;
+  align-self: flex-start;
 
 }
 
 .table-container {
-  width: auto !important;
-  height: fit-content !important;
-  margin-top: 5vh !important;
+  margin-left: 13.5vw;
+  height: fit-content;
+  margin-top: 5vh;
+  width: 70%;
+  overflow-x: scroll !important;
+
 }
 
 .table-container-vista {
@@ -76,7 +84,6 @@ app-search-box {
 }
  
 .table {
-  width: 100% !important;
   margin-bottom: 50px !important;
 }
  
@@ -106,6 +113,7 @@ td:first-child,
 th:first-child {
   border-top-left-radius: 8px !important;
   border-bottom-left-radius: 8px !important;
+  background-color: white;
 }
  
 td:last-child,
@@ -119,6 +127,18 @@ th:last-child {
   font-family: Arial, sans-serif !important;
   
 }
+
+.mat-mdc-cell {
+
+  background-color: white !important;
+
+}
+
+.mat-elevation-z8 {
+
+  box-shadow: none;
+
+}
 mat-paginator button{
 
  margin-right: 20px !important;
@@ -127,6 +147,11 @@ mat-paginator button{
  
 .mat-mdc-paginator {
   background-color: transparent !important; /* O el color deseado */
+}
+
+.mat-mdc-table {
+  border-spacing: 0 5px !important;
+  background-color: transparent !important;
 }
  
 .search-container {
@@ -169,16 +194,8 @@ button a {
   font-size: 16px !important;
 }
  
-/* Quitar el efecto hover para .actualizar y .eliminar */
-.actualizar:hover,
-.eliminar:hover {
-  pointer-events: none !important; /* Deshabilitar completamente el hover */
-  cursor: default !important; /* Opcional: cursor estándar */
-}
- 
- 
 .botones {
-  display: flex !important;
+  /* position: absolute; */
 }
  
 .botonesbobos {
@@ -201,6 +218,21 @@ button a {
 .botonesbobos button:hover .paco {
   display: flex;
   align-items: center;
+  align-content: center;
   background-color: transparent;
   font-size: 1.6em;
+}
+
+.button-actualizar {
+  position: absolute;
+  left: auto;
+  margin-left: -2cqw;
+
+}
+
+.button-eliminar {
+  position: absolute;
+  left: auto;
+  margin-left: 3cqw;
+
 }
