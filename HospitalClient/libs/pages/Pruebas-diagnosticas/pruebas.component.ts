@@ -1,7 +1,7 @@
 import { DialogFormularioConsultaModifComponent } from '../../forms/Prueba/dialog-formulario-consulta-modif.component';
 import { SnackbarComponent } from './../../../apps/GoldenFold/src/app/components/snackbar/snackbar.component';
 import { PruebasService } from './../../services/pruebas.service';
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, HostListener, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -11,22 +11,26 @@ import { PruebaDiagnostica } from '../../interfaces/pruebas-diagnosticas.interfa
 import Swal from 'sweetalert2';
 import { AbstractTableComponent } from '../../utils/abstract-logic';
 import { Observable } from 'rxjs';
+
 @Component({
   selector: 'app-pruebas',
   templateUrl: './pruebas.component.html',
   styleUrls: [],
 })
 export class PruebasComponent extends AbstractTableComponent<PruebaDiagnostica> implements OnInit, AfterViewInit {
-  
+
   isPortVitalTech = false;
+  longTitle: number = 0;
 
   constructor(
     private pruebaService: PruebasService,
     public override dialog: MatDialog,
+    private render: Renderer2
   ) {
     super();
     this.dialog = dialog;
-    this.addingItem = this.crearItemInicial();   
+    this.addingItem = this.crearItemInicial();
+    this.widthTitle();
   };
 
 
@@ -38,7 +42,7 @@ export class PruebasComponent extends AbstractTableComponent<PruebaDiagnostica> 
 
     this.isPortVitalTech = currentPort === '4200';
 
-    if (currentPort == '4201'){
+    if (currentPort == '4201') {
       cssPath = ['/assets/styles/styles.css', '/assets/styles/4001.component.css'];
     } else {
       cssPath = ['/assets/styles/styles.css', '/assets/styles/4000.component.css'];
@@ -57,7 +61,9 @@ export class PruebasComponent extends AbstractTableComponent<PruebaDiagnostica> 
       'correcta',
       'acciones',
     ];
-  
+
+    this.widthTitle();
+
   }
 
   crearItemInicial(): PruebaDiagnostica {
@@ -74,54 +80,54 @@ export class PruebasComponent extends AbstractTableComponent<PruebaDiagnostica> 
   }
 
 
-  verRelaciones(prueba: PruebaDiagnostica): void {}
+  verRelaciones(prueba: PruebaDiagnostica): void { }
 
   obtenerDialogoFormularioRegistro(): any {
     return DialogFormularioConsultaModifComponent;
   }
-    
+
   obtenerDialogoFormularioModificacion(): any {
     return DialogFormularioConsultaModifComponent; // Aquí se devuelve el diálogo de modificación específico
   }
-    
-    obtenerItemsService(): Observable<PruebaDiagnostica[]> {
-      return this.pruebaService.getAll();
-    }
-    
-    guardarService(item: PruebaDiagnostica): Observable<any> {
-      return this.pruebaService.post(item);
-    }
-    
-    obtenerIdOriginal(item: PruebaDiagnostica): number {
-      return item.id; 
-    }
-    
-    actualizarService(id: number, item: PruebaDiagnostica): Observable<any> {
-      return this.pruebaService.put(id, item);
-    }
-    
-    eliminarService(id: number): Observable<any> {
-      return this.pruebaService.delete(id);
-    }
-    
-    necesitaConfirmacion(): boolean {
-      return this.isPortVitalTech;
-    }
+
+  obtenerItemsService(): Observable<PruebaDiagnostica[]> {
+    return this.pruebaService.getAll();
+  }
+
+  guardarService(item: PruebaDiagnostica): Observable<any> {
+    return this.pruebaService.post(item);
+  }
+
+  obtenerIdOriginal(item: PruebaDiagnostica): number {
+    return item.id;
+  }
+
+  actualizarService(id: number, item: PruebaDiagnostica): Observable<any> {
+    return this.pruebaService.put(id, item);
+  }
+
+  eliminarService(id: number): Observable<any> {
+    return this.pruebaService.delete(id);
+  }
+
+  necesitaConfirmacion(): boolean {
+    return this.isPortVitalTech;
+  }
 
 
   mostrarConfirmacion(): Promise<any> {
-      return Swal.fire({
-        title: 'Eliminar prueba diagnostica',
-        text: '¿Quieres borrar esta prueba diagnostica?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Sí',
-        cancelButtonText: 'Cancelar',
-        });
+    return Swal.fire({
+      title: 'Eliminar prueba diagnostica',
+      text: '¿Quieres borrar esta prueba diagnostica?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí',
+      cancelButtonText: 'Cancelar',
+    });
   }
-  
+
   definirFiltro(data: PruebaDiagnostica, type: string, filter: string): boolean {
     switch (type) {
       case 'dniMetge':
@@ -138,4 +144,26 @@ export class PruebasComponent extends AbstractTableComponent<PruebaDiagnostica> 
         return false;
     }
   }
+
+  widthTitle() {
+    console.log('Execute TitleJS');
+    let title = document.getElementById('title');
+    if (title != null) {
+      let long = title.offsetWidth;
+      this.styleTitle(long);
+    }
+  }
+  
+  styleTitle(longTitle: number) {
+    this.render.setStyle(document.documentElement, '--longTitle', `${longTitle}px`);
+  }
+
+    @HostListener('window:resize', ['$event'])
+    onResize(event: Event) {
+      console.log('La ventana ha sido redimensionada', event);
+      
+      this.widthTitle();
+  
+    }
+
 }
