@@ -155,7 +155,7 @@ export class PruebasComponent extends AbstractTableComponent<PruebaDiagnostica> 
   }
   
   styleTitle(longTitle: number) {
-    this.render.setStyle(document.documentElement, '--longTitle', `${longTitle}px`);
+    this.render.setStyle(document.documentElement, '--long-title', `${longTitle}px`);
   }
 
     @HostListener('window:resize', ['$event'])
