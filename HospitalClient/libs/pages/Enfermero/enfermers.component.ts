@@ -72,6 +72,7 @@ export class EnfermersComponent {
   ngAfterViewInit(): void {
     this.enfermeros.paginator = this.paginator;
     this.enfermeros.sort = this.sort;
+    this.widthTitle();
   }
 
   private cargarEstilosDinamicos(): void {
@@ -89,6 +90,7 @@ export class EnfermersComponent {
       next: (data: Enfermero[]) => {
         this.enfermeros.data = data;
         this.getUsuariosDisponibles();
+        this.widthTitle();
       },
       error: (error: any) => {
         console.error(error);
@@ -270,9 +272,9 @@ export class EnfermersComponent {
     }
   }
   
-  styleTitle(longTitle: number) {
-    console.log(longTitle);
-    this.render.setStyle(document.documentElement, '--long-title', `${longTitle}px`);
+  styleTitle(longTitle: Number): void {
+    String(longTitle);
+    document.documentElement.style.setProperty('--long-title', `${longTitle}px`);
   }
 
   @HostListener('window:resize', ['$event'])

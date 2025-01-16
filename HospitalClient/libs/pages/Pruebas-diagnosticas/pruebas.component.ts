@@ -66,7 +66,14 @@ export class PruebasComponent extends AbstractTableComponent<PruebaDiagnostica> 
 
   }
 
+  ngAfterViewInit(): void {
+      this.widthTitle();
+  }
+
   crearItemInicial(): PruebaDiagnostica {
+
+    this.widthTitle();
+
     return {
       id: 0,
       dniMetge: '',
@@ -154,8 +161,9 @@ export class PruebasComponent extends AbstractTableComponent<PruebaDiagnostica> 
     }
   }
   
-  styleTitle(longTitle: number) {
-    this.render.setStyle(document.documentElement, '--long-title', `${longTitle}px`);
+  styleTitle(longTitle: Number): void {
+    String(longTitle);
+    document.documentElement.style.setProperty('--long-title', `${longTitle}px`);
   }
 
     @HostListener('window:resize', ['$event'])
