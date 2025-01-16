@@ -1,128 +1,112 @@
 @if (!isPortVitalTech){
 <app-administratidor-sistema-dashboard></app-administratidor-sistema-dashboard>
 } @else {
-  <app-nav></app-nav>
+<app-nav></app-nav>
 }
-<div class="habitaciones-section">
-  @if(!isPortVitalTech) {
+<div class="centrado">
+  <div class="component-section">
+
+    @if(!isPortVitalTech) {
     <h2>Habitaciones</h2>
-  }
-  <app-snackbar #snackbar></app-snackbar>
-  <div class="header-container">
-    <div class="registro">
-      <button mat-raised-button color="primary" (click)="toggleFormularioAgregar()" > Agregar Habitación </button>
-    </div>
-    <div class="search-container">
-      <app-search-box
-        [searchOptions]="[
+    } @else {
+    <br><br>
+    }
+
+    <app-snackbar #snackbar></app-snackbar>
+
+    <div class="header-container">
+      <button mat-raised-button color="primary" (click)="toggleFormularioAgregar()"> Agregar Habitación </button>
+      <div class="filter-container">
+        <app-search-box [searchOptions]="[
           { label: 'Habitación', value: 'habitacion' },
           { label: 'Capacitat cames', value: 'capacitat' },
           { label: 'Planta', value: 'planta' }
-        ]"
-        [defaultSearchType]="'habitacion'"
-        placeholder="Escribe para buscar..."
-        (search)="aplicarFiltro($event)"
-      >
-      </app-search-box>
+        ]" [defaultSearchType]="'habitacion'" placeholder="Escribe para buscar..." (search)="aplicarFiltro($event)">
+        </app-search-box>
+      </div>
     </div>
-  </div>
 
-  @if(isPortVitalTech){
-    <div class="texto">
-      <p>Lista de habitaciones</p>
+    @if(isPortVitalTech){
+    <div class="title">
+      <p id="title">Lista de habitaciones</p>
     </div>
-  }
-  <!-- Tabla de Angular Material -->
-  <div class="table-container">
-    <app-snackbar></app-snackbar>
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
-      <!-- Columna num habitaciones -->
-      <ng-container matColumnDef="NumeroHabitacion">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>
-          Número de habitación
-        </th>
-        <td
-          mat-cell
-          *matCellDef="let habitacion"
-          (click)="isPortVitalTech? null : toggleFormularioActualizar(habitacion)"
-        >
-          {{ habitacion.codiHabitacio }}
-        </td>
-      </ng-container>
+    }
 
-      <!-- Columna cap CapCamas -->
-      <ng-container matColumnDef="CapCamas">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>
-          Capacidad de camas
-        </th>
-        <td
-          mat-cell
-          *matCellDef="let habitacion"
-          (click)="isPortVitalTech? null : toggleFormularioActualizar(habitacion)">
+    <!-- Tabla de Angular Material -->
+    <div class="table-container-vista mat-elevation-z8">
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+        <!-- Columna num habitaciones -->
+        <ng-container matColumnDef="NumeroHabitacion">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            Número de habitación
+          </th>
+          <td mat-cell *matCellDef="let habitacion"
+            (click)="isPortVitalTech? null : toggleFormularioActualizar(habitacion)">
+            {{ habitacion.codiHabitacio }}
+          </td>
+        </ng-container>
 
-          {{ habitacion.capacitatLlits }}
-        </td>
-      </ng-container>
+        <!-- Columna cap CapCamas -->
+        <ng-container matColumnDef="CapCamas">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            Capacidad de camas
+          </th>
+          <td mat-cell *matCellDef="let habitacion"
+            (click)="isPortVitalTech? null : toggleFormularioActualizar(habitacion)">
 
-      <!-- Columna plantas -->
-      <ng-container matColumnDef="Planta">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Planta</th>
-        <td
-          mat-cell
-          *matCellDef="let habitacion"
-          (click)="isPortVitalTech? null : toggleFormularioActualizar(habitacion)"
-        >
-          {{ habitacion.plantaId }}
-        </td>
-      </ng-container>
+            {{ habitacion.capacitatLlits }}
+          </td>
+        </ng-container>
 
-      <!--Columna camas-->
-      <ng-container matColumnDef="Camas">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Camas</th>
-        <td mat-cell *matCellDef="let habitacion">
-          <a
-            (click)="verRelaciones(habitacion)"
-            style="cursor: pointer; color: blue"
-          >
-            {{ habitacion.llits.length }} camas
-          </a>
-        </td>
-      </ng-container>
+        <!-- Columna plantas -->
+        <ng-container matColumnDef="Planta">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Planta</th>
+          <td mat-cell *matCellDef="let habitacion"
+            (click)="isPortVitalTech? null : toggleFormularioActualizar(habitacion)">
+            {{ habitacion.plantaId }}
+          </td>
+        </ng-container>
 
-      <!-- Columna Accion -->
-      <ng-container matColumnDef="Acciones">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Acciones</th>
-        <td mat-cell *matCellDef="let habitacion">
-          @if(isPortVitalTech){
-            <div class="botones">
-              <button class = "botones" mat-icon-button (click)="toggleFormularioActualizar(habitacion)">
-                🔄
+        <!--Columna camas-->
+        <ng-container matColumnDef="Camas">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Camas</th>
+          <td mat-cell *matCellDef="let habitacion">
+            <a (click)="verRelaciones(habitacion)" style="cursor: pointer; color: blue">
+              {{ habitacion.llits.length }} camas
+            </a>
+          </td>
+        </ng-container>
+
+        <!-- Columna Accion -->
+        <ng-container matColumnDef="Acciones">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Acciones</th>
+          <td mat-cell *matCellDef="let habitacion">
+            @if(isPortVitalTech){
+            <div class="botonesbobos">
+              <button class="botonesbobos button-actualizar" (click)="toggleFormularioActualizar(habitacion)">
+                <span class="paco">🔄
+                </span>
               </button>
-              <button class = "botones" mat-icon-button (click)="borrarItem(habitacion.codiHabitacio)">
-                ❎
+              <button class="botonesbobos button-actualizar" (click)="borrarItem(habitacion.codiHabitacio)">
+                <span class="paco">❎
+                </span>
               </button>
             </div>
-          }@else {
+            }@else {
             <button mat-button color="warn" (click)="borrarItem(habitacion.codiHabitacio)">
               Eliminar
             </button>
-          }
-        </td>
-      </ng-container>
+            }
+          </td>
+        </ng-container>
 
-      <!-- Filas de la tabla -->
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr
-        mat-row
-        *matRowDef="let row; columns: displayedColumns"
-        class="clickable-row"
-      ></tr>
-    </table>
+        <!-- Filas de la tabla -->
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns" class="clickable-row"></tr>
+      </table>
+    </div>
+
+    <!-- Paginación -->
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
   </div>
-
-  <!-- Paginación -->
-  <mat-paginator
-    [pageSizeOptions]="[5, 10, 25, 100]"
-    showFirstLastButtons
-  ></mat-paginator>
 </div>

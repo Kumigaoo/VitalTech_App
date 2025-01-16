@@ -3,7 +3,7 @@ import { DialogCrearHabitacionComponent } from '../../forms/Habitacion/Create/di
 import { CamasDialogComponent } from './../../../apps/GoldenFold/src/app/components/popups/camas-popup';
 import { SnackbarComponent } from './../../../apps/GoldenFold/src/app/components/snackbar/snackbar.component';
 import { HabitacionService } from './../../services/habitacion.service';
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { Habitacion } from '../../interfaces/habitacion.interface';
 import { MatTableDataSource } from '@angular/material/table'; // Módulo de tabla de Angular Material
 import { MatPaginator, PageEvent } from '@angular/material/paginator'; // Módulo de paginación de Angular Material
@@ -41,9 +41,9 @@ export class HabitacionesComponent extends AbstractTableComponent<Habitacion> im
     this.isPortVitalTech = currentPort === '4200';
 
     if (currentPort === '4201') {
-      cssPath = ['/assets/styles/styles.css', '/assets/styles/habitacion/4201.component.css'];
+      cssPath = ['/assets/styles/styles.css', '/assets/styles/4001.component.css'];
     } else {
-      cssPath = ['/assets/styles/styles.css', '/assets/styles/habitacion/4200.component.css'];
+      cssPath = ['/assets/styles/styles.css', '/assets/styles/4000.component.css'];
     }
     
     // Cargar los estilos específicos del componente
@@ -57,6 +57,8 @@ export class HabitacionesComponent extends AbstractTableComponent<Habitacion> im
       'Camas',
       'Acciones',
     ];
+
+    this.widthTitle();
 }
 
   crearItemInicial(): Habitacion {
@@ -132,4 +134,25 @@ export class HabitacionesComponent extends AbstractTableComponent<Habitacion> im
         return false;
     }
   }
+
+    widthTitle() {
+      let title = document.getElementById('title');
+      if (title != null) {
+        let long = title.offsetWidth;
+        this.styleTitle(long);
+      }
+    }
+    
+    styleTitle(longTitle: Number): void {
+      String(longTitle);
+      document.documentElement.style.setProperty('--long-title', `${longTitle}px`);
+    }
+  
+    @HostListener('window:resize', ['$event'])
+    onResize(event: Event) {
+      
+      this.widthTitle();
+  
+    }
+    
 }
