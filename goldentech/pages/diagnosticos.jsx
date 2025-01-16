@@ -1,6 +1,8 @@
 import { useState } from "react";
 import Header from "../src/components/header/header";
 import Footer from "../src/components/footer/Footer";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 
 const DIAGNOSTICOS = [
     {nombre: "Rinitis alergica", fecha: "2023-10-10", centro: "Goldenfold", doctor: "Helena Garcia"},
@@ -61,23 +63,49 @@ function DiagnosisList({ diagnosticos, filterName, filterDate, filterCentre }){
 }
 
 function DiagnosisFilter({filterName, setFilterName, filterDate, setFilterDate, filterCentre, setFilterCentre}) {
+    
+    const clearInput = (setter) => {
+        setter('');
+    };
+
     return (
         <div className="diagnostico-searchbox">
             <form>
                 <div className="diagnostico-filterbox">
                     <h1 style={{ fontWeight: 'bold', fontSize: '1.2em' }}>Filtrar</h1>
                     <label style={{ fontSize: '0.9em' }}>Nombre</label>
-                    <input className="diagnostico-input" type="text" value={filterName} placeholder="Selecciona el nombre"
-                    onChange={(e) => setFilterName(e.target.value)}/>
+                    <div className="diagnostico-input-wrapper">
+                        <input className="diagnostico-input" type="text" value={filterName} placeholder="Selecciona el nombre"
+                        onChange={(e) => setFilterName(e.target.value)}/>
+                        {filterName && (
+                            <button className="diagnostico-clear-button" onClick={() => clearInput(setFilterName)}>
+                                <FontAwesomeIcon icon={faTimesCircle} />
+                            </button>
+                        )}
+                    </div>
 
                     <label style={{ fontSize: '0.9em' }}>Fecha</label>
-                    <input className="diagnostico-input" type="text" value={filterDate} placeholder="Selecciona una fecha"
-                    onChange={(e) => setFilterDate(e.target.value)}/>
+                    <div className="diagnostico-input-wrapper">
+                        <input className="diagnostico-input" type="text" value={filterDate} placeholder="Selecciona una fecha"
+                        onChange={(e) => setFilterDate(e.target.value)}/>
+                        {filterDate && (
+                            <button className="diagnostico-clear-button" onClick={() => clearInput(setFilterDate)}>
+                                <FontAwesomeIcon icon={faTimesCircle} />
+                            </button>
+                        )}
+                    </div>
 
                     <label style={{ fontSize: '0.9em' }}>Centro</label>
-                    <input className="diagnostico-input" type="text" value={filterCentre} placeholder="Selecciona un centro"
-                    onChange={(e) => setFilterCentre(e.target.value)}/>
-
+                    <div className="diagnostico-input-wrapper">
+                        <input className="diagnostico-input" type="text" value={filterCentre} placeholder="Selecciona un centro"
+                        onChange={(e) => setFilterCentre(e.target.value)}/>
+                        {filterCentre && (
+                            <button className="diagnostico-clear-button" onClick={() => clearInput(setFilterCentre)}>
+                                <FontAwesomeIcon icon={faTimesCircle} />
+                            </button>
+                        )}
+                    </div>
+                    
                 </div>
             </form>
         </div>

@@ -153,12 +153,17 @@
     background-color: #0b5ea1;
 }
 
+
+.diagnostico-search{
+  display: flex;
+}
+
 .diagnostico-button{
     background-color: #3b83bd;
     color: white;
     border: none;
     border-radius: 25px; /* Hace que el botón sea redondo */
-    width: 195%; /* Ajusta el ancho */
+    width: 50%; /* Ajusta el ancho */
     height: 30px; /* Ajusta la altura para que sea un círculo perfecto */
     font-size: 0.9em; /* Ajusta el tamaño del texto dentro del botón */
     cursor: pointer;
@@ -188,6 +193,32 @@
     margin-bottom: 30px;
     display: flex;
     flex-direction: column;
+}
+
+.diagnostico-reset{
+  display: flex;
+  flex-direction: column;
+}
+
+.diagnostico-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 185%;
+}
+
+.diagnostico-clear-button {
+  position: absolute;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2em;
+  color: #ccc; /* Adjust the color as needed */
+}
+
+.diagnostico-clear-button:hover {
+  color: #000; /* Adjust the hover color as needed */
 }
 
 .diagnostico-input {
