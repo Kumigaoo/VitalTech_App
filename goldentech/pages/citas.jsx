@@ -6,19 +6,11 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
-import InboxIcon from '@mui/icons-material/Inbox';
-import DraftsIcon from '@mui/icons-material/Drafts';
 import * as React from 'react';
 import Typography from '@mui/material/Typography';
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import Link from 'next/link';
 
-const CITAS = [
-    { motivo: "Consulta general", fecha: "2025-01-15", doctor: "Dr. Juan Pérez", planta: "Cardiología", piso: "3" },
-    { motivo: "Revisión de radiografía", fecha: "2025-01-18", doctor: "Dra. María López", planta: "Traumatología", piso: "2" },
-    { motivo: "Vacunación", fecha: "2025-01-20", doctor: "Dr. Carlos García", planta: "Pediatría", piso: "1" },
-    { motivo: "Consulta dermatológica", fecha: "2025-01-22", doctor: "Dra. Ana Sánchez", planta: "Dermatología", piso: "4" },
-    { motivo: "Chequeo anual", fecha: "2025-01-25", doctor: "Dr. Roberto Gómez", planta: "Medicina General", piso: "5" }
-];
 
 function CitaOpcion({ iconSrc, title, description, listItems }) {
     return (
@@ -138,7 +130,9 @@ export default function CitasPage() {
                     <p className="cita-info">Selecciona la opción que más se adecúe con tus necesidades</p>
                 </div>
                 <div className="cita-tuscitas">
-                <button className="cita-button">Ver tus citas</button> 
+                    <Link href="/agenda" style={{ textDecoration: 'none', color: 'inherit' }}>
+                    <button className="cita-button">Ver tus citas</button> 
+                    </Link>
                 </div>
             </div>
             <MotivosSeccion />
