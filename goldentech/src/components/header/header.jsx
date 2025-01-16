@@ -18,7 +18,9 @@ export default function Header() {
           <Link href="/diagnosticos" style={{ textDecoration: 'none', color: 'inherit' }} passHref>
             <span className={router.pathname === '/diagnosticos' ? 'active' : ''}>Diagnosticos</span>
           </Link>
-          <span>Citas</span>
+          <Link href="/citas" style={{ textDecoration: 'none', color: 'inherit' }} passHref>
+            <span className={router.pathname === '/citas' ? 'active' : ''}>Citas</span>
+          </Link>
           <span>Perfil</span>
         </nav>
       </header>

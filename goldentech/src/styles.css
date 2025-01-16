@@ -86,7 +86,6 @@
     flex-direction: column;
     align-items: start;
     margin-left: 20px;
-
 }
 
 .diagnostico-page {
@@ -301,4 +300,105 @@
 .main-element-img{
     max-width: 20vw;
     border-radius: 5%;
+}
+
+
+.cita-title{
+  color: black;
+  font-family: 'Roboto', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  margin-left: 20px;
+  margin-bottom: 5px;
+}
+
+.cita-info{
+    color: rgb(88, 85, 85);
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    margin-left: 20px;
+    margin-top: 0px;
+}
+
+.cita-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.cita-button {
+    width: 300px; /* Asegura que el input ocupe todo el ancho del contenedor */
+    margin: 25px 0; /* Añade espacio entre los inputs */
+    border: 2px solid #3b83bd; /* Cambia el color y grosor del borde */
+    border-radius: 10px; /* Redondea las esquinas */
+    font-size: 16px; /* Ajusta el tamaño del texto */
+    background-color: #f9f9f9; /* Cambia el fondo */
+    color: #3b83bd; /* Cambia el color del texto */
+    outline: none; /* Quita el borde azul de enfoque */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Añade una sombra sutil */
+    transition: border-color 0.3s, box-shadow 0.3s; /* Suaviza las transiciones */
+    font-size: 1.0em;
+    cursor: pointer;
+}
+
+.cita-button:hover {
+  background-color: #3b83bd; /* Cambia el fondo */
+  color: #f9f9f9;
+
+}
+
+.cita-tuscitas{
+  display: flex;
+  justify-content: end;
+  margin-right: 90px;
+}
+
+.cita-selectbox {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.cita-select{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.cita-opcion {
+    font-family: 'Roboto', sans-serif;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+    width: 300px;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    border-radius: 5%;
+    padding-right: 2vh;
+    padding-left: 2vh;
+    padding-bottom: 2vh;
+    transition: transform 0.3s ease;
+    margin-right: 10px;
+    margin-left: 20px;
+}
+
+.cita-subtitulo {
+  font-family: 'Roboto', sans-serif;
+  margin-left: 20px;
+}
+
+.cita-top {
+  display: flex;
+  flex-direction: row;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.cita-si {
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
 }
