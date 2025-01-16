@@ -10,6 +10,7 @@ import { AdministrativoComponent } from '../../../pages/inicio/pages/administrat
 import { PacientesAdministrativoComponent } from '../../../pages/inicio/pages/administrativo/pages/pacientes-administrar/pacientes-administrar.component';
 import { SnackbarComponent } from '../../../components/snackbar/snackbar.component';
 import { SharedModule } from '../../shared/shared.module';
+import { AdministradorSistemaDashboardComponent } from '../../../pages/inicio/pages/administrador-sistema/administrador-sistema-dashboard/administrador-sistema-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { SharedModule } from '../../shared/shared.module';
     RegistrarPacienteComponent,
     BuscarPacientesComponent,
     PacientesAdministrativoComponent,
+    AdministradorSistemaDashboardComponent,
   ],
-  imports: [AdministrativoRout, AdministrativoDashboardComponent, SharedModule],
+  imports: [AdministrativoRout, AdministrativoDashboardComponent, SharedModule, CommonModule, AdministradorSistemaDashboardComponent],
 })
 export class AdministrativoModule {}
