@@ -242,3 +242,7 @@ button a {
   margin-left: 3cqw;
 
 }
+
+.mat-mdc-raised-button .mdc-button__label {
+  z-index: 0 m !important;
+}
