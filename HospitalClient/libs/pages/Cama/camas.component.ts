@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { CamaService } from '../../services/cama.service';
 import { Cama } from '../../interfaces/cama.interface';
 import { SnackbarComponent } from '../../../apps/GoldenFold/src/app/components/snackbar/snackbar.component';
@@ -106,10 +106,12 @@ export class CamasComponent implements OnInit, AfterViewInit {
   //constructor(private camaService: CamaService) {}
   ngOnInit(): void {
     this.obtenerCamas();
+    this.widthTitle();
   }
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+    this.widthTitle();
   }
 
   obtenerCamas(): void {
@@ -119,6 +121,7 @@ export class CamasComponent implements OnInit, AfterViewInit {
         this.totalItems = data.length;
         this.actualizarPagina(0, this.itemsPerPage);
         console.log(this.camas);
+        this.widthTitle();
       },
       error: (error: any) => {
         console.error('Error al obtener las camas', error);
@@ -282,4 +285,25 @@ export class CamasComponent implements OnInit, AfterViewInit {
       this.dataSource.paginator.firstPage();
     }
   }
+
+    widthTitle() {
+      let title = document.getElementById('title');
+      if (title != null) {
+        let long = title.offsetWidth;
+        this.styleTitle(long);
+      }
+    }
+    
+    styleTitle(longTitle: Number): void {
+      String(longTitle);
+      document.documentElement.style.setProperty('--long-title', `${longTitle}px`);
+    }
+  
+    @HostListener('window:resize', ['$event'])
+    onResize(event: Event) {
+      
+      this.widthTitle();
+  
+    }
+
 }

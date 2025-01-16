@@ -115,11 +115,17 @@ th:first-child {
   border-bottom-left-radius: 8px !important;
   background-color: white;
 }
- 
+
+td:not(:first-child):not(:last-child), 
+th:not(:first-child):not(:last-child) {
+  border-left: 0.1em solid black;
+}
+
 td:last-child,
 th:last-child {
   border-top-right-radius: 8px !important;
   border-bottom-right-radius: 8px !important;
+  border-left: 0.1em black solid;
 }
  
 .mat-paginator {
@@ -235,4 +241,8 @@ button a {
   left: auto;
   margin-left: 3cqw;
 
+}
+
+.mdc-button__label {
+  z-index: 0 !important;
 }

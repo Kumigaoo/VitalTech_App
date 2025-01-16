@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild, ChangeDetectorRef, HostListener } from '@angular/core';
 import { EpisodiMedic } from '../../interfaces/episodis-medics.interface';
 import { SnackbarComponent } from '../../../apps/GoldenFold/src/app/components/snackbar/snackbar.component';
 import { MatTableDataSource } from '@angular/material/table';
@@ -159,5 +159,25 @@ export class EpisodiComponent extends AbstractTableComponent<EpisodiMedic> imple
             return false;
         }
     }
+
+     widthTitle() {
+        let title = document.getElementById('title');
+        if (title != null) {
+          let long = title.offsetWidth;
+          this.styleTitle(long);
+        }
+      }
+      
+      styleTitle(longTitle: Number): void {
+        String(longTitle);
+        document.documentElement.style.setProperty('--long-title', `${longTitle}px`);
+      }
+    
+      @HostListener('window:resize', ['$event'])
+      onResize(event: Event) {
+        
+        this.widthTitle();
+    
+      }
 
 }
