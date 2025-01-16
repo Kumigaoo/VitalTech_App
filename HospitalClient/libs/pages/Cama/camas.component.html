@@ -93,14 +93,13 @@
           <td mat-cell *matCellDef="let cama">
             @if(!isPortGolden){
             <div class="botonesbobos">
-              <button class="botonesbobos" mat-icon-button (click)="toggleActualizarCama(cama)">
+              <button class="botonesbobos button-actualizar" (click)="toggleActualizarCama(cama)">
                 <span class="paco">🔄</span>
               </button>
-              <button class="botonesbobos" mat-icon-button (click)="borrarCama(cama.codilLit)">
+              <button class="botonesbobos button-eliminar" (click)="borrarCama(cama.codilLit)">
                 <span class="paco">❎</span>
               </button>
             </div>
-
             }@else {
             <button mat-button color="warn" (click)="borrarCama(cama.codilLit)">
               Eliminar

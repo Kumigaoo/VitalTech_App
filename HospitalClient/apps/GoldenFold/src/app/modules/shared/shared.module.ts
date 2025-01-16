@@ -83,7 +83,7 @@ import { MatOptionModule } from '@angular/material/core';
     SnackbarComponent,
     DialogFormulariocamaComponent,
     MatCheckboxModule,
-    NavComponent
+    NavComponent,
   ],
   providers: [
     { provide: MAT_DIALOG_DATA, useValue: {} },

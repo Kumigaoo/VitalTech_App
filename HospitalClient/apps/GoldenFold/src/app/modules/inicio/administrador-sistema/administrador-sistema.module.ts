@@ -7,14 +7,15 @@ import { CamasComponent } from '../../../../../../../libs/pages/Cama/camas.compo
 import { HabitacionesComponent } from '../../../../../../../libs/pages/Habitacion/habitaciones.component';
 import { PacientesComponent } from '../../../../../../../libs/pages/pacientes/pacientes.component';
 import { UsuarioComponent } from '../../../../../../../libs/pages/Usuario/usuario.component';
-import { IngresosComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/ingresos/ingresos.component';
+import { IngresosComponent } from '../../../../../../../libs/pages/Ingreso/ingresos.component'
 import { PruebasComponent } from '../../../../../../../libs/pages/Pruebas-diagnosticas/pruebas.component';
 import { AdministradorSistemaDashboardComponent } from '../../../pages/inicio/pages/administrador-sistema/administrador-sistema-dashboard/administrador-sistema-dashboard.component';
 import { SharedModule } from '../../shared/shared.module';
-import { AdministradorSistemaComponent } from '../../../pages/inicio/pages/administrador-sistema/administrador-sistema.component';
 import { MetgesComponent } from '../../../../../../../libs/pages/Medico/metges.component';
 import { EnfermersComponent } from '../../../../../../../libs/pages/Enfermero/enfermers.component';
 import { EpisodiComponent } from '../../../../../../../libs/pages/Episodio/episodio-medico.component';
+import { AdministradorSistemaComponent } from '../../../pages/inicio/pages/administrador-sistema/administrador-sistema.component';
+import { RouterOutlet } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { EpisodiComponent } from '../../../../../../../libs/pages/Episodio/episo
     IngresosComponent,
     PruebasComponent,
     PlantaComponent,
-    EpisodiComponent
+    EpisodiComponent,
+    
   ],
 
   imports: [
@@ -37,6 +39,7 @@ import { EpisodiComponent } from '../../../../../../../libs/pages/Episodio/episo
     AdministradorSistemaDashboardComponent,
     SharedModule,
     CommonModule,
+    RouterOutlet,
   ],
 })
 export class AdministradorSistemaModule {}

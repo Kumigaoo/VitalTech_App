@@ -1,165 +1,134 @@
 @if(!isPortVitalTech){
-  <app-administratidor-sistema-dashboard></app-administratidor-sistema-dashboard>
+<app-administratidor-sistema-dashboard></app-administratidor-sistema-dashboard>
 } @else {
-  <app-nav></app-nav>
+<app-nav></app-nav>
 }
-<div class="pruebas-section">
-  @if(!isPortVitalTech) {
-    <h2>Pruebas diagnosticas</h2>
-  }
-  <app-snackbar #snackbar></app-snackbar>
 
-  <div class="header-container">
-    <div class="registro">
-      <button mat-raised-button color="primary" (click)="toggleFormularioAgregar()"> Agregar Consulta </button>
-    </div>
-    <div class="search-container">
-      <app-search-box
-        [searchOptions]="[
+<div class="centrado">
+  <div class="component-section">
+
+    @if(!isPortVitalTech) {
+    <h2>Pruebas diagnosticas</h2>
+    } @else {
+    <br>
+    <br>
+    }
+
+    <app-snackbar #snackbar></app-snackbar>
+
+    <div class="header-container">
+      <button mat-raised-button color="primary" (click)="toggleFormularioAgregar()">
+        Agregar Consulta
+      </button>
+
+      <div class="filter-container">
+        <app-search-box [searchOptions]="[
           { label: 'Codigo de Prueba', value: 'id' },
           { label: 'Medico', value: 'dniMetge' },
           { label: 'Episodio medico', value: 'episodiMedicId' },
           { label: 'Dolencia', value: 'dolencia' },
           { label: 'Personal', value: 'dniPersonal' }
-        ]"
-        [defaultSearchType]="'id'"
-        placeholder="Escribe para buscar..."
-        (search)="aplicarFiltro($event)"
-      >
-      </app-search-box>
+        ]" [defaultSearchType]="'id'" placeholder="Escribe para buscar..." (search)="aplicarFiltro($event)">
+        </app-search-box>
+      </div>
     </div>
-  </div>
-  @if(isPortVitalTech){
-    <div class="texto">
-      <p>Lista de pruebas diagnosticas</p>
+    @if(isPortVitalTech){
+    <div class="title">
+      <p id="title">Lista de pruebas diagnosticas</p>
     </div>
-  }
-  <div class="table-container">
-    <app-snackbar></app-snackbar>
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
-      <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef>Id</th>
-        <td
-          mat-cell
-          *matCellDef="let consulta"
-          (click)="isPortVitalTech? null : toggleFormularioActualizar(consulta)"
-        >
-          {{ consulta.id }}
-        </td>
-      </ng-container>
+    }
+    <div class="table-container-vista mat-elevation-z8">
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef>Id</th>
+          <td mat-cell *matCellDef="let consulta"
+            (click)="isPortVitalTech? null : toggleFormularioActualizar(consulta)">
+            {{ consulta.id }}
+          </td>
+        </ng-container>
 
-      <ng-container matColumnDef="dniMetge">
-        <th mat-header-cell *matHeaderCellDef>Dni Metge</th>
-        <td
-          mat-cell
-          *matCellDef="let consulta"
-          (click)="isPortVitalTech? null :toggleFormularioActualizar(consulta)"
-        >
-          {{ consulta.dniMetge }}
-        </td>
-      </ng-container>
+        <ng-container matColumnDef="dniMetge">
+          <th mat-header-cell *matHeaderCellDef>Dni Metge</th>
+          <td mat-cell *matCellDef="let consulta" (click)="isPortVitalTech? null :toggleFormularioActualizar(consulta)">
+            {{ consulta.dniMetge }}
+          </td>
+        </ng-container>
 
-      <ng-container matColumnDef="dniEnfermer">
-        <th mat-header-cell *matHeaderCellDef>Dni Enfermer</th>
-        <td
-          mat-cell
-          *matCellDef="let consulta"
-          (click)="isPortVitalTech? null :toggleFormularioActualizar(consulta)"
-        >
-          {{ consulta.dniEnfermer }}
-        </td>
-      </ng-container>
+        <ng-container matColumnDef="dniEnfermer">
+          <th mat-header-cell *matHeaderCellDef>Dni Enfermer</th>
+          <td mat-cell *matCellDef="let consulta" (click)="isPortVitalTech? null :toggleFormularioActualizar(consulta)">
+            {{ consulta.dniEnfermer }}
+          </td>
+        </ng-container>
 
-      <ng-container matColumnDef="episodiMedicId">
-        <th mat-header-cell *matHeaderCellDef>Episodio médico</th>
-        <td
-          mat-cell
-          *matCellDef="let consulta"
-          (click)="isPortVitalTech? null : toggleFormularioActualizar(consulta)"
-        >
-          {{ consulta.episodiMedicId }}
-        </td>
-      </ng-container>
+        <ng-container matColumnDef="episodiMedicId">
+          <th mat-header-cell *matHeaderCellDef>Episodio médico</th>
+          <td mat-cell *matCellDef="let consulta"
+            (click)="isPortVitalTech? null : toggleFormularioActualizar(consulta)">
+            {{ consulta.episodiMedicId }}
+          </td>
+        </ng-container>
 
-      <ng-container matColumnDef="dolencia">
-        <th mat-header-cell *matHeaderCellDef>Dolencia</th>
-        <td
-          mat-cell
-          *matCellDef="let consulta"
-          (click)="isPortVitalTech? null :toggleFormularioActualizar(consulta)"
-        >
-          {{ consulta.dolencia }}
-        </td>
-      </ng-container>
+        <ng-container matColumnDef="dolencia">
+          <th mat-header-cell *matHeaderCellDef>Dolencia</th>
+          <td mat-cell *matCellDef="let consulta" (click)="isPortVitalTech? null :toggleFormularioActualizar(consulta)">
+            {{ consulta.dolencia }}
+          </td>
+        </ng-container>
 
-      <ng-container matColumnDef="pruebas">
-        <th mat-header-cell *matHeaderCellDef>Pruebas</th>
-        <td
-          mat-cell
-          *matCellDef="let consulta"
-          (click)="isPortVitalTech? null :toggleFormularioActualizar(consulta)"
-        >
-          {{ consulta.pruebas }}
-        </td>
-      </ng-container>
+        <ng-container matColumnDef="pruebas">
+          <th mat-header-cell *matHeaderCellDef>Pruebas</th>
+          <td mat-cell *matCellDef="let consulta" (click)="isPortVitalTech? null :toggleFormularioActualizar(consulta)">
+            {{ consulta.pruebas }}
+          </td>
+        </ng-container>
 
-      <ng-container matColumnDef="resultados">
-        <th mat-header-cell *matHeaderCellDef>Resultados</th>
-        <td
-          mat-cell
-          *matCellDef="let consulta"
-          (click)="isPortVitalTech? null :toggleFormularioActualizar(consulta)"
-        >
-          {{ consulta.resultados }}
-        </td>
-      </ng-container>
+        <ng-container matColumnDef="resultados">
+          <th mat-header-cell *matHeaderCellDef>Resultados</th>
+          <td mat-cell *matCellDef="let consulta" (click)="isPortVitalTech? null :toggleFormularioActualizar(consulta)">
+            {{ consulta.resultados }}
+          </td>
+        </ng-container>
 
 
 
-      <ng-container matColumnDef="correcta">
-        <th mat-header-cell *matHeaderCellDef>Correcta</th>
-        <td
-          mat-cell
-          *matCellDef="let consulta"
-          (click)="isPortVitalTech? null :toggleFormularioActualizar(consulta)"
-        >
-          {{ consulta.correcta ? 'Si' : 'No' }}
-        </td>
-      </ng-container>
+        <ng-container matColumnDef="correcta">
+          <th mat-header-cell *matHeaderCellDef>Correcta</th>
+          <td mat-cell *matCellDef="let consulta" (click)="isPortVitalTech? null :toggleFormularioActualizar(consulta)">
+            {{ consulta.correcta ? 'Si' : 'No' }}
+          </td>
+        </ng-container>
 
 
-      <ng-container matColumnDef="acciones">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Acciones</th>
+        <ng-container matColumnDef="acciones">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Acciones</th>
 
-        <td mat-cell *matCellDef="let consulta">
-          @if(isPortVitalTech){
-            <div class="botones">
-              <button class = "botones" mat-icon-button (click)="toggleFormularioActualizar(consulta)">
-                🔄
+          <td mat-cell *matCellDef="let consulta">
+            @if(isPortVitalTech){
+            <div class="botonesbobos">
+              <button class="botonesbobos button-actualizar" (click)="toggleFormularioActualizar(consulta)">
+                <span class="paco">🔄
+                </span>
               </button>
-              <button class = "botones" mat-icon-button (click)="borrarItem(consulta.id)">
-                ❎
+              <button class="botonesbobos button-eliminar" (click)="borrarItem(consulta.id)">
+                <span class="paco">❎
+                </span>
               </button>
             </div>
-          }@else {
+            }@else {
             <button mat-button color="warn" (click)="borrarItem(consulta.id)">
               Eliminar
             </button>
-          }
-        </td>
-      </ng-container>
+            }
+          </td>
+        </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr
-        mat-row
-        *matRowDef="let row; columns: displayedColumns"
-        class="clickable-row"
-      ></tr>
-    </table>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns" class="clickable-row"></tr>
+      </table>
+    </div>
+    <div class="botonesbobos">
+      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
+    </div>
   </div>
-
-  <mat-paginator
-    [pageSizeOptions]="[5, 10, 25, 100]"
-    showFirstLastButtons
-  ></mat-paginator>
 </div>
