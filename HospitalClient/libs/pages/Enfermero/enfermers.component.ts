@@ -279,7 +279,6 @@ export class EnfermersComponent {
 
   @HostListener('window:resize', ['$event'])
   onResize(event: Event) {
-    console.log('La ventana ha sido redimensionada', event);
     
     this.widthTitle();
 

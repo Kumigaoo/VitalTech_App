@@ -66,10 +66,6 @@ export class PruebasComponent extends AbstractTableComponent<PruebaDiagnostica> 
 
   }
 
-  ngAfterViewInit(): void {
-      this.widthTitle();
-  }
-
   crearItemInicial(): PruebaDiagnostica {
 
     this.widthTitle();
@@ -168,8 +164,7 @@ export class PruebasComponent extends AbstractTableComponent<PruebaDiagnostica> 
 
     @HostListener('window:resize', ['$event'])
     onResize(event: Event) {
-      console.log('La ventana ha sido redimensionada', event);
-      
+
       this.widthTitle();
   
     }
