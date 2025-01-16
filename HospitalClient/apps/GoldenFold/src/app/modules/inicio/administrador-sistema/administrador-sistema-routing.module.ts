@@ -6,12 +6,12 @@ import { CamasComponent } from '../../../../../../../libs/pages/Cama/camas.compo
 import { HabitacionesComponent } from '../../../../../../../libs/pages/Habitacion/habitaciones.component';
 import { PacientesComponent } from '../../../../../../../libs/pages/pacientes/pacientes.component';
 import { UsuarioComponent } from '../../../../../../../libs/pages/Usuario/usuario.component';
-import { IngresosComponent } from '../../../pages/inicio/pages/administrador-sistema/pages/ingresos/ingresos.component';
 import { AdministradorSistemaComponent } from '../../../pages/inicio/pages/administrador-sistema/administrador-sistema.component';
 import { PlantaComponent } from '../../../../../../../libs/pages/Planta/planta.component';
 import { MetgesComponent } from '../../../../../../../libs/pages/Medico/metges.component';
 import { PruebasComponent } from '../../../../../../../libs/pages/Pruebas-diagnosticas/pruebas.component';
 import { EpisodiComponent } from '../../../../../../../libs/pages/Episodio/episodio-medico.component';
+import {IngresosComponent} from '../../../../../../../libs/pages/Ingreso/ingresos.component'
 
 const routes: Routes = [
   {

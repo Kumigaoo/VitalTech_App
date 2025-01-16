@@ -4,7 +4,7 @@ import {
   MatDialogModule,
   MatDialogRef,
 } from '@angular/material/dialog';
-import { Ingreso } from '../../../../../../../../libs/interfaces/ingreso.interface';
+import { Ingreso } from '../../../interfaces/ingreso.interface';
 import {
   FormBuilder,
   FormGroup,
@@ -15,25 +15,25 @@ import {
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { EpisodiMedic } from '../../../../../../../../libs/interfaces/episodis-medics.interface';
+import { EpisodiMedic } from '../../../interfaces/episodis-medics.interface';
 import {
   MatOptionModule,
   provideNativeDateAdapter,
 } from '@angular/material/core';
-import { EpisodiService } from '../../../../../../../../libs/services/episodis.service';
-import { Cama } from '../../../../../../../../libs/interfaces/cama.interface';
-import { CamaService } from '../../../../../../../../libs/services/cama.service';
+import { EpisodiService } from '../../../services/episodis.service';
+import { Cama } from '../../../interfaces/cama.interface';
+import { CamaService } from '../../../services/cama.service';
 import { CommonModule } from '@angular/common';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
-import { CustomDateAdapter } from '../../../../custom-date-adapter';
+import { CustomDateAdapter } from '../../../../apps/GoldenFold/src/app/custom-date-adapter';
 import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
 import {
   dataInici,
   dataIniciFinalValidator,
-} from '../../../../../../../../libs/validators/ingresos.validators';
+} from '../../../validators/ingresos.validators';
 
 export const MY_DATE_FORMATS = {
   parse: {
