@@ -1,5 +1,5 @@
-import { DialogFormularioMedicoModifComponent } from './../../forms/Medico/dialog-formulario-medico-modif.component';
-import { UsuarioService } from './../../services/usuario.service';
+import { DialogFormularioMedicoModifComponent } from '../../forms/Medico/dialog-formulario-medico-modif.component';
+import { UsuarioService } from '../../services/usuario.service';
 import { Component, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { Medico } from '../../interfaces/medico.interface';

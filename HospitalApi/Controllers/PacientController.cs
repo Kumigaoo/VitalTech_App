@@ -15,7 +15,8 @@ namespace HospitalAPI.Controllers
 {
 
     [Route("api/[controller]")]
-    [Authorize(Roles = "metge, admin")]
+    // [Authorize(Roles = "metge, admin")]
+    [Authorize]
     [ApiController]
 
     public class PacientController : ControllerBase

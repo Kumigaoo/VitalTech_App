@@ -1,3 +1,9 @@
+:root {
+
+  --long-title: 100px;
+
+}
+
 .fondo {
   background-color: antiquewhite;
   height: 550px;
@@ -40,7 +46,7 @@
 .title {
   display: flex;
   margin-top: 1em;
-  margin-left: 35.8vw;
+  margin-left: calc(35.8vw - var(--long-title)/2);
   margin-right: 50em;
   width: 30em;
 
