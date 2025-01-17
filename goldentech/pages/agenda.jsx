@@ -64,9 +64,17 @@ function ListaCitas({citas, onSelect, selectedCita}){
 
 export default function Agenda(){
     const [selectedCita, setSelectedCita] = useState(null);
+    const [citas, setCitas] = useState(CITAS);
 
     const handleClose = () => {
         setSelectedCita(null); // Cerrar la caja de información
+    };
+
+
+    const handleCancelCita = () => {
+        // Eliminar la cita seleccionada de la lista
+        setCitas(citas.filter(cita => cita !== selectedCita));
+        setSelectedCita(null); // Opcional: cerrar la caja de información después de eliminar
     };
 
     return (
@@ -74,7 +82,7 @@ export default function Agenda(){
             <Header />
             <h1 className="cita-title">Agenda</h1>
             <div className="agenda-container">
-                <ListaCitas citas={CITAS} onSelect={(cita) => setSelectedCita(cita)} selectedCita={selectedCita}/>
+                <ListaCitas citas={citas} onSelect={(cita) => setSelectedCita(cita)} selectedCita={selectedCita}/>
                 {selectedCita && (
                     <Box className="cita-info-box" sx={{marginLeft: 2, padding: 2, border: '1px solid #ddd', borderRadius: '8px', backgroundColor: '#f9f9f9'}}>
                         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -93,7 +101,7 @@ export default function Agenda(){
                         <Typography variant="body1"><strong>Doctor:</strong> {selectedCita.doctor}</Typography>
                         <Typography variant="body1"><strong>Planta:</strong> {selectedCita.planta}</Typography>
                         <Typography variant="body1"><strong>Piso:</strong> {selectedCita.piso}</Typography>
-                        <button className="agenda-button-cell">Cancelar cita</button>
+                        <button className="agenda-button-cell" onClick={handleCancelCita}>Cancelar cita</button>
                         <Typography variant="body1" style={{margin: "0px", color: "rgb(88, 85, 85)", fontFamily: "'Roboto', sans-serif", fontSize: '0.8em'}}>
                             Si desea modificar la cita, cambiar la fecha o otro motivo, por favor contacte directamente con el hospital o con su doctor para realizar los ajustes necesarios.
                         </Typography>
