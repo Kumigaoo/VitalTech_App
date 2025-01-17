@@ -3,6 +3,9 @@ import { useRouter } from 'next/router';
 
 export default function Header() {
   const router = useRouter();
+
+  const isActive = (paths) => paths.includes(router.pathname);
+  
     return (
       <header className="header">
         <div className="header-logo">
@@ -19,7 +22,7 @@ export default function Header() {
             <span className={router.pathname === '/diagnosticos' ? 'active' : ''}>Diagnosticos</span>
           </Link>
           <Link href="/citas" style={{ textDecoration: 'none', color: 'inherit' }} passHref>
-            <span className={router.pathname === '/citas' ? 'active' : ''}>Citas</span>
+          <span className={isActive(['/citas', '/agenda']) ? 'active' : ''}>Citas</span>
           </Link>
           <span>Perfil</span>
         </nav>

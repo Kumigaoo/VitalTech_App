@@ -402,3 +402,78 @@
   flex-direction: column;
   margin-left: 10px;
 }
+
+.agenda-list {
+  display: flex;
+  flex-direction: column;
+  margin-left: 20px;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 20px;
+  flex: 1;
+}
+
+.agenda-rowbox{
+  display: flex;
+  flex-direction: row;
+  width: 300px; /* Asegura que el input ocupe todo el ancho del contenedor */
+  border: 2px solid #3b83bd; /* Cambia el color y grosor del borde */
+  border-radius: 10px; /* Redondea las esquinas */
+  background-color: #f9f9f9; /* Cambia el fondo */
+  outline: none; /* Quita el borde azul de enfoque */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Añade una sombra sutil */
+  transition: border-color 0.3s, box-shadow 0.3s; /* Suaviza las transiciones */
+  height: 100px;
+  justify-content: space-between;
+}
+
+.agenda-info{
+  display: flex;
+  flex-direction: column;
+  margin-left: 20px;
+  margin-top: 20px;
+}
+
+.agenda-info p {
+  margin: 5px 0; /* Margen vertical mínimo entre los párrafos */
+}
+
+.agenda-button {
+  display: flex;
+  align-items: center; /* Centra el icono verticalmente */
+  justify-content: center; /* Opcional, centra también horizontalmente si hay más espacio */
+  margin-right: 20px;
+  
+}
+
+.agenda-container {
+  display: flex;
+  flex-direction: row;
+
+}
+
+.cita-info-box {
+  flex: 1;
+  width: 900px;
+  margin-right: 30px;
+  height: 300px;
+  margin-top: 20px;
+}
+
+.agenda-button-cell {
+  margin-left: auto; /* Alinea el botón a la derecha */
+  background-color: #3b83bd;
+  color: white;
+  border: none;
+  border-radius: 25px; /* Hace que el botón sea redondo */
+  width: 100px; /* Ajusta el ancho */
+  height: 30px; /* Ajusta la altura para que sea un círculo perfecto */
+  font-size: 0.8em; /* Ajusta el tamaño del texto dentro del botón */
+  cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.agenda-button-cell:hover {
+  background-color: #0b5ea1;
+}
