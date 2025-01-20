@@ -15,12 +15,14 @@ export default function MainContent() {
             alt="imagen de diagnosticos"
           />
         </Link>
-        <Element
-          title="Medicación"
-          parraf="Consulta tu medicación recetada"
-          image="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.diariodevalderrueda.es%2Fimages%2Fshowid2%2F3110427%3Fw%3D1200%26zc%3D4&f=1&nofb=1&ipt=6b2a3778f3a1e9c9907a94b575d814c0a1079fab8fab84256ab02b0d42db7b6b&ipo=images"
-          alt="imagen de medicación"
-        />
+        <Link href="/medicacion" style={{ textDecoration: 'none', color: 'inherit' }}>
+          <Element
+            title="Medicación"
+            parraf="Consulta tu medicación recetada"
+            image="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.diariodevalderrueda.es%2Fimages%2Fshowid2%2F3110427%3Fw%3D1200%26zc%3D4&f=1&nofb=1&ipt=6b2a3778f3a1e9c9907a94b575d814c0a1079fab8fab84256ab02b0d42db7b6b&ipo=images"
+            alt="imagen de medicación"
+          />
+        </Link>
         <Link href="/citas" style={{ textDecoration: 'none', color: 'inherit' }}>
           <Element
             title="Citas"

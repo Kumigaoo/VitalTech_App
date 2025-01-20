@@ -42,3 +42,16 @@ const LoginPage = () => (
 
 export default LoginPage;
 */
+function HeaderContent() {
+    
+}
+
+export default function LoginPage() {
+    return (
+        <>
+
+        </>
+    )
+}
+
+

@@ -5,7 +5,7 @@ export default function Header() {
   const router = useRouter();
 
   const isActive = (paths) => paths.includes(router.pathname);
-  
+
     return (
       <header className="header">
         <div className="header-logo">
@@ -23,6 +23,9 @@ export default function Header() {
           </Link>
           <Link href="/citas" style={{ textDecoration: 'none', color: 'inherit' }} passHref>
           <span className={isActive(['/citas', '/agenda']) ? 'active' : ''}>Citas</span>
+          </Link>
+          <Link href="/medicacion" style={{ textDecoration: 'none', color: 'inherit' }} passHref>
+          <span  className={router.pathname === '/medicacion' ? 'active' : ''}>Medicación</span>
           </Link>
           <span>Perfil</span>
         </nav>
