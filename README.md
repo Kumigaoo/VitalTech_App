@@ -104,7 +104,8 @@ El proyecto está organizado en un monorepo que sigue las mejores prácticas par
    npm install -g nx
    ```   
 
-**Para la aplicación React(GoldenTech)
+
+**Para la aplicación React(GoldenTech)**
 1. Accede al directorio de la aplicación GoldenTech.
 2. Instala las dependencias necesarias:
    ```plaintext
