@@ -1,4 +1,4 @@
-import App from 'next/app'
+import App from './app'
 import '../src/styles.css'; // Importa el archivo de estilos
  
 export default function MyApp({ Component, pageProps, example }) {
