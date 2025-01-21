@@ -2,10 +2,6 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/": "pages/index.js",
-  "/diagnosticos": "pages/diagnosticos.js",
-  "/citas": "pages/citas.js",
-  "/agenda": "pages/agenda.js",
   "/medicacion": "pages/medicacion.js",
   "/main": "pages/main.js",
   "/pacientes": "pages/pacientes.js"
