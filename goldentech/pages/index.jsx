@@ -1,6 +1,5 @@
-import React from 'react';
-import App from './app';
-import '../src/styles.css'; // Importa el archivo de estilos
+import React from 'react'
+import App from './next/app'
 
 export default function Home() {
   
