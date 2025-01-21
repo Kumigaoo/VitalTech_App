@@ -1,0 +1,9 @@
+.agendatitle {
+  color: black;
+  font-family: 'Roboto', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  margin-left: 20px;
+  margin-bottom: 5px;
+}
