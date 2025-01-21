@@ -1,13 +1,9 @@
-import Footer from '../src/components/footer/Footer'
-import Header from '../src/components/header/header'
-import Main from './main'
+import Login from '../src/components/login/login'
 
 export default function App() {
     return (
         <>
-            <Header/>
-            <Main />
-            <Footer/>
+            <Login />
         </>        
     );
 }
