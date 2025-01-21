@@ -1,5 +1,7 @@
 {
   "dependencies": {
-    "all": "^0.0.0"
+    "@mui/x-date-pickers": "^7.24.0",
+    "all": "^0.0.0",
+    "dayjs": "^1.11.13"
   }
 }
