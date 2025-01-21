@@ -14,3 +14,36 @@ Características Principales
     Administración de Personal: Organiza los turnos y horarios del personal, asegurando una cobertura adecuada en todo momento.
     Alertas y Notificaciones: Recibe notificaciones sobre eventos importantes, como citas próximas o cambios en el estado de los pacientes.
     Informes y Estadísticas: Genera informes detallados y estadísticas para una mejor toma de decisiones.
+
+----------
+
+API:
+dotnet watch --launch-profile https
+
+Runnear fronts:
+
+nx serve --ssl
+
+------------
+
+clonar:
+
+Desde el raiz: npm install -g nx
+Dentro de las apps explicitas pones:
+npm install
+npm install fuse.js --save
+npm install @angular/material
+Para runear : nx serve --ssl
+
+
+
+-------
+
+REACT:
+
+npm run dev
+
+
+https: 
+
+npx next dev --experimental-https
