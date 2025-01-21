@@ -56,7 +56,7 @@ El proyecto está organizado en un monorepo que sigue las mejores prácticas par
   - Angular (VitalTech y Goldenfold).
   - React (GoldenTech).
 
-- Basckend:
+- Backend:
   - ASP.NET para la API.
 
 - Monorepo:
