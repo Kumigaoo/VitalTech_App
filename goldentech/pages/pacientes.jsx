@@ -9,7 +9,7 @@ export default function Pacientes() {
   useEffect(() => {
     const fetchPacientes = async () => {
       try {
-        const response = await fetch('http://localhost:5296/api/Pacient');
+        const response = await fetch('https://localhost:7200/api/Pacient');
         const data = await response.json();
         setPacientes(data);
       } catch (error) {
