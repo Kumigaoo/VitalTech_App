@@ -4,15 +4,15 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 First, run the development server:
 
-```bash
-
 API:
+```bash
 dotnet watch --launch-profile https
-
+```
 Runnear fronts:
 
+```bash
 nx serve --ssl
-
+```
 ------------
 
 clonar:
@@ -27,16 +27,16 @@ Para runear : nx serve --ssl
 -------
 
 REACT:
-
+```bash
 npm run dev
-
+```
 
 https: 
-
+```bash
 npx next dev --experimental-https
-
-
 ```
+
+
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
