@@ -1,7 +1,7 @@
 import App from 'next/app'
-import '../src/styles.css'; // Importa el archivo de estilos
+import '../src/styles.css' // Importa el archivo de estilos
  
-export default function MyApp({ Component, pageProps, example }) {
+export default function Myapp({ Component, pageProps, example }) {
   return (
     <>
       <p>Data: {example}</p>
@@ -10,7 +10,7 @@ export default function MyApp({ Component, pageProps, example }) {
   )
 }
  
-MyApp.getInitialProps = async (context) => {
+Myapp.getInitialProps = async (context) => {
   const ctx = await App.getInitialProps(context)
  
   return { ...ctx, example: 'data' }

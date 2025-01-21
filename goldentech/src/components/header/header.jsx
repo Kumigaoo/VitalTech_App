@@ -9,10 +9,10 @@ export default function Header() {
     return (
       <header className="header">
         <div className="header-logo">
-          <Link href="/app" style={{ textDecoration: 'none', color: 'inherit' }} passHref>
+          <Link href="/main" style={{ textDecoration: 'none', color: 'inherit' }} passHref>
             <img src="/assets/goldentech.png" alt="GoldenTech Logo" />
           </Link>
-          <Link href="/app" style={{ textDecoration: 'none', color: 'inherit' }} passHref>
+          <Link href="/main" style={{ textDecoration: 'none', color: 'inherit' }} passHref>
           <span className="header-title">GoldenTech</span>
 
           </Link>
