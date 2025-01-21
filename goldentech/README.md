@@ -5,7 +5,37 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 First, run the development server:
 
 ```bash
+
+API:
+dotnet watch --launch-profile https
+
+Runnear fronts:
+
+nx serve --ssl
+
+------------
+
+clonar:
+
+Desde el raiz: npm install -g nx
+Dentro de las apps explicitas pones:
+npm install
+npm install fuse.js --save
+npm install @angular/material
+Para runear : nx serve --ssl
+
+-------
+
+REACT:
+
 npm run dev
+
+
+https: 
+
+npx next dev --experimental-https
+
+
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
