@@ -4,11 +4,42 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 First, run the development server:
 
+API:
+```bash
+dotnet watch --launch-profile https
+```
+Runnear fronts:
+
+```bash
+nx serve --ssl
+```
+------------
+
+clonar:
+
+Desde el raiz: 
+```bash
+npm install -g nx
+```
+
+Dentro de las apps explicitas pones:
+```bash
+npm i fuse.js --save @angular/material
+```
+
+Para ejecutar REACT:
 ```bash
 npm run dev
 ```
 
-Open [http://localhost:4202](http://localhost:4202) with your browser to see the result.
+https: 
+```bash
+npx next dev --experimental-https
+```
+
+
+
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
