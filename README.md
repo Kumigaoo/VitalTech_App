@@ -7,7 +7,7 @@ VitalTech_App es un ecosistema de aplicaciones diseñado para gestionar y optimi
 2. [Arquitectura del Proyecto](#id2)
 3. [Aplicaciones Incluidas](#id3)
 4. [Tecnologías Utilizadas](#id4)
-5. [Instalación y Configuración](#id5)
+5. [Configuración y Ejecución](#id5)
 
 
 
@@ -65,28 +65,23 @@ El proyecto está organizado en un monorepo que sigue las mejores prácticas par
 - Base de datos:
   - Compartida entre todas las aplicaciones para garantizar integridad y consistencia.
 
-## Instalación y Configuración
+## Configuración y Ejecución
 <div id='id5' />
-    
-### Requisitos previos
-- Node.js
-- .NET SDK
-- Angular CLI
-- NX CLI
-- Base de datos configurada
 
-### Ejecución de la API
-1. Asegúrate de tener un entorno seguro configurado para HTTPS.
-2. Ejecuta el siguiente comando para iniciar la API:
+1. **Requisitos previos**:
+    - Node.js
+    - .NET SDK
+    - Angular CLI
+    - NX CLI
+    - Base de datos configurada
+
+2. **Clonar el repositorio**:
     ```plaintext
-    dotnet watch --launch-profile https
-    ````
-3. La API requiere autenticación mediante Keycloak. Asegúrate de tener un usuario creado con los permisos adecuados. Puedes iniciar sesión en cualquiera de las aplicaciones Angular para autenticarte.
+    git clone https://github.com/tu-usuario/vitaltech_app.git
+    cd vitaltech_app
+    ```
 
-### Instalación y Configuración de las Aplicaciones
-
-**En la raiz del proyecto**
-1. Instalar NX globalmente:
+3. **Instalar dependencias**:
     ```plaintext
     npm install -g nx
     ```
