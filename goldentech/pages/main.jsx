@@ -1,9 +1,35 @@
 import Link from 'next/link';
+import Footer from '../src/components/footer/Footer'
+import Header from '../src/components/header/header'
+
+function Presentation() {
+  return (
+    <div className="main-presentation">
+      <h1>Bienvenido a Goldentech</h1>
+      <p className="main-p">
+        Tu salud es nuestra prioridad. Descubra nuestra amplia gama de servicios
+        diseñados para mantenerlo informado y saludable.
+      </p>
+    </div>
+  );
+}
+
+function Element(props) {
+  return (
+    <div className="main-element">
+      <p className="main-element-negrita">{props.title}</p>
+      <p className="main-p">{props.parraf}</p>
+      <img className="main-element-img" src={props.image} alt={props.alt} />
+    </div>
+  );
+}
+
 
 export default function MainContent() {
 
   return (
     <main>
+      <Header />
       <Presentation />
       <div className="main-elements">
         <Link href="/diagnosticos" style={{ textDecoration: 'none', color: 'inherit' }}>
@@ -42,28 +68,9 @@ export default function MainContent() {
         </Link>
         
       </div>
+      <Footer />
     </main>
   );
 }
 
-export function Presentation() {
-  return (
-    <div className="main-presentation">
-      <h1>Bienvenido a Goldentech</h1>
-      <p className="main-p">
-        Tu salud es nuestra prioridad. Descubra nuestra amplia gama de servicios
-        diseñados para mantenerlo informado y saludable.
-      </p>
-    </div>
-  );
-}
 
-export function Element(props) {
-  return (
-    <div className="main-element">
-      <p className="main-element-negrita">{props.title}</p>
-      <p className="main-p">{props.parraf}</p>
-      <img className="main-element-img" src={props.image} alt={props.alt} />
-    </div>
-  );
-}

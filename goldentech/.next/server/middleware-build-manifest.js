@@ -1,1 +1,44 @@
+<<<<<<< HEAD
 self.__BUILD_MANIFEST={"pages":{"/_app":["static/chunks/node_modules_next_74365f._.js","static/chunks/node_modules_react-dom_82bb97._.js","static/chunks/node_modules_1b7400._.js","static/chunks/[root of the server]__10915c._.js","static/chunks/src_styles_4370ef.css","static/chunks/pages__app_5771e1._.js","static/chunks/pages__app_613985._.js"],"/_error":["static/chunks/[root of the server]__31723f._.js","static/chunks/node_modules_react-dom_82bb97._.js","static/chunks/node_modules_beb007._.js","static/chunks/[root of the server]__2e1cf5._.js","static/chunks/pages__error_5771e1._.js","static/chunks/pages__error_b8c4c3._.js"],"/":["static/chunks/node_modules_next_32b372._.js","static/chunks/node_modules_react-dom_82bb97._.js","static/chunks/node_modules_1b7400._.js","static/chunks/[root of the server]__361ccf._.js","static/chunks/pages_index_5771e1._.js","static/chunks/pages_index_788e5e._.js"]},"devFiles":[],"ampDevFiles":[],"polyfillFiles":[],"lowPriorityFiles":["static/development/_ssgManifest.js","static/development/_buildManifest.js"],"rootMainFiles":[],"ampFirstPages":[]};
+=======
+self.__BUILD_MANIFEST = {
+  "polyfillFiles": [
+    "static/chunks/polyfills.js"
+  ],
+  "devFiles": [
+    "static/chunks/react-refresh.js"
+  ],
+  "ampDevFiles": [],
+  "lowPriorityFiles": [],
+  "rootMainFiles": [],
+  "rootMainFilesTree": {},
+  "pages": {
+    "/_app": [
+      "static/chunks/webpack.js",
+      "static/chunks/main.js",
+      "static/chunks/pages/_app.js"
+    ],
+    "/_error": [
+      "static/chunks/webpack.js",
+      "static/chunks/main.js",
+      "static/chunks/pages/_error.js"
+    ],
+    "/main": [
+      "static/chunks/webpack.js",
+      "static/chunks/main.js",
+      "static/chunks/pages/main.js"
+    ],
+    "/pacientes": [
+      "static/chunks/webpack.js",
+      "static/chunks/main.js",
+      "static/chunks/pages/pacientes.js"
+    ]
+  },
+  "ampFirstPages": []
+};
+self.__BUILD_MANIFEST.lowPriorityFiles = [
+"/static/" + process.env.__NEXT_BUILD_ID + "/_buildManifest.js",
+,"/static/" + process.env.__NEXT_BUILD_ID + "/_ssgManifest.js",
+
+];
+>>>>>>> f33dfe4fac277e808a51286c6beccac9d619200c
