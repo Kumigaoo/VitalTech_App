@@ -24,16 +24,10 @@ npm install -g nx
 
 Dentro de las apps explicitas pones:
 ```bash
-npm install
-npm install fuse.js --save
-npm install @angular/material
-Para runear : nx serve --ssl
+npm i fuse.js --save @angular/material
 ```
 
-
--------
-
-REACT:
+Para ejecutar REACT:
 ```bash
 npm run dev
 ```
