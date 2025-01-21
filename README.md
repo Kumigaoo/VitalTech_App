@@ -1,21 +1,110 @@
-# 🌟 VitalTechApp 🌟
-Descripción
+# VitalTech_App
 
-VitalTechApp es una innovadora aplicación de gestión hospitalaria diseñada para optimizar y simplificar la administración de hospitales y clínicas. Con VitalTechApp, puedes gestionar de manera eficiente:
+VitalTech_App es un ecosistema de aplicaciones diseñado para gestionar y optimizar las operaciones hospitalarias. Este proyecto incluye tres aplicaciones principales que están integradas mediante una arquitectura robusta y moderna. A continuación, se describen las características y estructura del proyecto.
 
-    🏥 Pacientes: Registro, seguimiento y actualización de la información de los pacientes.
-    🛏️ Habitaciones: Asignación y control de disponibilidad de habitaciones.
-    👩‍⚕️👨‍⚕️ Personal: Gestión de horarios, turnos y disponibilidad del personal médico y administrativo.
+## Índice
+1. [Descripción General](#id1)
+2. [Arquitectura del Proyecto](#id2)
+3. [Aplicaciones Incluidas](#id3)
+4. [Tecnologías Utilizadas](#id4)
+5. [Configuración y Ejecución](#id5)
 
-Características Principales
 
-    Gestión de Pacientes: Registra y actualiza la información de los pacientes, incluyendo historial médico, tratamientos y citas.
-    Control de Habitaciones: Monitorea la disponibilidad y asignación de habitaciones en tiempo real.
-    Administración de Personal: Organiza los turnos y horarios del personal, asegurando una cobertura adecuada en todo momento.
-    Alertas y Notificaciones: Recibe notificaciones sobre eventos importantes, como citas próximas o cambios en el estado de los pacientes.
-    Informes y Estadísticas: Genera informes detallados y estadísticas para una mejor toma de decisiones.
 
-----------
+    
+## Descripción General
+<div id='id1' />
+VitalTech_App nació como una única aplicación llamada VitalTech, dirigida al personal hospitalario. Con el tiempo, se adquirió otra aplicación similar llamada Goldenfold, que también estaba orientada al personal hospitalario. Para optimizar el desarrollo y mantenimiento, ambas aplicaciones fueron integradas en un monorepo utilizando NX.
+
+Más adelante, se creó GoldenTech, una aplicación React enfocada en proporcionar servicios directamente a los pacientes, sirviendo como puente entre ambas aplicaciones Angular y ampliando el alcance del sistema.
+
+## Arquitectura del Proyecto
+<div id='id2' />
+El proyecto está organizado en un monorepo que sigue las mejores prácticas para el desarrollo y mantenimiento de múltiples aplicaciones:
+
+- **Monorepo**: Utiliza NX para gestionar las aplicaciones VitalTech y Goldenfold, ambas construidas con Angular.
+
+- **Aplicación independiente**: GoldenTech, desarrollada con React, se integra con las funcionalidades comunes mediante API.
+
+- **Backend**: La API del sistema está desarrollada con ASP.NET.
+
+- **Base de datos compartida**: Todas las aplicaciones comparten una base de datos común para garantizar la consistencia de los datos.
+
+## Aplicaciones Incluidas
+<div id='id3' />
+    
+**1. Vitaltech**
+- Dirigida al personal hospitalario.
+- Permite gestionar procesos administrativos y clínicos.
+- Construida con Angular y alojada en el monorepo.
+
+**2. Goldenfold**
+- También dirigida al personal hospitalario.
+- Comparte funcionalidades comunes con VitalTech.
+- Construida con Angular y alojada en el monorepo.
+
+**3. GoldenTech**
+- Dirigida a los pacientes.
+- Combina y extiende funcionalidades de VitalTech y Goldenfold.
+- Construida con React como una aplicación independiente.
+
+
+## Tecnologías Utilizadas
+<div id='id4' />
+
+- Frontend:
+  - Angular (VitalTech y Goldenfold).
+  - React (GoldenTech).
+
+- Basckend:
+  - ASP.NET para la API.
+
+- Monorepo:
+  - NX para la gestión del código.
+
+- Base de datos:
+  - Compartida entre todas las aplicaciones para garantizar integridad y consistencia.
+
+## Configuración y Ejecución
+<div id='id5' />
+
+1. **Requisitos previos**:
+    - Node.js
+    - .NET SDK
+    - Angular CLI
+    - NX CLI
+    - Base de datos configurada
+
+2. **Clonar el repositorio**:
+    ```plaintext
+    git clone https://github.com/tu-usuario/vitaltech_app.git
+    cd vitaltech_app
+    ```
+
+3. **Instalar dependencias**:
+    ```plaintext
+    npm install
+    ```
+    
+4. **Ejecución de aplicaciones**:
+    - **VitalTech / Goldenfold**:
+        ```plaintext
+        nx serve --ssl
+        ```
+
+    - **GoldenTech**:
+        ```plaintext
+        npm run dev
+        ```
+
+4. **Ejecución de la API**:
+    - Desde el directorio del backend:
+      ```plaintext
+      dotnet watch --launch-profile https
+      ```
+
+
+---------
 
 API:
 dotnet watch --launch-profile https
@@ -68,7 +157,7 @@ npm install dayjs
 
 npm install @mui/x-date-pickers
 Ejecutar:
-npm run 
+npm run dev
 
 
 
