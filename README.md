@@ -40,8 +40,36 @@ Para runear : nx serve --ssl
 -------
 
 REACT:
+Instalar:
+npm install
+ 
+npm install @fortawesome/free-solid-svg-icons
 
-npm run dev
+ 
+npm install @fortawesome/react-fontawesome @fortawesome/fontawesome-svg-core
+
+ 
+npm install @fortawesome/react-fontawesome
+
+ 
+npm install @fortawesome/fontawesome-svg-core @fortawesome/free-solid-svg-icons
+
+ 
+npm install @mui/material @emotion/react @emotion/styled
+
+ 
+npm install @mui/icons-material
+
+ npm install axios
+
+ npm install @mui/lab
+
+npm install dayjs
+
+npm install @mui/x-date-pickers
+Ejecutar:
+npm run 
+
 
 
 https: 
