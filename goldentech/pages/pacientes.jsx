@@ -4,8 +4,13 @@ import Header from "../src/components/header/header";
 import Footer from "../src/components/footer/Footer";
 
 export default function Pacientes() {
+
+  //en 'pacientes' vamos a guardar la lista de pacientes; setPacientes es una func. para cambiar el valor de pacientes; useState[] establece
+  //que pacientes 
   const [pacientes, setPacientes] = useState([]);
 
+  //el use effect hace que se ejecute esto solo 1 vez cuando se MONTA el componente, entendiendo por montar exclusivamente la 1a renderización
+  //del componente. por ej, cuando pulas en el botón "pacientes" desde "main", es en ese momento cuando se ejecuta el useEffect y ya no más
   useEffect(() => {
     const fetchPacientes = async () => {
       try {
