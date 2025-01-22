@@ -3,6 +3,7 @@ import Header from "../src/components/header/header";
 import React, { useState } from 'react';
 import { Box, IconButton, Typography } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';import CloseIcon from '@mui/icons-material/Close';
+import Calendario from "../src/components/calendar/calendar";
 
 const CITAS = [
     { motivo: "Consulta general", fecha: "2025-01-15", hora: "8:20", doctor: "Dr. Juan Pérez", planta: "Cardiología", piso: "3" },
@@ -107,6 +108,7 @@ export default function Agenda(){
                         </Typography>
                     </Box>
                 )}
+                <Calendario />
             </div>
             
             <Footer />
