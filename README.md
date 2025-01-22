@@ -120,5 +120,5 @@ El proyecto está organizado en un monorepo que sigue las mejores prácticas par
     ```
 4. Ejecuta la aplicación con soporte HTTPS:
    ```plaintext
-    https://localhost:4202npx next dev --experimental-https
+    npx next dev --experimental-https --port=4000s
    ```
