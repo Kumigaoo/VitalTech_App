@@ -9,11 +9,10 @@ export default function Pacientes() {
   useEffect(() => {
     const fetchPacientes = async () => {
       try {
-        const response = await fetch('https://localhost:7200/api/Pacient');
-        const data = await response.json();
+        const data = await getPacients(); 
         setPacientes(data);
       } catch (error) {
-        console.error('Error obteniendo pacientes con fetch:', error);
+        console.error('Error obteniendo pacientes con el servicio:', error);
       }
     };
   
@@ -46,6 +45,11 @@ export default function Pacientes() {
           ))}
         </tbody>
       </table>
+
+      <br></br>
+      <br></br>
+      
+      
       
       <Footer/>
     </div>
