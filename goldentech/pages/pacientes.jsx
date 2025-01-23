@@ -5,7 +5,7 @@ import Footer from "../src/components/footer/Footer";
 
 export default function Pacientes() {
   //en 'pacientes' vamos a guardar la lista de pacientes; setPacientes es una func. para cambiar el valor de pacientes; useState[] establece
-  //que pacientes
+  //que pacientes se inicia vacío:
   const [pacientes, setPacientes] = useState([]);
 
   //idem para guardar los episodios de 1 paciente concreto:
@@ -16,7 +16,9 @@ export default function Pacientes() {
   useEffect(() => {
     const fetchPacientes = async () => {
       try {
+        //guardamos en data toda la info de todos los pacientes:
         const data = await getPacients();
+        //grabamos dicha info en el array definido arriba ("pacientes"):
         setPacientes(data);
       } catch (error) {
         console.error("Error obteniendo pacientes con el servicio: ", error);
