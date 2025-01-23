@@ -6,17 +6,15 @@ import { CITAS } from "../../../pages/agenda";
 import "./calendar.css";
 import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
-
 const localizer = momentLocalizer(moment);
 const DnDCalendar = withDragAndDrop(Calendar);
-
 class Calendario extends Component {
   state = {
     events: CITAS.map((cita) => {
       return {
         title: cita.motivo,
-        start: cita.start,
-        end: cita.end,
+        start: moment(cita.start).subtract(1, "month").toDate(),
+        end: moment(cita.end).subtract(1, "month").toDate(),
       };
     }),
   };
