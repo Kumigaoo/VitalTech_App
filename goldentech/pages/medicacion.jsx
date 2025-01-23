@@ -3,10 +3,11 @@ import Header from "../src/components/header/header";
 import styles from "../src/styles/medicacion.module.css"
 import React, { useState } from 'react';
 import { Box, IconButton, Typography } from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';import CloseIcon from '@mui/icons-material/Close';
+import AddIcon from '@mui/icons-material/Add';
+import CloseIcon from '@mui/icons-material/Close';
 
 const MedicacionList = [
-    { motivo: "Consulta general", fecha: "2025-01-15", hora: "8:2", piso: "3" },
+    { medicamento: "Ibuprofeno", dosis: "1 cada 6h", caducidadPrescripcion: "29-12-2027", doctorRecetado: "Juan Luis Lopez" }
 ];
 
 function MedicacionRow({medicacion, onSelect, isSelected}){
@@ -18,9 +19,9 @@ function MedicacionRow({medicacion, onSelect, isSelected}){
                 cursor: 'pointer', // Añadir un cursor de mano para indicar interactividad
             }}>
             <div className="agenda-info">
-                <p style={{margin: "0px", color: "rgb(88, 85, 85)", fontFamily: "'Roboto', sans-serif", fontSize: '0.8em'}}>{medicacion.fecha} · {medicacion.hora}</p>
-                <p style={{margin: "0px", fontWeight: 'bold', fontFamily: "'Roboto', sans-serif", fontSize: '1.0em'}}>{medicacion.motivo}</p>
-                <p style={{margin: "0px", fontFamily: "'Roboto', sans-serif", fontSize: '1.0em'}}>{medicacion.planta}</p>
+                <p style={{margin: "0px", color: "rgb(88, 85, 85)", fontFamily: "'Roboto', sans-serif", fontSize: '0.8em'}}>{medicacion.caducidadPrescripcion}</p>
+                <p style={{margin: "0px", fontWeight: 'bold', fontFamily: "'Roboto', sans-serif", fontSize: '1.0em'}}>{medicacion.medicamento}</p>
+                <p style={{margin: "0px", fontFamily: "'Roboto', sans-serif", fontSize: '1.0em'}}>{medicacion.dosis}</p>
             </div>
             <div className="agenda-button">
                 <IconButton 
@@ -83,7 +84,7 @@ export default function MedicationPage(){
                 {selectedMedicacion && (
                     <Box className="cita-info-box" sx={{marginLeft: 2, padding: 2, border: '1px solid #ddd', borderRadius: '8px', backgroundColor: '#f9f9f9'}}>
                         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                            <Typography variant="h6" gutterBottom>{selectedMedicacion.motivo}</Typography>
+                            <Typography variant="h6" gutterBottom>{selectedMedicacion.medicamento}</Typography>
                             <IconButton
                                 sx={{
                                     color: 'grey',
@@ -93,15 +94,11 @@ export default function MedicationPage(){
                                 <CloseIcon />
                             </IconButton>
                         </div>
-                        <Typography variant="body1"><strong>Fecha:</strong> {selectedMedicacion.fecha}</Typography>
-                        <Typography variant="body1"><strong>Hora:</strong> {selectedMedicacion.hora}</Typography>
-                        <Typography variant="body1"><strong>Doctor:</strong> {selectedMedicacion.doctor}</Typography>
-                        <Typography variant="body1"><strong>Planta:</strong> {selectedMedicacion.planta}</Typography>
-                        <Typography variant="body1"><strong>Piso:</strong> {selectedMedicacion.piso}</Typography>
-                        <button className="agenda-button-cell" onClick={handleCancelMedicacion}>Cancelar cita</button>
-                        <Typography variant="body1" style={{margin: "0px", color: "rgb(88, 85, 85)", fontFamily: "'Roboto', sans-serif", fontSize: '0.8em'}}>
-                            Si desea modificar la cita, cambiar la fecha o otro motivo, por favor contacte directamente con el hospital o con su doctor para realizar los ajustes necesarios.
-                        </Typography>
+                        <Typography variant="body1"><strong>Fecha Caducidad:</strong> {selectedMedicacion.caducidadPrescripcion}</Typography>
+                        <Typography variant="body1"><strong>Dosis:</strong> {selectedMedicacion.dosis}</Typography>
+                        <Typography variant="body1"><strong>Doctor:</strong> {selectedMedicacion.doctorRecetado}</Typography>
+                        <button className={styles.button_cell} onClick={handleCancelMedicacion}>Cancelar medicacion</button>
+                        <button className={styles.button_cell} onClick={handleCancelMedicacion}>Aplazar caducidad</button>
                     </Box>
                 )}
             </div>
