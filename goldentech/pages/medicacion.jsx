@@ -84,7 +84,7 @@ export default function MedicationPage(){
                 {selectedMedicacion && (
                     <Box className="cita-info-box" sx={{marginLeft: 2, padding: 2, border: '1px solid #ddd', borderRadius: '8px', backgroundColor: '#f9f9f9'}}>
                         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                            <Typography variant="h6" gutterBottom>{selectedMedicacion.motivo}</Typography>
+                            <Typography variant="h6" gutterBottom>{selectedMedicacion.medicamento}</Typography>
                             <IconButton
                                 sx={{
                                     color: 'grey',
@@ -94,7 +94,6 @@ export default function MedicationPage(){
                                 <CloseIcon />
                             </IconButton>
                         </div>
-                        <Typography variant="body1"><strong>Medicamento:</strong> {selectedMedicacion.medicamento}</Typography>
                         <Typography variant="body1"><strong>Fecha Caducidad:</strong> {selectedMedicacion.caducidadPrescripcion}</Typography>
                         <Typography variant="body1"><strong>Dosis:</strong> {selectedMedicacion.dosis}</Typography>
                         <Typography variant="body1"><strong>Doctor:</strong> {selectedMedicacion.doctorRecetado}</Typography>
