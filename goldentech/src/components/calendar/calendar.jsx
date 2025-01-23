@@ -30,7 +30,13 @@ class Calendario extends Component {
   };
 
   onEventDrop = (data) => {
-    console.log(data);
+    const { start, end } = data;
+
+    this.setState((state) => {
+      state.events[0].start = start;
+      state.events[0].end = end;
+      return { events: [...state.events] };
+    });
   };
 
   render() {
