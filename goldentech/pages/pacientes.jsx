@@ -1,28 +1,31 @@
 import { useEffect, useState } from "react";
-import { getPacients } from "../src/services/apiService";
+import { fetchPacientes } from "../utils/api";
 import Header from "../src/components/header/header";
 import Footer from "../src/components/footer/Footer";
 
 export default function Pacientes() {
-  const [pacientes, setPacientes] = useState([]);
+  const [pacientes, setPacientes] = useState([]); // Cambié 'obtenerPacientes' a 'setPacientes'
+  const [error, setError] = useState(null); // Necesitas definir el estado de error
 
   useEffect(() => {
-    const fetchPacientes = async () => {
+    const obtenerPacientes = async () => {
       try {
-        const response = await fetch('https://localhost:7200/api/Pacient');
-        const data = await response.json();
+        const data = await fetchPacientes();
         setPacientes(data);
       } catch (error) {
-        console.error('Error obteniendo pacientes con fetch:', error);
+        setError(error.message);
       }
     };
-  
-    fetchPacientes();
+
+    obtenerPacientes();
   }, []);
+
+  if (error) return <div>Error: {error}</div>;
+  if (!pacientes.length) return <div>Cargando...</div>;
 
   return (
     <div>
-      <Header/>
+      <Header />
       <h1>Lista de Pacientes</h1>
       <table className="tablaPacientes">
         <thead>
@@ -46,7 +49,7 @@ export default function Pacientes() {
           ))}
         </tbody>
       </table>
-      <Footer/>
+      <Footer />
     </div>
   );
 }
