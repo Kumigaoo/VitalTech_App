@@ -1,28 +1,49 @@
 import { useEffect, useState } from "react";
-import { getPacients } from "../src/services/apiService";
+import { getPacients, getPacientById } from "../src/services/apiService";
 import Header from "../src/components/header/header";
 import Footer from "../src/components/footer/Footer";
 
 export default function Pacientes() {
+  //en 'pacientes' vamos a guardar la lista de pacientes; setPacientes es una func. para cambiar el valor de pacientes; useState[] establece
+  //que pacientes
   const [pacientes, setPacientes] = useState([]);
 
+  //idem para guardar los episodios de 1 paciente concreto:
+  const [episodios, setEpisodios] = useState([]);
+
+  //el use effect hace que se ejecute esto solo 1 vez cuando se MONTA el componente, entendiendo por montar exclusivamente la 1a renderización
+  //del componente. por ej, cuando pulsas en el botón "pacientes" desde "main", es en ese momento cuando se ejecuta el useEffect y ya no más
   useEffect(() => {
     const fetchPacientes = async () => {
       try {
-        const response = await fetch('https://localhost:7200/api/Pacient');
-        const data = await response.json();
+        const data = await getPacients();
         setPacientes(data);
       } catch (error) {
-        console.error('Error obteniendo pacientes con fetch:', error);
+        console.error("Error obteniendo pacientes con el servicio: ", error);
       }
     };
-  
+
+    const fetchEpisodios = async () => {
+      try {
+        //obtenemos el paciente deseado mediante su dni:
+        const paciente = await getPacientById("07495694V");
+        //...y guardamos sus episodios:
+        console.log("Paciente obtenido:", paciente);
+        setEpisodios(paciente.episodisMedics || []);
+      } catch (error) {
+        console.error("Error obteniendo los episodios médicos: ", error);
+      }
+    };
+
     fetchPacientes();
+    fetchEpisodios();
   }, []);
 
   return (
-    <div>
-      <Header/>
+    <>
+      {/*añadimos el footer: */}
+      <Header />
+
       <h1>Lista de Pacientes</h1>
       <table className="tablaPacientes">
         <thead>
@@ -46,7 +67,33 @@ export default function Pacientes() {
           ))}
         </tbody>
       </table>
-      <Footer/>
-    </div>
+
+      <br></br>
+      <br></br>
+
+      <h2>Episodios médicos del paciente 07495694V</h2>
+      <div>
+        {/* esto comprueba si el usuario tiene más de 0 episodios, si es así los imprime; si no, mensaje de "no hay" */}
+        {episodios.length > 0 ? (
+          <ul>
+            {episodios.map((episodio, index) => (
+              <li key={index}>
+                <strong>Motivo:</strong> {episodio.motivo} <br />
+                <strong>Fecha de apertura:</strong> {episodio.dataObertura}{" "}
+                <br />
+                <strong>Estado:</strong> {episodio.estat}
+                <br></br>
+                <br></br>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>No hay episodios médicos para este paciente.</p>
+        )}
+      </div>
+
+      {/*añadimos el footer: */}
+      <Footer />
+    </>
   );
 }

@@ -60,9 +60,9 @@ export default function MainContent() {
         
         <Link href="/pacientes" style={{ textDecoration: 'none', color: 'inherit' }}>
           <Element
-            title="Pacientes"
-            parraf="Consulta tu medicación recetada"
-            image="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.diariodevalderrueda.es%2Fimages%2Fshowid2%2F3110427%3Fw%3D1200%26zc%3D4&f=1&nofb=1&ipt=6b2a3778f3a1e9c9907a94b575d814c0a1079fab8fab84256ab02b0d42db7b6b&ipo=images"
+            title="testin"
+            parraf="pa testear, wahahahaha"
+            image="https://a57.foxnews.com/static.foxnews.com/foxnews.com/content/uploads/2022/10/1200/675/Crash-test-dummy-yellow-getty-10-22.jpg?ve=1&tl=1"
             alt="imagen de medicación"
           />
         </Link>
