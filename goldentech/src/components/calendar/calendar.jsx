@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
-
+import { CITAS } from "../../../pages/agenda";
 import "./calendar.css";
 import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
@@ -12,13 +12,13 @@ const DnDCalendar = withDragAndDrop(Calendar);
 
 class Calendario extends Component {
   state = {
-    events: [
-      {
-        start: moment().toDate(),
-        end: moment().add(1, "days").toDate(),
-        title: "Some title",
-      },
-    ],
+    events: CITAS.map((cita) => {
+      return {
+        title: cita.motivo,
+        start: cita.start,
+        end: cita.end,
+      };
+    }),
   };
 
   onEventResize = (data) => {
@@ -36,6 +36,7 @@ class Calendario extends Component {
   };
 
   render() {
+    console.log(CITAS);
     return (
       <div className="App">
         <DnDCalendar
