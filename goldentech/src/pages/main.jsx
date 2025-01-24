@@ -1,6 +1,6 @@
 import Link from 'next/link';
-import Footer from '../src/components/footer/Footer'
-import Header from '../src/components/header/header'
+import Footer from '../components/footer/Footer'
+import Header from '../components/header/header'
 
 function Presentation() {
   return (

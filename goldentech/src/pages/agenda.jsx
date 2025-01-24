@@ -1,5 +1,5 @@
-import Footer from "../src/components/footer/Footer";
-import Header from "../src/components/header/header";
+import Footer from "../components/footer/Footer";
+import Header from "../components/header/header";
 import React, { useState } from 'react';
 import { Box, IconButton, Typography } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';import CloseIcon from '@mui/icons-material/Close';

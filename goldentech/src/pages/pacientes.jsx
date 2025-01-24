@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { fetchPacientes } from "../utils/api/pacientes";
-import Header from "../src/components/header/header";
-import Footer from "../src/components/footer/Footer";
+import Header from "../components/header/header";
+import Footer from "../components/footer/Footer";
 
 export default function Pacientes() {
   const [pacientes, setPacientes] = useState([]); // Cambié 'obtenerPacientes' a 'setPacientes'
