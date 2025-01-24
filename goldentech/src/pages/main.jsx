@@ -33,10 +33,9 @@ export default function MainContent() {
       <Presentation />
       <div className="main-elements">
         <Link href="/diagnosticos" style={{ textDecoration: 'none', color: 'inherit' }}>
-          <Element 
+          <Element
             title="Diagnosticos"
-            parraf="Acceda a sus informes médicos y resultados de pruebas 
-  sin problemas."
+            parraf="Acceda a sus informes médicos y resultados de pruebas sin problemas."
             image="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Ffmdiabetes.org%2Fwp-content%2Fuploads%2F2015%2F09%2Fmedico-paciente.jpg&f=1&nofb=1&ipt=4ec1d87329c1b98f70813db40d77cf506e1ca0ff49b5a16e479737dc0474800c&ipo=images"
             alt="imagen de diagnosticos"
           />
@@ -57,7 +56,7 @@ export default function MainContent() {
             alt="imagen de citas"
           />
         </Link>
-        
+
         <Link href="/pacientes" style={{ textDecoration: 'none', color: 'inherit' }}>
           <Element
             title="testin"
@@ -66,7 +65,7 @@ export default function MainContent() {
             alt="imagen de medicación"
           />
         </Link>
-        
+
       </div>
       <Footer />
     </main>
