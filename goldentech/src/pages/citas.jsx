@@ -69,7 +69,7 @@ function MotivosSeccion() {
             <h3 className="cita-subtitulo">Motivos</h3>
             <div className="cita-selectbox">
                 <CitaOpcion
-                    iconSrc="../public/assets/cita.png"
+                    iconSrc="../assets/cita.png"
                     title="Citas y consultas"
                     description="Selecciona una de las siguientes opciones"
                     listItems={[
@@ -84,7 +84,7 @@ function MotivosSeccion() {
                 />
                 <div className="cita-select">
                 <CitaOpcion
-                    iconSrc="../public/assets/documento.png"
+                    iconSrc="../assets/documento.png"
                     title="Baja laboral"
                     description="Selecciona una de las siguientes opciones"
                     listItems={[
@@ -94,7 +94,7 @@ function MotivosSeccion() {
                     ]}
                 />
                 <CitaOpcion
-                    iconSrc="../public/assets/medicamento.png"
+                    iconSrc="../assets/medicamento.png"
                     title="Plan de medicación"
                     description="Selecciona una de las siguientes opciones"
                     listItems={[
@@ -104,7 +104,7 @@ function MotivosSeccion() {
                 />
                 </div>
                 <CitaOpcion
-                    iconSrc="../public/assets/calendario.png"
+                    iconSrc="../assets/calendario.png"
                     title="Otros motivos y gestiones"
                     description="Selecciona una de las siguientes opciones"
                     listItems={[
