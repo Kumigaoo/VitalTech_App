@@ -7,3 +7,18 @@
   margin-left: 20px;
   margin-bottom: 5px;
 }
+
+.button_cell {
+  margin-left: auto; /* Alinea el botón a la derecha */
+  background-color: #3b83bd;
+  color: white;
+  border: none;
+  border-radius: 25px; /* Hace que el botón sea redondo */
+  width: 100px; /* Ajusta el ancho */
+  height: 30px; /* Ajusta la altura para que sea un círculo perfecto */
+  font-size: 0.7em; /* Ajusta el tamaño del texto dentro del botón */
+  cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-right: 20px;
+}
