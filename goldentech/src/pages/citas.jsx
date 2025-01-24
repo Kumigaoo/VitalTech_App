@@ -11,7 +11,6 @@ import Typography from '@mui/material/Typography';
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import Link from 'next/link';
 
-
 function CitaOpcion({ iconSrc, title, description, listItems }) {
     return (
         <div className="cita-opcion">
@@ -70,7 +69,7 @@ function MotivosSeccion() {
             <h3 className="cita-subtitulo">Motivos</h3>
             <div className="cita-selectbox">
                 <CitaOpcion
-                    iconSrc="/assets/cita.png"
+                    iconSrc="../public/assets/cita.png"
                     title="Citas y consultas"
                     description="Selecciona una de las siguientes opciones"
                     listItems={[
@@ -85,7 +84,7 @@ function MotivosSeccion() {
                 />
                 <div className="cita-select">
                 <CitaOpcion
-                    iconSrc="/assets/documento.png"
+                    iconSrc="../public/assets/documento.png"
                     title="Baja laboral"
                     description="Selecciona una de las siguientes opciones"
                     listItems={[
@@ -95,7 +94,7 @@ function MotivosSeccion() {
                     ]}
                 />
                 <CitaOpcion
-                    iconSrc="/assets/medicamento.png"
+                    iconSrc="../public/assets/medicamento.png"
                     title="Plan de medicación"
                     description="Selecciona una de las siguientes opciones"
                     listItems={[
@@ -105,7 +104,7 @@ function MotivosSeccion() {
                 />
                 </div>
                 <CitaOpcion
-                    iconSrc="/assets/calendario.png"
+                    iconSrc="../public/assets/calendario.png"
                     title="Otros motivos y gestiones"
                     description="Selecciona una de las siguientes opciones"
                     listItems={[
