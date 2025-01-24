@@ -1,5 +1,3 @@
-
-
 export default function Footer() {
   console.log("Footer is rendering");
   return (

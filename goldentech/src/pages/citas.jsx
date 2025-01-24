@@ -1,5 +1,5 @@
-import Header from "../src/components/header/header";
-import Footer from "../src/components/footer/Footer";
+import Header from "../components/header/header";
+import Footer from "../components/footer/Footer";
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
