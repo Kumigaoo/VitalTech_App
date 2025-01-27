@@ -3,6 +3,7 @@ import { fetchPacientById, fetchPacientes } from "../utils/api/pacientes";
 import Header from "../components/header/header";
 import Footer from "../components/footer/Footer";
 
+
 export default function Pacientes() {
 
   //esto no son variables, son STATES. en react, los states son como variables que pueden hacer que se actualice la interfaz cuando su contenido cambia.
