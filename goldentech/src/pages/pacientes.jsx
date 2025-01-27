@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchPacientById, fetchPacientes } from "../utils/api/pacientes";
+import { fetchPacientById, fetchPacientes } from "../utils/api/pacientes"; 
 import Header from "../components/header/header";
 import Footer from "../components/footer/Footer";
 
