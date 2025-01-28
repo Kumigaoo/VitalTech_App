@@ -281,8 +281,7 @@ export default function Agenda() {
                 fontSize: "0.8em",
               }}
             >
-              Si desea modificar la cita, cambiar la fecha o otro motivo, por
-              favor contacte directamente con el hospital o con su doctor para
+              Si desea modificar la cita por favor contacte directamente con el hospital o con su doctor para
               realizar los ajustes necesarios.
             </Typography>
           </Box>

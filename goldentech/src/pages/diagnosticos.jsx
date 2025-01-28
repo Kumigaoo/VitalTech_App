@@ -121,7 +121,7 @@ export default function Page(){
     return (
         <>
             <Header />
-            <h1 className="diagnostico-title">Diagnosticos</h1>
+            <h1 className="diagnostico-title">Diagnósticos</h1>
             <div className="diagnostico-page">
                 <DiagnosisList diagnosticos={DIAGNOSTICOS} filterName={filterName} 
                 filterDate={filterDate}

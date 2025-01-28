@@ -7,3 +7,13 @@ export const fetchPacientes = async () => {
     }
     return await response.json();
 };
+
+export const fetchPacientById = async (id) => {
+    const response = await fetch (`${API_URL}/Pacient/${id}`);
+    if (!response.ok){
+        throw new Error('Error al obtener el paciente deseado.');
+    }
+    console.log(response.json);
+    return await response.json();
+};
+
