@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "VitalExpo",
-    "slug": "VitalExpo",
+    "name": "VitalNative",
+    "slug": "VitalNative",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
