@@ -1,6 +1,14 @@
 {
   "dependencies": {
     "all": "^0.0.0",
-    "axios": "^1.7.9"
-  }
+    "axios": "^1.7.9",
+    "yarn": "^1.22.22"
+  },
+  "name": "VitalExpo",
+  "version": "1",
+  "main": "index.js",
+  "repository": "git@github.com:Kumigaoo/VitalTech_App.git",
+  "author": "VitalTechnology",
+  "license": "NaN",
+  "private": true
 }
